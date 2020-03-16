@@ -11,6 +11,21 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -32,8 +47,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,14 +70,249 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="AssignLabels.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AssignLabels.Designer.cs">
+      <DependentUpon>AssignLabels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CommentEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CommentEntry.Designer.cs">
+      <DependentUpon>CommentEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Globals.cs" />
+    <Compile Include="GroupList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GroupList.Designer.cs">
+      <DependentUpon>GroupList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CohortList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CohortList.Designer.cs">
+      <DependentUpon>CohortList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreateSurvey.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateSurvey.Designer.cs">
+      <DependentUpon>CreateSurvey.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InputBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InputBox.Designer.cs">
+      <DependentUpon>InputBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ITCForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ITCForm.Designer.cs">
+      <DependentUpon>ITCForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LabelManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LabelManager.Designer.cs">
+      <DependentUpon>LabelManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainMenu2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainMenu2.Designer.cs">
+      <DependentUpon>MainMenu2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="QuestionPreview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="QuestionPreview.Designer.cs">
+      <DependentUpon>QuestionPreview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RegionDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegionDetails.Designer.cs">
+      <DependentUpon>RegionDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StudyDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StudyDetails.Designer.cs">
+      <DependentUpon>StudyDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SurveyCheckTracking.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SurveyCheckTracking.Designer.cs">
+      <DependentUpon>SurveyCheckTracking.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SurveyDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SurveyDetails.Designer.cs">
+      <DependentUpon>SurveyDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Survey Entry\SurveyEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Survey Entry\SurveyEntry.Designer.cs">
+      <DependentUpon>SurveyEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Survey Entry\SurveyEntryFilter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Survey Entry\SurveyEntryFilter.Designer.cs">
+      <DependentUpon>SurveyEntryFilter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Survey Entry\SurveyEntryBrown.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Survey Entry\SurveyEntryBrown.Designer.cs">
+      <DependentUpon>SurveyEntryBrown.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Survey Entry\SurveyEntryGreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Survey Entry\SurveyEntryGreen.Designer.cs">
+      <DependentUpon>SurveyEntryGreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SurveyEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SurveyEditor.designer.cs">
+      <DependentUpon>SurveyEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SyntaxGenerator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SyntaxGenerator.designer.cs">
+      <DependentUpon>SyntaxGenerator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SurveyOverview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SurveyOverview.Designer.cs">
+      <DependentUpon>SurveyOverview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainMenu.Designer.cs">
+      <DependentUpon>MainMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TranslationViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TranslationViewer.designer.cs">
+      <DependentUpon>TranslationViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserPreferencesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserPreferencesForm.Designer.cs">
+      <DependentUpon>UserPreferencesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Survey Entry\VariableLabelSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Survey Entry\VariableLabelSelector.Designer.cs">
+      <DependentUpon>VariableLabelSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WaveDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WaveDetails.Designer.cs">
+      <DependentUpon>WaveDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Survey Entry\ResponseOptionUsage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Survey Entry\ResponseOptionUsage.Designer.cs">
+      <DependentUpon>ResponseOptionUsage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Survey Entry\NonResponseOptionUsage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Survey Entry\NonResponseOptionUsage.Designer.cs">
+      <DependentUpon>NonResponseOptionUsage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Survey Entry\WordingUsage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Survey Entry\WordingUsage.Designer.cs">
+      <DependentUpon>WordingUsage.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AssignLabels.resx">
+      <DependentUpon>AssignLabels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommentEntry.resx">
+      <DependentUpon>CommentEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GroupList.resx">
+      <DependentUpon>GroupList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CohortList.resx">
+      <DependentUpon>CohortList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateSurvey.resx">
+      <DependentUpon>CreateSurvey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputBox.resx">
+      <DependentUpon>InputBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ITCForm.resx">
+      <DependentUpon>ITCForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LabelManager.resx">
+      <DependentUpon>LabelManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainMenu2.resx">
+      <DependentUpon>MainMenu2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="QuestionPreview.resx">
+      <DependentUpon>QuestionPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RegionDetails.resx">
+      <DependentUpon>RegionDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StudyDetails.resx">
+      <DependentUpon>StudyDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Survey Entry\SurveyEntryGreen.resx">
+      <DependentUpon>SurveyEntryGreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SurveyCheckTracking.resx">
+      <DependentUpon>SurveyCheckTracking.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SurveyDetails.resx">
+      <DependentUpon>SurveyDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Survey Entry\SurveyEntry.resx">
+      <DependentUpon>SurveyEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Survey Entry\SurveyEntryFilter.resx">
+      <DependentUpon>SurveyEntryFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Survey Entry\SurveyEntryBrown.resx">
+      <DependentUpon>SurveyEntryBrown.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SurveyEditor.resx">
+      <DependentUpon>SurveyEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SyntaxGenerator.resx">
+      <DependentUpon>SyntaxGenerator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SurveyOverview.resx">
+      <DependentUpon>SurveyOverview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainMenu.resx">
+      <DependentUpon>MainMenu.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -61,7 +321,30 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="TranslationViewer.resx">
+      <DependentUpon>TranslationViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserPreferencesForm.resx">
+      <DependentUpon>UserPreferencesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Survey Entry\VariableLabelSelector.resx">
+      <DependentUpon>VariableLabelSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WaveDetails.resx">
+      <DependentUpon>WaveDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Survey Entry\ResponseOptionUsage.resx">
+      <DependentUpon>ResponseOptionUsage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Survey Entry\NonResponseOptionUsage.resx">
+      <DependentUpon>NonResponseOptionUsage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Survey Entry\WordingUsage.resx">
+      <DependentUpon>WordingUsage.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -74,6 +357,63 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Word">
+      <Guid>{00020905-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>8</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\DataAccessLayer\DataAccessLayer\DataAccessLayer.csproj">
+      <Project>{a95ec154-7009-4323-a432-1261b2cc7124}</Project>
+      <Name>DataAccessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ITCLib\ITCLib\ITCLib.csproj">
+      <Project>{1f878409-8602-4dc3-a0cb-45cccc21289e}</Project>
+      <Name>ITCLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\0155e32a-c8d0-49d3-9ef3-38e5dcc27e41_medium_thumb.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pin-small.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace ISISFrontEnd
 {
-    public partial class Form1 : Form
+    public partial class MainMenu2 : Form
     {
-        public Form1()
+        public MainMenu2()
         {
             InitializeComponent();
         }

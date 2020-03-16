@@ -1,6 +1,6 @@
 ﻿namespace ISISFrontEnd
 {
-    partial class Form1
+    partial class ITCForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,12 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.cmdClose = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            // 
+            // cmdClose
+            // 
+            this.cmdClose.Location = new System.Drawing.Point(2, 4);
+            this.cmdClose.Name = "cmdClose";
+            this.cmdClose.Size = new System.Drawing.Size(51, 23);
+            this.cmdClose.TabIndex = 1;
+            this.cmdClose.Text = "Close";
+            this.cmdClose.UseVisualStyleBackColor = true;
+            this.cmdClose.Click += new System.EventHandler(this.cmdClose_Click);
+            // 
+            // ITCForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "Form1";
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.cmdClose);
+            this.Name = "ITCForm";
+            this.Text = "ITCForm";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+        protected System.Windows.Forms.Button cmdClose;
     }
 }
-
