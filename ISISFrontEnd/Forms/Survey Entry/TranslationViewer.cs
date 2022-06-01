@@ -1,0 +1,243 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using ITCLib;
+
+namespace ISISFrontEnd
+{
+     
+    public partial class TranslationViewer : Form
+    {
+       
+        List<TranslationRecord> Translations;
+        Survey ParentSurvey;
+        BindingSource bs;
+        SurveyQuestion MainQuestion;
+        TranslationRecord CurrentRecord;
+        
+        public TranslationViewer(Survey survey, QuestionRecord question)
+        {
+            InitializeComponent();
+
+            ParentSurvey = survey;
+            Translations = new List<TranslationRecord>(question.Translations);
+
+            if (Translations.Count == 0)
+            {
+                MessageBox.Show("No translations found for this question.");
+                Close();
+            }
+
+            bs = new BindingSource();
+            bs.DataSource = Translations;
+            bs.ListChanged += Bs_ListChanged;
+            navTranslations.BindingSource = bs;
+            MainQuestion = question;
+
+            txtSurvey.DataBindings.Add(new Binding("Text", bs, "Survey"));
+            txtVarName.DataBindings.Add(new Binding("Text", bs, "VarName"));
+            txtLanguage.DataBindings.Add(new Binding("Text", bs, "Language"));
+            rtbPreP.Rtf = MainQuestion.PrepRTF;
+            rtbPstP.Rtf = MainQuestion.PstpRTF;
+
+            rtbTranslationText.DataBindings.Add(new Binding("Rtf", bs, "TranslationRTF"));
+
+
+            AdjustRouting();
+        }
+
+        private void Bs_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            if (e.ListChangedType == ListChangedType.ItemChanged)
+                CurrentRecord.Dirty = true;
+        }
+
+        public void UpdateForm(Survey survey, QuestionRecord question, SurveyLanguage language = null)
+        {
+            ParentSurvey = survey;
+            MainQuestion = question;
+            Translations = question.Translations;
+
+            if (language!=null && !language.SurvLanguage.LanguageName.Equals("<All>"))
+                bs.DataSource = Translations.Where(x=>x.Language.Equals(language.SurvLanguage.LanguageName));
+            else
+                bs.DataSource = Translations;
+
+            rtbPreP.Rtf = MainQuestion.PrepRTF;
+            rtbPstP.Rtf = MainQuestion.PstpRTF;
+
+            CurrentRecord = (TranslationRecord)bs.Current;
+
+            AdjustRouting();
+
+            SetReadingDirection();
+        }
+
+        /// <summary>
+        /// Adjust the size and position of the translation box to show/hide the English skips and routing.
+        /// </summary>
+        public void AdjustRouting()
+        {
+            rtbPreP.Visible = ParentSurvey.EnglishRouting;
+            rtbPstP.Visible = ParentSurvey.EnglishRouting;
+
+            if (ParentSurvey.EnglishRouting)
+            {
+                rtbTranslationText.Top = rtbPreP.Top + rtbPreP.Height + cmdBold.Height + 5;
+            }
+            else
+            {
+
+                cmdBold.Top = rtbPreP.Top;
+                cmdItalic.Top = rtbPreP.Top;
+                rtbTranslationText.Top = rtbPreP.Top + rtbPreP.Height;
+                rtbTranslationText.Height += rtbPreP.Height + rtbPreP.Height;
+            }
+        }
+
+        /// <summary>
+        /// Set the reading direction based on the current language's RTL property.
+        /// </summary>
+        public void SetReadingDirection()
+        {
+            if (CurrentRecord != null && CurrentRecord.LanguageName.RTL)
+                rtbTranslationText.RightToLeft = RightToLeft.Yes;
+            else
+                rtbTranslationText.RightToLeft = RightToLeft.No;
+        }
+
+        static string GetRtfUnicodeEscapedString(string s)
+        {
+            var sb = new StringBuilder();
+            foreach (var c in s)
+            {
+                if (c == '\\' || c == '{' || c == '}')
+                    sb.Append(@"\" + c);
+                else if (c <= 0x7f)
+                    sb.Append(c);
+                else
+                    sb.Append("\\u" + Convert.ToUInt32(c) + "?");
+            }
+            return sb.ToString();
+        }
+
+        private int SaveRecord()
+        { 
+            if (CurrentRecord.SaveRecord() == 1)
+            {
+                MessageBox.Show("Error saving this record.");
+                return 1;
+            }
+
+            return 0;
+        }
+
+        private void bindingNavigatorMoveNextItem_Click(object sender, EventArgs e)
+        {
+            bs.EndEdit();
+
+            if (SaveRecord() == 1)
+                return;
+
+            bs.MoveNext();
+        }
+
+        private void bindingNavigatorMoveLastItem_Click(object sender, EventArgs e)
+        {
+            bs.EndEdit();
+
+            if (SaveRecord() == 1)
+                return;
+
+            bs.MoveLast();
+        }
+
+        private void bindingNavigatorMovePreviousItem_Click(object sender, EventArgs e)
+        {
+            bs.EndEdit();
+
+            if (SaveRecord() == 1)
+                return;
+
+            bs.MovePrevious();
+        }
+
+        private void bindingNavigatorMoveFirstItem_Click(object sender, EventArgs e)
+        {
+            bs.EndEdit();
+
+            if (SaveRecord() == 1)
+                return;
+
+            bs.MoveFirst();
+        }
+
+        private void TranslationViewer_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            bs.EndEdit();
+            UpdatePlainText();
+            if (SaveRecord() == 1)
+            {
+                if (MessageBox.Show("This record has unsaved changes. Are you sure you want to close this record and lose those changes?", "Confirm close.", MessageBoxButtons.YesNo) == DialogResult.No)
+                    e.Cancel = true;
+            }
+                
+        }
+
+        private void TranslationViewer_Load(object sender, EventArgs e)
+        {
+            CurrentRecord = (TranslationRecord)bs.Current;
+        }
+
+        private void UpdatePlainText()
+        {
+            // change RTF tags to HTML tags
+            rtbTranslationText.Rtf = Utilities.FormatRTF(rtbTranslationText.Rtf);
+            // now get plain text which includes the HTML tags we've inserted
+            string plain = rtbTranslationText.Text;
+
+            CurrentRecord.TranslationText = plain;
+            CurrentRecord.Dirty = true;
+            bs.ResetCurrentItem();
+        }
+
+        private void cmdBold_Click(object sender, EventArgs e)
+        {
+            if (rtbTranslationText.SelectionFont.Bold)
+            {
+                rtbTranslationText.SelectionFont = new Font(rtbTranslationText.Font, FontStyle.Regular);
+            }
+            else
+            {
+                rtbTranslationText.SelectionFont = new Font(rtbTranslationText.Font, FontStyle.Bold);
+            }
+         
+        }
+
+        private void cmdItalic_Click(object sender, EventArgs e)
+        {
+            if (rtbTranslationText.SelectionFont.Italic)
+            {
+                rtbTranslationText.SelectionFont = new Font(rtbTranslationText.Font, FontStyle.Regular);
+            }
+            else
+            {
+                rtbTranslationText.SelectionFont = new Font(rtbTranslationText.Font, FontStyle.Italic);
+            }
+       
+        }
+
+        private void cmdSave_Click(object sender, EventArgs e)
+        {
+            UpdatePlainText();
+            if (SaveRecord() == 1)
+                return;
+        }
+    }
+}
