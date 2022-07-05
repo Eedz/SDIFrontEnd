@@ -32,16 +32,21 @@ namespace ISISFrontEnd
             var datasource = (List<Survey>)dataRepeater.DataSource;
             Survey item = datasource[dataRepeater.CurrentItemIndex];
 
-            if (FormManager.FormOpen("SurveyEditor", 1))
+            SurveyEditor getFrm = (SurveyEditor)FormManager.GetForm("SurveyEditor", 6);
+            if (getFrm != null)
             {
-                // TODO add filter method to form
-                FormManager.GetForm("SurveyEditor", 1).Focus();
-                return;
+                if (!getFrm.CurrentSurvey.SurveyCode.Equals(item.SurveyCode))
+                { 
+                    getFrm.ChangeSurvey(item.SurveyCode);
+                }
             }
-
-            SurveyEditor frm = new SurveyEditor(item.SurveyCode);
-            frm.Tag = 1;
-            FormManager.Add(frm);
+            else
+            {
+                SurveyEditor frm = new SurveyEditor(item.SID);
+                frm.Tag = 6;
+                FormManager.Add(frm);
+            }
+            ((MainMenu)FormManager.GetForm("MainMenu")).SelectTab("SurveyEditor6");
         }
 
         private void cmdClose_Click(object sender, EventArgs e)

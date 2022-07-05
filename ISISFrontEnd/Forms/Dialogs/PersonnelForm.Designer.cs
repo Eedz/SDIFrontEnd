@@ -353,6 +353,7 @@
             this.chkPraccEntry.TabIndex = 35;
             this.chkPraccEntry.Text = "PraccEntry";
             this.chkPraccEntry.UseVisualStyleBackColor = true;
+            this.chkPraccEntry.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // lblPraccID
             // 
@@ -445,6 +446,7 @@
             this.chkDissemination.TabIndex = 25;
             this.chkDissemination.Text = "Dissemination";
             this.chkDissemination.UseVisualStyleBackColor = true;
+            this.chkDissemination.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // chkAnalyst
             // 
@@ -455,6 +457,7 @@
             this.chkAnalyst.TabIndex = 24;
             this.chkAnalyst.Text = "Analyst";
             this.chkAnalyst.UseVisualStyleBackColor = true;
+            this.chkAnalyst.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // chkInvestigator
             // 
@@ -465,6 +468,7 @@
             this.chkInvestigator.TabIndex = 23;
             this.chkInvestigator.Text = "Investigator";
             this.chkInvestigator.UseVisualStyleBackColor = true;
+            this.chkInvestigator.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // chkChangeNotify
             // 
@@ -475,6 +479,7 @@
             this.chkChangeNotify.TabIndex = 22;
             this.chkChangeNotify.Text = "VarName Change Notify";
             this.chkChangeNotify.UseVisualStyleBackColor = true;
+            this.chkChangeNotify.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // chkStatistician
             // 
@@ -485,6 +490,7 @@
             this.chkStatistician.TabIndex = 21;
             this.chkStatistician.Text = "Statistician";
             this.chkStatistician.UseVisualStyleBackColor = true;
+            this.chkStatistician.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // chkPraccer
             // 
@@ -495,6 +501,7 @@
             this.chkPraccer.TabIndex = 20;
             this.chkPraccer.Text = "Praccer";
             this.chkPraccer.UseVisualStyleBackColor = true;
+            this.chkPraccer.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // chkRA
             // 
@@ -505,6 +512,7 @@
             this.chkRA.TabIndex = 19;
             this.chkRA.Text = "Research Assistant";
             this.chkRA.UseVisualStyleBackColor = true;
+            this.chkRA.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // chkSMG
             // 
@@ -515,6 +523,7 @@
             this.chkSMG.TabIndex = 18;
             this.chkSMG.Text = "SMG";
             this.chkSMG.UseVisualStyleBackColor = true;
+            this.chkSMG.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // chkPM
             // 
@@ -525,6 +534,7 @@
             this.chkPM.TabIndex = 17;
             this.chkPM.Text = "Project Manager";
             this.chkPM.UseVisualStyleBackColor = true;
+            this.chkPM.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // chkCountryTeam
             // 
@@ -535,6 +545,7 @@
             this.chkCountryTeam.TabIndex = 16;
             this.chkCountryTeam.Text = "Country Team";
             this.chkCountryTeam.UseVisualStyleBackColor = true;
+            this.chkCountryTeam.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // chkEntry
             // 
@@ -545,6 +556,7 @@
             this.chkEntry.TabIndex = 15;
             this.chkEntry.Text = "Entry";
             this.chkEntry.UseVisualStyleBackColor = true;
+            this.chkEntry.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // chkFirm
             // 
@@ -555,6 +567,7 @@
             this.chkFirm.TabIndex = 14;
             this.chkFirm.Text = "Firm";
             this.chkFirm.UseVisualStyleBackColor = true;
+            this.chkFirm.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // chkAdmin
             // 
@@ -565,6 +578,7 @@
             this.chkAdmin.TabIndex = 13;
             this.chkAdmin.Text = "Admin";
             this.chkAdmin.UseVisualStyleBackColor = true;
+            this.chkAdmin.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // chkProgrammer
             // 
@@ -575,6 +589,7 @@
             this.chkProgrammer.TabIndex = 12;
             this.chkProgrammer.Text = "Programmer";
             this.chkProgrammer.UseVisualStyleBackColor = true;
+            this.chkProgrammer.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // chkActive
             // 
@@ -585,6 +600,7 @@
             this.chkActive.TabIndex = 11;
             this.chkActive.Text = "Active";
             this.chkActive.UseVisualStyleBackColor = true;
+            this.chkActive.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // txtPraccID
             // 
@@ -593,6 +609,7 @@
             this.txtPraccID.Size = new System.Drawing.Size(88, 23);
             this.txtPraccID.TabIndex = 10;
             this.txtPraccID.Visible = false;
+            this.txtPraccID.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // txtInstitution
             // 
@@ -600,6 +617,7 @@
             this.txtInstitution.Name = "txtInstitution";
             this.txtInstitution.Size = new System.Drawing.Size(159, 23);
             this.txtInstitution.TabIndex = 9;
+            this.txtInstitution.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // txtUsername
             // 
@@ -607,6 +625,7 @@
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(159, 23);
             this.txtUsername.TabIndex = 8;
+            this.txtUsername.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // txtOfficeNo
             // 
@@ -614,6 +633,7 @@
             this.txtOfficeNo.Name = "txtOfficeNo";
             this.txtOfficeNo.Size = new System.Drawing.Size(159, 23);
             this.txtOfficeNo.TabIndex = 7;
+            this.txtOfficeNo.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // txtHomePhone
             // 
@@ -621,6 +641,7 @@
             this.txtHomePhone.Name = "txtHomePhone";
             this.txtHomePhone.Size = new System.Drawing.Size(159, 23);
             this.txtHomePhone.TabIndex = 6;
+            this.txtHomePhone.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // txtWorkPhone
             // 
@@ -628,6 +649,7 @@
             this.txtWorkPhone.Name = "txtWorkPhone";
             this.txtWorkPhone.Size = new System.Drawing.Size(159, 23);
             this.txtWorkPhone.TabIndex = 5;
+            this.txtWorkPhone.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // txtEmail
             // 
@@ -635,6 +657,7 @@
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(159, 23);
             this.txtEmail.TabIndex = 4;
+            this.txtEmail.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // txtLastName
             // 
@@ -642,6 +665,7 @@
             this.txtLastName.Name = "txtLastName";
             this.txtLastName.Size = new System.Drawing.Size(159, 23);
             this.txtLastName.TabIndex = 3;
+            this.txtLastName.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // txtFirstName
             // 

@@ -13,10 +13,6 @@ using System.Text.RegularExpressions;
 namespace ISISFrontEnd
 {
 
-    // TODO trim FmtName of _
-    // TODO varname filter
-    // TODO replace 1s and 0s
-
     public partial class VariableListReportForm : Form
     {
         enum Exclusions { Headings, BIScripts, Screeners, NonStdVars }
@@ -28,17 +24,25 @@ namespace ISISFrontEnd
 
             FillLists();
 
+            for (int i = 0; i<lstExclusions.Items.Count; i++)
+            {
+                lstExclusions.SetSelected(i, true);
+            }
+
+            lstInclusions.SetSelected(0, false);
+            lstInclusions.SetSelected(lstInclusions.Items.Count - 1, true);
+
             lstStudy.SelectedIndexChanged += lstStudy_SelectedIndexChanged;
             lstStudyWave.SelectedIndexChanged += lstStudyWave_SelectedIndexChanged;
+            lstSurvey.SelectedIndexChanged += lstSurvey_SelectedIndexChanged;
+
+            UpdateVarList();
         }
 
         #region Events
         private void cmdGenerate_Click(object sender, EventArgs e)
         {
             DataTable crosstab = new DataTable();
-
-            List<string> inclusions = GetInclusions();
-            List<string> exclusions = GetExclusions();
 
             if (rbByWave.Checked)
             {
@@ -50,14 +54,9 @@ namespace ISISFrontEnd
                     return;
                 }
 
-                List<string> waves = GetWaves();
-                if (waves.Count == 0)
-                    return;
-
-                crosstab = DBAction.GetWavesVariableList(waves, inclusions, exclusions);
+                crosstab = GenerateWaveVarList();
             }
-            else 
-            if (rbBySurvey.Checked)
+            else if (rbBySurvey.Checked)
             {
                 // by survey
                 if (lstStudy.GetSelected(0) && lstStudyWave.GetSelected(0) && lstSurvey.GetSelected(0))
@@ -67,32 +66,24 @@ namespace ISISFrontEnd
                     return;
                 }
 
-                List<string> surveys = GetSurveys();
-                if (surveys.Count == 0)
-                    return;
+                crosstab = GenerateSurveyVarList();
+            }
 
-                crosstab = DBAction.GetSurveysVariableList(surveys, inclusions, exclusions);
-
-                foreach (KeyValuePair<int, string> item in lstExclusions.SelectedItems)
-                {
-                    Exclusions i = (Exclusions)Enum.ToObject(typeof(Exclusions), item.Key);
-
-                    switch (i)
-                    {
-                        case Exclusions.Screeners:
-
-                            for (int c = crosstab.Columns.Count-1; c >=0 ; c --)
-                                if (crosstab.Columns[c].ColumnName.Contains("-sc"))
-                                    crosstab.Columns.RemoveAt(c);
-                            break;
-                    }
-                }
+            if (crosstab.Rows.Count==0)
+            {
+                MessageBox.Show("Error generating the report. No records to show.");
+                return;
             }
 
             CrosstabReport rpt = new CrosstabReport(crosstab);
             rpt.CreateReport();
 
             
+        }
+
+        private void TypeChanged_Click(object sender, EventArgs e)
+        {
+            lstSurvey.Enabled = rbBySurvey.Checked;
         }
 
         private void lstStudy_SelectedIndexChanged(object sender, EventArgs e)
@@ -105,6 +96,12 @@ namespace ISISFrontEnd
                 return;
 
             lst.SelectedIndexChanged -= lstStudy_SelectedIndexChanged;
+
+            if (lst.SelectedItems.Count == 0)
+            {
+                lst.SetSelected(0, true);
+                lst.Tag = true;
+            }
 
             int count = lst.SelectedItems.Count;
 
@@ -136,6 +133,12 @@ namespace ISISFrontEnd
 
             lst.SelectedIndexChanged -= lstStudyWave_SelectedIndexChanged;
 
+            if (lst.SelectedItems.Count == 0)
+            {
+                lst.SetSelected(0, true);
+                lst.Tag = true;
+            }
+
             int count = lst.SelectedItems.Count;
 
             if (count > 1 && (bool)lst.Tag)
@@ -160,10 +163,17 @@ namespace ISISFrontEnd
             ListBox lst = (ListBox)sender;
 
             // only the <All> option is in the box
+            
             if (lst.Items.Count == 1)
                 return;
 
             lst.SelectedIndexChanged -= lstSurvey_SelectedIndexChanged;
+
+            if (lst.SelectedItems.Count == 0)
+            {
+                lst.SetSelected(0, true);
+                lst.Tag = true;
+            }
 
             int count = lst.SelectedItems.Count;
 
@@ -180,6 +190,7 @@ namespace ISISFrontEnd
             }
 
             lst.SelectedIndexChanged += lstSurvey_SelectedIndexChanged;
+            UpdateVarList();
         }
 
         private void ListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -209,6 +220,31 @@ namespace ISISFrontEnd
             lst.SelectedIndexChanged += ListBox_SelectedIndexChanged;
         }
 
+        private void cmdAddVar_Click(object sender, EventArgs e)
+        {
+            string var = (string)cboVarNameBox.SelectedItem;
+            if (string.IsNullOrEmpty(var)) return;
+            cboVarNameBox.SelectedIndex++;
+            if (!lstVarName.Items.Contains(var))
+                lstVarName.Items.Add(var);
+        }
+
+        private void cmdRemoveVar_Click(object sender, EventArgs e)
+        {
+            var item = lstVarName.SelectedItem;
+
+            if (item == null) return;
+
+            if (lstVarName.Items.Count == 0)
+                lstVarName.SelectedIndex = -1;
+            if (lstVarName.SelectedIndex == lstVarName.Items.Count - 1)
+                lstVarName.SelectedIndex--;
+            else
+                lstVarName.SelectedIndex++;
+            lstVarName.Items.Remove(item);
+
+        }
+
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
@@ -220,6 +256,85 @@ namespace ISISFrontEnd
         }
         #endregion
 
+
+        private DataTable GenerateSurveyVarList()
+        {
+            DataTable crosstab = new DataTable();
+
+            List<string> surveys = GetSurveys();
+            if (surveys.Count == 0)
+                return crosstab;
+
+            List<string> inclusions = GetInclusions();
+            List<string> exclusions = GetExclusions();          
+            List<string> vars = GetVars();
+
+            crosstab = DBAction.GetSurveysVariableList(surveys, vars, inclusions, exclusions);
+
+            // remove screeners from results
+            foreach (KeyValuePair<int, string> item in lstExclusions.SelectedItems)
+            {
+                Exclusions i = (Exclusions)Enum.ToObject(typeof(Exclusions), item.Key);
+
+                switch (i)
+                {
+                    case Exclusions.Screeners:
+
+                        for (int c = crosstab.Columns.Count - 1; c >= 0; c--)
+                            if (crosstab.Columns[c].ColumnName.Contains("-sc"))
+                                crosstab.Columns.RemoveAt(c);
+                        break;
+                }
+            }
+
+            // change 0s and 1s
+            foreach (DataRow r in crosstab.Rows)
+            {
+                foreach (DataColumn c in crosstab.Columns)
+                {
+                    if (surveys.Contains(c.ColumnName))
+                    {
+                        if (r[c].Equals("0"))
+                            r[c] = "";
+                    }
+                }
+            }
+
+            return crosstab;
+        }
+
+        private DataTable GenerateWaveVarList()
+        {
+            DataTable crosstab = new DataTable();
+
+            List<string> waves = GetWaves();
+            if (waves.Count == 0)
+                return crosstab;
+
+            List<string> inclusions = GetInclusions();
+            List<string> exclusions = GetExclusions();
+            List<string> vars = GetVars();
+
+
+            crosstab = DBAction.GetWavesVariableList(waves, vars, inclusions, exclusions);
+
+            // change 0s and 1s
+            foreach (DataRow r in crosstab.Rows)
+            {
+                foreach (DataColumn c in crosstab.Columns)
+                {
+                    if (waves.Contains(c.ColumnName))
+                    {
+                        if (r[c].Equals("0"))
+                            r[c] = "";
+                        else
+                            r[c] = "\u2713";
+                    }
+                }
+            }
+
+            return crosstab;
+        }
 
         private void UpdateWaveList()
         {
@@ -293,18 +408,63 @@ namespace ISISFrontEnd
             
             lstSurvey.SetSelected(0, true);
             lstSurvey.Tag = true;
+
+            UpdateVarList();
+        }
+
+        private void UpdateVarList()
+        {
+            cboVarNameBox.DataSource = null;
+            if (lstStudy.GetSelected(0) && lstStudyWave.GetSelected(0) && lstSurvey.GetSelected(0))
+            {
+                // all surveys, too many
+                cboVarNameBox.DataSource = new List<string>() { "Too many to list." };
+            } else if (lstSurvey.GetSelected(0))
+            {
+                // all surveys in box
+                List<string> surveys = GetSurveys();
+                cboVarNameBox.DataSource = DBAction.GetSurveyVarNames(surveys);
+            }
+            else
+            {
+                // selected surveys
+                List<string> surveys = GetSelectedSurveys();
+                cboVarNameBox.DataSource = DBAction.GetSurveyVarNames(surveys);
+            }
+            cboVarNameBox.SelectedItem = null;
         }
 
         private List<string> GetSurveys()
         {
             List<string> surveys = new List<string>();
 
-            foreach (string s in lstSurvey.Items)
+            if (lstSurvey.GetSelected(0))
             {
-                if (s.Equals("<All>"))
+                foreach (string s in lstSurvey.Items)
+                {
+                    if (s.Equals("<All>"))
+                        continue;
+
+                    surveys.Add(s);
+                }
+            }
+            else 
+            {
+                surveys = GetSelectedSurveys();
+            }
+            return surveys;
+        }
+
+        private List<string> GetSelectedSurveys()
+        {
+            List<string> surveys = new List<string>();
+
+            for (int i = 0; i < lstSurvey.Items.Count; i++)
+            {
+                if (lstSurvey.Items[i].Equals("<All>") || !lstSurvey.GetSelected(i))
                     continue;
 
-                surveys.Add(s);
+                surveys.Add(lstSurvey.Items[i].ToString());
             }
 
             return surveys;
@@ -314,12 +474,34 @@ namespace ISISFrontEnd
         {
             List<string> waves = new List<string>();
 
-            foreach (string s in lstStudyWave.Items)
+            if (lstStudyWave.GetSelected(0))
             {
-                if (s.Equals("<All>"))
+                foreach (string s in lstStudyWave.Items)
+                {
+                    if (s.Equals("<All>"))
+                        continue;
+
+                    waves.Add(s);
+                }
+            }
+            else
+            {
+                waves = GetSelectedWaves();
+            }
+
+            return waves;
+        }
+
+        private List<string> GetSelectedWaves()
+        {
+            List<string> waves = new List<string>();
+
+            for (int i = 0; i < lstStudyWave.Items.Count; i++)
+            {
+                if (lstStudyWave.Items[i].Equals("<All>") || !lstStudyWave.GetSelected(i))
                     continue;
 
-                waves.Add(s);
+                waves.Add(lstStudyWave.Items[i].ToString());
             }
 
             return waves;
@@ -392,6 +574,18 @@ namespace ISISFrontEnd
             }
 
             return exclusions;
+        }
+
+        private List<string> GetVars()
+        {
+            List<string> vars = new List<string>();
+
+            foreach (string s in lstVarName.Items)
+            {
+                vars.Add(s);
+            }
+
+            return vars;
         }
 
         private void FillLists()

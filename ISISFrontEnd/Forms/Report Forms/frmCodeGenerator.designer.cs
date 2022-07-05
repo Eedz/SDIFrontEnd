@@ -274,6 +274,7 @@
             this.Controls.Add(this.cboJump);
             this.Controls.Add(this.lstSurveys);
             this.Controls.Add(this.lblTitle);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "frmCodeGenerator";
             this.Text = "Syntax Generator";
             this.groupBox1.ResumeLayout(false);

@@ -46,15 +46,15 @@ namespace ISISFrontEnd
 
         int searchStart = 0;
 
-        public SurveyEditor(string surveyCode)
+        public SurveyEditor(int survID)
         {
             InitializeComponent();
 
-            CurrentSurvey = Globals.AllSurveys.Where(x => x.SurveyCode.Equals(surveyCode)).FirstOrDefault();
+            CurrentSurvey = Globals.AllSurveys.Where(x => x.SID== survID).FirstOrDefault();
 
             if (CurrentSurvey == null)
             {
-                MessageBox.Show("Error loading " + surveyCode + ". Ensure that this survey exists.");
+                MessageBox.Show("Error loading survey ID#" + survID + ". Ensure that this survey exists.");
                 Close();
                 return;
             }
@@ -450,9 +450,14 @@ namespace ISISFrontEnd
         {
             if (Tag != null)
             {
-                int pos = Globals.CurrentUser.SurveyEntryHistory[(int)Tag - 1].Value;
-                bs.Position = pos;
-                lstQuestionList.Items[pos].EnsureVisible();
+                var state = Globals.CurrentUser.GetFormState("frmSurveyEntry", (int)Tag);
+                if (state == null)
+                    bs.Position = 0;
+                else
+                {
+                    bs.Position = state.RecordPosition;
+                    lstQuestionList.Items[state.RecordPosition].EnsureVisible();
+                }
             }
 
             CurrentRecord = (QuestionRecord)bs.Current;
@@ -677,8 +682,13 @@ namespace ISISFrontEnd
         /// <param name="e"></param>
         private void SurveyEditor_FormClosed(object sender, FormClosedEventArgs e)
         {
-            DBAction.UpdateFormSurvey("frmSurveyEntry", (int)Tag - 1, CurrentSurvey.SID, bs.Position, Globals.CurrentUser);
-            Globals.CurrentUser.SurveyEntryHistory[(int)Tag - 1] = new KeyValuePair<string, int>(CurrentSurvey.SurveyCode, bs.Position);
+            FormStateRecord state = Globals.CurrentUser.FormStates.Where(x => x.FormName.Equals("frmSurveyEntry") && x.FormNum == (int)Tag).FirstOrDefault();
+            state.FilterID = CurrentSurvey.SID;
+            state.RecordPosition = bs.Position;
+            state.Dirty = true;
+            state.SaveRecord();
+
+            CurrentSurvey.Questions.Clear();
 
             ClosePopups();
 
@@ -1530,7 +1540,7 @@ namespace ISISFrontEnd
         {
             if (frmComments == null || frmComments.IsDisposed)
             {
-                frmComments = new CommentEntry(CurrentRecord);// ViewQuestionComments(CurrentRecord);
+                frmComments = new CommentEntry(CurrentRecord);
                 frmComments.UpdateForm(CurrentRecord);
                 frmComments.Owner = this;
                 frmComments.Show();
@@ -1580,7 +1590,7 @@ namespace ISISFrontEnd
         {
             if (frmRelated == null || frmRelated.IsDisposed)
             {
-                frmRelated = new RelatedQuestions(CurrentRecord, (int)Tag - 1);
+                frmRelated = new RelatedQuestions(CurrentRecord, (int)Tag);
                 frmRelated.Owner = this;
                 frmRelated.Show();
             }

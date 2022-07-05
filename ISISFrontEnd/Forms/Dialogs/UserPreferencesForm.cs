@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 using ITCLib;
 
 namespace ISISFrontEnd
@@ -14,25 +15,24 @@ namespace ISISFrontEnd
     // TODO save only if changed
     public partial class UserPreferencesForm : Form
     {
-        public MainMenu frmParent;
-        public string key;
-
-        public UserPrefs user;
+        public UserRecord user;
         BindingSource bs;
-        public UserPreferencesForm()
+
+        public UserPreferencesForm(UserRecord u)
         {
             InitializeComponent();
-        }
 
-        public UserPreferencesForm(UserPrefs u)
-        {
             user = u;
 
-            InitializeComponent();
+            foreach (FormState fs in user.FormStates)
+            {
+                var survey = Globals.AllSurveys.Where(x => x.SID == fs.FilterID).FirstOrDefault();
+                string surveycode = "";
+                if (survey != null)
+                    surveycode = survey.SurveyCode;
 
-
-            dgvSurveys.DataSource = user.SurveyEntryHistory;
-
+                dgvFormStates.Rows.Add(fs.FormName, fs.FormNum, fs.Filter, surveycode, fs.RecordPosition);
+            }
         }
 
         private void UserPreferencesForm_Load(object sender, EventArgs e)
@@ -49,9 +49,23 @@ namespace ISISFrontEnd
             cboCommentDetails.DataBindings.Add("SelectedItem", bs, "commentDetails");
         }
 
+        private void cmdBrowseFolder_Click(object sender, EventArgs e)
+        {
+            using (var fbd = new FolderBrowserDialog())
+            {
+                DialogResult result = fbd.ShowDialog();
+
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                {
+                    this.txtReportDestination.Text = fbd.SelectedPath;
+                }
+            }
+        }
+
         private void cmdSave_Click(object sender, EventArgs e)
         {
-            DBAction.UpdateUser(user);
+            user.Dirty = true;
+            user.SaveRecord();
             Close();
         }
 
@@ -63,12 +77,6 @@ namespace ISISFrontEnd
         private void UserPreferencesForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             FormManager.RemovePopup(this);
-        }
-
-        private void dgvSurveys_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
-        {
-            dgvSurveys.Columns[0].HeaderText = "Survey";
-            dgvSurveys.Columns[1].HeaderText = "Record";
         }
     }
 }

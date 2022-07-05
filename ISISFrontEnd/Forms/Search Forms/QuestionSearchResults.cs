@@ -111,7 +111,7 @@ namespace ISISFrontEnd
 
         private void toolStripEditor_Click(object sender, EventArgs e)
         {
-            SurveyEditor getFrm = (SurveyEditor)FormManager.GetForm("SurveyEditor", 7);
+            SurveyEditor getFrm = (SurveyEditor)FormManager.GetForm("SurveyEditor", 6);
             if (getFrm!=null)
             {
                 
@@ -126,11 +126,11 @@ namespace ISISFrontEnd
             else
             {
                 SurveyEditor frm = new SurveyEditor(CurrentQuestion.SurveyCode, CurrentQuestion.VarName.RefVarName);
-                frm.Tag = 7;
+                frm.Tag = 6;
                 FormManager.Add(frm);
                 frm.GoToQuestion(CurrentQuestion.VarName.RefVarName);
             }
-            ((MainMenu)FormManager.GetForm("MainMenu")).SelectTab("SurveyEditor7");
+            ((MainMenu)FormManager.GetForm("MainMenu")).SelectTab("SurveyEditor6");
         }
 
         private void toolStripHarmony_Click(object sender, EventArgs e)

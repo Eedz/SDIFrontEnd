@@ -168,51 +168,82 @@ namespace ISISFrontEnd
 
         private void txtWordingR_Validated(object sender, EventArgs e)
         {
-            txtWordingR.Rtf = Utilities.FormatRTF(txtWordingR.Rtf);
-            Wording current = (Wording)bs.Current;
-            string plain = txtWordingR.Text;
-            current.WordingText = plain;
-            Dirty = true;
+            //txtWordingR.Rtf = Utilities.FormatRTF(txtWordingR.Rtf);
+            //Wording current = (Wording)bs.Current;
+            //string plain = txtWordingR.Text;
+            //current.WordingText = plain;
+            //Dirty = true;
         }
 
-        private void cmdEdit_Click(object sender, EventArgs e)
+        
+
+        private void chkEdit_Click(object sender, EventArgs e)
         {
-
-            if (CurrentWording.WordID == 0 && !NewRecord) // 0 wording, reserved
+            if (!chkEdit.Checked)
             {
-                MessageBox.Show("Wording #0 is reserved and cannot be edited.");
-                return;
-
+                
+                SaveRecord();
+                chkEdit.Text = "Edit";
+                cmdBold.Enabled = false;
+                cmdItalic.Enabled = false;
+                txtWordingR.BackColor = SystemColors.Control;
             }
-            else if (Locked)
+            else
             {
-                if (MessageBox.Show("This wording is used in a locked survey and cannot be modified. Would you like to unlock the surveys that use this wording?", "Unlock?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (CurrentWording.WordID == 0 && !NewRecord) // 0 wording, reserved
                 {
-                    string[] surveys = Usages.Where(x=>x.Locked).Select(x => x.SurveyCode).ToArray();
-                    
-                    for (int i = 0; i < surveys.Length; i++)
-                    {
-                        DBAction.UnlockSurvey(surveys[i], 60);
-                    }
-
-                }
-                else
-                {
+                    MessageBox.Show("Wording #0 is reserved and cannot be edited.");
                     return;
                 }
-            }
-            else if (Usages.Count > 1) // existing survey used in more than 1 survey
-            {
-                MessageBox.Show("You are about to edit a wording used in multiple survey questions.");
-            }
-            else // existing wording used in 0 or 1 surveys OR a new wording
-            {
-            }
+                else if (Locked)
+                {
+                    if (MessageBox.Show("This wording is used in a locked survey and cannot be modified. Would you like to unlock the surveys that use this wording?", "Unlock?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        string[] surveys = Usages.Where(x => x.Locked).Select(x => x.SurveyCode).ToArray();
+                        for (int i = 0; i < surveys.Length; i++)
+                            DBAction.UnlockSurvey(surveys[i], 60);
+                    }
+                    else
+                        return;
+                }
+                else if (Usages.Count > 1) // existing survey used in more than 1 survey
+                    MessageBox.Show("You are about to edit a wording used in multiple survey questions.");
 
-            // open editor
-            OpenEditor(CurrentWording);
+                // otherwise, existing wording used in 0 or 1 surveys OR a new wording
+                // unlock wording field for editing
+
+                chkEdit.Text = "Save";
+                txtWordingR.BackColor = Color.White;
+                txtWordingR.ReadOnly = false;
+                cmdBold.Enabled = true;
+                cmdItalic.Enabled = true;
+            }
+            
         }
 
+        private void cmdBold_Click(object sender, EventArgs e)
+        {
+            if (txtWordingR.SelectionFont.Bold)
+            {
+                txtWordingR.SelectionFont = new Font(txtWordingR.Font, FontStyle.Regular);
+            }
+            else
+            {
+                txtWordingR.SelectionFont = new Font(txtWordingR.Font, FontStyle.Bold);
+            }
+        }
+
+        private void cmdItalic_Click(object sender, EventArgs e)
+        {
+            if (txtWordingR.SelectionFont.Italic)
+            {
+                txtWordingR.SelectionFont = new Font(txtWordingR.Font, FontStyle.Regular);
+            }
+            else
+            {
+                txtWordingR.SelectionFont = new Font(txtWordingR.Font, FontStyle.Italic);
+            }
+        }
 
         #region Navigator button events
         /// <summary>
@@ -262,6 +293,18 @@ namespace ISISFrontEnd
         #endregion
 
         #region Methods
+
+        private void UpdatePlainText()
+        {
+            // change RTF tags to HTML tags
+            txtWordingR.Rtf = Utilities.FormatRTF(txtWordingR.Rtf);
+            // now get plain text which includes the HTML tags we've inserted
+            string plain = txtWordingR.Text;
+
+            CurrentWording.WordingText = plain;
+            Dirty = true;
+            bs.ResetCurrentItem();
+        }
 
         private void GetWordings(string fieldname)
         {
@@ -378,8 +421,9 @@ namespace ISISFrontEnd
                 }
         }
 
-        private void SaveRecord()
+        private int SaveRecord()
         {
+            UpdatePlainText();
             Wording current = (Wording)bs.Current;
             if (CurrentWording.WordID == 0) // new wording created by this form
             {
@@ -395,6 +439,8 @@ namespace ISISFrontEnd
             }
             bs.ResetBindings(false);
             lblNewID.Visible = false;
+
+            return 0;
         }
 
         private void BindProperties()
@@ -523,12 +569,18 @@ namespace ISISFrontEnd
             lblNewID.Visible = NewRecord;
             if (CurrentWording.WordID == 0 && !NewRecord) // 0 wording, reserved
             {
-                cmdEdit.Enabled = false;
+                chkEdit.Enabled = false;
             }
             else
             {
-                cmdEdit.Enabled = true;
+                chkEdit.Enabled = true;
             }
+
+            chkEdit.Checked = false;
+            txtWordingR.ReadOnly = true;
+            txtWordingR.BackColor = SystemColors.Control;
+            cmdBold.Enabled = false;
+            cmdItalic.Enabled = false;
         }
         #endregion
 
@@ -564,9 +616,10 @@ namespace ISISFrontEnd
             }
         }
 
+
+
         #endregion
 
         
-
     }
 }

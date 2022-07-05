@@ -15,6 +15,7 @@ namespace ISISFrontEnd
 {
     
     // TODO detect when user changes response to/from (use click event with DirtyResponse flag?)
+    // TODO yellow issues
     public partial class PraccingEntry : Form
     {
         PraccingIssue CurrentIssue;
@@ -341,8 +342,6 @@ namespace ISISFrontEnd
 
         private void rtbResponse_DoubleClick(object sender, EventArgs e)
         {
-
-
             var rtb = (RichTextBox)sender;
             var dataRepeaterItem = (Microsoft.VisualBasic.PowerPacks.DataRepeaterItem)rtb.Parent;
             var dataRepeater = (Microsoft.VisualBasic.PowerPacks.DataRepeater)rtb.Parent.Parent;
@@ -791,8 +790,11 @@ namespace ISISFrontEnd
         /// </summary>
         private void SaveSurveyFilter()
         {
-            DBAction.UpdateFormSurvey("frmIssuesTracking", 1, ((Survey)cboGoToSurvey.SelectedItem).SID, 0, Globals.CurrentUser);
-            Globals.CurrentUser.PraccingEntrySurvey = ((Survey)cboGoToSurvey.SelectedItem).SID;
+            FormStateRecord state = Globals.CurrentUser.FormStates.Where(x => x.FormName.Equals("frmIssuesTracking") && x.FormNum == (int)Tag).FirstOrDefault();
+            state.FilterID = ((Survey)cboGoToSurvey.SelectedItem).SID;
+            state.RecordPosition = bsMainIssues.Position;
+            state.Dirty = true;
+            state.SaveRecord();
         }
 
         /// <summary>

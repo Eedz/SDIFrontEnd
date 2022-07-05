@@ -339,7 +339,7 @@ namespace ISISFrontEnd
 
             navWordings.BindingSource = null;
             navWordings.BindingSource = bs;
-
+            bs.MoveFirst();
             return bs.Count;
         }
 

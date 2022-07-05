@@ -31,7 +31,14 @@ namespace ISISFrontEnd
 
         private void cmdOpenSectionsTable_Click(object sender, EventArgs e)
         {
+            if (FormManager.FormOpen("HeadingReportForm"))
+            {
+                return;
+            }
 
+            HeadingReportForm frm = new HeadingReportForm();
+            frm.Tag = 1;
+            FormManager.AddPopup(frm);
         }
 
         private void cmdOpenSurveyOverview_Click(object sender, EventArgs e)

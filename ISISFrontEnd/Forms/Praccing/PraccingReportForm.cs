@@ -59,7 +59,13 @@ namespace ISISFrontEnd
                 return;
             }
 
-            PraccingEntry frm = new PraccingEntry(Globals.CurrentUser.PraccingEntrySurvey);
+            var state = Globals.CurrentUser.FormStates.Where(x => x.FormName.Equals("frmIssuesTracking") && x.FormNum == 1).First();
+            int survID = 899;
+            if (state != null)
+                survID = state.FilterID;
+
+            PraccingEntry frm = new PraccingEntry(survID);
+
             frm.Tag = 1;
             FormManager.Add(frm);
         }
@@ -102,6 +108,12 @@ namespace ISISFrontEnd
                 return;
 
             lst.SelectedIndexChanged -= ListBox_SelectedIndexChanged;
+
+            if (lst.SelectedItems.Count == 0)
+            {
+                lst.SetSelected(0, true);
+                lst.Tag = true;
+            }
 
             int count = lst.SelectedItems.Count;
 

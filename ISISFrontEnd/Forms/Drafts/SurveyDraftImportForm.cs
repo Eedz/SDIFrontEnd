@@ -34,7 +34,7 @@ namespace ISISFrontEnd
 
         List<string> Headers;
         List<string> columns = new List<string>() { "Qnum", "AltQnum", "VarName", "Question Text", "Comments", "Extra1", "Extra2", "Extra3", "Extra4", "Extra5" };
-        SurveyDraft newDraft; // the new draft to be created
+        SurveyDraftRecord newDraft; // the new draft to be created
         bool errorsExist;
         #endregion
 
@@ -58,7 +58,7 @@ namespace ISISFrontEnd
             cboSurvey.DisplayMember = "SurveyCode";
             cboSurvey.DataSource = Globals.AllSurveys;
 
-            newDraft = new SurveyDraft();
+            newDraft = new SurveyDraftRecord();
 
             cboSurvey.DataBindings.Add("SelectedValue", newDraft, "SurvID");
             txtDraftTitle.DataBindings.Add("Text", newDraft, "DraftTitle");
@@ -88,7 +88,7 @@ namespace ISISFrontEnd
             pnlColumns.Visible = false;
             cmdImport.Enabled = false;
 
-            newDraft = new SurveyDraft();
+            newDraft = new SurveyDraftRecord();
         }
 
         private void cmdImport_Click(object sender, EventArgs e)
@@ -265,7 +265,7 @@ namespace ISISFrontEnd
             }
             else
             {
-                newDraft.DraftID = newID;
+                newDraft.ID = newID;
             }
         }
 
@@ -274,37 +274,37 @@ namespace ISISFrontEnd
         /// </summary>
         private void SetExtraFieldInfo()
         {
-            if (newDraft.DraftID == 0)
+            if (newDraft.ID == 0)
                 return;
             int sourceNumber;
             if (Extra1Column >= 0)
             {
                 sourceNumber = Extra1Column+1;
-                DBAction.InsertSurveyDraftExtraInfo(newDraft.DraftID, 1, pnlColumns.Controls["txtSource" + sourceNumber].Text);
+                DBAction.InsertSurveyDraftExtraInfo(newDraft.ID, 1, pnlColumns.Controls["txtSource" + sourceNumber].Text);
             }
 
             if (Extra2Column >= 0)
             {
                 sourceNumber = Extra2Column + 1;
-                DBAction.InsertSurveyDraftExtraInfo(newDraft.DraftID, 2, pnlColumns.Controls["txtSource" + sourceNumber].Text);
+                DBAction.InsertSurveyDraftExtraInfo(newDraft.ID, 2, pnlColumns.Controls["txtSource" + sourceNumber].Text);
             }
 
             if (Extra3Column >= 0)
             {
                 sourceNumber = Extra3Column + 1;
-                DBAction.InsertSurveyDraftExtraInfo(newDraft.DraftID, 3, pnlColumns.Controls["txtSource" + sourceNumber].Text);
+                DBAction.InsertSurveyDraftExtraInfo(newDraft.ID, 3, pnlColumns.Controls["txtSource" + sourceNumber].Text);
             }
 
             if (Extra4Column >= 0)
             {
                 sourceNumber = Extra3Column + 1;
-                DBAction.InsertSurveyDraftExtraInfo(newDraft.DraftID, 4, pnlColumns.Controls["txtSource" + sourceNumber].Text);
+                DBAction.InsertSurveyDraftExtraInfo(newDraft.ID, 4, pnlColumns.Controls["txtSource" + sourceNumber].Text);
             }
 
             if (Extra5Column >= 0)
             {
                 sourceNumber = Extra2Column + 1;
-                DBAction.InsertSurveyDraftExtraInfo(newDraft.DraftID, 5, pnlColumns.Controls["txtSource" + sourceNumber].Text);
+                DBAction.InsertSurveyDraftExtraInfo(newDraft.ID, 5, pnlColumns.Controls["txtSource" + sourceNumber].Text);
             }
         }
 
@@ -315,7 +315,7 @@ namespace ISISFrontEnd
 
             CreateDraftInfo();
             
-            if (newDraft.DraftID == 0)
+            if (newDraft.ID == 0)
                 return;
 
             SetExtraFieldInfo();
@@ -360,9 +360,9 @@ namespace ISISFrontEnd
                             continue;
                         }
 
-                        DraftQuestion dq = new DraftQuestion();
+                        DraftQuestionRecord dq = new DraftQuestionRecord();
 
-                        dq.DraftID = newDraft.DraftID;
+                        dq.DraftID = newDraft.ID;
 
                         var cells = row.Elements<TableCell>();
 
@@ -377,11 +377,11 @@ namespace ISISFrontEnd
                         else if (trPr.Descendants<Deleted>().Count() != 0)
                         {
                             var dels = trPr.Descendants<Deleted>();
-                            dq.deleted = true;
+                            dq.Deleted = true;
                         }
                         else if (trPr.Descendants<Inserted>().Count() != 0)
                         {
-                            dq.inserted = true;
+                            dq.Inserted = true;
                         }
                         dq.SortBy = rowNum;
 
@@ -389,22 +389,22 @@ namespace ISISFrontEnd
                         {
                             if (QnumColumn == MarginCommentsColumn)
                             {
-                                dq.qnum = GetMarginComments(commentPart, row, QnumColumn);
+                                dq.Qnum = GetMarginComments(commentPart, row, QnumColumn);
                             }else 
-                                dq.qnum = GetContentFromCell(cells, QnumColumn, false);
+                                dq.Qnum = GetContentFromCell(cells, QnumColumn, false);
                         }
 
                         if (VarNameColumn >= 0)
                         {
                             if (VarNameColumn == MarginCommentsColumn)
                             {
-                                dq.varname = GetMarginComments(commentPart, row, VarNameColumn);
+                                dq.VarName = GetMarginComments(commentPart, row, VarNameColumn);
                             }
                             else
                             {
-                                dq.varname = GetContentFromCell(cells, VarNameColumn, false);
-                                dq.varname = Regex.Replace(dq.varname, "<font style=\"BACKGROUND-COLOR:#[0-9A-F]{6}\">", "");
-                                dq.varname = Regex.Replace(dq.varname, "</font>", "");
+                                dq.VarName = GetContentFromCell(cells, VarNameColumn, false);
+                                dq.VarName = Regex.Replace(dq.VarName, "<font style=\"BACKGROUND-COLOR:#[0-9A-F]{6}\">", "");
+                                dq.VarName = Regex.Replace(dq.VarName, "</font>", "");
                             }
                         }
 
@@ -412,70 +412,70 @@ namespace ISISFrontEnd
                         {
                             if (QuestionTextColumn == MarginCommentsColumn)
                             {
-                                dq.questionText = GetMarginComments(commentPart, row, QuestionTextColumn);
+                                dq.QuestionText = GetMarginComments(commentPart, row, QuestionTextColumn);
                             }
                             else
-                                dq.questionText = GetContentFromCell(cells, QuestionTextColumn, true);
+                                dq.QuestionText = GetContentFromCell(cells, QuestionTextColumn, true);
                         }
 
                         if (CommentsColumn >= 0)
                         {
                             if (CommentsColumn == MarginCommentsColumn)
                             {
-                                dq.comment = GetMarginComments(commentPart, row, CommentsColumn);
+                                dq.Comments = GetMarginComments(commentPart, row, CommentsColumn);
                             }
                             else
-                                dq.comment = GetContentFromCell(cells, CommentsColumn, true);
+                                dq.Comments = GetContentFromCell(cells, CommentsColumn, true);
                         }
 
                         if (Extra1Column >= 0)
                         {
                             if (Extra1Column == MarginCommentsColumn)
                             {
-                                dq.extra1 = GetMarginComments(commentPart, row, Extra1Column);
+                                dq.Extra1 = GetMarginComments(commentPart, row, Extra1Column);
                             }
                             else
-                                dq.extra1 = GetContentFromCell(cells, Extra1Column, true);
+                                dq.Extra1 = GetContentFromCell(cells, Extra1Column, true);
                         }
 
                         if (Extra2Column >= 0)
                         {
                             if (Extra2Column == MarginCommentsColumn)
                             {
-                                dq.extra2 = GetMarginComments(commentPart, row, Extra2Column);
+                                dq.Extra2 = GetMarginComments(commentPart, row, Extra2Column);
                             }
                             else
-                                dq.extra2 = GetContentFromCell(cells, Extra2Column, true);
+                                dq.Extra2 = GetContentFromCell(cells, Extra2Column, true);
                         }
 
                         if (Extra3Column >= 0)
                         {
                             if (Extra3Column == MarginCommentsColumn)
                             {
-                                dq.extra3 = GetMarginComments(commentPart, row, Extra3Column);
+                                dq.Extra3 = GetMarginComments(commentPart, row, Extra3Column);
                             }
                             else
-                                dq.extra3 = GetContentFromCell(cells, Extra3Column, true);
+                                dq.Extra3 = GetContentFromCell(cells, Extra3Column, true);
                         }
 
                         if (Extra4Column >= 0)
                         {
                             if (Extra4Column == MarginCommentsColumn)
                             {
-                                dq.extra4 = GetMarginComments(commentPart, row, Extra4Column);
+                                dq.Extra4 = GetMarginComments(commentPart, row, Extra4Column);
                             }
                             else
-                                dq.extra4 = GetContentFromCell(cells, Extra4Column, true);
+                                dq.Extra4 = GetContentFromCell(cells, Extra4Column, true);
                         }
 
                         if (Extra5Column >= 0)
                         {
                             if (Extra5Column == MarginCommentsColumn)
                             {
-                                dq.extra5 = GetMarginComments(commentPart, row, Extra5Column);
+                                dq.Extra5 = GetMarginComments(commentPart, row, Extra5Column);
                             }
                             else
-                                dq.extra5 = GetContentFromCell(cells, Extra5Column, true);
+                                dq.Extra5 = GetContentFromCell(cells, Extra5Column, true);
                         }
 
                         newDraft.Questions.Add(dq);
@@ -494,7 +494,7 @@ namespace ISISFrontEnd
             ProcessDuplicateVarNames();
             
             // insert each question into the database 
-            foreach (DraftQuestion q in newDraft.Questions)
+            foreach (DraftQuestionRecord q in newDraft.Questions)
             {
                 DBAction.InsertDraftQuestion(q);
             }
@@ -575,14 +575,14 @@ namespace ISISFrontEnd
             char letter ='a';
             foreach (DraftQuestion q in newDraft.Questions)
             {
-                List<DraftQuestion> list = newDraft.Questions.Where(x => x.varname == q.varname).ToList();
+                List<DraftQuestion> list = newDraft.Questions.Where(x => x.VarName == q.VarName).ToList();
 
                 if (list.Count() > 1)
                 {
                     for (int i = 1; i < list.Count(); i++)
                     {
 
-                        list[i].varname += "-" + extra + letter;
+                        list[i].VarName += "-" + extra + letter;
 
                         if (letter == 'z')
                         {
@@ -616,15 +616,15 @@ namespace ISISFrontEnd
             char letter = 'a';
             string extra = "";
             // set the previous value to be the first question's qnum, and fill it in if it is blank
-            string prev = newDraft.Questions[0].qnum;
+            string prev = newDraft.Questions[0].Qnum;
             if (string.IsNullOrEmpty(prev))
-                newDraft.Questions[0].qnum = "000";
+                newDraft.Questions[0].Qnum = "000";
 
             foreach (DraftQuestion q in newDraft.Questions)
             {
-                if (string.IsNullOrEmpty(q.qnum))
+                if (string.IsNullOrEmpty(q.Qnum))
                 {
-                    q.qnum = prev + "-" + extra + letter;
+                    q.Qnum = prev + "-" + extra + letter;
 
                     if (letter == 'z')
                     {
@@ -650,7 +650,7 @@ namespace ISISFrontEnd
                 }
                 else
                 {
-                    prev = q.qnum;
+                    prev = q.Qnum;
                     letter = 'a';
                     extra = "";
                 }
@@ -665,9 +665,9 @@ namespace ISISFrontEnd
 
             foreach (DraftQuestion q in newDraft.Questions)
             {
-                if (string.IsNullOrEmpty(q.varname))
+                if (string.IsNullOrEmpty(q.VarName))
                 {
-                    q.varname = nextVar;
+                    q.VarName = nextVar;
                     int num = Int32.Parse(nextVar.Substring(2, 3)) + 1;
                     if (num > 999)
                     {

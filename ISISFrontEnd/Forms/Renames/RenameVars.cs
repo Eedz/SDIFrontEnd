@@ -28,21 +28,14 @@ namespace ISISFrontEnd
         {
             InitializeComponent();
 
+            VarNameList = Globals.AllVarNames;
             RefVarNameList = Globals.AllRefVarNames;
+
             Failed = new List<string>();
 
             optRefVarName.Checked = true;
 
-            cboSource.DataSource = new List<RefVariableName>(RefVarNameList);
-            cboSource.DisplayMember = "RefVarName";
-            cboSource.ValueMember = "RefVarName";
-
-            //cboDest.DataSource = new List<RefVariableName>(RefVarNameList);
-            foreach (RefVariableName refVar in RefVarNameList)
-                cboDest.Items.Add(refVar);
-
-            cboDest.DisplayMember = "RefVarName";
-            cboDest.ValueMember = "RefVarName";
+            UpdateVarList();
 
             Changes = new List<VarNameChange>();
         }
@@ -61,6 +54,7 @@ namespace ISISFrontEnd
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
+            FormManager.RemovePopup(this);
         }
 
         private void clearToolStripMenuItem_Click(object sender, EventArgs e)
@@ -73,7 +67,19 @@ namespace ISISFrontEnd
 
         private void Scope_CheckedChanged(object sender, EventArgs e)
         {
+            if (optRefVarName.Checked)
+            {
+                
+                
+            }
+            else
+            {
+                
+                
+            }
+            UpdateVarList();
             UpdateStatus();
+
         }
 
         private void cboSource_SelectedIndexChanged(object sender, EventArgs e)
@@ -125,28 +131,29 @@ namespace ISISFrontEnd
 
         #endregion
 
-        #region Method
+        #region Methods
 
         private void PerformRename()
         {
             RefVariableName source = (RefVariableName)cboSource.SelectedItem;
             RefVariableName dest = (RefVariableName)cboDest.SelectedItem;
-            List<Survey> surveyList = (List<Survey>)lstSurveyList.SelectedItems.Cast<Survey>();
+            List<Survey> surveyList = (List<Survey>)lstSurveyList.SelectedItems.Cast<Survey>().ToList();
 
             // create a list of change objects
             List<VarNameChangeRecord> changes = new List<VarNameChangeRecord>();
-            foreach (VarNameChangeSurveyRecord s in surveyList)
+            foreach (Survey s in surveyList)
             {
-                s.NewRecord = true;
-                VariableName oldname = new VariableName();
-                oldname.VarName = Utilities.ChangeCC(source.RefVarName, s.CountryCode);
-                VariableName newname = new VariableName();
-                newname.VarName = Utilities.ChangeCC(source.RefVarName, s.CountryCode);
+                VarNameChangeSurveyRecord sr = new VarNameChangeSurveyRecord();
+                sr.NewRecord = true;
+                sr.SurveyCode = s.SurveyCode;
 
-                var existingChange = changes.FirstOrDefault(x => x.NewName.VarName.Equals(newname.VarName));
+                string oldname = Utilities.ChangeCC(source.RefVarName, s.CountryCode);
+                string newname = Utilities.ChangeCC(source.RefVarName, s.CountryCode);
+
+                var existingChange = changes.FirstOrDefault(x => x.NewName.Equals(newname));
                 if (existingChange != null)
                 {
-                    existingChange.SurveysAffected.Add(s);
+                    existingChange.SurveysAffected.Add(sr);
                     continue;
                 }
                 VarNameChangeRecord change = new VarNameChangeRecord();
@@ -154,14 +161,15 @@ namespace ISISFrontEnd
                 change.OldName = oldname;
                 change.NewName = newname;
                 change.ChangeDate = DateTime.Now;
-                change.ChangedBy = (Person)Globals.AllPeople.Where(x => x.ID == Globals.CurrentUser.userid);
+                change.ChangedBy = (PersonRecord)Globals.AllPeople.Where(x => x.ID == Globals.CurrentUser.userid).First();
 
-                foreach (Person autoNotify in Globals.AllPeople.Where(x => x.VarNameChangeNotify))
+                var autoNotifications = Globals.AllPeople.Where(x => x.VarNameChangeNotify).ToList();
+                foreach (PersonRecord autoNotify in autoNotifications)
                 {
-                    change.Notifications.Add(new VarNameChangeNotificationRecord(autoNotify, "Auto-email"));
+                    change.Notifications.Add(new VarNameChangeNotificationRecord() { PersonID = autoNotify.ID, Name = autoNotify.Name, NotifyType = "Auto-email" });
                 }
 
-                change.SurveysAffected.Add(s);
+                change.SurveysAffected.Add(sr);
 
                 changes.Add(change);
             }
@@ -170,7 +178,7 @@ namespace ISISFrontEnd
             foreach (Survey s in surveyList)
             {
 
-                RenameVariable(source, dest, s.SurveyCode);
+                RenameVariable(source.RefVarName, dest.RefVarName, s.SurveyCode);
             }
             // rename in wordings
             var successes = surveyList.Where(x => !Failed.Contains(x.SurveyCode));
@@ -188,7 +196,7 @@ namespace ISISFrontEnd
             // document rename
 
 
-            VarNameChangeQuickEntry frm = new VarNameChangeQuickEntry(changes);
+            VarChangeTracking frm = new VarChangeTracking(changes);
             frm.ShowDialog();
 
             // delete var?
@@ -247,6 +255,45 @@ namespace ISISFrontEnd
 
 
         }
+
+        private void UpdateVarList()
+        {
+            cboSource.SelectedIndexChanged -= cboSource_SelectedIndexChanged;
+            cboDest.SelectedIndexChanged -= cboDest_SelectedIndexChanged;
+            if (optRefVarName.Checked)
+            {
+                cboSource.DataSource = new List<RefVariableName>(RefVarNameList);
+                cboSource.DisplayMember = "RefVarName";
+                cboSource.ValueMember = "RefVarName";
+
+                foreach (RefVariableName refVar in RefVarNameList)
+                    cboDest.Items.Add(refVar);
+
+                cboDest.DisplayMember = "RefVarName";
+                cboDest.ValueMember = "RefVarName";
+            }
+            else if (optVarName.Checked)
+            {
+                cboSource.DataSource = new List<VariableName>(VarNameList);
+                cboSource.DisplayMember = "VarName";
+                cboSource.ValueMember = "VarName";
+
+                foreach (VariableName refVar in VarNameList)
+                    cboDest.Items.Add(refVar);
+
+                cboDest.DisplayMember = "VarName";
+                cboDest.ValueMember = "VarName";
+            }
+
+            cboSource.SelectedItem = null;
+            cboDest.SelectedItem = null;
+
+            cboSource.SelectedIndexChanged += cboSource_SelectedIndexChanged;
+            cboDest.SelectedIndexChanged += cboDest_SelectedIndexChanged;
+        }
+
+
+
 
         private string GetInfo(RefVariableName source, RefVariableName dest)
         {
@@ -433,7 +480,7 @@ namespace ISISFrontEnd
             }
         }
 
-        private void RenameVariable (RefVariableName oldname, RefVariableName newname, string survey)
+        private void RenameVariable (string oldname, string newname, string survey)
         {
             Failed.Clear();
 

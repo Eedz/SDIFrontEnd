@@ -40,7 +40,6 @@
             // 
             // cmdOpenVariableList
             // 
-            this.cmdOpenVariableList.Enabled = false;
             this.cmdOpenVariableList.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdOpenVariableList.Location = new System.Drawing.Point(54, 91);
             this.cmdOpenVariableList.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -53,7 +52,6 @@
             // 
             // cmdOpenSectionsTable
             // 
-            this.cmdOpenSectionsTable.Enabled = false;
             this.cmdOpenSectionsTable.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdOpenSectionsTable.Location = new System.Drawing.Point(54, 127);
             this.cmdOpenSectionsTable.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -121,6 +119,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(205)))), ((int)(((byte)(170)))));
             this.ClientSize = new System.Drawing.Size(933, 554);
+            this.ControlBox = false;
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmdOpenSyntaxForm);
             this.Controls.Add(this.cmdOpenSurveyOverview);

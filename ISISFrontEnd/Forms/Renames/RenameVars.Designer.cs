@@ -40,6 +40,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cboSource = new System.Windows.Forms.ComboBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.txtStatus = new System.Windows.Forms.TextBox();
             this.cmdUnlock = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.cmdRename = new System.Windows.Forms.Button();
@@ -47,7 +48,6 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.lstSurveyList = new System.Windows.Forms.ListBox();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.txtStatus = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -61,7 +61,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(447, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(443, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -103,7 +103,6 @@
             this.label3.Size = new System.Drawing.Size(77, 16);
             this.label3.TabIndex = 6;
             this.label3.Text = "Rename By:";
-            this.label3.Visible = false;
             // 
             // optRefVarName
             // 
@@ -116,7 +115,6 @@
             this.optRefVarName.TabStop = true;
             this.optRefVarName.Text = "refVarName";
             this.optRefVarName.UseVisualStyleBackColor = true;
-            this.optRefVarName.Visible = false;
             this.optRefVarName.CheckedChanged += new System.EventHandler(this.Scope_CheckedChanged);
             // 
             // optVarName
@@ -130,7 +128,6 @@
             this.optVarName.TabStop = true;
             this.optVarName.Text = "VarName";
             this.optVarName.UseVisualStyleBackColor = true;
-            this.optVarName.Visible = false;
             this.optVarName.CheckedChanged += new System.EventHandler(this.Scope_CheckedChanged);
             // 
             // label2
@@ -150,7 +147,6 @@
             this.cboDest.Name = "cboDest";
             this.cboDest.Size = new System.Drawing.Size(107, 24);
             this.cboDest.TabIndex = 2;
-            this.cboDest.SelectedIndexChanged += new System.EventHandler(this.cboDest_SelectedIndexChanged);
             this.cboDest.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cboDest_KeyDown);
             this.cboDest.Leave += new System.EventHandler(this.cboDest_Leave);
             // 
@@ -171,7 +167,6 @@
             this.cboSource.Name = "cboSource";
             this.cboSource.Size = new System.Drawing.Size(102, 24);
             this.cboSource.TabIndex = 0;
-            this.cboSource.SelectedIndexChanged += new System.EventHandler(this.cboSource_SelectedIndexChanged);
             // 
             // panel2
             // 
@@ -188,6 +183,16 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(419, 325);
             this.panel2.TabIndex = 2;
+            // 
+            // txtStatus
+            // 
+            this.txtStatus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(177)))), ((int)(((byte)(77)))));
+            this.txtStatus.Location = new System.Drawing.Point(136, 11);
+            this.txtStatus.Multiline = true;
+            this.txtStatus.Name = "txtStatus";
+            this.txtStatus.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtStatus.Size = new System.Drawing.Size(276, 208);
+            this.txtStatus.TabIndex = 7;
             // 
             // cmdUnlock
             // 
@@ -264,22 +269,12 @@
             this.lblTitle.TabIndex = 3;
             this.lblTitle.Text = "Rename Var";
             // 
-            // txtStatus
-            // 
-            this.txtStatus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(177)))), ((int)(((byte)(77)))));
-            this.txtStatus.Location = new System.Drawing.Point(136, 11);
-            this.txtStatus.Multiline = true;
-            this.txtStatus.Name = "txtStatus";
-            this.txtStatus.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtStatus.Size = new System.Drawing.Size(276, 208);
-            this.txtStatus.TabIndex = 7;
-            // 
             // RenameVars
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(177)))), ((int)(((byte)(77)))));
-            this.ClientSize = new System.Drawing.Size(447, 499);
+            this.ClientSize = new System.Drawing.Size(443, 496);
             this.ControlBox = false;
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.panel2);

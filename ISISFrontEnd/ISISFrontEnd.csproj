@@ -73,11 +73,35 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\Drafts\DraftReportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Drafts\DraftReportForm.Designer.cs">
+      <DependentUpon>DraftReportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Drafts\DraftManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Drafts\DraftManager.Designer.cs">
+      <DependentUpon>DraftManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Drafts\DraftSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Drafts\DraftSearch.Designer.cs">
+      <DependentUpon>DraftSearch.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\AssignLabelsFilter.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\AssignLabelsFilter.Designer.cs">
       <DependentUpon>AssignLabelsFilter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Menus\VarChangesMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Menus\VarChangesMenu.Designer.cs">
+      <DependentUpon>VarChangesMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Praccing\BrowseIssues.cs">
       <SubType>Form</SubType>
@@ -121,10 +145,10 @@
     <Compile Include="Forms\Praccing\PraccingEntry.Designer.cs">
       <DependentUpon>PraccingEntry.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Praccing\PraccingMenu.cs">
+    <Compile Include="Forms\Menus\PraccingMenu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Praccing\PraccingMenu.Designer.cs">
+    <Compile Include="Forms\Menus\PraccingMenu.Designer.cs">
       <DependentUpon>PraccingMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Praccing\PraccingReportForm.cs">
@@ -145,16 +169,28 @@
     <Compile Include="Forms\Praccing\SurveySelector.Designer.cs">
       <DependentUpon>SurveySelector.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Renames\VarChangeTracking.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Renames\VarChangeTracking.Designer.cs">
+      <DependentUpon>VarChangeTracking.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Report Forms\HeadingReportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Report Forms\HeadingReportForm.Designer.cs">
+      <DependentUpon>HeadingReportForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\SurveyCheckTracking.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\SurveyCheckTracking.designer.cs">
       <DependentUpon>SurveyCheckTracking.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\SurveyDraftImportForm.cs">
+    <Compile Include="Forms\Drafts\SurveyDraftImportForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\SurveyDraftImportForm.Designer.cs">
+    <Compile Include="Forms\Drafts\SurveyDraftImportForm.Designer.cs">
       <DependentUpon>SurveyDraftImportForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\zOld\AssignLabels2.cs">
@@ -241,10 +277,10 @@
     <Compile Include="Forms\QuickCommentEntry.Designer.cs">
       <DependentUpon>QuickCommentEntry.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\RenameVars.cs">
+    <Compile Include="Forms\Renames\RenameVars.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\RenameVars.Designer.cs">
+    <Compile Include="Forms\Renames\RenameVars.Designer.cs">
       <DependentUpon>RenameVars.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\SavedSources.cs">
@@ -516,17 +552,11 @@
     <Compile Include="Forms\Report Forms\VariableListReportForm.Designer.cs">
       <DependentUpon>VariableListReportForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\VarNameChangeMenu.cs">
+    <Compile Include="Forms\Menus\VarNameChangeMenu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\VarNameChangeMenu.Designer.cs">
+    <Compile Include="Forms\Menus\VarNameChangeMenu.Designer.cs">
       <DependentUpon>VarNameChangeMenu.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\VarNameChangeQuickEntry.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\VarNameChangeQuickEntry.Designer.cs">
-      <DependentUpon>VarNameChangeQuickEntry.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\VarNameUsage.cs">
       <SubType>Form</SubType>
@@ -558,8 +588,26 @@
     <Compile Include="Forms\Translation Importing\TranslationImporter.designer.cs">
       <DependentUpon>TranslationImporter.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Menus\SurveyDevMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Menus\SurveyDevMenu.Designer.cs">
+      <DependentUpon>SurveyDevMenu.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Forms\Drafts\DraftReportForm.resx">
+      <DependentUpon>DraftReportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Drafts\DraftManager.resx">
+      <DependentUpon>DraftManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Drafts\DraftSearch.resx">
+      <DependentUpon>DraftSearch.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AssignLabelsFilter.resx">
       <DependentUpon>AssignLabelsFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Menus\VarChangesMenu.resx">
+      <DependentUpon>VarChangesMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Praccing\BrowseIssues.resx">
       <DependentUpon>BrowseIssues.cs</DependentUpon>
@@ -582,7 +630,7 @@
     <EmbeddedResource Include="Forms\Praccing\PraccingEntry.resx">
       <DependentUpon>PraccingEntry.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Praccing\PraccingMenu.resx">
+    <EmbeddedResource Include="Forms\Menus\PraccingMenu.resx">
       <DependentUpon>PraccingMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Praccing\PraccingReportForm.resx">
@@ -594,10 +642,16 @@
     <EmbeddedResource Include="Forms\Praccing\SurveySelector.resx">
       <DependentUpon>SurveySelector.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Renames\VarChangeTracking.resx">
+      <DependentUpon>VarChangeTracking.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Report Forms\HeadingReportForm.resx">
+      <DependentUpon>HeadingReportForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\SurveyCheckTracking.resx">
       <DependentUpon>SurveyCheckTracking.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SurveyDraftImportForm.resx">
+    <EmbeddedResource Include="Forms\Drafts\SurveyDraftImportForm.resx">
       <DependentUpon>SurveyDraftImportForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\zOld\AssignLabels2.resx">
@@ -643,7 +697,7 @@
     <EmbeddedResource Include="Forms\QuickCommentEntry.resx">
       <DependentUpon>QuickCommentEntry.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\RenameVars.resx">
+    <EmbeddedResource Include="Forms\Renames\RenameVars.resx">
       <DependentUpon>RenameVars.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SavedSources.resx">
@@ -785,9 +839,6 @@
     <EmbeddedResource Include="Forms\Report Forms\VariableListReportForm.resx">
       <DependentUpon>VariableListReportForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\VarNameChangeQuickEntry.resx">
-      <DependentUpon>VarNameChangeQuickEntry.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\VarNameUsage.resx">
       <DependentUpon>VarNameUsage.cs</DependentUpon>
     </EmbeddedResource>
@@ -802,6 +853,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Translation Importing\TranslationImporter.resx">
       <DependentUpon>TranslationImporter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Menus\SurveyDevMenu.resx">
+      <DependentUpon>SurveyDevMenu.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -829,10 +883,28 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Outlook">
+      <Guid>{00062FFF-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>9</VersionMajor>
+      <VersionMinor>6</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
     <COMReference Include="Microsoft.Office.Interop.Word">
       <Guid>{00020905-0000-0000-C000-000000000046}</Guid>
       <VersionMajor>8</VersionMajor>
       <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
       <Lcid>0</Lcid>
       <WrapperTool>primary</WrapperTool>
       <Isolated>False</Isolated>

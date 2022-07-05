@@ -480,8 +480,14 @@ namespace ISISFrontEnd
                 if (image != null)
 
                 {
+                    DocumentFormat.OpenXml.Drawing.Pictures.Picture imageFirst;
+                    if (image.Inline == null)
+                        imageFirst = image.Anchor.Descendants<DocumentFormat.OpenXml.Drawing.Graphic>().FirstOrDefault().GraphicData.Descendants<DocumentFormat.OpenXml.Drawing.Pictures.Picture>().FirstOrDefault();
+                    else
+                        imageFirst = image.Inline.Graphic.GraphicData.Descendants<DocumentFormat.OpenXml.Drawing.Pictures.Picture>().FirstOrDefault();
 
-                    var imageFirst = image.Inline.Graphic.GraphicData.Descendants<DocumentFormat.OpenXml.Drawing.Pictures.Picture>().FirstOrDefault();
+                    // TODO check if Inline is null (fix it?)
+
                     var blip = imageFirst.BlipFill.Blip.Embed.Value;
 
                     if (imageList.Any(x => x.String1.Equals(blip)))
@@ -622,7 +628,11 @@ namespace ISISFrontEnd
 
                     if (image != null)
                     {
-                        var imageFirst = image.Inline.Graphic.GraphicData.Descendants<DocumentFormat.OpenXml.Drawing.Pictures.Picture>().FirstOrDefault();
+                        DocumentFormat.OpenXml.Drawing.Pictures.Picture imageFirst;
+                        if (image.Inline == null)
+                            imageFirst = image.Anchor.Descendants<DocumentFormat.OpenXml.Drawing.Graphic>().FirstOrDefault().GraphicData.Descendants<DocumentFormat.OpenXml.Drawing.Pictures.Picture>().FirstOrDefault();
+                        else
+                            imageFirst = image.Inline.Graphic.GraphicData.Descendants<DocumentFormat.OpenXml.Drawing.Pictures.Picture>().FirstOrDefault();
 
                         var blip = imageFirst.BlipFill.Blip.Embed.Value;
                         foreach (StringPair sp in images)
@@ -744,10 +754,13 @@ namespace ISISFrontEnd
                     Drawing image = r.Descendants<Drawing>().FirstOrDefault();
 
                     if (image != null)
-
                     {
 
-                        var imageFirst = image.Inline.Graphic.GraphicData.Descendants<DocumentFormat.OpenXml.Drawing.Pictures.Picture>().FirstOrDefault();
+                        DocumentFormat.OpenXml.Drawing.Pictures.Picture imageFirst;
+                        if (image.Inline == null)
+                            imageFirst = image.Anchor.Descendants<DocumentFormat.OpenXml.Drawing.Graphic>().FirstOrDefault().GraphicData.Descendants<DocumentFormat.OpenXml.Drawing.Pictures.Picture>().FirstOrDefault();
+                        else
+                            imageFirst = image.Inline.Graphic.GraphicData.Descendants<DocumentFormat.OpenXml.Drawing.Pictures.Picture>().FirstOrDefault();
 
                         var blip = imageFirst.BlipFill.Blip.Embed.Value;
                         foreach (StringPair sp in images)

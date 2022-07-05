@@ -91,7 +91,7 @@
             this.dataRepeater1.ItemTemplate.Controls.Add(this.rtbDescription);
             this.dataRepeater1.ItemTemplate.Controls.Add(this.txtIssueNo);
             this.dataRepeater1.ItemTemplate.Size = new System.Drawing.Size(768, 200);
-            this.dataRepeater1.Location = new System.Drawing.Point(12, 147);
+            this.dataRepeater1.Location = new System.Drawing.Point(12, 159);
             this.dataRepeater1.Name = "dataRepeater1";
             this.dataRepeater1.Size = new System.Drawing.Size(776, 558);
             this.dataRepeater1.TabIndex = 3;
@@ -236,9 +236,9 @@
             // label6
             // 
             this.label6.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(425, 57);
+            this.label6.Location = new System.Drawing.Point(425, 50);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(343, 52);
+            this.label6.Size = new System.Drawing.Size(343, 68);
             this.label6.TabIndex = 6;
             this.label6.Text = "Enter the variable name and intended recipient on the left and check if the issue" +
     " has laready been submitted below. You can go to any of the issues by clicking t" +
@@ -247,17 +247,17 @@
             // label7
             // 
             this.label7.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(425, 109);
+            this.label7.Location = new System.Drawing.Point(425, 118);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(343, 19);
+            this.label7.Size = new System.Drawing.Size(343, 35);
             this.label7.TabIndex = 7;
-            this.label7.Text = "If the issue is not found below, click Create new to start a new issue.";
+            this.label7.Text = "If the issue is not found below, click Create New to start a new issue.";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(84, 66);
+            this.label8.Location = new System.Drawing.Point(100, 66);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(47, 16);
             this.label8.TabIndex = 8;
@@ -267,7 +267,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(68, 93);
+            this.label9.Location = new System.Drawing.Point(80, 90);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(67, 16);
             this.label9.TabIndex = 9;
@@ -277,11 +277,11 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(7, 119);
+            this.label10.Location = new System.Drawing.Point(7, 116);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(146, 16);
+            this.label10.Size = new System.Drawing.Size(139, 16);
             this.label10.TabIndex = 10;
-            this.label10.Text = "Intendedn recipient/firm";
+            this.label10.Text = "Intended recipient/firm";
             // 
             // txtSurvey
             // 

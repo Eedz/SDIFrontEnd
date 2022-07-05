@@ -52,11 +52,110 @@ namespace ISISFrontEnd
             AdjustRouting();
         }
 
+        #region Events
+        private void TranslationViewer_Load(object sender, EventArgs e)
+        {
+            CurrentRecord = (TranslationRecord)bs.Current;
+        }
+
         private void Bs_ListChanged(object sender, ListChangedEventArgs e)
         {
             if (e.ListChangedType == ListChangedType.ItemChanged)
                 CurrentRecord.Dirty = true;
         }
+
+        private void cmdBold_Click(object sender, EventArgs e)
+        {
+            if (rtbTranslationText.SelectionFont.Bold)
+            {
+                rtbTranslationText.SelectionFont = new Font(rtbTranslationText.Font, FontStyle.Regular);
+            }
+            else
+            {
+                rtbTranslationText.SelectionFont = new Font(rtbTranslationText.Font, FontStyle.Bold);
+            }
+
+        }
+
+        private void cmdItalic_Click(object sender, EventArgs e)
+        {
+            if (rtbTranslationText.SelectionFont.Italic)
+            {
+                rtbTranslationText.SelectionFont = new Font(rtbTranslationText.Font, FontStyle.Regular);
+            }
+            else
+            {
+                rtbTranslationText.SelectionFont = new Font(rtbTranslationText.Font, FontStyle.Italic);
+            }
+
+        }
+
+        private void cmdSave_Click(object sender, EventArgs e)
+        {
+            UpdatePlainText();
+            if (SaveRecord() == 1)
+                return;
+        }
+
+        private void TranslationViewer_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            bs.EndEdit();
+            UpdatePlainText();
+            if (SaveRecord() == 1)
+            {
+                if (MessageBox.Show("This record has unsaved changes. Are you sure you want to close this record and lose those changes?", "Confirm close.", MessageBoxButtons.YesNo) == DialogResult.No)
+                    e.Cancel = true;
+            }
+
+        }
+
+        
+
+        #region Navigator Events
+
+        private void bindingNavigatorMoveNextItem_Click(object sender, EventArgs e)
+        {
+            bs.EndEdit();
+
+            if (SaveRecord() == 1)
+                return;
+
+            bs.MoveNext();
+        }
+
+        private void bindingNavigatorMoveLastItem_Click(object sender, EventArgs e)
+        {
+            bs.EndEdit();
+
+            if (SaveRecord() == 1)
+                return;
+
+            bs.MoveLast();
+        }
+
+        private void bindingNavigatorMovePreviousItem_Click(object sender, EventArgs e)
+        {
+            bs.EndEdit();
+
+            if (SaveRecord() == 1)
+                return;
+
+            bs.MovePrevious();
+        }
+
+        private void bindingNavigatorMoveFirstItem_Click(object sender, EventArgs e)
+        {
+            bs.EndEdit();
+
+            if (SaveRecord() == 1)
+                return;
+
+            bs.MoveFirst();
+        }
+
+        #endregion
+
+        #endregion
 
         public void UpdateForm(Survey survey, QuestionRecord question, SurveyLanguage language = null)
         {
@@ -112,21 +211,6 @@ namespace ISISFrontEnd
                 rtbTranslationText.RightToLeft = RightToLeft.No;
         }
 
-        static string GetRtfUnicodeEscapedString(string s)
-        {
-            var sb = new StringBuilder();
-            foreach (var c in s)
-            {
-                if (c == '\\' || c == '{' || c == '}')
-                    sb.Append(@"\" + c);
-                else if (c <= 0x7f)
-                    sb.Append(c);
-                else
-                    sb.Append("\\u" + Convert.ToUInt32(c) + "?");
-            }
-            return sb.ToString();
-        }
-
         private int SaveRecord()
         { 
             if (CurrentRecord.SaveRecord() == 1)
@@ -138,62 +222,9 @@ namespace ISISFrontEnd
             return 0;
         }
 
-        private void bindingNavigatorMoveNextItem_Click(object sender, EventArgs e)
-        {
-            bs.EndEdit();
+        
 
-            if (SaveRecord() == 1)
-                return;
-
-            bs.MoveNext();
-        }
-
-        private void bindingNavigatorMoveLastItem_Click(object sender, EventArgs e)
-        {
-            bs.EndEdit();
-
-            if (SaveRecord() == 1)
-                return;
-
-            bs.MoveLast();
-        }
-
-        private void bindingNavigatorMovePreviousItem_Click(object sender, EventArgs e)
-        {
-            bs.EndEdit();
-
-            if (SaveRecord() == 1)
-                return;
-
-            bs.MovePrevious();
-        }
-
-        private void bindingNavigatorMoveFirstItem_Click(object sender, EventArgs e)
-        {
-            bs.EndEdit();
-
-            if (SaveRecord() == 1)
-                return;
-
-            bs.MoveFirst();
-        }
-
-        private void TranslationViewer_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            bs.EndEdit();
-            UpdatePlainText();
-            if (SaveRecord() == 1)
-            {
-                if (MessageBox.Show("This record has unsaved changes. Are you sure you want to close this record and lose those changes?", "Confirm close.", MessageBoxButtons.YesNo) == DialogResult.No)
-                    e.Cancel = true;
-            }
-                
-        }
-
-        private void TranslationViewer_Load(object sender, EventArgs e)
-        {
-            CurrentRecord = (TranslationRecord)bs.Current;
-        }
+        
 
         private void UpdatePlainText()
         {
@@ -207,37 +238,6 @@ namespace ISISFrontEnd
             bs.ResetCurrentItem();
         }
 
-        private void cmdBold_Click(object sender, EventArgs e)
-        {
-            if (rtbTranslationText.SelectionFont.Bold)
-            {
-                rtbTranslationText.SelectionFont = new Font(rtbTranslationText.Font, FontStyle.Regular);
-            }
-            else
-            {
-                rtbTranslationText.SelectionFont = new Font(rtbTranslationText.Font, FontStyle.Bold);
-            }
-         
-        }
-
-        private void cmdItalic_Click(object sender, EventArgs e)
-        {
-            if (rtbTranslationText.SelectionFont.Italic)
-            {
-                rtbTranslationText.SelectionFont = new Font(rtbTranslationText.Font, FontStyle.Regular);
-            }
-            else
-            {
-                rtbTranslationText.SelectionFont = new Font(rtbTranslationText.Font, FontStyle.Italic);
-            }
-       
-        }
-
-        private void cmdSave_Click(object sender, EventArgs e)
-        {
-            UpdatePlainText();
-            if (SaveRecord() == 1)
-                return;
-        }
+        
     }
 }

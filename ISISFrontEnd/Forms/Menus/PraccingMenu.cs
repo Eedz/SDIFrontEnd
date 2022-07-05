@@ -34,9 +34,9 @@ namespace ISISFrontEnd
                 return;
             }
 
-            int survID = Globals.CurrentUser.PraccingEntrySurvey;
-            if (survID == 0)
-                survID = 899;
+            var state = Globals.CurrentUser.FormStates.Where(x => x.FormName.Equals("frmIssuesTracking") && x.FormNum == 1).First();
+            int survID=899;
+            if (state != null) survID = state.FilterID;
             PraccingEntry frm = new PraccingEntry(survID);
 
             frm.Tag = 1;

@@ -10,12 +10,19 @@ using System.Windows.Forms;
 using ITCLib;
 using System.IO;
 
+using OpenXMLHelper;
+using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Wordprocessing;
+using Word = Microsoft.Office.Interop.Word;
+
 // TODO CREATE USER SETTINGS FILE
+// TODO prevent 2 instances of same survey being open
 namespace ISISFrontEnd
 {
     public partial class MainMenu : Form
     {
-        public UserPrefs CurrentUser;       
+        public UserRecord CurrentUser;       
 
         public MainMenu()
         {
@@ -101,7 +108,7 @@ namespace ISISFrontEnd
                 return;
             }
             
-            SurveyEditor frm = new SurveyEditor(CurrentUser.SurveyEntryHistory[0].Key);
+            SurveyEditor frm = new SurveyEditor(CurrentUser.GetFilterID("frmSurveyEntry", 1));
             frm.Tag = 1;
             FormManager.Add(frm);
         }
@@ -113,8 +120,8 @@ namespace ISISFrontEnd
                 tabControl1.SelectTab("SurveyEditor2");
                 return;
             }
-
-            SurveyEditor frm = new SurveyEditor(CurrentUser.SurveyEntryHistory[1].Key);
+            
+            SurveyEditor frm = new SurveyEditor(CurrentUser.GetFilterID("frmSurveyEntry", 2));
             frm.Tag = 2;
             FormManager.Add(frm);
         }
@@ -127,7 +134,7 @@ namespace ISISFrontEnd
                 return;
             }
 
-            SurveyEditor frm = new SurveyEditor(CurrentUser.SurveyEntryHistory[2].Key);
+            SurveyEditor frm = new SurveyEditor(CurrentUser.GetFilterID("frmSurveyEntry", 3));
             frm.Tag = 3;
             FormManager.Add(frm);
         }
@@ -140,7 +147,7 @@ namespace ISISFrontEnd
                 return;
             }
 
-            SurveyEditor frm = new SurveyEditor(CurrentUser.SurveyEntryHistory[3].Key);
+            SurveyEditor frm = new SurveyEditor(CurrentUser.GetFilterID("frmSurveyEntry", 4));
             frm.Tag = 4;
             FormManager.Add(frm);
         }
@@ -153,7 +160,7 @@ namespace ISISFrontEnd
                 return;
             }
 
-            SurveyEditor frm = new SurveyEditor(CurrentUser.SurveyEntryHistory[4].Key);
+            SurveyEditor frm = new SurveyEditor(CurrentUser.GetFilterID("frmSurveyEntry", 5));
             frm.Tag = 5;
             FormManager.Add(frm);
         }
@@ -166,7 +173,7 @@ namespace ISISFrontEnd
                 return;
             }
 
-            SurveyEditor frm = new SurveyEditor(CurrentUser.SurveyEntryHistory[5].Key);
+            SurveyEditor frm = new SurveyEditor(CurrentUser.GetFilterID("frmSurveyEntry", 6));
             frm.Tag = 6;
             FormManager.Add(frm);
         }
@@ -214,11 +221,24 @@ namespace ISISFrontEnd
             FormManager.Add(frm);
         }
 
-        
+
 
         //
         // Variable Info
         // 
+
+        private void cmdOpenVarChangesMenu_Click(object sender, EventArgs e)
+        {
+            if (FormManager.FormOpen("VarChangesMenu"))
+            {
+                tabControl1.SelectTab("VarChangesMenu1");
+                return;
+            }
+
+            VarChangesMenu frm = new VarChangesMenu();
+            frm.Tag = 1;
+            FormManager.Add(frm);
+        }
 
         private void cmdOpenAssignLabels_Click(object sender, EventArgs e)
         {
@@ -346,6 +366,20 @@ namespace ISISFrontEnd
         //
         // Drafts
         //
+
+        private void cmdOpenSurvDevMenu_Click(object sender, EventArgs e)
+        {
+            if (FormManager.FormOpen("SurveyDevMenu"))
+            {
+                tabControl1.SelectTab("SurveyDevMenu1");
+                return;
+            }
+
+            SurveyDevMenu frm = new SurveyDevMenu();
+            frm.Tag = 1;
+            FormManager.Add(frm);
+        }
+
         private void cmdOpenDraftImporter_Click(object sender, EventArgs e)
         {
             if (FormManager.FormOpen("SurveyDraftImportForm"))
@@ -359,47 +393,7 @@ namespace ISISFrontEnd
         }
 
         //
-        // General
-        //
-
-        private void cmdOpenRegionInfo_Click(object sender, EventArgs e)
-        {
-            if (FormManager.FormOpen("RegionManager"))
-            {
-                tabControl1.SelectTab("RegionManager1");
-                return;
-            }
-
-            RegionManager frm = new RegionManager();
-            frm.Tag = 1;
-            FormManager.Add(frm);
-        }
-
-        private void cmdOpenStudyInfo_Click(object sender, EventArgs e)
-        {
-            if (FormManager.FormOpen("StudyManager"))
-            {
-                tabControl1.SelectTab("StudynManager1");
-                return;
-            }
-
-            StudyManager frm = new StudyManager();
-            frm.Tag = 1;
-            FormManager.Add(frm);
-        }
-
-        private void cmdOpenWaveInfo_Click(object sender, EventArgs e)
-        {
-            if (FormManager.FormOpen("WaveManager"))
-            {
-                tabControl1.SelectTab("WaveManager1");
-                return;
-            }
-
-            WaveManager frm = new WaveManager();
-            frm.Tag = 1;
-            FormManager.Add(frm);
-        }
+        
 
         private void cmdOpenStudyAttributes_Click(object sender, EventArgs e)
         {
@@ -496,6 +490,7 @@ namespace ISISFrontEnd
 
         #region Menu Bar
 
+        #region File
         private void countryToolStripMenuItem_Click(object sender, EventArgs e)
         {
             NewStudyEntry frm = new NewStudyEntry();
@@ -514,6 +509,14 @@ namespace ISISFrontEnd
             frm.ShowDialog();
         }
 
+        private void CloseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        #endregion
+
+        #region Edit
         private void LabelsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmLabelLibrary frm = new frmLabelLibrary();
@@ -553,7 +556,64 @@ namespace ISISFrontEnd
             frm.Tag = 1;
             FormManager.Add(frm);
         }
+        #endregion
 
+        #region View
+
+        private void regionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (FormManager.FormOpen("RegionManager"))
+            {
+                tabControl1.SelectTab("RegionManager1");
+                return;
+            }
+
+            RegionManager frm = new RegionManager();
+            frm.Tag = 1;
+            FormManager.Add(frm);
+        }
+
+        private void studiesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (FormManager.FormOpen("StudyManager"))
+            {
+                tabControl1.SelectTab("StudynManager1");
+                return;
+            }
+
+            StudyManager frm = new StudyManager();
+            frm.Tag = 1;
+            FormManager.Add(frm);
+        }
+
+        private void wavesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (FormManager.FormOpen("WaveManager"))
+            {
+                tabControl1.SelectTab("WaveManager1");
+                return;
+            }
+
+            WaveManager frm = new WaveManager();
+            frm.Tag = 1;
+            FormManager.Add(frm);
+        }
+
+        private void surveysToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (FormManager.FormOpen("SurveyManager"))
+            {
+                tabControl1.SelectTab("SurveyManager1");
+                return;
+            }
+
+            SurveyManager frm = new SurveyManager();
+            frm.Tag = 1;
+            FormManager.Add(frm);
+        }
+        #endregion
+
+        #region Tools
         private void PreferencesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             UserPreferencesForm frm = new UserPreferencesForm(CurrentUser);
@@ -566,6 +626,9 @@ namespace ISISFrontEnd
             SimilarWordsList frm = new SimilarWordsList();
             frm.ShowDialog();
         }
+        #endregion
+
+        #region Help
 
         private void HelpToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -576,11 +639,9 @@ namespace ISISFrontEnd
         {
             MessageBox.Show("SDI FrontEnd Ver 4.0");
         }
+        #endregion
 
-        private void CloseToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
+
 
         #endregion
 
@@ -675,12 +736,23 @@ namespace ISISFrontEnd
         /// </summary>
         public void LabelSurveyEditorButtons()
         {
-            cmdOpenSurveyEditor.Text = CurrentUser.SurveyEntryHistory[0].Key;
-            cmdOpenSurveyEditor2.Text = CurrentUser.SurveyEntryHistory[1].Key;
-            cmdOpenSurveyEditor3.Text = CurrentUser.SurveyEntryHistory[2].Key;
-            cmdOpenSurveyEditor4.Text = CurrentUser.SurveyEntryHistory[3].Key;
-            cmdOpenSurveyEditor5.Text = CurrentUser.SurveyEntryHistory[4].Key;
-            cmdOpenSurveyEditor6.Text = CurrentUser.SurveyEntryHistory[5].Key;
+            cmdOpenSurveyEditor.Text = GetEditorCode(1);
+            cmdOpenSurveyEditor2.Text = GetEditorCode(2);
+            cmdOpenSurveyEditor3.Text = GetEditorCode(3);
+            cmdOpenSurveyEditor4.Text = GetEditorCode(4);
+            cmdOpenSurveyEditor5.Text = GetEditorCode(5);
+            cmdOpenSurveyEditor6.Text = GetEditorCode(6);
+        }
+
+        public string GetEditorCode(int formNum)
+        {
+            int survID = CurrentUser.GetFilterID("frmSurveyEntry", formNum);
+            string surveyCode = string.Empty;
+            var survey = Globals.AllSurveys.Where(x => x.SID == survID).FirstOrDefault();
+            if (survey != null)
+                surveyCode = survey.SurveyCode;
+
+            return surveyCode;
         }
 
 
@@ -739,5 +811,212 @@ namespace ISISFrontEnd
         {
 
         }
+
+        private void cmdOpenPraccingEntry_Click(object sender, EventArgs e)
+        {
+
+            if (FormManager.FormOpen("PraccingEntry", 1))
+            {
+                ((MainMenu)FormManager.GetForm("MainMenu")).SelectTab("PraccingEntry1");
+                return;
+            }
+
+            var state = Globals.CurrentUser.FormStates.Where(x => x.FormName.Equals("frmIssuesTracking") && x.FormNum == 1).First();
+            int survID = 899;
+            if (state != null) survID = state.FilterID;
+            PraccingEntry frm = new PraccingEntry(survID);
+
+            frm.Tag = 1;
+            FormManager.Add(frm);
+        }
+
+        private void cmdOpenIssuesImport_Click(object sender, EventArgs e)
+        {
+            if (FormManager.FormOpen("frmPraccingIssuesImport", 1))
+            {
+                tabControl1.SelectTab("frmPraccingIssuesImport1");
+                return;
+            }
+
+            frmPraccingIssuesImport frm = new frmPraccingIssuesImport();
+
+            frm.Tag = 1;
+            FormManager.Add(frm);
+        }
+
+        private void cmdOpenPraccingReport_Click(object sender, EventArgs e)
+        {
+            if (FormManager.FormOpen("PraccingReportForm", 1))
+            {
+                tabControl1.SelectTab("PraccingReportForm1");
+                return;
+            }
+
+            PraccingReportForm frm = new PraccingReportForm();
+            frm.Tag = 1;
+            FormManager.Add(frm);
+        }
+
+        private void cmdPraccingSheet_Click(object sender, EventArgs e)
+        {
+            SurveySelector frm = new SurveySelector();
+            frm.ShowDialog();
+            Survey survey = frm.Selected;
+
+            if (survey == null)
+                return;
+
+            CreatePraccingSheet(survey);
+        }
+
+        private void cmdPraccingForm_Click(object sender, EventArgs e)
+        {
+            PraccingReportBlank report = new PraccingReportBlank();
+
+            report.CreateReport();
+        }
+
+        // Drafts
+
+        private void cmdOpenDraftManager_Click(object sender, EventArgs e)
+        {
+            if (FormManager.FormOpen("DraftManager"))
+            {
+                ((MainMenu)this.Parent.Parent.Parent).SelectTab("DraftManager1");
+                return;
+            }
+
+            DraftManager frm = new DraftManager();
+            frm.Tag = 1;
+            FormManager.Add(frm);
+        }
+
+        private void cmdOpenDraftSearch_Click(object sender, EventArgs e)
+        {
+            if (FormManager.FormOpen("DraftSearch"))
+            {
+                ((MainMenu)this.Parent.Parent.Parent).SelectTab("DraftSearch1");
+                return;
+            }
+
+            DraftSearch frm = new DraftSearch();
+            frm.Tag = 1;
+            FormManager.Add(frm);
+        }
+
+        private void cmdOpenDraftReport_Click(object sender, EventArgs e)
+        {
+            if (FormManager.FormOpen("DraftReport"))
+            {
+                return;
+            }
+            DraftReportForm frm = new DraftReportForm();
+            frm.Tag = 1;
+            FormManager.AddPopup(frm);
+        }
+
+        private void cmdOpenDraftImport_Click(object sender, EventArgs e)
+        {
+            if (FormManager.FormOpen("SurveyDraftImportForm"))
+            {
+                return;
+            }
+
+            SurveyDraftImportForm frm = new SurveyDraftImportForm();
+            frm.Tag = 1;
+            FormManager.AddPopup(frm);
+        }
+
+       
+
+
+        private void CreatePraccingSheet(Survey survey)
+        {
+            List<SurveyQuestion> questionList = DBAction.GetSurveyQuestions(survey).ToList();
+            int num_ids = 10;
+            string filePath = @"\\psychfile\psych$\psych-lab-gfong\SMG\Access\Reports\Praccing\" + survey.SurveyCode + " Praccing Sheet - " + DateTime.Now.ToString("g").Replace(":", ",") + ".docx";
+            string templateFile = @"\\psychfile\psych$\psych-lab-gfong\SMG\Access\Reports\Templates\SMGLandLet.dotx";
+
+            Word.Application appWord;
+            appWord = new Word.Application();
+            appWord.Visible = false;
+            Word.Document doc = appWord.Documents.Add(templateFile);
+            doc.SaveAs2(filePath);
+            doc.Close();
+
+            using (WordprocessingDocument wordDoc = WordprocessingDocument.Open(filePath, true))
+            {
+
+                Body body = new Body();
+                wordDoc.MainDocumentPart.Document.Append(body);
+
+                body.Append(XMLUtilities.NewParagraph(survey.SurveyCode + " Praccing Sheet", JustificationValues.Center, "32", "Verdana"));
+                body.Append(XMLUtilities.NewParagraph("", JustificationValues.Center, "32", "Verdana"));
+
+                Table table = XMLUtilities.NewTable(12);
+
+                XMLUtilities.SetColumnWidths(table, new double[] { 0.92, 0.92, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7 });
+
+                TableRow header = XMLUtilities.CreateHeaderRow(new string[] { "Qnum", "VarName", "", "", "", "", "", "", "", "", "", "" });
+
+                IEnumerable<TableCell> cells = header.Elements<TableCell>();
+
+                foreach (TableCell c in cells)
+                {
+                    RunProperties rPr = c.Descendants<RunProperties>().First();
+                    rPr.Append(new RunFonts() { Ascii = "Verdana" });
+                    rPr.Append(new FontSize() { Val = "20" });
+                }
+
+                table.Append(header);
+
+                foreach (SurveyQuestion q in questionList)
+                {
+                    TableRow row = new TableRow();
+
+                    TableCell qnum = new TableCell();
+                    ParagraphProperties pPr = new ParagraphProperties(new SpacingBetweenLines() { Before = "0", After = "0", Line = "240", LineRule = LineSpacingRuleValues.Auto, AfterAutoSpacing = false, BeforeAutoSpacing = false });
+                    qnum.Append(new Paragraph(pPr, new Run(new Text(q.Qnum))));
+                    row.Append(qnum);
+
+                    TableCell varname = new TableCell();
+                    ParagraphProperties pPr2 = new ParagraphProperties(new SpacingBetweenLines() { Before = "0", After = "0", Line = "240", LineRule = LineSpacingRuleValues.Auto, AfterAutoSpacing = false, BeforeAutoSpacing = false });
+                    varname.Append(new Paragraph(pPr2, new Run(new Text(q.VarName.VarName))));
+                    row.Append(varname);
+
+                    for (int c = 0; c < num_ids; c++)
+                    {
+                        TableCell cell = new TableCell();
+                        ParagraphProperties pPr3 = new ParagraphProperties(new SpacingBetweenLines() { Before = "0", After = "0", Line = "240", LineRule = LineSpacingRuleValues.Auto, AfterAutoSpacing = false, BeforeAutoSpacing = false });
+
+                        row.Append(new TableCell(new Paragraph(pPr3, new Run(new Text()))));
+                    }
+
+
+
+                    table.Append(row);
+                }
+
+                body.Append(table);
+            }
+
+            try
+            {
+                doc = appWord.Documents.Open(filePath);
+
+                // footer text                  
+                foreach (Word.Section s in doc.Sections)
+                    s.Footers[Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range.InsertAfter("\t" + survey.SurveyCode + " Praccing Sheet" +
+                        "\t\t" + "Generated on " + DateTime.Today.ToString("d"));
+
+                appWord.Visible = true;
+            }
+            catch (Exception)
+            {
+                appWord.Quit();
+            }
+        }
+
+        
     }
 }

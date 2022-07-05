@@ -44,17 +44,18 @@ namespace ISISFrontEnd
 
         private void ViewQuestionComments_Load(object sender, EventArgs e)
         {
-            //if (dataRepeater1.ItemCount == 0)
-            //{
-            //    this.Height = minHeight + +dataRepeater1.ItemTemplate.Height;
-            //}else if (dataRepeater1.ItemCount <=3)
-            //{
-            //    this.Height = minHeight + dataRepeater1.ItemTemplate.Height * dataRepeater1.ItemCount;
-            //}
-            //else
-            //{
-            //    this.Height = maxHeight;
-            //}
+            if (dataRepeater1.ItemCount == 0)
+            {
+                this.Height = minHeight + +dataRepeater1.ItemTemplate.Height;
+            }
+            else if (dataRepeater1.ItemCount <= 3)
+            {
+                this.Height = minHeight + dataRepeater1.ItemTemplate.Height * dataRepeater1.ItemCount;
+            }
+            else
+            {
+                this.Height = maxHeight;
+            }
         }
 
         /// <summary>
@@ -77,7 +78,6 @@ namespace ISISFrontEnd
         {
             var panel = (Panel)e.DataRepeaterItem.Controls.Find("panel1", false)[0];
             var dataRepeater = (Microsoft.VisualBasic.PowerPacks.DataRepeater)sender;
-            var questionDataRepeater = (Microsoft.VisualBasic.PowerPacks.DataRepeater)dataRepeater.Parent.Parent;
             var datasource = ((BindingSource)dataRepeater.DataSource);
             var currentQuestion = ((QuestionComment)datasource[e.DataRepeaterItem.ItemIndex]);
 

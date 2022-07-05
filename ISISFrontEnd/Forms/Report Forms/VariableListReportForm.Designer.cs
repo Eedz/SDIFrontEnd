@@ -34,8 +34,8 @@
             this.lstVarName = new System.Windows.Forms.ListBox();
             this.cmdGenerate = new System.Windows.Forms.Button();
             this.gpScope = new System.Windows.Forms.GroupBox();
-            this.rbBySurvey = new System.Windows.Forms.RadioButton();
             this.rbByWave = new System.Windows.Forms.RadioButton();
+            this.rbBySurvey = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -86,14 +86,14 @@
             this.lstSurvey.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.lstSurvey.Name = "lstSurvey";
             this.lstSurvey.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.lstSurvey.Size = new System.Drawing.Size(139, 244);
+            this.lstSurvey.Size = new System.Drawing.Size(124, 244);
             this.lstSurvey.TabIndex = 2;
             // 
             // lstVarName
             // 
             this.lstVarName.FormattingEnabled = true;
             this.lstVarName.ItemHeight = 16;
-            this.lstVarName.Location = new System.Drawing.Point(451, 137);
+            this.lstVarName.Location = new System.Drawing.Point(435, 137);
             this.lstVarName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.lstVarName.Name = "lstVarName";
             this.lstVarName.Size = new System.Drawing.Size(122, 212);
@@ -101,7 +101,7 @@
             // 
             // cmdGenerate
             // 
-            this.cmdGenerate.Location = new System.Drawing.Point(488, 374);
+            this.cmdGenerate.Location = new System.Drawing.Point(472, 374);
             this.cmdGenerate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmdGenerate.Name = "cmdGenerate";
             this.cmdGenerate.Size = new System.Drawing.Size(85, 39);
@@ -123,6 +123,18 @@
             this.gpScope.TabStop = false;
             this.gpScope.Text = "Report Type";
             // 
+            // rbByWave
+            // 
+            this.rbByWave.AutoSize = true;
+            this.rbByWave.Location = new System.Drawing.Point(32, 52);
+            this.rbByWave.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.rbByWave.Name = "rbByWave";
+            this.rbByWave.Size = new System.Drawing.Size(75, 20);
+            this.rbByWave.TabIndex = 1;
+            this.rbByWave.Text = "By Wave";
+            this.rbByWave.UseVisualStyleBackColor = true;
+            this.rbByWave.Click += new System.EventHandler(this.TypeChanged_Click);
+            // 
             // rbBySurvey
             // 
             this.rbBySurvey.AutoSize = true;
@@ -135,22 +147,12 @@
             this.rbBySurvey.TabStop = true;
             this.rbBySurvey.Text = "By Survey";
             this.rbBySurvey.UseVisualStyleBackColor = true;
-            // 
-            // rbByWave
-            // 
-            this.rbByWave.AutoSize = true;
-            this.rbByWave.Location = new System.Drawing.Point(32, 52);
-            this.rbByWave.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.rbByWave.Name = "rbByWave";
-            this.rbByWave.Size = new System.Drawing.Size(75, 20);
-            this.rbByWave.TabIndex = 1;
-            this.rbByWave.Text = "By Wave";
-            this.rbByWave.UseVisualStyleBackColor = true;
+            this.rbBySurvey.Click += new System.EventHandler(this.TypeChanged_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(176, 79);
+            this.label1.Location = new System.Drawing.Point(171, 79);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(50, 16);
             this.label1.TabIndex = 7;
@@ -168,7 +170,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(347, 79);
+            this.label3.Location = new System.Drawing.Point(341, 79);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(53, 16);
             this.label3.TabIndex = 9;
@@ -252,34 +254,41 @@
             // 
             // cboVarNameBox
             // 
+            this.cboVarNameBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboVarNameBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cboVarNameBox.DropDownWidth = 125;
             this.cboVarNameBox.FormattingEnabled = true;
-            this.cboVarNameBox.Location = new System.Drawing.Point(451, 105);
+            this.cboVarNameBox.Location = new System.Drawing.Point(435, 105);
             this.cboVarNameBox.Name = "cboVarNameBox";
-            this.cboVarNameBox.Size = new System.Drawing.Size(93, 24);
+            this.cboVarNameBox.Size = new System.Drawing.Size(87, 24);
             this.cboVarNameBox.TabIndex = 20;
             // 
             // cmdAddVar
             // 
-            this.cmdAddVar.Location = new System.Drawing.Point(548, 105);
+            this.cmdAddVar.Location = new System.Drawing.Point(525, 105);
             this.cmdAddVar.Name = "cmdAddVar";
-            this.cmdAddVar.Size = new System.Drawing.Size(13, 23);
+            this.cmdAddVar.Size = new System.Drawing.Size(17, 23);
             this.cmdAddVar.TabIndex = 21;
-            this.cmdAddVar.Text = "v";
+            this.cmdAddVar.Text = "+";
+            this.cmdAddVar.UseCompatibleTextRendering = true;
             this.cmdAddVar.UseVisualStyleBackColor = true;
+            this.cmdAddVar.Click += new System.EventHandler(this.cmdAddVar_Click);
             // 
             // cmdRemoveVar
             // 
-            this.cmdRemoveVar.Location = new System.Drawing.Point(560, 105);
+            this.cmdRemoveVar.Location = new System.Drawing.Point(541, 105);
             this.cmdRemoveVar.Name = "cmdRemoveVar";
-            this.cmdRemoveVar.Size = new System.Drawing.Size(13, 23);
+            this.cmdRemoveVar.Size = new System.Drawing.Size(17, 23);
             this.cmdRemoveVar.TabIndex = 22;
-            this.cmdRemoveVar.Text = "^";
+            this.cmdRemoveVar.Text = "-";
+            this.cmdRemoveVar.UseCompatibleTextRendering = true;
             this.cmdRemoveVar.UseVisualStyleBackColor = true;
+            this.cmdRemoveVar.Click += new System.EventHandler(this.cmdRemoveVar_Click);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(506, 77);
+            this.label7.Location = new System.Drawing.Point(469, 79);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(67, 16);
             this.label7.TabIndex = 23;
@@ -289,7 +298,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.ClientSize = new System.Drawing.Size(583, 435);
+            this.ControlBox = false;
             this.Controls.Add(this.label7);
             this.Controls.Add(this.cmdRemoveVar);
             this.Controls.Add(this.cmdAddVar);
@@ -310,8 +321,10 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "VariableListReportForm";
-            this.Text = "VariableListReport";
+            this.Text = "Variable List";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.VariableListReportForm_FormClosing);
             this.gpScope.ResumeLayout(false);
             this.gpScope.PerformLayout();

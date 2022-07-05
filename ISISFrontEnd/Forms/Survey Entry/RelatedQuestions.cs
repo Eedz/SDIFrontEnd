@@ -37,7 +37,7 @@ namespace ISISFrontEnd
             MainQuestion = mainQuestion;
             FormNumber = formNumber;
 
-            SurveyGlob = Globals.CurrentUser.SurveyEditorRelated[FormNumber];
+            SurveyGlob = Globals.CurrentUser.GetFilter("sfrmSurveyEntryBrown", FormNumber);
             SurveyGlob = SurveyGlob == "" ? "%" : SurveyGlob;
 
             Questions = new BindingList<QuestionRecord>();
@@ -314,8 +314,12 @@ namespace ISISFrontEnd
 
         private void RelatedQuestions_FormClosed(object sender, FormClosedEventArgs e)
         {
-            DBAction.UpdateFormFilter("sfrmSurveyEntryBrown", FormNumber, (string)cboSurveyFilter.SelectedItem, 0, Globals.CurrentUser);
-            Globals.CurrentUser.SurveyEditorRelated[FormNumber] = (string)cboSurveyFilter.SelectedItem;
+            FormStateRecord state = Globals.CurrentUser.FormStates.Where(x => x.FormName.Equals("sfrmSurveyEntryBrown") && x.FormNum == FormNumber).FirstOrDefault();
+            state.Filter = (string)cboSurveyFilter.SelectedItem;
+            state.RecordPosition = 0;
+            state.Dirty = true;
+            state.SaveRecord();
+            
             bs.Dispose();
             bsTranslations.Dispose();
         }

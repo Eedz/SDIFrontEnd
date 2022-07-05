@@ -15,7 +15,7 @@ namespace ISISFrontEnd
         public static string AutoSurveysPath = @"\\psychfile\psych$\psych-lab-gfong\SMG\Access\Reports\Automatic Surveys\";
 
         // users
-        public static UserPrefs CurrentUser;
+        public static UserRecord CurrentUser;
 
         // surveys
         public static List<RegionRecord> AllRegions;
@@ -105,8 +105,6 @@ namespace ISISFrontEnd
             CurrentUser.LastUsedComment = DBAction.GetLastUsedComments(CurrentUser.userid);
             CurrentUser.SavedComments = DBAction.GetSavedComments(CurrentUser.userid);
             CurrentUser.SavedSources = DBAction.GetSavedSources(CurrentUser.userid);
-            CurrentUser.PraccingEntrySurvey = DBAction.GetPraccingEntrySurvey(CurrentUser);
-            DBAction.FillUserSurveyFilters(CurrentUser);
         }
 
         public static EventHandler RefreshPeople;

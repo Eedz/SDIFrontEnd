@@ -337,7 +337,7 @@ namespace ISISFrontEnd
             if (!lstSelVar.Items.Contains(refVarName))
                 lstSelVar.Items.Add(refVarName);
 
-            if (cboVarNames.SelectedIndex>0)
+            if (cboVarNames.SelectedIndex>=0)
                 cboVarNames.SelectedIndex++;
         }
 
