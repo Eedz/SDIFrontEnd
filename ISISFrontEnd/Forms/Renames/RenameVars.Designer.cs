@@ -115,7 +115,7 @@
             this.optRefVarName.TabStop = true;
             this.optRefVarName.Text = "refVarName";
             this.optRefVarName.UseVisualStyleBackColor = true;
-            this.optRefVarName.CheckedChanged += new System.EventHandler(this.Scope_CheckedChanged);
+            this.optRefVarName.Click += new System.EventHandler(this.Scope_Click);
             // 
             // optVarName
             // 
@@ -128,7 +128,7 @@
             this.optVarName.TabStop = true;
             this.optVarName.Text = "VarName";
             this.optVarName.UseVisualStyleBackColor = true;
-            this.optVarName.CheckedChanged += new System.EventHandler(this.Scope_CheckedChanged);
+            this.optVarName.Click += new System.EventHandler(this.Scope_Click);
             // 
             // label2
             // 

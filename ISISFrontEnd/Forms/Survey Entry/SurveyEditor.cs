@@ -561,10 +561,11 @@ namespace ISISFrontEnd
         private void Bs_PositionChanged(object sender, EventArgs e)
         {
             CurrentRecord = (QuestionRecord)bs.Current;
-            bs.ResetBindings(false);
-            
+
             if (CurrentRecord == null)
                 return;
+
+            bs.ResetBindings(false);         
 
             if (frmRelated != null && !frmRelated.IsDisposed)
                 frmRelated.UpdateForm(CurrentRecord);

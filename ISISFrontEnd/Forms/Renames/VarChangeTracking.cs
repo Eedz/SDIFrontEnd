@@ -17,6 +17,7 @@ namespace ISISFrontEnd
         // TODO indicate deleted var
         // TODO toggle hidden/prefws
         // TODO undo change
+        // TODO save all 
 
         BindingList<VarNameChangeRecord> Records;
         VarNameChangeRecord CurrentRecord;
@@ -24,6 +25,8 @@ namespace ISISFrontEnd
         BindingSource bs;
         BindingSource bsNotify;
         BindingSource bsSurveys;
+
+        bool SaveAll = false; // indicates if all records should be saved when closing
 
         public VarChangeTracking()
         {
@@ -49,13 +52,13 @@ namespace ISISFrontEnd
             BindProperties();
         }
 
-        public VarChangeTracking (List<VarNameChangeRecord> records) : base()
+        public VarChangeTracking (List<VarNameChangeRecord> records, bool saveAll) : this()
         {
             lblSurvey.Visible = false;
             cboSurvey.Visible = false;
             chkToggleHistory.Visible = false;
             dataRepeater1.Visible = false;
-
+            SaveAll = saveAll;
             LoadRecords(records);
         }
 
@@ -100,7 +103,16 @@ namespace ISISFrontEnd
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SaveRecord();
+            if (SaveAll)
+            {
+                foreach (VarNameChangeRecord record in Records)
+                    record.SaveRecord();
+            }
+            else
+            {
+                SaveRecord();
+            }
+
             Close();
             FormManager.Remove(this);
         }
@@ -318,6 +330,9 @@ namespace ISISFrontEnd
 
         private int SaveRecord()
         {
+            if (CurrentRecord == null)
+                return 0;
+
             bs.EndEdit();
 
             if (CurrentRecord.SaveRecord() == 1)

@@ -11,7 +11,8 @@ using ITCLib;
 
 namespace ISISFrontEnd
 {
-    // TODO test 
+    // TODO test documentation and failed renames
+    // TODO test new renamer
 
     public partial class RenameVars : Form
     {
@@ -28,8 +29,8 @@ namespace ISISFrontEnd
         {
             InitializeComponent();
 
-            VarNameList = Globals.AllVarNames;
-            RefVarNameList = Globals.AllRefVarNames;
+            VarNameList = new List<VariableName>(Globals.AllVarNames);
+            RefVarNameList = new List<RefVariableName>(Globals.AllRefVarNames);
 
             Failed = new List<string>();
 
@@ -65,21 +66,11 @@ namespace ISISFrontEnd
 
         #region Events
 
-        private void Scope_CheckedChanged(object sender, EventArgs e)
+        private void Scope_Click(object sender, EventArgs e)
         {
-            if (optRefVarName.Checked)
-            {
-                
-                
-            }
-            else
-            {
-                
-                
-            }
+            lstSurveyList.DataSource = null;
             UpdateVarList();
             UpdateStatus();
-
         }
 
         private void cboSource_SelectedIndexChanged(object sender, EventArgs e)
@@ -126,92 +117,38 @@ namespace ISISFrontEnd
 
         private void cmdRename_Click(object sender, EventArgs e)
         {
-            PerformRename();
+            
+            RefVariableName source = (RefVariableName)cboSource.SelectedItem;
+            RefVariableName dest = (RefVariableName)cboDest.SelectedItem;
+            List<Survey> surveyList = lstSurveyList.SelectedItems.Cast<Survey>().ToList();
+            VarRenamer renamer = new VarRenamer(source, dest, surveyList);
+            
+            renamer.PerformRefRename();
+
+            if (renamer.FailedRenames.Count > 0)
+            {
+                MessageBox.Show("Some renames were not performed: " + string.Join(", ", renamer.FailedRenames));
+            }
+
+            // document rename, fill in 'changed by' name and notifications
+            foreach (VarNameChangeRecord change in renamer.Changes)
+            {
+                change.ChangedBy = Globals.AllPeople.Where(x => x.ID == Globals.CurrentUser.userid).First(); 
+                foreach (Person autoNotify in Globals.AllPeople.Where(x => x.VarNameChangeNotify && x.Active).ToList())
+                {
+                    change.Notifications.Add(new VarNameChangeNotificationRecord() { PersonID = autoNotify.ID, Name = autoNotify.Name, NotifyType = "Auto-email" });
+                }
+            }
+
+            VarChangeTracking frm = new VarChangeTracking(renamer.Changes, true);
+            frm.ShowDialog();            
         }
 
         #endregion
 
         #region Methods
 
-        private void PerformRename()
-        {
-            RefVariableName source = (RefVariableName)cboSource.SelectedItem;
-            RefVariableName dest = (RefVariableName)cboDest.SelectedItem;
-            List<Survey> surveyList = (List<Survey>)lstSurveyList.SelectedItems.Cast<Survey>().ToList();
-
-            // create a list of change objects
-            List<VarNameChangeRecord> changes = new List<VarNameChangeRecord>();
-            foreach (Survey s in surveyList)
-            {
-                VarNameChangeSurveyRecord sr = new VarNameChangeSurveyRecord();
-                sr.NewRecord = true;
-                sr.SurveyCode = s.SurveyCode;
-
-                string oldname = Utilities.ChangeCC(source.RefVarName, s.CountryCode);
-                string newname = Utilities.ChangeCC(source.RefVarName, s.CountryCode);
-
-                var existingChange = changes.FirstOrDefault(x => x.NewName.Equals(newname));
-                if (existingChange != null)
-                {
-                    existingChange.SurveysAffected.Add(sr);
-                    continue;
-                }
-                VarNameChangeRecord change = new VarNameChangeRecord();
-                change.NewRecord = true;
-                change.OldName = oldname;
-                change.NewName = newname;
-                change.ChangeDate = DateTime.Now;
-                change.ChangedBy = (PersonRecord)Globals.AllPeople.Where(x => x.ID == Globals.CurrentUser.userid).First();
-
-                var autoNotifications = Globals.AllPeople.Where(x => x.VarNameChangeNotify).ToList();
-                foreach (PersonRecord autoNotify in autoNotifications)
-                {
-                    change.Notifications.Add(new VarNameChangeNotificationRecord() { PersonID = autoNotify.ID, Name = autoNotify.Name, NotifyType = "Auto-email" });
-                }
-
-                change.SurveysAffected.Add(sr);
-
-                changes.Add(change);
-            }
-
-            // rename vars in surveys
-            foreach (Survey s in surveyList)
-            {
-
-                RenameVariable(source.RefVarName, dest.RefVarName, s.SurveyCode);
-            }
-            // rename in wordings
-            var successes = surveyList.Where(x => !Failed.Contains(x.SurveyCode));
-
-            foreach (Survey s in successes)
-            {
-                UpdatePreP(source, dest, s.SurveyCode);
-                UpdatePreI(source, dest, s.SurveyCode);
-                UpdatePreA(source, dest, s.SurveyCode);
-                UpdateLitQ(source, dest, s.SurveyCode);
-                UpdatePstI(source, dest, s.SurveyCode);
-                UpdatePstP(source, dest, s.SurveyCode);
-            }
-
-            // document rename
-
-
-            VarChangeTracking frm = new VarChangeTracking(changes);
-            frm.ShowDialog();
-
-            // delete var?
-            foreach (Survey s in successes)
-            {
-
-            }
-
-            // check for failures
-            if (Failed.Count > 0)
-            {
-                MessageBox.Show("Some VarNames were not changed.");
-                // TODO show list of surveys that failed.
-            }
-        }
+      
 
         private void Reset()
         {
@@ -228,27 +165,49 @@ namespace ISISFrontEnd
                 return;
             }
             List<string> surveyNames = DBAction.GetRefVarNameSurveys(refvar.RefVarName);
-            
-            lstSurveyList.DataSource = Globals.AllSurveys.Where(x => surveyNames.Contains(x.SurveyCode)).ToList();
+
             lstSurveyList.DisplayMember = "SurveyCode";
             lstSurveyList.ValueMember = "SID";
+            lstSurveyList.DataSource = Globals.AllSurveys.Where(x => surveyNames.Contains(x.SurveyCode)).ToList();
+            
         }
 
         private void UpdateStatus()
         {
-            RefVariableName source = (RefVariableName)cboSource.SelectedItem;
-            RefVariableName dest = (RefVariableName)cboDest.SelectedItem;
-
-            string errorMessages = ErrorsExist(source, dest, out bool error);
-            cmdRename.Enabled = !error;
-
-            if (error)
+            string infoMessages;
+            if (optVarName.Checked)
             {
-                txtStatus.Text = errorMessages;
-                return;
-            }
+                VariableName source = (VariableName)cboSource.SelectedItem;
+                VariableName dest = (VariableName)cboDest.SelectedItem;
 
-            string infoMessages = GetInfo(source, dest);
+                string errorMessages = ErrorsExist(source, dest, out bool error);
+                cmdRename.Enabled = !error;
+
+                if (error)
+                {
+                    txtStatus.Text = errorMessages;
+                    return;
+                }
+
+                infoMessages = GetInfo(source, dest);
+            }
+            else
+            {
+                RefVariableName source = (RefVariableName)cboSource.SelectedItem;
+                RefVariableName dest = (RefVariableName)cboDest.SelectedItem;
+
+                string errorMessages = ErrorsExist(source, dest, out bool error);
+                cmdRename.Enabled = !error;
+
+                if (error)
+                {
+                    txtStatus.Text = errorMessages;
+                    return;
+                }
+
+                infoMessages = GetInfo(source, dest);
+            }
+            
 
 
             txtStatus.Text = infoMessages;
@@ -260,29 +219,35 @@ namespace ISISFrontEnd
         {
             cboSource.SelectedIndexChanged -= cboSource_SelectedIndexChanged;
             cboDest.SelectedIndexChanged -= cboDest_SelectedIndexChanged;
+
+            cboSource.DataSource = null;
+            cboDest.Items.Clear();
             if (optRefVarName.Checked)
             {
-                cboSource.DataSource = new List<RefVariableName>(RefVarNameList);
                 cboSource.DisplayMember = "RefVarName";
                 cboSource.ValueMember = "RefVarName";
+                cboSource.DataSource = RefVarNameList;
+
+                cboDest.DisplayMember = "RefVarName";
+                cboDest.ValueMember = "RefVarName";
 
                 foreach (RefVariableName refVar in RefVarNameList)
                     cboDest.Items.Add(refVar);
 
-                cboDest.DisplayMember = "RefVarName";
-                cboDest.ValueMember = "RefVarName";
+                
             }
             else if (optVarName.Checked)
             {
-                cboSource.DataSource = new List<VariableName>(VarNameList);
                 cboSource.DisplayMember = "VarName";
                 cboSource.ValueMember = "VarName";
-
-                foreach (VariableName refVar in VarNameList)
-                    cboDest.Items.Add(refVar);
+                cboSource.DataSource = VarNameList;
 
                 cboDest.DisplayMember = "VarName";
                 cboDest.ValueMember = "VarName";
+                foreach (VariableName refVar in VarNameList)
+                    cboDest.Items.Add(refVar);
+
+                
             }
 
             cboSource.SelectedItem = null;
@@ -322,7 +287,74 @@ namespace ISISFrontEnd
             return msg.ToString();
         }
 
+        private string GetInfo(VariableName source, VariableName dest)
+        {
+            StringBuilder msg = new StringBuilder();
+
+            // check if destination exists
+            if (!DestinationExists(dest))
+            {
+                msg.AppendLine("Info: " + dest.RefVarName + " doesn't exist and will be created.");
+            }
+
+            if (lstSurveyList.SelectedIndices.Count > 0)
+            {
+                msg.AppendLine("Renames to be performed:");
+                // list all coded varnames that will be created
+                foreach (Survey s in lstSurveyList.SelectedItems)
+                {
+                    msg.AppendLine(s.SurveyCode + ": " + source.VarName + " -> " + dest.VarName);
+                }
+            }
+
+
+            return msg.ToString();
+        }
+
         private string ErrorsExist(RefVariableName source, RefVariableName dest, out bool error)
+        {
+            StringBuilder msg = new StringBuilder();
+            error = false;
+
+            // check for blank
+            if (source == null)
+            {
+                error = true;
+                msg.AppendLine("Error: source is empty.");
+            }
+            if (dest == null)
+            {
+                error = true;
+                msg.AppendLine("Error: destination is empty.");
+            }
+            if (source == null || dest == null)
+                return msg.ToString();
+
+            // check if destination and source are the same
+            if (source.Equals(dest))
+            {
+                error = true;
+                msg.AppendLine("Error: source and destination are the same.");
+            }
+
+            // check if destination is already in one of the surveys
+            if (ExistsInSurveys(dest.RefVarName))
+            {
+                error = true;
+                msg.AppendLine("Error: destination already exists in one or more selected surveys.");
+            }
+
+            // check if destination is a temp var
+            if (Globals.AllTempPrefixes.Contains(dest.Prefix))
+            {
+                error = true;
+                msg.AppendLine("Error: destination is a temporary varname.");
+            }
+
+            return msg.ToString();
+        }
+
+        private string ErrorsExist(VariableName source, VariableName dest, out bool error)
         {
             StringBuilder msg = new StringBuilder();
             error = false;
@@ -377,137 +409,15 @@ namespace ISISFrontEnd
             return Globals.AllRefVarNames.Contains(var);
         }
 
-        private void UpdatePreP(RefVariableName oldname, RefVariableName newname, string survey)
+        private bool DestinationExists(VariableName var)
         {
-            // get a list of PrePs in this survey that contain the old name
-            List<Wording> preps = DBAction.GetSurveyPreP(oldname.RefVarName, survey);
-
-            foreach (Wording w in preps)
-            {
-                int oldID = w.WordID; // save the old ID
-                // upsert the wording
-                DBAction.UpdatePreP(w, oldname.RefVarName, newname.RefVarName, false); // potentially get a new ID
-
-                if (oldID != w.WordID)
-                {
-                    DBAction.UpdateSurveyPreP(survey, oldID, w.WordID);
-                }
-            }
+            return Globals.AllVarNames.Contains(var);
         }
 
-        private void UpdatePreI(RefVariableName oldname, RefVariableName newname, string survey)
-        {
-            // get a list of PreIs in this survey that contain the old name
-            List<Wording> preis = DBAction.GetSurveyPreI(oldname.RefVarName, survey);
-
-            foreach (Wording w in preis)
-            {
-                int oldID = w.WordID; // save the old ID
-                                      // upsert the wording
-                    DBAction.UpdatePreI(w, oldname.RefVarName, newname.RefVarName, false); // potentially get a new ID
-                if (oldID != w.WordID)
-                {
-                    DBAction.UpdateSurveyPreI(survey, oldID, w.WordID);
-                }
-            }
-        }
-
-        private void UpdatePreA(RefVariableName oldname, RefVariableName newname, string survey)
-        {
-            // get a list of PreAs in this survey that contain the old name
-            List<Wording> preas = DBAction.GetSurveyPreI(oldname.RefVarName, survey);
-
-            foreach (Wording w in preas)
-            {
-                int oldID = w.WordID; // save the old ID
-                                      // upsert the wording
-                DBAction.UpdatePreA(w, oldname.RefVarName, newname.RefVarName, false); // potentially get a new ID
-                if (oldID != w.WordID)
-                {
-                    DBAction.UpdateSurveyPreA(survey, oldID, w.WordID);
-                }
-            }
-        }
-
-        private void UpdateLitQ(RefVariableName oldname, RefVariableName newname, string survey)
-        {
-            // get a list of LitQs in this survey that contain the old name
-            List<Wording> litqs = DBAction.GetSurveyPreI(oldname.RefVarName, survey);
-
-            foreach (Wording w in litqs)
-            {
-                int oldID = w.WordID; // save the old ID
-                                      // upsert the wording
-                DBAction.UpdateLitQ(w, oldname.RefVarName, newname.RefVarName, false); // potentially get a new ID
-                if (oldID != w.WordID)
-                {
-                    DBAction.UpdateSurveyLitQ(survey, oldID, w.WordID);
-                }
-            }
-        }
-
-        private void UpdatePstI(RefVariableName oldname, RefVariableName newname, string survey)
-        {
-            // get a list of PstIs in this survey that contain the old name
-            List<Wording> pstis = DBAction.GetSurveyPreI(oldname.RefVarName, survey);
-
-            foreach (Wording w in pstis)
-            {
-                int oldID = w.WordID; // save the old ID
-                                      // upsert the wording
-                DBAction.UpdatePstI(w, oldname.RefVarName, newname.RefVarName, false); // potentially get a new ID
-                if (oldID != w.WordID)
-                {
-                    DBAction.UpdateSurveyPstI(survey, oldID, w.WordID);
-                }
-            }
-        }
-
-        private void UpdatePstP(RefVariableName oldname, RefVariableName newname, string survey)
-        {
-            // get a list of PstPs in this survey that contain the old name
-            List<Wording> pstps = DBAction.GetSurveyPreI(oldname.RefVarName, survey);
-
-            foreach (Wording w in pstps)
-            {
-                int oldID = w.WordID; // save the old ID
-                                      // upsert the wording
-                DBAction.UpdatePstP(w, oldname.RefVarName, newname.RefVarName, false); // potentially get a new ID
-                if (oldID != w.WordID)
-                {
-                    DBAction.UpdateSurveyPstP(survey, oldID, w.WordID);
-                }
-            }
-        }
-
-        private void RenameVariable (string oldname, string newname, string survey)
-        {
-            Failed.Clear();
-
-            if (DBAction.RenameVariableName(oldname, newname, survey) == 1)
-            {
-                Failed.Add(survey);
-            }
-        }
-
-        private void RenameVariable(List<VarNameChange> changes)
-        {
-            Failed.Clear();
-            foreach (VarNameChange change in changes)
-            {
-                foreach (Survey s in change.SurveysAffected)
-                {
-                    if (DBAction.RenameVariableName(change.OldName, change.NewName, s.SurveyCode) == 1)
-                    {
-                        Failed.Add(s.SurveyCode);
-                    }
-                }
-                
-            }
-            
-        }
+        
 
         #endregion
 
+        
     }
 }

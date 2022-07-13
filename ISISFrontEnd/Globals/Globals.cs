@@ -29,6 +29,7 @@ namespace ISISFrontEnd
         public static List<VariableName> AllVarNames;
         public static List<RefVariableName> AllRefVarNames;
         public static List<CanonicalVariableRecord> AllCanonVars;
+        public static List<string> AllTempPrefixes;
 
         // wordings
         public static List<Wording> AllPreP;
@@ -89,6 +90,7 @@ namespace ISISFrontEnd
             AllVarNames = DBAction.GetAllVarNames();
             AllRefVarNames = DBAction.GetAllRefVarNames();
             AllCanonVars = DBAction.GetAllCanonVars();
+            AllTempPrefixes = new List<string>() { "NW", "NU", "NV", "NX", "NY", "NZ", "NO", "NS", "NM" };
             AllCommentTypes = DBAction.GetCommentTypes();
             AllNotes = DBAction.GetNotes();
             AllPreP = DBAction.GetWordings("PreP");

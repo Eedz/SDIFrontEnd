@@ -44,5 +44,16 @@ namespace ISISFrontEnd
             frm.Tag = 1;
             FormManager.Add(frm);
         }
+
+        private void cmdOpenRenameBulk_Click(object sender, EventArgs e)
+        {
+            if (FormManager.FormOpen("RenameVarsBulk"))
+            {
+                return;
+            }
+            RenameVarsBulk frm = new RenameVarsBulk();
+            frm.Tag = 1;
+            FormManager.Add(frm);
+        }
     }
 }

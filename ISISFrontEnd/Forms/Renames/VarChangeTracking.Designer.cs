@@ -362,6 +362,7 @@
             this.dgvNotifications.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.chNotifyName,
             this.chNotifyType});
+            this.dgvNotifications.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dgvNotifications.Location = new System.Drawing.Point(507, 34);
             this.dgvNotifications.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.dgvNotifications.Name = "dgvNotifications";
@@ -387,6 +388,7 @@
             this.dgvSurveys.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvSurveys.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.chSurvey});
+            this.dgvSurveys.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dgvSurveys.Location = new System.Drawing.Point(371, 34);
             this.dgvSurveys.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.dgvSurveys.Name = "dgvSurveys";
@@ -476,6 +478,8 @@
             // 
             // cboSurvey
             // 
+            this.cboSurvey.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboSurvey.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboSurvey.FormattingEnabled = true;
             this.cboSurvey.Location = new System.Drawing.Point(332, 96);
             this.cboSurvey.Name = "cboSurvey";

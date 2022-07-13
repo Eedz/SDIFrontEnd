@@ -87,6 +87,7 @@
             this.cmdOpenRenameBulk.TabIndex = 3;
             this.cmdOpenRenameBulk.Text = "Bulk Variable Rename";
             this.cmdOpenRenameBulk.UseVisualStyleBackColor = true;
+            this.cmdOpenRenameBulk.Click += new System.EventHandler(this.cmdOpenRenameBulk_Click);
             // 
             // cmdOpenVarChangeTracking
             // 
