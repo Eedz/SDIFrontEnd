@@ -17,7 +17,6 @@ namespace ISISFrontEnd
         // TODO indicate deleted var
         // TODO toggle hidden/prefws
         // TODO undo change
-        // TODO save all 
 
         BindingList<VarNameChangeRecord> Records;
         VarNameChangeRecord CurrentRecord;

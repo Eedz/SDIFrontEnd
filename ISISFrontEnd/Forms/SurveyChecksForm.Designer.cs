@@ -72,19 +72,11 @@
             this.rtbSeriesErrorLitQ = new System.Windows.Forms.RichTextBox();
             this.rtbSeriesStarterPreA = new System.Windows.Forms.RichTextBox();
             this.rtbSeriesErrorPreA = new System.Windows.Forms.RichTextBox();
-            this.txtSeriesStarterPstP = new System.Windows.Forms.TextBox();
-            this.txtSeriesStarterPstI = new System.Windows.Forms.TextBox();
             this.txtSeriesStarterNR = new System.Windows.Forms.TextBox();
             this.txtSeriesStarterRO = new System.Windows.Forms.TextBox();
-            this.txtSeriesStarterPreI = new System.Windows.Forms.TextBox();
-            this.txtSeriesErrorPstP = new System.Windows.Forms.TextBox();
-            this.txtSeriesErrorPstI = new System.Windows.Forms.TextBox();
             this.txtSeriesErrorNR = new System.Windows.Forms.TextBox();
             this.txtSeriesErrorRO = new System.Windows.Forms.TextBox();
-            this.txtSeriesErrorPreI = new System.Windows.Forms.TextBox();
-            this.txtSeriesStarterPreP = new System.Windows.Forms.TextBox();
             this.lblSeriesStarter = new System.Windows.Forms.Label();
-            this.txtSeriesErrorPreP = new System.Windows.Forms.TextBox();
             this.lblSeriesError = new System.Windows.Forms.Label();
             this.lstSeriesErrors = new System.Windows.Forms.ListBox();
             this.pageSeriesConsistency2 = new System.Windows.Forms.TabPage();
@@ -113,6 +105,14 @@
             this.cmdRunChecks = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rtbSeriesErrorPstI = new System.Windows.Forms.RichTextBox();
+            this.rtbSeriesStarterPstI = new System.Windows.Forms.RichTextBox();
+            this.rtbSeriesErrorPreP = new System.Windows.Forms.RichTextBox();
+            this.rtbSeriesStarterPreP = new System.Windows.Forms.RichTextBox();
+            this.rtbSeriesErrorPreI = new System.Windows.Forms.RichTextBox();
+            this.rtbSeriesStarterPreI = new System.Windows.Forms.RichTextBox();
+            this.rtbSeriesErrorPstP = new System.Windows.Forms.RichTextBox();
+            this.rtbSeriesStarterPstP = new System.Windows.Forms.RichTextBox();
             this.tabResults.SuspendLayout();
             this.pageRoutingCheck.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.navRouting)).BeginInit();
@@ -176,12 +176,13 @@
             // 
             // cmdSectionsCheck
             // 
-            this.cmdSectionsCheck.Location = new System.Drawing.Point(1047, 30);
+            this.cmdSectionsCheck.Location = new System.Drawing.Point(1323, 30);
             this.cmdSectionsCheck.Name = "cmdSectionsCheck";
             this.cmdSectionsCheck.Size = new System.Drawing.Size(75, 46);
             this.cmdSectionsCheck.TabIndex = 0;
             this.cmdSectionsCheck.Text = "Sections Check";
             this.cmdSectionsCheck.UseVisualStyleBackColor = true;
+            this.cmdSectionsCheck.Visible = false;
             this.cmdSectionsCheck.Click += new System.EventHandler(this.cmdSectionsCheck_Click);
             // 
             // chkExcludeSeriesCheck
@@ -241,7 +242,7 @@
             this.tabResults.Location = new System.Drawing.Point(325, 30);
             this.tabResults.Name = "tabResults";
             this.tabResults.SelectedIndex = 0;
-            this.tabResults.Size = new System.Drawing.Size(715, 542);
+            this.tabResults.Size = new System.Drawing.Size(996, 715);
             this.tabResults.TabIndex = 10;
             // 
             // pageRoutingCheck
@@ -265,7 +266,7 @@
             this.pageRoutingCheck.Location = new System.Drawing.Point(4, 25);
             this.pageRoutingCheck.Name = "pageRoutingCheck";
             this.pageRoutingCheck.Padding = new System.Windows.Forms.Padding(3);
-            this.pageRoutingCheck.Size = new System.Drawing.Size(707, 513);
+            this.pageRoutingCheck.Size = new System.Drawing.Size(988, 626);
             this.pageRoutingCheck.TabIndex = 0;
             this.pageRoutingCheck.Text = "Routing Check";
             // 
@@ -406,14 +407,14 @@
             this.bindingNavigatorMoveNextItem,
             this.bindingNavigatorMoveLastItem,
             this.bindingNavigatorSeparator2});
-            this.navRouting.Location = new System.Drawing.Point(3, 485);
+            this.navRouting.Location = new System.Drawing.Point(3, 598);
             this.navRouting.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.navRouting.MoveLastItem = this.bindingNavigatorMoveLastItem;
             this.navRouting.MoveNextItem = this.bindingNavigatorMoveNextItem;
             this.navRouting.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.navRouting.Name = "navRouting";
             this.navRouting.PositionItem = this.bindingNavigatorPositionItem;
-            this.navRouting.Size = new System.Drawing.Size(701, 25);
+            this.navRouting.Size = new System.Drawing.Size(982, 25);
             this.navRouting.TabIndex = 0;
             this.navRouting.Text = "bindingNavigator1";
             // 
@@ -487,30 +488,30 @@
             // pageSeriesConsistency
             // 
             this.pageSeriesConsistency.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.pageSeriesConsistency.Controls.Add(this.rtbSeriesStarterPstP);
+            this.pageSeriesConsistency.Controls.Add(this.rtbSeriesErrorPstP);
+            this.pageSeriesConsistency.Controls.Add(this.rtbSeriesStarterPreI);
+            this.pageSeriesConsistency.Controls.Add(this.rtbSeriesErrorPreI);
+            this.pageSeriesConsistency.Controls.Add(this.rtbSeriesStarterPreP);
+            this.pageSeriesConsistency.Controls.Add(this.rtbSeriesErrorPreP);
+            this.pageSeriesConsistency.Controls.Add(this.rtbSeriesStarterPstI);
+            this.pageSeriesConsistency.Controls.Add(this.rtbSeriesErrorPstI);
             this.pageSeriesConsistency.Controls.Add(this.lblSeriesCheckDesc);
             this.pageSeriesConsistency.Controls.Add(this.rtbSeriesStarterLitQ);
             this.pageSeriesConsistency.Controls.Add(this.rtbSeriesErrorLitQ);
             this.pageSeriesConsistency.Controls.Add(this.rtbSeriesStarterPreA);
             this.pageSeriesConsistency.Controls.Add(this.rtbSeriesErrorPreA);
-            this.pageSeriesConsistency.Controls.Add(this.txtSeriesStarterPstP);
-            this.pageSeriesConsistency.Controls.Add(this.txtSeriesStarterPstI);
             this.pageSeriesConsistency.Controls.Add(this.txtSeriesStarterNR);
             this.pageSeriesConsistency.Controls.Add(this.txtSeriesStarterRO);
-            this.pageSeriesConsistency.Controls.Add(this.txtSeriesStarterPreI);
-            this.pageSeriesConsistency.Controls.Add(this.txtSeriesErrorPstP);
-            this.pageSeriesConsistency.Controls.Add(this.txtSeriesErrorPstI);
             this.pageSeriesConsistency.Controls.Add(this.txtSeriesErrorNR);
             this.pageSeriesConsistency.Controls.Add(this.txtSeriesErrorRO);
-            this.pageSeriesConsistency.Controls.Add(this.txtSeriesErrorPreI);
-            this.pageSeriesConsistency.Controls.Add(this.txtSeriesStarterPreP);
             this.pageSeriesConsistency.Controls.Add(this.lblSeriesStarter);
-            this.pageSeriesConsistency.Controls.Add(this.txtSeriesErrorPreP);
             this.pageSeriesConsistency.Controls.Add(this.lblSeriesError);
             this.pageSeriesConsistency.Controls.Add(this.lstSeriesErrors);
             this.pageSeriesConsistency.Location = new System.Drawing.Point(4, 25);
             this.pageSeriesConsistency.Name = "pageSeriesConsistency";
             this.pageSeriesConsistency.Padding = new System.Windows.Forms.Padding(3);
-            this.pageSeriesConsistency.Size = new System.Drawing.Size(707, 513);
+            this.pageSeriesConsistency.Size = new System.Drawing.Size(988, 686);
             this.pageSeriesConsistency.TabIndex = 1;
             this.pageSeriesConsistency.Text = "Series Check";
             // 
@@ -527,146 +528,82 @@
             // rtbSeriesStarterLitQ
             // 
             this.rtbSeriesStarterLitQ.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.rtbSeriesStarterLitQ.Location = new System.Drawing.Point(441, 211);
+            this.rtbSeriesStarterLitQ.Location = new System.Drawing.Point(573, 292);
             this.rtbSeriesStarterLitQ.Name = "rtbSeriesStarterLitQ";
-            this.rtbSeriesStarterLitQ.Size = new System.Drawing.Size(245, 54);
+            this.rtbSeriesStarterLitQ.Size = new System.Drawing.Size(353, 95);
             this.rtbSeriesStarterLitQ.TabIndex = 24;
             this.rtbSeriesStarterLitQ.Text = "";
             // 
             // rtbSeriesErrorLitQ
             // 
             this.rtbSeriesErrorLitQ.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.rtbSeriesErrorLitQ.Location = new System.Drawing.Point(191, 214);
+            this.rtbSeriesErrorLitQ.Location = new System.Drawing.Point(191, 292);
             this.rtbSeriesErrorLitQ.Name = "rtbSeriesErrorLitQ";
-            this.rtbSeriesErrorLitQ.Size = new System.Drawing.Size(226, 51);
+            this.rtbSeriesErrorLitQ.Size = new System.Drawing.Size(376, 95);
             this.rtbSeriesErrorLitQ.TabIndex = 23;
             this.rtbSeriesErrorLitQ.Text = "";
             // 
             // rtbSeriesStarterPreA
             // 
-            this.rtbSeriesStarterPreA.Location = new System.Drawing.Point(441, 159);
+            this.rtbSeriesStarterPreA.Location = new System.Drawing.Point(573, 196);
             this.rtbSeriesStarterPreA.Name = "rtbSeriesStarterPreA";
-            this.rtbSeriesStarterPreA.Size = new System.Drawing.Size(245, 49);
+            this.rtbSeriesStarterPreA.Size = new System.Drawing.Size(353, 90);
             this.rtbSeriesStarterPreA.TabIndex = 22;
             this.rtbSeriesStarterPreA.Text = "";
             // 
             // rtbSeriesErrorPreA
             // 
-            this.rtbSeriesErrorPreA.Location = new System.Drawing.Point(191, 159);
+            this.rtbSeriesErrorPreA.Location = new System.Drawing.Point(191, 196);
             this.rtbSeriesErrorPreA.Name = "rtbSeriesErrorPreA";
-            this.rtbSeriesErrorPreA.Size = new System.Drawing.Size(226, 49);
+            this.rtbSeriesErrorPreA.Size = new System.Drawing.Size(376, 90);
             this.rtbSeriesErrorPreA.TabIndex = 21;
             this.rtbSeriesErrorPreA.Text = "";
             // 
-            // txtSeriesStarterPstP
-            // 
-            this.txtSeriesStarterPstP.Location = new System.Drawing.Point(441, 454);
-            this.txtSeriesStarterPstP.Multiline = true;
-            this.txtSeriesStarterPstP.Name = "txtSeriesStarterPstP";
-            this.txtSeriesStarterPstP.Size = new System.Drawing.Size(245, 41);
-            this.txtSeriesStarterPstP.TabIndex = 20;
-            // 
-            // txtSeriesStarterPstI
-            // 
-            this.txtSeriesStarterPstI.Location = new System.Drawing.Point(441, 408);
-            this.txtSeriesStarterPstI.Multiline = true;
-            this.txtSeriesStarterPstI.Name = "txtSeriesStarterPstI";
-            this.txtSeriesStarterPstI.Size = new System.Drawing.Size(245, 41);
-            this.txtSeriesStarterPstI.TabIndex = 19;
-            // 
             // txtSeriesStarterNR
             // 
-            this.txtSeriesStarterNR.Location = new System.Drawing.Point(441, 360);
+            this.txtSeriesStarterNR.Location = new System.Drawing.Point(573, 483);
             this.txtSeriesStarterNR.Multiline = true;
             this.txtSeriesStarterNR.Name = "txtSeriesStarterNR";
-            this.txtSeriesStarterNR.Size = new System.Drawing.Size(245, 43);
+            this.txtSeriesStarterNR.Size = new System.Drawing.Size(353, 43);
             this.txtSeriesStarterNR.TabIndex = 18;
             // 
             // txtSeriesStarterRO
             // 
-            this.txtSeriesStarterRO.Location = new System.Drawing.Point(441, 271);
+            this.txtSeriesStarterRO.Location = new System.Drawing.Point(573, 393);
             this.txtSeriesStarterRO.Multiline = true;
             this.txtSeriesStarterRO.Name = "txtSeriesStarterRO";
-            this.txtSeriesStarterRO.Size = new System.Drawing.Size(245, 84);
+            this.txtSeriesStarterRO.Size = new System.Drawing.Size(353, 84);
             this.txtSeriesStarterRO.TabIndex = 17;
-            // 
-            // txtSeriesStarterPreI
-            // 
-            this.txtSeriesStarterPreI.Location = new System.Drawing.Point(441, 112);
-            this.txtSeriesStarterPreI.Multiline = true;
-            this.txtSeriesStarterPreI.Name = "txtSeriesStarterPreI";
-            this.txtSeriesStarterPreI.Size = new System.Drawing.Size(245, 45);
-            this.txtSeriesStarterPreI.TabIndex = 14;
-            // 
-            // txtSeriesErrorPstP
-            // 
-            this.txtSeriesErrorPstP.Location = new System.Drawing.Point(191, 454);
-            this.txtSeriesErrorPstP.Multiline = true;
-            this.txtSeriesErrorPstP.Name = "txtSeriesErrorPstP";
-            this.txtSeriesErrorPstP.Size = new System.Drawing.Size(226, 41);
-            this.txtSeriesErrorPstP.TabIndex = 13;
-            // 
-            // txtSeriesErrorPstI
-            // 
-            this.txtSeriesErrorPstI.Location = new System.Drawing.Point(191, 408);
-            this.txtSeriesErrorPstI.Multiline = true;
-            this.txtSeriesErrorPstI.Name = "txtSeriesErrorPstI";
-            this.txtSeriesErrorPstI.Size = new System.Drawing.Size(226, 41);
-            this.txtSeriesErrorPstI.TabIndex = 12;
             // 
             // txtSeriesErrorNR
             // 
-            this.txtSeriesErrorNR.Location = new System.Drawing.Point(191, 361);
+            this.txtSeriesErrorNR.Location = new System.Drawing.Point(191, 484);
             this.txtSeriesErrorNR.Multiline = true;
             this.txtSeriesErrorNR.Name = "txtSeriesErrorNR";
-            this.txtSeriesErrorNR.Size = new System.Drawing.Size(226, 41);
+            this.txtSeriesErrorNR.Size = new System.Drawing.Size(376, 41);
             this.txtSeriesErrorNR.TabIndex = 11;
             // 
             // txtSeriesErrorRO
             // 
-            this.txtSeriesErrorRO.Location = new System.Drawing.Point(191, 271);
+            this.txtSeriesErrorRO.Location = new System.Drawing.Point(191, 393);
             this.txtSeriesErrorRO.Multiline = true;
             this.txtSeriesErrorRO.Name = "txtSeriesErrorRO";
-            this.txtSeriesErrorRO.Size = new System.Drawing.Size(226, 84);
+            this.txtSeriesErrorRO.Size = new System.Drawing.Size(376, 84);
             this.txtSeriesErrorRO.TabIndex = 10;
-            // 
-            // txtSeriesErrorPreI
-            // 
-            this.txtSeriesErrorPreI.Location = new System.Drawing.Point(191, 112);
-            this.txtSeriesErrorPreI.Multiline = true;
-            this.txtSeriesErrorPreI.Name = "txtSeriesErrorPreI";
-            this.txtSeriesErrorPreI.Size = new System.Drawing.Size(226, 41);
-            this.txtSeriesErrorPreI.TabIndex = 7;
-            // 
-            // txtSeriesStarterPreP
-            // 
-            this.txtSeriesStarterPreP.Location = new System.Drawing.Point(441, 65);
-            this.txtSeriesStarterPreP.Multiline = true;
-            this.txtSeriesStarterPreP.Name = "txtSeriesStarterPreP";
-            this.txtSeriesStarterPreP.Size = new System.Drawing.Size(245, 41);
-            this.txtSeriesStarterPreP.TabIndex = 6;
             // 
             // lblSeriesStarter
             // 
             this.lblSeriesStarter.AutoSize = true;
-            this.lblSeriesStarter.Location = new System.Drawing.Point(522, 46);
+            this.lblSeriesStarter.Location = new System.Drawing.Point(704, 42);
             this.lblSeriesStarter.Name = "lblSeriesStarter";
             this.lblSeriesStarter.Size = new System.Drawing.Size(88, 16);
             this.lblSeriesStarter.TabIndex = 5;
             this.lblSeriesStarter.Text = "Series Starter";
             // 
-            // txtSeriesErrorPreP
-            // 
-            this.txtSeriesErrorPreP.Location = new System.Drawing.Point(191, 65);
-            this.txtSeriesErrorPreP.Multiline = true;
-            this.txtSeriesErrorPreP.Name = "txtSeriesErrorPreP";
-            this.txtSeriesErrorPreP.Size = new System.Drawing.Size(226, 41);
-            this.txtSeriesErrorPreP.TabIndex = 4;
-            // 
             // lblSeriesError
             // 
             this.lblSeriesError.AutoSize = true;
-            this.lblSeriesError.Location = new System.Drawing.Point(249, 46);
+            this.lblSeriesError.Location = new System.Drawing.Point(351, 42);
             this.lblSeriesError.Name = "lblSeriesError";
             this.lblSeriesError.Size = new System.Drawing.Size(77, 16);
             this.lblSeriesError.TabIndex = 3;
@@ -678,7 +615,7 @@
             this.lstSeriesErrors.ItemHeight = 16;
             this.lstSeriesErrors.Location = new System.Drawing.Point(16, 59);
             this.lstSeriesErrors.Name = "lstSeriesErrors";
-            this.lstSeriesErrors.Size = new System.Drawing.Size(153, 436);
+            this.lstSeriesErrors.Size = new System.Drawing.Size(153, 612);
             this.lstSeriesErrors.TabIndex = 0;
             this.lstSeriesErrors.SelectedIndexChanged += new System.EventHandler(this.lstSeriesErrors_SelectedIndexChanged);
             // 
@@ -692,7 +629,7 @@
             this.pageSeriesConsistency2.Location = new System.Drawing.Point(4, 25);
             this.pageSeriesConsistency2.Name = "pageSeriesConsistency2";
             this.pageSeriesConsistency2.Padding = new System.Windows.Forms.Padding(3);
-            this.pageSeriesConsistency2.Size = new System.Drawing.Size(707, 513);
+            this.pageSeriesConsistency2.Size = new System.Drawing.Size(988, 626);
             this.pageSeriesConsistency2.TabIndex = 2;
             this.pageSeriesConsistency2.Text = "Series Compare";
             // 
@@ -724,7 +661,7 @@
             this.pageBlankLabels.Location = new System.Drawing.Point(4, 25);
             this.pageBlankLabels.Name = "pageBlankLabels";
             this.pageBlankLabels.Padding = new System.Windows.Forms.Padding(3);
-            this.pageBlankLabels.Size = new System.Drawing.Size(707, 513);
+            this.pageBlankLabels.Size = new System.Drawing.Size(988, 626);
             this.pageBlankLabels.TabIndex = 3;
             this.pageBlankLabels.Text = "Blank Labels";
             // 
@@ -758,7 +695,7 @@
             this.chBLProduct});
             this.lstBlankLabels.Location = new System.Drawing.Point(9, 51);
             this.lstBlankLabels.Name = "lstBlankLabels";
-            this.lstBlankLabels.Size = new System.Drawing.Size(692, 456);
+            this.lstBlankLabels.Size = new System.Drawing.Size(971, 569);
             this.lstBlankLabels.TabIndex = 0;
             this.lstBlankLabels.UseCompatibleStateImageBehavior = false;
             this.lstBlankLabels.View = System.Windows.Forms.View.Details;
@@ -800,7 +737,7 @@
             this.pageYQnums.Location = new System.Drawing.Point(4, 25);
             this.pageYQnums.Name = "pageYQnums";
             this.pageYQnums.Padding = new System.Windows.Forms.Padding(3);
-            this.pageYQnums.Size = new System.Drawing.Size(707, 513);
+            this.pageYQnums.Size = new System.Drawing.Size(988, 626);
             this.pageYQnums.TabIndex = 4;
             this.pageYQnums.Text = "\'y\' Qnums";
             // 
@@ -842,7 +779,7 @@
             this.pageCanonVars.Location = new System.Drawing.Point(4, 25);
             this.pageCanonVars.Name = "pageCanonVars";
             this.pageCanonVars.Padding = new System.Windows.Forms.Padding(3);
-            this.pageCanonVars.Size = new System.Drawing.Size(707, 513);
+            this.pageCanonVars.Size = new System.Drawing.Size(988, 626);
             this.pageCanonVars.TabIndex = 5;
             this.pageCanonVars.Text = "Canonical Vars";
             // 
@@ -874,7 +811,7 @@
             this.pageTranslationVars.Location = new System.Drawing.Point(4, 25);
             this.pageTranslationVars.Name = "pageTranslationVars";
             this.pageTranslationVars.Padding = new System.Windows.Forms.Padding(3);
-            this.pageTranslationVars.Size = new System.Drawing.Size(707, 513);
+            this.pageTranslationVars.Size = new System.Drawing.Size(988, 626);
             this.pageTranslationVars.TabIndex = 6;
             this.pageTranslationVars.Text = "Translation Vars";
             // 
@@ -904,7 +841,7 @@
             this.closeToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1246, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1408, 24);
             this.menuStrip1.TabIndex = 12;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -915,12 +852,84 @@
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
+            // rtbSeriesErrorPstI
+            // 
+            this.rtbSeriesErrorPstI.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbSeriesErrorPstI.Location = new System.Drawing.Point(191, 531);
+            this.rtbSeriesErrorPstI.Name = "rtbSeriesErrorPstI";
+            this.rtbSeriesErrorPstI.Size = new System.Drawing.Size(376, 59);
+            this.rtbSeriesErrorPstI.TabIndex = 26;
+            this.rtbSeriesErrorPstI.Text = "";
+            // 
+            // rtbSeriesStarterPstI
+            // 
+            this.rtbSeriesStarterPstI.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbSeriesStarterPstI.Location = new System.Drawing.Point(573, 532);
+            this.rtbSeriesStarterPstI.Name = "rtbSeriesStarterPstI";
+            this.rtbSeriesStarterPstI.Size = new System.Drawing.Size(353, 59);
+            this.rtbSeriesStarterPstI.TabIndex = 27;
+            this.rtbSeriesStarterPstI.Text = "";
+            // 
+            // rtbSeriesErrorPreP
+            // 
+            this.rtbSeriesErrorPreP.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbSeriesErrorPreP.Location = new System.Drawing.Point(191, 59);
+            this.rtbSeriesErrorPreP.Name = "rtbSeriesErrorPreP";
+            this.rtbSeriesErrorPreP.Size = new System.Drawing.Size(376, 61);
+            this.rtbSeriesErrorPreP.TabIndex = 28;
+            this.rtbSeriesErrorPreP.Text = "";
+            // 
+            // rtbSeriesStarterPreP
+            // 
+            this.rtbSeriesStarterPreP.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbSeriesStarterPreP.Location = new System.Drawing.Point(573, 59);
+            this.rtbSeriesStarterPreP.Name = "rtbSeriesStarterPreP";
+            this.rtbSeriesStarterPreP.Size = new System.Drawing.Size(353, 61);
+            this.rtbSeriesStarterPreP.TabIndex = 29;
+            this.rtbSeriesStarterPreP.Text = "";
+            // 
+            // rtbSeriesErrorPreI
+            // 
+            this.rtbSeriesErrorPreI.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbSeriesErrorPreI.Location = new System.Drawing.Point(191, 126);
+            this.rtbSeriesErrorPreI.Name = "rtbSeriesErrorPreI";
+            this.rtbSeriesErrorPreI.Size = new System.Drawing.Size(376, 64);
+            this.rtbSeriesErrorPreI.TabIndex = 30;
+            this.rtbSeriesErrorPreI.Text = "";
+            // 
+            // rtbSeriesStarterPreI
+            // 
+            this.rtbSeriesStarterPreI.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbSeriesStarterPreI.Location = new System.Drawing.Point(573, 126);
+            this.rtbSeriesStarterPreI.Name = "rtbSeriesStarterPreI";
+            this.rtbSeriesStarterPreI.Size = new System.Drawing.Size(353, 64);
+            this.rtbSeriesStarterPreI.TabIndex = 31;
+            this.rtbSeriesStarterPreI.Text = "";
+            // 
+            // rtbSeriesErrorPstP
+            // 
+            this.rtbSeriesErrorPstP.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbSeriesErrorPstP.Location = new System.Drawing.Point(191, 594);
+            this.rtbSeriesErrorPstP.Name = "rtbSeriesErrorPstP";
+            this.rtbSeriesErrorPstP.Size = new System.Drawing.Size(376, 77);
+            this.rtbSeriesErrorPstP.TabIndex = 32;
+            this.rtbSeriesErrorPstP.Text = "";
+            // 
+            // rtbSeriesStarterPstP
+            // 
+            this.rtbSeriesStarterPstP.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbSeriesStarterPstP.Location = new System.Drawing.Point(573, 594);
+            this.rtbSeriesStarterPstP.Name = "rtbSeriesStarterPstP";
+            this.rtbSeriesStarterPstP.Size = new System.Drawing.Size(353, 77);
+            this.rtbSeriesStarterPstP.TabIndex = 33;
+            this.rtbSeriesStarterPstP.Text = "";
+            // 
             // SurveyChecksForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.ClientSize = new System.Drawing.Size(1246, 697);
+            this.ClientSize = new System.Drawing.Size(1408, 757);
             this.Controls.Add(this.cmdRunChecks);
             this.Controls.Add(this.cmdSectionsCheck);
             this.Controls.Add(this.tabResults);
@@ -1005,18 +1014,10 @@
         private System.Windows.Forms.RichTextBox rtbRoutingQuestion;
         private System.Windows.Forms.Label lblSeriesError;
         private System.Windows.Forms.Label lblSeriesStarter;
-        private System.Windows.Forms.TextBox txtSeriesErrorPreP;
-        private System.Windows.Forms.TextBox txtSeriesStarterPstP;
-        private System.Windows.Forms.TextBox txtSeriesStarterPstI;
         private System.Windows.Forms.TextBox txtSeriesStarterNR;
         private System.Windows.Forms.TextBox txtSeriesStarterRO;
-        private System.Windows.Forms.TextBox txtSeriesStarterPreI;
-        private System.Windows.Forms.TextBox txtSeriesErrorPstP;
-        private System.Windows.Forms.TextBox txtSeriesErrorPstI;
         private System.Windows.Forms.TextBox txtSeriesErrorNR;
         private System.Windows.Forms.TextBox txtSeriesErrorRO;
-        private System.Windows.Forms.TextBox txtSeriesErrorPreI;
-        private System.Windows.Forms.TextBox txtSeriesStarterPreP;
         private System.Windows.Forms.RichTextBox rtbSeriesStarterLitQ;
         private System.Windows.Forms.RichTextBox rtbSeriesErrorLitQ;
         private System.Windows.Forms.RichTextBox rtbSeriesStarterPreA;
@@ -1045,5 +1046,13 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.RichTextBox rtbSeriesStarterPstI;
+        private System.Windows.Forms.RichTextBox rtbSeriesErrorPstI;
+        private System.Windows.Forms.RichTextBox rtbSeriesStarterPstP;
+        private System.Windows.Forms.RichTextBox rtbSeriesErrorPstP;
+        private System.Windows.Forms.RichTextBox rtbSeriesStarterPreI;
+        private System.Windows.Forms.RichTextBox rtbSeriesErrorPreI;
+        private System.Windows.Forms.RichTextBox rtbSeriesStarterPreP;
+        private System.Windows.Forms.RichTextBox rtbSeriesErrorPreP;
     }
 }

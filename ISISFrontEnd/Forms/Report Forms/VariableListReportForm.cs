@@ -75,10 +75,15 @@ namespace ISISFrontEnd
                 return;
             }
 
-            CrosstabReport rpt = new CrosstabReport(crosstab);
-            rpt.CreateReport();
+            DataTableReport rpt; 
+            if (rbBySurvey.Checked)
+                rpt = new DataTableReport(crosstab, "Variable List - " + string.Join(", ", GetSurveys()));
+            else if (rbByWave.Checked)
+                rpt = new DataTableReport(crosstab, "Variable List - " + string.Join(", ", GetWaves()));
+            else
+                rpt = new DataTableReport(crosstab, "Variable List");
 
-            
+            rpt.CreateReport();
         }
 
         private void TypeChanged_Click(object sender, EventArgs e)
@@ -271,6 +276,8 @@ namespace ISISFrontEnd
 
             crosstab = DBAction.GetSurveysVariableList(surveys, vars, inclusions, exclusions);
 
+            
+
             // remove screeners from results
             foreach (KeyValuePair<int, string> item in lstExclusions.SelectedItems)
             {
@@ -295,10 +302,27 @@ namespace ISISFrontEnd
                     if (surveys.Contains(c.ColumnName))
                     {
                         if (r[c].Equals("0"))
-                            r[c] = "";
+                            r[c] = string.Empty;
                     }
                 }
             }
+
+            // add totals row
+            DataRow totalsRow = crosstab.NewRow();
+            totalsRow[0] = "Total";
+            for (int c = 0; c < crosstab.Columns.Count ;  c++)
+                if (surveys.Contains(crosstab.Columns[c].ColumnName))
+                {
+                    int count = 0;
+                    foreach(DataRow r in crosstab.Rows)
+                    {
+                        if (!string.IsNullOrEmpty(r[c].ToString()))
+                            count++;
+                    }
+                    totalsRow[c] = count;
+                }
+
+            crosstab.Rows.InsertAt(totalsRow,0);
 
             return crosstab;
         }
@@ -332,6 +356,23 @@ namespace ISISFrontEnd
                     }
                 }
             }
+
+            // add totals row
+            DataRow totalsRow = crosstab.NewRow();
+            totalsRow[0] = "Total";
+            for (int c = 0; c < crosstab.Columns.Count; c++)
+                if (waves.Contains(crosstab.Columns[c].ColumnName))
+                {
+                    int count = 0;
+                    foreach (DataRow r in crosstab.Rows)
+                    {
+                        if (r[c].Equals("\u2713"))
+                            count++;
+                    }
+                    totalsRow[c] = count;
+                }
+
+            crosstab.Rows.InsertAt(totalsRow, 0);
 
             return crosstab;
         }

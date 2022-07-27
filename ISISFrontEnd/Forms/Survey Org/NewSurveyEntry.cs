@@ -13,7 +13,7 @@ namespace ISISFrontEnd
 {
     public partial class NewSurveyEntry : Form
     {
-        // TODO auto fill file name
+        
         public SurveyRecord NewSurvey;
         List<StudyWaveRecord> WaveList;
         BindingSource bs;
@@ -48,7 +48,7 @@ namespace ISISFrontEnd
             cboMode.DisplayMember = "ModeAbbrev";
             cboMode.ValueMember = "ID";
 
-            cboSurveyType.DataSource = DBAction.GetCohortInfo();
+            cboSurveyType.DataSource = Globals.AllCohorts; 
             cboSurveyType.DisplayMember = "Cohort";
             cboSurveyType.ValueMember = "ID";
         }
@@ -60,9 +60,9 @@ namespace ISISFrontEnd
             txtSurveyCode.DataBindings.Add("Text", bs, "SurveyCode");
             txtSurveyTitle.DataBindings.Add("Text", bs, "Title");
 
-            cboMode.DataBindings.Add("SelectedValue", bs, "Mode.ID");
+            cboMode.DataBindings.Add("SelectedItem", bs, "Mode");
 
-            cboSurveyType.DataBindings.Add("SelectedValue", bs, "Cohort.ID");
+            cboSurveyType.DataBindings.Add("SelectedItem", bs, "Cohort");
 
             txtFileName.DataBindings.Add("Text", bs, "WebName");
 

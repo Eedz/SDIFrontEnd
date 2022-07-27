@@ -31,7 +31,7 @@ namespace ISISFrontEnd
                 if (survey != null)
                     surveycode = survey.SurveyCode;
 
-                dgvFormStates.Rows.Add(fs.FormName, fs.FormNum, fs.Filter, surveycode, fs.RecordPosition);
+                dgvFormStates.Rows.Add(fs.FormName, fs.FormNum, surveycode, fs.Filter, fs.RecordPosition);
             }
         }
 

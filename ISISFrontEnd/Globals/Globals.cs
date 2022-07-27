@@ -26,6 +26,7 @@ namespace ISISFrontEnd
         public static List<Survey> RenumberedSurveys;
 
         // varnames
+        public static List<VariablePrefixRecord> AllPrefixes;
         public static List<VariableName> AllVarNames;
         public static List<RefVariableName> AllRefVarNames;
         public static List<CanonicalVariableRecord> AllCanonVars;
@@ -87,6 +88,7 @@ namespace ISISFrontEnd
             AllCohorts = DBAction.GetCohortInfo();
             AllUserStates = DBAction.GetUserStates();
             AllSimilarWords = DBAction.GetSimilarWordings();
+            AllPrefixes = DBAction.GetVarPrefixes();
             AllVarNames = DBAction.GetAllVarNames();
             AllRefVarNames = DBAction.GetAllRefVarNames();
             AllCanonVars = DBAction.GetAllCanonVars();
@@ -107,6 +109,17 @@ namespace ISISFrontEnd
             CurrentUser.LastUsedComment = DBAction.GetLastUsedComments(CurrentUser.userid);
             CurrentUser.SavedComments = DBAction.GetSavedComments(CurrentUser.userid);
             CurrentUser.SavedSources = DBAction.GetSavedSources(CurrentUser.userid);
+        }
+
+        public static void UpdateUserFormState(FormState newState)
+        {
+
+            FormStateRecord state = CurrentUser.FormStates.Where(x => x.FormName.Equals(newState.FormName) && x.FormNum == newState.FormNum).FirstOrDefault();
+            state.FilterID = newState.FilterID;
+            state.RecordPosition = newState.RecordPosition;
+            state.Dirty = true;
+            state.SaveRecord();
+            
         }
 
         public static EventHandler RefreshPeople;

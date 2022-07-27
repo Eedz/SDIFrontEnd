@@ -139,21 +139,21 @@ namespace ISISFrontEnd
             lblSeriesError.Text = selected.VarName.RefVarName + "/" + selected.Qnum;
             SurveyQuestion starter = surveyChecker.QuestionList.Where(x => x.Qnum.Equals(selected.Qnum.Substring(0, 3) + "a")).FirstOrDefault();
             lblSeriesStarter.Text = starter.VarName.RefVarName + "/" + starter.Qnum;
-            txtSeriesErrorPreP.Text = selected.PreP;
+            rtbSeriesErrorPreP.Rtf = selected.PrepRTF;
             if (selected.PreP.Equals(starter.PreP))
-                txtSeriesErrorPreP.BackColor = Color.Green;
+                rtbSeriesErrorPreP.BackColor = Color.LightGreen;
             else
-                txtSeriesErrorPreP.BackColor = Color.Red;
+                rtbSeriesErrorPreP.BackColor = Color.Red;
 
-            txtSeriesErrorPreI.Text = selected.PreI;
+            rtbSeriesErrorPreI.Rtf = selected.PreiRTF;
             if (selected.PreI.Equals(starter.PreI))
-                txtSeriesErrorPreI.BackColor = Color.Green;
+                rtbSeriesErrorPreI.BackColor = Color.LightGreen;
             else
-                txtSeriesErrorPreI.BackColor = Color.Red;
+                rtbSeriesErrorPreI.BackColor = Color.Red;
 
             rtbSeriesErrorPreA.Rtf = selected.PreaRTF;
             if (selected.PreA.Equals(starter.PreA))
-                rtbSeriesErrorPreA.BackColor = Color.Green;
+                rtbSeriesErrorPreA.BackColor = Color.LightGreen;
             else
                 rtbSeriesErrorPreA.BackColor = Color.Red;
 
@@ -161,36 +161,36 @@ namespace ISISFrontEnd
 
             txtSeriesErrorRO.Text = selected.RespOptions;
             if (selected.RespOptions.Equals(starter.RespOptions))
-                txtSeriesErrorRO.BackColor = Color.Green;
+                txtSeriesErrorRO.BackColor = Color.LightGreen;
             else
                 txtSeriesErrorRO.BackColor = Color.Red;
 
             txtSeriesErrorNR.Text = selected.NRCodes;
             if (selected.NRCodes.Equals(starter.NRCodes))
-                txtSeriesErrorNR.BackColor = Color.Green;
+                txtSeriesErrorNR.BackColor = Color.LightGreen;
             else
                 txtSeriesErrorNR.BackColor = Color.Red;
 
-            txtSeriesErrorPstI.Text = selected.PstI;
+            rtbSeriesErrorPstI.Rtf = selected.PstiRTF;
             if (selected.PstI.Equals(starter.PstI))
-                txtSeriesErrorPstI.BackColor = Color.Green;
+                rtbSeriesErrorPstI.BackColor = Color.LightGreen;
             else
-                txtSeriesErrorPstI.BackColor = Color.Red;
+                rtbSeriesErrorPstI.BackColor = Color.Red;
 
-            txtSeriesErrorPstP.Text = selected.PstP;
+            rtbSeriesErrorPstP.Rtf = selected.PstpRTF;
             if (selected.PstP.Equals(starter.PstP))
-                txtSeriesErrorPstP.BackColor = Color.Green;
+                rtbSeriesErrorPstP.BackColor = Color.LightGreen;
             else
-                txtSeriesErrorPstP.BackColor = Color.Red;
+                rtbSeriesErrorPstP.BackColor = Color.Red;
 
-            txtSeriesStarterPreP.Text = starter.PreP;
-            txtSeriesStarterPreI.Text = starter.PreI;
+            rtbSeriesStarterPreP.Text = starter.PreP;
+            rtbSeriesStarterPreI.Text = starter.PreI;
             rtbSeriesStarterPreA.Rtf = starter.PreaRTF;
             rtbSeriesStarterLitQ.Rtf = starter.LitqRTF;
             txtSeriesStarterRO.Text = starter.RespOptions;
             txtSeriesStarterNR.Text = starter.NRCodes;
-            txtSeriesStarterPstI.Text = starter.PstI;
-            txtSeriesStarterPstP.Text = starter.PstP;
+            rtbSeriesStarterPstI.Text = starter.PstI;
+            rtbSeriesStarterPstP.Text = starter.PstP;
 
         }
 

@@ -17,7 +17,7 @@ using DocumentFormat.OpenXml.Wordprocessing;
 using Word = Microsoft.Office.Interop.Word;
 
 // TODO CREATE USER SETTINGS FILE
-// TODO prevent 2 instances of same survey being open
+
 namespace ISISFrontEnd
 {
     public partial class MainMenu : Form
@@ -65,6 +65,7 @@ namespace ISISFrontEnd
 
         public void FormRemovedHandler(object sender, FormRemovedEventArgs e)
         {
+            // check if survey entry, if so, refresh SE buttons
             CloseTab(e.key);
             LabelSurveyEditorButtons();
         }
@@ -102,78 +103,144 @@ namespace ISISFrontEnd
         // 
         private void cmdOpenSurveyEditor_Click(object sender, EventArgs e)
         {
+            int survID = CurrentUser.GetFilterID("frmSurveyEntry", 1);
+            // check if a tab exists for this Survey
+            foreach (Form se in FormManager.List)
+            {
+                if (se is SurveyEditor && ((SurveyEditor)se).CurrentSurvey.SID == survID)
+                {
+                    tabControl1.SelectTab("SurveyEditor" + se.Tag);
+                    return;
+                }
+            }
+            // check if a tab exists for this SurveyEditor instance number
             if (FormManager.FormOpen("SurveyEditor", 1))
             {
                 tabControl1.SelectTab("SurveyEditor1");
                 return;
             }
             
-            SurveyEditor frm = new SurveyEditor(CurrentUser.GetFilterID("frmSurveyEntry", 1));
+            SurveyEditor frm = new SurveyEditor(survID);
             frm.Tag = 1;
             FormManager.Add(frm);
         }
 
         private void cmdOpenSurveyEditor2_Click(object sender, EventArgs e)
         {
+            int survID = CurrentUser.GetFilterID("frmSurveyEntry", 2);
+            // check if a tab exists for this Survey
+            foreach (Form se in FormManager.List)
+            {
+                if (se is SurveyEditor && ((SurveyEditor)se).CurrentSurvey.SID == survID)
+                {
+                    tabControl1.SelectTab("SurveyEditor" + se.Tag);
+                    return;
+                }
+            }
+            // check if a tab exists for this SurveyEditor instance number
             if (FormManager.FormOpen("SurveyEditor", 2))
             {
                 tabControl1.SelectTab("SurveyEditor2");
                 return;
             }
             
-            SurveyEditor frm = new SurveyEditor(CurrentUser.GetFilterID("frmSurveyEntry", 2));
+            SurveyEditor frm = new SurveyEditor(survID);
             frm.Tag = 2;
             FormManager.Add(frm);
         }
 
         private void cmdOpenSurveyEditor3_Click(object sender, EventArgs e)
         {
+            int survID = CurrentUser.GetFilterID("frmSurveyEntry", 3);
+            // check if a tab exists for this Survey
+            foreach (Form se in FormManager.List)
+            {
+                if (se is SurveyEditor && ((SurveyEditor)se).CurrentSurvey.SID == survID)
+                {
+                    tabControl1.SelectTab("SurveyEditor" + se.Tag);
+                    return;
+                }
+            }
+            // check if a tab exists for this SurveyEditor instance number
             if (FormManager.FormOpen("SurveyEditor", 3))
             {
                 tabControl1.SelectTab("SurveyEditor3");
                 return;
             }
 
-            SurveyEditor frm = new SurveyEditor(CurrentUser.GetFilterID("frmSurveyEntry", 3));
+            SurveyEditor frm = new SurveyEditor(survID);
             frm.Tag = 3;
             FormManager.Add(frm);
         }
 
         private void cmdOpenSurveyEditor4_Click(object sender, EventArgs e)
         {
+            int survID = CurrentUser.GetFilterID("frmSurveyEntry", 4);
+            // check if a tab exists for this Survey
+            foreach (Form se in FormManager.List)
+            {
+                if (se is SurveyEditor && ((SurveyEditor)se).CurrentSurvey.SID == survID)
+                {
+                    tabControl1.SelectTab("SurveyEditor" + se.Tag);
+                    return;
+                }
+            }
+            // check if a tab exists for this SurveyEditor instance number
             if (FormManager.FormOpen("SurveyEditor", 4))
             {
                 tabControl1.SelectTab("SurveyEditor4");
                 return;
             }
 
-            SurveyEditor frm = new SurveyEditor(CurrentUser.GetFilterID("frmSurveyEntry", 4));
+            SurveyEditor frm = new SurveyEditor(survID);
             frm.Tag = 4;
             FormManager.Add(frm);
         }
 
         private void cmdOpenSurveyEditor5_Click(object sender, EventArgs e)
         {
+            int survID = CurrentUser.GetFilterID("frmSurveyEntry", 5);
+            // check if a tab exists for this Survey
+            foreach (Form se in FormManager.List)
+            {
+                if (se is SurveyEditor && ((SurveyEditor)se).CurrentSurvey.SID == survID)
+                {
+                    tabControl1.SelectTab("SurveyEditor" + se.Tag);
+                    return;
+                }
+            }
+            // check if a tab exists for this SurveyEditor instance number
             if (FormManager.FormOpen("SurveyEditor", 5))
             {
                 tabControl1.SelectTab("SurveyEditor5");
                 return;
             }
 
-            SurveyEditor frm = new SurveyEditor(CurrentUser.GetFilterID("frmSurveyEntry", 5));
+            SurveyEditor frm = new SurveyEditor(survID);
             frm.Tag = 5;
             FormManager.Add(frm);
         }
 
         private void cmdOpenSurveyEditor6_Click(object sender, EventArgs e)
         {
+            int survID = CurrentUser.GetFilterID("frmSurveyEntry", 6);
+            // check if a tab exists for this Survey
+            foreach (Form se in FormManager.List)
+            {
+                if (se is SurveyEditor && ((SurveyEditor)se).CurrentSurvey.SID == survID)
+                {
+                    tabControl1.SelectTab("SurveyEditor" + se.Tag);
+                    return;
+                }
+            }
+            // check if a tab exists for this SurveyEditor instance number
             if (FormManager.FormOpen("SurveyEditor", 6))
             {
                 tabControl1.SelectTab("SurveyEditor6");
                 return;
             }
 
-            SurveyEditor frm = new SurveyEditor(CurrentUser.GetFilterID("frmSurveyEntry", 6));
+            SurveyEditor frm = new SurveyEditor(survID);
             frm.Tag = 6;
             FormManager.Add(frm);
         }
@@ -235,60 +302,22 @@ namespace ISISFrontEnd
                 return;
             }
 
-            VarChangesMenu frm = new VarChangesMenu();
-            frm.Tag = 1;
-            FormManager.Add(frm);
-        }
-
-        private void cmdOpenAssignLabels_Click(object sender, EventArgs e)
-        {
-            if (FormManager.FormOpen("AssignLabels"))
-            {
-                tabControl1.SelectTab("AssignLabels1");
-                return;
-            }
-            
-            AssignLabels2 frm = new AssignLabels2();
+            VarNameMenu frm = new VarNameMenu();
             frm.Tag = 1;
             FormManager.Add(frm);
         }
 
         private void cmdOpenAssignLabelsJIT_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("AssignLabelsJIT"))
+            if (FormManager.FormOpen("AssignLabels"))
             {
-                tabControl1.SelectTab("AssignLabelsJIT1");
+                tabControl1.SelectTab("AssignLabels1");
                 return;
             }
 
             AssignLabels frm = new AssignLabels();
             frm.Tag = 1;
             FormManager.Add(frm);
-        }
-
-        private void cmdOpenVarUsage_Click(object sender, EventArgs e)
-        {
-            if (FormManager.FormOpen("VarNameUsage"))
-            {
-                
-                return;
-            }
-
-            VarNameUsage frm = new VarNameUsage();
-            frm.Tag = 1;
-            FormManager.AddPopup(frm);
-        }
-
-        private void cmdOpenRenameVars_Click(object sender, EventArgs e)
-        {
-            if (FormManager.FormOpen("RenameVars"))
-            {
-                return;
-            }
-
-            RenameVars frm = new RenameVars();
-            frm.Tag = 1;
-            FormManager.AddPopup(frm);
         }
 
         private void cmdOpenVariableInfo_Click(object sender, EventArgs e)
@@ -359,6 +388,19 @@ namespace ISISFrontEnd
             }
 
             ProductCrosstab frm = new ProductCrosstab();
+            frm.Tag = 1;
+            FormManager.AddPopup(frm);
+        }
+
+        private void cmdOpenParallelVarReport_Click(object sender, EventArgs e)
+        {
+            if (FormManager.FormOpen("ParallelVarReport"))
+            {
+                tabControl1.SelectTab("ParallelVarReport1");
+                return;
+            }
+
+            ParallelVarReport frm = new ParallelVarReport();
             frm.Tag = 1;
             FormManager.AddPopup(frm);
         }
@@ -612,6 +654,69 @@ namespace ISISFrontEnd
             FormManager.Add(frm);
         }
         #endregion
+
+        private void newToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            NewSurveyEntry frm = new NewSurveyEntry();
+            frm.ShowDialog();
+        }
+
+        private void unlockToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (FormManager.FormOpen("UnlockSurvey"))
+            {
+                
+                return;
+            }
+            UnlockSurvey frm = new UnlockSurvey();
+            frm.Tag = 1;
+            FormManager.AddPopup(frm);
+        }
+
+        private void viewTempToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (FormManager.FormOpen("TempVarViewer"))
+            {
+                
+                return;
+            }
+            TempVarViewer frm = new TempVarViewer();
+            frm.Tag = 1;
+            FormManager.AddPopup(frm);
+        }
+
+        private void viewOrphansToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form newfrm = new Form();
+
+            DataGridView dgv = new DataGridView();
+            newfrm.Controls.Add(dgv);
+
+            dgv.Dock = DockStyle.Fill;          
+            dgv.DataSource = DBAction.GetOrphanVarNames();
+
+
+
+            for(int i = 0; i < dgv.ColumnCount; i++)
+            {
+                switch (dgv.Columns[i].Name)
+                {
+                    case "ID":
+                    case "CountryCode":
+                    case "StandardForm":
+                    case "Prefix":
+                    case "Number":
+                    case "Suffix":
+                        dgv.Columns[i].Visible = false;
+                        break;
+                }
+            }
+            newfrm.FormBorderStyle = FormBorderStyle.FixedSingle;
+            newfrm.Width = 900;
+            newfrm.Height = 600;
+            
+            newfrm.Show();
+        }
 
         #region Tools
         private void PreferencesToolStripMenuItem_Click(object sender, EventArgs e)

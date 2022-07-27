@@ -39,6 +39,7 @@ namespace ISISFrontEnd
             
         }
 
+        #region Events
         private void Form1_ResizeEnd(object sender, EventArgs e)
         {
             dgvLabels.Height = this.Height - dgvLabels.Top - menuStrip1.Height - gap;
@@ -51,29 +52,7 @@ namespace ISISFrontEnd
 
         private void showUsesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int id = Int32.Parse(dgvLabels.SelectedRows[0].Cells[0].Value.ToString());
-            SurveyQuestionCriteria criteria = new SurveyQuestionCriteria();
-
-            switch (CurrentType)
-            {
-                case LabelType.Domain:
-                    criteria.DomainNums.Add(id);
-                    break;
-                case LabelType.Topic:
-                    criteria.TopicNums.Add(id);
-                    break;
-                case LabelType.Content:
-                    criteria.ContentNums.Add(id);
-                    break;
-                case LabelType.Product:
-                    criteria.ProductNums.Add(id);
-                    break;
-                case LabelType.Keyword:
-                    break;
-            }
-
-            frmLabelUses frm = new frmLabelUses(DBAction.GetSurveyQuestions(criteria));
-            frm.Show();
+            ShowUses();
         }
 
         private void LabelTypeChanged(object sender, EventArgs e)
@@ -136,6 +115,37 @@ namespace ISISFrontEnd
             UpdateLabel(CurrentType, frm.userInput, id);
             // refresh list
             LoadLabels(CurrentType);
+        }
+
+        #endregion
+
+        #region Methods
+
+        private void ShowUses()
+        {
+            int id = Int32.Parse(dgvLabels.SelectedRows[0].Cells[0].Value.ToString());
+            SurveyQuestionCriteria criteria = new SurveyQuestionCriteria();
+
+            switch (CurrentType)
+            {
+                case LabelType.Domain:
+                    criteria.DomainNums.Add(id);
+                    break;
+                case LabelType.Topic:
+                    criteria.TopicNums.Add(id);
+                    break;
+                case LabelType.Content:
+                    criteria.ContentNums.Add(id);
+                    break;
+                case LabelType.Product:
+                    criteria.ProductNums.Add(id);
+                    break;
+                case LabelType.Keyword:
+                    break;
+            }
+
+            frmLabelUses frm = new frmLabelUses(DBAction.GetSurveyQuestions(criteria));
+            frm.Show();
         }
 
         private void UpdateLabel(LabelType type, string label, int id)
@@ -322,6 +332,6 @@ namespace ISISFrontEnd
             return "";
         }
 
-        
+        #endregion
     }
 }

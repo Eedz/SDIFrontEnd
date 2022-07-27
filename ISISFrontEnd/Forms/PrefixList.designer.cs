@@ -344,6 +344,7 @@
             this.dgvVariableInfo.Size = new System.Drawing.Size(1080, 388);
             this.dgvVariableInfo.TabIndex = 11;
             this.dgvVariableInfo.VirtualMode = true;
+            this.dgvVariableInfo.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVariableInfo_CellDoubleClick);
             this.dgvVariableInfo.CellValueNeeded += new System.Windows.Forms.DataGridViewCellValueEventHandler(this.dgvVariableInfo_CellValueNeeded);
             this.dgvVariableInfo.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvVariableInfo_DataError);
             this.dgvVariableInfo.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVariableInfo_RowEnter);
@@ -677,6 +678,7 @@
             this.toolStripDatasheet.Name = "toolStripDatasheet";
             this.toolStripDatasheet.Size = new System.Drawing.Size(107, 22);
             this.toolStripDatasheet.Text = "View As Datasheet";
+            this.toolStripDatasheet.Click += new System.EventHandler(this.toolStripDatasheet_Click);
             // 
             // dataGridViewTextBoxColumn1
             // 

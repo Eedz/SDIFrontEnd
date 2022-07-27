@@ -42,14 +42,14 @@
             this.label1 = new System.Windows.Forms.Label();
             this.separator = new System.Windows.Forms.Label();
             this.dgvFormStates = new System.Windows.Forms.DataGridView();
+            this.label4 = new System.Windows.Forms.Label();
+            this.cmdBrowseFolder = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
             this.chFormName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.chFormNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.chSurvey = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.chFilter = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.chPosition = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label4 = new System.Windows.Forms.Label();
-            this.cmdBrowseFolder = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFormStates)).BeginInit();
             this.SuspendLayout();
             // 
@@ -198,6 +198,35 @@
             this.dgvFormStates.Size = new System.Drawing.Size(447, 203);
             this.dgvFormStates.TabIndex = 13;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(40, 175);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(77, 16);
+            this.label4.TabIndex = 14;
+            this.label4.Text = "Form Filters";
+            // 
+            // cmdBrowseFolder
+            // 
+            this.cmdBrowseFolder.Location = new System.Drawing.Point(417, 110);
+            this.cmdBrowseFolder.Name = "cmdBrowseFolder";
+            this.cmdBrowseFolder.Size = new System.Drawing.Size(32, 23);
+            this.cmdBrowseFolder.TabIndex = 15;
+            this.cmdBrowseFolder.Text = "...";
+            this.cmdBrowseFolder.UseVisualStyleBackColor = true;
+            this.cmdBrowseFolder.Click += new System.EventHandler(this.cmdBrowseFolder_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(4, 9);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(171, 25);
+            this.label5.TabIndex = 16;
+            this.label5.Text = "User Preferences";
+            // 
             // chFormName
             // 
             this.chFormName.HeaderText = "Form";
@@ -227,35 +256,6 @@
             this.chPosition.HeaderText = "Position";
             this.chPosition.Name = "chPosition";
             this.chPosition.Width = 70;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(40, 175);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(77, 16);
-            this.label4.TabIndex = 14;
-            this.label4.Text = "Form Filters";
-            // 
-            // cmdBrowseFolder
-            // 
-            this.cmdBrowseFolder.Location = new System.Drawing.Point(417, 110);
-            this.cmdBrowseFolder.Name = "cmdBrowseFolder";
-            this.cmdBrowseFolder.Size = new System.Drawing.Size(32, 23);
-            this.cmdBrowseFolder.TabIndex = 15;
-            this.cmdBrowseFolder.Text = "...";
-            this.cmdBrowseFolder.UseVisualStyleBackColor = true;
-            this.cmdBrowseFolder.Click += new System.EventHandler(this.cmdBrowseFolder_Click);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(4, 9);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(171, 25);
-            this.label5.TabIndex = 16;
-            this.label5.Text = "User Preferences";
             // 
             // UserPreferencesForm
             // 

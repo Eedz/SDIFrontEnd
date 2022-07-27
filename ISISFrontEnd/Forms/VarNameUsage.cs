@@ -63,7 +63,7 @@ namespace ISISFrontEnd
         /// Perform the search for both used and unused VarNames.
         /// </summary>
         /// <param name="criteria"></param>
-        private void SearchVars(string criteria)
+        public void SearchVars(string criteria)
         {
             GetPattern(criteria);
 

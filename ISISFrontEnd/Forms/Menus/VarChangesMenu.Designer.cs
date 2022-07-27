@@ -1,6 +1,6 @@
 ﻿namespace ISISFrontEnd
 {
-    partial class VarChangesMenu
+    partial class VarNameMenu
     {
         /// <summary>
         /// Required designer variable.
@@ -34,10 +34,9 @@
             this.cmdOpenRenameSingle = new System.Windows.Forms.Button();
             this.cmdOpenRenameBulk = new System.Windows.Forms.Button();
             this.cmdOpenVarChangeTracking = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
+            this.cmdOpenVarNameChangeReport = new System.Windows.Forms.Button();
+            this.cmdOpenVarUsageReport = new System.Windows.Forms.Button();
+            this.cmdOpenVarUsage = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -45,7 +44,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(44, 42);
+            this.label1.Location = new System.Drawing.Point(29, 40);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(306, 33);
             this.label1.TabIndex = 0;
@@ -71,7 +70,7 @@
             // 
             // cmdOpenRenameSingle
             // 
-            this.cmdOpenRenameSingle.Location = new System.Drawing.Point(35, 95);
+            this.cmdOpenRenameSingle.Location = new System.Drawing.Point(74, 92);
             this.cmdOpenRenameSingle.Name = "cmdOpenRenameSingle";
             this.cmdOpenRenameSingle.Size = new System.Drawing.Size(184, 31);
             this.cmdOpenRenameSingle.TabIndex = 2;
@@ -81,7 +80,7 @@
             // 
             // cmdOpenRenameBulk
             // 
-            this.cmdOpenRenameBulk.Location = new System.Drawing.Point(35, 132);
+            this.cmdOpenRenameBulk.Location = new System.Drawing.Point(74, 129);
             this.cmdOpenRenameBulk.Name = "cmdOpenRenameBulk";
             this.cmdOpenRenameBulk.Size = new System.Drawing.Size(184, 42);
             this.cmdOpenRenameBulk.TabIndex = 3;
@@ -91,7 +90,7 @@
             // 
             // cmdOpenVarChangeTracking
             // 
-            this.cmdOpenVarChangeTracking.Location = new System.Drawing.Point(35, 223);
+            this.cmdOpenVarChangeTracking.Location = new System.Drawing.Point(74, 177);
             this.cmdOpenVarChangeTracking.Name = "cmdOpenVarChangeTracking";
             this.cmdOpenVarChangeTracking.Size = new System.Drawing.Size(184, 43);
             this.cmdOpenVarChangeTracking.TabIndex = 4;
@@ -99,51 +98,44 @@
             this.cmdOpenVarChangeTracking.UseVisualStyleBackColor = true;
             this.cmdOpenVarChangeTracking.Click += new System.EventHandler(this.cmdOpenVarChangeTracking_Click);
             // 
-            // button4
+            // cmdOpenVarNameChangeReport
             // 
-            this.button4.Location = new System.Drawing.Point(35, 272);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(184, 33);
-            this.button4.TabIndex = 5;
-            this.button4.Text = "VarName Change Report";
-            this.button4.UseVisualStyleBackColor = true;
+            this.cmdOpenVarNameChangeReport.Location = new System.Drawing.Point(74, 226);
+            this.cmdOpenVarNameChangeReport.Name = "cmdOpenVarNameChangeReport";
+            this.cmdOpenVarNameChangeReport.Size = new System.Drawing.Size(184, 33);
+            this.cmdOpenVarNameChangeReport.TabIndex = 5;
+            this.cmdOpenVarNameChangeReport.Text = "VarName Change Report";
+            this.cmdOpenVarNameChangeReport.UseVisualStyleBackColor = true;
+            this.cmdOpenVarNameChangeReport.Click += new System.EventHandler(this.cmdOpenVarNameChangeReport_Click);
             // 
-            // button5
+            // cmdOpenVarUsageReport
             // 
-            this.button5.Location = new System.Drawing.Point(225, 311);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(173, 40);
-            this.button5.TabIndex = 6;
-            this.button5.Text = "Used/Unused Report";
-            this.button5.UseVisualStyleBackColor = true;
+            this.cmdOpenVarUsageReport.Location = new System.Drawing.Point(74, 317);
+            this.cmdOpenVarUsageReport.Name = "cmdOpenVarUsageReport";
+            this.cmdOpenVarUsageReport.Size = new System.Drawing.Size(184, 47);
+            this.cmdOpenVarUsageReport.TabIndex = 6;
+            this.cmdOpenVarUsageReport.Text = "Used/Unused Report";
+            this.cmdOpenVarUsageReport.UseVisualStyleBackColor = true;
+            this.cmdOpenVarUsageReport.Click += new System.EventHandler(this.cmdOpenVarUsageReport_Click);
             // 
-            // button6
+            // cmdOpenVarUsage
             // 
-            this.button6.Location = new System.Drawing.Point(35, 311);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(184, 46);
-            this.button6.TabIndex = 7;
-            this.button6.Text = "Used/Unused VarNames";
-            this.button6.UseVisualStyleBackColor = true;
+            this.cmdOpenVarUsage.Location = new System.Drawing.Point(74, 265);
+            this.cmdOpenVarUsage.Name = "cmdOpenVarUsage";
+            this.cmdOpenVarUsage.Size = new System.Drawing.Size(184, 46);
+            this.cmdOpenVarUsage.TabIndex = 7;
+            this.cmdOpenVarUsage.Text = "Used/Unused VarNames";
+            this.cmdOpenVarUsage.UseVisualStyleBackColor = true;
+            this.cmdOpenVarUsage.Click += new System.EventHandler(this.cmdOpenVarUsage_Click);
             // 
-            // button8
-            // 
-            this.button8.Location = new System.Drawing.Point(35, 363);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(184, 51);
-            this.button8.TabIndex = 9;
-            this.button8.Text = "View Temp VarNames";
-            this.button8.UseVisualStyleBackColor = true;
-            // 
-            // VarChangesMenu
+            // VarNameMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(933, 554);
-            this.Controls.Add(this.button8);
-            this.Controls.Add(this.button6);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
+            this.Controls.Add(this.cmdOpenVarUsage);
+            this.Controls.Add(this.cmdOpenVarUsageReport);
+            this.Controls.Add(this.cmdOpenVarNameChangeReport);
             this.Controls.Add(this.cmdOpenVarChangeTracking);
             this.Controls.Add(this.cmdOpenRenameBulk);
             this.Controls.Add(this.cmdOpenRenameSingle);
@@ -152,7 +144,7 @@
             this.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "VarChangesMenu";
+            this.Name = "VarNameMenu";
             this.Text = "VarName Changes Menu";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -169,9 +161,8 @@
         private System.Windows.Forms.Button cmdOpenRenameSingle;
         private System.Windows.Forms.Button cmdOpenRenameBulk;
         private System.Windows.Forms.Button cmdOpenVarChangeTracking;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button cmdOpenVarNameChangeReport;
+        private System.Windows.Forms.Button cmdOpenVarUsageReport;
+        private System.Windows.Forms.Button cmdOpenVarUsage;
     }
 }

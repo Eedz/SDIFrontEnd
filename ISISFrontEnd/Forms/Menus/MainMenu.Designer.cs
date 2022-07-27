@@ -47,6 +47,12 @@
             this.studiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.wavesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.surveysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.surveysToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.newToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.unlockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.varNamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewTempToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewOrphansToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.preferencesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -80,7 +86,7 @@
             this.cmdOpenSurveyEditor4 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.cmdOpenVarChangesMenu = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.cmdOpenParallelVarReport = new System.Windows.Forms.Button();
             this.cmdExternalReportsMenu = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.cmdOpenCommentSearch = new System.Windows.Forms.Button();
@@ -111,15 +117,18 @@
             // 
             // menuMainMenuStrip
             // 
+            this.menuMainMenuStrip.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.menuMainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.editToolStripMenuItem,
             this.viewToolStripMenuItem,
+            this.surveysToolStripMenuItem1,
+            this.varNamesToolStripMenuItem,
             this.toolsToolStripMenuItem,
             this.helpToolStripMenuItem});
             this.menuMainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuMainMenuStrip.Name = "menuMainMenuStrip";
-            this.menuMainMenuStrip.Size = new System.Drawing.Size(1425, 24);
+            this.menuMainMenuStrip.Size = new System.Drawing.Size(1425, 25);
             this.menuMainMenuStrip.TabIndex = 6;
             this.menuMainMenuStrip.Text = "MainMenuStrip";
             // 
@@ -130,7 +139,7 @@
             this.toolStripSeparator1,
             this.closeToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(39, 21);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // newToolStripMenuItem
@@ -140,39 +149,39 @@
             this.projectWaveToolStripMenuItem,
             this.surveyToolStripMenuItem});
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
             this.newToolStripMenuItem.Text = "New";
             // 
             // countryToolStripMenuItem
             // 
             this.countryToolStripMenuItem.Name = "countryToolStripMenuItem";
-            this.countryToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.countryToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.countryToolStripMenuItem.Text = "Country/Study...";
             this.countryToolStripMenuItem.Click += new System.EventHandler(this.countryToolStripMenuItem_Click);
             // 
             // projectWaveToolStripMenuItem
             // 
             this.projectWaveToolStripMenuItem.Name = "projectWaveToolStripMenuItem";
-            this.projectWaveToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.projectWaveToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.projectWaveToolStripMenuItem.Text = "Project Wave...";
             this.projectWaveToolStripMenuItem.Click += new System.EventHandler(this.projectWaveToolStripMenuItem_Click);
             // 
             // surveyToolStripMenuItem
             // 
             this.surveyToolStripMenuItem.Name = "surveyToolStripMenuItem";
-            this.surveyToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.surveyToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.surveyToolStripMenuItem.Text = "Survey...";
             this.surveyToolStripMenuItem.Click += new System.EventHandler(this.surveyToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(100, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(105, 6);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.CloseToolStripMenuItem_Click);
             // 
@@ -185,41 +194,41 @@
             this.peopleToolStripMenuItem,
             this.canonicalVarsToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(42, 21);
             this.editToolStripMenuItem.Text = "Edit";
             // 
             // labelsToolStripMenuItem
             // 
             this.labelsToolStripMenuItem.Name = "labelsToolStripMenuItem";
-            this.labelsToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.labelsToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.labelsToolStripMenuItem.Text = "Labels...";
             this.labelsToolStripMenuItem.Click += new System.EventHandler(this.LabelsToolStripMenuItem_Click);
             // 
             // cohortListToolStripMenuItem
             // 
             this.cohortListToolStripMenuItem.Name = "cohortListToolStripMenuItem";
-            this.cohortListToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.cohortListToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.cohortListToolStripMenuItem.Text = "Cohort List...";
             this.cohortListToolStripMenuItem.Click += new System.EventHandler(this.CohortListToolStripMenuItem_Click);
             // 
             // userGroupListToolStripMenuItem
             // 
             this.userGroupListToolStripMenuItem.Name = "userGroupListToolStripMenuItem";
-            this.userGroupListToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.userGroupListToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.userGroupListToolStripMenuItem.Text = "User State List...";
             this.userGroupListToolStripMenuItem.Click += new System.EventHandler(this.UserGroupListToolStripMenuItem_Click);
             // 
             // peopleToolStripMenuItem
             // 
             this.peopleToolStripMenuItem.Name = "peopleToolStripMenuItem";
-            this.peopleToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.peopleToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.peopleToolStripMenuItem.Text = "People...";
             this.peopleToolStripMenuItem.Click += new System.EventHandler(this.peopleToolStripMenuItem_Click);
             // 
             // canonicalVarsToolStripMenuItem
             // 
             this.canonicalVarsToolStripMenuItem.Name = "canonicalVarsToolStripMenuItem";
-            this.canonicalVarsToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.canonicalVarsToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.canonicalVarsToolStripMenuItem.Text = "Canonical Vars...";
             this.canonicalVarsToolStripMenuItem.Click += new System.EventHandler(this.canonicalVarsToolStripMenuItem_Click);
             // 
@@ -231,36 +240,82 @@
             this.wavesToolStripMenuItem,
             this.surveysToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(47, 21);
             this.viewToolStripMenuItem.Text = "View";
             // 
             // regionsToolStripMenuItem
             // 
             this.regionsToolStripMenuItem.Name = "regionsToolStripMenuItem";
-            this.regionsToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.regionsToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.regionsToolStripMenuItem.Text = "Regions";
             this.regionsToolStripMenuItem.Click += new System.EventHandler(this.regionsToolStripMenuItem_Click);
             // 
             // studiesToolStripMenuItem
             // 
             this.studiesToolStripMenuItem.Name = "studiesToolStripMenuItem";
-            this.studiesToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.studiesToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.studiesToolStripMenuItem.Text = "Studies";
             this.studiesToolStripMenuItem.Click += new System.EventHandler(this.studiesToolStripMenuItem_Click);
             // 
             // wavesToolStripMenuItem
             // 
             this.wavesToolStripMenuItem.Name = "wavesToolStripMenuItem";
-            this.wavesToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.wavesToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.wavesToolStripMenuItem.Text = "Waves";
             this.wavesToolStripMenuItem.Click += new System.EventHandler(this.wavesToolStripMenuItem_Click);
             // 
             // surveysToolStripMenuItem
             // 
             this.surveysToolStripMenuItem.Name = "surveysToolStripMenuItem";
-            this.surveysToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.surveysToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.surveysToolStripMenuItem.Text = "Surveys";
             this.surveysToolStripMenuItem.Click += new System.EventHandler(this.surveysToolStripMenuItem_Click);
+            // 
+            // surveysToolStripMenuItem1
+            // 
+            this.surveysToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newToolStripMenuItem1,
+            this.unlockToolStripMenuItem});
+            this.surveysToolStripMenuItem1.Name = "surveysToolStripMenuItem1";
+            this.surveysToolStripMenuItem1.Size = new System.Drawing.Size(64, 21);
+            this.surveysToolStripMenuItem1.Text = "Surveys";
+            // 
+            // newToolStripMenuItem1
+            // 
+            this.newToolStripMenuItem1.Name = "newToolStripMenuItem1";
+            this.newToolStripMenuItem1.Size = new System.Drawing.Size(124, 22);
+            this.newToolStripMenuItem1.Text = "New...";
+            this.newToolStripMenuItem1.Click += new System.EventHandler(this.newToolStripMenuItem1_Click);
+            // 
+            // unlockToolStripMenuItem
+            // 
+            this.unlockToolStripMenuItem.Name = "unlockToolStripMenuItem";
+            this.unlockToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.unlockToolStripMenuItem.Text = "Unlock...";
+            this.unlockToolStripMenuItem.Click += new System.EventHandler(this.unlockToolStripMenuItem_Click);
+            // 
+            // varNamesToolStripMenuItem
+            // 
+            this.varNamesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.viewTempToolStripMenuItem,
+            this.viewOrphansToolStripMenuItem});
+            this.varNamesToolStripMenuItem.Name = "varNamesToolStripMenuItem";
+            this.varNamesToolStripMenuItem.Size = new System.Drawing.Size(80, 21);
+            this.varNamesToolStripMenuItem.Text = "VarNames";
+            // 
+            // viewTempToolStripMenuItem
+            // 
+            this.viewTempToolStripMenuItem.Name = "viewTempToolStripMenuItem";
+            this.viewTempToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.viewTempToolStripMenuItem.Text = "View Temp";
+            this.viewTempToolStripMenuItem.Click += new System.EventHandler(this.viewTempToolStripMenuItem_Click);
+            // 
+            // viewOrphansToolStripMenuItem
+            // 
+            this.viewOrphansToolStripMenuItem.Name = "viewOrphansToolStripMenuItem";
+            this.viewOrphansToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.viewOrphansToolStripMenuItem.Text = "View Orphans";
+            this.viewOrphansToolStripMenuItem.Click += new System.EventHandler(this.viewOrphansToolStripMenuItem_Click);
             // 
             // toolsToolStripMenuItem
             // 
@@ -269,25 +324,25 @@
             this.toolStripSeparator2,
             this.alternativeSpellingsToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(51, 21);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // preferencesToolStripMenuItem1
             // 
             this.preferencesToolStripMenuItem1.Name = "preferencesToolStripMenuItem1";
-            this.preferencesToolStripMenuItem1.Size = new System.Drawing.Size(181, 22);
+            this.preferencesToolStripMenuItem1.Size = new System.Drawing.Size(193, 22);
             this.preferencesToolStripMenuItem1.Text = "Preferences...";
             this.preferencesToolStripMenuItem1.Click += new System.EventHandler(this.PreferencesToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(178, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(190, 6);
             // 
             // alternativeSpellingsToolStripMenuItem
             // 
             this.alternativeSpellingsToolStripMenuItem.Name = "alternativeSpellingsToolStripMenuItem";
-            this.alternativeSpellingsToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.alternativeSpellingsToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.alternativeSpellingsToolStripMenuItem.Text = "Alternative Spellings";
             this.alternativeSpellingsToolStripMenuItem.Click += new System.EventHandler(this.alternativeSpellingsToolStripMenuItem_Click);
             // 
@@ -297,20 +352,20 @@
             this.iSISHelpToolStripMenuItem,
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(47, 21);
             this.helpToolStripMenuItem.Text = "Help";
             // 
             // iSISHelpToolStripMenuItem
             // 
             this.iSISHelpToolStripMenuItem.Name = "iSISHelpToolStripMenuItem";
-            this.iSISHelpToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.iSISHelpToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.iSISHelpToolStripMenuItem.Text = "ISIS Help...";
             this.iSISHelpToolStripMenuItem.Click += new System.EventHandler(this.HelpToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.aboutToolStripMenuItem.Text = "About...";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
             // 
@@ -330,7 +385,7 @@
             this.pageMain.Location = new System.Drawing.Point(4, 25);
             this.pageMain.Name = "pageMain";
             this.pageMain.Padding = new System.Windows.Forms.Padding(3);
-            this.pageMain.Size = new System.Drawing.Size(1417, 949);
+            this.pageMain.Size = new System.Drawing.Size(1417, 717);
             this.pageMain.TabIndex = 0;
             this.pageMain.Text = "Main Menu";
             this.pageMain.Click += new System.EventHandler(this.pageMain_Click);
@@ -355,11 +410,11 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 6;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 37F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 37F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 14F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(379, 220);
             this.tableLayoutPanel2.TabIndex = 22;
             // 
@@ -367,10 +422,10 @@
             // 
             this.cmdPraccingForm.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmdPraccingForm.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdPraccingForm.Location = new System.Drawing.Point(3, 179);
+            this.cmdPraccingForm.Location = new System.Drawing.Point(3, 185);
             this.cmdPraccingForm.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmdPraccingForm.Name = "cmdPraccingForm";
-            this.cmdPraccingForm.Size = new System.Drawing.Size(184, 37);
+            this.cmdPraccingForm.Size = new System.Drawing.Size(184, 31);
             this.cmdPraccingForm.TabIndex = 28;
             this.cmdPraccingForm.Text = "Pracc Form";
             this.cmdPraccingForm.UseVisualStyleBackColor = true;
@@ -382,7 +437,7 @@
             this.cmdOpenDraftReport.Location = new System.Drawing.Point(193, 112);
             this.cmdOpenDraftReport.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmdOpenDraftReport.Name = "cmdOpenDraftReport";
-            this.cmdOpenDraftReport.Size = new System.Drawing.Size(184, 24);
+            this.cmdOpenDraftReport.Size = new System.Drawing.Size(184, 28);
             this.cmdOpenDraftReport.TabIndex = 26;
             this.cmdOpenDraftReport.Text = "Draft Report";
             this.cmdOpenDraftReport.UseVisualStyleBackColor = true;
@@ -392,10 +447,10 @@
             // 
             this.cmdPraccingSheet.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmdPraccingSheet.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdPraccingSheet.Location = new System.Drawing.Point(3, 144);
+            this.cmdPraccingSheet.Location = new System.Drawing.Point(3, 148);
             this.cmdPraccingSheet.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmdPraccingSheet.Name = "cmdPraccingSheet";
-            this.cmdPraccingSheet.Size = new System.Drawing.Size(184, 27);
+            this.cmdPraccingSheet.Size = new System.Drawing.Size(184, 29);
             this.cmdPraccingSheet.TabIndex = 27;
             this.cmdPraccingSheet.Text = "Pracc Sheet";
             this.cmdPraccingSheet.UseVisualStyleBackColor = true;
@@ -404,10 +459,10 @@
             // cmdOpenDraftSearch
             // 
             this.cmdOpenDraftSearch.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cmdOpenDraftSearch.Location = new System.Drawing.Point(193, 74);
+            this.cmdOpenDraftSearch.Location = new System.Drawing.Point(193, 76);
             this.cmdOpenDraftSearch.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmdOpenDraftSearch.Name = "cmdOpenDraftSearch";
-            this.cmdOpenDraftSearch.Size = new System.Drawing.Size(184, 30);
+            this.cmdOpenDraftSearch.Size = new System.Drawing.Size(184, 28);
             this.cmdOpenDraftSearch.TabIndex = 25;
             this.cmdOpenDraftSearch.Text = "Search Drafts";
             this.cmdOpenDraftSearch.UseVisualStyleBackColor = true;
@@ -431,7 +486,7 @@
             this.cmdOpenDraftManager.Location = new System.Drawing.Point(193, 39);
             this.cmdOpenDraftManager.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmdOpenDraftManager.Name = "cmdOpenDraftManager";
-            this.cmdOpenDraftManager.Size = new System.Drawing.Size(184, 27);
+            this.cmdOpenDraftManager.Size = new System.Drawing.Size(184, 29);
             this.cmdOpenDraftManager.TabIndex = 24;
             this.cmdOpenDraftManager.Text = "Manage Drafts";
             this.cmdOpenDraftManager.UseVisualStyleBackColor = true;
@@ -440,9 +495,9 @@
             // cmdOpenDraftImporter
             // 
             this.cmdOpenDraftImporter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cmdOpenDraftImporter.Location = new System.Drawing.Point(193, 143);
+            this.cmdOpenDraftImporter.Location = new System.Drawing.Point(193, 147);
             this.cmdOpenDraftImporter.Name = "cmdOpenDraftImporter";
-            this.cmdOpenDraftImporter.Size = new System.Drawing.Size(184, 29);
+            this.cmdOpenDraftImporter.Size = new System.Drawing.Size(184, 31);
             this.cmdOpenDraftImporter.TabIndex = 32;
             this.cmdOpenDraftImporter.Text = "Import Draft";
             this.cmdOpenDraftImporter.UseVisualStyleBackColor = true;
@@ -455,7 +510,7 @@
             this.cmdOpenPraccingReport.Location = new System.Drawing.Point(3, 112);
             this.cmdOpenPraccingReport.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmdOpenPraccingReport.Name = "cmdOpenPraccingReport";
-            this.cmdOpenPraccingReport.Size = new System.Drawing.Size(184, 24);
+            this.cmdOpenPraccingReport.Size = new System.Drawing.Size(184, 28);
             this.cmdOpenPraccingReport.TabIndex = 26;
             this.cmdOpenPraccingReport.Text = "Praccing Report";
             this.cmdOpenPraccingReport.UseVisualStyleBackColor = true;
@@ -465,10 +520,10 @@
             // 
             this.cmdOpenIssuesImport.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmdOpenIssuesImport.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdOpenIssuesImport.Location = new System.Drawing.Point(3, 74);
+            this.cmdOpenIssuesImport.Location = new System.Drawing.Point(3, 76);
             this.cmdOpenIssuesImport.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmdOpenIssuesImport.Name = "cmdOpenIssuesImport";
-            this.cmdOpenIssuesImport.Size = new System.Drawing.Size(184, 30);
+            this.cmdOpenIssuesImport.Size = new System.Drawing.Size(184, 28);
             this.cmdOpenIssuesImport.TabIndex = 25;
             this.cmdOpenIssuesImport.Text = "Import Issues";
             this.cmdOpenIssuesImport.UseVisualStyleBackColor = true;
@@ -481,7 +536,7 @@
             this.cmdOpenPraccingEntry.Location = new System.Drawing.Point(3, 39);
             this.cmdOpenPraccingEntry.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmdOpenPraccingEntry.Name = "cmdOpenPraccingEntry";
-            this.cmdOpenPraccingEntry.Size = new System.Drawing.Size(184, 27);
+            this.cmdOpenPraccingEntry.Size = new System.Drawing.Size(184, 29);
             this.cmdOpenPraccingEntry.TabIndex = 24;
             this.cmdOpenPraccingEntry.Text = "Praccing Entry";
             this.cmdOpenPraccingEntry.UseVisualStyleBackColor = true;
@@ -560,7 +615,7 @@
             // 
             this.lblBackupStatus.AutoSize = true;
             this.lblBackupStatus.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBackupStatus.Location = new System.Drawing.Point(4, 23);
+            this.lblBackupStatus.Location = new System.Drawing.Point(438, 24);
             this.lblBackupStatus.Name = "lblBackupStatus";
             this.lblBackupStatus.Size = new System.Drawing.Size(83, 14);
             this.lblBackupStatus.TabIndex = 20;
@@ -571,7 +626,7 @@
             // 
             this.lblAutoSurveys.AutoSize = true;
             this.lblAutoSurveys.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAutoSurveys.Location = new System.Drawing.Point(3, 3);
+            this.lblAutoSurveys.Location = new System.Drawing.Point(437, 4);
             this.lblAutoSurveys.Name = "lblAutoSurveys";
             this.lblAutoSurveys.Size = new System.Drawing.Size(113, 14);
             this.lblAutoSurveys.TabIndex = 19;
@@ -636,7 +691,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 199F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 204F));
             this.tableLayoutPanel1.Controls.Add(this.cmdOpenVarChangesMenu, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.button1, 3, 4);
+            this.tableLayoutPanel1.Controls.Add(this.cmdOpenParallelVarReport, 3, 4);
             this.tableLayoutPanel1.Controls.Add(this.cmdExternalReportsMenu, 3, 1);
             this.tableLayoutPanel1.Controls.Add(this.label5, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.cmdOpenCommentSearch, 2, 3);
@@ -681,16 +736,16 @@
             this.cmdOpenVarChangesMenu.UseVisualStyleBackColor = true;
             this.cmdOpenVarChangesMenu.Click += new System.EventHandler(this.cmdOpenVarChangesMenu_Click);
             // 
-            // button1
+            // cmdOpenParallelVarReport
             // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(582, 143);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(198, 29);
-            this.button1.TabIndex = 21;
-            this.button1.Text = "Parallel VarNames";
-            this.button1.UseVisualStyleBackColor = true;
+            this.cmdOpenParallelVarReport.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cmdOpenParallelVarReport.Location = new System.Drawing.Point(582, 143);
+            this.cmdOpenParallelVarReport.Name = "cmdOpenParallelVarReport";
+            this.cmdOpenParallelVarReport.Size = new System.Drawing.Size(198, 29);
+            this.cmdOpenParallelVarReport.TabIndex = 21;
+            this.cmdOpenParallelVarReport.Text = "Parallel VarNames";
+            this.cmdOpenParallelVarReport.UseVisualStyleBackColor = true;
+            this.cmdOpenParallelVarReport.Click += new System.EventHandler(this.cmdOpenParallelVarReport_Click);
             // 
             // cmdExternalReportsMenu
             // 
@@ -796,7 +851,6 @@
             // 
             this.cmdOpenSurveyChecks.AutoSize = true;
             this.cmdOpenSurveyChecks.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cmdOpenSurveyChecks.Enabled = false;
             this.cmdOpenSurveyChecks.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdOpenSurveyChecks.Location = new System.Drawing.Point(3, 108);
             this.cmdOpenSurveyChecks.Name = "cmdOpenSurveyChecks";
@@ -885,7 +939,6 @@
             // 
             this.cmdOpenProductCrosstab.AutoSize = true;
             this.cmdOpenProductCrosstab.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cmdOpenProductCrosstab.Enabled = false;
             this.cmdOpenProductCrosstab.Location = new System.Drawing.Point(582, 108);
             this.cmdOpenProductCrosstab.Name = "cmdOpenProductCrosstab";
             this.cmdOpenProductCrosstab.Size = new System.Drawing.Size(198, 29);
@@ -928,6 +981,7 @@
             this.cmdOpenQuestionHistory.TabIndex = 19;
             this.cmdOpenQuestionHistory.Text = "Question History";
             this.cmdOpenQuestionHistory.UseVisualStyleBackColor = true;
+            this.cmdOpenQuestionHistory.Visible = false;
             this.cmdOpenQuestionHistory.Click += new System.EventHandler(this.cmdOpenQuestionHistory_Click);
             // 
             // tabControl1
@@ -935,10 +989,10 @@
             this.tabControl1.Controls.Add(this.pageMain);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl1.Location = new System.Drawing.Point(0, 24);
+            this.tabControl1.Location = new System.Drawing.Point(0, 25);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1425, 978);
+            this.tabControl1.Size = new System.Drawing.Size(1425, 746);
             this.tabControl1.TabIndex = 7;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_TabIndexChanged);
             this.tabControl1.TabIndexChanged += new System.EventHandler(this.tabControl1_TabIndexChanged);
@@ -947,11 +1001,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1425, 1002);
+            this.ClientSize = new System.Drawing.Size(1425, 771);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuMainMenuStrip);
             this.Name = "MainMenu";
-            this.Text = "SDI Menu";
+            this.Text = "Survey Database of ITC (SDI)";
             this.Load += new System.EventHandler(this.MainMenu_Load);
             this.menuMainMenuStrip.ResumeLayout(false);
             this.menuMainMenuStrip.PerformLayout();
@@ -1025,7 +1079,7 @@
         private System.Windows.Forms.Button cmdOpenDraftImporter;
         private System.Windows.Forms.Label lblBackupStatus;
         private System.Windows.Forms.Label lblAutoSurveys;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button cmdOpenParallelVarReport;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem regionsToolStripMenuItem;
@@ -1043,6 +1097,12 @@
         private System.Windows.Forms.Button cmdOpenDraftManager;
         private System.Windows.Forms.Button cmdOpenQuestionHistory;
         private System.Windows.Forms.Button cmdOpenVarChangesMenu;
+        private System.Windows.Forms.ToolStripMenuItem surveysToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem unlockToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem varNamesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewTempToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewOrphansToolStripMenuItem;
     }
 }
 

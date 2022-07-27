@@ -13,8 +13,7 @@ namespace ISISFrontEnd
 {
     public partial class SurveyEditor : Form
     {  
-        // TODO implement saving on click
-                // delete documentation
+        // TODO delete documentation
         
         // TODO corrected form (on hold)
 
@@ -683,11 +682,13 @@ namespace ISISFrontEnd
         /// <param name="e"></param>
         private void SurveyEditor_FormClosed(object sender, FormClosedEventArgs e)
         {
-            FormStateRecord state = Globals.CurrentUser.FormStates.Where(x => x.FormName.Equals("frmSurveyEntry") && x.FormNum == (int)Tag).FirstOrDefault();
+            
+            FormStateRecord state = new FormStateRecord();
+            state.FormName = "frmSurveyEntry";
+            state.FormNum = (int)Tag;
             state.FilterID = CurrentSurvey.SID;
             state.RecordPosition = bs.Position;
-            state.Dirty = true;
-            state.SaveRecord();
+            Globals.UpdateUserFormState(state);
 
             CurrentSurvey.Questions.Clear();
 
@@ -926,6 +927,7 @@ namespace ISISFrontEnd
 
         /// <summary>
         /// TODO multi deletes
+        /// TODO hilarious use of string
         /// </summary>
         private void PerformDelete()
         {

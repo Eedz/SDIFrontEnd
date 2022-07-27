@@ -58,12 +58,20 @@ namespace ISISFrontEnd
         {
             // get heading list for each survey
             List<SurveyRecord> surveys = lstSelected.Items.Cast<SurveyRecord>().ToList();
-            List<List<SurveyQuestion>> headingLists = new List<List<SurveyQuestion>>();
+            List<List<Heading>> headingLists = new List<List<Heading>>();
             foreach (SurveyRecord survey in surveys)
             {
-                List<SurveyQuestion> headingList = DBAction.GetHeadingQuestions(survey.SurveyCode);
+                List<Heading> headingList = DBAction.GetHeadingQuestions(survey);
                 headingLists.Add(headingList);
             }
+
+            HeadingReport report = new HeadingReport(headingLists);
+            report.SelectedSurveys = lstSelected.Items.Cast<Survey>().ToList();
+            report.IncludeQnum = chkIncludeQnum.Checked;
+            report.IncludeFirstVarName = chkIncludeVarNames.Checked;
+            report.IncludeLastVarName = chkIncludeVarNames.Checked;
+            report.MatchStyle = ReportMatching.None;
+            report.CreateReport();
         }
 
         public void AddSurvey(Survey survey)

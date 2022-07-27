@@ -11,7 +11,6 @@ using ITCLib;
 
 namespace ISISFrontEnd
 {
-    // TODO datasheet view
     // TODO report
     // TODO locks
     public partial class PrefixList : Form
@@ -33,7 +32,7 @@ namespace ISISFrontEnd
 
             this.MouseWheel += PrefixList_MouseWheel;
 
-            Prefixes = DBAction.GetVarPrefixes();
+            Prefixes = Globals.AllPrefixes;
             Usages = new List<VariableNameSurveys>();
 
             SetupBindingSources();
@@ -313,6 +312,24 @@ namespace ISISFrontEnd
             }
         }
 
+        private void dgvVariableInfo_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+            string cellValue = dgv.Rows[e.RowIndex].Cells["RefVarName"].Value.ToString();
+            string pattern = cellValue.Substring(0, 3);
+
+            if (FormManager.FormOpen("VarNameUsage"))
+            {
+                VarNameUsage getFrm = (VarNameUsage)FormManager.GetForm("VarNameUsage", 1);
+                getFrm.SearchVars(pattern);
+                getFrm.BringToFront();
+                return;
+            }
+            VarNameUsage frm = new VarNameUsage(pattern);
+            frm.Tag = 1;
+            FormManager.AddPopup(frm);
+        }
+
         private void dgvVariableInfo_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
 
@@ -452,12 +469,14 @@ namespace ISISFrontEnd
             chSurveys.Name = "Surveys";
             chSurveys.HeaderText = "Surveys";
             chSurveys.Width = 200;
+            chSurveys.DisplayIndex = 6;
             dgvVariableInfo.Columns.Add(chSurveys);
 
             DataGridViewTextBoxColumn chRefVarName = new DataGridViewTextBoxColumn();
             chRefVarName.Name = "RefVarName";
             chRefVarName.HeaderText = "RefVarName";
             chRefVarName.Width = 70;
+            chRefVarName.DisplayIndex = 0;
             dgvVariableInfo.Columns.Add(chRefVarName);
 
             DataGridViewTextBoxColumn chVarName = new DataGridViewTextBoxColumn();
@@ -470,6 +489,7 @@ namespace ISISFrontEnd
             chVarLabel.Name = "VarLabel";
             chVarLabel.HeaderText = "VarLabel";
             chVarLabel.Width = 300;
+            chVarLabel.DisplayIndex = 1;
             dgvVariableInfo.Columns.Add(chVarLabel);
 
             DataGridViewComboBoxColumn chTopic = new DataGridViewComboBoxColumn();
@@ -478,6 +498,7 @@ namespace ISISFrontEnd
             chTopic.DisplayMember = "LabelText";
             chTopic.ValueMember = "ID";
             chTopic.Width = 150;
+            chTopic.DisplayIndex = 2;
             dgvVariableInfo.Columns.Add(chTopic);
 
             DataGridViewComboBoxColumn chContent = new DataGridViewComboBoxColumn();
@@ -486,6 +507,7 @@ namespace ISISFrontEnd
             chContent.DisplayMember = "LabelText";
             chContent.ValueMember = "ID";
             chContent.Width = 150;
+            chContent.DisplayIndex = 3;
             dgvVariableInfo.Columns.Add(chContent);
 
             DataGridViewComboBoxColumn chProduct = new DataGridViewComboBoxColumn();
@@ -494,6 +516,7 @@ namespace ISISFrontEnd
             chProduct.DisplayMember = "LabelText";
             chProduct.ValueMember = "ID";
             chProduct.Width = 150;
+            chProduct.DisplayIndex = 4;
             dgvVariableInfo.Columns.Add(chProduct);
 
             DataGridViewComboBoxColumn chDomain = new DataGridViewComboBoxColumn();
@@ -502,6 +525,7 @@ namespace ISISFrontEnd
             chDomain.DisplayMember = "LabelText";
             chDomain.ValueMember = "ID";
             chDomain.Width = 150;
+            chDomain.DisplayIndex = 5;
             dgvVariableInfo.Columns.Add(chDomain);
         }
 
@@ -555,16 +579,23 @@ namespace ISISFrontEnd
             questionUsage.Show();
         }
 
-
-
-
-
-
-
-
-
         #endregion
 
-        
+        private void toolStripDatasheet_Click(object sender, EventArgs e)
+        {
+            //PrefixListSheet frm = new PrefixListSheet();
+            //frm.Tag = 1;
+            //FormManager.Add(frm);
+
+            PrefixListSheet getFrm = (PrefixListSheet)FormManager.GetForm("PrefixListSheet", 1);
+            if (getFrm == null)
+            
+            {
+                PrefixListSheet frm = new PrefixListSheet();
+                frm.Tag = 1;
+                FormManager.Add(frm);
+            }
+            ((MainMenu)FormManager.GetForm("MainMenu")).SelectTab("PrefixListSheet1");
+        }
     }
 }
