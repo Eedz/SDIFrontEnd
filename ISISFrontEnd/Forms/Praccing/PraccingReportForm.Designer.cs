@@ -30,6 +30,8 @@
         {
             this.lblTitle = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.goToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.entryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,8 +65,8 @@
             this.chkEmptyRow = new System.Windows.Forms.CheckBox();
             this.chkPraccInstructions = new System.Windows.Forms.CheckBox();
             this.cmdClose = new System.Windows.Forms.Button();
-            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lstCategory = new System.Windows.Forms.ListBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -94,6 +96,20 @@
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
+            // closeToolStripMenuItem
+            // 
+            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.closeToolStripMenuItem.Text = "Close";
+            this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
+            // 
+            // clearToolStripMenuItem
+            // 
+            this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.clearToolStripMenuItem.Text = "Clear";
+            this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
+            // 
             // goToToolStripMenuItem
             // 
             this.goToToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -106,14 +122,14 @@
             // entryToolStripMenuItem
             // 
             this.entryToolStripMenuItem.Name = "entryToolStripMenuItem";
-            this.entryToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.entryToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.entryToolStripMenuItem.Text = "Entry";
             this.entryToolStripMenuItem.Click += new System.EventHandler(this.entryToolStripMenuItem_Click);
             // 
             // importToolStripMenuItem
             // 
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.importToolStripMenuItem.Text = "Import";
             this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
             // 
@@ -138,6 +154,8 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.label11);
+            this.panel1.Controls.Add(this.lstCategory);
             this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.label4);
@@ -152,7 +170,7 @@
             this.panel1.Location = new System.Drawing.Point(7, 110);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(434, 334);
+            this.panel1.Size = new System.Drawing.Size(434, 406);
             this.panel1.TabIndex = 4;
             this.panel1.Visible = false;
             // 
@@ -160,7 +178,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(199, 208);
+            this.label6.Location = new System.Drawing.Point(2, 362);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(71, 16);
             this.label6.TabIndex = 10;
@@ -170,7 +188,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(223, 240);
+            this.label5.Location = new System.Drawing.Point(22, 330);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(51, 16);
             this.label5.TabIndex = 9;
@@ -180,7 +198,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(27, 187);
+            this.label4.Location = new System.Drawing.Point(50, 187);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(23, 16);
             this.label4.TabIndex = 8;
@@ -190,7 +208,7 @@
             // 
             this.cboLanguage.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboLanguage.FormattingEnabled = true;
-            this.cboLanguage.Location = new System.Drawing.Point(282, 205);
+            this.cboLanguage.Location = new System.Drawing.Point(75, 359);
             this.cboLanguage.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cboLanguage.Name = "cboLanguage";
             this.cboLanguage.Size = new System.Drawing.Size(135, 24);
@@ -200,7 +218,7 @@
             // 
             this.cboStatus.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboStatus.FormattingEnabled = true;
-            this.cboStatus.Location = new System.Drawing.Point(282, 237);
+            this.cboStatus.Location = new System.Drawing.Point(75, 327);
             this.cboStatus.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cboStatus.Name = "cboStatus";
             this.cboStatus.Size = new System.Drawing.Size(135, 24);
@@ -211,7 +229,7 @@
             this.lstTo.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstTo.FormattingEnabled = true;
             this.lstTo.ItemHeight = 16;
-            this.lstTo.Location = new System.Drawing.Point(62, 187);
+            this.lstTo.Location = new System.Drawing.Point(75, 187);
             this.lstTo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.lstTo.Name = "lstTo";
             this.lstTo.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
@@ -238,7 +256,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(230, 48);
+            this.label3.Location = new System.Drawing.Point(242, 47);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(39, 16);
             this.label3.TabIndex = 3;
@@ -248,7 +266,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(8, 48);
+            this.label2.Location = new System.Drawing.Point(34, 48);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(39, 16);
             this.label2.TabIndex = 2;
@@ -259,7 +277,7 @@
             this.lstDate.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstDate.FormattingEnabled = true;
             this.lstDate.ItemHeight = 16;
-            this.lstDate.Location = new System.Drawing.Point(62, 47);
+            this.lstDate.Location = new System.Drawing.Point(75, 47);
             this.lstDate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.lstDate.Name = "lstDate";
             this.lstDate.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
@@ -291,7 +309,7 @@
             this.panel2.Location = new System.Drawing.Point(448, 110);
             this.panel2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(396, 333);
+            this.panel2.Size = new System.Drawing.Size(396, 405);
             this.panel2.TabIndex = 5;
             this.panel2.Visible = false;
             // 
@@ -386,7 +404,7 @@
             this.panel3.Controls.Add(this.chkIncludeQnums);
             this.panel3.Controls.Add(this.chkEmptyRow);
             this.panel3.Controls.Add(this.chkPraccInstructions);
-            this.panel3.Location = new System.Drawing.Point(7, 452);
+            this.panel3.Location = new System.Drawing.Point(6, 523);
             this.panel3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(838, 129);
@@ -482,26 +500,33 @@
             this.cmdClose.Visible = false;
             this.cmdClose.Click += new System.EventHandler(this.cmdClose_Click);
             // 
-            // closeToolStripMenuItem
+            // lstCategory
             // 
-            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
-            this.closeToolStripMenuItem.Text = "Close";
-            this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
+            this.lstCategory.FormattingEnabled = true;
+            this.lstCategory.ItemHeight = 16;
+            this.lstCategory.Location = new System.Drawing.Point(283, 190);
+            this.lstCategory.Name = "lstCategory";
+            this.lstCategory.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.lstCategory.Size = new System.Drawing.Size(133, 132);
+            this.lstCategory.TabIndex = 11;
+            this.lstCategory.SelectedIndexChanged += new System.EventHandler(this.ListBox_SelectedIndexChanged);
             // 
-            // clearToolStripMenuItem
+            // label11
             // 
-            this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
-            this.clearToolStripMenuItem.Text = "Clear";
-            this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(213, 190);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(68, 16);
+            this.label11.TabIndex = 12;
+            this.label11.Text = "Category";
             // 
             // PraccingReportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(222)))), ((int)(((byte)(116)))));
-            this.ClientSize = new System.Drawing.Size(891, 594);
+            this.ClientSize = new System.Drawing.Size(891, 717);
             this.Controls.Add(this.cmdClose);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
@@ -569,5 +594,7 @@
         private System.Windows.Forms.Button cmdClose;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.ListBox lstCategory;
     }
 }

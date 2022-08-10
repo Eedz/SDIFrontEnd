@@ -232,6 +232,7 @@
             // 
             // cboResName
             // 
+            this.cboResName.Enabled = false;
             this.cboResName.FormattingEnabled = true;
             this.cboResName.Location = new System.Drawing.Point(851, 118);
             this.cboResName.Name = "cboResName";
@@ -240,6 +241,7 @@
             // 
             // dtpResDate
             // 
+            this.dtpResDate.Enabled = false;
             this.dtpResDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpResDate.Location = new System.Drawing.Point(851, 95);
             this.dtpResDate.Name = "dtpResDate";
@@ -396,7 +398,7 @@
             this.chkKeepResponse.Text = "Keep?";
             this.chkKeepResponse.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkKeepResponse.UseVisualStyleBackColor = false;
-            this.chkKeepResponse.CheckedChanged += new System.EventHandler(this.chkKeepResponse_CheckedChanged);
+
             this.chkKeepResponse.Click += new System.EventHandler(this.chkKeepResponse_Click);
             // 
             // dtpNewTime
@@ -673,7 +675,7 @@
             this.chkResolved.TabIndex = 14;
             this.chkResolved.Text = "Resolved";
             this.chkResolved.UseVisualStyleBackColor = true;
-            this.chkResolved.CheckedChanged += new System.EventHandler(this.chkResolved_CheckedChanged);
+            this.chkResolved.Click += new System.EventHandler(this.chkResolved_Click);
             // 
             // txtStatus
             // 

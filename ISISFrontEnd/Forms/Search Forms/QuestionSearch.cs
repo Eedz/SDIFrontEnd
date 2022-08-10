@@ -14,7 +14,7 @@ namespace ISISFrontEnd
     // TODO check if advanced search is needed
 
     // TODO OR within fields
-    // TODO joint prea/litq
+
     public partial class QuestionSearch : Form
     {
         enum SearchType { QuickSearch, GlobalSearch }
@@ -23,9 +23,8 @@ namespace ISISFrontEnd
         List<SurveyQuestion> SearchResults;
         VarNameSearchType varSearchType;
         int wordingFieldLeft = 64;
-        int wordingFieldTop = 91;
-        int wordingFieldH = 38;
-        int wordingFieldLinkedH = 75;
+    
+        int wordingFieldLinkedH = 95;
         int wordingFieldW = 243;
 
         int activePanelL = 12;
@@ -322,8 +321,8 @@ namespace ISISFrontEnd
             {
                 if (!string.IsNullOrEmpty(txtPreALitQ.Text))
                 {
-                    //criteria.Add(new SearchCriterium() { Field = "PreA", Compare = Comparity.Contains, Criterium = GetTextFilter(txtPreALitQ.Text, "OR", "%") });
-                    //criteria.Add(new SearchCriterium() { Field = "LitQ", Compare = Comparity.Contains, Criterium = GetTextFilter(txtPreALitQ.Text, "OR", "%") });
+                    criteria.Add(new SearchCriterium(new List<string>() { "PreA", "LitQ" }, Comparity.Contains, new List<string>() { txtPreALitQ.Text } ));
+                    
                 }
             }
             else

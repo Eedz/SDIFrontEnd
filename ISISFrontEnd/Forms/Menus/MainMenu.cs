@@ -16,8 +16,6 @@ using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Word = Microsoft.Office.Interop.Word;
 
-// TODO CREATE USER SETTINGS FILE
-
 namespace ISISFrontEnd
 {
     public partial class MainMenu : Form
@@ -96,7 +94,227 @@ namespace ISISFrontEnd
             }
         }
 
-        #region Main Menu Buttons
+        #region Menu Bar
+
+        #region File
+        private void countryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NewStudyEntry frm = new NewStudyEntry();
+            frm.ShowDialog();
+        }
+
+        private void projectWaveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NewWaveEntry frm = new NewWaveEntry();
+            frm.ShowDialog();
+        }
+
+        private void surveyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NewSurveyEntry frm = new NewSurveyEntry();
+            frm.ShowDialog();
+        }
+
+        private void CloseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        #endregion
+
+        #region Edit
+        private void LabelsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmLabelLibrary frm = new frmLabelLibrary();
+
+            frm.ShowDialog();
+        }
+
+        private void CohortListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CohortList frm = new CohortList();
+
+            frm.ShowDialog();
+        }
+
+        private void UserGroupListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UserStateList frm = new UserStateList();
+
+            frm.ShowDialog();
+        }
+
+        private void peopleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PersonnelForm frm = new PersonnelForm();
+            frm.ShowDialog();
+        }
+
+        private void canonicalVarsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (FormManager.FormOpen("CanonVarsEntry"))
+            {
+                tabControl1.SelectTab("CanonVarsEntry1");
+                return;
+            }
+
+            CanonVarsEntry frm = new CanonVarsEntry(Globals.AllCanonVars);
+            frm.Tag = 1;
+            FormManager.Add(frm);
+        }
+        #endregion
+
+        #region View
+
+        private void regionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (FormManager.FormOpen("RegionManager"))
+            {
+                tabControl1.SelectTab("RegionManager1");
+                return;
+            }
+
+            RegionManager frm = new RegionManager();
+            frm.Tag = 1;
+            FormManager.Add(frm);
+        }
+
+        private void studiesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (FormManager.FormOpen("StudyManager"))
+            {
+                tabControl1.SelectTab("StudynManager1");
+                return;
+            }
+
+            StudyManager frm = new StudyManager();
+            frm.Tag = 1;
+            FormManager.Add(frm);
+        }
+
+        private void wavesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (FormManager.FormOpen("WaveManager"))
+            {
+                tabControl1.SelectTab("WaveManager1");
+                return;
+            }
+
+            WaveManager frm = new WaveManager();
+            frm.Tag = 1;
+            FormManager.Add(frm);
+        }
+
+        private void surveysToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (FormManager.FormOpen("SurveyManager"))
+            {
+                tabControl1.SelectTab("SurveyManager1");
+                return;
+            }
+
+            SurveyManager frm = new SurveyManager();
+            frm.Tag = 1;
+            FormManager.Add(frm);
+        }
+        #endregion
+
+        private void newToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            NewSurveyEntry frm = new NewSurveyEntry();
+            frm.ShowDialog();
+        }
+
+        private void unlockToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (FormManager.FormOpen("UnlockSurvey"))
+            {
+
+                return;
+            }
+            UnlockSurvey frm = new UnlockSurvey();
+            frm.Tag = 1;
+            FormManager.AddPopup(frm);
+        }
+
+        private void viewTempToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (FormManager.FormOpen("TempVarViewer"))
+            {
+
+                return;
+            }
+            TempVarViewer frm = new TempVarViewer();
+            frm.Tag = 1;
+            FormManager.AddPopup(frm);
+        }
+
+        private void viewOrphansToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form newfrm = new Form();
+
+            DataGridView dgv = new DataGridView();
+            newfrm.Controls.Add(dgv);
+
+            dgv.Dock = DockStyle.Fill;
+            dgv.DataSource = DBAction.GetOrphanVarNames();
+
+
+
+            for (int i = 0; i < dgv.ColumnCount; i++)
+            {
+                switch (dgv.Columns[i].Name)
+                {
+                    case "ID":
+                    case "CountryCode":
+                    case "StandardForm":
+                    case "Prefix":
+                    case "Number":
+                    case "Suffix":
+                        dgv.Columns[i].Visible = false;
+                        break;
+                }
+            }
+            newfrm.FormBorderStyle = FormBorderStyle.FixedSingle;
+            newfrm.Width = 900;
+            newfrm.Height = 600;
+
+            newfrm.Show();
+        }
+
+        #region Tools
+        private void PreferencesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UserPreferencesForm frm = new UserPreferencesForm(CurrentUser);
+
+            frm.ShowDialog();
+        }
+
+        private void alternativeSpellingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SimilarWordsList frm = new SimilarWordsList();
+            frm.ShowDialog();
+        }
+        #endregion
+
+        #region Help
+
+        private void HelpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(@"\\psychfile\psych$\psych-lab-gfong\SMG\SMG Documentation\Big Book of SMG\MAIN ENTRANCE.onetoc2");
+        }
+
+        private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("SDI FrontEnd Ver 4.0");
+        }
+        #endregion
+
+
+
+        #endregion
+
+        #region Survey Editor Block
 
         //
         // Survey Editor Block
@@ -245,6 +463,66 @@ namespace ISISFrontEnd
             FormManager.Add(frm);
         }
 
+        #endregion
+
+        #region Survey Info Forms
+        //
+        // Survey Info
+        // 
+
+        private void cmdOpenStudyAttributes_Click(object sender, EventArgs e)
+        {
+            if (FormManager.FormOpen("SurveyManager"))
+            {
+                tabControl1.SelectTab("SurveyManager1");
+                return;
+            }
+
+            SurveyManager frm = new SurveyManager();
+            frm.Tag = 1;
+            FormManager.Add(frm);
+        }
+
+        private void cmdOpenSurveyProcessing_Click(object sender, EventArgs e)
+        {
+            if (FormManager.FormOpen("SurveyProcessingEntry"))
+            {
+                tabControl1.SelectTab("SurveyProcessingEntry1");
+                return;
+            }
+            SurveyProcessingEntry frm = new SurveyProcessingEntry();
+            frm.Tag = 1;
+            FormManager.Add(frm);
+        }
+
+        private void cmdOpenSurveyChecks_Click(object sender, EventArgs e)
+        {
+            if (FormManager.FormOpen("SurveyChecksMenu"))
+            {
+                tabControl1.SelectTab("SurveyChecksMenu1");
+                return;
+            }
+
+            SurveyChecksForm frm = new SurveyChecksForm();
+            frm.Tag = 1;
+            FormManager.Add(frm);
+        }
+
+        private void cmdOpenTranslationImporter_Click(object sender, EventArgs e)
+        {
+            if (FormManager.FormOpen("TranslationImporter"))
+            {
+                return;
+            }
+
+            TranslationImporter frm = new TranslationImporter();
+            frm.Tag = 1;
+            FormManager.AddPopup(frm);
+        }
+
+        #endregion
+
+        #region Search Forms
         //
         // Search
         //
@@ -288,8 +566,9 @@ namespace ISISFrontEnd
             FormManager.Add(frm);
         }
 
+        #endregion
 
-
+        #region Variable Info Forms
         //
         // Variable Info
         // 
@@ -334,6 +613,20 @@ namespace ISISFrontEnd
 
         }
 
+        private void cmdOpenCommentUsage_Click(object sender, EventArgs e)
+        {
+
+            if (FormManager.FormOpen("CommentEntry"))
+            {
+
+                return;
+            }
+
+            CommentEntry frm = new CommentEntry();
+            frm.Tag = 1;
+            FormManager.AddPopup(frm);
+        }
+
         private void cmdOpenPrefixList_Click(object sender, EventArgs e)
         {
             if (FormManager.FormOpen("PrefixList"))
@@ -347,8 +640,21 @@ namespace ISISFrontEnd
             FormManager.Add(frm);
         }
 
+        private void cmdOpenQuestionHistory_Click(object sender, EventArgs e)
+        {
+            //if (FormManager.FormOpen("QuestionHistory"))
+            //{
+            //    tabControl1.SelectTab("QuestionHistory1");
+            //    return;
+            //}
+            //QuestionHistory.QuestionHistory frm = new QuestionHistory.QuestionHistory();
+            //frm.Tag = 1;
+            //FormManager.Add(frm);
+        }
 
+        #endregion
 
+        #region Report Forms
         // 
         // Reports
         // 
@@ -405,21 +711,116 @@ namespace ISISFrontEnd
             FormManager.AddPopup(frm);
         }
 
+        #endregion
+
+        #region Praccing Forms
+        private void cmdOpenPraccingEntry_Click(object sender, EventArgs e)
+        {
+
+            if (FormManager.FormOpen("PraccingEntry", 1))
+            {
+                ((MainMenu)FormManager.GetForm("MainMenu")).SelectTab("PraccingEntry1");
+                return;
+            }
+
+            var state = Globals.CurrentUser.FormStates.Where(x => x.FormName.Equals("frmIssuesTracking") && x.FormNum == 1).First();
+            int survID = 899;
+            if (state != null) survID = state.FilterID;
+            PraccingEntry frm = new PraccingEntry(survID);
+
+            frm.Tag = 1;
+            FormManager.Add(frm);
+        }
+
+        private void cmdOpenIssuesImport_Click(object sender, EventArgs e)
+        {
+            if (FormManager.FormOpen("frmPraccingIssuesImport", 1))
+            {
+                tabControl1.SelectTab("frmPraccingIssuesImport1");
+                return;
+            }
+
+            frmPraccingIssuesImport frm = new frmPraccingIssuesImport();
+
+            frm.Tag = 1;
+            FormManager.Add(frm);
+        }
+
+        private void cmdOpenPraccingReport_Click(object sender, EventArgs e)
+        {
+            if (FormManager.FormOpen("PraccingReportForm", 1))
+            {
+                tabControl1.SelectTab("PraccingReportForm1");
+                return;
+            }
+
+            PraccingReportForm frm = new PraccingReportForm();
+            frm.Tag = 1;
+            FormManager.Add(frm);
+        }
+
+        private void cmdPraccingSheet_Click(object sender, EventArgs e)
+        {
+            SurveySelector frm = new SurveySelector();
+            frm.ShowDialog();
+            Survey survey = frm.Selected;
+
+            if (survey == null)
+                return;
+
+            CreatePraccingSheet(survey);
+        }
+
+        private void cmdPraccingForm_Click(object sender, EventArgs e)
+        {
+            PraccingReportBlank report = new PraccingReportBlank();
+
+            report.CreateReport();
+        }
+
+        #endregion
+
+        #region Draft Forms
         //
         // Drafts
         //
 
-        private void cmdOpenSurvDevMenu_Click(object sender, EventArgs e)
+        private void cmdOpenDraftManager_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("SurveyDevMenu"))
+            if (FormManager.FormOpen("DraftManager"))
             {
-                tabControl1.SelectTab("SurveyDevMenu1");
+                ((MainMenu)this.Parent.Parent.Parent).SelectTab("DraftManager1");
                 return;
             }
 
-            SurveyDevMenu frm = new SurveyDevMenu();
+            DraftManager frm = new DraftManager();
             frm.Tag = 1;
             FormManager.Add(frm);
+        }
+
+        private void cmdOpenDraftSearch_Click(object sender, EventArgs e)
+        {
+            if (FormManager.FormOpen("DraftSearch"))
+            {
+                ((MainMenu)this.Parent.Parent.Parent).SelectTab("DraftSearch1");
+                return;
+            }
+
+            DraftSearch frm = new DraftSearch();
+            frm.Tag = 1;
+            FormManager.Add(frm);
+        }
+
+        private void cmdOpenDraftReport_Click(object sender, EventArgs e)
+        {
+            if (FormManager.FormOpen("DraftReport"))
+            {
+                return;
+            }
+
+            DraftReportForm frm = new DraftReportForm();
+            frm.Tag = 1;
+            FormManager.AddPopup(frm);
         }
 
         private void cmdOpenDraftImporter_Click(object sender, EventArgs e)
@@ -433,335 +834,7 @@ namespace ISISFrontEnd
             frm.Tag = 1;
             FormManager.AddPopup(frm);
         }
-
-        //
-        
-
-        private void cmdOpenStudyAttributes_Click(object sender, EventArgs e)
-        {
-            if (FormManager.FormOpen("SurveyManager"))
-            {
-                tabControl1.SelectTab("SurveyManager1");
-                return;
-            }
-
-            SurveyManager frm = new SurveyManager();
-            frm.Tag = 1;
-            FormManager.Add(frm);
-        }
-
-        private void cmdOpenTranslationImporter_Click(object sender, EventArgs e)
-        {
-            if (FormManager.FormOpen("TranslationImporter"))
-            {
-                return;
-            }
-
-            TranslationImporter frm = new TranslationImporter();
-            frm.Tag = 1;
-            FormManager.AddPopup(frm);
-        }
-
-        private void cmdOpenSurveyChecks_Click(object sender, EventArgs e)
-        {
-            if (FormManager.FormOpen("SurveyChecksMenu"))
-            {
-                tabControl1.SelectTab("SurveyChecksMenu1");
-                return;
-            }
-
-            SurveyChecksForm frm = new SurveyChecksForm();
-            frm.Tag = 1;
-            FormManager.Add(frm);           
-        }
-
-        private void cmdOpenCommentUsage_Click(object sender, EventArgs e)
-        {
-
-            if (FormManager.FormOpen("CommentEntry"))
-            {
-                
-                return;
-            }
-
-            CommentEntry frm = new CommentEntry();
-            frm.Tag = 1;
-            FormManager.AddPopup(frm);
-        }
-
-        private void cmdOpenPraccingMenu_Click(object sender, EventArgs e)
-        {
-            if (FormManager.FormOpen("PraccingMenu"))
-            {
-                tabControl1.SelectTab("PraccingMenu1");
-                return;
-            }
-
-            PraccingMenu frm = new PraccingMenu();
-            frm.Tag = 1;
-            FormManager.Add(frm);
-        }
-
-        private void cmdOpenSurveyProcessing_Click(object sender, EventArgs e)
-        {
-            if (FormManager.FormOpen("SurveyProcessingEntry"))
-            {
-                tabControl1.SelectTab("SurveyProcessingEntry1");
-                return;
-            }
-            SurveyProcessingEntry frm = new SurveyProcessingEntry();
-            frm.Tag = 1;
-            FormManager.Add(frm);
-        }
-
-        private void cmdOpenQuestionHistory_Click(object sender, EventArgs e)
-        {
-            //if (FormManager.FormOpen("QuestionHistory"))
-            //{
-            //    tabControl1.SelectTab("QuestionHistory1");
-            //    return;
-            //}
-            //QuestionHistory.QuestionHistory frm = new QuestionHistory.QuestionHistory();
-            //frm.Tag = 1;
-            //FormManager.Add(frm);
-        }
-
-
-
         #endregion
-
-        #region Menu Bar
-
-        #region File
-        private void countryToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            NewStudyEntry frm = new NewStudyEntry();
-            frm.ShowDialog();
-        }
-
-        private void projectWaveToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            NewWaveEntry frm = new NewWaveEntry();
-            frm.ShowDialog();
-        }
-
-        private void surveyToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            NewSurveyEntry frm = new NewSurveyEntry();
-            frm.ShowDialog();
-        }
-
-        private void CloseToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-        #endregion
-
-        #region Edit
-        private void LabelsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmLabelLibrary frm = new frmLabelLibrary();
-            
-            frm.ShowDialog();
-        }
-
-        private void CohortListToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            CohortList frm = new CohortList();
-            
-            frm.ShowDialog();
-        }
-
-        private void UserGroupListToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            UserStateList frm = new UserStateList();
-            
-            frm.ShowDialog();
-        }
-
-        private void peopleToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            PersonnelForm frm = new PersonnelForm();
-            frm.ShowDialog();
-        }
-
-        private void canonicalVarsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (FormManager.FormOpen("CanonVarsEntry"))
-            {
-                tabControl1.SelectTab("CanonVarsEntry1");
-                return;
-            }
-
-            CanonVarsEntry frm = new CanonVarsEntry(Globals.AllCanonVars);
-            frm.Tag = 1;
-            FormManager.Add(frm);
-        }
-        #endregion
-
-        #region View
-
-        private void regionsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (FormManager.FormOpen("RegionManager"))
-            {
-                tabControl1.SelectTab("RegionManager1");
-                return;
-            }
-
-            RegionManager frm = new RegionManager();
-            frm.Tag = 1;
-            FormManager.Add(frm);
-        }
-
-        private void studiesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (FormManager.FormOpen("StudyManager"))
-            {
-                tabControl1.SelectTab("StudynManager1");
-                return;
-            }
-
-            StudyManager frm = new StudyManager();
-            frm.Tag = 1;
-            FormManager.Add(frm);
-        }
-
-        private void wavesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (FormManager.FormOpen("WaveManager"))
-            {
-                tabControl1.SelectTab("WaveManager1");
-                return;
-            }
-
-            WaveManager frm = new WaveManager();
-            frm.Tag = 1;
-            FormManager.Add(frm);
-        }
-
-        private void surveysToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (FormManager.FormOpen("SurveyManager"))
-            {
-                tabControl1.SelectTab("SurveyManager1");
-                return;
-            }
-
-            SurveyManager frm = new SurveyManager();
-            frm.Tag = 1;
-            FormManager.Add(frm);
-        }
-        #endregion
-
-        private void newToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            NewSurveyEntry frm = new NewSurveyEntry();
-            frm.ShowDialog();
-        }
-
-        private void unlockToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (FormManager.FormOpen("UnlockSurvey"))
-            {
-                
-                return;
-            }
-            UnlockSurvey frm = new UnlockSurvey();
-            frm.Tag = 1;
-            FormManager.AddPopup(frm);
-        }
-
-        private void viewTempToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (FormManager.FormOpen("TempVarViewer"))
-            {
-                
-                return;
-            }
-            TempVarViewer frm = new TempVarViewer();
-            frm.Tag = 1;
-            FormManager.AddPopup(frm);
-        }
-
-        private void viewOrphansToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Form newfrm = new Form();
-
-            DataGridView dgv = new DataGridView();
-            newfrm.Controls.Add(dgv);
-
-            dgv.Dock = DockStyle.Fill;          
-            dgv.DataSource = DBAction.GetOrphanVarNames();
-
-
-
-            for(int i = 0; i < dgv.ColumnCount; i++)
-            {
-                switch (dgv.Columns[i].Name)
-                {
-                    case "ID":
-                    case "CountryCode":
-                    case "StandardForm":
-                    case "Prefix":
-                    case "Number":
-                    case "Suffix":
-                        dgv.Columns[i].Visible = false;
-                        break;
-                }
-            }
-            newfrm.FormBorderStyle = FormBorderStyle.FixedSingle;
-            newfrm.Width = 900;
-            newfrm.Height = 600;
-            
-            newfrm.Show();
-        }
-
-        #region Tools
-        private void PreferencesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            UserPreferencesForm frm = new UserPreferencesForm(CurrentUser);
-
-            frm.ShowDialog();
-        }
-
-        private void alternativeSpellingsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SimilarWordsList frm = new SimilarWordsList();
-            frm.ShowDialog();
-        }
-        #endregion
-
-        #region Help
-
-        private void HelpToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            System.Diagnostics.Process.Start(@"\\psychfile\psych$\psych-lab-gfong\SMG\SMG Documentation\Big Book of SMG\MAIN ENTRANCE.onetoc2");
-        }
-
-        private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("SDI FrontEnd Ver 4.0");
-        }
-        #endregion
-
-
-
-        #endregion
-
-        public void OpenForm(Form frm, bool withTab, string tabTitle = "")
-        {
-            FormManager.Add(frm);
-            if (string.IsNullOrEmpty(tabTitle))
-                tabTitle = frm.Text;
-
-            if (withTab)
-                AddTab(frm, frm.Name, tabTitle);
-            else
-                OpenPopup(frm, frm.Name, tabTitle);
-
-        }
 
         #region Tab-related methods
         /// <summary>
@@ -807,23 +880,6 @@ namespace ISISFrontEnd
             }
         }
 
-        #endregion
-
-        #region Popup Related Methods
-        /// <summary>
-        /// Adds a new tab to the main tab control and adds the provided form to the tab.
-        /// </summary>
-        /// <param name="frm"></param>
-        public void OpenPopup(Form frm, string key, string name)
-        {
-
-            frm.BringToFront();
-            frm.TopLevel = true;
-            //frm.FormBorderStyle = FormBorderStyle.None;
-            frm.Show();
-
-            
-        }
         #endregion
 
         private void tabControl1_TabIndexChanged(object sender, EventArgs e)
@@ -912,129 +968,6 @@ namespace ISISFrontEnd
             }
         }
 
-        private void pageMain_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cmdOpenPraccingEntry_Click(object sender, EventArgs e)
-        {
-
-            if (FormManager.FormOpen("PraccingEntry", 1))
-            {
-                ((MainMenu)FormManager.GetForm("MainMenu")).SelectTab("PraccingEntry1");
-                return;
-            }
-
-            var state = Globals.CurrentUser.FormStates.Where(x => x.FormName.Equals("frmIssuesTracking") && x.FormNum == 1).First();
-            int survID = 899;
-            if (state != null) survID = state.FilterID;
-            PraccingEntry frm = new PraccingEntry(survID);
-
-            frm.Tag = 1;
-            FormManager.Add(frm);
-        }
-
-        private void cmdOpenIssuesImport_Click(object sender, EventArgs e)
-        {
-            if (FormManager.FormOpen("frmPraccingIssuesImport", 1))
-            {
-                tabControl1.SelectTab("frmPraccingIssuesImport1");
-                return;
-            }
-
-            frmPraccingIssuesImport frm = new frmPraccingIssuesImport();
-
-            frm.Tag = 1;
-            FormManager.Add(frm);
-        }
-
-        private void cmdOpenPraccingReport_Click(object sender, EventArgs e)
-        {
-            if (FormManager.FormOpen("PraccingReportForm", 1))
-            {
-                tabControl1.SelectTab("PraccingReportForm1");
-                return;
-            }
-
-            PraccingReportForm frm = new PraccingReportForm();
-            frm.Tag = 1;
-            FormManager.Add(frm);
-        }
-
-        private void cmdPraccingSheet_Click(object sender, EventArgs e)
-        {
-            SurveySelector frm = new SurveySelector();
-            frm.ShowDialog();
-            Survey survey = frm.Selected;
-
-            if (survey == null)
-                return;
-
-            CreatePraccingSheet(survey);
-        }
-
-        private void cmdPraccingForm_Click(object sender, EventArgs e)
-        {
-            PraccingReportBlank report = new PraccingReportBlank();
-
-            report.CreateReport();
-        }
-
-        // Drafts
-
-        private void cmdOpenDraftManager_Click(object sender, EventArgs e)
-        {
-            if (FormManager.FormOpen("DraftManager"))
-            {
-                ((MainMenu)this.Parent.Parent.Parent).SelectTab("DraftManager1");
-                return;
-            }
-
-            DraftManager frm = new DraftManager();
-            frm.Tag = 1;
-            FormManager.Add(frm);
-        }
-
-        private void cmdOpenDraftSearch_Click(object sender, EventArgs e)
-        {
-            if (FormManager.FormOpen("DraftSearch"))
-            {
-                ((MainMenu)this.Parent.Parent.Parent).SelectTab("DraftSearch1");
-                return;
-            }
-
-            DraftSearch frm = new DraftSearch();
-            frm.Tag = 1;
-            FormManager.Add(frm);
-        }
-
-        private void cmdOpenDraftReport_Click(object sender, EventArgs e)
-        {
-            if (FormManager.FormOpen("DraftReport"))
-            {
-                return;
-            }
-            DraftReportForm frm = new DraftReportForm();
-            frm.Tag = 1;
-            FormManager.AddPopup(frm);
-        }
-
-        private void cmdOpenDraftImport_Click(object sender, EventArgs e)
-        {
-            if (FormManager.FormOpen("SurveyDraftImportForm"))
-            {
-                return;
-            }
-
-            SurveyDraftImportForm frm = new SurveyDraftImportForm();
-            frm.Tag = 1;
-            FormManager.AddPopup(frm);
-        }
-
-       
-
-
         private void CreatePraccingSheet(Survey survey)
         {
             List<SurveyQuestion> questionList = DBAction.GetSurveyQuestions(survey).ToList();
@@ -1121,7 +1054,6 @@ namespace ISISFrontEnd
                 appWord.Quit();
             }
         }
-
         
     }
 }

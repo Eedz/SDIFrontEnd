@@ -187,6 +187,7 @@
             this.chkShowInactive.TabIndex = 5;
             this.chkShowInactive.Text = "Include Inactive";
             this.chkShowInactive.UseVisualStyleBackColor = true;
+            this.chkShowInactive.Visible = false;
             this.chkShowInactive.CheckedChanged += new System.EventHandler(this.chkShowInactive_CheckedChanged);
             // 
             // panel1

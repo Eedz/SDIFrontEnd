@@ -254,6 +254,7 @@ namespace ISISFrontEnd
             List<string> dates = new List<string>();
             List<Person> from = new List<Person>();
             List<Person> to = new List<Person>();
+            List<PraccingCategory> categories = new List<PraccingCategory>();
             string status = "";
             string language = "";
             List<string> lastUpdateDates = new List<string>();
@@ -277,6 +278,12 @@ namespace ISISFrontEnd
             {
                 foreach (Person s in lstTo.SelectedItems)
                     to.Add(s);
+            }
+
+            if (((PraccingCategory)lstCategory.SelectedItems[0]).ID != -1)
+            {
+                foreach (PraccingCategory c in lstCategory.SelectedItems)
+                    categories.Add(c);
             }
 
             if (!lstLastUpdateDate.SelectedItems[0].Equals("<All>"))
@@ -308,6 +315,8 @@ namespace ISISFrontEnd
                 query = query.Where(x => from.Contains(x.IssueFrom));
             if (to.Count() != 0)
                 query = query.Where(x => to.Contains(x.IssueTo));
+            if (categories.Count() != 0)
+                query = query.Where(x => categories.Contains(x.Category));
             if (status.Equals("Resolved"))
                 query = query.Where(x => x.Resolved);
             else if (status.Equals("Unresolved"))
@@ -354,6 +363,11 @@ namespace ISISFrontEnd
             lstTo.ValueMember = "ID";
             lstTo.DataSource = GetTos();
             lstTo.Tag = true;
+
+            lstCategory.DisplayMember = "Category";
+            lstCategory.ValueMember = "ID";
+            lstCategory.DataSource = GetCategories();
+            lstCategory.Tag = true;
 
             lstLastUpdateDate.DataSource = GetLastUpdateDates();
             lstLastUpdateDate.Tag = true;
@@ -417,6 +431,21 @@ namespace ISISFrontEnd
 
             var sortedTo = toList.OrderBy(x => x.Name).ToList();
             return sortedTo;
+        }
+
+        List<PraccingCategory> GetCategories()
+        {
+            var cats = IssuesList.GroupBy(x => x.Category).Select(s => new { Category = s.Key, Items = s.ToList() }).ToList();
+            List<PraccingCategory> toList = new List<PraccingCategory>();
+            toList.Add(new PraccingCategory(-1, "<All>"));
+            foreach (var t in cats)
+            {
+                if (t.Category.ID != 0)
+                    toList.Add(t.Category);
+            }
+
+            var sortedCats = toList.OrderBy(x => x.Category).ToList();
+            return sortedCats;
         }
 
         List<string> GetLastUpdateDates()

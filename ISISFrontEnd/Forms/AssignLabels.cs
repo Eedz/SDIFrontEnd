@@ -35,6 +35,9 @@ namespace ISISFrontEnd
             cboGoToVar.DisplayMember = "RefVarName";
             cboGoToVar.ValueMember = "RefVarName";
 
+            toolStripLabelType.ComboBox.DataSource = new List<string> { "Domain", "Topic", "Content", "Product" };
+            toolStripLabelType.ComboBox.SelectedItem = null;
+            
         }
 
         public AssignLabels (string refVarName) : this()
@@ -161,6 +164,8 @@ namespace ISISFrontEnd
             this.dgvVars.CellValuePushed += DgvVars_CellValuePushed;
             this.dgvVars.RowValidated += DgvVars_RowValidated;
             this.dgvVars.CancelRowEdit += DgvVars_CancelRowEdit;
+
+            toolStripLabelType.ComboBox.SelectedIndexChanged += toolStripLabelType_SelectedIndexChanged;
         }
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -196,6 +201,16 @@ namespace ISISFrontEnd
                     FilterRefVars(frm.SelectedRefVars);
             }
             
+        }
+
+        private void toolStripLabelType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (toolStripLabelType.ComboBox.SelectedItem == null)
+                return;
+
+            string labelType = (string)toolStripLabelType.ComboBox.SelectedItem;
+
+            DisplayInconsistentLabels(labelType);
         }
 
         private void toolStripDisplayBtn_Click(object sender, EventArgs e)
@@ -270,7 +285,7 @@ namespace ISISFrontEnd
             chRefVarName.HeaderText = "refVar";
             chRefVarName.Width = 80;
             chRefVarName.ReadOnly = true;
-             dgvVars.Columns.Add(chRefVarName);
+            dgvVars.Columns.Add(chRefVarName);
 
             DataGridViewTextBoxColumn chSurveys = new DataGridViewTextBoxColumn();
             chSurveys.Name = "Surveys";
@@ -298,7 +313,6 @@ namespace ISISFrontEnd
             chTopic.DisplayMember = "LabelText";
             chTopic.ValueMember = "ID";
             chTopic.Width = 200;
-            
             dgvVars.Columns.Add(chTopic);
 
             DataGridViewComboBoxColumn chContent = new DataGridViewComboBoxColumn();
@@ -504,7 +518,72 @@ namespace ISISFrontEnd
 
             report.CreateReport();
         }
+
+        private void DisplayInconsistentLabels(string type)
+        {
+
+            List<VariableNameSurveys> filteredList = new List<VariableNameSurveys>();
+
+            // for the given label type, make groups of refVarNames and the labels
+            // for every group whose refVarname appears multiple times in the groupings, add to the filtered list
+
+            switch (type)
+            {
+                case "Domain":
+                    
+                    var groupedDomains = FullList.GroupBy(x => new { x.RefVarName, x.Domain.ID })
+                        .Select(group => new { VariableName = group.Key, Items = group.ToList() }).ToList();
+
+                    foreach (var group in groupedDomains)
+                    {
+                        string groupVarName = group.VariableName.RefVarName;
+                        if (groupedDomains.Where(x=>x.VariableName.RefVarName.Equals(groupVarName)).Count()>1)
+                            filteredList.AddRange(group.Items);
+                    }
+                    break;
+                case "Topic":
+                    var groupedTopics = FullList.GroupBy(x => new { x.RefVarName, x.Topic.ID })
+                        .Select(group => new { VariableName = group.Key, Items = group.ToList() }).ToList();
+
+                    foreach (var group in groupedTopics)
+                    {
+                        string groupVarName = group.VariableName.RefVarName;
+                        if (groupedTopics.Where(x => x.VariableName.RefVarName.Equals(groupVarName)).Count() > 1)
+                            filteredList.AddRange(group.Items);
+                    }
+                    break;
+                case "Content":
+                    var groupedContent = FullList.GroupBy(x => new { x.RefVarName, x.Content.ID })
+                        .Select(group => new { VariableName = group.Key, Items = group.ToList() }).ToList();
+
+                    foreach (var group in groupedContent)
+                    {
+                        string groupVarName = group.VariableName.RefVarName;
+                        if (groupedContent.Where(x => x.VariableName.RefVarName.Equals(groupVarName)).Count() > 1)
+                            filteredList.AddRange(group.Items);
+                    }
+                    break;
+                case "Product":
+                    var groupedProducts = FullList.GroupBy(x => new { x.RefVarName, x.Product.ID })
+                        .Select(group => new { VariableName = group.Key, Items = group.ToList() }).ToList();
+
+                    foreach (var group in groupedProducts)
+                    {
+                        string groupVarName = group.VariableName.RefVarName;
+                        if (groupedProducts.Where(x => x.VariableName.RefVarName.Equals(groupVarName)).Count() > 1)
+                            filteredList.AddRange(group.Items);
+                    }
+                    break;
+                default:
+                    return;
+            }
+            if (filteredList.Count() > 0)
+            {
+                SetupWithObjects(filteredList);
+            }
+        }
         #endregion
 
+        
     }
 }

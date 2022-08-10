@@ -157,6 +157,9 @@ namespace ISISFrontEnd
             else
                 txtStatus.Text = "Existing";
 
+            dtpResDate.Enabled = CurrentIssue.Resolved;
+            cboResName.Enabled = CurrentIssue.Resolved;
+
             rtbDescription.Rtf = "";
             rtbDescription.Rtf = CurrentIssue.DescriptionRTF;
 
@@ -284,39 +287,24 @@ namespace ISISFrontEnd
 
         }
 
-        private void chkResolved_CheckedChanged(object sender, EventArgs e)
+        private void chkResolved_Click(object sender, EventArgs e)
         {
             if (chkResolved.Checked)
             {
                 CurrentIssue.ResolvedDate = DateTime.Today;
                 CurrentIssue.ResolvedBy.ID = Globals.CurrentUser.userid;
+                
             }
             else
             {
                 CurrentIssue.ResolvedDate = null;
                 CurrentIssue.ResolvedBy.ID = 0;
             }
-        }
 
-        private void chkKeepResponse_CheckedChanged(object sender, EventArgs e)
-        {
-            //if (chkKeepResponse.Checked)
-            //{
-            //    importResponses.Add((PraccingResponse)bsNewResponses.Current);
-            //    chkKeepResponse.Text = "Saved";
-            //    if (!importIssues.Contains(CurrentIssue))
-            //    {
-            //        importIssues.Add(CurrentIssue);
-            //        chkKeepIssue.CheckedChanged -= chkKeepIssue_CheckedChanged;
-            //        chkKeepIssue.Checked = true;
-            //        chkKeepIssue.CheckedChanged += chkKeepIssue_CheckedChanged;
-            //    }
-            //}
-            //else
-            //{
-            //    importResponses.Remove((PraccingResponse)bsNewResponses.Current);
-            //    chkKeepResponse.Text = "Keep?";
-            //}
+            dtpResDate.Enabled = chkResolved.Checked;
+            cboResName.Enabled = chkResolved.Checked;
+            if (!importIssues.Contains(CurrentIssue))
+                importIssues.Add(CurrentIssue);
         }
 
         private void chkKeepResponse_Click(object sender, EventArgs e)
@@ -1231,7 +1219,7 @@ namespace ISISFrontEnd
             BindControl(dtpIssueDate, "Value", bsIssues, "IssueDate", true);
             BindControl(chkResolved, "Checked", bsIssues, "Resolved");
             BindControl(dtpResDate, "Value", bsIssues, "ResolvedDate", true);
-            BindControl(cboResName, "SelectedValue", bsIssues, "ResolvedBy.ID", true);
+            BindControl(cboResName, "SelectedValue", bsIssues, "ResolvedBy.ID");
 
             BindControl(dtpOldTime, "Value", bsExistingResponses, "ResponseDate",true);
             BindControl(dtpOldDate, "Value", bsExistingResponses, "ResponseDate", true);

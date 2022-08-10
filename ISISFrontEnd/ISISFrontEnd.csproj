@@ -145,10 +145,10 @@
     <Compile Include="Forms\Praccing\PraccingEntry.Designer.cs">
       <DependentUpon>PraccingEntry.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Menus\PraccingMenu.cs">
+    <Compile Include="Forms\zOld\PraccingMenu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Menus\PraccingMenu.Designer.cs">
+    <Compile Include="Forms\zOld\PraccingMenu.Designer.cs">
       <DependentUpon>PraccingMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Praccing\PraccingReportForm.cs">
@@ -594,10 +594,10 @@
     <Compile Include="Forms\Translation Importing\TranslationImporter.designer.cs">
       <DependentUpon>TranslationImporter.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Menus\SurveyDevMenu.cs">
+    <Compile Include="Forms\zOld\SurveyDevMenu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Menus\SurveyDevMenu.Designer.cs">
+    <Compile Include="Forms\zOld\SurveyDevMenu.Designer.cs">
       <DependentUpon>SurveyDevMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Renames\RenameVarsBulk.cs">
@@ -660,7 +660,7 @@
     <EmbeddedResource Include="Forms\Praccing\PraccingEntry.resx">
       <DependentUpon>PraccingEntry.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Menus\PraccingMenu.resx">
+    <EmbeddedResource Include="Forms\zOld\PraccingMenu.resx">
       <DependentUpon>PraccingMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Praccing\PraccingReportForm.resx">
@@ -896,7 +896,7 @@
     <EmbeddedResource Include="Forms\Translation Importing\TranslationImporter.resx">
       <DependentUpon>TranslationImporter.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Menus\SurveyDevMenu.resx">
+    <EmbeddedResource Include="Forms\zOld\SurveyDevMenu.resx">
       <DependentUpon>SurveyDevMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Renames\RenameVarsBulk.resx">

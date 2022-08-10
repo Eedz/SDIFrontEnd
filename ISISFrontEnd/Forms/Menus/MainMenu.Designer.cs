@@ -388,7 +388,7 @@
             this.pageMain.Size = new System.Drawing.Size(1417, 717);
             this.pageMain.TabIndex = 0;
             this.pageMain.Text = "Main Menu";
-            this.pageMain.Click += new System.EventHandler(this.pageMain_Click);
+            
             // 
             // tableLayoutPanel2
             // 
@@ -406,7 +406,7 @@
             this.tableLayoutPanel2.Controls.Add(this.cmdOpenIssuesImport, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.cmdOpenPraccingEntry, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.label8, 1, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(20, 470);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(20, 415);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 6;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));

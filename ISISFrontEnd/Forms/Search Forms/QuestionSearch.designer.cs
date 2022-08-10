@@ -351,12 +351,11 @@
             // label31
             // 
             this.label31.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label31.Location = new System.Drawing.Point(316, 191);
+            this.label31.Location = new System.Drawing.Point(316, 190);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(11, 2);
             this.label31.TabIndex = 31;
             this.label31.Text = "label31";
-            this.label31.Visible = false;
             // 
             // label32
             // 
@@ -366,7 +365,6 @@
             this.label32.Size = new System.Drawing.Size(2, 18);
             this.label32.TabIndex = 30;
             this.label32.Text = "label32";
-            this.label32.Visible = false;
             // 
             // label30
             // 
@@ -376,7 +374,6 @@
             this.label30.Size = new System.Drawing.Size(11, 2);
             this.label30.TabIndex = 29;
             this.label30.Text = "label30";
-            this.label30.Visible = false;
             // 
             // label29
             // 
@@ -386,7 +383,6 @@
             this.label29.Size = new System.Drawing.Size(2, 18);
             this.label29.TabIndex = 28;
             this.label29.Text = "label29";
-            this.label29.Visible = false;
             // 
             // chkLink
             // 
@@ -397,7 +393,6 @@
             this.chkLink.Size = new System.Drawing.Size(15, 14);
             this.chkLink.TabIndex = 27;
             this.chkLink.UseVisualStyleBackColor = true;
-            this.chkLink.Visible = false;
             this.chkLink.CheckedChanged += new System.EventHandler(this.chkLink_CheckedChanged);
             // 
             // txtPreALitQ

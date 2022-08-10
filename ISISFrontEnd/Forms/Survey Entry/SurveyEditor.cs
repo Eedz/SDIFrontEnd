@@ -1678,7 +1678,7 @@ namespace ISISFrontEnd
             PendingDeletes.Clear();
             PendingDeletes.AddRange(deleteFails);
 
-            // ask to document?
+            // ask to document
             if (deleteWins.Count>0)
             {
                 DialogResult result = MessageBox.Show("Do you want to document these deletes?", "Document Deletes", MessageBoxButtons.YesNo);
@@ -1688,6 +1688,15 @@ namespace ISISFrontEnd
                     DocumentDeletes(deleteWins);
                     
                 }
+
+
+            }
+
+            // delete unused varnames
+            foreach (SurveyQuestion deleted in deleteWins)
+            {
+                if (!DBAction.VarNameIsUsed(deleted.VarName.VarName))
+                    DBAction.DeleteVariable(deleted.VarName.VarName);
             }
             
             

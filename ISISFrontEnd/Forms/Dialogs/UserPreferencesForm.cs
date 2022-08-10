@@ -12,7 +12,6 @@ using ITCLib;
 
 namespace ISISFrontEnd
 {
-    // TODO save only if changed
     public partial class UserPreferencesForm : Form
     {
         public UserRecord user;

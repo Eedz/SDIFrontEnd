@@ -11,7 +11,6 @@ using ITCLib;
 
 namespace ISISFrontEnd
 {
-    // TODO toggle inactive
     public partial class PersonnelForm : Form
     {
         List<PersonRecord> Records;
@@ -228,7 +227,18 @@ namespace ISISFrontEnd
 
         private void ToggleInactive(bool show)
         {
+            if (SaveRecord() == 1)
+                return;
 
+            if (show)
+            {
+                bs.DataSource = Records;
+            }
+            else
+            {
+                bs.DataSource = Records.Where(x => x.Active).ToList();
+            }
+            bs.ResetBindings(false);
         }
 
         private void MoveRecord(int count)

@@ -11,7 +11,6 @@ using ITCLib;
 
 namespace ISISFrontEnd
 {
-    // TODO edit rows
     public partial class PrefixListSheet : Form
     {
         public PrefixListSheet()
@@ -44,6 +43,7 @@ namespace ISISFrontEnd
             ResizeColumns();
         }
 
+        #region Events
         private void dgvPrefixes_CellValidated(object sender, DataGridViewCellEventArgs e)
         {
             DataGridView dgv = (DataGridView)sender;
@@ -98,7 +98,9 @@ namespace ISISFrontEnd
         {
 
         }
+        #endregion
 
+        #region Methods
 
         private void ResizeColumns()
         {
@@ -111,5 +113,6 @@ namespace ISISFrontEnd
             chInactive.Width = 75;
 
         }
+        #endregion
     }
 }

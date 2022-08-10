@@ -11,8 +11,6 @@ using ITCLib;
 
 namespace ISISFrontEnd
 {
-    // TODO report
-    // TODO locks
     public partial class PrefixList : Form
     {
         List<VariablePrefixRecord> Prefixes;

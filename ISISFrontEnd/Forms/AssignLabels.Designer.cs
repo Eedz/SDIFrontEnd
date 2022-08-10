@@ -38,6 +38,9 @@
             this.toolStripUnusedVars = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripFilterVars = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripLabelType = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripExport = new System.Windows.Forms.ToolStrip();
             this.toolStripDisplayBtn = new System.Windows.Forms.ToolStripButton();
             this.toolStripExportBtn = new System.Windows.Forms.ToolStripButton();
@@ -114,7 +117,10 @@
             this.toolStripSeparator1,
             this.toolStripUnusedVars,
             this.toolStripSeparator2,
-            this.toolStripFilterVars});
+            this.toolStripFilterVars,
+            this.toolStripSeparator4,
+            this.toolStripLabel1,
+            this.toolStripLabelType});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1477, 25);
@@ -160,6 +166,22 @@
             this.toolStripFilterVars.Size = new System.Drawing.Size(79, 22);
             this.toolStripFilterVars.Text = "Filter for Vars";
             this.toolStripFilterVars.Click += new System.EventHandler(this.toolStripFilterVars_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(110, 22);
+            this.toolStripLabel1.Text = "Label Discrepancies";
+            // 
+            // toolStripLabelType
+            // 
+            this.toolStripLabelType.Name = "toolStripLabelType";
+            this.toolStripLabelType.Size = new System.Drawing.Size(121, 25);
             // 
             // toolStripExport
             // 
@@ -507,5 +529,8 @@
         private System.Windows.Forms.Button cmdClearFilter;
         private System.Windows.Forms.TextBox txtCurrentFilter;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+        private System.Windows.Forms.ToolStripComboBox toolStripLabelType;
     }
 }

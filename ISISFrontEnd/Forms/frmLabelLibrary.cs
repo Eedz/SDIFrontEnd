@@ -11,7 +11,6 @@ using ITCLib;
 
 namespace ISISFrontEnd
 {
-    // TODO refresh and re-order
     public partial class frmLabelLibrary : Form
     {
         public enum LabelType { Domain, Topic, Content, Product, Keyword }
