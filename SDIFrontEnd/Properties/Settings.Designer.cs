@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ISISFrontEnd.Properties {
+namespace SDIFrontEnd.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

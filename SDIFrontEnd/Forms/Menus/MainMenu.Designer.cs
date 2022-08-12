@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMenu));
             this.menuMainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -371,7 +372,7 @@
             // 
             // pageMain
             // 
-            this.pageMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(202)))), ((int)(((byte)(193)))));
+            this.pageMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(241)))), ((int)(((byte)(185)))));
             this.pageMain.Controls.Add(this.tableLayoutPanel2);
             this.pageMain.Controls.Add(this.panel1);
             this.pageMain.Controls.Add(this.lblBackupStatus);
@@ -388,7 +389,6 @@
             this.pageMain.Size = new System.Drawing.Size(1417, 717);
             this.pageMain.TabIndex = 0;
             this.pageMain.Text = "Main Menu";
-            
             // 
             // tableLayoutPanel2
             // 
@@ -1004,6 +1004,7 @@
             this.ClientSize = new System.Drawing.Size(1425, 771);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuMainMenuStrip);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainMenu";
             this.Text = "Survey Database of ITC (SDI)";
             this.Load += new System.EventHandler(this.MainMenu_Load);

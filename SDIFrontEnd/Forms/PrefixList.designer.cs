@@ -341,7 +341,7 @@
             this.dgvVariableInfo.ReadOnly = true;
             this.dgvVariableInfo.RowHeadersVisible = false;
             this.dgvVariableInfo.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dgvVariableInfo.Size = new System.Drawing.Size(1080, 388);
+            this.dgvVariableInfo.Size = new System.Drawing.Size(1290, 388);
             this.dgvVariableInfo.TabIndex = 11;
             this.dgvVariableInfo.VirtualMode = true;
             this.dgvVariableInfo.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVariableInfo_CellDoubleClick);

@@ -10,11 +10,7 @@ using System.Windows.Forms;
 using ITCLib;
 using System.IO;
 
-using OpenXMLHelper;
-using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml.Wordprocessing;
-using Word = Microsoft.Office.Interop.Word;
+
 
 namespace ISISFrontEnd
 {
@@ -29,7 +25,7 @@ namespace ISISFrontEnd
             StartPosition = FormStartPosition.CenterScreen;
 
             // 221, 241, 185 green
-
+            // 232, 202, 193 red
 
             // preload some objects from the database
             Globals.CreateWorld();
@@ -91,6 +87,16 @@ namespace ISISFrontEnd
                 frm.TopLevel = true;
                 frm.Owner = this;
                 frm.Show();
+            }
+        }
+
+        private void tabControl1_TabIndexChanged(object sender, EventArgs e)
+        {
+            TabControl t = (TabControl)sender;
+            if (t.SelectedIndex != 0)
+            {
+                Form f = (Form)t.TabPages[t.SelectedIndex].Controls[0];
+                f.Activate();
             }
         }
 
@@ -761,14 +767,9 @@ namespace ISISFrontEnd
 
         private void cmdPraccingSheet_Click(object sender, EventArgs e)
         {
-            SurveySelector frm = new SurveySelector();
+            PraccingSheet frm = new PraccingSheet();
             frm.ShowDialog();
-            Survey survey = frm.Selected;
-
-            if (survey == null)
-                return;
-
-            CreatePraccingSheet(survey);
+           
         }
 
         private void cmdPraccingForm_Click(object sender, EventArgs e)
@@ -882,15 +883,7 @@ namespace ISISFrontEnd
 
         #endregion
 
-        private void tabControl1_TabIndexChanged(object sender, EventArgs e)
-        {
-            TabControl t = (TabControl)sender;
-            if (t.SelectedIndex != 0)
-            { 
-                Form f = (Form)t.TabPages[t.SelectedIndex].Controls[0];
-                f.Activate();
-            }
-        }
+        
 
         /// <summary>
         /// Change the Survey Editor labels to this user's last 6 surveys
@@ -968,92 +961,8 @@ namespace ISISFrontEnd
             }
         }
 
-        private void CreatePraccingSheet(Survey survey)
-        {
-            List<SurveyQuestion> questionList = DBAction.GetSurveyQuestions(survey).ToList();
-            int num_ids = 10;
-            string filePath = @"\\psychfile\psych$\psych-lab-gfong\SMG\Access\Reports\Praccing\" + survey.SurveyCode + " Praccing Sheet - " + DateTime.Now.ToString("g").Replace(":", ",") + ".docx";
-            string templateFile = @"\\psychfile\psych$\psych-lab-gfong\SMG\Access\Reports\Templates\SMGLandLet.dotx";
+       
 
-            Word.Application appWord;
-            appWord = new Word.Application();
-            appWord.Visible = false;
-            Word.Document doc = appWord.Documents.Add(templateFile);
-            doc.SaveAs2(filePath);
-            doc.Close();
-
-            using (WordprocessingDocument wordDoc = WordprocessingDocument.Open(filePath, true))
-            {
-
-                Body body = new Body();
-                wordDoc.MainDocumentPart.Document.Append(body);
-
-                body.Append(XMLUtilities.NewParagraph(survey.SurveyCode + " Praccing Sheet", JustificationValues.Center, "32", "Verdana"));
-                body.Append(XMLUtilities.NewParagraph("", JustificationValues.Center, "32", "Verdana"));
-
-                Table table = XMLUtilities.NewTable(12);
-
-                XMLUtilities.SetColumnWidths(table, new double[] { 0.92, 0.92, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7 });
-
-                TableRow header = XMLUtilities.CreateHeaderRow(new string[] { "Qnum", "VarName", "", "", "", "", "", "", "", "", "", "" });
-
-                IEnumerable<TableCell> cells = header.Elements<TableCell>();
-
-                foreach (TableCell c in cells)
-                {
-                    RunProperties rPr = c.Descendants<RunProperties>().First();
-                    rPr.Append(new RunFonts() { Ascii = "Verdana" });
-                    rPr.Append(new FontSize() { Val = "20" });
-                }
-
-                table.Append(header);
-
-                foreach (SurveyQuestion q in questionList)
-                {
-                    TableRow row = new TableRow();
-
-                    TableCell qnum = new TableCell();
-                    ParagraphProperties pPr = new ParagraphProperties(new SpacingBetweenLines() { Before = "0", After = "0", Line = "240", LineRule = LineSpacingRuleValues.Auto, AfterAutoSpacing = false, BeforeAutoSpacing = false });
-                    qnum.Append(new Paragraph(pPr, new Run(new Text(q.Qnum))));
-                    row.Append(qnum);
-
-                    TableCell varname = new TableCell();
-                    ParagraphProperties pPr2 = new ParagraphProperties(new SpacingBetweenLines() { Before = "0", After = "0", Line = "240", LineRule = LineSpacingRuleValues.Auto, AfterAutoSpacing = false, BeforeAutoSpacing = false });
-                    varname.Append(new Paragraph(pPr2, new Run(new Text(q.VarName.VarName))));
-                    row.Append(varname);
-
-                    for (int c = 0; c < num_ids; c++)
-                    {
-                        TableCell cell = new TableCell();
-                        ParagraphProperties pPr3 = new ParagraphProperties(new SpacingBetweenLines() { Before = "0", After = "0", Line = "240", LineRule = LineSpacingRuleValues.Auto, AfterAutoSpacing = false, BeforeAutoSpacing = false });
-
-                        row.Append(new TableCell(new Paragraph(pPr3, new Run(new Text()))));
-                    }
-
-
-
-                    table.Append(row);
-                }
-
-                body.Append(table);
-            }
-
-            try
-            {
-                doc = appWord.Documents.Open(filePath);
-
-                // footer text                  
-                foreach (Word.Section s in doc.Sections)
-                    s.Footers[Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range.InsertAfter("\t" + survey.SurveyCode + " Praccing Sheet" +
-                        "\t\t" + "Generated on " + DateTime.Today.ToString("d"));
-
-                appWord.Visible = true;
-            }
-            catch (Exception)
-            {
-                appWord.Quit();
-            }
-        }
         
     }
 }

@@ -526,7 +526,7 @@
             // 
             // cmdPin
             // 
-            this.cmdPin.Image = global::ISISFrontEnd.Properties.Resources.Pin_small;
+            this.cmdPin.Image = global::SDIFrontEnd.Properties.Resources.Pin_small;
             this.cmdPin.Location = new System.Drawing.Point(644, 5);
             this.cmdPin.Name = "cmdPin";
             this.cmdPin.Size = new System.Drawing.Size(29, 26);

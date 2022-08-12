@@ -312,20 +312,27 @@ namespace ISISFrontEnd
 
         private void dgvVariableInfo_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            DataGridView dgv = (DataGridView)sender;
-            string cellValue = dgv.Rows[e.RowIndex].Cells["RefVarName"].Value.ToString();
-            string pattern = cellValue.Substring(0, 3);
-
-            if (FormManager.FormOpen("VarNameUsage"))
+            try
             {
-                VarNameUsage getFrm = (VarNameUsage)FormManager.GetForm("VarNameUsage", 1);
-                getFrm.SearchVars(pattern);
-                getFrm.BringToFront();
-                return;
+                DataGridView dgv = (DataGridView)sender;
+                string cellValue = dgv.Rows[e.RowIndex].Cells["RefVarName"].Value.ToString();
+                string pattern = cellValue.Substring(0, 3);
+
+                if (FormManager.FormOpen("VarNameUsage"))
+                {
+                    VarNameUsage getFrm = (VarNameUsage)FormManager.GetForm("VarNameUsage", 1);
+                    getFrm.SearchVars(pattern);
+                    getFrm.BringToFront();
+                    return;
+                }
+                VarNameUsage frm = new VarNameUsage(pattern);
+                frm.Tag = 1;
+                FormManager.AddPopup(frm);
             }
-            VarNameUsage frm = new VarNameUsage(pattern);
-            frm.Tag = 1;
-            FormManager.AddPopup(frm);
+            catch
+            {
+            }
+
         }
 
         private void dgvVariableInfo_DataError(object sender, DataGridViewDataErrorEventArgs e)
