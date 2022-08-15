@@ -62,7 +62,7 @@ namespace ISISFrontEnd
             SO.ShowQuestion = false;
 
             SO.GenerateReport();
-            SO.FileName = "\\\\psychfile\\psych$\\psych-lab-gfong\\SMG\\Access\\Reports\\" + source.SurveyCode + " Survey Overview.docx";
+            SO.FileName = "\\\\psychfile\\psych$\\psych-lab-gfong\\SMG\\SDI\\Reports\\External\\" + source.SurveyCode + " Survey Overview.docx";
             SO.OutputReportTableXML();
         }
 

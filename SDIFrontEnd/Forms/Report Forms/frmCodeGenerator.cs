@@ -27,7 +27,7 @@ namespace ISISFrontEnd
             cboJump.ValueMember = "SID";
             cboJump.DataSource = surveyList;
 
-            txtSavePath.Text = "\\\\psychfile\\psych$\\psych-lab-gfong\\SMG\\Access\\Data Templates\\";
+            txtSavePath.Text = @"\\psychfile\psych$\psych-lab-gfong\SMG\SDI\Data Templates\";
         }
 
         private void cmdGenerate_Click(object sender, EventArgs e)

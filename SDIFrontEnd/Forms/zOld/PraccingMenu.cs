@@ -99,8 +99,8 @@ namespace ISISFrontEnd
         {
             List<SurveyQuestion> questionList = DBAction.GetSurveyQuestions(survey).ToList();
             int num_ids = 10;
-            string filePath = @"\\psychfile\psych$\psych-lab-gfong\SMG\Access\Reports\Praccing\" + survey.SurveyCode + " Praccing Sheet - " + DateTime.Now.ToString("g").Replace(":", ",") + ".docx";
-            string templateFile = @"\\psychfile\psych$\psych-lab-gfong\SMG\Access\Reports\Templates\SMGLandLet.dotx";
+            string filePath = @"\\psychfile\psych$\psych-lab-gfong\SMG\SDI\Reports\Praccing\" + survey.SurveyCode + " Praccing Sheet - " + DateTime.Now.ToString("g").Replace(":", ",") + ".docx";
+            string templateFile = @"\\psychfile\psych$\psych-lab-gfong\SMG\SDI\Reports\Templates\SMGLandLet.dotx";
 
             Word.Application appWord;
             appWord = new Word.Application();
