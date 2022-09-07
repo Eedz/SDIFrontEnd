@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using ITCLib;
 
-namespace ISISFrontEnd
+namespace SDIFrontEnd
 {
     public partial class frmFixDates : Form
     {

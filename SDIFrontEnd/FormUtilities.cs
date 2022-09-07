@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using ITCLib;
 
-namespace ISISFrontEnd
+namespace SDIFrontEnd
 {
     public static class FormUtilities
     {

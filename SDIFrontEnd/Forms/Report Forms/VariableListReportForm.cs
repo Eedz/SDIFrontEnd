@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using ITCLib;
 using System.Text.RegularExpressions;
 
-namespace ISISFrontEnd
+namespace SDIFrontEnd
 {
 
     public partial class VariableListReportForm : Form

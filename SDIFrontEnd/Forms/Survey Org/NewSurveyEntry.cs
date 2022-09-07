@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
 
-namespace ISISFrontEnd
+namespace SDIFrontEnd
 {
     public partial class NewSurveyEntry : Form
     {
@@ -117,7 +117,7 @@ namespace ISISFrontEnd
 
             var wave = Globals.AllWaves.Where(x => x.ID == NewSurvey.WaveID).First();
             NewSurvey.CountryCode = Globals.AllStudies.Where(x => x.ID == wave.StudyID).First().CountryCode.ToString("00");
-
+            Globals.AllSurveys.Add(NewSurvey);
             DialogResult = DialogResult.OK;
             Close();
         }

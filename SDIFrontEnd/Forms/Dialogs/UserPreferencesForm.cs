@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 using ITCLib;
 
-namespace ISISFrontEnd
+namespace SDIFrontEnd
 {
     public partial class UserPreferencesForm : Form
     {

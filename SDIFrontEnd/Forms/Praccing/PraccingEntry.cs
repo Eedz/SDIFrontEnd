@@ -11,7 +11,7 @@ using System.IO;
 using ITCLib;
 
 
-namespace ISISFrontEnd
+namespace SDIFrontEnd
 {
     
     // TODO detect when user changes response to/from (use click event with DirtyResponse flag?)

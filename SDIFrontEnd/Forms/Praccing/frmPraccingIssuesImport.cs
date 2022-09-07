@@ -16,7 +16,7 @@ using OpenXMLHelper;
 using System.Text.RegularExpressions;
 using System.IO;
 
-namespace ISISFrontEnd
+namespace SDIFrontEnd
 {
 
     public partial class frmPraccingIssuesImport : Form

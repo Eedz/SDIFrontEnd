@@ -14,7 +14,7 @@ using DocumentFormat.OpenXml.Wordprocessing;
 using OpenXMLHelper;
 using ITCLib;
 
-namespace ISISFrontEnd
+namespace SDIFrontEnd
 {
     public partial class RenameVarsBulk : Form
     {

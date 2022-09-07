@@ -1,4 +1,4 @@
-﻿namespace ISISFrontEnd
+﻿namespace SDIFrontEnd
 {
     partial class CohortList
     {

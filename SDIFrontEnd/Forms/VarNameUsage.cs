@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using ITCLib;
 using System.Text.RegularExpressions;
 
-namespace ISISFrontEnd
+namespace SDIFrontEnd
 {
     /// <summary>
     /// Displays refVarNames matching the provided pattern and whether they are in used or not.

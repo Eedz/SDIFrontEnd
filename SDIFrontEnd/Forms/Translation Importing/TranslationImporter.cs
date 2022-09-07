@@ -18,7 +18,7 @@ using OpenXMLHelper;
 using System.Text.RegularExpressions;
 using System.Globalization;
 
-namespace ISISFrontEnd
+namespace SDIFrontEnd
 {
     // TODO remove lists before importing
 

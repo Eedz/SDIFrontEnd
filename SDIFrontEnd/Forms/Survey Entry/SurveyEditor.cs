@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
 
-namespace ISISFrontEnd
+namespace SDIFrontEnd
 {
     public partial class SurveyEditor : Form
     {  
@@ -1544,6 +1544,8 @@ namespace ISISFrontEnd
             if (frmComments == null || frmComments.IsDisposed)
             {
                 frmComments = new CommentEntry(CurrentRecord);
+                frmComments.CreatedComment += SurveyEditor_RefreshCommentCount;
+
                 frmComments.UpdateForm(CurrentRecord);
                 frmComments.Owner = this;
                 frmComments.Show();
@@ -1722,37 +1724,37 @@ namespace ISISFrontEnd
 
         private void TogglePopups(bool show)
         {
-            if (frmTranslations != null)
+            if (frmTranslations != null && !frmTranslations.IsDisposed)
                 frmTranslations.Visible = show;
 
-            if (frmRelated != null)
+            if (frmRelated != null && !frmRelated.IsDisposed)
                 frmRelated.Visible = show;
 
-            if (frmComments != null)
+            if (frmComments != null && !frmComments.IsDisposed)
                 frmComments.Visible = show;
 
-            if (frmDeleted != null)
+            if (frmDeleted != null && !frmDeleted.IsDisposed)
                 frmDeleted.Visible = show;
 
-            if (frmQuestionViewer != null)
+            if (frmQuestionViewer != null && !frmQuestionViewer.IsDisposed)
                 frmQuestionViewer.Visible = show;
         }
 
         private void ClosePopups()
         {
-            if (frmRelated != null)
+            if (frmRelated != null && !frmRelated.IsDisposed)
                 frmRelated.Close();
 
-            if (frmComments != null)
+            if (frmComments != null && !frmComments.IsDisposed)
                 frmComments.Close();
 
-            if (frmTranslations != null)
+            if (frmTranslations != null && !frmTranslations.IsDisposed)
                 frmTranslations.Close();
 
-            if (frmDeleted != null)
+            if (frmDeleted != null && !frmDeleted.IsDisposed)
                 frmDeleted.Close();
 
-            if (frmQuestionViewer != null)
+            if (frmQuestionViewer != null && !frmQuestionViewer.IsDisposed)
                 frmQuestionViewer.Close();
         }
 
@@ -2117,7 +2119,17 @@ namespace ISISFrontEnd
 
         #endregion
 
-        
+        private void SurveyEditor_RefreshCommentCount (object sender, QuestionCommentCreated e)
+        {
+            foreach (QuestionCommentRecord qc in e.comments)
+            {
+                if (qc.Survey.Equals(CurrentSurvey.SurveyCode))
+                {
+                    CurrentSurvey.QuestionByVar(qc.VarName).Comments.Add(qc);
+                }
+            }
+            UpdateInfo();
+        }
     }
 
     

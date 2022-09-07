@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using ITCLib;
 
 
-namespace ISISFrontEnd
+namespace SDIFrontEnd
 {
     public partial class QuestionViewer : Form
     {

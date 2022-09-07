@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Windows.Forms;
 
-namespace ISISFrontEnd
+namespace SDIFrontEnd
 {
     public static class FormManager
     {

@@ -1,4 +1,4 @@
-﻿namespace ISISFrontEnd
+﻿namespace SDIFrontEnd
 {
     partial class frmPraccingIssuesImport
     {
@@ -226,7 +226,7 @@
             this.panelResults.Controls.Add(this.txtIssueNo);
             this.panelResults.Location = new System.Drawing.Point(12, 136);
             this.panelResults.Name = "panelResults";
-            this.panelResults.Size = new System.Drawing.Size(939, 710);
+            this.panelResults.Size = new System.Drawing.Size(939, 792);
             this.panelResults.TabIndex = 18;
             this.panelResults.Visible = false;
             // 
@@ -255,7 +255,7 @@
             this.panelNew.Controls.Add(this.drNewResponses);
             this.panelNew.Location = new System.Drawing.Point(11, 395);
             this.panelNew.Name = "panelNew";
-            this.panelNew.Size = new System.Drawing.Size(919, 287);
+            this.panelNew.Size = new System.Drawing.Size(919, 369);
             this.panelNew.TabIndex = 24;
             // 
             // label18
@@ -287,7 +287,7 @@
             this.drNewResponses.ItemTemplate.Size = new System.Drawing.Size(879, 96);
             this.drNewResponses.Location = new System.Drawing.Point(10, 24);
             this.drNewResponses.Name = "drNewResponses";
-            this.drNewResponses.Size = new System.Drawing.Size(887, 255);
+            this.drNewResponses.Size = new System.Drawing.Size(887, 340);
             this.drNewResponses.TabIndex = 0;
             this.drNewResponses.Text = "dataRepeater1";
             this.drNewResponses.ItemCloned += new Microsoft.VisualBasic.PowerPacks.DataRepeaterItemEventHandler(this.drNewResponses_ItemCloned);
@@ -398,7 +398,6 @@
             this.chkKeepResponse.Text = "Keep?";
             this.chkKeepResponse.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkKeepResponse.UseVisualStyleBackColor = false;
-
             this.chkKeepResponse.Click += new System.EventHandler(this.chkKeepResponse_Click);
             // 
             // dtpNewTime
@@ -574,7 +573,7 @@
             this.bindingNavigatorMoveNextItem,
             this.bindingNavigatorMoveLastItem,
             this.bindingNavigatorSeparator2});
-            this.navIssues.Location = new System.Drawing.Point(0, 685);
+            this.navIssues.Location = new System.Drawing.Point(0, 767);
             this.navIssues.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.navIssues.MoveLastItem = this.bindingNavigatorMoveLastItem;
             this.navIssues.MoveNextItem = this.bindingNavigatorMoveNextItem;
@@ -890,7 +889,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(222)))), ((int)(((byte)(116)))));
-            this.ClientSize = new System.Drawing.Size(986, 869);
+            this.ClientSize = new System.Drawing.Size(986, 940);
             this.Controls.Add(this.panelResults);
             this.Controls.Add(this.cmdImport);
             this.Controls.Add(this.cmdLoad);

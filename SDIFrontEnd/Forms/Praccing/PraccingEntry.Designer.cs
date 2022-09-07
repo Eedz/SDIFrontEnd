@@ -1,4 +1,4 @@
-﻿namespace ISISFrontEnd
+﻿namespace SDIFrontEnd
 {
     partial class PraccingEntry
     {
@@ -247,7 +247,7 @@
             this.bindingNavigatorMoveNextItem,
             this.bindingNavigatorMoveLastItem,
             this.bindingNavigatorSeparator2});
-            this.navMainIssues.Location = new System.Drawing.Point(0, 930);
+            this.navMainIssues.Location = new System.Drawing.Point(0, 975);
             this.navMainIssues.MoveFirstItem = null;
             this.navMainIssues.MoveLastItem = null;
             this.navMainIssues.MoveNextItem = null;
@@ -489,7 +489,7 @@
             this.dataRepeater1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dataRepeater1.Name = "dataRepeater1";
             this.dataRepeater1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.dataRepeater1.Size = new System.Drawing.Size(1103, 360);
+            this.dataRepeater1.Size = new System.Drawing.Size(1103, 293);
             this.dataRepeater1.TabIndex = 17;
             this.dataRepeater1.Text = "dataRepeater1";
             this.dataRepeater1.ItemCloned += new Microsoft.VisualBasic.PowerPacks.DataRepeaterItemEventHandler(this.dataRepeater1_ItemCloned);
@@ -1253,7 +1253,7 @@
             this.panel2.Location = new System.Drawing.Point(16, 562);
             this.panel2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1115, 362);
+            this.panel2.Size = new System.Drawing.Size(1115, 349);
             this.panel2.TabIndex = 27;
             // 
             // label3
@@ -1519,7 +1519,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(232)))), ((int)(((byte)(160)))));
-            this.ClientSize = new System.Drawing.Size(1669, 955);
+            this.ClientSize = new System.Drawing.Size(1669, 1000);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.panelResponseImages);

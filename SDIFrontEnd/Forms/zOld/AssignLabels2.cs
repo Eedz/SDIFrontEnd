@@ -12,7 +12,7 @@ using ITCLib;
 using System.Configuration;
 using System.Data.SqlClient;
 
-namespace ISISFrontEnd
+namespace SDIFrontEnd
 {
     /// <summary>
     /// This version of the form uses a table for a cache.

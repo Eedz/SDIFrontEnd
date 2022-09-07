@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
-namespace ISISFrontEnd
+namespace SDIFrontEnd
 {
     public partial class RegionManager : Form
     {

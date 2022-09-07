@@ -1,4 +1,4 @@
-﻿namespace ISISFrontEnd
+﻿namespace SDIFrontEnd
 {
     partial class PrefixList
     {
@@ -304,7 +304,7 @@
             this.dgvVarNameRanges.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dgvVarNameRanges.Name = "dgvVarNameRanges";
             this.dgvVarNameRanges.RowHeadersWidth = 25;
-            this.dgvVarNameRanges.Size = new System.Drawing.Size(280, 390);
+            this.dgvVarNameRanges.Size = new System.Drawing.Size(335, 390);
             this.dgvVarNameRanges.TabIndex = 10;
             this.dgvVarNameRanges.CellValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVarNameRanges_CellValidated);
             this.dgvVarNameRanges.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvVarNameRanges_DataError);
@@ -335,13 +335,13 @@
             this.dgvVariableInfo.AllowUserToAddRows = false;
             this.dgvVariableInfo.AllowUserToDeleteRows = false;
             this.dgvVariableInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvVariableInfo.Location = new System.Drawing.Point(313, 384);
+            this.dgvVariableInfo.Location = new System.Drawing.Point(353, 384);
             this.dgvVariableInfo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dgvVariableInfo.Name = "dgvVariableInfo";
             this.dgvVariableInfo.ReadOnly = true;
             this.dgvVariableInfo.RowHeadersVisible = false;
             this.dgvVariableInfo.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dgvVariableInfo.Size = new System.Drawing.Size(1290, 388);
+            this.dgvVariableInfo.Size = new System.Drawing.Size(1372, 388);
             this.dgvVariableInfo.TabIndex = 11;
             this.dgvVariableInfo.VirtualMode = true;
             this.dgvVariableInfo.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVariableInfo_CellDoubleClick);
@@ -362,7 +362,7 @@
             // 
             this.chkFilterByRange.Appearance = System.Windows.Forms.Appearance.Button;
             this.chkFilterByRange.AutoSize = true;
-            this.chkFilterByRange.Location = new System.Drawing.Point(188, 353);
+            this.chkFilterByRange.Location = new System.Drawing.Point(243, 353);
             this.chkFilterByRange.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkFilterByRange.Name = "chkFilterByRange";
             this.chkFilterByRange.Size = new System.Drawing.Size(104, 26);
@@ -375,7 +375,7 @@
             // 
             this.chkShowWordings.Appearance = System.Windows.Forms.Appearance.Button;
             this.chkShowWordings.AutoSize = true;
-            this.chkShowWordings.Location = new System.Drawing.Point(313, 353);
+            this.chkShowWordings.Location = new System.Drawing.Point(353, 353);
             this.chkShowWordings.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkShowWordings.Name = "chkShowWordings";
             this.chkShowWordings.Size = new System.Drawing.Size(108, 26);
@@ -546,7 +546,7 @@
             this.navPrefixes.MovePreviousItem = null;
             this.navPrefixes.Name = "navPrefixes";
             this.navPrefixes.PositionItem = this.bindingNavigatorPositionItem;
-            this.navPrefixes.Size = new System.Drawing.Size(1405, 25);
+            this.navPrefixes.Size = new System.Drawing.Size(1866, 25);
             this.navPrefixes.TabIndex = 17;
             this.navPrefixes.Text = "bindingNavigator1";
             // 
@@ -627,7 +627,7 @@
             this.closeToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1405, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1866, 24);
             this.menuStrip1.TabIndex = 18;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -646,7 +646,7 @@
             this.toolStripDatasheet});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1405, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(1866, 25);
             this.toolStrip1.TabIndex = 19;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -702,7 +702,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1405, 808);
+            this.ClientSize = new System.Drawing.Size(1866, 808);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.navPrefixes);
             this.Controls.Add(this.menuStrip1);

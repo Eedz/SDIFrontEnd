@@ -18,7 +18,7 @@ using Word = Microsoft.Office.Interop.Word;
 
 using ITCLib;
 
-namespace ISISFrontEnd
+namespace SDIFrontEnd
 {
     public partial class PraccingSheet : Form
     {

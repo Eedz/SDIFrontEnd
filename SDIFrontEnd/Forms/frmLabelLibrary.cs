@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
 
-namespace ISISFrontEnd
+namespace SDIFrontEnd
 {
     public partial class frmLabelLibrary : Form
     {
@@ -187,6 +187,7 @@ namespace ISISFrontEnd
                     DomainLabel newDomain = new DomainLabel(0, newLabel);
                     DBAction.InsertDomainLabel(newDomain);
                     Globals.AllDomainLabels.Add(newDomain);
+                    
                     LoadLabels(LabelType.Domain);
                     break;
                 case LabelType.Topic:

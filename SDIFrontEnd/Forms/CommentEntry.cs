@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
 
-namespace ISISFrontEnd
+namespace SDIFrontEnd
 {
     // TODO editing existing comments
     // TODO test add/delete note
@@ -22,6 +22,8 @@ namespace ISISFrontEnd
     {
         #region Properties
         List<NoteRecord> Notes;
+        List<NoteRecord> FilteredNotes;
+
         NoteRecord CurrentNote;
         BindingSource bs;
         BindingSource bsStored;
@@ -47,15 +49,19 @@ namespace ISISFrontEnd
 
         private bool DirtyStored;
 
+        public event EventHandler<QuestionCommentCreated> CreatedComment;
+
         #endregion
 
         #region Constructors
-        
+
         public CommentEntry()
         {
             InitializeComponent();
 
+
             Notes = Globals.AllNotes;
+            FilteredNotes = new List<NoteRecord>();
             newComments = new List<dynamic>();
             this.MouseWheel += CommentEntry_MouseWheel;
             txtNoteText.MouseWheel += CommentEntry_MouseWheel;
@@ -86,16 +92,32 @@ namespace ISISFrontEnd
             FillBoxes();
 
             BindProperties();
+
+            // load the comment uses
+            LoadComments();
+
+            chkNewDetails.Checked = true;
         }
 
         public CommentEntry(int cid) :this()
         {
-            GoToComment(cid);
+            GoToComment(cid);           
         }
 
         public CommentEntry(SurveyQuestion question) : this()
         {
             FillTargetQuestion(question);
+            UpdateCreationCount();
+
+            if (question.Comments.Count == 0)
+                return;
+
+            foreach (Comment c in question.Comments)
+            {
+                NoteRecord n = new NoteRecord() { ID = c.Notes.ID, NoteText = c.Notes.NoteText };
+                FilteredNotes.Add(n);
+            }
+            bs.DataSource = FilteredNotes;
         }
 
         public CommentEntry(NoteScope scope, List<QuestionRecord> questions) : this()
@@ -106,24 +128,17 @@ namespace ISISFrontEnd
             ToggleTargetVarNameList();
             UpdateCreationCount();
             foreach (SurveyQuestion q in questions)
-                FillTargetQuestion(q);
-
-            chkNewDetails.Checked = true;
-            
+                FillTargetQuestion(q);            
             
         }
         #endregion
-
-        
-
 
         #region Event Handlers
         private void CommentEntry_Load(object sender, EventArgs e)
         {
             CurrentNote = (NoteRecord)bs.Current;
 
-            // load the comment uses
-            LoadComments();
+            
 
             ExpandForm();
         }
@@ -131,6 +146,9 @@ namespace ISISFrontEnd
         private void BindingSource_PositionChanged(object sender, EventArgs e)
         {
             CurrentNote = (NoteRecord)bs.Current;
+
+            lblNewID.Visible = CurrentNote.ID > 0;
+            
             LoadComments();
         }
 
@@ -259,7 +277,7 @@ namespace ISISFrontEnd
             chQSurvey.DataPropertyName = "Survey";
             chQDate.DataPropertyName = "NoteDate";
             chQSource.DataPropertyName = "Source";
-            chQAuthority.DataPropertyName = "NoteSource";
+            chQAuthority.DataPropertyName = "SourceName";
 
             // survey comment grid
             bsSurv = new BindingSource();
@@ -267,7 +285,7 @@ namespace ISISFrontEnd
             chSSurvey.DataPropertyName = "Survey";
             chSDate.DataPropertyName = "NoteDate";
             chSSource.DataPropertyName = "Source";
-            chSAuthority.DataPropertyName = "NoteSource";
+            chSAuthority.DataPropertyName = "SourceName";
 
             // wave comment grid
             bsWave = new BindingSource();
@@ -275,7 +293,7 @@ namespace ISISFrontEnd
             chWWave.DataPropertyName = "StudyWave";
             chWDate.DataPropertyName = "NoteDate";
             chWSource.DataPropertyName = "Source";
-            chWAuthority.DataPropertyName = "NoteSource";
+            chWAuthority.DataPropertyName = "SourceName";
 
             // refvar comment grid
             bsRef = new BindingSource();
@@ -283,7 +301,7 @@ namespace ISISFrontEnd
             chRVarName.DataPropertyName = "RefVarName";
             chRDate.DataPropertyName = "NoteDate";
             chRSource.DataPropertyName = "Source";
-            chRAuthority.DataPropertyName = "NoteSource";
+            chRAuthority.DataPropertyName = "SourceName";
 
             // deleted comment grid
             bsDel = new BindingSource();
@@ -292,7 +310,7 @@ namespace ISISFrontEnd
             chDSurvey.DataPropertyName = "Survey";
             chDDate.DataPropertyName = "NoteDate";
             chDSource.DataPropertyName = "Source";
-            chDAuthority.DataPropertyName = "NoteSource";
+            chDAuthority.DataPropertyName = "SourceName";
         }
 
         private void LoadComments()
@@ -571,16 +589,36 @@ namespace ISISFrontEnd
 
         private void cmdExport_Click(object sender, EventArgs e)
         {
-            if (!InfoEntered())
+            if (SaveNote() == 1)
+            {
                 return;
+            }
+
+            UpdateCreationCount();
+
+            if (!InfoEntered())
+            {
+                MessageBox.Show("One or more required fields missing.");
+                return;
+            }
 
             SaveComments();
+
+            LoadComments();
         }
 
         private int SaveNote()
         {
-            if (CurrentNote.SaveRecord() == 1)
+            if (CurrentNote.ID == 0 && string.IsNullOrEmpty(CurrentNote.NoteText))
             {
+                bs.RemoveCurrent();
+                return 0;
+            }
+             
+
+                if (CurrentNote.SaveRecord() == 1)
+            {
+                
                 MessageBox.Show("Unable to save note.");
                 return 1;
             }
@@ -593,6 +631,9 @@ namespace ISISFrontEnd
         private bool InfoEntered()
         {
             if (Scope != NoteScope.RefVar && cboSurvWaveList.Items.Count == 0)
+                return false;
+
+            if (cboNoteType.SelectedItem == null)
                 return false;
 
             return true;
@@ -626,7 +667,7 @@ namespace ISISFrontEnd
 
             lblNumberCreated.Text = count + " comment(s) will be created.";
         }
-
+        
         private int CountVariableComments()
         {
             int count = 0;
@@ -651,9 +692,12 @@ namespace ISISFrontEnd
                         c.Survey = surveys[i].SurveyCode;
                         c.VarName = fullVar;
                         c.Author = (Person)cboNoteAuthor.SelectedItem;
+                        
                         c.NoteType = (CommentType)cboNoteType.SelectedItem;
+
                         c.NoteDate = dtpNoteDate.Value;
                         c.SourceName = ((Person)cboNoteAuthority.SelectedItem).Name;
+                        c.Authority = (Person)cboNoteAuthority.SelectedItem;
                         if (c.SourceName == null)
                             c.SourceName = "";
 
@@ -686,7 +730,7 @@ namespace ISISFrontEnd
                     c.SourceName = ((Person)cboNoteAuthority.SelectedItem).Name;
                     if (c.SourceName == null)
                         c.SourceName = "";
-
+                    c.Authority = (Person)cboNoteAuthority.SelectedItem;
                     c.Source = txtNoteSource.Text;
                     c.Notes = CurrentNote;
 
@@ -714,6 +758,7 @@ namespace ISISFrontEnd
                     c.SourceName = ((Person)cboNoteAuthority.SelectedItem).Name;
                     if (c.SourceName == null)
                         c.SourceName = "";
+                    c.Authority = (Person)cboNoteAuthority.SelectedItem;
                     c.Source = txtNoteSource.Text;
                     c.Notes = CurrentNote;
 
@@ -752,6 +797,7 @@ namespace ISISFrontEnd
                         c.SourceName = ((Person)cboNoteAuthority.SelectedItem).Name;
                         if (c.SourceName == null)
                             c.SourceName = "";
+                        c.Authority = (Person)cboNoteAuthority.SelectedItem;
                         c.Source = txtNoteSource.Text;
                         c.Notes = CurrentNote;
 
@@ -782,6 +828,7 @@ namespace ISISFrontEnd
                     c.SourceName = ((Person)cboNoteAuthority.SelectedItem).Name;
                     if (c.SourceName == null)
                         c.SourceName = "";
+                    c.Authority = (Person)cboNoteAuthority.SelectedItem;
                     c.Source = txtNoteSource.Text;
                     c.Notes = CurrentNote;
 
@@ -799,16 +846,21 @@ namespace ISISFrontEnd
             {
                 case NoteScope.Variable:
                     {
+                        List<QuestionCommentRecord> created = new List<QuestionCommentRecord>();
                         foreach (QuestionCommentRecord qc in newComments)
                         {
                             if (DBAction.InsertQuestionComment(qc) == 1)
                                 continue;
+
+                            created.Add(qc);
 
                             QuestionComments.Add(qc);
                             gridQuesComments.DataSource = null;
                             gridQuesComments.DataSource = QuestionComments;
                             pageQuestion.Text = "Variable (" + QuestionComments.Count + ")";
                         }
+                        CreatedComment?.Invoke(null, new QuestionCommentCreated() { comments = created });
+
                         break;
                     }
                 case NoteScope.Survey:
@@ -901,7 +953,6 @@ namespace ISISFrontEnd
 
         private void chkAssignedDetails_CheckedChanged(object sender, EventArgs e)
         {
-
             AssignedDetails(GetTopComment());
             ToggleAutoDetails(1);
             ExpandForm();
@@ -929,7 +980,7 @@ namespace ISISFrontEnd
         private void cmdStoreComment_Click(object sender, EventArgs e)
         {
             Comment newStored = new Comment();
-            newStored.CID = CurrentNote.ID;
+            //newStored.CID = CurrentNote.ID;
             newStored.Notes = CurrentNote;
             newStored.NoteDate = dtpNoteDate.Value;
             newStored.NoteType = (CommentType)cboNoteType.SelectedItem;
@@ -947,35 +998,35 @@ namespace ISISFrontEnd
             if (QuestionComments.Count>0)
             {                
                 c.NoteType = QuestionComments[0].NoteType;
-                c.NoteType = QuestionComments[0].NoteType;
+                c.Author = QuestionComments[0].Author;
                 c.Source = QuestionComments[0].Source;
                 c.SourceName = QuestionComments[0].SourceName;
             }
             else if (SurveyComments.Count > 0)
             {
                 c.NoteType = SurveyComments[0].NoteType;
-                c.NoteType = SurveyComments[0].NoteType;
+                c.Author = SurveyComments[0].Author;
                 c.Source = SurveyComments[0].Source;
                 c.SourceName = SurveyComments[0].SourceName;
             }
             else if (WaveComments.Count > 0)
             {
                 c.NoteType = WaveComments[0].NoteType;
-                c.NoteType = WaveComments[0].NoteType;
+                c.Author = WaveComments[0].Author;
                 c.Source = WaveComments[0].Source;
                 c.SourceName = WaveComments[0].SourceName;
             }
             else if (RefVarComments.Count > 0)
             {
                 c.NoteType = RefVarComments[0].NoteType;
-                c.NoteType = RefVarComments[0].NoteType;
+                c.Author = RefVarComments[0].Author;
                 c.Source = RefVarComments[0].Source;
                 c.SourceName = RefVarComments[0].SourceName;
             }
             else if (DeletedComments.Count > 0)
             {
                 c.NoteType = DeletedComments[0].NoteType;
-                c.NoteType = DeletedComments[0].NoteType;
+                c.Author = DeletedComments[0].Author;
                 c.Source = DeletedComments[0].Source;
                 c.SourceName = DeletedComments[0].SourceName;
             }
@@ -1104,6 +1155,8 @@ namespace ISISFrontEnd
 
         public void UpdateForm(SurveyQuestion question)
         {
+            lstTargetSurvWave.Items.Clear();
+            lstTargetVar.Items.Clear();
             FillTargetQuestion(question);
             if (question.Comments.Count == 0)
             {
@@ -1114,9 +1167,19 @@ namespace ISISFrontEnd
             {
                 lblNewID.Visible = false;
             }
-                
-            GoToComment(question.Comments[0].CID);
+
+            FilteredNotes.Clear();
+            foreach (Comment c in question.Comments)
+            {
+                NoteRecord n = new NoteRecord() { ID = c.Notes.ID, NoteText = c.Notes.NoteText };
+                FilteredNotes.Add(n);
+            }
+            bs.DataSource = FilteredNotes;
+
+            GoToComment(question.Comments[0].Notes.ID);
             
+
+
         }
 
         private void GoToComment(int cid)
@@ -1444,4 +1507,6 @@ namespace ISISFrontEnd
 
         
     }
+
+    
 }

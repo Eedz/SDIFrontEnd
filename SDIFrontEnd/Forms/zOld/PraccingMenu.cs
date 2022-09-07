@@ -14,7 +14,7 @@ using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Word = Microsoft.Office.Interop.Word;
 
-namespace ISISFrontEnd
+namespace SDIFrontEnd
 {
     public partial class PraccingMenu : Form
     {

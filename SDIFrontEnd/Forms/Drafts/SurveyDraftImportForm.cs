@@ -12,7 +12,7 @@ using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 using System.Text.RegularExpressions;
 
-namespace ISISFrontEnd
+namespace SDIFrontEnd
 {
     // TODO set column numbers after Import is clicked, not on combo box event
     // TODO more general tag removal

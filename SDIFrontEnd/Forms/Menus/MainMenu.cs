@@ -12,7 +12,7 @@ using System.IO;
 
 
 
-namespace ISISFrontEnd
+namespace SDIFrontEnd
 {
     public partial class MainMenu : Form
     {

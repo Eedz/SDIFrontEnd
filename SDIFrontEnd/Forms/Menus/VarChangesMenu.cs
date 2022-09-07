@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ISISFrontEnd
+namespace SDIFrontEnd
 {
     public partial class VarNameMenu : Form
     {

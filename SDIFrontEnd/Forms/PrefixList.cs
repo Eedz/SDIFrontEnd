@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
 
-namespace ISISFrontEnd
+namespace SDIFrontEnd
 {
     public partial class PrefixList : Form
     {
@@ -473,7 +473,7 @@ namespace ISISFrontEnd
             DataGridViewTextBoxColumn chSurveys = new DataGridViewTextBoxColumn();
             chSurveys.Name = "Surveys";
             chSurveys.HeaderText = "Surveys";
-            chSurveys.Width = 200;
+            chSurveys.Width = 400;
             chSurveys.DisplayIndex = 6;
             dgvVariableInfo.Columns.Add(chSurveys);
 

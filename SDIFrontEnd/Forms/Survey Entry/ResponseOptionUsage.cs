@@ -6,7 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace ISISFrontEnd
+namespace SDIFrontEnd
 {
     // TODO open locked surveys form with list of surveys   
     public partial class ResponseOptionUsage : Form

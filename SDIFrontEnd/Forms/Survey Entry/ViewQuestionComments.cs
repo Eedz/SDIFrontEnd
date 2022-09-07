@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
 
-namespace ISISFrontEnd
+namespace SDIFrontEnd
 {
     // TODO adjust height base on number of comments
     public partial class ViewQuestionComments : Form
@@ -146,7 +146,7 @@ namespace ISISFrontEnd
             {
                 var datasource = ((BindingSource)dataRepeater1.DataSource);
                 int index = dataRepeater1.CurrentItemIndex;
-                CommentEntry frm = new CommentEntry(((QuestionComment)datasource[index]).CID);
+                CommentEntry frm = new CommentEntry(((QuestionComment)datasource[index]).Notes.ID);
                 frm.ShowDialog();
             }
             

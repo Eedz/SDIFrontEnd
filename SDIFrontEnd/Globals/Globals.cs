@@ -7,7 +7,7 @@ using System.ComponentModel;
 
 using ITCLib;
 
-namespace ISISFrontEnd
+namespace SDIFrontEnd
 {
     public static class Globals
     {

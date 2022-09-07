@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
 
-namespace ISISFrontEnd
+namespace SDIFrontEnd
 {
     // TODO saving locked survey changes
     public partial class SurveyManager : Form
     {
-        List<SurveyRecord> SurveyList;
+        BindingList<SurveyRecord> SurveyList;
         List<StudyWaveRecord> WaveList;
         List<int> LockedSurveys;
         SurveyRecord CurrentRecord;
@@ -69,7 +69,7 @@ namespace ISISFrontEnd
 
         private void listViewToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SurveyList frm = new SurveyList(SurveyList);
+            SurveyList frm = new SurveyList(new List<SurveyRecord>(SurveyList));
             frm.ShowDialog();
         }
 
@@ -277,7 +277,7 @@ namespace ISISFrontEnd
         /// </summary>
         private void FillLists()
         {
-            SurveyList = Globals.AllSurveys;
+            SurveyList = new BindingList<SurveyRecord>(Globals.AllSurveys);
             WaveList = Globals.AllWaves;
             LockedSurveys = DBAction.GetLockedSurveys();
             UserStateList = Globals.AllUserStates;

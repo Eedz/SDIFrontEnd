@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using ITCLib;
 
 
-namespace ISISFrontEnd
+namespace SDIFrontEnd
 {
     // TODO translation nagivagator position will not update or updates incorrectly.
     public partial class QuestionSearchResults : Form
