@@ -18,7 +18,6 @@ namespace SDIFrontEnd
         // TODO corrected form (on hold)
 
 
-        // TODO add comments with viewer
         // TODO search wordings
 
         public SurveyRecord CurrentSurvey { get; set; }       // current survey record
@@ -57,13 +56,6 @@ namespace SDIFrontEnd
                 Close();
                 return;
             }
-
-            //if (CurrentSurvey.Questions.Count()==0)
-            //{
-            //    MessageBox.Show("Error getting " + surveyCode + "'s questions. Ensure there is at least one question in this survey.");
-            //    Close();
-            //    return;
-            //}
 
             PendingChanges = new List<ModifiedQuestion>();
             PendingDeletes = new List<QuestionRecord>();
@@ -106,13 +98,6 @@ namespace SDIFrontEnd
                 Close();
                 return;
             }
-
-            //if (CurrentSurvey.Questions.Count()==0)
-            //{
-            //    MessageBox.Show("Error getting " + surveyCode + "'s questions. Ensure there is at least one question in this survey.");
-            //    Close();
-            //    return;
-            //}
 
             PendingChanges = new List<ModifiedQuestion>();
             PendingDeletes = new List<QuestionRecord>();
@@ -808,7 +793,7 @@ namespace SDIFrontEnd
             bs.DataSource = CurrentSurvey.Questions;
 
             CurrentRecord = (QuestionRecord)bs.Current;
-
+            
             // go to box
             cboGoToVar.ValueMember = "refVarName";
             cboGoToVar.DataSource = CurrentSurvey.Questions.Select(x => x.VarName).OrderBy(x=>x.RefVarName).ToList<VariableName>();
@@ -830,7 +815,6 @@ namespace SDIFrontEnd
             
             FillList();
             ReNumberSurvey();
-            //RenumberList();
             LockForm();
             UpdateStatus();
         }
@@ -1055,6 +1039,7 @@ namespace SDIFrontEnd
             {
                 UpdateWording(field);
             }
+            LoadQuestion();
         }
 
         private void UpdateWording(string wordingField)
@@ -1090,26 +1075,32 @@ namespace SDIFrontEnd
             {
                 case "PreP":
                     CurrentRecord.PrePNum = wording.WordID;
+                    CurrentRecord.PreP = wording.WordingText;
                     txtPreP.Text = wording.WordID.ToString();
                     break;
                 case "PreI":
                     CurrentRecord.PreINum = wording.WordID;
+                    CurrentRecord.PreI = wording.WordingText;
                     txtPreI.Text = wording.WordID.ToString();
                     break;
                 case "PreA":
                     CurrentRecord.PreANum = wording.WordID;
+                    CurrentRecord.PreA = wording.WordingText;
                     txtPreA.Text = wording.WordID.ToString();
                     break;
                 case "LitQ":
                     CurrentRecord.LitQNum = wording.WordID;
+                    CurrentRecord.LitQ = wording.WordingText;
                     txtLitQ.Text = wording.WordID.ToString();
                     break;
                 case "PstI":
                     CurrentRecord.PstINum = wording.WordID;
+                    CurrentRecord.PstI = wording.WordingText;
                     txtPstI.Text = wording.WordID.ToString();
                     break;
                 case "PstP":
                     CurrentRecord.PstPNum = wording.WordID;
+                    CurrentRecord.PstP = wording.WordingText;
                     txtPstP.Text = wording.WordID.ToString();
                     break;
             }
@@ -1122,10 +1113,12 @@ namespace SDIFrontEnd
             {
                 case "RespOptions":
                     CurrentRecord.RespName = response.RespSetName;
+                    CurrentRecord.RespOptions = response.RespList;
                     txtRO.Text = response.RespSetName;
                     break;
                 case "NRCodes":
                     CurrentRecord.NRName = response.RespSetName;
+                    CurrentRecord.NRCodes = response.RespList;
                     txtNR.Text = response.RespSetName;
                     break;
                 
@@ -1170,6 +1163,12 @@ namespace SDIFrontEnd
             {
                 sb.AppendLine("This survey needs to be renumbered.");
                 showMessage = true;
+            }
+
+            if (CurrentRecord == null)
+            {
+                lblStatus.Text = "This survey has no questions!";
+                return;
             }
 
             if (CurrentRecord.NewRecord)

@@ -460,6 +460,8 @@
             // 
             // cboVarNameList
             // 
+            this.cboVarNameList.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboVarNameList.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboVarNameList.FormattingEnabled = true;
             this.cboVarNameList.Location = new System.Drawing.Point(556, 33);
             this.cboVarNameList.Name = "cboVarNameList";
@@ -495,6 +497,8 @@
             // 
             // cboSurvWaveList
             // 
+            this.cboSurvWaveList.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboSurvWaveList.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboSurvWaveList.FormattingEnabled = true;
             this.cboSurvWaveList.Location = new System.Drawing.Point(335, 33);
             this.cboSurvWaveList.Name = "cboSurvWaveList";
@@ -503,6 +507,8 @@
             // 
             // cboNoteAuthority
             // 
+            this.cboNoteAuthority.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboNoteAuthority.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboNoteAuthority.FormattingEnabled = true;
             this.cboNoteAuthority.Location = new System.Drawing.Point(106, 139);
             this.cboNoteAuthority.Name = "cboNoteAuthority";
@@ -519,6 +525,8 @@
             // 
             // cboNoteAuthor
             // 
+            this.cboNoteAuthor.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboNoteAuthor.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboNoteAuthor.FormattingEnabled = true;
             this.cboNoteAuthor.Location = new System.Drawing.Point(106, 81);
             this.cboNoteAuthor.Name = "cboNoteAuthor";
@@ -527,6 +535,8 @@
             // 
             // cboNoteType
             // 
+            this.cboNoteType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboNoteType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboNoteType.FormattingEnabled = true;
             this.cboNoteType.Location = new System.Drawing.Point(106, 57);
             this.cboNoteType.Name = "cboNoteType";

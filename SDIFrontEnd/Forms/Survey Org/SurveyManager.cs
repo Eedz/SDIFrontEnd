@@ -396,7 +396,7 @@ namespace SDIFrontEnd
 
             cboWaveID.DisplayMember = "WaveCode";
             cboWaveID.ValueMember = "ID";
-            cboWaveID.DataSource = new List<StudyWave>(WaveList);
+            cboWaveID.DataSource = new List<StudyWaveRecord>(WaveList);
 
             cboMode.DataSource = DBAction.GetModeInfo();
             cboMode.DisplayMember = "ModeAbbrev";

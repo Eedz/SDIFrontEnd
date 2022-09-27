@@ -33,8 +33,8 @@ namespace SDIFrontEnd
         int QuestionTextColumn;
         int SurveysColumn;
 
-        public Survey TargetSurvey { get; set; }
-        public StudyWave TargetWave { get; set; }
+        public SurveyRecord TargetSurvey { get; set; }
+        public StudyWaveRecord TargetWave { get; set; }
         public Language TargetLanguage { get; set; }
         public List<Language> AvailableLanguages { get; set; }
         
@@ -644,7 +644,7 @@ namespace SDIFrontEnd
             }
             else if (TypeOfImport == ImportType.Multi)
             {
-                TargetWave.Surveys = DBAction.GetSurveys(TargetWave.ID);
+                TargetWave.Surveys = new BindingList<SurveyRecord>(DBAction.GetSurveys(TargetWave.ID));
 
                 if (TargetWave.Surveys.Any(s => s.Locked))
                 {
@@ -727,15 +727,15 @@ namespace SDIFrontEnd
             {
                 if (TypeOfImport== ImportType.Single)
                 {
-                    TargetSurvey = (Survey)cboSurvey.SelectedItem;
-                    Survey selectedSurvey = (Survey)cboSurvey.SelectedItem;
+                    TargetSurvey = (SurveyRecord)cboSurvey.SelectedItem;
+                    SurveyRecord selectedSurvey = (SurveyRecord)cboSurvey.SelectedItem;
                     GetLanguages(selectedSurvey);
                     cmdAddLanguage.Enabled = true;
                 }
                 else if (TypeOfImport == ImportType.Multi)
                 {
-                    TargetWave = (StudyWave)cboSurvey.SelectedItem;
-                    StudyWave selectedWave = (StudyWave)cboSurvey.SelectedItem;
+                    TargetWave = (StudyWaveRecord)cboSurvey.SelectedItem;
+                    StudyWaveRecord selectedWave = (StudyWaveRecord)cboSurvey.SelectedItem;
                     GetLanguages(selectedWave);
                     cmdAddLanguage.Enabled = false;
                 }
@@ -1256,7 +1256,7 @@ namespace SDIFrontEnd
         /// Get a list of laguages used by the specified wave. English not included.
         /// </summary>
         /// <param name="selectedWave"></param>
-        private void GetLanguages(StudyWave selectedWave)
+        private void GetLanguages(StudyWaveRecord selectedWave)
         {
             //List<string> languages = DBAction.GetLanguages(selectedSurvey);
             //languages.Remove("English");

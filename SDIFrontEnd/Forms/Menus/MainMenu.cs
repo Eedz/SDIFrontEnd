@@ -848,12 +848,21 @@ namespace SDIFrontEnd
             frm.TopLevel = false;
             frm.Dock = DockStyle.Fill;
             frm.FormBorderStyle = FormBorderStyle.None;
-            frm.Show();
 
-            tabControl1.TabPages.Add(key, name);
-            tabControl1.TabPages[key].Controls.Add(frm);
-            tabControl1.TabPages[key].Text = frm.Text;
-            tabControl1.SelectTab(key);
+            try
+            {
+                frm.Show();
+                tabControl1.TabPages.Add(key, name);
+                tabControl1.TabPages[key].Controls.Add(frm);
+                tabControl1.TabPages[key].Text = frm.Text;
+                tabControl1.SelectTab(key);
+            }
+            catch
+            {
+
+            }
+
+            
         }
 
         public void SelectTab (string key)

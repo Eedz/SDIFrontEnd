@@ -44,7 +44,7 @@ namespace SDIFrontEnd
             dgvStudies.DataSource = bsStudies;
 
             
-            chStudyName.DisplayMember = "StudyName";
+            chStudyName.DisplayMember = "StudyNameISO";
             chStudyName.ValueMember = "ID";
             chStudyName.DataSource = new List<StudyRecord>(Globals.AllStudies);
             chStudyName.DataPropertyName = "StudyID";

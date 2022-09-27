@@ -698,7 +698,6 @@
             this.dgvStudies.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvStudies.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.chStudyName});
-            this.dgvStudies.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dgvStudies.Location = new System.Drawing.Point(8, 433);
             this.dgvStudies.Name = "dgvStudies";
             this.dgvStudies.RowHeadersWidth = 30;
@@ -722,7 +721,6 @@
             this.dgvComments.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.chCommentType,
             this.chComment});
-            this.dgvComments.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dgvComments.Location = new System.Drawing.Point(402, 433);
             this.dgvComments.Name = "dgvComments";
             this.dgvComments.RowHeadersWidth = 30;

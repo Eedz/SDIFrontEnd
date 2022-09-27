@@ -299,7 +299,9 @@ namespace SDIFrontEnd
             // change RTF tags to HTML tags
             txtWordingR.Rtf = Utilities.FormatRTF(txtWordingR.Rtf);
             // now get plain text which includes the HTML tags we've inserted
+
             string plain = txtWordingR.Text;
+            plain = Utilities.TrimString(plain, "<br>");
 
             CurrentWording.WordingText = plain;
             Dirty = true;

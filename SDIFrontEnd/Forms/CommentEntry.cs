@@ -12,7 +12,6 @@ using ITCLib;
 namespace SDIFrontEnd
 {
     // TODO editing existing comments
-    // TODO test add/delete note
     // TODO test adding all comment types
     // TODO add series comment
     /// <summary>
@@ -147,7 +146,7 @@ namespace SDIFrontEnd
         {
             CurrentNote = (NoteRecord)bs.Current;
 
-            lblNewID.Visible = CurrentNote.ID > 0;
+            lblNewID.Visible = !(CurrentNote.ID > 0);
             
             LoadComments();
         }
@@ -502,7 +501,7 @@ namespace SDIFrontEnd
             else
             {
                 Globals.AllNotes.Remove(CurrentNote);
-                bs.ResetCurrentItem();
+                bs.RemoveCurrent();
                 LoadComments();
             }
         }

@@ -72,12 +72,12 @@
             this.txtFilter = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.panelCopy = new System.Windows.Forms.Panel();
+            this.lblCopyToNewInfo = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.cboSurveySource = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.lblDestination = new System.Windows.Forms.Label();
-            this.lblCopyToNewInfo = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRelatedVars)).BeginInit();
             this.panelNew.SuspendLayout();
             this.panelCopy.SuspendLayout();
@@ -226,6 +226,8 @@
             // 
             this.dgvRelatedVars.AllowUserToAddRows = false;
             this.dgvRelatedVars.AllowUserToDeleteRows = false;
+            this.dgvRelatedVars.AllowUserToResizeRows = false;
+            this.dgvRelatedVars.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dgvRelatedVars.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvRelatedVars.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.chRefVarname,
@@ -240,7 +242,8 @@
             this.dgvRelatedVars.ReadOnly = true;
             this.dgvRelatedVars.RowHeadersVisible = false;
             this.dgvRelatedVars.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dgvRelatedVars.Size = new System.Drawing.Size(737, 236);
+            this.dgvRelatedVars.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvRelatedVars.Size = new System.Drawing.Size(807, 236);
             this.dgvRelatedVars.TabIndex = 2;
             this.dgvRelatedVars.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvRelatedVars_CellMouseDoubleClick);
             this.dgvRelatedVars.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvRelatedVars_DataBindingComplete);
@@ -251,36 +254,42 @@
             this.chRefVarname.HeaderText = "refVarName";
             this.chRefVarname.Name = "chRefVarname";
             this.chRefVarname.ReadOnly = true;
+            this.chRefVarname.Width = 102;
             // 
             // chRelatedVarLabel
             // 
             this.chRelatedVarLabel.HeaderText = "VarLabel";
             this.chRelatedVarLabel.Name = "chRelatedVarLabel";
             this.chRelatedVarLabel.ReadOnly = true;
+            this.chRelatedVarLabel.Width = 83;
             // 
             // chRelatedContent
             // 
             this.chRelatedContent.HeaderText = "Content";
             this.chRelatedContent.Name = "chRelatedContent";
             this.chRelatedContent.ReadOnly = true;
+            this.chRelatedContent.Width = 77;
             // 
             // chRelatedTopic
             // 
             this.chRelatedTopic.HeaderText = "Topic";
             this.chRelatedTopic.Name = "chRelatedTopic";
             this.chRelatedTopic.ReadOnly = true;
+            this.chRelatedTopic.Width = 64;
             // 
             // chRelatedDomain
             // 
             this.chRelatedDomain.HeaderText = "Domain";
             this.chRelatedDomain.Name = "chRelatedDomain";
             this.chRelatedDomain.ReadOnly = true;
+            this.chRelatedDomain.Width = 76;
             // 
             // chRelatedProduct
             // 
             this.chRelatedProduct.HeaderText = "Product";
             this.chRelatedProduct.Name = "chRelatedProduct";
             this.chRelatedProduct.ReadOnly = true;
+            this.chRelatedProduct.Width = 76;
             // 
             // label1
             // 
@@ -524,6 +533,15 @@
             this.panelCopy.TabIndex = 18;
             this.panelCopy.Visible = false;
             // 
+            // lblCopyToNewInfo
+            // 
+            this.lblCopyToNewInfo.AutoSize = true;
+            this.lblCopyToNewInfo.Location = new System.Drawing.Point(788, 63);
+            this.lblCopyToNewInfo.Name = "lblCopyToNewInfo";
+            this.lblCopyToNewInfo.Size = new System.Drawing.Size(268, 16);
+            this.lblCopyToNewInfo.TabIndex = 8;
+            this.lblCopyToNewInfo.Text = "These VarNames will be added to the survey.";
+            // 
             // label12
             // 
             this.label12.AutoSize = true;
@@ -575,15 +593,6 @@
             this.lblDestination.Size = new System.Drawing.Size(294, 25);
             this.lblDestination.TabIndex = 19;
             this.lblDestination.Text = "Adding to [Survey] at [Qnum]";
-            // 
-            // lblCopyToNewInfo
-            // 
-            this.lblCopyToNewInfo.AutoSize = true;
-            this.lblCopyToNewInfo.Location = new System.Drawing.Point(788, 63);
-            this.lblCopyToNewInfo.Name = "lblCopyToNewInfo";
-            this.lblCopyToNewInfo.Size = new System.Drawing.Size(268, 16);
-            this.lblCopyToNewInfo.TabIndex = 8;
-            this.lblCopyToNewInfo.Text = "These VarNames will be added to the survey.";
             // 
             // NewQuestionEntry
             // 
@@ -659,12 +668,12 @@
         private System.Windows.Forms.TextBox txtFilter;
         private System.Windows.Forms.Label lblDestination;
         private System.Windows.Forms.Label lblTempPrefix;
+        private System.Windows.Forms.Label lblCopyToNewInfo;
         private System.Windows.Forms.DataGridViewTextBoxColumn chRefVarname;
         private System.Windows.Forms.DataGridViewTextBoxColumn chRelatedVarLabel;
         private System.Windows.Forms.DataGridViewTextBoxColumn chRelatedContent;
         private System.Windows.Forms.DataGridViewTextBoxColumn chRelatedTopic;
         private System.Windows.Forms.DataGridViewTextBoxColumn chRelatedDomain;
         private System.Windows.Forms.DataGridViewTextBoxColumn chRelatedProduct;
-        private System.Windows.Forms.Label lblCopyToNewInfo;
     }
 }

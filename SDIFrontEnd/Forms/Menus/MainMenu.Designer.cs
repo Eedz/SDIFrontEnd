@@ -577,7 +577,6 @@
             // 
             // cmdOpenSurveyEditor3
             // 
-            this.cmdOpenSurveyEditor3.AutoSize = true;
             this.cmdOpenSurveyEditor3.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdOpenSurveyEditor3.Location = new System.Drawing.Point(166, 36);
             this.cmdOpenSurveyEditor3.Name = "cmdOpenSurveyEditor3";
@@ -589,7 +588,6 @@
             // 
             // cmdOpenSurveyEditor2
             // 
-            this.cmdOpenSurveyEditor2.AutoSize = true;
             this.cmdOpenSurveyEditor2.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdOpenSurveyEditor2.Location = new System.Drawing.Point(85, 36);
             this.cmdOpenSurveyEditor2.Name = "cmdOpenSurveyEditor2";
@@ -601,7 +599,6 @@
             // 
             // cmdOpenSurveyEditor
             // 
-            this.cmdOpenSurveyEditor.AutoSize = true;
             this.cmdOpenSurveyEditor.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdOpenSurveyEditor.Location = new System.Drawing.Point(4, 36);
             this.cmdOpenSurveyEditor.Name = "cmdOpenSurveyEditor";

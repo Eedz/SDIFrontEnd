@@ -11,8 +11,7 @@ using ITCLib;
 
 namespace SDIFrontEnd
 {
-    // TODO restrict to temp names?
-    // TODO series entry
+     // TODO series entry
     public partial class NewQuestionEntry : Form
     {
         public enum EntryMode { Copy, Create }
@@ -27,7 +26,7 @@ namespace SDIFrontEnd
         int copyWidth = 1200;
         int copyHeight = 500;
 
-        int newWidth = 750;
+        int newWidth = 820;
         int newHeight = 500;
 
         public NewQuestionEntry(SurveyRecord destinationSurvey, string destinationQnum)
@@ -296,7 +295,8 @@ namespace SDIFrontEnd
             else
                 RelatedQuestions = Globals.AllVarNames.Where(x => x.RefVarName.StartsWith(filter)).ToList();
 
-            dgvRelatedVars.DataSource = RelatedQuestions;            
+            dgvRelatedVars.DataSource = RelatedQuestions;
+
         }
 
         /// <summary>

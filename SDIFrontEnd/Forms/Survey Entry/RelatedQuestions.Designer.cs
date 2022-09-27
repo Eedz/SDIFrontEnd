@@ -648,6 +648,7 @@
             this.cboSurveyFilter.Name = "cboSurveyFilter";
             this.cboSurveyFilter.Size = new System.Drawing.Size(140, 24);
             this.cboSurveyFilter.TabIndex = 38;
+            this.cboSurveyFilter.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cboSurveyFilter_KeyDown);
             this.cboSurveyFilter.Leave += new System.EventHandler(this.cboSurveyFilter_Leave);
             // 
             // label10

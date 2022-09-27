@@ -104,7 +104,7 @@ namespace SDIFrontEnd
             if (toolStripGoTo.SelectedItem == null)
                 return;
 
-            GoToWave(((StudyWave)toolStripGoTo.SelectedItem).ID);
+            GoToWave(((StudyWaveRecord)toolStripGoTo.SelectedItem).ID);
         }
 
         void ComboBox_MouseWheel(object sender, MouseEventArgs e)
@@ -188,7 +188,7 @@ namespace SDIFrontEnd
         
         private void FillBoxes()
         {
-            toolStripGoTo.ComboBox.DataSource = new List<StudyWave>(WaveList);
+            toolStripGoTo.ComboBox.DataSource = new List<StudyWaveRecord>(WaveList);
             toolStripGoTo.ComboBox.ValueMember = "ID";
             toolStripGoTo.ComboBox.DisplayMember = "WaveCode";
 

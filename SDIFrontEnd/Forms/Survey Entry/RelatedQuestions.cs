@@ -38,7 +38,7 @@ namespace SDIFrontEnd
             FormNumber = formNumber;
 
             SurveyGlob = Globals.CurrentUser.GetFilter("sfrmSurveyEntryBrown", FormNumber);
-            SurveyGlob = SurveyGlob == "" ? "%" : SurveyGlob;
+            SurveyGlob = SurveyGlob == "" || SurveyGlob == null ? "%" : SurveyGlob;
 
             Questions = new BindingList<QuestionRecord>();
 
@@ -284,6 +284,22 @@ namespace SDIFrontEnd
 
             cboSurveyFilter.SelectedItem = enteredValue;
 
+        }
+
+        private void cboSurveyFilter_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Return)
+            {
+                if (cboSurveyFilter.Text == null)
+                    return;
+
+                string enteredValue = cboSurveyFilter.Text;
+
+                if (!cboSurveyFilter.Items.Contains(enteredValue))
+                    cboSurveyFilter.Items.Add(enteredValue);
+
+                cboSurveyFilter.SelectedItem = enteredValue;
+            }
         }
 
         private void cmdToEditor_Click(object sender, EventArgs e)
@@ -630,6 +646,7 @@ namespace SDIFrontEnd
 
             bs.MoveFirst();
         }
+
 
         #endregion
 
