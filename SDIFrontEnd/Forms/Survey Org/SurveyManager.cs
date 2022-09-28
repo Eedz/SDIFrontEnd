@@ -751,6 +751,7 @@ namespace SDIFrontEnd
         {
             CurrentRecord = (SurveyRecord)bs.Current;
             ToggleLocks(CurrentRecord.Locked);
+            
         }
 
         /// <summary>
@@ -791,6 +792,7 @@ namespace SDIFrontEnd
                 chkLocked.Text = "Locked";
             else
                 chkLocked.Text = "Unlocked";
+
         }
 
         /// <summary>

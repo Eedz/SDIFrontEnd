@@ -100,28 +100,27 @@
             // txtID
             // 
             this.txtID.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtID.Location = new System.Drawing.Point(94, 77);
+            this.txtID.Location = new System.Drawing.Point(93, 77);
             this.txtID.Name = "txtID";
             this.txtID.Size = new System.Drawing.Size(32, 23);
             this.txtID.TabIndex = 0;
             // 
             // txtSurveyCode
             // 
+            this.txtSurveyCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtSurveyCode.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSurveyCode.Location = new System.Drawing.Point(94, 137);
+            this.txtSurveyCode.Location = new System.Drawing.Point(93, 137);
             this.txtSurveyCode.Name = "txtSurveyCode";
-            this.txtSurveyCode.Size = new System.Drawing.Size(142, 23);
+            this.txtSurveyCode.Size = new System.Drawing.Size(146, 23);
             this.txtSurveyCode.TabIndex = 1;
-   
             // 
             // txtSurveyTitle
             // 
             this.txtSurveyTitle.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSurveyTitle.Location = new System.Drawing.Point(308, 137);
+            this.txtSurveyTitle.Location = new System.Drawing.Point(320, 137);
             this.txtSurveyTitle.Name = "txtSurveyTitle";
             this.txtSurveyTitle.Size = new System.Drawing.Size(227, 23);
             this.txtSurveyTitle.TabIndex = 3;
-     
             // 
             // label1
             // 
@@ -155,19 +154,20 @@
             // 
             // cboWaveID
             // 
+            this.cboWaveID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboWaveID.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cboWaveID.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboWaveID.FormattingEnabled = true;
             this.cboWaveID.Location = new System.Drawing.Point(93, 106);
             this.cboWaveID.Name = "cboWaveID";
-            this.cboWaveID.Size = new System.Drawing.Size(143, 24);
+            this.cboWaveID.Size = new System.Drawing.Size(147, 24);
             this.cboWaveID.TabIndex = 7;
-     
             // 
             // lblSurveyTitle
             // 
             this.lblSurveyTitle.AutoSize = true;
             this.lblSurveyTitle.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSurveyTitle.Location = new System.Drawing.Point(271, 140);
+            this.lblSurveyTitle.Location = new System.Drawing.Point(283, 140);
             this.lblSurveyTitle.Name = "lblSurveyTitle";
             this.lblSurveyTitle.Size = new System.Drawing.Size(33, 16);
             this.lblSurveyTitle.TabIndex = 8;
@@ -176,17 +176,16 @@
             // txtFileName
             // 
             this.txtFileName.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFileName.Location = new System.Drawing.Point(308, 166);
+            this.txtFileName.Location = new System.Drawing.Point(320, 166);
             this.txtFileName.Name = "txtFileName";
             this.txtFileName.Size = new System.Drawing.Size(227, 23);
             this.txtFileName.TabIndex = 9;
-  
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(239, 169);
+            this.label4.Location = new System.Drawing.Point(251, 169);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(65, 16);
             this.label4.TabIndex = 10;
@@ -194,13 +193,14 @@
             // 
             // cboSurveyType
             // 
+            this.cboSurveyType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboSurveyType.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cboSurveyType.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboSurveyType.FormattingEnabled = true;
             this.cboSurveyType.Location = new System.Drawing.Point(93, 166);
             this.cboSurveyType.Name = "cboSurveyType";
-            this.cboSurveyType.Size = new System.Drawing.Size(143, 24);
+            this.cboSurveyType.Size = new System.Drawing.Size(147, 24);
             this.cboSurveyType.TabIndex = 11;
-        
             // 
             // label5
             // 
@@ -214,13 +214,14 @@
             // 
             // cboMode
             // 
+            this.cboMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboMode.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cboMode.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboMode.FormattingEnabled = true;
             this.cboMode.Location = new System.Drawing.Point(93, 196);
             this.cboMode.Name = "cboMode";
-            this.cboMode.Size = new System.Drawing.Size(143, 24);
+            this.cboMode.Size = new System.Drawing.Size(147, 24);
             this.cboMode.TabIndex = 13;
-        
             // 
             // label6
             // 
@@ -239,40 +240,37 @@
             this.dtpCreationDate.Location = new System.Drawing.Point(93, 226);
             this.dtpCreationDate.Name = "dtpCreationDate";
             this.dtpCreationDate.ShowCheckBox = true;
-            this.dtpCreationDate.Size = new System.Drawing.Size(143, 23);
+            this.dtpCreationDate.Size = new System.Drawing.Size(147, 23);
             this.dtpCreationDate.TabIndex = 15;
-          
             // 
             // chkNCT
             // 
             this.chkNCT.AutoSize = true;
             this.chkNCT.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkNCT.Location = new System.Drawing.Point(308, 200);
+            this.chkNCT.Location = new System.Drawing.Point(320, 200);
             this.chkNCT.Name = "chkNCT";
             this.chkNCT.Size = new System.Drawing.Size(99, 20);
             this.chkNCT.TabIndex = 17;
             this.chkNCT.Text = "NCT Country";
             this.chkNCT.UseVisualStyleBackColor = true;
-        
             // 
             // chkHideSurvey
             // 
             this.chkHideSurvey.AutoSize = true;
             this.chkHideSurvey.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkHideSurvey.Location = new System.Drawing.Point(413, 200);
+            this.chkHideSurvey.Location = new System.Drawing.Point(425, 200);
             this.chkHideSurvey.Name = "chkHideSurvey";
             this.chkHideSurvey.Size = new System.Drawing.Size(95, 20);
             this.chkHideSurvey.TabIndex = 18;
             this.chkHideSurvey.Text = "Hide Survey";
             this.chkHideSurvey.UseVisualStyleBackColor = true;
-       
             // 
             // chkLocked
             // 
             this.chkLocked.Appearance = System.Windows.Forms.Appearance.Button;
             this.chkLocked.AutoSize = true;
             this.chkLocked.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkLocked.Location = new System.Drawing.Point(308, 104);
+            this.chkLocked.Location = new System.Drawing.Point(320, 104);
             this.chkLocked.Name = "chkLocked";
             this.chkLocked.Size = new System.Drawing.Size(57, 26);
             this.chkLocked.TabIndex = 19;
@@ -294,7 +292,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(409, 271);
+            this.label8.Location = new System.Drawing.Point(425, 271);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(69, 16);
             this.label8.TabIndex = 23;
@@ -314,7 +312,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(217, 271);
+            this.label10.Location = new System.Drawing.Point(223, 271);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(115, 16);
             this.label10.TabIndex = 25;
@@ -343,7 +341,7 @@
             this.bindingNavigator1.MovePreviousItem = null;
             this.bindingNavigator1.Name = "bindingNavigator1";
             this.bindingNavigator1.PositionItem = this.bindingNavigatorPositionItem;
-            this.bindingNavigator1.Size = new System.Drawing.Size(551, 25);
+            this.bindingNavigator1.Size = new System.Drawing.Size(563, 25);
             this.bindingNavigator1.TabIndex = 26;
             this.bindingNavigator1.Text = "bindingNavigator1";
             // 
@@ -424,7 +422,7 @@
             this.dgvLanguages.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.chLangID,
             this.chSurvIDLang});
-            this.dgvLanguages.Location = new System.Drawing.Point(364, 287);
+            this.dgvLanguages.Location = new System.Drawing.Point(376, 287);
             this.dgvLanguages.MultiSelect = false;
             this.dgvLanguages.Name = "dgvLanguages";
             this.dgvLanguages.Size = new System.Drawing.Size(171, 201);
@@ -486,7 +484,7 @@
             this.dgvScreenedProducts.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.chProductID,
             this.chSurvIDProduct});
-            this.dgvScreenedProducts.Location = new System.Drawing.Point(187, 287);
+            this.dgvScreenedProducts.Location = new System.Drawing.Point(193, 287);
             this.dgvScreenedProducts.MultiSelect = false;
             this.dgvScreenedProducts.Name = "dgvScreenedProducts";
             this.dgvScreenedProducts.Size = new System.Drawing.Size(171, 201);
@@ -530,7 +528,7 @@
             this.listViewToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(551, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(563, 24);
             this.menuStrip1.TabIndex = 31;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -566,17 +564,16 @@
             // 
             this.chkITCSurvey.AutoSize = true;
             this.chkITCSurvey.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkITCSurvey.Location = new System.Drawing.Point(413, 223);
+            this.chkITCSurvey.Location = new System.Drawing.Point(425, 223);
             this.chkITCSurvey.Name = "chkITCSurvey";
             this.chkITCSurvey.Size = new System.Drawing.Size(90, 20);
             this.chkITCSurvey.TabIndex = 32;
             this.chkITCSurvey.Text = "ITC Survey";
             this.chkITCSurvey.UseVisualStyleBackColor = true;
-         
             // 
             // cmdDelete
             // 
-            this.cmdDelete.Location = new System.Drawing.Point(479, 60);
+            this.cmdDelete.Location = new System.Drawing.Point(491, 60);
             this.cmdDelete.Name = "cmdDelete";
             this.cmdDelete.Size = new System.Drawing.Size(56, 26);
             this.cmdDelete.TabIndex = 33;
@@ -593,7 +590,7 @@
             this.toolbuttonWaves});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(551, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(563, 25);
             this.toolStrip1.TabIndex = 35;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -645,7 +642,7 @@
             // cmdAddWave
             // 
             this.cmdAddWave.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdAddWave.Location = new System.Drawing.Point(242, 106);
+            this.cmdAddWave.Location = new System.Drawing.Point(244, 106);
             this.cmdAddWave.Name = "cmdAddWave";
             this.cmdAddWave.Size = new System.Drawing.Size(25, 24);
             this.cmdAddWave.TabIndex = 44;
@@ -659,7 +656,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(219)))), ((int)(((byte)(244)))));
-            this.ClientSize = new System.Drawing.Size(551, 530);
+            this.ClientSize = new System.Drawing.Size(563, 530);
             this.ControlBox = false;
             this.Controls.Add(this.cmdAddWave);
             this.Controls.Add(this.toolStrip1);
