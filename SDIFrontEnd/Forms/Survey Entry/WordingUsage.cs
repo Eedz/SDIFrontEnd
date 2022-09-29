@@ -186,6 +186,7 @@ namespace SDIFrontEnd
                 chkEdit.Text = "Edit";
                 cmdBold.Enabled = false;
                 cmdItalic.Enabled = false;
+                cmdUnderline.Enabled = false;
                 txtWordingR.BackColor = SystemColors.Control;
             }
             else
@@ -217,6 +218,7 @@ namespace SDIFrontEnd
                 txtWordingR.ReadOnly = false;
                 cmdBold.Enabled = true;
                 cmdItalic.Enabled = true;
+                cmdUnderline.Enabled = true;
             }
             
         }
@@ -242,6 +244,18 @@ namespace SDIFrontEnd
             else
             {
                 txtWordingR.SelectionFont = new Font(txtWordingR.Font, FontStyle.Italic);
+            }
+        }
+
+        private void cmdUnderline_Click(object sender, EventArgs e)
+        {
+            if (txtWordingR.SelectionFont.Italic)
+            {
+                txtWordingR.SelectionFont = new Font(txtWordingR.Font, FontStyle.Regular);
+            }
+            else
+            {
+                txtWordingR.SelectionFont = new Font(txtWordingR.Font, FontStyle.Underline);
             }
         }
 
@@ -617,6 +631,7 @@ namespace SDIFrontEnd
                     break;
             }
         }
+
 
 
 

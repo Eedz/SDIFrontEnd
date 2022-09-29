@@ -95,6 +95,12 @@ namespace SDIFrontEnd
             }
         }
 
+        private void listViewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RegionList frm = new RegionList(new List<RegionRecord>(RegionList));
+            frm.ShowDialog();
+        }
+
         private void cmdDelete_Click(object sender, EventArgs e)
         {
             if (cmdDelete.Text.Equals("Delete"))

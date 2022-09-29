@@ -109,6 +109,12 @@ namespace SDIFrontEnd
             AddStudy();
         }
 
+        private void listViewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            StudyList frm = new StudyList(new List<StudyRecord>(StudyList));
+            frm.ShowDialog();           
+        }
+
         private void cmdDelete_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Deleting studies is not allowed.");
@@ -277,6 +283,7 @@ namespace SDIFrontEnd
 
             bs.MoveFirst();
         }
+
 
 
         #endregion

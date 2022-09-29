@@ -107,6 +107,12 @@ namespace SDIFrontEnd
             GoToWave(((StudyWaveRecord)toolStripGoTo.SelectedItem).ID);
         }
 
+        private void listViewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            WaveList frm = new WaveList(new List<StudyWaveRecord>(WaveList));
+            frm.ShowDialog();
+        }
+
         void ComboBox_MouseWheel(object sender, MouseEventArgs e)
         {
             ComboBox control = (ComboBox)sender;
@@ -309,5 +315,7 @@ namespace SDIFrontEnd
             
 
         }
+
+        
     }
 }

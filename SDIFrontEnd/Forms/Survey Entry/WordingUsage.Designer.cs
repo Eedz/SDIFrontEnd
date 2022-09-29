@@ -58,6 +58,7 @@
             this.cmdItalic = new System.Windows.Forms.Button();
             this.cmdBold = new System.Windows.Forms.Button();
             this.chkEdit = new System.Windows.Forms.CheckBox();
+            this.cmdUnderline = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvWordingUsage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.navWordings)).BeginInit();
             this.navWordings.SuspendLayout();
@@ -361,12 +362,26 @@
             this.chkEdit.UseVisualStyleBackColor = true;
             this.chkEdit.Click += new System.EventHandler(this.chkEdit_Click);
             // 
+            // cmdUnderline
+            // 
+            this.cmdUnderline.Enabled = false;
+            this.cmdUnderline.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdUnderline.Location = new System.Drawing.Point(62, 100);
+            this.cmdUnderline.Name = "cmdUnderline";
+            this.cmdUnderline.Size = new System.Drawing.Size(27, 23);
+            this.cmdUnderline.TabIndex = 29;
+            this.cmdUnderline.Text = "U";
+            this.cmdUnderline.UseCompatibleTextRendering = true;
+            this.cmdUnderline.UseVisualStyleBackColor = true;
+            this.cmdUnderline.Click += new System.EventHandler(this.cmdUnderline_Click);
+            // 
             // WordingUsage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(113)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(804, 552);
+            this.Controls.Add(this.cmdUnderline);
             this.Controls.Add(this.chkEdit);
             this.Controls.Add(this.cmdItalic);
             this.Controls.Add(this.cmdBold);
@@ -434,5 +449,6 @@
         private System.Windows.Forms.Button cmdItalic;
         private System.Windows.Forms.Button cmdBold;
         private System.Windows.Forms.CheckBox chkEdit;
+        private System.Windows.Forms.Button cmdUnderline;
     }
 }

@@ -153,6 +153,24 @@
     <Compile Include="Forms\Praccing\PraccingEntry.Designer.cs">
       <DependentUpon>PraccingEntry.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Survey Org\RegionList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Survey Org\RegionList.designer.cs">
+      <DependentUpon>RegionList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Survey Org\SurveyList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Survey Org\SurveyList.designer.cs">
+      <DependentUpon>SurveyList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Survey Org\WaveList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Survey Org\WaveList.designer.cs">
+      <DependentUpon>WaveList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\zOld\PraccingMenu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -456,11 +474,11 @@
     <Compile Include="Forms\Survey Entry\RelatedQuestions.Designer.cs">
       <DependentUpon>RelatedQuestions.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Survey Org\SurveyList.cs">
+    <Compile Include="Forms\Survey Org\StudyList.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Survey Org\SurveyList.designer.cs">
-      <DependentUpon>SurveyList.cs</DependentUpon>
+    <Compile Include="Forms\Survey Org\StudyList.designer.cs">
+      <DependentUpon>StudyList.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Survey Org\SurveyManager.cs">
       <SubType>Form</SubType>
@@ -674,6 +692,15 @@
     <EmbeddedResource Include="Forms\Praccing\PraccingEntry.resx">
       <DependentUpon>PraccingEntry.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Survey Org\RegionList.resx">
+      <DependentUpon>RegionList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Survey Org\SurveyList.resx">
+      <DependentUpon>SurveyList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Survey Org\WaveList.resx">
+      <DependentUpon>WaveList.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\zOld\PraccingMenu.resx">
       <DependentUpon>PraccingMenu.cs</DependentUpon>
     </EmbeddedResource>
@@ -816,8 +843,8 @@
     <EmbeddedResource Include="Forms\Survey Entry\RelatedQuestions.resx">
       <DependentUpon>RelatedQuestions.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Survey Org\SurveyList.resx">
-      <DependentUpon>SurveyList.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Survey Org\StudyList.resx">
+      <DependentUpon>StudyList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Survey Org\SurveyManager.resx">
       <DependentUpon>SurveyManager.cs</DependentUpon>
