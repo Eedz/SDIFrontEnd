@@ -855,6 +855,7 @@ namespace SDIFrontEnd
                 tabControl1.TabPages.Add(key, name);
                 tabControl1.TabPages[key].Controls.Add(frm);
                 tabControl1.TabPages[key].Text = frm.Text;
+                tabControl1.TabPages[key].AutoScroll = true;
                 tabControl1.SelectTab(key);
             }
             catch

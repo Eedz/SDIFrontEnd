@@ -29,7 +29,7 @@ namespace SDIFrontEnd
            
             cboSurvey.ValueMember = "SurveyCode";
             cboSurvey.DisplayMember = "SurveyCode";
-            cboSurvey.DataSource = Globals.AllSurveys;
+            cboSurvey.DataSource =new List<Survey>( Globals.AllSurveys);
             
             
         }
@@ -47,6 +47,7 @@ namespace SDIFrontEnd
             source.AddQuestions(DBAction.GetSurveyQuestions(source));
             SO.Surveys.Add(source);
             SO.Surveys[0].Qnum = true;
+            SO.Surveys[0].Primary = true;
 
             foreach (ReportSurvey rs in SO.Surveys)
             {

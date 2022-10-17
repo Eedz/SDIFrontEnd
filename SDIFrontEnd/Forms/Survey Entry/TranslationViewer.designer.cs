@@ -49,6 +49,7 @@
             this.cmdItalic = new System.Windows.Forms.Button();
             this.cmdBold = new System.Windows.Forms.Button();
             this.cmdSave = new System.Windows.Forms.Button();
+            this.cmdUnderline = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.navTranslations)).BeginInit();
             this.navTranslations.SuspendLayout();
             this.SuspendLayout();
@@ -248,12 +249,25 @@
             this.cmdSave.UseVisualStyleBackColor = true;
             this.cmdSave.Click += new System.EventHandler(this.cmdSave_Click);
             // 
+            // cmdUnderline
+            // 
+            this.cmdUnderline.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdUnderline.Location = new System.Drawing.Point(61, 92);
+            this.cmdUnderline.Name = "cmdUnderline";
+            this.cmdUnderline.Size = new System.Drawing.Size(27, 23);
+            this.cmdUnderline.TabIndex = 19;
+            this.cmdUnderline.Text = "U";
+            this.cmdUnderline.UseCompatibleTextRendering = true;
+            this.cmdUnderline.UseVisualStyleBackColor = true;
+            this.cmdUnderline.Click += new System.EventHandler(this.cmdUnderline_Click);
+            // 
             // TranslationViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(196)))), ((int)(((byte)(153)))));
             this.ClientSize = new System.Drawing.Size(505, 518);
+            this.Controls.Add(this.cmdUnderline);
             this.Controls.Add(this.cmdSave);
             this.Controls.Add(this.cmdItalic);
             this.Controls.Add(this.cmdBold);
@@ -300,5 +314,6 @@
         private System.Windows.Forms.Button cmdItalic;
         private System.Windows.Forms.Button cmdBold;
         private System.Windows.Forms.Button cmdSave;
+        private System.Windows.Forms.Button cmdUnderline;
     }
 }

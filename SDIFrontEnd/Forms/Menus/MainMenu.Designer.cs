@@ -372,6 +372,7 @@
             // 
             // pageMain
             // 
+            this.pageMain.AutoScroll = true;
             this.pageMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(241)))), ((int)(((byte)(185)))));
             this.pageMain.Controls.Add(this.tableLayoutPanel2);
             this.pageMain.Controls.Add(this.panel1);
@@ -998,6 +999,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1425, 771);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuMainMenuStrip);

@@ -1474,7 +1474,11 @@ namespace SDIFrontEnd
 
         private void AddQuestions()
         {
-            NewQuestionEntry frm = new NewQuestionEntry(CurrentSurvey, CurrentRecord.Qnum);
+            string qnum = "0";
+            if (CurrentRecord != null)
+                qnum = CurrentRecord.Qnum;
+
+            NewQuestionEntry frm = new NewQuestionEntry(CurrentSurvey, qnum);
             frm.ShowDialog();
 
             // if the dialog was closed with an 'OK' result
@@ -1525,6 +1529,9 @@ namespace SDIFrontEnd
             f = toolStripF.Checked;
 
             List<SurveyQuestion> questions = new List<SurveyQuestion>();
+            SurveyQuestion question = CurrentRecord;
+            question.Translations.AddRange(CurrentRecord.Translations);
+            
             questions.Add(CurrentRecord);
 
             QuestionReport report = new QuestionReport();
@@ -1630,8 +1637,6 @@ namespace SDIFrontEnd
             QuestionRecord r = (QuestionRecord)lstQuestionList.Items[index].Tag;
 
             lstQuestionList.Items[index].BackColor = c;
-           
-
         }
 
         /// <summary>
@@ -1680,28 +1685,26 @@ namespace SDIFrontEnd
             PendingDeletes.AddRange(deleteFails);
 
             // ask to document
-            if (deleteWins.Count>0)
+            bool skipDocument = false;
+            if (deleteWins.Count == 1 && deleteWins[0].VarName.VarName.Equals("DUMMY"))
+                skipDocument = true;
+
+            if (deleteWins.Count>0 && !skipDocument)
             {
                 DialogResult result = MessageBox.Show("Do you want to document these deletes?", "Document Deletes", MessageBoxButtons.YesNo);
 
                 if (result == DialogResult.Yes)
                 {
-                    DocumentDeletes(deleteWins);
-                    
+                    DocumentDeletes(deleteWins);  
                 }
-
-
             }
 
             // delete unused varnames
             foreach (SurveyQuestion deleted in deleteWins)
             {
-                if (!DBAction.VarNameIsUsed(deleted.VarName.VarName))
+                if (!deleted.VarName.VarName.Equals("DUMMY") && !DBAction.VarNameIsUsed(deleted.VarName.VarName))
                     DBAction.DeleteVariable(deleted.VarName.VarName);
             }
-            
-            
-
 
             // display fails
             StringBuilder sb = new StringBuilder();
@@ -1713,7 +1716,6 @@ namespace SDIFrontEnd
                 sb.AppendLine(deleteFails.Count + " deleted questions failed to delete properly.");
 
             if (sb.Length>0)
-
                 MessageBox.Show(sb.ToString());
             else
             {

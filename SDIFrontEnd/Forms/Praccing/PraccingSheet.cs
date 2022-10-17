@@ -132,7 +132,7 @@ namespace SDIFrontEnd
                 // footer text                  
                 foreach (Word.Section s in doc.Sections)
                     s.Footers[Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range.InsertAfter("\t" + survey.SurveyCode + " Praccing Sheet" +
-                        "\t\t" + "Generated on " + DateTime.Today.ToString("d"));
+                        "\t\t" + "Generated on " + DateTime.Today.ToString("dd-MMM-yyyy"));
 
                 appWord.Visible = true;
             }

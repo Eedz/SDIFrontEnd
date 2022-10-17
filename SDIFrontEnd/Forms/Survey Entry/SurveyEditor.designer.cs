@@ -191,7 +191,7 @@
             this.bindingNavigatorMoveNextItem,
             this.bindingNavigatorMoveLastItem,
             this.bindingNavigatorSeparator2});
-            this.navQuestions.Location = new System.Drawing.Point(0, 900);
+            this.navQuestions.Location = new System.Drawing.Point(0, 866);
             this.navQuestions.MoveFirstItem = null;
             this.navQuestions.MoveLastItem = null;
             this.navQuestions.MoveNextItem = null;
@@ -282,12 +282,14 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.AutoScroll = true;
             this.splitContainer1.Panel1.Controls.Add(this.lstQuestionList);
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.AutoScroll = true;
             this.splitContainer1.Panel2.Controls.Add(this.panelQuestion);
-            this.splitContainer1.Size = new System.Drawing.Size(1187, 697);
+            this.splitContainer1.Size = new System.Drawing.Size(1187, 669);
             this.splitContainer1.SplitterDistance = 543;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 37;
@@ -311,7 +313,7 @@
             this.lstQuestionList.Location = new System.Drawing.Point(0, 0);
             this.lstQuestionList.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.lstQuestionList.Name = "lstQuestionList";
-            this.lstQuestionList.Size = new System.Drawing.Size(539, 693);
+            this.lstQuestionList.Size = new System.Drawing.Size(539, 665);
             this.lstQuestionList.TabIndex = 36;
             this.lstQuestionList.UseCompatibleStateImageBehavior = false;
             this.lstQuestionList.View = System.Windows.Forms.View.Details;
@@ -364,6 +366,7 @@
             // 
             // panelQuestion
             // 
+            this.panelQuestion.AutoScroll = true;
             this.panelQuestion.Controls.Add(this.txtPstP);
             this.panelQuestion.Controls.Add(this.txtPstI);
             this.panelQuestion.Controls.Add(this.txtNR);
@@ -389,7 +392,7 @@
             this.panelQuestion.Location = new System.Drawing.Point(0, 0);
             this.panelQuestion.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panelQuestion.Name = "panelQuestion";
-            this.panelQuestion.Size = new System.Drawing.Size(635, 693);
+            this.panelQuestion.Size = new System.Drawing.Size(635, 665);
             this.panelQuestion.TabIndex = 34;
             // 
             // txtPstP
@@ -649,14 +652,14 @@
             this.panelQnum.Location = new System.Drawing.Point(3, 402);
             this.panelQnum.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panelQnum.Name = "panelQnum";
-            this.panelQnum.Size = new System.Drawing.Size(145, 134);
+            this.panelQnum.Size = new System.Drawing.Size(145, 111);
             this.panelQnum.TabIndex = 29;
             // 
             // lblAltQnum3
             // 
             this.lblAltQnum3.AutoSize = true;
             this.lblAltQnum3.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAltQnum3.Location = new System.Drawing.Point(3, 100);
+            this.lblAltQnum3.Location = new System.Drawing.Point(3, 83);
             this.lblAltQnum3.Name = "lblAltQnum3";
             this.lblAltQnum3.Size = new System.Drawing.Size(54, 13);
             this.lblAltQnum3.TabIndex = 19;
@@ -666,7 +669,7 @@
             // 
             this.lblAltQnum2.AutoSize = true;
             this.lblAltQnum2.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAltQnum2.Location = new System.Drawing.Point(5, 71);
+            this.lblAltQnum2.Location = new System.Drawing.Point(5, 58);
             this.lblAltQnum2.Name = "lblAltQnum2";
             this.lblAltQnum2.Size = new System.Drawing.Size(54, 13);
             this.lblAltQnum2.TabIndex = 18;
@@ -676,7 +679,7 @@
             // 
             this.lblQnum.AutoSize = true;
             this.lblQnum.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblQnum.Location = new System.Drawing.Point(38, 16);
+            this.lblQnum.Location = new System.Drawing.Point(38, 11);
             this.lblQnum.Name = "lblQnum";
             this.lblQnum.Size = new System.Drawing.Size(23, 13);
             this.lblQnum.TabIndex = 16;
@@ -686,7 +689,7 @@
             // 
             this.lblAltQnum.AutoSize = true;
             this.lblAltQnum.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAltQnum.Location = new System.Drawing.Point(12, 43);
+            this.lblAltQnum.Location = new System.Drawing.Point(12, 35);
             this.lblAltQnum.Name = "lblAltQnum";
             this.lblAltQnum.Size = new System.Drawing.Size(48, 13);
             this.lblAltQnum.TabIndex = 17;
@@ -695,7 +698,7 @@
             // txtAltQnum3
             // 
             this.txtAltQnum3.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAltQnum3.Location = new System.Drawing.Point(73, 96);
+            this.txtAltQnum3.Location = new System.Drawing.Point(73, 79);
             this.txtAltQnum3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtAltQnum3.Name = "txtAltQnum3";
             this.txtAltQnum3.Size = new System.Drawing.Size(59, 21);
@@ -704,7 +707,7 @@
             // txtAltQnum2
             // 
             this.txtAltQnum2.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAltQnum2.Location = new System.Drawing.Point(73, 68);
+            this.txtAltQnum2.Location = new System.Drawing.Point(73, 55);
             this.txtAltQnum2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtAltQnum2.Name = "txtAltQnum2";
             this.txtAltQnum2.Size = new System.Drawing.Size(59, 21);
@@ -713,7 +716,7 @@
             // txtAltQnum
             // 
             this.txtAltQnum.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAltQnum.Location = new System.Drawing.Point(73, 39);
+            this.txtAltQnum.Location = new System.Drawing.Point(73, 31);
             this.txtAltQnum.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtAltQnum.Name = "txtAltQnum";
             this.txtAltQnum.Size = new System.Drawing.Size(59, 21);
@@ -722,7 +725,7 @@
             // txtQnum
             // 
             this.txtQnum.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtQnum.Location = new System.Drawing.Point(73, 12);
+            this.txtQnum.Location = new System.Drawing.Point(73, 7);
             this.txtQnum.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtQnum.Name = "txtQnum";
             this.txtQnum.ReadOnly = true;
@@ -742,7 +745,7 @@
             this.panelLabels.Controls.Add(this.cboTopicLabel);
             this.panelLabels.Controls.Add(this.cboDomainLabel);
             this.panelLabels.Controls.Add(this.txtVarLabel);
-            this.panelLabels.Location = new System.Drawing.Point(160, 544);
+            this.panelLabels.Location = new System.Drawing.Point(160, 517);
             this.panelLabels.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panelLabels.Name = "panelLabels";
             this.panelLabels.Size = new System.Drawing.Size(467, 140);
@@ -858,7 +861,7 @@
             this.rtbQuestionText.Location = new System.Drawing.Point(160, 53);
             this.rtbQuestionText.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.rtbQuestionText.Name = "rtbQuestionText";
-            this.rtbQuestionText.Size = new System.Drawing.Size(467, 484);
+            this.rtbQuestionText.Size = new System.Drawing.Size(467, 460);
             this.rtbQuestionText.TabIndex = 25;
             this.rtbQuestionText.Text = "";
             // 
@@ -1289,7 +1292,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(196)))), ((int)(((byte)(153)))));
-            this.ClientSize = new System.Drawing.Size(1207, 925);
+            this.ClientSize = new System.Drawing.Size(1207, 891);
             this.Controls.Add(this.lblEdited);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);

@@ -66,28 +66,41 @@ namespace SDIFrontEnd
 
         private void cmdBold_Click(object sender, EventArgs e)
         {
-            if (rtbTranslationText.SelectionFont.Bold)
-            {
-                rtbTranslationText.SelectionFont = new Font(rtbTranslationText.Font, FontStyle.Regular);
-            }
-            else
-            {
-                rtbTranslationText.SelectionFont = new Font(rtbTranslationText.Font, FontStyle.Bold);
-            }
+            Font oldFont = rtbTranslationText.SelectionFont;
+            Font newFont;
 
+            if (oldFont.Bold)
+                newFont = new Font(oldFont, oldFont.Style & ~FontStyle.Bold);
+            else
+                newFont = new Font(oldFont, oldFont.Style | FontStyle.Bold);
+
+            rtbTranslationText.SelectionFont = newFont;
         }
 
         private void cmdItalic_Click(object sender, EventArgs e)
         {
-            if (rtbTranslationText.SelectionFont.Italic)
-            {
-                rtbTranslationText.SelectionFont = new Font(rtbTranslationText.Font, FontStyle.Regular);
-            }
-            else
-            {
-                rtbTranslationText.SelectionFont = new Font(rtbTranslationText.Font, FontStyle.Italic);
-            }
+            Font oldFont = rtbTranslationText.SelectionFont;
+            Font newFont;
 
+            if (oldFont.Italic)
+                newFont = new Font(oldFont, oldFont.Style & ~FontStyle.Italic);
+            else
+                newFont = new Font(oldFont, oldFont.Style | FontStyle.Italic);
+
+            rtbTranslationText.SelectionFont = newFont;
+        }
+
+        private void cmdUnderline_Click(object sender, EventArgs e)
+        {
+            Font oldFont = rtbTranslationText.SelectionFont;
+            Font newFont;
+
+            if (oldFont.Underline)
+                newFont = new Font(oldFont, oldFont.Style & ~FontStyle.Underline);
+            else
+                newFont = new Font(oldFont, oldFont.Style | FontStyle.Underline);
+
+            rtbTranslationText.SelectionFont = newFont;
         }
 
         private void cmdSave_Click(object sender, EventArgs e)

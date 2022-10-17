@@ -76,6 +76,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmdSeparateDoc = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabVarNames.SuspendLayout();
             this.tabWaves.SuspendLayout();
@@ -121,7 +122,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(177, 18);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(87, 16);
+            this.label4.Size = new System.Drawing.Size(86, 16);
             this.label4.TabIndex = 7;
             this.label4.Text = "Selected Vars";
             // 
@@ -150,7 +151,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(27, 123);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(58, 16);
+            this.label3.Size = new System.Drawing.Size(57, 16);
             this.label3.TabIndex = 4;
             this.label3.Text = "Prefixes:";
             // 
@@ -179,7 +180,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(27, 21);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(39, 16);
+            this.label2.Size = new System.Drawing.Size(38, 16);
             this.label2.TabIndex = 1;
             this.label2.Text = "Vars:";
             // 
@@ -216,7 +217,7 @@
             this.chkColorTranslations.AutoSize = true;
             this.chkColorTranslations.Location = new System.Drawing.Point(50, 187);
             this.chkColorTranslations.Name = "chkColorTranslations";
-            this.chkColorTranslations.Size = new System.Drawing.Size(163, 20);
+            this.chkColorTranslations.Size = new System.Drawing.Size(162, 20);
             this.chkColorTranslations.TabIndex = 7;
             this.chkColorTranslations.Text = "Color-code Translations";
             this.chkColorTranslations.UseVisualStyleBackColor = true;
@@ -227,7 +228,7 @@
             this.chkColorWordings.AutoSize = true;
             this.chkColorWordings.Location = new System.Drawing.Point(50, 159);
             this.chkColorWordings.Name = "chkColorWordings";
-            this.chkColorWordings.Size = new System.Drawing.Size(193, 20);
+            this.chkColorWordings.Size = new System.Drawing.Size(192, 20);
             this.chkColorWordings.TabIndex = 6;
             this.chkColorWordings.Text = "Color-code wording numbers";
             this.chkColorWordings.UseVisualStyleBackColor = true;
@@ -238,7 +239,7 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(34, 98);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(68, 16);
+            this.label7.Size = new System.Drawing.Size(67, 16);
             this.label7.TabIndex = 5;
             this.label7.Text = "Language:";
             // 
@@ -257,7 +258,7 @@
             this.chkMultipleWordingsOnly.AutoSize = true;
             this.chkMultipleWordingsOnly.Location = new System.Drawing.Point(51, 130);
             this.chkMultipleWordingsOnly.Name = "chkMultipleWordingsOnly";
-            this.chkMultipleWordingsOnly.Size = new System.Drawing.Size(249, 20);
+            this.chkMultipleWordingsOnly.Size = new System.Drawing.Size(248, 20);
             this.chkMultipleWordingsOnly.TabIndex = 3;
             this.chkMultipleWordingsOnly.Text = "Show only Vars with multiple wordings";
             this.chkMultipleWordingsOnly.UseVisualStyleBackColor = true;
@@ -267,7 +268,7 @@
             this.chkIncludeTranslation.AutoSize = true;
             this.chkIncludeTranslation.Location = new System.Drawing.Point(50, 65);
             this.chkIncludeTranslation.Name = "chkIncludeTranslation";
-            this.chkIncludeTranslation.Size = new System.Drawing.Size(136, 20);
+            this.chkIncludeTranslation.Size = new System.Drawing.Size(135, 20);
             this.chkIncludeTranslation.TabIndex = 2;
             this.chkIncludeTranslation.Text = "Include Translation";
             this.chkIncludeTranslation.UseVisualStyleBackColor = true;
@@ -278,7 +279,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(22, 26);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(45, 16);
+            this.label6.Size = new System.Drawing.Size(44, 16);
             this.label6.TabIndex = 1;
             this.label6.Text = "Wave:";
             // 
@@ -314,7 +315,7 @@
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(184, 32);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(58, 16);
+            this.label10.Size = new System.Drawing.Size(57, 16);
             this.label10.TabIndex = 5;
             this.label10.Text = "Surveys:";
             // 
@@ -323,7 +324,7 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(97, 32);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(51, 16);
+            this.label9.Size = new System.Drawing.Size(50, 16);
             this.label9.TabIndex = 4;
             this.label9.Text = "Waves:";
             // 
@@ -332,7 +333,7 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(15, 32);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(55, 16);
+            this.label8.Size = new System.Drawing.Size(54, 16);
             this.label8.TabIndex = 3;
             this.label8.Text = "Studies:";
             // 
@@ -392,7 +393,7 @@
             this.chkSeparateLabels.AutoSize = true;
             this.chkSeparateLabels.Location = new System.Drawing.Point(175, 233);
             this.chkSeparateLabels.Name = "chkSeparateLabels";
-            this.chkSeparateLabels.Size = new System.Drawing.Size(119, 20);
+            this.chkSeparateLabels.Size = new System.Drawing.Size(118, 20);
             this.chkSeparateLabels.TabIndex = 6;
             this.chkSeparateLabels.Text = "Separate Labels";
             this.chkSeparateLabels.UseVisualStyleBackColor = true;
@@ -402,7 +403,7 @@
             this.chkRecentWaves.AutoSize = true;
             this.chkRecentWaves.Location = new System.Drawing.Point(175, 205);
             this.chkRecentWaves.Name = "chkRecentWaves";
-            this.chkRecentWaves.Size = new System.Drawing.Size(115, 20);
+            this.chkRecentWaves.Size = new System.Drawing.Size(114, 20);
             this.chkRecentWaves.TabIndex = 5;
             this.chkRecentWaves.Text = "Last Wave Only";
             this.chkRecentWaves.UseVisualStyleBackColor = true;
@@ -413,7 +414,7 @@
             this.chkShowAllSurveys.AutoSize = true;
             this.chkShowAllSurveys.Location = new System.Drawing.Point(175, 176);
             this.chkShowAllSurveys.Name = "chkShowAllSurveys";
-            this.chkShowAllSurveys.Size = new System.Drawing.Size(126, 20);
+            this.chkShowAllSurveys.Size = new System.Drawing.Size(125, 20);
             this.chkShowAllSurveys.TabIndex = 4;
             this.chkShowAllSurveys.Text = "Show All Surveys";
             this.chkShowAllSurveys.UseVisualStyleBackColor = true;
@@ -423,7 +424,7 @@
             this.chkShowGroupOn.AutoSize = true;
             this.chkShowGroupOn.Location = new System.Drawing.Point(175, 147);
             this.chkShowGroupOn.Name = "chkShowGroupOn";
-            this.chkShowGroupOn.Size = new System.Drawing.Size(164, 20);
+            this.chkShowGroupOn.Size = new System.Drawing.Size(163, 20);
             this.chkShowGroupOn.TabIndex = 3;
             this.chkShowGroupOn.Text = "Show Group On Column";
             this.chkShowGroupOn.UseVisualStyleBackColor = true;
@@ -443,7 +444,7 @@
             this.label12.AutoSize = true;
             this.label12.Location = new System.Drawing.Point(3, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(48, 16);
+            this.label12.Size = new System.Drawing.Size(47, 16);
             this.label12.TabIndex = 2;
             this.label12.Text = "Display";
             // 
@@ -452,7 +453,7 @@
             this.optDisplayProjects.AutoSize = true;
             this.optDisplayProjects.Location = new System.Drawing.Point(9, 46);
             this.optDisplayProjects.Name = "optDisplayProjects";
-            this.optDisplayProjects.Size = new System.Drawing.Size(72, 20);
+            this.optDisplayProjects.Size = new System.Drawing.Size(71, 20);
             this.optDisplayProjects.TabIndex = 1;
             this.optDisplayProjects.TabStop = true;
             this.optDisplayProjects.Text = "Projects";
@@ -465,7 +466,7 @@
             this.optDisplaySurveys.Checked = true;
             this.optDisplaySurveys.Location = new System.Drawing.Point(9, 17);
             this.optDisplaySurveys.Name = "optDisplaySurveys";
-            this.optDisplaySurveys.Size = new System.Drawing.Size(71, 20);
+            this.optDisplaySurveys.Size = new System.Drawing.Size(70, 20);
             this.optDisplaySurveys.TabIndex = 0;
             this.optDisplaySurveys.TabStop = true;
             this.optDisplaySurveys.Text = "Surveys";
@@ -503,7 +504,7 @@
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(21, 48);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(62, 16);
+            this.label11.Size = new System.Drawing.Size(61, 16);
             this.label11.TabIndex = 0;
             this.label11.Text = "Group On";
             // 
@@ -531,7 +532,7 @@
             this.optWave.AutoSize = true;
             this.optWave.Location = new System.Drawing.Point(17, 45);
             this.optWave.Name = "optWave";
-            this.optWave.Size = new System.Drawing.Size(188, 20);
+            this.optWave.Size = new System.Drawing.Size(187, 20);
             this.optWave.TabIndex = 1;
             this.optWave.TabStop = true;
             this.optWave.Text = "By Wave (Unique Questions)";
@@ -542,7 +543,7 @@
             this.optRefVarName.AutoSize = true;
             this.optRefVarName.Location = new System.Drawing.Point(17, 16);
             this.optRefVarName.Name = "optRefVarName";
-            this.optRefVarName.Size = new System.Drawing.Size(112, 20);
+            this.optRefVarName.Size = new System.Drawing.Size(111, 20);
             this.optRefVarName.TabIndex = 0;
             this.optRefVarName.TabStop = true;
             this.optRefVarName.Text = "By refVarName";
@@ -582,7 +583,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(96, 603);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(70, 16);
+            this.label5.Size = new System.Drawing.Size(69, 16);
             this.label5.TabIndex = 8;
             this.label5.Text = "File Name:";
             // 
@@ -612,11 +613,22 @@
             this.clearToolStripMenuItem.Text = "Clear";
             this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
             // 
+            // cmdSeparateDoc
+            // 
+            this.cmdSeparateDoc.Location = new System.Drawing.Point(310, 662);
+            this.cmdSeparateDoc.Name = "cmdSeparateDoc";
+            this.cmdSeparateDoc.Size = new System.Drawing.Size(125, 29);
+            this.cmdSeparateDoc.TabIndex = 10;
+            this.cmdSeparateDoc.Text = "Separate Docs";
+            this.cmdSeparateDoc.UseVisualStyleBackColor = true;
+            this.cmdSeparateDoc.Click += new System.EventHandler(this.cmdSeparateDoc_Click);
+            // 
             // HarmonyReportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(451, 683);
+            this.ClientSize = new System.Drawing.Size(451, 699);
+            this.Controls.Add(this.cmdSeparateDoc);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.cmdWordDocument);
             this.Controls.Add(this.cmdOnscreen);
@@ -701,5 +713,6 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
+        private System.Windows.Forms.Button cmdSeparateDoc;
     }
 }

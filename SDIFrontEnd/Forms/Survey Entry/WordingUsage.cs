@@ -225,38 +225,41 @@ namespace SDIFrontEnd
 
         private void cmdBold_Click(object sender, EventArgs e)
         {
-            if (txtWordingR.SelectionFont.Bold)
-            {
-                txtWordingR.SelectionFont = new Font(txtWordingR.Font, FontStyle.Regular);
-            }
+            Font oldFont = txtWordingR.SelectionFont;
+            Font newFont;
+
+            if (oldFont.Bold)
+                newFont = new Font(oldFont, oldFont.Style & ~FontStyle.Bold);
             else
-            {
-                txtWordingR.SelectionFont = new Font(txtWordingR.Font, FontStyle.Bold);
-            }
+                newFont = new Font(oldFont, oldFont.Style | FontStyle.Bold);
+
+            txtWordingR.SelectionFont = newFont;
         }
 
         private void cmdItalic_Click(object sender, EventArgs e)
         {
-            if (txtWordingR.SelectionFont.Italic)
-            {
-                txtWordingR.SelectionFont = new Font(txtWordingR.Font, FontStyle.Regular);
-            }
+            Font oldFont = txtWordingR.SelectionFont;
+            Font newFont;
+
+            if (oldFont.Italic)
+                newFont = new Font(oldFont, oldFont.Style & ~FontStyle.Italic);
             else
-            {
-                txtWordingR.SelectionFont = new Font(txtWordingR.Font, FontStyle.Italic);
-            }
+                newFont = new Font(oldFont, oldFont.Style | FontStyle.Italic);
+
+            txtWordingR.SelectionFont = newFont;
         }
 
         private void cmdUnderline_Click(object sender, EventArgs e)
         {
-            if (txtWordingR.SelectionFont.Italic)
-            {
-                txtWordingR.SelectionFont = new Font(txtWordingR.Font, FontStyle.Regular);
-            }
+            Font oldFont = txtWordingR.SelectionFont;
+            Font newFont;
+
+            if (oldFont.Underline)
+                newFont = new Font(oldFont, oldFont.Style & ~FontStyle.Underline);
             else
-            {
-                txtWordingR.SelectionFont = new Font(txtWordingR.Font, FontStyle.Underline);
-            }
+                newFont = new Font(oldFont, oldFont.Style | FontStyle.Underline);
+
+            txtWordingR.SelectionFont = newFont;
         }
 
         #region Navigator button events

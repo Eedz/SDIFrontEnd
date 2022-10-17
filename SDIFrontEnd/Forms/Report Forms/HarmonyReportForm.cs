@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -80,6 +81,8 @@ namespace SDIFrontEnd
             optRefVarName.Checked = true;
         }
 
+        #region Menu Items
+
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
@@ -89,7 +92,9 @@ namespace SDIFrontEnd
         {
             lstSelVar.Items.Clear();
         }
+        #endregion
 
+        #region Events 
         private void HarmonyScope_CheckedChanged(object sender, EventArgs e)
         {
             if (optRefVarName.Checked)
@@ -177,7 +182,8 @@ namespace SDIFrontEnd
 
         private void cmdOnscreen_Click(object sender, EventArgs e)
         {
-            DataTable results = GetHarmonyResults();
+            List<string> vars = GetVarFilter();
+            DataTable results = GetHarmonyResults(vars);
             HR.CreateHarmonyReportData(results);
 
             HarmonyResults frm = new HarmonyResults(HR.ReportTable);
@@ -185,16 +191,34 @@ namespace SDIFrontEnd
             FormManager.Add(frm);
         }
 
+        #endregion
+
         private void GenerateReport()
         {
-            DataTable results = GetHarmonyResults();
+            List<string> vars = GetVarFilter();
+            DataTable results = GetHarmonyResults(vars);
 
             HR.CreateHarmonyReport(results);
         }
 
-        private DataTable GetHarmonyResults()
+        private void cmdSeparateDoc_Click(object sender, EventArgs e)
         {
             List<string> vars = GetVarFilter();
+
+            foreach(string v in vars)
+            {
+                DataTable results = GetHarmonyResults(new List<string> { v });
+                HR.OpenFinalReport = false;
+                HR.CreateHarmonyReport(results);
+            }
+
+            MessageBox.Show(@"Done! Your reports can be found in the Reports folder.");
+            Process.Start(@"\\psychfile\psych$\psych-lab-gfong\SMG\SDI\Reports\Harmony");
+        }
+
+        private DataTable GetHarmonyResults(List<string> vars)
+        {
+            
 
             bool prep = false, prei = false, prea = false, litq = false, psti = false, pstp = false, respname = false, nrname = false;
             bool varlabel = false, content = false, topic = false, domain = false, product = false, translation = false;
@@ -636,6 +660,7 @@ namespace SDIFrontEnd
             //frm.Tag = 1;
             //FormManager.Add(frm);
         }
+
         #endregion
 
         
