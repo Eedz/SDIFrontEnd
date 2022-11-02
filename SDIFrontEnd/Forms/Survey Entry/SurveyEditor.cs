@@ -44,6 +44,9 @@ namespace SDIFrontEnd
 
         int searchStart = 0;
 
+        public event EventHandler LabelAdded;
+
+
         public SurveyEditor(int survID)
         {
             InitializeComponent();
@@ -82,8 +85,10 @@ namespace SDIFrontEnd
 
             LockForm();
             UpdateStatus();
-
-            
+            Globals.RefreshDomains += SurveyEditor_RefreshDomains;
+            Globals.RefreshTopics += SurveyEditor_RefreshTopics;
+            Globals.RefreshContents += SurveyEditor_RefreshContents;
+            Globals.RefreshProducts += SurveyEditor_RefreshProducts;
         }
 
         public SurveyEditor(string surveyCode, string varname)
@@ -440,6 +445,8 @@ namespace SDIFrontEnd
                 else
                 {
                     bs.Position = state.RecordPosition;
+                    if (state.RecordPosition > bs.Count)
+                        state.RecordPosition = bs.Count-1;
                     lstQuestionList.Items[state.RecordPosition].EnsureVisible();
                 }
             }
@@ -695,6 +702,38 @@ namespace SDIFrontEnd
             CurrentRecord.DirtyLabels = true;
             ShadeListItem(bs.Position, Color.Orange);
             UpdateStatus();
+        }
+
+        private void SurveyEditor_RefreshDomains(object sender, EventArgs e)
+        {
+            cboDomainLabel.DataSource = null;
+            cboDomainLabel.DataSource = Globals.AllDomainLabels;
+            cboDomainLabel.ValueMember = "ID";
+            cboDomainLabel.DisplayMember = "LabelText";
+        }
+
+        private void SurveyEditor_RefreshTopics(object sender, EventArgs e)
+        {
+            cboTopicLabel.DataSource = null;
+            cboTopicLabel.DataSource = Globals.AllTopicLabels;
+            cboTopicLabel.ValueMember = "ID";
+            cboTopicLabel.DisplayMember = "LabelText";
+        }
+
+        private void SurveyEditor_RefreshContents(object sender, EventArgs e)
+        {
+            cboContentLabel.DataSource = null;
+            cboContentLabel.DataSource = Globals.AllContentLabels;
+            cboContentLabel.ValueMember = "ID";
+            cboContentLabel.DisplayMember = "LabelText";
+        }
+
+        private void SurveyEditor_RefreshProducts(object sender, EventArgs e)
+        {
+            cboProductLabel.DataSource = null;
+            cboProductLabel.DataSource = Globals.AllProductLabels;
+            cboProductLabel.ValueMember = "ID";
+            cboProductLabel.DisplayMember = "LabelText";
         }
         #endregion
 

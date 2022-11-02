@@ -59,7 +59,7 @@ namespace SDIFrontEnd
         {
             List<SurveyQuestion> questionList = DBAction.GetSurveyQuestions(survey).ToList();
             int num_ids = 10;
-            string filePath = @"\\psychfile\psych$\psych-lab-gfong\SMG\SDI\Reports\Praccing\" + survey.SurveyCode + " Praccing Sheet - " + DateTime.Now.ToString("g").Replace(":", ",") + ".docx";
+            string filePath = @"\\psychfile\psych$\psych-lab-gfong\SMG\SDI\Reports\Praccing\" + survey.SurveyCode + " Praccing Sheet - " + DateTime.Now.DateTimeForFile() + ".docx";
             string templateFile = @"\\psychfile\psych$\psych-lab-gfong\SMG\SDI\Reports\Templates\SMGLandLet.dotx";
 
             Word.Application appWord;
@@ -132,7 +132,9 @@ namespace SDIFrontEnd
                 // footer text                  
                 foreach (Word.Section s in doc.Sections)
                     s.Footers[Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range.InsertAfter("\t" + survey.SurveyCode + " Praccing Sheet" +
-                        "\t\t" + "Generated on " + DateTime.Today.ToString("dd-MMM-yyyy"));
+                        "\t\t" + "Generated on " + DateTime.Today.ShortDateDash());
+
+                doc.Save();
 
                 appWord.Visible = true;
             }
@@ -146,7 +148,7 @@ namespace SDIFrontEnd
         {
             List<SurveyQuestion> questionList = DBAction.GetSurveyQuestions(survey).ToList();
             int num_ids = 10;
-            string filePath = @"\\psychfile\psych$\psych-lab-gfong\SMG\SDI\Reports\Praccing\" + survey.SurveyCode + " Praccing Sheet - " + DateTime.Now.ToString("g").Replace(":", ",") + ".xlsx";
+            string filePath = @"\\psychfile\psych$\psych-lab-gfong\SMG\SDI\Reports\Praccing\" + survey.SurveyCode + " Praccing Sheet - " + DateTime.Now.DateTimeForFile() + ".xlsx";
 
             using (SpreadsheetDocument spreadSheet = SpreadsheetDocument.Create(filePath, SpreadsheetDocumentType.Workbook))
             {

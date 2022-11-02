@@ -187,25 +187,28 @@ namespace SDIFrontEnd
                     DomainLabel newDomain = new DomainLabel(0, newLabel);
                     DBAction.InsertDomainLabel(newDomain);
                     Globals.AllDomainLabels.Add(newDomain);
-                    
+                    Globals.RefreshDomains?.Invoke(this, new EventArgs());
                     LoadLabels(LabelType.Domain);
                     break;
                 case LabelType.Topic:
                     TopicLabel newTopic = new TopicLabel(0, newLabel);
                     DBAction.InsertTopicLabel(newTopic);
                     Globals.AllTopicLabels.Add(newTopic);
+                    Globals.RefreshTopics?.Invoke(this, new EventArgs());
                     LoadLabels(LabelType.Topic);
                     break;
                 case LabelType.Content:
                     ContentLabel newContent = new ContentLabel(0, newLabel);
                     DBAction.InsertContentLabel(newContent);
                     Globals.AllContentLabels.Add(newContent);
+                    Globals.RefreshContents?.Invoke(this, new EventArgs());
                     LoadLabels(LabelType.Content);
                     break;
                 case LabelType.Product:
                     ProductLabel newProduct = new ProductLabel(0, newLabel);
                     DBAction.InsertProductLabel(newProduct);
                     Globals.AllProductLabels.Add(newProduct);
+                    Globals.RefreshProducts?.Invoke(this, new EventArgs());
                     LoadLabels(LabelType.Product);
                     break;
                 case LabelType.Keyword:
@@ -214,6 +217,7 @@ namespace SDIFrontEnd
                     LoadLabels(LabelType.Keyword);
                     break;
             }
+            
         }
 
         private void LoadLabels(LabelType type)

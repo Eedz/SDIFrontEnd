@@ -123,5 +123,9 @@ namespace SDIFrontEnd
         }
 
         public static EventHandler RefreshPeople;
+        public static EventHandler RefreshDomains;
+        public static EventHandler RefreshTopics;
+        public static EventHandler RefreshContents;
+        public static EventHandler RefreshProducts;
     }
 }

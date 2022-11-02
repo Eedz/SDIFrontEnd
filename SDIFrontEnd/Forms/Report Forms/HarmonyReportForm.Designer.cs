@@ -77,6 +77,7 @@
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cmdSeparateDoc = new System.Windows.Forms.Button();
+            this.chkShowFieldwork = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabVarNames.SuspendLayout();
             this.tabWaves.SuspendLayout();
@@ -373,6 +374,7 @@
             // 
             // tabOptions
             // 
+            this.tabOptions.Controls.Add(this.chkShowFieldwork);
             this.tabOptions.Controls.Add(this.chkSeparateLabels);
             this.tabOptions.Controls.Add(this.chkRecentWaves);
             this.tabOptions.Controls.Add(this.chkShowAllSurveys);
@@ -391,7 +393,7 @@
             // chkSeparateLabels
             // 
             this.chkSeparateLabels.AutoSize = true;
-            this.chkSeparateLabels.Location = new System.Drawing.Point(175, 233);
+            this.chkSeparateLabels.Location = new System.Drawing.Point(175, 206);
             this.chkSeparateLabels.Name = "chkSeparateLabels";
             this.chkSeparateLabels.Size = new System.Drawing.Size(118, 20);
             this.chkSeparateLabels.TabIndex = 6;
@@ -401,7 +403,7 @@
             // chkRecentWaves
             // 
             this.chkRecentWaves.AutoSize = true;
-            this.chkRecentWaves.Location = new System.Drawing.Point(175, 205);
+            this.chkRecentWaves.Location = new System.Drawing.Point(175, 232);
             this.chkRecentWaves.Name = "chkRecentWaves";
             this.chkRecentWaves.Size = new System.Drawing.Size(114, 20);
             this.chkRecentWaves.TabIndex = 5;
@@ -412,7 +414,7 @@
             // chkShowAllSurveys
             // 
             this.chkShowAllSurveys.AutoSize = true;
-            this.chkShowAllSurveys.Location = new System.Drawing.Point(175, 176);
+            this.chkShowAllSurveys.Location = new System.Drawing.Point(175, 180);
             this.chkShowAllSurveys.Name = "chkShowAllSurveys";
             this.chkShowAllSurveys.Size = new System.Drawing.Size(125, 20);
             this.chkShowAllSurveys.TabIndex = 4;
@@ -422,7 +424,7 @@
             // chkShowGroupOn
             // 
             this.chkShowGroupOn.AutoSize = true;
-            this.chkShowGroupOn.Location = new System.Drawing.Point(175, 147);
+            this.chkShowGroupOn.Location = new System.Drawing.Point(175, 151);
             this.chkShowGroupOn.Name = "chkShowGroupOn";
             this.chkShowGroupOn.Size = new System.Drawing.Size(163, 20);
             this.chkShowGroupOn.TabIndex = 3;
@@ -431,6 +433,7 @@
             // 
             // panel2
             // 
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.label12);
             this.panel2.Controls.Add(this.optDisplayProjects);
             this.panel2.Controls.Add(this.optDisplaySurveys);
@@ -451,7 +454,7 @@
             // optDisplayProjects
             // 
             this.optDisplayProjects.AutoSize = true;
-            this.optDisplayProjects.Location = new System.Drawing.Point(9, 46);
+            this.optDisplayProjects.Location = new System.Drawing.Point(9, 43);
             this.optDisplayProjects.Name = "optDisplayProjects";
             this.optDisplayProjects.Size = new System.Drawing.Size(71, 20);
             this.optDisplayProjects.TabIndex = 1;
@@ -623,6 +626,17 @@
             this.cmdSeparateDoc.UseVisualStyleBackColor = true;
             this.cmdSeparateDoc.Click += new System.EventHandler(this.cmdSeparateDoc_Click);
             // 
+            // chkShowFieldwork
+            // 
+            this.chkShowFieldwork.AutoSize = true;
+            this.chkShowFieldwork.Enabled = false;
+            this.chkShowFieldwork.Location = new System.Drawing.Point(175, 125);
+            this.chkShowFieldwork.Name = "chkShowFieldwork";
+            this.chkShowFieldwork.Size = new System.Drawing.Size(153, 20);
+            this.chkShowFieldwork.TabIndex = 7;
+            this.chkShowFieldwork.Text = "Show Fieldwork Years";
+            this.chkShowFieldwork.UseVisualStyleBackColor = true;
+            // 
             // HarmonyReportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -714,5 +728,6 @@
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
         private System.Windows.Forms.Button cmdSeparateDoc;
+        private System.Windows.Forms.CheckBox chkShowFieldwork;
     }
 }

@@ -930,7 +930,7 @@ namespace SDIFrontEnd
 
             string path = Globals.BackupPath + lastWorkDay.Date.ToString("yyyy-MM-dd") + ".7z";
             if (File.Exists(path))
-                lblBackupStatus.Text = "Backup for yesterday (" + lastWorkDay.ToString("g") + ") missing.";
+                lblBackupStatus.Text = "Backup for yesterday (" + lastWorkDay.ShortDate() + ") missing.";
             else
                 lblBackupStatus.Visible = false;
 

@@ -207,7 +207,9 @@ namespace SDIFrontEnd
 
             foreach(string v in vars)
             {
+                //HarmonyReport hr = new HarmonyReport();
                 DataTable results = GetHarmonyResults(new List<string> { v });
+                HR.CustomFileName = v + " - Harmony Report";
                 HR.OpenFinalReport = false;
                 HR.CreateHarmonyReport(results);
             }
@@ -276,7 +278,6 @@ namespace SDIFrontEnd
             if (cboLanguage.SelectedItem != null)
                 lang = (string)cboLanguage.SelectedItem;
 
-
             showProjects = HR.ShowProjects;
 
             DataTable results = DBAction.GetHarmonyData(vars, prep, prei, prea, litq, psti, pstp, respname, nrname, translation, varlabel, domain, topic, content, product,
@@ -284,7 +285,6 @@ namespace SDIFrontEnd
 
             if (chkMultipleWordingsOnly.Checked)
             {
-               
                 DataTable multiples = (from r in results.AsEnumerable()
                            where (
                                from c in results.AsEnumerable()
@@ -293,9 +293,27 @@ namespace SDIFrontEnd
                                select grp.Key
                            ).Contains(r.Field<string>("refVarName"))
                            select r).CopyToDataTable();
-
                
                 results = multiples;
+            }
+
+            if (chkShowFieldwork.Checked)
+            {
+                foreach (DataRow r in results.Rows)
+                {
+                    List<string> surveyList = ((string)r["Surveys"]).Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries).ToList();
+
+                    for (int i = 0; i < surveyList.Count; i++)
+                    {
+                        StudyWave wave = Globals.AllWaves.Where(x => x.WaveCode.Equals(surveyList[i])).FirstOrDefault();
+                        if (wave == null)
+                            continue;
+                        string fieldwork = wave.GetFieldworkYear();
+                        if (!string.IsNullOrEmpty(fieldwork)) surveyList[i] += " (" + fieldwork + ")";
+                    }
+
+                    r["Surveys"] = string.Join(", ", surveyList);
+                }
             }
             
             return results;
@@ -622,6 +640,7 @@ namespace SDIFrontEnd
         private void DisplayMode_CheckedChanged(object sender, EventArgs e)
         {
             HR.ShowProjects =optDisplayProjects.Checked;
+            chkShowFieldwork.Enabled = optDisplayProjects.Checked;
                 
         }
 
