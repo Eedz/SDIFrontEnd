@@ -52,7 +52,6 @@
             this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.lblNewID = new System.Windows.Forms.Label();
             this.cmdTextSearch = new System.Windows.Forms.Button();
             this.cmdCopyToNew = new System.Windows.Forms.Button();
             this.cmdEdit = new System.Windows.Forms.Button();
@@ -136,7 +135,7 @@
             this.lblUses.AutoSize = true;
             this.lblUses.Location = new System.Drawing.Point(291, 300);
             this.lblUses.Name = "lblUses";
-            this.lblUses.Size = new System.Drawing.Size(294, 16);
+            this.lblUses.Size = new System.Drawing.Size(293, 16);
             this.lblUses.TabIndex = 10;
             this.lblUses.Text = "This response set appears in the following places.";
             // 
@@ -162,7 +161,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(10, 67);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 16);
+            this.label3.Size = new System.Drawing.Size(34, 16);
             this.label3.TabIndex = 14;
             this.label3.Text = "Field";
             // 
@@ -171,7 +170,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(133, 69);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(29, 16);
+            this.label4.Size = new System.Drawing.Size(28, 16);
             this.label4.TabIndex = 15;
             this.label4.Text = "W#";
             // 
@@ -251,6 +250,7 @@
             // 
             this.bindingNavigatorPositionItem.AccessibleName = "Position";
             this.bindingNavigatorPositionItem.AutoSize = false;
+            this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
             this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(58, 23);
             this.bindingNavigatorPositionItem.Text = "0";
@@ -285,17 +285,6 @@
             // 
             this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
             this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
-            // 
-            // lblNewID
-            // 
-            this.lblNewID.BackColor = System.Drawing.Color.White;
-            this.lblNewID.Location = new System.Drawing.Point(169, 35);
-            this.lblNewID.Name = "lblNewID";
-            this.lblNewID.Size = new System.Drawing.Size(70, 25);
-            this.lblNewID.TabIndex = 18;
-            this.lblNewID.Text = "(New)";
-            this.lblNewID.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblNewID.Visible = false;
             // 
             // cmdTextSearch
             // 
@@ -337,7 +326,6 @@
             this.Controls.Add(this.cmdEdit);
             this.Controls.Add(this.cmdCopyToNew);
             this.Controls.Add(this.cmdTextSearch);
-            this.Controls.Add(this.lblNewID);
             this.Controls.Add(this.navWordings);
             this.Controls.Add(this.txtWordingR);
             this.Controls.Add(this.label4);
@@ -393,7 +381,6 @@
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveNextItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
-        private System.Windows.Forms.Label lblNewID;
         private System.Windows.Forms.Button cmdTextSearch;
         private System.Windows.Forms.Button cmdCopyToNew;
         private System.Windows.Forms.Button cmdEdit;

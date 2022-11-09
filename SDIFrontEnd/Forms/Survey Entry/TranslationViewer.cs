@@ -37,6 +37,7 @@ namespace SDIFrontEnd
             bs = new BindingSource();
             bs.DataSource = Translations;
             bs.ListChanged += Bs_ListChanged;
+            bs.PositionChanged += Bs_PositionChanged;
             navTranslations.BindingSource = bs;
             MainQuestion = question;
 
@@ -50,6 +51,11 @@ namespace SDIFrontEnd
 
 
             AdjustRouting();
+        }
+
+        private void Bs_PositionChanged(object sender, EventArgs e)
+        {
+            CurrentRecord = (TranslationRecord)bs.Current;
         }
 
         #region Events
@@ -208,6 +214,7 @@ namespace SDIFrontEnd
 
                 cmdBold.Top = rtbPreP.Top;
                 cmdItalic.Top = rtbPreP.Top;
+                cmdUnderline.Top = rtbPreP.Top;
                 rtbTranslationText.Top = rtbPreP.Top + rtbPreP.Height;
                 rtbTranslationText.Height += rtbPreP.Height + rtbPreP.Height;
             }
@@ -251,6 +258,9 @@ namespace SDIFrontEnd
             bs.ResetCurrentItem();
         }
 
-        
+        private void rtbTranslationText_Validated(object sender, EventArgs e)
+        {
+            UpdatePlainText();
+        }
     }
 }

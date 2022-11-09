@@ -38,50 +38,54 @@ namespace SDIFrontEnd
 
         private void cmdBold_Click(object sender, EventArgs e)
         {
-            if (rtbEditor.SelectionFont.Bold)
-            {
-                rtbEditor.SelectionFont = new Font(rtbEditor.Font, FontStyle.Regular);
-            }
+            Font oldFont = rtbEditor.SelectionFont;
+            Font newFont;
+
+            if (oldFont.Bold)
+                newFont = new Font(oldFont, oldFont.Style & ~FontStyle.Bold);
             else
-            {
-                rtbEditor.SelectionFont = new Font(rtbEditor.Font, FontStyle.Bold);
-            }
+                newFont = new Font(oldFont, oldFont.Style | FontStyle.Bold);
+
+            rtbEditor.SelectionFont = newFont;
         }
 
         private void cmdItalic_Click(object sender, EventArgs e)
         {
-            if (rtbEditor.SelectionFont.Italic)
-            {
-                rtbEditor.SelectionFont = new Font(rtbEditor.Font, FontStyle.Regular);
-            }
+            Font oldFont = rtbEditor.SelectionFont;
+            Font newFont;
+
+            if (oldFont.Italic)
+                newFont = new Font(oldFont, oldFont.Style & ~FontStyle.Italic);
             else
-            {
-                rtbEditor.SelectionFont = new Font(rtbEditor.Font, FontStyle.Italic);
-            }
+                newFont = new Font(oldFont, oldFont.Style | FontStyle.Italic);
+
+            rtbEditor.SelectionFont = newFont;
         }
 
         private void cmdUnderline_Click(object sender, EventArgs e)
         {
-            if (rtbEditor.SelectionFont.Underline)
-            {
-                rtbEditor.SelectionFont = new Font(rtbEditor.Font, FontStyle.Regular);
-            }
+            Font oldFont = rtbEditor.SelectionFont;
+            Font newFont;
+
+            if (oldFont.Underline)
+                newFont = new Font(oldFont, oldFont.Style & ~FontStyle.Underline);
             else
-            {
-                rtbEditor.SelectionFont = new Font(rtbEditor.Font, FontStyle.Underline);
-            }
+                newFont = new Font(oldFont, oldFont.Style | FontStyle.Underline);
+
+            rtbEditor.SelectionFont = newFont;
         }
 
         private void cmdStrikethrough_Click(object sender, EventArgs e)
         {
-            if (rtbEditor.SelectionFont.Strikeout)
-            {
-                rtbEditor.SelectionFont = new Font(rtbEditor.Font, FontStyle.Regular);
-            }
+            Font oldFont = rtbEditor.SelectionFont;
+            Font newFont;
+
+            if (oldFont.Strikeout)
+                newFont = new Font(oldFont, oldFont.Style & ~FontStyle.Strikeout);
             else
-            {
-                rtbEditor.SelectionFont = new Font(rtbEditor.Font, FontStyle.Strikeout);
-            }
+                newFont = new Font(oldFont, oldFont.Style | FontStyle.Strikeout);
+
+            rtbEditor.SelectionFont = newFont;
         }
 
         private void cmdHighlight_Click(object sender, EventArgs e)

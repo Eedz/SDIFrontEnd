@@ -99,7 +99,7 @@
             this.cboProject.Name = "cboProject";
             this.cboProject.Size = new System.Drawing.Size(140, 24);
             this.cboProject.TabIndex = 2;
-            this.cboProject.SelectedIndexChanged += new System.EventHandler(this.cboProject_SelectedIndexChanged);
+   
             this.cboProject.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // chkEnglishRouting

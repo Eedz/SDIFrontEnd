@@ -158,7 +158,7 @@
             this.label7.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(572, 160);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(42, 16);
+            this.label7.Size = new System.Drawing.Size(41, 16);
             this.label7.TabIndex = 30;
             this.label7.Text = "Go To";
             // 
@@ -238,6 +238,7 @@
             // 
             this.bindingNavigatorPositionItem.AccessibleName = "Position";
             this.bindingNavigatorPositionItem.AutoSize = false;
+            this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
             this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(58, 23);
             this.bindingNavigatorPositionItem.Text = "0";
@@ -275,6 +276,8 @@
             // 
             // splitContainer1
             // 
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.splitContainer1.Location = new System.Drawing.Point(10, 193);
             this.splitContainer1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -757,7 +760,7 @@
             this.label10.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.Location = new System.Drawing.Point(17, 110);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(51, 16);
+            this.label10.Size = new System.Drawing.Size(50, 16);
             this.label10.TabIndex = 9;
             this.label10.Text = "Product";
             // 
@@ -767,7 +770,7 @@
             this.label9.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.Location = new System.Drawing.Point(17, 84);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(52, 16);
+            this.label9.Size = new System.Drawing.Size(51, 16);
             this.label9.TabIndex = 8;
             this.label9.Text = "Content";
             // 
@@ -777,7 +780,7 @@
             this.label8.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(33, 58);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(39, 16);
+            this.label8.Size = new System.Drawing.Size(38, 16);
             this.label8.TabIndex = 7;
             this.label8.Text = "Topic";
             // 
@@ -787,7 +790,7 @@
             this.lblDomain.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDomain.Location = new System.Drawing.Point(19, 33);
             this.lblDomain.Name = "lblDomain";
-            this.lblDomain.Size = new System.Drawing.Size(51, 16);
+            this.lblDomain.Size = new System.Drawing.Size(50, 16);
             this.lblDomain.TabIndex = 6;
             this.lblDomain.Text = "Domain";
             // 
@@ -797,7 +800,7 @@
             this.lblVarLabel.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblVarLabel.Location = new System.Drawing.Point(10, 7);
             this.lblVarLabel.Name = "lblVarLabel";
-            this.lblVarLabel.Size = new System.Drawing.Size(58, 16);
+            this.lblVarLabel.Size = new System.Drawing.Size(57, 16);
             this.lblVarLabel.TabIndex = 5;
             this.lblVarLabel.Text = "VarLabel";
             // 
@@ -985,7 +988,7 @@
             this.label1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(373, 160);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 16);
+            this.label1.Size = new System.Drawing.Size(46, 16);
             this.label1.TabIndex = 43;
             this.label1.Text = "Survey";
             // 
@@ -1221,7 +1224,7 @@
             this.lblStatus.AutoSize = true;
             this.lblStatus.Location = new System.Drawing.Point(951, 69);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(204, 16);
+            this.lblStatus.Size = new System.Drawing.Size(203, 16);
             this.lblStatus.TabIndex = 48;
             this.lblStatus.Text = "This survey has unsaved changes:";
             // 
@@ -1263,7 +1266,7 @@
             this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.label2.Location = new System.Drawing.Point(12, 173);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(33, 16);
+            this.label2.Size = new System.Drawing.Size(32, 16);
             this.label2.TabIndex = 51;
             this.label2.Text = "New";
             // 
@@ -1273,7 +1276,7 @@
             this.label3.BackColor = System.Drawing.Color.Red;
             this.label3.Location = new System.Drawing.Point(51, 173);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(51, 16);
+            this.label3.Size = new System.Drawing.Size(50, 16);
             this.label3.TabIndex = 52;
             this.label3.Text = "Deleted";
             // 
@@ -1283,7 +1286,7 @@
             this.lblEdited.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.lblEdited.Location = new System.Drawing.Point(108, 173);
             this.lblEdited.Name = "lblEdited";
-            this.lblEdited.Size = new System.Drawing.Size(43, 16);
+            this.lblEdited.Size = new System.Drawing.Size(42, 16);
             this.lblEdited.TabIndex = 53;
             this.lblEdited.Text = "Edited";
             // 

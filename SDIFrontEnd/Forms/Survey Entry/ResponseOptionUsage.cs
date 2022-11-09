@@ -219,6 +219,7 @@ namespace SDIFrontEnd
         /// <param name="e"></param>
         private void bindingNavigatorMoveNextItem_Click(object sender, EventArgs e)
         {
+            bs.EndEdit();
             if (SaveRecord() == 1)
                 return;
 
@@ -233,6 +234,7 @@ namespace SDIFrontEnd
         /// <param name="e"></param>
         private void bindingNavigatorMovePreviousItem_Click(object sender, EventArgs e)
         {
+            bs.EndEdit();
             if (SaveRecord() == 1)
                 return;
 
@@ -242,6 +244,7 @@ namespace SDIFrontEnd
 
         private void bindingNavigatorMoveLastItem_Click(object sender, EventArgs e)
         {
+            bs.EndEdit();
             if (SaveRecord() == 1)
                 return;
 
@@ -251,6 +254,7 @@ namespace SDIFrontEnd
 
         private void bindingNavigatorMoveFirstItem_Click(object sender, EventArgs e)
         {
+            bs.EndEdit();
             if (SaveRecord() == 1)
                 return;
 
@@ -301,9 +305,7 @@ namespace SDIFrontEnd
         {
             string field = txtFieldName.Text;
             NewRecord = true;
-            //  lblNewID.Left = txtWordID.Left;
-            //  lblNewID.Top = txtWordID.Top;
-            //  lblNewID.Visible = true;
+           
             bs.DataSource = ResponseSets;
             CurrentSet = (ResponseSet)bs.AddNew();
             CurrentSet.FieldName = field;
@@ -314,9 +316,7 @@ namespace SDIFrontEnd
         private void AddWording(ResponseSet template)
         {
             NewRecord = true;
-            //lblNewID.Left = txtWordID.Left;
-            // lblNewID.Top = txtWordID.Top;
-            // lblNewID.Visible = true;
+           
             bs.DataSource = ResponseSets;
             CurrentSet = (ResponseSet)bs.AddNew();
             CurrentSet.FieldName = template.FieldName;
@@ -365,6 +365,12 @@ namespace SDIFrontEnd
                 return 1;
             }
             
+            if (NewRecord && this.ResponseSets.Count(x => x.RespSetName.Equals(CurrentSet.RespSetName))>1)
+            {
+                MessageBox.Show("There is already a response set named '" + CurrentSet.RespSetName + "'. Please choose another name.");
+                return 1;
+            }
+
             if (NewRecord && !CurrentSet.RespSetName.Equals("(New)")) // new set created by this form
             {
                 // insert into table
@@ -378,7 +384,7 @@ namespace SDIFrontEnd
                 Dirty = false;
             }
             bs.ResetBindings(false);
-            lblNewID.Visible = false;
+      
             return 0;
         }
 
@@ -510,7 +516,6 @@ namespace SDIFrontEnd
             LoadUsageList(CurrentSet.FieldName, CurrentSet.RespSetName);
             Locked = Usages.Any(x => x.Locked) || (CurrentSet.RespSetName.Equals("0") && !NewRecord);
 
-            //lblNewID.Visible = NewRecord;
             if (CurrentSet.RespSetName == "0" && !NewRecord) // 0 wording, reserved
             {
                 cmdEdit.Enabled = false;

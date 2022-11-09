@@ -16,7 +16,7 @@ namespace SDIFrontEnd
     public partial class WaveManager : Form
     {
         StudyWaveRecord CurrentRecord;
-        List<StudyWaveRecord> WaveList;
+        BindingList<StudyWaveRecord> WaveList;
         List<StudyRecord> StudyList;
         BindingSource bs;
 
@@ -27,8 +27,8 @@ namespace SDIFrontEnd
             this.MouseWheel += WaveManager_MouseWheel;
             cboProject.MouseWheel += ComboBox_MouseWheel;
 
-            WaveList = Globals.AllWaves;
-            StudyList = Globals.AllStudies;
+            WaveList = new BindingList<StudyWaveRecord>(Globals.AllWaves);
+            StudyList = new List<StudyRecord>(Globals.AllStudies);
 
             bs = new BindingSource();
             bs.DataSource = WaveList;
@@ -53,12 +53,13 @@ namespace SDIFrontEnd
             this.MouseWheel += WaveManager_MouseWheel;
             cboProject.MouseWheel += ComboBox_MouseWheel;
 
-            WaveList = Globals.AllWaves;
-            StudyList = Globals.AllStudies;
+            WaveList = new BindingList<StudyWaveRecord>(Globals.AllWaves);
+            StudyList = new List<StudyRecord>(Globals.AllStudies);
 
             bs = new BindingSource();
             bs.DataSource = WaveList;
             bs.PositionChanged += Bs_PositionChanged;
+            bs.ListChanged += Bs_ListChanged;
             bindingNavigator1.BindingSource = bs;
 
             FillBoxes();
@@ -71,6 +72,8 @@ namespace SDIFrontEnd
 
             RefreshCurrentWave();
         }
+
+       
 
         #region Events
 
@@ -144,6 +147,20 @@ namespace SDIFrontEnd
             RefreshCurrentWave();
         }
 
+        private void Bs_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            if (e.PropertyDescriptor == null) return;
+
+            int index = e.NewIndex; // index of the changed item
+
+            switch (e.PropertyDescriptor.Name)
+            {
+                default:
+                    ((StudyWaveRecord)bs[index]).Dirty = true;
+                    break;
+            }
+        }
+
         private void cmdAddStudy_Click(object sender, EventArgs e)
         {
             NewStudyEntry frm = new NewStudyEntry();
@@ -171,7 +188,7 @@ namespace SDIFrontEnd
             {
 
                 DBAction.DeleteWave(CurrentRecord);
-                toolStripGoTo.ComboBox.DataSource = new List<StudyWave>(WaveList);
+                toolStripGoTo.ComboBox.DataSource = new List<StudyWaveRecord>(WaveList);
                 bs.RemoveCurrent();
                 RefreshCurrentWave();
 
@@ -181,7 +198,7 @@ namespace SDIFrontEnd
 
         private void Control_Validated(object sender, EventArgs e)
         {
-            CurrentRecord.Dirty = true;
+           // CurrentRecord.Dirty = true;
         }
 
         #endregion
@@ -304,18 +321,5 @@ namespace SDIFrontEnd
         }
 
         #endregion
-
-        private void cboProject_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cboProject.SelectedItem == null) return;
-            if (CurrentRecord == null) return;
-
-            Study study = (Study)cboProject.SelectedItem;
-            CurrentRecord.ISO_Code = study.ISO_Code;
-            
-
-        }
-
-        
     }
 }
