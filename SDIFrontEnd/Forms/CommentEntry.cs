@@ -76,7 +76,7 @@ namespace SDIFrontEnd
             CurrentNote = (NoteRecord)bs.Current;
 
             bsStored = new BindingSource();
-            bsStored.DataSource = Globals.CurrentUser.SavedComments;
+            bsStored.DataSource = new List<Comment>(Globals.CurrentUser.SavedComments);
 
             repeaterStored.DataSource = bsStored;
 
@@ -436,14 +436,14 @@ namespace SDIFrontEnd
             if (Scope == NoteScope.Wave || chkSurvWave.Checked)
             {
 
-                cboSurvWaveList.DataSource = Globals.AllWaves;
+                cboSurvWaveList.DataSource = new List<StudyWaveRecord>(Globals.AllWaves);
                 cboSurvWaveList.DisplayMember = "WaveCode";
                 cboSurvWaveList.ValueMember = "ID";
 
             }
             else
             {
-                cboSurvWaveList.DataSource = Globals.AllSurveys;
+                cboSurvWaveList.DataSource = new List<SurveyRecord>(Globals.AllSurveys);
                 cboSurvWaveList.DisplayMember = "SurveyCode";
                 cboSurvWaveList.ValueMember = "SID";
 

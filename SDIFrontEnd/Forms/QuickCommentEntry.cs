@@ -91,13 +91,13 @@ namespace SDIFrontEnd
                     enableVar = true;
                     break;
                 case NoteScope.Survey:
-                    cboSurvWaveList.DataSource = Globals.AllSurveys;
+                    cboSurvWaveList.DataSource = new List<SurveyRecord>(Globals.AllSurveys);
                     cboSurvWaveList.DisplayMember = "SurveyCode";
                     cboSurvWaveList.ValueMember = "SID";
                     enableSurv = true;
                     break;
                 case NoteScope.Wave:
-                    cboSurvWaveList.DataSource = Globals.AllWaves;
+                    cboSurvWaveList.DataSource = new List<StudyWaveRecord>(Globals.AllWaves);
                     cboSurvWaveList.DisplayMember = "WaveCode";
                     cboSurvWaveList.ValueMember = "WaveID";
                     enableSurv = true;

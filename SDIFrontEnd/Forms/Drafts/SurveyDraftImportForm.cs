@@ -56,7 +56,7 @@ namespace SDIFrontEnd
 
             cboSurvey.ValueMember = "SID";
             cboSurvey.DisplayMember = "SurveyCode";
-            cboSurvey.DataSource = Globals.AllSurveys;
+            cboSurvey.DataSource = new List<SurveyRecord>(Globals.AllSurveys);
 
             newDraft = new SurveyDraftRecord();
 

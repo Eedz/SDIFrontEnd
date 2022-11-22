@@ -22,7 +22,7 @@ namespace SDIFrontEnd
 
             cboSurvey.DisplayMember = "SurveyCode";
             cboSurvey.ValueMember = "SID";
-            cboSurvey.DataSource = Globals.AllSurveys;
+            cboSurvey.DataSource = new List<SurveyRecord>(Globals.AllSurveys);
         }
 
         private void cmdOK_Click(object sender, EventArgs e)

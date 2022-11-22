@@ -48,7 +48,7 @@ namespace SDIFrontEnd
             lstSelVar.DisplayMember = "RefVarName";
 
             // wave tab
-            cboWaves.DataSource = Globals.AllWaves;
+            cboWaves.DataSource = new List<StudyWaveRecord>( Globals.AllWaves);
             cboWaves.DisplayMember = "WaveCode";
             cboWaves.ValueMember = "ID";
             cboWaves.SelectedItem = null;

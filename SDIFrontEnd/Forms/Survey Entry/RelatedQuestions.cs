@@ -409,7 +409,7 @@ namespace SDIFrontEnd
             bs.ResetBindings(false);
 
             CurrentQuestion = (QuestionRecord)bs.Current;
-
+            UpdateTranslation();
             dgvDS.DataSource = Questions;
         }
 

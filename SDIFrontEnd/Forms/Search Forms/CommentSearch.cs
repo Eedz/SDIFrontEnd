@@ -68,15 +68,15 @@ namespace SDIFrontEnd
 
             tabResults.TabPages.Remove(pageDrafts);
 
-            cboSurvey.DataSource = Globals.AllSurveys;
+            cboSurvey.DataSource = new List<SurveyRecord>(Globals.AllSurveys);
             cboSurvey.DisplayMember = "SurveyCode";
             cboSurvey.ValueMember = "SID";
 
-            cboAuthor.DataSource = Globals.AllPeople;
+            cboAuthor.DataSource = new List<Person>(Globals.AllPeople);
             cboAuthor.DisplayMember = "Name";
             cboAuthor.ValueMember = "ID";
 
-            cboType.DataSource = Globals.AllCommentTypes;
+            cboType.DataSource = new List<CommentType>(Globals.AllCommentTypes);
             cboType.DisplayMember = "TypeName";
             cboType.ValueMember = "ID";
 

@@ -75,7 +75,7 @@ namespace SDIFrontEnd
 
             VarNames = Globals.AllVarNames;
 
-            cboGoToVar.DataSource = Globals.AllRefVarNames;
+            cboGoToVar.DataSource = new List<RefVariableName>(Globals.AllRefVarNames);
             cboGoToVar.DisplayMember = "RefVarName";
             cboGoToVar.ValueMember = "RefVarName";
 

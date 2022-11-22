@@ -31,7 +31,7 @@ namespace SDIFrontEnd
 
             FullList = DBAction.GetVarNameUsage();
 
-            cboGoToVar.DataSource = Globals.AllRefVarNames;
+            cboGoToVar.DataSource = new List<RefVariableName>(Globals.AllRefVarNames);
             cboGoToVar.DisplayMember = "RefVarName";
             cboGoToVar.ValueMember = "RefVarName";
 

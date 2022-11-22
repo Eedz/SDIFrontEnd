@@ -138,7 +138,7 @@ namespace SDIFrontEnd
             toolStripGoTo.ComboBox.ValueMember = "ID";
             toolStripGoTo.ComboBox.DisplayMember = "StudyName";
 
-            cboRegion.DataSource = Globals.AllRegions;
+            cboRegion.DataSource = new List<RegionRecord>(Globals.AllRegions);
             cboRegion.DisplayMember = "RegionName";
             cboRegion.ValueMember = "ID";
 
@@ -191,7 +191,7 @@ namespace SDIFrontEnd
             if (frm.DialogResult == DialogResult.OK)
             {
                 cboRegion.DataSource = null;
-                cboRegion.DataSource = Globals.AllRegions;
+                cboRegion.DataSource = new List<RegionRecord>(Globals.AllRegions);
                 cboRegion.DisplayMember = "RegionName";
                 cboRegion.ValueMember = "ID";
                 cboRegion.SelectedItem = frm.NewRegion;

@@ -28,11 +28,11 @@ namespace SDIFrontEnd
         {
             if (optVarName.Checked)
             {
-                cboVarList.DataSource = Globals.AllVarNames;
+                cboVarList.DataSource = new List<VariableName>(Globals.AllVarNames);
             }
             else
             {
-                cboVarList.DataSource = Globals.AllRefVarNames;
+                cboVarList.DataSource = new List<RefVariableName>(Globals.AllRefVarNames);
             }
 
         }

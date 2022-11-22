@@ -32,7 +32,7 @@ namespace SDIFrontEnd
         private void cmdOK_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.OK;
-            EditedText = rtbEditor.Rtf; ;
+            EditedText = rtbEditor.Rtf;
             Close();
         }
 

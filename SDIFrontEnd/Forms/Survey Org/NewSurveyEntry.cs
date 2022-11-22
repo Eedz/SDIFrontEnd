@@ -48,7 +48,7 @@ namespace SDIFrontEnd
             cboMode.DisplayMember = "ModeAbbrev";
             cboMode.ValueMember = "ID";
 
-            cboSurveyType.DataSource = Globals.AllCohorts; 
+            cboSurveyType.DataSource = new List<SurveyCohortRecord>(Globals.AllCohorts); 
             cboSurveyType.DisplayMember = "Cohort";
             cboSurveyType.ValueMember = "ID";
         }

@@ -774,7 +774,7 @@ namespace SDIFrontEnd
             {
                 TypeOfImport = ImportType.Single;
                 lblSurveyWave.Text = "Survey";
-                cboSurvey.DataSource = Globals.AllSurveys;
+                cboSurvey.DataSource = new List<SurveyRecord>(Globals.AllSurveys);
                 cboSurvey.DisplayMember = "SurveyCode";
                 cboSurvey.ValueMember = "SID";
              
@@ -784,7 +784,7 @@ namespace SDIFrontEnd
             {
                 TypeOfImport = ImportType.Multi;
                 lblSurveyWave.Text = "Wave";
-                cboSurvey.DataSource = Globals.AllWaves;
+                cboSurvey.DataSource = new List<StudyWaveRecord>(Globals.AllWaves);
                 cboSurvey.DisplayMember = "WaveCode";
                 cboSurvey.ValueMember = "WaveCode";
                

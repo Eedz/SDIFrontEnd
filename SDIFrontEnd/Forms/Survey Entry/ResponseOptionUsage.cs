@@ -167,9 +167,11 @@ namespace SDIFrontEnd
             txtWordingR.Rtf = Utilities.FormatRTF(txtWordingR.Rtf);
             ResponseSet current = (ResponseSet)bs.Current;
             string plain = txtWordingR.Text;
+            plain = Utilities.RemoveHighlightTags(plain);
+            plain = Utilities.TrimString(plain, "<br>");
             current.RespList = plain;
-            bs.ResetCurrentItem();
             Dirty = true;
+            bs.ResetCurrentItem();
         }
 
         private void cmdEdit_Click(object sender, EventArgs e)
@@ -276,7 +278,7 @@ namespace SDIFrontEnd
             foreach (ResponseSet r in ResponseSets)
             {
                 index++;
-                if (r.RespSetName == response.RespSetName)
+                if (r.RespSetName.ToLower().Equals(response.RespSetName.ToLower()))
                     break;
             }
             if (index >= 0)
@@ -289,11 +291,12 @@ namespace SDIFrontEnd
             frmEditor.ShowDialog();
             if (frmEditor.DialogResult == DialogResult.OK)
             {
-                string rtf = Utilities.FormatRTF(frmEditor.EditedText);
-                rtf = Utilities.RemoveHighlightTags(rtf);
-                txtWordingR.Rtf = rtf;
+                txtWordingR.Rtf = Utilities.FormatRTF(frmEditor.EditedText);
+                string plain = txtWordingR.Text;
+                plain = Utilities.RemoveHighlightTags(plain);
+                plain = Utilities.TrimString(plain, "<br>"); 
 
-                set.RespList = txtWordingR.Text;
+                set.RespList = plain;
 
                 Dirty = true;
                 bs.ResetCurrentItem();

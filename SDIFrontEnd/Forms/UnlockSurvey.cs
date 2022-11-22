@@ -167,7 +167,7 @@ namespace SDIFrontEnd
         {
             lstAllSurveys.DisplayMember = "SurveyCode";
             lstAllSurveys.ValueMember = "SID";
-            lstAllSurveys.DataSource = Globals.AllSurveys;
+            lstAllSurveys.DataSource = new List<SurveyRecord>(Globals.AllSurveys);
 
             lstSelected.DisplayMember = "SurveyCode";
             lstSelected.ValueMember = "SID";

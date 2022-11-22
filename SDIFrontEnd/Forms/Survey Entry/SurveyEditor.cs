@@ -202,25 +202,25 @@ namespace SDIFrontEnd
             toolStripLanguage.ComboBox.ValueMember = "SurvLanguage";
 
             // top portion
-            cboSurvey.DataSource = Globals.AllSurveys;
+            cboSurvey.DataSource = new List<SurveyRecord>(Globals.AllSurveys);
             cboSurvey.DisplayMember = "SurveyCode";
             cboSurvey.ValueMember = "SID";
             cboSurvey.SelectedValue = CurrentSurvey.SID;
             cboSurvey.SelectedIndexChanged += cboSurvey_SelectedIndexChanged;
 
-            cboDomainLabel.DataSource = Globals.AllDomainLabels;
+            cboDomainLabel.DataSource = new List<DomainLabel>(Globals.AllDomainLabels);
             cboDomainLabel.ValueMember = "ID";
             cboDomainLabel.DisplayMember = "LabelText";
 
-            cboTopicLabel.DataSource = Globals.AllTopicLabels;
+            cboTopicLabel.DataSource = new List<TopicLabel>(Globals.AllTopicLabels);
             cboTopicLabel.ValueMember = "ID";
             cboTopicLabel.DisplayMember = "LabelText";
 
-            cboContentLabel.DataSource = Globals.AllContentLabels;
+            cboContentLabel.DataSource = new List<ContentLabel>(Globals.AllContentLabels);
             cboContentLabel.ValueMember = "ID";
             cboContentLabel.DisplayMember = "LabelText";
 
-            cboProductLabel.DataSource = Globals.AllProductLabels;
+            cboProductLabel.DataSource = new List<ProductLabel>(Globals.AllProductLabels);
             cboProductLabel.ValueMember = "ID";
             cboProductLabel.DisplayMember = "LabelText";
         }
@@ -707,7 +707,7 @@ namespace SDIFrontEnd
         private void SurveyEditor_RefreshDomains(object sender, EventArgs e)
         {
             cboDomainLabel.DataSource = null;
-            cboDomainLabel.DataSource = Globals.AllDomainLabels;
+            cboDomainLabel.DataSource = new List<DomainLabel>(Globals.AllDomainLabels);
             cboDomainLabel.ValueMember = "ID";
             cboDomainLabel.DisplayMember = "LabelText";
         }
@@ -715,7 +715,7 @@ namespace SDIFrontEnd
         private void SurveyEditor_RefreshTopics(object sender, EventArgs e)
         {
             cboTopicLabel.DataSource = null;
-            cboTopicLabel.DataSource = Globals.AllTopicLabels;
+            cboTopicLabel.DataSource = new List<TopicLabel>(Globals.AllTopicLabels);
             cboTopicLabel.ValueMember = "ID";
             cboTopicLabel.DisplayMember = "LabelText";
         }
@@ -723,7 +723,7 @@ namespace SDIFrontEnd
         private void SurveyEditor_RefreshContents(object sender, EventArgs e)
         {
             cboContentLabel.DataSource = null;
-            cboContentLabel.DataSource = Globals.AllContentLabels;
+            cboContentLabel.DataSource = new List<ContentLabel>(Globals.AllContentLabels);
             cboContentLabel.ValueMember = "ID";
             cboContentLabel.DisplayMember = "LabelText";
         }
@@ -731,7 +731,7 @@ namespace SDIFrontEnd
         private void SurveyEditor_RefreshProducts(object sender, EventArgs e)
         {
             cboProductLabel.DataSource = null;
-            cboProductLabel.DataSource = Globals.AllProductLabels;
+            cboProductLabel.DataSource = new List<ProductLabel>(Globals.AllProductLabels);
             cboProductLabel.ValueMember = "ID";
             cboProductLabel.DisplayMember = "LabelText";
         }
@@ -1102,6 +1102,12 @@ namespace SDIFrontEnd
                     break;
                 case "PstP":
                     CurrentRecord.PstP = DBAction.GetWordingText("PstP", CurrentRecord.PstPNum);
+                    break;
+                case "RespOptions":
+                    CurrentRecord.RespOptions = DBAction.GetResponseText(CurrentRecord.RespName);
+                    break;
+                case "NRCodes":
+                    CurrentRecord.RespOptions = DBAction.GetNonResponseText(CurrentRecord.NRName);
                     break;
             }
             LoadQuestion();

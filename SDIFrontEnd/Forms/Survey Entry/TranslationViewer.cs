@@ -250,17 +250,14 @@ namespace SDIFrontEnd
         {
             // change RTF tags to HTML tags
             rtbTranslationText.Rtf = Utilities.FormatRTF(rtbTranslationText.Rtf);
+
             // now get plain text which includes the HTML tags we've inserted
             string plain = rtbTranslationText.Text;
-
+            plain = Utilities.TrimString(plain, "<br>");
             CurrentRecord.TranslationText = plain;
+
             CurrentRecord.Dirty = true;
             bs.ResetCurrentItem();
-        }
-
-        private void rtbTranslationText_Validated(object sender, EventArgs e)
-        {
-            UpdatePlainText();
         }
     }
 }

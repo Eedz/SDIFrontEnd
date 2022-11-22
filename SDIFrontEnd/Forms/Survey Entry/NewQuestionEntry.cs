@@ -38,7 +38,7 @@ namespace SDIFrontEnd
             RelatedQuestions = new List<VariableName>();
             string tempPrefix = DBAction.GetTempPrefix(DestinationSurvey);
 
-            cboSurveySource.DataSource = Globals.AllSurveys;
+            cboSurveySource.DataSource = new List<SurveyRecord>(Globals.AllSurveys);
             cboSurveySource.ValueMember = "SID";
             cboSurveySource.DisplayMember = "SurveyCode";
             cboSurveySource.SelectedItem = null;
@@ -46,22 +46,22 @@ namespace SDIFrontEnd
 
             txtVarLabel.Text = "[Blank]";
 
-            cboDomain.DataSource = Globals.AllDomainLabels;
+            cboDomain.DataSource = new List<DomainLabel>(Globals.AllDomainLabels);
             cboDomain.ValueMember = "ID";
             cboDomain.DisplayMember = "LabelText";
             cboDomain.SelectedValue = 0;
 
-            cboTopic.DataSource = Globals.AllTopicLabels;
+            cboTopic.DataSource = new List<TopicLabel>(Globals.AllTopicLabels);
             cboTopic.ValueMember = "ID";
             cboTopic.DisplayMember = "LabelText";
             cboTopic.SelectedValue = 0;
 
-            cboContent.DataSource = Globals.AllContentLabels;
+            cboContent.DataSource = new List<ContentLabel> (Globals.AllContentLabels);
             cboContent.ValueMember = "ID";
             cboContent.DisplayMember = "LabelText";
             cboContent.SelectedValue = 0;
 
-            cboProduct.DataSource = Globals.AllProductLabels;
+            cboProduct.DataSource = new List<ProductLabel> (Globals.AllProductLabels);
             cboProduct.ValueMember = "ID";
             cboProduct.DisplayMember = "LabelText";
             cboProduct.SelectedValue = 0;
