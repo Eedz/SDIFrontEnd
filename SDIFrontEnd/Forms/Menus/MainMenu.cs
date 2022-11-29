@@ -16,7 +16,9 @@ namespace SDIFrontEnd
 {
     public partial class MainMenu : Form
     {
-        public UserRecord CurrentUser;       
+        public UserRecord CurrentUser;
+        string autoSurveyStatus;
+        string backupStatus;
 
         public MainMenu()
         {
@@ -27,8 +29,6 @@ namespace SDIFrontEnd
             // 221, 241, 185 green
             // 232, 202, 193 red
 
-            // preload some objects from the database
-            Globals.CreateWorld();
             // load the current user
             CurrentUser = Globals.CurrentUser;
 
@@ -42,7 +42,11 @@ namespace SDIFrontEnd
             // add this event to the FormManager handler so that it adds a tab with the form that was added to the collection.
             FormManager.FormAdded += FormManager_FormAdded;
             FormManager.PopupAdded += FormManager_PopupAdded;
+
+            this.worker.DoWork += BackgroundWorker1_DoWork;
+            worker.RunWorkerCompleted += backgroundWorker1_RunWorkerCompleted;
         }
+
 
         private void FormManager_FormAdded(object sender, FormAddedEventArgs e)
         {
@@ -69,10 +73,26 @@ namespace SDIFrontEnd
            
         }
 
+        private void BackgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker helperBW = sender as BackgroundWorker;
+
+            backupStatus = BackupStatus();
+            autoSurveyStatus = AutoSurveysStatus();
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            
+            lblBackupStatus.Text = backupStatus;
+            lblBackupStatus.Visible = !string.IsNullOrEmpty(lblBackupStatus.Text);
+            lblAutoSurveys.Text = autoSurveyStatus;
+            lblAutoSurveys.Visible = !string.IsNullOrEmpty(lblAutoSurveys.Text);
+        }
+
         private void MainMenu_Load(object sender, EventArgs e)
         {
-            CheckBackup();
-            CheckAutoSurveys();
+            worker.RunWorkerAsync();
 
             this.WindowState = FormWindowState.Maximized;
             this.FormBorderStyle = FormBorderStyle.Sizable;
@@ -936,6 +956,22 @@ namespace SDIFrontEnd
 
         }
 
+        private string BackupStatus()
+        {
+            DateTime lastWorkDay = DateTime.Today;
+            if (DateTime.Today.Date.DayOfWeek == DayOfWeek.Monday)
+                lastWorkDay = lastWorkDay.AddDays(-3);
+            else
+                lastWorkDay = lastWorkDay.AddDays(-1);
+
+            string path = Globals.BackupPath + lastWorkDay.Date.ToString("yyyy-MM-dd") + ".7z";
+            if (!File.Exists(path))
+                return "Backup for yesterday (" + lastWorkDay.ShortDate() + ") missing.";
+            else
+                return string.Empty;
+
+        }
+
         private void CheckAutoSurveys()
         {
             DateTime lastWorkDay = DateTime.Today;
@@ -971,8 +1007,44 @@ namespace SDIFrontEnd
             }
         }
 
-       
+        private string AutoSurveysStatus()
+        {
+            DateTime lastWorkDay = DateTime.Today;
+            if (DateTime.Today.Date.DayOfWeek == DayOfWeek.Monday)
+                lastWorkDay = lastWorkDay.AddDays(-3);
+            else
+                lastWorkDay = lastWorkDay.AddDays(-1);
 
-        
+            List<Survey> changedSurveys = DBAction.GetChangedSurveys(lastWorkDay);
+
+            if (changedSurveys.Count() == 0)
+            {
+                return "No surveys were changed " + lastWorkDay.Date.DayOfWeek + " (" + lastWorkDay.ToString("d") + ").";
+            }
+
+            int count = 0;
+            foreach (Survey s in changedSurveys)
+            {
+                string lastWkDay = Globals.AutoSurveysPath + s.SurveyCode + ", " + lastWorkDay.Date.ToString("d").Replace("-", "") + ".docx";
+                string today = Globals.AutoSurveysPath + s.SurveyCode + ", " + lastWorkDay.ToString("d").Replace("-", "") + ".docx";
+                if (!File.Exists(lastWkDay) && (!File.Exists(today)))
+                    count++;               
+            }
+
+            if (count > 0)
+            {
+                return "Automatic Surveys for " + lastWorkDay.Date.DayOfWeek + " (" + lastWorkDay.ToString("d") + ") are missing.";
+            }else
+            {
+                return string.Empty;
+            }
+
+        }
+
+        private void MainMenu_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            worker.CancelAsync();
+            Application.Exit();
+        }
     }
 }

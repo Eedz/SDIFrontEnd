@@ -108,6 +108,7 @@
             this.cmdOpenVariableInfo = new System.Windows.Forms.Button();
             this.cmdOpenQuestionHistory = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.worker = new System.ComponentModel.BackgroundWorker();
             this.menuMainMenuStrip.SuspendLayout();
             this.pageMain.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -995,6 +996,10 @@
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_TabIndexChanged);
             this.tabControl1.TabIndexChanged += new System.EventHandler(this.tabControl1_TabIndexChanged);
             // 
+            // worker
+            // 
+            this.worker.WorkerSupportsCancellation = true;
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1006,6 +1011,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainMenu";
             this.Text = "Survey Database of ITC (SDI)";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainMenu_FormClosed);
             this.Load += new System.EventHandler(this.MainMenu_Load);
             this.menuMainMenuStrip.ResumeLayout(false);
             this.menuMainMenuStrip.PerformLayout();
@@ -1103,6 +1109,7 @@
         private System.Windows.Forms.ToolStripMenuItem varNamesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewTempToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewOrphansToolStripMenuItem;
+        private System.ComponentModel.BackgroundWorker worker;
     }
 }
 

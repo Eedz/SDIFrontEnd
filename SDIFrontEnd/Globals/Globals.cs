@@ -58,6 +58,28 @@ namespace SDIFrontEnd
         {
             CreateUser();
 
+            CreateSurveys();
+
+            CreateVarNames();
+
+            CreateWordings();
+
+            CreateOtherLists();
+
+            CreateComments();
+
+        }
+
+        public static void CreateUser()
+        {
+            CurrentUser = DBAction.GetUser(Environment.UserName);
+            CurrentUser.LastUsedComment = DBAction.GetLastUsedComments(CurrentUser.userid);
+            CurrentUser.SavedComments = DBAction.GetSavedComments(CurrentUser.userid);
+            CurrentUser.SavedSources = DBAction.GetSavedSources(CurrentUser.userid);
+        }
+
+        public static void CreateSurveys()
+        {
             AllRegions = DBAction.GetRegionInfo();
             AllStudies = DBAction.GetStudyInfo();
             AllWaves = DBAction.GetWaveInfo();
@@ -79,22 +101,19 @@ namespace SDIFrontEnd
             {
                 wave.Surveys = new BindingList<SurveyRecord>(AllSurveys.Where(x => x.WaveID == wave.ID).ToList());
             }
+        }
 
-            AllPeople = DBAction.GetPeople();
-            AllContentLabels = DBAction.ListContentLabels();
-            AllTopicLabels = DBAction.ListTopicLabels();
-            AllDomainLabels = DBAction.ListDomainLabels();
-            AllProductLabels = DBAction.ListProductLabels();
-            AllCohorts = DBAction.GetCohortInfo();
-            AllUserStates = DBAction.GetUserStates();
-            AllSimilarWords = DBAction.GetSimilarWordings();
+        public static void CreateVarNames()
+        {
             AllPrefixes = DBAction.GetVarPrefixes();
             AllVarNames = DBAction.GetAllVarNames();
             AllRefVarNames = DBAction.GetAllRefVarNames();
             AllCanonVars = DBAction.GetAllCanonVars();
             AllTempPrefixes = new List<string>() { "NW", "NU", "NV", "NX", "NY", "NZ", "NO", "NS", "NM" };
-            AllCommentTypes = DBAction.GetCommentTypes();
-            AllNotes = DBAction.GetNotes();
+        }
+
+        public static void CreateWordings()
+        {
             AllPreP = DBAction.GetWordings("PreP");
             AllPreI = DBAction.GetWordings("PreI");
             AllPreA = DBAction.GetWordings("PreA");
@@ -103,12 +122,22 @@ namespace SDIFrontEnd
             AllPstP = DBAction.GetWordings("PstP");
         }
 
-        public static void CreateUser()
+        public static void CreateOtherLists()
         {
-            CurrentUser = DBAction.GetUser(Environment.UserName);
-            CurrentUser.LastUsedComment = DBAction.GetLastUsedComments(CurrentUser.userid);
-            CurrentUser.SavedComments = DBAction.GetSavedComments(CurrentUser.userid);
-            CurrentUser.SavedSources = DBAction.GetSavedSources(CurrentUser.userid);
+            AllPeople = DBAction.GetPeople();
+            AllContentLabels = DBAction.ListContentLabels();
+            AllTopicLabels = DBAction.ListTopicLabels();
+            AllDomainLabels = DBAction.ListDomainLabels();
+            AllProductLabels = DBAction.ListProductLabels();
+            AllCohorts = DBAction.GetCohortInfo();
+            AllUserStates = DBAction.GetUserStates();
+            AllSimilarWords = DBAction.GetSimilarWordings();
+        }
+
+        public static void CreateComments()
+        {
+            AllCommentTypes = DBAction.GetCommentTypes();
+            AllNotes = DBAction.GetNotes();
         }
 
         public static void UpdateUserFormState(FormState newState)
@@ -121,6 +150,8 @@ namespace SDIFrontEnd
             state.SaveRecord();
             
         }
+
+
 
         public static EventHandler RefreshPeople;
         public static EventHandler RefreshDomains;

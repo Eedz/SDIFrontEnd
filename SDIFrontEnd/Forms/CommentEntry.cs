@@ -117,6 +117,7 @@ namespace SDIFrontEnd
                 FilteredNotes.Add(n);
             }
             bs.DataSource = FilteredNotes;
+            bs.Position = 0;
         }
 
         public CommentEntry(NoteScope scope, List<QuestionRecord> questions) : this()
@@ -1176,8 +1177,8 @@ namespace SDIFrontEnd
             bs.DataSource = FilteredNotes;
 
             GoToComment(question.Comments[0].Notes.ID);
-            
-
+            CurrentNote = (NoteRecord)bs.Current;
+            LoadComments();
 
         }
 

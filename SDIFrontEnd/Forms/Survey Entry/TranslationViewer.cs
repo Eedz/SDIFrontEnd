@@ -49,8 +49,9 @@ namespace SDIFrontEnd
 
             rtbTranslationText.DataBindings.Add(new Binding("Rtf", bs, "TranslationRTF"));
 
-
+            CurrentRecord = (TranslationRecord)bs.Current;
             AdjustRouting();
+            SetReadingDirection();
         }
 
         private void Bs_PositionChanged(object sender, EventArgs e)
