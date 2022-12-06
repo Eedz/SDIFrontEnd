@@ -410,7 +410,7 @@ namespace SDIFrontEnd
 
         public int FilterWordings(string criteria)
         {
-            var results = Wordings.Where(x => x.WordingText.Contains(criteria)).ToList();
+            var results = Wordings.Where(x => x.WordingText.ToLower().Contains(criteria.ToLower())).ToList();
 
             if (results.Count() > 0)
             {
@@ -466,7 +466,7 @@ namespace SDIFrontEnd
         {
             txtFieldName.DataBindings.Add("Text", bs, "FieldName");
             txtWordID.DataBindings.Add("Text", bs, "WordID");
-            txtWordingR.DataBindings.Add("RTF", bs, "WordingTextR");
+            //txtWordingR.DataBindings.Add("RTF", bs, "WordingTextR");
         }
 
         private void LoadUsageList(string field, int wordID)
@@ -581,6 +581,8 @@ namespace SDIFrontEnd
         private void UpdateCurrentWording()
         {
             CurrentWording = (Wording)bs.Current;
+            txtWordingR.Rtf = null;
+            txtWordingR.Rtf = CurrentWording.WordingTextR;
 
             LoadUsageList(CurrentWording.FieldName, CurrentWording.WordID);
             Locked = Usages.Any(x => x.Locked) || (CurrentWording.WordID == 0 && !NewRecord);

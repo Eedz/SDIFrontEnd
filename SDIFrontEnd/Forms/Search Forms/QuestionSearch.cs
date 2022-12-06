@@ -313,37 +313,37 @@ namespace SDIFrontEnd
 
             // wordings
             if (!string.IsNullOrEmpty(txtPreP.Text))
-                criteria.Add(new SearchCriterium("PreP", Comparity.Contains, new List<string>() { txtPreP.Text }));
+                criteria.Add(new SearchCriterium("PreP", Comparity.Contains, new List<string>() { txtPreP.Text.Replace(" ", "&nbsp;") }));
             if (!string.IsNullOrEmpty(txtPreI.Text))
-                criteria.Add(new SearchCriterium("PreI", Comparity.Contains, new List<string>() { txtPreI.Text }));
+                criteria.Add(new SearchCriterium("PreI", Comparity.Contains, new List<string>() { txtPreI.Text.Replace(" ", "&nbsp;") }));
 
             if (chkLink.Checked)
             {
                 if (!string.IsNullOrEmpty(txtPreALitQ.Text))
                 {
-                    criteria.Add(new SearchCriterium(new List<string>() { "PreA", "LitQ" }, Comparity.Contains, new List<string>() { txtPreALitQ.Text } ));
+                    criteria.Add(new SearchCriterium(new List<string>() { "PreA", "LitQ" }, Comparity.Contains, new List<string>() { txtPreALitQ.Text.Replace(" ", "&nbsp;") } ));
                     
                 }
             }
             else
             {
                 if (!string.IsNullOrEmpty(txtPreA.Text))
-                    criteria.Add(new SearchCriterium("PreA", Comparity.Contains, new List<string>() { txtPreA.Text }));
+                    criteria.Add(new SearchCriterium("PreA", Comparity.Contains, new List<string>() { txtPreA.Text.Replace(" ", "&nbsp;") }));
                 if (!string.IsNullOrEmpty(txtLitQ.Text))
-                    criteria.Add(new SearchCriterium("LitQ", Comparity.Contains, new List<string>() { txtLitQ.Text }));
+                    criteria.Add(new SearchCriterium("LitQ", Comparity.Contains, new List<string>() { txtLitQ.Text.Replace(" ", "&nbsp;") }));
             }
 
             if (!string.IsNullOrEmpty(txtPstI.Text))
-                criteria.Add(new SearchCriterium("PstI", Comparity.Contains, new List<string>() { txtPstI.Text }));
+                criteria.Add(new SearchCriterium("PstI", Comparity.Contains, new List<string>() { txtPstI.Text.Replace(" ", "&nbsp;") }));
             if (!string.IsNullOrEmpty(txtPstP.Text))
-                criteria.Add(new SearchCriterium("PstP", Comparity.Contains, new List<string>() { txtPstP.Text }));
+                criteria.Add(new SearchCriterium("PstP", Comparity.Contains, new List<string>() { txtPstP.Text.Replace(" ", "&nbsp;") }));
 
             // response options
             if (!string.IsNullOrEmpty(txtRespOptions.Text))
             {
                 string[] roA = txtRespOptions.Text.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
                 SearchCriterium roCrit = new SearchCriterium();
-                roCrit.Field = "RespOptions";
+                roCrit.Fields.Add("RespOptions");
                 roCrit.Compare = Comparity.Contains;
                 roCrit.Criteria.AddRange(roA);
                 
@@ -355,7 +355,7 @@ namespace SDIFrontEnd
             {
                 string[] roA = txtNRCodes.Text.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
                 SearchCriterium roCrit = new SearchCriterium();
-                roCrit.Field = "NRCodes";
+                roCrit.Fields.Add("NRCodes");
                 roCrit.Compare = Comparity.Contains;
                 roCrit.Criteria.AddRange(roA);
 

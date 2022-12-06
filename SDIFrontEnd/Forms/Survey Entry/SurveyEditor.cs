@@ -136,25 +136,15 @@ namespace SDIFrontEnd
         #region Form Setup
 
         /// <summary>
-        /// Load questions, translaions, comments and filters into the survey matching surveyCode.
+        /// Load questions, translations, comments and filters into the survey matching surveyCode.
         /// </summary>
         /// <param name="surveyCode"></param>
         private void LoadData(string surveyCode)
         {
             CurrentSurvey = Globals.AllSurveys.Where(x => x.SurveyCode.Equals(surveyCode)).FirstOrDefault();
 
-            CurrentSurvey.Questions = DBAction.GetSurveyQuestionRecords(CurrentSurvey);
+            CurrentSurvey.Questions = DBAction.GetCompleteSurvey(CurrentSurvey);
             
-            foreach (QuestionRecord q in CurrentSurvey.Questions)
-            {
-                q.Translations = DBAction.GetQuestionTranslationRecords(q.ID);
-            }
-
-            foreach (SurveyQuestion q in CurrentSurvey.Questions)
-            {
-                q.Comments = DBAction.GetQuesCommentsByQID(q.ID);
-            }
-
             foreach (SurveyQuestion q in CurrentSurvey.Questions)
             {
                 q.Filters = string.Join("\r\n", q.GetFilterVars());
@@ -593,6 +583,12 @@ namespace SDIFrontEnd
         {
             if (cboSurvey.SelectedItem == null)
                 return;
+
+            if (CurrentSurvey.Questions.Any(x => x.Dirty))
+            {
+                if (MessageBox.Show("This survey has unsaved changes. Save before changing surveys?", "Confirm.", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    SaveChanges();
+            }
 
             Survey selected = (Survey)cboSurvey.SelectedItem;
             ChangeSurvey(selected.SurveyCode);
@@ -1956,24 +1952,12 @@ namespace SDIFrontEnd
         {
             bs.EndEdit();
 
-            //if (CurrentRecord.SaveRecord() == 1)
-            //{
-            //    MessageBox.Show("Error saving this question.");
-            //    return;
-            //}
-
             MoveRecord(1);
         }
 
         private void bindingNavigatorMoveLastItem_Click(object sender, EventArgs e)
         {
             bs.EndEdit();
-
-            //if (CurrentRecord.SaveRecord() == 1)
-            //{
-            //    MessageBox.Show("Error saving this question.");
-            //    return;
-            //}
 
             bs.MoveLast();
         }
@@ -1982,24 +1966,12 @@ namespace SDIFrontEnd
         {
             bs.EndEdit();
 
-            //if (CurrentRecord.SaveRecord() == 1)
-            //{
-            //    MessageBox.Show("Error saving this question.");
-            //    return;
-            //}
-
             MoveRecord(-1);
         }
 
         private void bindingNavigatorMoveFirstItem_Click(object sender, EventArgs e)
         {
             bs.EndEdit();
-
-            //if (CurrentRecord.SaveRecord() == 1)
-            //{
-            //    MessageBox.Show("Error saving this question.");
-            //    return;
-            //}
 
             bs.MoveFirst();
         }
@@ -2042,7 +2014,6 @@ namespace SDIFrontEnd
                     item.SubItems[7].Text = ((int)QuestionType.Standalone).ToString();
                     item.Font = new System.Drawing.Font("Arial", 10, FontStyle.Bold);
                     item.ForeColor = Color.Blue;
-
                 }
                 else
                 {
@@ -2052,7 +2023,6 @@ namespace SDIFrontEnd
                 }
                 // at least one selected item was renumbered
                 renumber = true;
-                
             }
 
             if (renumber)
@@ -2061,7 +2031,6 @@ namespace SDIFrontEnd
             }
 
             UpdateStatus();
-   
         }
 
         private void lstQuestionList_DragDrop(object sender, DragEventArgs e)
@@ -2161,7 +2130,6 @@ namespace SDIFrontEnd
 
             if (liRow != null) liRow.EnsureVisible();
         }
-
 
         #endregion
 

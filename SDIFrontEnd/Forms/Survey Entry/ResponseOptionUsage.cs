@@ -330,7 +330,7 @@ namespace SDIFrontEnd
 
         public int FilterWordings(string criteria)
         {
-            List<ResponseSet> results = ResponseSets.Where(x => x.RespList.Contains(criteria)).ToList();
+            List<ResponseSet> results = ResponseSets.Where(x => x.RespList.ToLower().Contains(criteria.ToLower())).ToList();
 
             if (results.Count == 0)
             {

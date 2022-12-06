@@ -23,7 +23,8 @@ namespace SDIFrontEnd
         public static List<StudyWaveRecord> AllWaves;
         public static List<SurveyRecord> AllSurveys;
 
-        public static List<Survey> RenumberedSurveys;
+        //public static List<Survey> RenumberedSurveys;
+        public static List<KeyValuePair<int, string>> RenumberedSurveys;
 
         // varnames
         public static List<VariablePrefixRecord> AllPrefixes;

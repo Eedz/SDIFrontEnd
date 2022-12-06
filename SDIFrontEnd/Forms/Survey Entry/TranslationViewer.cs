@@ -182,7 +182,7 @@ namespace SDIFrontEnd
             ParentSurvey = survey;
             MainQuestion = question;
             Translations = question.Translations;
-
+            rtbTranslationText.Rtf = null;
             if (language!=null && !language.SurvLanguage.LanguageName.Equals("<All>"))
                 bs.DataSource = Translations.Where(x=>x.Language.Equals(language.SurvLanguage.LanguageName));
             else
