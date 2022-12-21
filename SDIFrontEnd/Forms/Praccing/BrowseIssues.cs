@@ -17,6 +17,7 @@ namespace SDIFrontEnd
         List<PraccingIssue> IssueList;
         BindingSource bs;
         public int SelectedIssueNo;
+        public PraccingIssue SelectedIssue;
 
         public BrowseIssues(List<PraccingIssue> list)
         {
@@ -81,6 +82,7 @@ namespace SDIFrontEnd
             
 
             SelectedIssueNo = source[dataRepeaterItem.ItemIndex].IssueNo;
+            SelectedIssue = source[dataRepeaterItem.ItemIndex];
             DialogResult = DialogResult.OK;
             Close();
         }

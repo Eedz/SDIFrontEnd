@@ -44,6 +44,8 @@ namespace SDIFrontEnd
             cboSurveySource.SelectedItem = null;
             cboSurveySource.SelectedIndexChanged += cboSurveySource_SelectedIndexChanged;
 
+            
+
             txtVarLabel.Text = "[Blank]";
 
             cboDomain.DataSource = new List<DomainLabel>(Globals.AllDomainLabels);
@@ -216,6 +218,13 @@ namespace SDIFrontEnd
             FillList((Survey)cboSurveySource.SelectedItem);
         }
 
+        private void cboVarName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GoToQuestion(cboVarName.GetItemText(cboVarName.SelectedItem));
+
+            cboVarName.SelectedValue = "";
+        }
+
         /// <summary>
         /// On double-click, add the selected item(s) in the source list to the "to copy" list.
         /// </summary>
@@ -323,6 +332,10 @@ namespace SDIFrontEnd
             if (s == null) return;
 
             List<QuestionRecord> questions = DBAction.GetSurveyQuestionRecords(s).ToList();
+
+            cboVarName.DisplayMember = "VarName";
+            cboVarName.ValueMember = "VarName";
+            cboVarName.DataSource = questions.Select(x => x.VarName).OrderBy(x => x.RefVarName).ToList<VariableName>();
 
             lstQuestionSource.Items.Clear();
             lstQuestionSource.View = View.Details;
@@ -439,7 +452,21 @@ namespace SDIFrontEnd
 
             return newQ;
         }
+
+        public void GoToQuestion(string refVarName)
+        {
+            foreach (ListViewItem item in lstQuestionSource.Items)
+            {
+                if (item.SubItems[1].Text.Equals(refVarName))
+                {
+                    item.EnsureVisible();
+                    item.Selected = true;
+                    break;
+                }
+            }
+        }
         #endregion
+
 
     }
 }

@@ -897,10 +897,10 @@ namespace SDIFrontEnd
                 CurrentRecord.NRName = previousQ.NRName;
 
                 // copy labels only if they are blank
-                if (CurrentRecord.VarName.Domain.ID == 0) CurrentRecord.VarName.Domain.ID = previousQ.VarName.Domain.ID;
-                if (CurrentRecord.VarName.Topic.ID == 0) CurrentRecord.VarName.Topic.ID = previousQ.VarName.Topic.ID;
-                // content label not copied -- if (CurrentRecord.VarName.Content.ID == 0) CurrentRecord.VarName.Content.ID = previousQ.VarName.Content.ID;
-                if (CurrentRecord.VarName.Product.ID == 0) CurrentRecord.VarName.Product.ID = previousQ.VarName.Product.ID;
+                if (CurrentRecord.VarName.Domain.ID == 0) CurrentRecord.VarName.Domain = previousQ.VarName.Domain;
+                if (CurrentRecord.VarName.Topic.ID == 0) CurrentRecord.VarName.Topic = previousQ.VarName.Topic;
+                // content label not copied -- if (CurrentRecord.VarName.Content.ID== 0) CurrentRecord.VarName.Content = previousQ.VarName.Content;
+                if (CurrentRecord.VarName.Product.ID == 0) CurrentRecord.VarName.Product = previousQ.VarName.Product;
 
                 bs.ResetCurrentItem();
             }
@@ -1525,10 +1525,16 @@ namespace SDIFrontEnd
             // if the dialog was closed with an 'OK' result
             if (frm.DialogResult == DialogResult.OK)
             {
-                // add the questions to the main list and the pending list
-                CurrentSurvey.AddQuestions(new BindingList<QuestionRecord>(frm.QuestionsToAdd), bs.Position + 1, true);
-                CurrentSurvey.QuestionsAdded = true;
-                PendingAdds.AddRange(frm.QuestionsToAdd);
+                foreach (QuestionRecord r in frm.QuestionsToAdd)
+                {
+                    if (CurrentSurvey.QuestionByVar(r.VarName.VarName) == null)
+                    {
+                        CurrentSurvey.AddQuestion(r, bs.Position + 1, true);
+                        CurrentSurvey.QuestionsAdded = true;
+                        PendingAdds.Add(r);
+
+                    }
+                }
                 
                 // refresh the list view
                 FillList();
@@ -1741,11 +1747,11 @@ namespace SDIFrontEnd
             }
 
             // delete unused varnames
-            foreach (SurveyQuestion deleted in deleteWins)
-            {
-                if (!deleted.VarName.VarName.Equals("DUMMY") && !DBAction.VarNameIsUsed(deleted.VarName.VarName))
-                    DBAction.DeleteVariable(deleted.VarName.VarName);
-            }
+            //foreach (SurveyQuestion deleted in deleteWins)
+            //{
+            //    if (!deleted.VarName.VarName.Equals("DUMMY") && !DBAction.VarNameIsUsed(deleted.VarName.VarName))
+            //        DBAction.DeleteVariable(deleted.VarName.VarName);
+            //}
 
             // display fails
             StringBuilder sb = new StringBuilder();

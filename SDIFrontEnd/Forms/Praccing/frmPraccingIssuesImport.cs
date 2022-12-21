@@ -67,6 +67,8 @@ namespace SDIFrontEnd
         {
             InitializeComponent();
 
+            this.MouseWheel += Form_OnMouseWheel;
+
             doubleResponseHeight = 488;
             singleResponseHeight = 244;
 
@@ -79,11 +81,11 @@ namespace SDIFrontEnd
             images = new List<StringPair>();
 
             // get list of people
-            personList = Globals.AllPeople;
+            personList = new List<PersonRecord>(Globals.AllPeople);
             // get list of categories
             categoryList = DBAction.GetPraccingCategories();
             // get list of surveys
-            surveyList = Globals.AllSurveys;
+            surveyList = new List<SurveyRecord>(Globals.AllSurveys);
 
             AppImageRepo = System.IO.Path.GetDirectoryName(Application.StartupPath);
 
@@ -248,9 +250,9 @@ namespace SDIFrontEnd
 
         private void cmdMoveIssue_Click(object sender, EventArgs e)
         {
-            int targetIssueNo = SelectIssue();
+            PraccingIssue targetIssueNo = SelectIssue();
 
-            if (targetIssueNo == 0)
+            if (targetIssueNo == null)
                 return;
 
             // move issue to target issue as a response
@@ -258,13 +260,16 @@ namespace SDIFrontEnd
             
         }
 
-        
+        private void cmdNewResponse_Click(object sender, EventArgs e)
+        {
+            bsNewResponses.AddNew();
+        }
 
         private void cmdMoveResponse_Click(object sender, EventArgs e)
         {
-            int targetIssueNo = SelectIssue();
+            PraccingIssue targetIssueNo = SelectIssue();
 
-            if (targetIssueNo == 0)
+            if (targetIssueNo == null)
                 return;
 
             // move issue to target issue as a response
@@ -314,8 +319,12 @@ namespace SDIFrontEnd
             var dataRepeater = (Microsoft.VisualBasic.PowerPacks.DataRepeater)checkBox.Parent.Parent;
             var datasource = (List<PraccingResponse>)((BindingSource)dataRepeater.DataSource).DataSource;
             PraccingResponse response = datasource[dataRepeaterItem.ItemIndex];
+
             if (checkBox.Checked)
             {
+                if (response.ID == -2)
+                    CurrentIssue.Responses.Add(response);
+
                 importResponses.Add(response);
                 checkBox.Text = "Saved";
                 if (!importIssues.Contains(CurrentIssue))
@@ -333,6 +342,13 @@ namespace SDIFrontEnd
             }
         }
 
+        protected void Form_OnMouseWheel(object sender, MouseEventArgs e)
+        {
+            if (e.Delta == -120)
+                bsIssues.MoveNext();
+            else if (e.Delta == 120)
+                bsIssues.MovePrevious();
+        }
         #endregion
 
         #region Loading Methods
@@ -850,7 +866,7 @@ namespace SDIFrontEnd
             {
                 MessageBox.Show("No new issues or responses found.");
                 return;
-            }
+            }           
 
             BindProperties();
             navIssues.BindingSource = bsIssues;
@@ -977,6 +993,12 @@ namespace SDIFrontEnd
             {
                 lbl.Visible = false;
             }
+
+            if (item.ID == 0) // this is added manually, so add it to the main issue's response list
+            {
+                item.ID = -1;
+                CurrentIssue.Responses.Add(item);
+            }
         }
 
         private void drNewResponses_ItemCloned(object sender, Microsoft.VisualBasic.PowerPacks.DataRepeaterItemEventArgs e)
@@ -1016,6 +1038,16 @@ namespace SDIFrontEnd
             source[dataRepeaterItem.ItemIndex].ResponseTo = (Person)combo.SelectedItem;
 
             
+        }
+
+        private void rtbNewResponse_Validated(object sender, EventArgs e)
+        {
+            var rtb = (RichTextBox)sender;
+            var dataRepeaterItem = (Microsoft.VisualBasic.PowerPacks.DataRepeaterItem)rtb.Parent;
+            var dataRepeater = (Microsoft.VisualBasic.PowerPacks.DataRepeater)rtb.Parent.Parent;
+
+            var source = (List<PraccingResponse>)((BindingSource)dataRepeater.DataSource).DataSource;
+            source[dataRepeaterItem.ItemIndex].Response = rtb.Text;
         }
 
         #endregion
@@ -1060,20 +1092,21 @@ namespace SDIFrontEnd
         /// </summary>
         /// <param name="issue">The original main issue to be moved.</param>
         /// <param name="newIssueNo">The Issue Number of the destination issue.</param>
-        private void MoveIssue(PraccingIssue issue, int newIssueNo)
+        private void MoveIssue(PraccingIssue issue, PraccingIssue newIssue)
         {
             PraccingResponse newResponse = new PraccingResponse();
 
-            PraccingIssue mainIssue = mainIssues.Where(x => x.IssueNo == newIssueNo).FirstOrDefault();
+            PraccingIssue mainIssue = mainIssues.Where(x => x.IssueNo == newIssue.IssueNo).FirstOrDefault();
 
             if (mainIssue == null)
             {
                 // get mainIssue from DB
-                mainIssue = DBAction.GetPraccingIssue(newIssueNo);
+                mainIssue = DBAction.GetPraccingIssue(newIssue.ID);
                 mainIssues.Add(mainIssue);
             }
 
             newResponse.IssueID = mainIssue.ID;
+            newResponse.ID = -1;
             newResponse.Response = issue.Description;
             newResponse.ResponseFrom = issue.IssueFrom;
             newResponse.ResponseTo = issue.IssueTo;
@@ -1084,7 +1117,9 @@ namespace SDIFrontEnd
 
             mainIssues.Remove(issue);
 
+            UnBindProperties();
             RefreshMainIssues();
+            BindProperties();
         }
 
         /// <summary>
@@ -1092,15 +1127,15 @@ namespace SDIFrontEnd
         /// </summary>
         /// <param name="response">Response to be reassigned.</param>
         /// <param name="newIssueNo">Issue Number of the new main issue.</param>
-        private void MoveResponse(PraccingResponse response, int newIssueNo)
+        private void MoveResponse(PraccingResponse response, PraccingIssue newIssue)
         {
             PraccingIssue parentIssue = mainIssues.Where(x => x.Responses.Contains(response)).FirstOrDefault();
-            PraccingIssue mainIssue = mainIssues.Where(x => x.IssueNo == newIssueNo).FirstOrDefault();
+            PraccingIssue mainIssue = mainIssues.Where(x => x.IssueNo == newIssue.ID).FirstOrDefault();
 
             if (mainIssue == null)
             {
                 // get mainIssue from DB
-                mainIssue = DBAction.GetPraccingIssue(newIssueNo);
+                mainIssue = DBAction.GetPraccingIssue(newIssue.ID);
                 mainIssues.Add(mainIssue);
             }
 
@@ -1227,6 +1262,7 @@ namespace SDIFrontEnd
 
             BindControl(dtpNewTime, "Value", bsNewResponses, "ResponseDate", true);
             BindControl(dtpNewDate, "Value", bsNewResponses, "ResponseDate", true);
+            //BindControl(rtbNewResponse, "Text", bsNewResponses, "Response");
            
         }
 
@@ -1343,7 +1379,7 @@ namespace SDIFrontEnd
         }
 
 
-        private int SelectIssue()
+        private PraccingIssue SelectIssue()
         {
             List<PraccingIssue> issueNumbers = DBAction.GetPraccingIssues(((Survey)cboSurvey.SelectedItem).SID);
 
@@ -1354,12 +1390,12 @@ namespace SDIFrontEnd
 
             if (frm.DialogResult == DialogResult.OK)
             {
-                return frm.SelectedIssueNo;
+                return frm.SelectedIssue;
             }
             else
             {
                 // user cancelled
-                return 0;
+                return null;
             }
         }
 

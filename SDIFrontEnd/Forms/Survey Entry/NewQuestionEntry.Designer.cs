@@ -78,6 +78,8 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.lblDestination = new System.Windows.Forms.Label();
+            this.cboVarName = new System.Windows.Forms.ComboBox();
+            this.label14 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRelatedVars)).BeginInit();
             this.panelNew.SuspendLayout();
             this.panelCopy.SuspendLayout();
@@ -147,6 +149,7 @@
             this.chNewRespName});
             this.lstToCopy.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstToCopy.FullRowSelect = true;
+            this.lstToCopy.HideSelection = false;
             this.lstToCopy.Location = new System.Drawing.Point(693, 89);
             this.lstToCopy.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.lstToCopy.Name = "lstToCopy";
@@ -189,6 +192,7 @@
             this.chCorr});
             this.lstQuestionSource.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstQuestionSource.FullRowSelect = true;
+            this.lstQuestionSource.HideSelection = false;
             this.lstQuestionSource.Location = new System.Drawing.Point(3, 89);
             this.lstQuestionSource.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.lstQuestionSource.Name = "lstQuestionSource";
@@ -254,42 +258,42 @@
             this.chRefVarname.HeaderText = "refVarName";
             this.chRefVarname.Name = "chRefVarname";
             this.chRefVarname.ReadOnly = true;
-            this.chRefVarname.Width = 102;
+            this.chRefVarname.Width = 101;
             // 
             // chRelatedVarLabel
             // 
             this.chRelatedVarLabel.HeaderText = "VarLabel";
             this.chRelatedVarLabel.Name = "chRelatedVarLabel";
             this.chRelatedVarLabel.ReadOnly = true;
-            this.chRelatedVarLabel.Width = 83;
+            this.chRelatedVarLabel.Width = 82;
             // 
             // chRelatedContent
             // 
             this.chRelatedContent.HeaderText = "Content";
             this.chRelatedContent.Name = "chRelatedContent";
             this.chRelatedContent.ReadOnly = true;
-            this.chRelatedContent.Width = 77;
+            this.chRelatedContent.Width = 76;
             // 
             // chRelatedTopic
             // 
             this.chRelatedTopic.HeaderText = "Topic";
             this.chRelatedTopic.Name = "chRelatedTopic";
             this.chRelatedTopic.ReadOnly = true;
-            this.chRelatedTopic.Width = 64;
+            this.chRelatedTopic.Width = 63;
             // 
             // chRelatedDomain
             // 
             this.chRelatedDomain.HeaderText = "Domain";
             this.chRelatedDomain.Name = "chRelatedDomain";
             this.chRelatedDomain.ReadOnly = true;
-            this.chRelatedDomain.Width = 76;
+            this.chRelatedDomain.Width = 75;
             // 
             // chRelatedProduct
             // 
             this.chRelatedProduct.HeaderText = "Product";
             this.chRelatedProduct.Name = "chRelatedProduct";
             this.chRelatedProduct.ReadOnly = true;
-            this.chRelatedProduct.Width = 76;
+            this.chRelatedProduct.Width = 75;
             // 
             // label1
             // 
@@ -297,7 +301,7 @@
             this.label1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(166, 33);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(124, 16);
+            this.label1.Size = new System.Drawing.Size(123, 16);
             this.label1.TabIndex = 1;
             this.label1.Text = "Enter New VarName";
             // 
@@ -317,7 +321,7 @@
             this.optCopy.Location = new System.Drawing.Point(60, 52);
             this.optCopy.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.optCopy.Name = "optCopy";
-            this.optCopy.Size = new System.Drawing.Size(171, 20);
+            this.optCopy.Size = new System.Drawing.Size(170, 20);
             this.optCopy.TabIndex = 15;
             this.optCopy.TabStop = true;
             this.optCopy.Text = "Copy Existing Question(s)";
@@ -331,7 +335,7 @@
             this.optNew.Location = new System.Drawing.Point(291, 52);
             this.optNew.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.optNew.Name = "optNew";
-            this.optNew.Size = new System.Drawing.Size(147, 20);
+            this.optNew.Size = new System.Drawing.Size(146, 20);
             this.optNew.TabIndex = 16;
             this.optNew.TabStop = true;
             this.optNew.Text = "Create New Question";
@@ -393,7 +397,7 @@
             this.label2.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(397, 33);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(137, 16);
+            this.label2.Size = new System.Drawing.Size(136, 16);
             this.label2.TabIndex = 8;
             this.label2.Text = "Choose or enter labels";
             // 
@@ -403,7 +407,7 @@
             this.label3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(304, 60);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(58, 16);
+            this.label3.Size = new System.Drawing.Size(57, 16);
             this.label3.TabIndex = 9;
             this.label3.Text = "VarLabel";
             // 
@@ -413,7 +417,7 @@
             this.label4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(311, 88);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(51, 16);
+            this.label4.Size = new System.Drawing.Size(50, 16);
             this.label4.TabIndex = 10;
             this.label4.Text = "Domain";
             // 
@@ -423,7 +427,7 @@
             this.label6.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(322, 118);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(39, 16);
+            this.label6.Size = new System.Drawing.Size(38, 16);
             this.label6.TabIndex = 11;
             this.label6.Text = "Topic";
             // 
@@ -433,7 +437,7 @@
             this.label7.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(310, 146);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(52, 16);
+            this.label7.Size = new System.Drawing.Size(51, 16);
             this.label7.TabIndex = 12;
             this.label7.Text = "Content";
             // 
@@ -443,7 +447,7 @@
             this.label8.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(310, 175);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(51, 16);
+            this.label8.Size = new System.Drawing.Size(50, 16);
             this.label8.TabIndex = 13;
             this.label8.Text = "Product";
             // 
@@ -480,7 +484,7 @@
             this.lblTempPrefix.AutoSize = true;
             this.lblTempPrefix.Location = new System.Drawing.Point(9, 7);
             this.lblTempPrefix.Name = "lblTempPrefix";
-            this.lblTempPrefix.Size = new System.Drawing.Size(209, 16);
+            this.lblTempPrefix.Size = new System.Drawing.Size(208, 16);
             this.lblTempPrefix.TabIndex = 17;
             this.lblTempPrefix.Text = "Temp Prefix for [Survey] is [Prefix]";
             // 
@@ -517,6 +521,8 @@
             // panelCopy
             // 
             this.panelCopy.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelCopy.Controls.Add(this.label14);
+            this.panelCopy.Controls.Add(this.cboVarName);
             this.panelCopy.Controls.Add(this.lblCopyToNewInfo);
             this.panelCopy.Controls.Add(this.label12);
             this.panelCopy.Controls.Add(this.cboSurveySource);
@@ -529,7 +535,7 @@
             this.panelCopy.Location = new System.Drawing.Point(14, 80);
             this.panelCopy.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panelCopy.Name = "panelCopy";
-            this.panelCopy.Size = new System.Drawing.Size(509, 131);
+            this.panelCopy.Size = new System.Drawing.Size(509, 428);
             this.panelCopy.TabIndex = 18;
             this.panelCopy.Visible = false;
             // 
@@ -538,7 +544,7 @@
             this.lblCopyToNewInfo.AutoSize = true;
             this.lblCopyToNewInfo.Location = new System.Drawing.Point(788, 63);
             this.lblCopyToNewInfo.Name = "lblCopyToNewInfo";
-            this.lblCopyToNewInfo.Size = new System.Drawing.Size(268, 16);
+            this.lblCopyToNewInfo.Size = new System.Drawing.Size(267, 16);
             this.lblCopyToNewInfo.TabIndex = 8;
             this.lblCopyToNewInfo.Text = "These VarNames will be added to the survey.";
             // 
@@ -548,7 +554,7 @@
             this.label12.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.Location = new System.Drawing.Point(49, 59);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(47, 16);
+            this.label12.Size = new System.Drawing.Size(46, 16);
             this.label12.TabIndex = 7;
             this.label12.Text = "Survey";
             // 
@@ -593,6 +599,24 @@
             this.lblDestination.Size = new System.Drawing.Size(294, 25);
             this.lblDestination.TabIndex = 19;
             this.lblDestination.Text = "Adding to [Survey] at [Qnum]";
+            // 
+            // cboVarName
+            // 
+            this.cboVarName.FormattingEnabled = true;
+            this.cboVarName.Location = new System.Drawing.Point(346, 56);
+            this.cboVarName.Name = "cboVarName";
+            this.cboVarName.Size = new System.Drawing.Size(121, 24);
+            this.cboVarName.TabIndex = 9;
+            this.cboVarName.SelectedIndexChanged += new System.EventHandler(this.cboVarName_SelectedIndexChanged);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(285, 60);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(55, 16);
+            this.label14.TabIndex = 10;
+            this.label14.Text = "Find Var";
             // 
             // NewQuestionEntry
             // 
@@ -675,5 +699,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn chRelatedTopic;
         private System.Windows.Forms.DataGridViewTextBoxColumn chRelatedDomain;
         private System.Windows.Forms.DataGridViewTextBoxColumn chRelatedProduct;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.ComboBox cboVarName;
     }
 }

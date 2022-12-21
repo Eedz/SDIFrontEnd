@@ -819,12 +819,6 @@ namespace SDIFrontEnd
                 return;
             }
             
-
-            foreach (PraccingIssue pi in IssuesList)
-            {
-                pi.Images = DBAction.GetPraccingImages(pi.ID);
-            }
-
             bsMainIssues.DataSource = IssuesList;
             
             RefreshCurrentIssue();
@@ -1033,6 +1027,8 @@ namespace SDIFrontEnd
         /// </summary>
         private void DeleteIssue()
         {
+            if (CurrentIssue == null)
+                return;
             if (MessageBox.Show("Are you sure you want to delete this praccing issue?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 DBAction.DeletePraccingIssue(CurrentIssue.ID);

@@ -45,8 +45,16 @@ namespace SDIFrontEnd
                 return;
 
             string type = (string)cboResponseType.SelectedItem;
-            List<string> criteria = txtCriteria.Lines.ToList();
 
+            List<string> criteria;
+            if (rbMatchExact.Checked)
+            {
+                criteria = new List<string>() { txtCriteria.Text };
+            }
+            else
+            {
+                criteria = txtCriteria.Lines.ToList();
+            }
             Search(type, criteria);
         }
 
@@ -85,16 +93,19 @@ namespace SDIFrontEnd
         #region Methods
         private void Search(string field, List<string> criteria)
         {
-            if (field.Equals("RespOptions"))
-                Records = DBAction.GetResponseSets(criteria);
+            bool exactMatch = rbMatchExact.Checked;
+
+            if (field.Equals("RespOptions")) 
+                Records = DBAction.GetResponseSets(criteria, exactMatch);
             else if (field.Equals("NonRespOptions"))
-                Records = DBAction.GetNonResponseSets(criteria);
+                Records = DBAction.GetNonResponseSets(criteria, exactMatch);
             else
                 return;
 
             if (Records.Count == 0)
             {
                 lblResultCount.Text = "No records found.";
+                repeaterResults.Visible = false;
                 return;
             }
 

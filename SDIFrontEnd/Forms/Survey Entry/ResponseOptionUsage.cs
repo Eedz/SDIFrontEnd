@@ -169,6 +169,7 @@ namespace SDIFrontEnd
             string plain = txtWordingR.Text;
             plain = Utilities.RemoveHighlightTags(plain);
             plain = Utilities.TrimString(plain, "<br>");
+            plain = plain.Replace("<br>", "\r\n");
             current.RespList = plain;
             Dirty = true;
             bs.ResetCurrentItem();

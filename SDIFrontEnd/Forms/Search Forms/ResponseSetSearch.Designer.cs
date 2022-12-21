@@ -41,9 +41,13 @@
             this.label2 = new System.Windows.Forms.Label();
             this.cboResponseType = new System.Windows.Forms.ComboBox();
             this.lblResultCount = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rbMatchAny = new System.Windows.Forms.RadioButton();
+            this.rbMatchExact = new System.Windows.Forms.RadioButton();
             this.menuStrip1.SuspendLayout();
             this.repeaterResults.ItemTemplate.SuspendLayout();
             this.repeaterResults.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -156,7 +160,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(15, 64);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 16);
+            this.label2.Size = new System.Drawing.Size(52, 16);
             this.label2.TabIndex = 5;
             this.label2.Text = "Search:";
             // 
@@ -176,10 +180,44 @@
             this.lblResultCount.AutoSize = true;
             this.lblResultCount.Location = new System.Drawing.Point(16, 215);
             this.lblResultCount.Name = "lblResultCount";
-            this.lblResultCount.Size = new System.Drawing.Size(86, 16);
+            this.lblResultCount.Size = new System.Drawing.Size(85, 16);
             this.lblResultCount.TabIndex = 7;
             this.lblResultCount.Text = "results found.";
             this.lblResultCount.Visible = false;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.rbMatchExact);
+            this.groupBox1.Controls.Add(this.rbMatchAny);
+            this.groupBox1.Location = new System.Drawing.Point(598, 91);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(87, 83);
+            this.groupBox1.TabIndex = 8;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Match";
+            // 
+            // rbMatchAny
+            // 
+            this.rbMatchAny.AutoSize = true;
+            this.rbMatchAny.Checked = true;
+            this.rbMatchAny.Location = new System.Drawing.Point(14, 22);
+            this.rbMatchAny.Name = "rbMatchAny";
+            this.rbMatchAny.Size = new System.Drawing.Size(46, 20);
+            this.rbMatchAny.TabIndex = 0;
+            this.rbMatchAny.TabStop = true;
+            this.rbMatchAny.Text = "Any";
+            this.rbMatchAny.UseVisualStyleBackColor = true;
+            // 
+            // rbMatchExact
+            // 
+            this.rbMatchExact.AutoSize = true;
+            this.rbMatchExact.Location = new System.Drawing.Point(15, 47);
+            this.rbMatchExact.Name = "rbMatchExact";
+            this.rbMatchExact.Size = new System.Drawing.Size(55, 20);
+            this.rbMatchExact.TabIndex = 1;
+            this.rbMatchExact.TabStop = true;
+            this.rbMatchExact.Text = "Exact";
+            this.rbMatchExact.UseVisualStyleBackColor = true;
             // 
             // ResponseSetSearch
             // 
@@ -187,6 +225,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.ClientSize = new System.Drawing.Size(730, 915);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lblResultCount);
             this.Controls.Add(this.cboResponseType);
             this.Controls.Add(this.label2);
@@ -206,6 +245,8 @@
             this.repeaterResults.ItemTemplate.ResumeLayout(false);
             this.repeaterResults.ItemTemplate.PerformLayout();
             this.repeaterResults.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -226,5 +267,8 @@
         private System.Windows.Forms.ComboBox cboResponseType;
         private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
         private System.Windows.Forms.Label lblResultCount;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RadioButton rbMatchExact;
+        private System.Windows.Forms.RadioButton rbMatchAny;
     }
 }

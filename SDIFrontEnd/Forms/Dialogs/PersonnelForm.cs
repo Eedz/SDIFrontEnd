@@ -95,7 +95,7 @@ namespace SDIFrontEnd
         {
             CurrentRecord = (PersonRecord)bs.Current;
 
-            if (CurrentRecord.ID == 0)
+            if (CurrentRecord.ID == 0 && !CurrentRecord.NewRecord)
                 Lock(true);
             else
                 Lock(false);
@@ -202,9 +202,6 @@ namespace SDIFrontEnd
         {
             bs.EndEdit();
 
-            if (CurrentRecord.ID == 0)
-                return 0;
-
             if (CurrentRecord.SaveRecord() == 1)
             {
                 MessageBox.Show("Error saving this record.");
@@ -270,6 +267,8 @@ namespace SDIFrontEnd
                 if (c is CheckBox) ((CheckBox)c).Enabled = !locked;
                 if (c is DataGridView) ((DataGridView)c).ReadOnly = locked;
             }
+
+            txtSearchCriteria.ReadOnly = false;
         }
 
         #endregion

@@ -74,9 +74,6 @@ namespace SDIFrontEnd
         public static void CreateUser()
         {
             CurrentUser = DBAction.GetUser(Environment.UserName);
-            CurrentUser.LastUsedComment = DBAction.GetLastUsedComments(CurrentUser.userid);
-            CurrentUser.SavedComments = DBAction.GetSavedComments(CurrentUser.userid);
-            CurrentUser.SavedSources = DBAction.GetSavedSources(CurrentUser.userid);
         }
 
         public static void CreateSurveys()

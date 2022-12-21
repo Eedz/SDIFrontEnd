@@ -48,6 +48,7 @@ namespace SDIFrontEnd
             catch
             {
                 MessageBox.Show("Error reading database.");
+                Application.Exit();
                 e.Cancel = true;
             }
 
