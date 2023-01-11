@@ -67,7 +67,7 @@ namespace SDIFrontEnd
         {
             InitializeComponent();
 
-            this.MouseWheel += Form_OnMouseWheel;
+            SetupMouseWheelEvents();
 
             doubleResponseHeight = 488;
             singleResponseHeight = 244;
@@ -102,6 +102,18 @@ namespace SDIFrontEnd
         }
 
         #region Form Setup
+
+        private void SetupMouseWheelEvents()
+        {
+            this.MouseWheel += Form_OnMouseWheel;
+            cboSurvey.MouseWheel += ComboBox_MouseWheel;
+            cboFrom.MouseWheel += ComboBox_MouseWheel;
+            cboTo.MouseWheel += ComboBox_MouseWheel;
+            cboCategory.MouseWheel+= ComboBox_MouseWheel;
+            cboResName.MouseWheel += ComboBox_MouseWheel;
+            cboNewFrom.MouseWheel += ComboBox_MouseWheel;
+            cboNewTo.MouseWheel += ComboBox_MouseWheel;
+        }
 
         private void FillBoxes()
         {
@@ -200,6 +212,14 @@ namespace SDIFrontEnd
 
             SurveyCode = ((Survey)cboSurvey.SelectedItem).SurveyCode;
 
+        }
+
+        private void ComboBox_MouseWheel(object sender, MouseEventArgs e)
+        {
+            ComboBox control = (ComboBox)sender;
+
+            if (!control.DroppedDown)
+                ((HandledMouseEventArgs)e).Handled = true;
         }
 
         private void cmdBrowse_Click(object sender, EventArgs e)

@@ -55,6 +55,7 @@
             this.lstWaves = new System.Windows.Forms.ListBox();
             this.lstStudies = new System.Windows.Forms.ListBox();
             this.tabOptions = new System.Windows.Forms.TabPage();
+            this.chkShowFieldwork = new System.Windows.Forms.CheckBox();
             this.chkSeparateLabels = new System.Windows.Forms.CheckBox();
             this.chkRecentWaves = new System.Windows.Forms.CheckBox();
             this.chkShowAllSurveys = new System.Windows.Forms.CheckBox();
@@ -77,7 +78,7 @@
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cmdSeparateDoc = new System.Windows.Forms.Button();
-            this.chkShowFieldwork = new System.Windows.Forms.CheckBox();
+            this.cmdLast5Years = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabVarNames.SuspendLayout();
             this.tabWaves.SuspendLayout();
@@ -297,6 +298,7 @@
             // 
             // tabSurveys
             // 
+            this.tabSurveys.Controls.Add(this.cmdLast5Years);
             this.tabSurveys.Controls.Add(this.label10);
             this.tabSurveys.Controls.Add(this.label9);
             this.tabSurveys.Controls.Add(this.label8);
@@ -389,6 +391,17 @@
             this.tabOptions.TabIndex = 3;
             this.tabOptions.Text = "Options";
             this.tabOptions.UseVisualStyleBackColor = true;
+            // 
+            // chkShowFieldwork
+            // 
+            this.chkShowFieldwork.AutoSize = true;
+            this.chkShowFieldwork.Enabled = false;
+            this.chkShowFieldwork.Location = new System.Drawing.Point(175, 125);
+            this.chkShowFieldwork.Name = "chkShowFieldwork";
+            this.chkShowFieldwork.Size = new System.Drawing.Size(153, 20);
+            this.chkShowFieldwork.TabIndex = 7;
+            this.chkShowFieldwork.Text = "Show Fieldwork Years";
+            this.chkShowFieldwork.UseVisualStyleBackColor = true;
             // 
             // chkSeparateLabels
             // 
@@ -626,16 +639,16 @@
             this.cmdSeparateDoc.UseVisualStyleBackColor = true;
             this.cmdSeparateDoc.Click += new System.EventHandler(this.cmdSeparateDoc_Click);
             // 
-            // chkShowFieldwork
+            // cmdLast5Years
             // 
-            this.chkShowFieldwork.AutoSize = true;
-            this.chkShowFieldwork.Enabled = false;
-            this.chkShowFieldwork.Location = new System.Drawing.Point(175, 125);
-            this.chkShowFieldwork.Name = "chkShowFieldwork";
-            this.chkShowFieldwork.Size = new System.Drawing.Size(153, 20);
-            this.chkShowFieldwork.TabIndex = 7;
-            this.chkShowFieldwork.Text = "Show Fieldwork Years";
-            this.chkShowFieldwork.UseVisualStyleBackColor = true;
+            this.cmdLast5Years.Font = new System.Drawing.Font("Tahoma", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdLast5Years.Location = new System.Drawing.Point(313, 51);
+            this.cmdLast5Years.Name = "cmdLast5Years";
+            this.cmdLast5Years.Size = new System.Drawing.Size(91, 26);
+            this.cmdLast5Years.TabIndex = 6;
+            this.cmdLast5Years.Text = "<5 Years Ago";
+            this.cmdLast5Years.UseVisualStyleBackColor = true;
+            this.cmdLast5Years.Click += new System.EventHandler(this.cmdLast5Years_Click);
             // 
             // HarmonyReportForm
             // 
@@ -729,5 +742,6 @@
         private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
         private System.Windows.Forms.Button cmdSeparateDoc;
         private System.Windows.Forms.CheckBox chkShowFieldwork;
+        private System.Windows.Forms.Button cmdLast5Years;
     }
 }

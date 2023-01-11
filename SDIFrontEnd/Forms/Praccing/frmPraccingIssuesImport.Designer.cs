@@ -41,32 +41,6 @@
             this.panelResults = new System.Windows.Forms.Panel();
             this.cboResName = new System.Windows.Forms.ComboBox();
             this.dtpResDate = new System.Windows.Forms.DateTimePicker();
-            this.panelNew = new System.Windows.Forms.Panel();
-            this.cmdNewResponse = new System.Windows.Forms.Button();
-            this.label18 = new System.Windows.Forms.Label();
-            this.drNewResponses = new Microsoft.VisualBasic.PowerPacks.DataRepeater();
-            this.label19 = new System.Windows.Forms.Label();
-            this.cmdMoveResponse = new System.Windows.Forms.Button();
-            this.rtbNewResponse = new System.Windows.Forms.RichTextBox();
-            this.lblResponseImages = new System.Windows.Forms.Label();
-            this.dtpNewDate = new System.Windows.Forms.DateTimePicker();
-            this.label15 = new System.Windows.Forms.Label();
-            this.cboNewFrom = new System.Windows.Forms.ComboBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.cboNewTo = new System.Windows.Forms.ComboBox();
-            this.chkKeepResponse = new System.Windows.Forms.CheckBox();
-            this.dtpNewTime = new System.Windows.Forms.DateTimePicker();
-            this.panelExisting = new System.Windows.Forms.Panel();
-            this.drExisting = new Microsoft.VisualBasic.PowerPacks.DataRepeater();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txtOldTo = new System.Windows.Forms.TextBox();
-            this.txtOldFrom = new System.Windows.Forms.TextBox();
-            this.rtbOldResponse = new System.Windows.Forms.RichTextBox();
-            this.dtpOldTime = new System.Windows.Forms.DateTimePicker();
-            this.dtpOldDate = new System.Windows.Forms.DateTimePicker();
-            this.label13 = new System.Windows.Forms.Label();
             this.cmdMoveIssue = new System.Windows.Forms.Button();
             this.lblIssueImages = new System.Windows.Forms.Label();
             this.rtbDescription = new System.Windows.Forms.RichTextBox();
@@ -94,6 +68,32 @@
             this.cboFrom = new System.Windows.Forms.ComboBox();
             this.txtVarNames = new System.Windows.Forms.TextBox();
             this.txtIssueNo = new System.Windows.Forms.TextBox();
+            this.panelNew = new System.Windows.Forms.Panel();
+            this.cmdNewResponse = new System.Windows.Forms.Button();
+            this.label18 = new System.Windows.Forms.Label();
+            this.drNewResponses = new Microsoft.VisualBasic.PowerPacks.DataRepeater();
+            this.label19 = new System.Windows.Forms.Label();
+            this.cmdMoveResponse = new System.Windows.Forms.Button();
+            this.rtbNewResponse = new System.Windows.Forms.RichTextBox();
+            this.lblResponseImages = new System.Windows.Forms.Label();
+            this.dtpNewDate = new System.Windows.Forms.DateTimePicker();
+            this.label15 = new System.Windows.Forms.Label();
+            this.cboNewFrom = new System.Windows.Forms.ComboBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.cboNewTo = new System.Windows.Forms.ComboBox();
+            this.chkKeepResponse = new System.Windows.Forms.CheckBox();
+            this.dtpNewTime = new System.Windows.Forms.DateTimePicker();
+            this.panelExisting = new System.Windows.Forms.Panel();
+            this.drExisting = new Microsoft.VisualBasic.PowerPacks.DataRepeater();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtOldTo = new System.Windows.Forms.TextBox();
+            this.txtOldFrom = new System.Windows.Forms.TextBox();
+            this.rtbOldResponse = new System.Windows.Forms.RichTextBox();
+            this.dtpOldTime = new System.Windows.Forms.DateTimePicker();
+            this.dtpOldDate = new System.Windows.Forms.DateTimePicker();
+            this.label13 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
@@ -106,14 +106,14 @@
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelResults.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.navIssues)).BeginInit();
+            this.navIssues.SuspendLayout();
             this.panelNew.SuspendLayout();
             this.drNewResponses.ItemTemplate.SuspendLayout();
             this.drNewResponses.SuspendLayout();
             this.panelExisting.SuspendLayout();
             this.drExisting.ItemTemplate.SuspendLayout();
             this.drExisting.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.navIssues)).BeginInit();
-            this.navIssues.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -150,7 +150,7 @@
             // txtPath
             // 
             this.txtPath.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPath.Location = new System.Drawing.Point(165, 95);
+            this.txtPath.Location = new System.Drawing.Point(165, 91);
             this.txtPath.Multiline = true;
             this.txtPath.Name = "txtPath";
             this.txtPath.Size = new System.Drawing.Size(290, 36);
@@ -160,7 +160,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(131, 94);
+            this.label6.Location = new System.Drawing.Point(131, 90);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(27, 16);
             this.label6.TabIndex = 14;
@@ -169,7 +169,7 @@
             // cmdBrowse
             // 
             this.cmdBrowse.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdBrowse.Location = new System.Drawing.Point(461, 94);
+            this.cmdBrowse.Location = new System.Drawing.Point(461, 90);
             this.cmdBrowse.Name = "cmdBrowse";
             this.cmdBrowse.Size = new System.Drawing.Size(75, 36);
             this.cmdBrowse.TabIndex = 15;
@@ -180,7 +180,7 @@
             // cmdLoad
             // 
             this.cmdLoad.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdLoad.Location = new System.Drawing.Point(542, 94);
+            this.cmdLoad.Location = new System.Drawing.Point(542, 90);
             this.cmdLoad.Name = "cmdLoad";
             this.cmdLoad.Size = new System.Drawing.Size(75, 36);
             this.cmdLoad.TabIndex = 16;
@@ -192,7 +192,7 @@
             // cmdImport
             // 
             this.cmdImport.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdImport.Location = new System.Drawing.Point(623, 94);
+            this.cmdImport.Location = new System.Drawing.Point(623, 90);
             this.cmdImport.Name = "cmdImport";
             this.cmdImport.Size = new System.Drawing.Size(75, 36);
             this.cmdImport.TabIndex = 17;
@@ -203,13 +203,12 @@
             // 
             // panelResults
             // 
-            this.panelResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelResults.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.panelResults.AutoScroll = true;
+            this.panelResults.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelResults.Controls.Add(this.cboResName);
             this.panelResults.Controls.Add(this.dtpResDate);
-            this.panelResults.Controls.Add(this.panelNew);
-            this.panelResults.Controls.Add(this.panelExisting);
             this.panelResults.Controls.Add(this.cmdMoveIssue);
             this.panelResults.Controls.Add(this.lblIssueImages);
             this.panelResults.Controls.Add(this.rtbDescription);
@@ -228,9 +227,11 @@
             this.panelResults.Controls.Add(this.cboFrom);
             this.panelResults.Controls.Add(this.txtVarNames);
             this.panelResults.Controls.Add(this.txtIssueNo);
-            this.panelResults.Location = new System.Drawing.Point(12, 136);
+            this.panelResults.Controls.Add(this.panelNew);
+            this.panelResults.Controls.Add(this.panelExisting);
+            this.panelResults.Location = new System.Drawing.Point(12, 130);
             this.panelResults.Name = "panelResults";
-            this.panelResults.Size = new System.Drawing.Size(939, 792);
+            this.panelResults.Size = new System.Drawing.Size(962, 673);
             this.panelResults.TabIndex = 18;
             this.panelResults.Visible = false;
             // 
@@ -251,298 +252,6 @@
             this.dtpResDate.Name = "dtpResDate";
             this.dtpResDate.Size = new System.Drawing.Size(85, 20);
             this.dtpResDate.TabIndex = 21;
-            // 
-            // panelNew
-            // 
-            this.panelNew.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelNew.Controls.Add(this.cmdNewResponse);
-            this.panelNew.Controls.Add(this.label18);
-            this.panelNew.Controls.Add(this.drNewResponses);
-            this.panelNew.Location = new System.Drawing.Point(11, 395);
-            this.panelNew.Name = "panelNew";
-            this.panelNew.Size = new System.Drawing.Size(919, 369);
-            this.panelNew.TabIndex = 24;
-            // 
-            // cmdNewResponse
-            // 
-            this.cmdNewResponse.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdNewResponse.Location = new System.Drawing.Point(818, 2);
-            this.cmdNewResponse.Name = "cmdNewResponse";
-            this.cmdNewResponse.Size = new System.Drawing.Size(72, 19);
-            this.cmdNewResponse.TabIndex = 26;
-            this.cmdNewResponse.Text = "+";
-            this.cmdNewResponse.UseCompatibleTextRendering = true;
-            this.cmdNewResponse.UseVisualStyleBackColor = true;
-            this.cmdNewResponse.Click += new System.EventHandler(this.cmdNewResponse_Click);
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(6, 5);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(108, 16);
-            this.label18.TabIndex = 25;
-            this.label18.Text = "New Responses";
-            // 
-            // drNewResponses
-            // 
-            // 
-            // drNewResponses.ItemTemplate
-            // 
-            this.drNewResponses.ItemTemplate.Controls.Add(this.label19);
-            this.drNewResponses.ItemTemplate.Controls.Add(this.cmdMoveResponse);
-            this.drNewResponses.ItemTemplate.Controls.Add(this.rtbNewResponse);
-            this.drNewResponses.ItemTemplate.Controls.Add(this.lblResponseImages);
-            this.drNewResponses.ItemTemplate.Controls.Add(this.dtpNewDate);
-            this.drNewResponses.ItemTemplate.Controls.Add(this.label15);
-            this.drNewResponses.ItemTemplate.Controls.Add(this.cboNewFrom);
-            this.drNewResponses.ItemTemplate.Controls.Add(this.label14);
-            this.drNewResponses.ItemTemplate.Controls.Add(this.cboNewTo);
-            this.drNewResponses.ItemTemplate.Controls.Add(this.chkKeepResponse);
-            this.drNewResponses.ItemTemplate.Controls.Add(this.dtpNewTime);
-            this.drNewResponses.ItemTemplate.Size = new System.Drawing.Size(879, 96);
-            this.drNewResponses.Location = new System.Drawing.Point(10, 24);
-            this.drNewResponses.Name = "drNewResponses";
-            this.drNewResponses.Size = new System.Drawing.Size(887, 340);
-            this.drNewResponses.TabIndex = 0;
-            this.drNewResponses.Text = "dataRepeater1";
-            this.drNewResponses.ItemCloned += new Microsoft.VisualBasic.PowerPacks.DataRepeaterItemEventHandler(this.drNewResponses_ItemCloned);
-            this.drNewResponses.DrawItem += new Microsoft.VisualBasic.PowerPacks.DataRepeaterItemEventHandler(this.drNewResponses_DrawItem);
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(3, 9);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(33, 16);
-            this.label19.TabIndex = 26;
-            this.label19.Text = "Date";
-            // 
-            // cmdMoveResponse
-            // 
-            this.cmdMoveResponse.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.cmdMoveResponse.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdMoveResponse.Location = new System.Drawing.Point(789, 31);
-            this.cmdMoveResponse.Name = "cmdMoveResponse";
-            this.cmdMoveResponse.Size = new System.Drawing.Size(72, 23);
-            this.cmdMoveResponse.TabIndex = 25;
-            this.cmdMoveResponse.Text = "Move";
-            this.cmdMoveResponse.UseVisualStyleBackColor = false;
-            this.cmdMoveResponse.Click += new System.EventHandler(this.cmdMoveResponse_Click);
-            // 
-            // rtbNewResponse
-            // 
-            this.rtbNewResponse.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbNewResponse.Location = new System.Drawing.Point(237, 3);
-            this.rtbNewResponse.Name = "rtbNewResponse";
-            this.rtbNewResponse.Size = new System.Drawing.Size(546, 82);
-            this.rtbNewResponse.TabIndex = 21;
-            this.rtbNewResponse.Text = "";
-            this.rtbNewResponse.Validated += new System.EventHandler(this.rtbNewResponse_Validated);
-            // 
-            // lblResponseImages
-            // 
-            this.lblResponseImages.AutoSize = true;
-            this.lblResponseImages.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblResponseImages.ForeColor = System.Drawing.Color.Red;
-            this.lblResponseImages.Location = new System.Drawing.Point(13, 72);
-            this.lblResponseImages.Name = "lblResponseImages";
-            this.lblResponseImages.Size = new System.Drawing.Size(189, 16);
-            this.lblResponseImages.TabIndex = 24;
-            this.lblResponseImages.Text = "Images found for this response.";
-            // 
-            // dtpNewDate
-            // 
-            this.dtpNewDate.CustomFormat = "dd-MMM-yyyy";
-            this.dtpNewDate.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpNewDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpNewDate.Location = new System.Drawing.Point(39, 3);
-            this.dtpNewDate.Name = "dtpNewDate";
-            this.dtpNewDate.Size = new System.Drawing.Size(95, 23);
-            this.dtpNewDate.TabIndex = 4;
-            this.dtpNewDate.Value = new System.DateTime(2021, 6, 24, 14, 21, 43, 0);
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(13, 51);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(22, 16);
-            this.label15.TabIndex = 23;
-            this.label15.Text = "To";
-            // 
-            // cboNewFrom
-            // 
-            this.cboNewFrom.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboNewFrom.FormattingEnabled = true;
-            this.cboNewFrom.Location = new System.Drawing.Point(39, 26);
-            this.cboNewFrom.Name = "cboNewFrom";
-            this.cboNewFrom.Size = new System.Drawing.Size(194, 24);
-            this.cboNewFrom.TabIndex = 5;
-            this.cboNewFrom.SelectedIndexChanged += new System.EventHandler(this.cboNewFrom_SelectedIndexChanged);
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(3, 29);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(37, 16);
-            this.label14.TabIndex = 22;
-            this.label14.Text = "From";
-            // 
-            // cboNewTo
-            // 
-            this.cboNewTo.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboNewTo.FormattingEnabled = true;
-            this.cboNewTo.Location = new System.Drawing.Point(39, 48);
-            this.cboNewTo.Name = "cboNewTo";
-            this.cboNewTo.Size = new System.Drawing.Size(194, 24);
-            this.cboNewTo.TabIndex = 6;
-            this.cboNewTo.SelectedIndexChanged += new System.EventHandler(this.cboNewTo_SelectedIndexChanged);
-            // 
-            // chkKeepResponse
-            // 
-            this.chkKeepResponse.Appearance = System.Windows.Forms.Appearance.Button;
-            this.chkKeepResponse.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.chkKeepResponse.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkKeepResponse.Location = new System.Drawing.Point(789, 4);
-            this.chkKeepResponse.Name = "chkKeepResponse";
-            this.chkKeepResponse.Size = new System.Drawing.Size(72, 23);
-            this.chkKeepResponse.TabIndex = 8;
-            this.chkKeepResponse.Text = "Keep?";
-            this.chkKeepResponse.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.chkKeepResponse.UseVisualStyleBackColor = false;
-            this.chkKeepResponse.Click += new System.EventHandler(this.chkKeepResponse_Click);
-            // 
-            // dtpNewTime
-            // 
-            this.dtpNewTime.CustomFormat = "HH:mm:ss tt";
-            this.dtpNewTime.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpNewTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpNewTime.Location = new System.Drawing.Point(140, 3);
-            this.dtpNewTime.Name = "dtpNewTime";
-            this.dtpNewTime.Size = new System.Drawing.Size(93, 23);
-            this.dtpNewTime.TabIndex = 20;
-            // 
-            // panelExisting
-            // 
-            this.panelExisting.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelExisting.Controls.Add(this.drExisting);
-            this.panelExisting.Controls.Add(this.label13);
-            this.panelExisting.Location = new System.Drawing.Point(11, 145);
-            this.panelExisting.Name = "panelExisting";
-            this.panelExisting.Size = new System.Drawing.Size(919, 244);
-            this.panelExisting.TabIndex = 23;
-            // 
-            // drExisting
-            // 
-            // 
-            // drExisting.ItemTemplate
-            // 
-            this.drExisting.ItemTemplate.Controls.Add(this.label4);
-            this.drExisting.ItemTemplate.Controls.Add(this.label12);
-            this.drExisting.ItemTemplate.Controls.Add(this.label5);
-            this.drExisting.ItemTemplate.Controls.Add(this.txtOldTo);
-            this.drExisting.ItemTemplate.Controls.Add(this.txtOldFrom);
-            this.drExisting.ItemTemplate.Controls.Add(this.rtbOldResponse);
-            this.drExisting.ItemTemplate.Controls.Add(this.dtpOldTime);
-            this.drExisting.ItemTemplate.Controls.Add(this.dtpOldDate);
-            this.drExisting.ItemTemplate.Size = new System.Drawing.Size(892, 81);
-            this.drExisting.Location = new System.Drawing.Point(10, 23);
-            this.drExisting.Name = "drExisting";
-            this.drExisting.Size = new System.Drawing.Size(900, 216);
-            this.drExisting.TabIndex = 22;
-            this.drExisting.Text = "dataRepeater1";
-            this.drExisting.DrawItem += new Microsoft.VisualBasic.PowerPacks.DataRepeaterItemEventHandler(this.drExisting_DrawItem);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(13, 51);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(22, 16);
-            this.label4.TabIndex = 30;
-            this.label4.Text = "To";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(2, 10);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(33, 16);
-            this.label12.TabIndex = 31;
-            this.label12.Text = "Date";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(2, 29);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(37, 16);
-            this.label5.TabIndex = 29;
-            this.label5.Text = "From";
-            // 
-            // txtOldTo
-            // 
-            this.txtOldTo.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtOldTo.Location = new System.Drawing.Point(41, 48);
-            this.txtOldTo.Name = "txtOldTo";
-            this.txtOldTo.Size = new System.Drawing.Size(198, 23);
-            this.txtOldTo.TabIndex = 30;
-            // 
-            // txtOldFrom
-            // 
-            this.txtOldFrom.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtOldFrom.Location = new System.Drawing.Point(41, 26);
-            this.txtOldFrom.Name = "txtOldFrom";
-            this.txtOldFrom.Size = new System.Drawing.Size(198, 23);
-            this.txtOldFrom.TabIndex = 29;
-            // 
-            // rtbOldResponse
-            // 
-            this.rtbOldResponse.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbOldResponse.Location = new System.Drawing.Point(245, 4);
-            this.rtbOldResponse.Name = "rtbOldResponse";
-            this.rtbOldResponse.Size = new System.Drawing.Size(629, 73);
-            this.rtbOldResponse.TabIndex = 28;
-            this.rtbOldResponse.Text = "";
-            // 
-            // dtpOldTime
-            // 
-            this.dtpOldTime.CustomFormat = "HH:mm:ss tt";
-            this.dtpOldTime.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpOldTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpOldTime.Location = new System.Drawing.Point(146, 3);
-            this.dtpOldTime.Name = "dtpOldTime";
-            this.dtpOldTime.Size = new System.Drawing.Size(93, 23);
-            this.dtpOldTime.TabIndex = 27;
-            // 
-            // dtpOldDate
-            // 
-            this.dtpOldDate.CustomFormat = "dd-MMM-yyyy";
-            this.dtpOldDate.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpOldDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpOldDate.Location = new System.Drawing.Point(41, 3);
-            this.dtpOldDate.Name = "dtpOldDate";
-            this.dtpOldDate.Size = new System.Drawing.Size(99, 23);
-            this.dtpOldDate.TabIndex = 24;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(6, 4);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(130, 16);
-            this.label13.TabIndex = 19;
-            this.label13.Text = "Existing Responses";
             // 
             // cmdMoveIssue
             // 
@@ -591,14 +300,14 @@
             this.bindingNavigatorMoveNextItem,
             this.bindingNavigatorMoveLastItem,
             this.bindingNavigatorSeparator2});
-            this.navIssues.Location = new System.Drawing.Point(0, 767);
+            this.navIssues.Location = new System.Drawing.Point(0, 646);
             this.navIssues.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.navIssues.MoveLastItem = this.bindingNavigatorMoveLastItem;
             this.navIssues.MoveNextItem = this.bindingNavigatorMoveNextItem;
             this.navIssues.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.navIssues.Name = "navIssues";
             this.navIssues.PositionItem = this.bindingNavigatorPositionItem;
-            this.navIssues.Size = new System.Drawing.Size(939, 25);
+            this.navIssues.Size = new System.Drawing.Size(960, 25);
             this.navIssues.TabIndex = 18;
             this.navIssues.Text = "bindingNavigator1";
             // 
@@ -806,6 +515,302 @@
             this.txtIssueNo.Size = new System.Drawing.Size(121, 23);
             this.txtIssueNo.TabIndex = 0;
             // 
+            // panelNew
+            // 
+            this.panelNew.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.panelNew.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelNew.Controls.Add(this.cmdNewResponse);
+            this.panelNew.Controls.Add(this.label18);
+            this.panelNew.Controls.Add(this.drNewResponses);
+            this.panelNew.Location = new System.Drawing.Point(11, 395);
+            this.panelNew.Name = "panelNew";
+            this.panelNew.Size = new System.Drawing.Size(919, 244);
+            this.panelNew.TabIndex = 24;
+            // 
+            // cmdNewResponse
+            // 
+            this.cmdNewResponse.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdNewResponse.Location = new System.Drawing.Point(818, 2);
+            this.cmdNewResponse.Name = "cmdNewResponse";
+            this.cmdNewResponse.Size = new System.Drawing.Size(72, 19);
+            this.cmdNewResponse.TabIndex = 26;
+            this.cmdNewResponse.Text = "+";
+            this.cmdNewResponse.UseCompatibleTextRendering = true;
+            this.cmdNewResponse.UseVisualStyleBackColor = true;
+            this.cmdNewResponse.Click += new System.EventHandler(this.cmdNewResponse_Click);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(6, 5);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(108, 16);
+            this.label18.TabIndex = 25;
+            this.label18.Text = "New Responses";
+            // 
+            // drNewResponses
+            // 
+            // 
+            // drNewResponses.ItemTemplate
+            // 
+            this.drNewResponses.ItemTemplate.Controls.Add(this.label19);
+            this.drNewResponses.ItemTemplate.Controls.Add(this.cmdMoveResponse);
+            this.drNewResponses.ItemTemplate.Controls.Add(this.rtbNewResponse);
+            this.drNewResponses.ItemTemplate.Controls.Add(this.lblResponseImages);
+            this.drNewResponses.ItemTemplate.Controls.Add(this.dtpNewDate);
+            this.drNewResponses.ItemTemplate.Controls.Add(this.label15);
+            this.drNewResponses.ItemTemplate.Controls.Add(this.cboNewFrom);
+            this.drNewResponses.ItemTemplate.Controls.Add(this.label14);
+            this.drNewResponses.ItemTemplate.Controls.Add(this.cboNewTo);
+            this.drNewResponses.ItemTemplate.Controls.Add(this.chkKeepResponse);
+            this.drNewResponses.ItemTemplate.Controls.Add(this.dtpNewTime);
+            this.drNewResponses.ItemTemplate.Size = new System.Drawing.Size(892, 96);
+            this.drNewResponses.Location = new System.Drawing.Point(10, 24);
+            this.drNewResponses.Name = "drNewResponses";
+            this.drNewResponses.Size = new System.Drawing.Size(900, 216);
+            this.drNewResponses.TabIndex = 0;
+            this.drNewResponses.Text = "dataRepeater1";
+            this.drNewResponses.ItemCloned += new Microsoft.VisualBasic.PowerPacks.DataRepeaterItemEventHandler(this.drNewResponses_ItemCloned);
+            this.drNewResponses.DrawItem += new Microsoft.VisualBasic.PowerPacks.DataRepeaterItemEventHandler(this.drNewResponses_DrawItem);
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(3, 9);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(33, 16);
+            this.label19.TabIndex = 26;
+            this.label19.Text = "Date";
+            // 
+            // cmdMoveResponse
+            // 
+            this.cmdMoveResponse.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.cmdMoveResponse.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdMoveResponse.Location = new System.Drawing.Point(789, 31);
+            this.cmdMoveResponse.Name = "cmdMoveResponse";
+            this.cmdMoveResponse.Size = new System.Drawing.Size(72, 23);
+            this.cmdMoveResponse.TabIndex = 25;
+            this.cmdMoveResponse.Text = "Move";
+            this.cmdMoveResponse.UseVisualStyleBackColor = false;
+            this.cmdMoveResponse.Click += new System.EventHandler(this.cmdMoveResponse_Click);
+            // 
+            // rtbNewResponse
+            // 
+            this.rtbNewResponse.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbNewResponse.Location = new System.Drawing.Point(237, 3);
+            this.rtbNewResponse.Name = "rtbNewResponse";
+            this.rtbNewResponse.Size = new System.Drawing.Size(546, 82);
+            this.rtbNewResponse.TabIndex = 21;
+            this.rtbNewResponse.Text = "";
+            this.rtbNewResponse.Validated += new System.EventHandler(this.rtbNewResponse_Validated);
+            // 
+            // lblResponseImages
+            // 
+            this.lblResponseImages.AutoSize = true;
+            this.lblResponseImages.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblResponseImages.ForeColor = System.Drawing.Color.Red;
+            this.lblResponseImages.Location = new System.Drawing.Point(13, 72);
+            this.lblResponseImages.Name = "lblResponseImages";
+            this.lblResponseImages.Size = new System.Drawing.Size(189, 16);
+            this.lblResponseImages.TabIndex = 24;
+            this.lblResponseImages.Text = "Images found for this response.";
+            // 
+            // dtpNewDate
+            // 
+            this.dtpNewDate.CustomFormat = "dd-MMM-yyyy";
+            this.dtpNewDate.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpNewDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpNewDate.Location = new System.Drawing.Point(39, 3);
+            this.dtpNewDate.Name = "dtpNewDate";
+            this.dtpNewDate.Size = new System.Drawing.Size(95, 23);
+            this.dtpNewDate.TabIndex = 4;
+            this.dtpNewDate.Value = new System.DateTime(2021, 6, 24, 14, 21, 43, 0);
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(13, 51);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(22, 16);
+            this.label15.TabIndex = 23;
+            this.label15.Text = "To";
+            // 
+            // cboNewFrom
+            // 
+            this.cboNewFrom.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboNewFrom.FormattingEnabled = true;
+            this.cboNewFrom.Location = new System.Drawing.Point(39, 26);
+            this.cboNewFrom.Name = "cboNewFrom";
+            this.cboNewFrom.Size = new System.Drawing.Size(194, 24);
+            this.cboNewFrom.TabIndex = 5;
+            this.cboNewFrom.SelectedIndexChanged += new System.EventHandler(this.cboNewFrom_SelectedIndexChanged);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(3, 29);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(37, 16);
+            this.label14.TabIndex = 22;
+            this.label14.Text = "From";
+            // 
+            // cboNewTo
+            // 
+            this.cboNewTo.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboNewTo.FormattingEnabled = true;
+            this.cboNewTo.Location = new System.Drawing.Point(39, 48);
+            this.cboNewTo.Name = "cboNewTo";
+            this.cboNewTo.Size = new System.Drawing.Size(194, 24);
+            this.cboNewTo.TabIndex = 6;
+            this.cboNewTo.SelectedIndexChanged += new System.EventHandler(this.cboNewTo_SelectedIndexChanged);
+            // 
+            // chkKeepResponse
+            // 
+            this.chkKeepResponse.Appearance = System.Windows.Forms.Appearance.Button;
+            this.chkKeepResponse.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.chkKeepResponse.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkKeepResponse.Location = new System.Drawing.Point(789, 4);
+            this.chkKeepResponse.Name = "chkKeepResponse";
+            this.chkKeepResponse.Size = new System.Drawing.Size(72, 23);
+            this.chkKeepResponse.TabIndex = 8;
+            this.chkKeepResponse.Text = "Keep?";
+            this.chkKeepResponse.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.chkKeepResponse.UseVisualStyleBackColor = false;
+            this.chkKeepResponse.Click += new System.EventHandler(this.chkKeepResponse_Click);
+            // 
+            // dtpNewTime
+            // 
+            this.dtpNewTime.CustomFormat = "HH:mm:ss tt";
+            this.dtpNewTime.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpNewTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpNewTime.Location = new System.Drawing.Point(140, 3);
+            this.dtpNewTime.Name = "dtpNewTime";
+            this.dtpNewTime.Size = new System.Drawing.Size(93, 23);
+            this.dtpNewTime.TabIndex = 20;
+            // 
+            // panelExisting
+            // 
+            this.panelExisting.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.panelExisting.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelExisting.Controls.Add(this.drExisting);
+            this.panelExisting.Controls.Add(this.label13);
+            this.panelExisting.Location = new System.Drawing.Point(11, 145);
+            this.panelExisting.Name = "panelExisting";
+            this.panelExisting.Size = new System.Drawing.Size(919, 244);
+            this.panelExisting.TabIndex = 23;
+            // 
+            // drExisting
+            // 
+            // 
+            // drExisting.ItemTemplate
+            // 
+            this.drExisting.ItemTemplate.Controls.Add(this.label4);
+            this.drExisting.ItemTemplate.Controls.Add(this.label12);
+            this.drExisting.ItemTemplate.Controls.Add(this.label5);
+            this.drExisting.ItemTemplate.Controls.Add(this.txtOldTo);
+            this.drExisting.ItemTemplate.Controls.Add(this.txtOldFrom);
+            this.drExisting.ItemTemplate.Controls.Add(this.rtbOldResponse);
+            this.drExisting.ItemTemplate.Controls.Add(this.dtpOldTime);
+            this.drExisting.ItemTemplate.Controls.Add(this.dtpOldDate);
+            this.drExisting.ItemTemplate.Size = new System.Drawing.Size(892, 81);
+            this.drExisting.Location = new System.Drawing.Point(10, 23);
+            this.drExisting.Name = "drExisting";
+            this.drExisting.Size = new System.Drawing.Size(900, 216);
+            this.drExisting.TabIndex = 22;
+            this.drExisting.Text = "dataRepeater1";
+            this.drExisting.DrawItem += new Microsoft.VisualBasic.PowerPacks.DataRepeaterItemEventHandler(this.drExisting_DrawItem);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(13, 51);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(22, 16);
+            this.label4.TabIndex = 30;
+            this.label4.Text = "To";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(2, 10);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(33, 16);
+            this.label12.TabIndex = 31;
+            this.label12.Text = "Date";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(2, 29);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(37, 16);
+            this.label5.TabIndex = 29;
+            this.label5.Text = "From";
+            // 
+            // txtOldTo
+            // 
+            this.txtOldTo.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtOldTo.Location = new System.Drawing.Point(41, 48);
+            this.txtOldTo.Name = "txtOldTo";
+            this.txtOldTo.Size = new System.Drawing.Size(198, 23);
+            this.txtOldTo.TabIndex = 30;
+            // 
+            // txtOldFrom
+            // 
+            this.txtOldFrom.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtOldFrom.Location = new System.Drawing.Point(41, 26);
+            this.txtOldFrom.Name = "txtOldFrom";
+            this.txtOldFrom.Size = new System.Drawing.Size(198, 23);
+            this.txtOldFrom.TabIndex = 29;
+            // 
+            // rtbOldResponse
+            // 
+            this.rtbOldResponse.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbOldResponse.Location = new System.Drawing.Point(245, 4);
+            this.rtbOldResponse.Name = "rtbOldResponse";
+            this.rtbOldResponse.Size = new System.Drawing.Size(629, 73);
+            this.rtbOldResponse.TabIndex = 28;
+            this.rtbOldResponse.Text = "";
+            // 
+            // dtpOldTime
+            // 
+            this.dtpOldTime.CustomFormat = "HH:mm:ss tt";
+            this.dtpOldTime.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpOldTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpOldTime.Location = new System.Drawing.Point(146, 3);
+            this.dtpOldTime.Name = "dtpOldTime";
+            this.dtpOldTime.Size = new System.Drawing.Size(93, 23);
+            this.dtpOldTime.TabIndex = 27;
+            // 
+            // dtpOldDate
+            // 
+            this.dtpOldDate.CustomFormat = "dd-MMM-yyyy";
+            this.dtpOldDate.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpOldDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpOldDate.Location = new System.Drawing.Point(41, 3);
+            this.dtpOldDate.Name = "dtpOldDate";
+            this.dtpOldDate.Size = new System.Drawing.Size(99, 23);
+            this.dtpOldDate.TabIndex = 24;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(6, 4);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(130, 16);
+            this.label13.TabIndex = 19;
+            this.label13.Text = "Existing Responses";
+            // 
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(301, 23);
@@ -907,8 +912,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(222)))), ((int)(((byte)(116)))));
-            this.ClientSize = new System.Drawing.Size(986, 940);
+            this.ClientSize = new System.Drawing.Size(986, 811);
             this.Controls.Add(this.panelResults);
             this.Controls.Add(this.cmdImport);
             this.Controls.Add(this.cmdLoad);
@@ -925,6 +931,9 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.panelResults.ResumeLayout(false);
             this.panelResults.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.navIssues)).EndInit();
+            this.navIssues.ResumeLayout(false);
+            this.navIssues.PerformLayout();
             this.panelNew.ResumeLayout(false);
             this.panelNew.PerformLayout();
             this.drNewResponses.ItemTemplate.ResumeLayout(false);
@@ -935,9 +944,6 @@
             this.drExisting.ItemTemplate.ResumeLayout(false);
             this.drExisting.ItemTemplate.PerformLayout();
             this.drExisting.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.navIssues)).EndInit();
-            this.navIssues.ResumeLayout(false);
-            this.navIssues.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);

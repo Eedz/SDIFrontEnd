@@ -336,7 +336,9 @@ namespace SDIFrontEnd
             List<string> surveysFilter = new List<string>();
             
             if (chkShowAllSurveys.Checked || (lstStudies.GetSelected(0) && lstWaves.GetSelected(0) && lstSurveys.GetSelected(0)))
-            { }
+            { 
+
+            }
             else
             {
                 if (lstSurveys.GetSelected(0))
@@ -680,8 +682,23 @@ namespace SDIFrontEnd
             //FormManager.Add(frm);
         }
 
+
         #endregion
 
-        
+       
+
+        private void cmdLast5Years_Click(object sender, EventArgs e)
+        {
+            for(int i = 1; i < lstWaves.Items.Count;i++)
+            {
+                StudyWave  wave= Globals.AllWaves.Where(x => x.WaveCode.Equals((string)lstWaves.Items[i])).FirstOrDefault();
+                if (wave == null)
+                    continue;
+                int year = wave.GetFieldworkStart();
+                if (year == 0 || (DateTime.Today.Year - year) <= 5)
+                    lstWaves.SetSelected(i, true);
+                    
+            }
+        }
     }
 }

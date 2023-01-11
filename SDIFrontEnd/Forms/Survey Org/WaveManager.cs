@@ -237,6 +237,14 @@ namespace SDIFrontEnd
             dgvSurveys.DataMember = "Surveys";
 
             chSurveyCode.DataPropertyName = "SurveyCode";
+
+            dgvFieldwork.AutoGenerateColumns = false;
+            dgvFieldwork.DataSource = bs;
+            dgvFieldwork.DataMember = "FieldworkDates";
+
+            chCountry.DataPropertyName = "CountryName";
+            chFWStart.DataPropertyName = "Start";
+            chFWEnd.DataPropertyName = "End";
         }
 
         
