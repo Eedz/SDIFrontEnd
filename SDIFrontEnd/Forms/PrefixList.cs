@@ -100,8 +100,8 @@ namespace SDIFrontEnd
                     return;
 
                 
-                string refvarname = (string)dgvVariableInfo.CurrentRow.Cells["refVarName"].Value;
-                ShowWordings(refvarname);
+                string varname = (string)dgvVariableInfo.CurrentRow.Cells["VarName"].Value;
+                ShowWordings(varname);
             }else
             {
                 if (questionUsage!=null)
@@ -570,10 +570,10 @@ namespace SDIFrontEnd
         }
 
 
-        private void ShowWordings(string refvarname)
+        private void ShowWordings(string varname)
         {
-            VariableName refVar = new VariableName(refvarname);
-            List<QuestionUsage> usages = DBAction.GetVarNameQuestions(refVar);
+            VariableName variable = new VariableName(varname);
+            List<QuestionUsage> usages = DBAction.GetVarNameQuestions(variable);
 
             if (questionUsage!=null )
                 questionUsage.Close();
@@ -588,10 +588,6 @@ namespace SDIFrontEnd
 
         private void toolStripDatasheet_Click(object sender, EventArgs e)
         {
-            //PrefixListSheet frm = new PrefixListSheet();
-            //frm.Tag = 1;
-            //FormManager.Add(frm);
-
             PrefixListSheet getFrm = (PrefixListSheet)FormManager.GetForm("PrefixListSheet", 1);
             if (getFrm == null)
             

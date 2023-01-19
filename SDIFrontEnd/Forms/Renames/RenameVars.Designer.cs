@@ -44,8 +44,8 @@
             this.cmdUnlock = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.cmdRename = new System.Windows.Forms.Button();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.chkDoNotDocument = new System.Windows.Forms.CheckBox();
+            this.chkPreFWS = new System.Windows.Forms.CheckBox();
             this.lstSurveyList = new System.Windows.Forms.ListBox();
             this.lblTitle = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
@@ -100,7 +100,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(72, 47);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(77, 16);
+            this.label3.Size = new System.Drawing.Size(76, 16);
             this.label3.TabIndex = 6;
             this.label3.Text = "Rename By:";
             // 
@@ -110,7 +110,7 @@
             this.optRefVarName.Location = new System.Drawing.Point(251, 45);
             this.optRefVarName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.optRefVarName.Name = "optRefVarName";
-            this.optRefVarName.Size = new System.Drawing.Size(95, 20);
+            this.optRefVarName.Size = new System.Drawing.Size(94, 20);
             this.optRefVarName.TabIndex = 5;
             this.optRefVarName.TabStop = true;
             this.optRefVarName.Text = "refVarName";
@@ -123,7 +123,7 @@
             this.optVarName.Location = new System.Drawing.Point(155, 45);
             this.optVarName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.optVarName.Name = "optVarName";
-            this.optVarName.Size = new System.Drawing.Size(79, 20);
+            this.optVarName.Size = new System.Drawing.Size(78, 20);
             this.optVarName.TabIndex = 4;
             this.optVarName.TabStop = true;
             this.optVarName.Text = "VarName";
@@ -135,7 +135,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(209, 7);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(79, 16);
+            this.label2.Size = new System.Drawing.Size(78, 16);
             this.label2.TabIndex = 3;
             this.label2.Text = "Rename To:";
             // 
@@ -155,7 +155,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(5, 10);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(33, 16);
+            this.label1.Size = new System.Drawing.Size(32, 16);
             this.label1.TabIndex = 1;
             this.label1.Text = "Var:";
             // 
@@ -175,8 +175,8 @@
             this.panel2.Controls.Add(this.cmdUnlock);
             this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.cmdRename);
-            this.panel2.Controls.Add(this.checkBox2);
-            this.panel2.Controls.Add(this.checkBox1);
+            this.panel2.Controls.Add(this.chkDoNotDocument);
+            this.panel2.Controls.Add(this.chkPreFWS);
             this.panel2.Controls.Add(this.lstSurveyList);
             this.panel2.Location = new System.Drawing.Point(13, 160);
             this.panel2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -209,7 +209,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(13, 11);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(47, 16);
+            this.label4.Size = new System.Drawing.Size(46, 16);
             this.label4.TabIndex = 5;
             this.label4.Text = "Survey";
             // 
@@ -225,27 +225,27 @@
             this.cmdRename.UseVisualStyleBackColor = true;
             this.cmdRename.Click += new System.EventHandler(this.cmdRename_Click);
             // 
-            // checkBox2
+            // chkDoNotDocument
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(147, 245);
-            this.checkBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(126, 20);
-            this.checkBox2.TabIndex = 3;
-            this.checkBox2.Text = "Do Not Document";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.chkDoNotDocument.AutoSize = true;
+            this.chkDoNotDocument.Location = new System.Drawing.Point(147, 245);
+            this.chkDoNotDocument.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.chkDoNotDocument.Name = "chkDoNotDocument";
+            this.chkDoNotDocument.Size = new System.Drawing.Size(125, 20);
+            this.chkDoNotDocument.TabIndex = 3;
+            this.chkDoNotDocument.Text = "Do Not Document";
+            this.chkDoNotDocument.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
+            // chkPreFWS
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(147, 226);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(125, 20);
-            this.checkBox1.TabIndex = 2;
-            this.checkBox1.Text = "Pre-FWS Change";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.chkPreFWS.AutoSize = true;
+            this.chkPreFWS.Location = new System.Drawing.Point(147, 226);
+            this.chkPreFWS.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.chkPreFWS.Name = "chkPreFWS";
+            this.chkPreFWS.Size = new System.Drawing.Size(124, 20);
+            this.chkPreFWS.TabIndex = 2;
+            this.chkPreFWS.Text = "Pre-FWS Change";
+            this.chkPreFWS.UseVisualStyleBackColor = true;
             // 
             // lstSurveyList
             // 
@@ -312,8 +312,8 @@
         private System.Windows.Forms.ComboBox cboSource;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button cmdRename;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox chkDoNotDocument;
+        private System.Windows.Forms.CheckBox chkPreFWS;
         private System.Windows.Forms.ListBox lstSurveyList;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button cmdUnlock;

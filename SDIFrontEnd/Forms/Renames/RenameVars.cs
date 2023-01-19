@@ -130,9 +130,14 @@ namespace SDIFrontEnd
                 MessageBox.Show("Some renames were not performed: " + string.Join(", ", renamer.FailedRenames));
             }
 
+            // if no documentation, we are done
+            if (chkDoNotDocument.Checked)
+                return;
+
             // document rename, fill in 'changed by' name and notifications
             foreach (VarNameChangeRecord change in renamer.Changes)
             {
+                change.PreFWChange = chkPreFWS.Checked;
                 change.ChangedBy = Globals.AllPeople.Where(x => x.ID == Globals.CurrentUser.userid).First(); 
                 foreach (Person autoNotify in Globals.AllPeople.Where(x => x.VarNameChangeNotify && x.Active).ToList())
                 {

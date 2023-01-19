@@ -438,7 +438,7 @@ namespace SDIFrontEnd
             else
                 return;
 
-
+            row.Cells[2].Value = varlabel.ToString();
         }
 
         private void UpdateDetails()

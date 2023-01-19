@@ -144,7 +144,7 @@
             this.lblID.AutoSize = true;
             this.lblID.Location = new System.Drawing.Point(68, 19);
             this.lblID.Name = "lblID";
-            this.lblID.Size = new System.Drawing.Size(20, 16);
+            this.lblID.Size = new System.Drawing.Size(19, 16);
             this.lblID.TabIndex = 23;
             this.lblID.Text = "ID";
             // 
@@ -161,7 +161,7 @@
             this.chkHiddenChange.AutoSize = true;
             this.chkHiddenChange.Location = new System.Drawing.Point(219, 100);
             this.chkHiddenChange.Name = "chkHiddenChange";
-            this.chkHiddenChange.Size = new System.Drawing.Size(113, 20);
+            this.chkHiddenChange.Size = new System.Drawing.Size(112, 20);
             this.chkHiddenChange.TabIndex = 21;
             this.chkHiddenChange.Text = "Hidden Change";
             this.chkHiddenChange.UseVisualStyleBackColor = true;
@@ -229,6 +229,7 @@
             // 
             this.bindingNavigatorPositionItem.AccessibleName = "Position";
             this.bindingNavigatorPositionItem.AutoSize = false;
+            this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
             this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(58, 23);
             this.bindingNavigatorPositionItem.Text = "0";
@@ -269,7 +270,7 @@
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(514, 13);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(77, 16);
+            this.label10.Size = new System.Drawing.Size(76, 16);
             this.label10.TabIndex = 19;
             this.label10.Text = "Notifications";
             // 
@@ -278,7 +279,7 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(376, 13);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(104, 16);
+            this.label9.Size = new System.Drawing.Size(103, 16);
             this.label9.TabIndex = 18;
             this.label9.Text = "Surveys Affected";
             // 
@@ -287,7 +288,7 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(40, 303);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(48, 16);
+            this.label8.Size = new System.Drawing.Size(47, 16);
             this.label8.TabIndex = 17;
             this.label8.Text = "Source";
             // 
@@ -296,7 +297,7 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(27, 191);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(61, 16);
+            this.label7.Size = new System.Drawing.Size(60, 16);
             this.label7.TabIndex = 16;
             this.label7.Text = "Rationale";
             // 
@@ -305,7 +306,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(5, 127);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(83, 16);
+            this.label6.Size = new System.Drawing.Size(82, 16);
             this.label6.TabIndex = 15;
             this.label6.Text = "Authorization";
             // 
@@ -314,7 +315,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(13, 98);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(75, 16);
+            this.label5.Size = new System.Drawing.Size(74, 16);
             this.label5.TabIndex = 14;
             this.label5.Text = "Changed By";
             // 
@@ -323,7 +324,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(54, 78);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(34, 16);
+            this.label4.Size = new System.Drawing.Size(33, 16);
             this.label4.TabIndex = 13;
             this.label4.Text = "Date";
             // 
@@ -332,7 +333,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(191, 52);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(22, 16);
+            this.label3.Size = new System.Drawing.Size(21, 16);
             this.label3.TabIndex = 12;
             this.label3.Text = "->";
             // 
@@ -341,7 +342,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(27, 52);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(61, 16);
+            this.label2.Size = new System.Drawing.Size(60, 16);
             this.label2.TabIndex = 11;
             this.label2.Text = "VarName";
             // 
@@ -351,7 +352,7 @@
             this.chkPreFWS.Location = new System.Drawing.Point(219, 76);
             this.chkPreFWS.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.chkPreFWS.Name = "chkPreFWS";
-            this.chkPreFWS.Size = new System.Drawing.Size(125, 20);
+            this.chkPreFWS.Size = new System.Drawing.Size(124, 20);
             this.chkPreFWS.TabIndex = 10;
             this.chkPreFWS.Text = "Pre-FWS Change";
             this.chkPreFWS.UseVisualStyleBackColor = true;
@@ -362,10 +363,11 @@
             this.dgvNotifications.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.chNotifyName,
             this.chNotifyType});
-            this.dgvNotifications.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dgvNotifications.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
             this.dgvNotifications.Location = new System.Drawing.Point(507, 34);
             this.dgvNotifications.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.dgvNotifications.Name = "dgvNotifications";
+            this.dgvNotifications.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvNotifications.Size = new System.Drawing.Size(246, 344);
             this.dgvNotifications.TabIndex = 9;
             this.dgvNotifications.CellValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvNotifications_CellValidated);
@@ -388,11 +390,12 @@
             this.dgvSurveys.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvSurveys.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.chSurvey});
-            this.dgvSurveys.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dgvSurveys.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
             this.dgvSurveys.Location = new System.Drawing.Point(371, 34);
             this.dgvSurveys.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.dgvSurveys.Name = "dgvSurveys";
             this.dgvSurveys.RowHeadersWidth = 25;
+            this.dgvSurveys.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvSurveys.Size = new System.Drawing.Size(130, 344);
             this.dgvSurveys.TabIndex = 8;
             this.dgvSurveys.CellValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSurveys_CellValidated);
@@ -491,7 +494,7 @@
             this.lblSurvey.AutoSize = true;
             this.lblSurvey.Location = new System.Drawing.Point(246, 99);
             this.lblSurvey.Name = "lblSurvey";
-            this.lblSurvey.Size = new System.Drawing.Size(80, 16);
+            this.lblSurvey.Size = new System.Drawing.Size(79, 16);
             this.lblSurvey.TabIndex = 27;
             this.lblSurvey.Text = "Survey Filter";
             // 
@@ -577,7 +580,7 @@
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(217, 5);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(22, 16);
+            this.label11.Size = new System.Drawing.Size(21, 16);
             this.label11.TabIndex = 3;
             this.label11.Text = "->";
             // 
@@ -608,7 +611,7 @@
             this.chkToggleHistory.AutoSize = true;
             this.chkToggleHistory.Location = new System.Drawing.Point(679, 96);
             this.chkToggleHistory.Name = "chkToggleHistory";
-            this.chkToggleHistory.Size = new System.Drawing.Size(100, 26);
+            this.chkToggleHistory.Size = new System.Drawing.Size(99, 26);
             this.chkToggleHistory.TabIndex = 32;
             this.chkToggleHistory.Text = "Toggle History";
             this.chkToggleHistory.UseVisualStyleBackColor = true;
