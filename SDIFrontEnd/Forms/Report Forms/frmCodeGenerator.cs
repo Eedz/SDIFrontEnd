@@ -17,7 +17,7 @@ namespace SDIFrontEnd
         {
             InitializeComponent();
 
-            List<SurveyRecord> surveyList = DBAction.GetAllSurveysInfo();
+            List<SurveyRecord> surveyList = new List<SurveyRecord>(DBAction.GetAllSurveysInfo());
 
             lstSurveys.DisplayMember = "SurveyCode";
             lstSurveys.ValueMember = "SID";
@@ -68,8 +68,29 @@ namespace SDIFrontEnd
             {
                 MessageBox.Show("Error!");
             }
+        }
 
+        private void cmdOpenFolder_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(@"\\psychfile\psych$\psych-lab-gfong\SMG\SDI\Data Templates");
+        }
 
+        private void cmdClose_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void cboJump_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboJump.SelectedItem == null)
+                return;
+
+            lstSurveys.SelectedItem= cboJump.SelectedItem;
+        }
+
+        private void frmCodeGenerator_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            FormManager.Remove(this);
         }
     }
 }

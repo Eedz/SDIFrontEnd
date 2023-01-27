@@ -240,6 +240,11 @@ namespace SDIFrontEnd
         {
             RunReport();
         }
+
+        private void cmdOpenFolder_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(@"\\psychfile\psych$\psych-lab-gfong\SMG\SDI\Reports");
+        }
         #endregion
 
         #region Methods
@@ -585,8 +590,9 @@ namespace SDIFrontEnd
 
             return products;
         }
+
         #endregion
 
-
+        
     }
 }

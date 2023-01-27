@@ -37,15 +37,17 @@
             this.chkTC = new System.Windows.Forms.CheckBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmdOpenFolder = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.qrySurveyQuestionsBindingSource)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmdGenerate
             // 
-            this.cmdGenerate.Location = new System.Drawing.Point(83, 111);
+            this.cmdGenerate.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdGenerate.Location = new System.Drawing.Point(77, 104);
             this.cmdGenerate.Name = "cmdGenerate";
-            this.cmdGenerate.Size = new System.Drawing.Size(81, 24);
+            this.cmdGenerate.Size = new System.Drawing.Size(85, 24);
             this.cmdGenerate.TabIndex = 0;
             this.cmdGenerate.Text = "Generate";
             this.cmdGenerate.UseVisualStyleBackColor = true;
@@ -53,28 +55,30 @@
             // 
             // cboSurvey
             // 
+            this.cboSurvey.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboSurvey.FormattingEnabled = true;
-            this.cboSurvey.Location = new System.Drawing.Point(73, 74);
+            this.cboSurvey.Location = new System.Drawing.Point(77, 74);
             this.cboSurvey.Name = "cboSurvey";
-            this.cboSurvey.Size = new System.Drawing.Size(91, 21);
+            this.cboSurvey.Size = new System.Drawing.Size(113, 24);
             this.cboSurvey.TabIndex = 1;
             // 
             // lblSurvey
             // 
             this.lblSurvey.AutoSize = true;
+            this.lblSurvey.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSurvey.Location = new System.Drawing.Point(28, 74);
             this.lblSurvey.Name = "lblSurvey";
-            this.lblSurvey.Size = new System.Drawing.Size(40, 13);
+            this.lblSurvey.Size = new System.Drawing.Size(46, 16);
             this.lblSurvey.TabIndex = 2;
             this.lblSurvey.Text = "Survey";
             // 
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitle.Location = new System.Drawing.Point(25, 28);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(220, 31);
+            this.lblTitle.Size = new System.Drawing.Size(212, 33);
             this.lblTitle.TabIndex = 3;
             this.lblTitle.Text = "Survey Overview";
             // 
@@ -87,9 +91,10 @@
             this.chkTC.AutoSize = true;
             this.chkTC.Checked = true;
             this.chkTC.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkTC.Location = new System.Drawing.Point(171, 76);
+            this.chkTC.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkTC.Location = new System.Drawing.Point(196, 76);
             this.chkTC.Name = "chkTC";
-            this.chkTC.Size = new System.Drawing.Size(133, 17);
+            this.chkTC.Size = new System.Drawing.Size(151, 20);
             this.chkTC.TabIndex = 5;
             this.chkTC.Text = "Include Topic/Content";
             this.chkTC.UseVisualStyleBackColor = true;
@@ -111,6 +116,16 @@
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
+            // cmdOpenFolder
+            // 
+            this.cmdOpenFolder.Image = global::SDIFrontEnd.Properties.Resources.FolderOpened;
+            this.cmdOpenFolder.Location = new System.Drawing.Point(164, 105);
+            this.cmdOpenFolder.Name = "cmdOpenFolder";
+            this.cmdOpenFolder.Size = new System.Drawing.Size(26, 23);
+            this.cmdOpenFolder.TabIndex = 8;
+            this.cmdOpenFolder.UseVisualStyleBackColor = true;
+            this.cmdOpenFolder.Click += new System.EventHandler(this.cmdOpenFolder_Click);
+            // 
             // SurveyOverview
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -118,12 +133,14 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(205)))), ((int)(((byte)(170)))));
             this.ClientSize = new System.Drawing.Size(391, 160);
             this.ControlBox = false;
+            this.Controls.Add(this.cmdOpenFolder);
             this.Controls.Add(this.chkTC);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.lblSurvey);
             this.Controls.Add(this.cboSurvey);
             this.Controls.Add(this.cmdGenerate);
             this.Controls.Add(this.menuStrip1);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
@@ -150,6 +167,7 @@
         private System.Windows.Forms.CheckBox chkTC;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
+        private System.Windows.Forms.Button cmdOpenFolder;
     }
 }
 

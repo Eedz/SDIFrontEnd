@@ -86,6 +86,11 @@ namespace SDIFrontEnd
             rpt.CreateReport();
         }
 
+        private void cmdOpenFolder_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(@"\\psychfile\psych$\psych-lab-gfong\SMG\SDI\Reports");
+        }
+
         private void TypeChanged_Click(object sender, EventArgs e)
         {
             lstSurvey.Enabled = rbBySurvey.Checked;

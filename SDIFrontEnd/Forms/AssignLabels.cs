@@ -23,6 +23,8 @@ namespace SDIFrontEnd
         // A value of -1 indicates that there is no row currently in edit.
         private int rowInEdit = -1;
 
+        public event EventHandler LabelAdded;
+
         public AssignLabels()
         {
             InitializeComponent();
@@ -37,7 +39,11 @@ namespace SDIFrontEnd
 
             toolStripLabelType.ComboBox.DataSource = new List<string> { "Domain", "Topic", "Content", "Product" };
             toolStripLabelType.ComboBox.SelectedItem = null;
-            
+
+            Globals.RefreshDomains += AssignLabels_RefreshDomains;
+            Globals.RefreshTopics += AssignLabels_RefreshTopics;
+            Globals.RefreshContents += AssignLabels_RefreshContents;
+            Globals.RefreshProducts += AssignLabels_RefreshProducts;
         }
 
         public AssignLabels (string refVarName) : this()
@@ -166,6 +172,42 @@ namespace SDIFrontEnd
             this.dgvVars.CancelRowEdit += DgvVars_CancelRowEdit;
 
             toolStripLabelType.ComboBox.SelectedIndexChanged += toolStripLabelType_SelectedIndexChanged;
+        }
+
+        private void AssignLabels_RefreshDomains(object sender, EventArgs e)
+        {
+            DataGridViewComboBoxColumn column = (DataGridViewComboBoxColumn)dgvVars.Columns["Domain"];
+            column.DataSource = null;
+            column.DataSource = new List<DomainLabel>(Globals.AllDomainLabels);
+            column.ValueMember = "ID";
+            column.DisplayMember = "LabelText";
+        }
+
+        private void AssignLabels_RefreshTopics(object sender, EventArgs e)
+        {
+            DataGridViewComboBoxColumn column = (DataGridViewComboBoxColumn)dgvVars.Columns["Topic"];
+            column.DataSource = null;
+            column.DataSource = new List<TopicLabel>(Globals.AllTopicLabels);
+            column.ValueMember = "ID";
+            column.DisplayMember = "LabelText";
+        }
+
+        private void AssignLabels_RefreshContents(object sender, EventArgs e)
+        {
+            DataGridViewComboBoxColumn column = (DataGridViewComboBoxColumn)dgvVars.Columns["Content"];
+            column.DataSource = null;
+            column.DataSource = new List<ContentLabel>(Globals.AllContentLabels);
+            column.ValueMember = "ID";
+            column.DisplayMember = "LabelText";
+        }
+
+        private void AssignLabels_RefreshProducts(object sender, EventArgs e)
+        {
+            DataGridViewComboBoxColumn column = (DataGridViewComboBoxColumn)dgvVars.Columns["Product"];
+            column.DataSource = null;
+            column.DataSource = new List<ProductLabel>(Globals.AllProductLabels);
+            column.ValueMember = "ID";
+            column.DisplayMember = "LabelText";
         }
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)

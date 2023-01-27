@@ -48,6 +48,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.cboWaves = new System.Windows.Forms.ComboBox();
             this.tabSurveys = new System.Windows.Forms.TabPage();
+            this.cmdLast5Years = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -78,7 +79,7 @@
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cmdSeparateDoc = new System.Windows.Forms.Button();
-            this.cmdLast5Years = new System.Windows.Forms.Button();
+            this.cmdOpenFolder = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabVarNames.SuspendLayout();
             this.tabWaves.SuspendLayout();
@@ -312,6 +313,17 @@
             this.tabSurveys.TabIndex = 2;
             this.tabSurveys.Text = "Surveys";
             this.tabSurveys.UseVisualStyleBackColor = true;
+            // 
+            // cmdLast5Years
+            // 
+            this.cmdLast5Years.Font = new System.Drawing.Font("Tahoma", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdLast5Years.Location = new System.Drawing.Point(313, 51);
+            this.cmdLast5Years.Name = "cmdLast5Years";
+            this.cmdLast5Years.Size = new System.Drawing.Size(91, 26);
+            this.cmdLast5Years.TabIndex = 6;
+            this.cmdLast5Years.Text = "<5 Years Ago";
+            this.cmdLast5Years.UseVisualStyleBackColor = true;
+            this.cmdLast5Years.Click += new System.EventHandler(this.cmdLast5Years_Click);
             // 
             // label10
             // 
@@ -577,7 +589,7 @@
             // 
             this.cmdOnscreen.Location = new System.Drawing.Point(185, 632);
             this.cmdOnscreen.Name = "cmdOnscreen";
-            this.cmdOnscreen.Size = new System.Drawing.Size(125, 29);
+            this.cmdOnscreen.Size = new System.Drawing.Size(93, 29);
             this.cmdOnscreen.TabIndex = 6;
             this.cmdOnscreen.Text = "On-Screen";
             this.cmdOnscreen.UseVisualStyleBackColor = true;
@@ -639,22 +651,22 @@
             this.cmdSeparateDoc.UseVisualStyleBackColor = true;
             this.cmdSeparateDoc.Click += new System.EventHandler(this.cmdSeparateDoc_Click);
             // 
-            // cmdLast5Years
+            // cmdOpenFolder
             // 
-            this.cmdLast5Years.Font = new System.Drawing.Font("Tahoma", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdLast5Years.Location = new System.Drawing.Point(313, 51);
-            this.cmdLast5Years.Name = "cmdLast5Years";
-            this.cmdLast5Years.Size = new System.Drawing.Size(91, 26);
-            this.cmdLast5Years.TabIndex = 6;
-            this.cmdLast5Years.Text = "<5 Years Ago";
-            this.cmdLast5Years.UseVisualStyleBackColor = true;
-            this.cmdLast5Years.Click += new System.EventHandler(this.cmdLast5Years_Click);
+            this.cmdOpenFolder.Image = global::SDIFrontEnd.Properties.Resources.FolderOpened;
+            this.cmdOpenFolder.Location = new System.Drawing.Point(279, 632);
+            this.cmdOpenFolder.Name = "cmdOpenFolder";
+            this.cmdOpenFolder.Size = new System.Drawing.Size(31, 29);
+            this.cmdOpenFolder.TabIndex = 15;
+            this.cmdOpenFolder.UseVisualStyleBackColor = true;
+            this.cmdOpenFolder.Click += new System.EventHandler(this.cmdOpenFolder_Click);
             // 
             // HarmonyReportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(451, 699);
+            this.Controls.Add(this.cmdOpenFolder);
             this.Controls.Add(this.cmdSeparateDoc);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.cmdWordDocument);
@@ -743,5 +755,6 @@
         private System.Windows.Forms.Button cmdSeparateDoc;
         private System.Windows.Forms.CheckBox chkShowFieldwork;
         private System.Windows.Forms.Button cmdLast5Years;
+        private System.Windows.Forms.Button cmdOpenFolder;
     }
 }

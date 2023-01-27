@@ -34,6 +34,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.dgvColumns = new System.Windows.Forms.DataGridView();
+            this.chInclude = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.chHundred = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtRangeLower = new System.Windows.Forms.TextBox();
             this.txtRangeUpper = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -41,9 +44,7 @@
             this.chkRangeInfo = new System.Windows.Forms.CheckBox();
             this.cmdGenerate = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.chInclude = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.chHundred = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmdOpenFolder = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvColumns)).BeginInit();
             this.SuspendLayout();
@@ -81,7 +82,7 @@
             this.label2.Location = new System.Drawing.Point(24, 84);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(40, 16);
+            this.label2.Size = new System.Drawing.Size(39, 16);
             this.label2.TabIndex = 4;
             this.label2.Text = "Prefix";
             // 
@@ -91,7 +92,7 @@
             this.label3.Location = new System.Drawing.Point(7, 113);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(57, 16);
+            this.label3.Size = new System.Drawing.Size(56, 16);
             this.label3.TabIndex = 5;
             this.label3.Text = "Columns";
             // 
@@ -110,6 +111,24 @@
             this.dgvColumns.RowHeadersVisible = false;
             this.dgvColumns.Size = new System.Drawing.Size(287, 250);
             this.dgvColumns.TabIndex = 6;
+            // 
+            // chInclude
+            // 
+            this.chInclude.HeaderText = "";
+            this.chInclude.Name = "chInclude";
+            this.chInclude.Width = 30;
+            // 
+            // chHundred
+            // 
+            this.chHundred.HeaderText = "";
+            this.chHundred.Name = "chHundred";
+            this.chHundred.Width = 50;
+            // 
+            // chDescription
+            // 
+            this.chDescription.HeaderText = "Description";
+            this.chDescription.Name = "chDescription";
+            this.chDescription.Width = 200;
             // 
             // txtRangeLower
             // 
@@ -137,7 +156,7 @@
             this.label1.Location = new System.Drawing.Point(110, 383);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(13, 16);
+            this.label1.Size = new System.Drawing.Size(12, 16);
             this.label1.TabIndex = 9;
             this.label1.Text = "-";
             this.label1.Visible = false;
@@ -148,7 +167,7 @@
             this.label4.Location = new System.Drawing.Point(20, 383);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(44, 16);
+            this.label4.Size = new System.Drawing.Size(43, 16);
             this.label4.TabIndex = 10;
             this.label4.Text = "Range";
             this.label4.Visible = false;
@@ -159,7 +178,7 @@
             this.chkRangeInfo.Location = new System.Drawing.Point(27, 411);
             this.chkRangeInfo.Margin = new System.Windows.Forms.Padding(4);
             this.chkRangeInfo.Name = "chkRangeInfo";
-            this.chkRangeInfo.Size = new System.Drawing.Size(134, 20);
+            this.chkRangeInfo.Size = new System.Drawing.Size(133, 20);
             this.chkRangeInfo.TabIndex = 11;
             this.chkRangeInfo.Text = "Include Range Info";
             this.chkRangeInfo.UseVisualStyleBackColor = true;
@@ -187,23 +206,15 @@
             this.label5.TabIndex = 13;
             this.label5.Text = "Parallel VarNames";
             // 
-            // chInclude
+            // cmdOpenFolder
             // 
-            this.chInclude.HeaderText = "";
-            this.chInclude.Name = "chInclude";
-            this.chInclude.Width = 30;
-            // 
-            // chHundred
-            // 
-            this.chHundred.HeaderText = "";
-            this.chHundred.Name = "chHundred";
-            this.chHundred.Width = 50;
-            // 
-            // chDescription
-            // 
-            this.chDescription.HeaderText = "Description";
-            this.chDescription.Name = "chDescription";
-            this.chDescription.Width = 200;
+            this.cmdOpenFolder.Image = global::SDIFrontEnd.Properties.Resources.FolderOpened;
+            this.cmdOpenFolder.Location = new System.Drawing.Point(233, 371);
+            this.cmdOpenFolder.Name = "cmdOpenFolder";
+            this.cmdOpenFolder.Size = new System.Drawing.Size(31, 28);
+            this.cmdOpenFolder.TabIndex = 14;
+            this.cmdOpenFolder.UseVisualStyleBackColor = true;
+            this.cmdOpenFolder.Click += new System.EventHandler(this.cmdOpenFolder_Click);
             // 
             // ParallelVarReport
             // 
@@ -211,6 +222,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(376, 413);
             this.ControlBox = false;
+            this.Controls.Add(this.cmdOpenFolder);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.cmdGenerate);
             this.Controls.Add(this.chkRangeInfo);
@@ -256,5 +268,6 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn chInclude;
         private System.Windows.Forms.DataGridViewTextBoxColumn chHundred;
         private System.Windows.Forms.DataGridViewTextBoxColumn chDescription;
+        private System.Windows.Forms.Button cmdOpenFolder;
     }
 }

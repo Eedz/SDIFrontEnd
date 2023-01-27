@@ -132,6 +132,11 @@ namespace SDIFrontEnd
             lst.SelectedIndexChanged += ListBox_SelectedIndexChanged;
         }
 
+        private void cmdOpenFolder_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(@"\\psychfile\psych$\psych-lab-gfong\SMG\SDI\Reports\Praccing");
+        }
+
         private void cmdGenerate_Click(object sender, EventArgs e)
         {
             IssuesList = DBAction.GetPraccingIssues(SelectedSurvey.SID); // get all the issues again in case any were added since opening the form

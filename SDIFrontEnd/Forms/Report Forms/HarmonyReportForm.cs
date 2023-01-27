@@ -180,6 +180,11 @@ namespace SDIFrontEnd
             GenerateReport();
         }
 
+        private void cmdOpenFolder_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(@"\\psychfile\psych$\psych-lab-gfong\SMG\SDI\Reports\Harmony");
+        }
+
         private void cmdOnscreen_Click(object sender, EventArgs e)
         {
             List<string> vars = GetVarFilter();
@@ -700,5 +705,7 @@ namespace SDIFrontEnd
                     
             }
         }
+
+        
     }
 }

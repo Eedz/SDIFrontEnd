@@ -51,6 +51,7 @@
             this.cmdAddVar = new System.Windows.Forms.Button();
             this.cmdRemoveVar = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
+            this.cmdOpenFolder = new System.Windows.Forms.Button();
             this.gpScope.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -129,7 +130,7 @@
             this.rbByWave.Location = new System.Drawing.Point(32, 52);
             this.rbByWave.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.rbByWave.Name = "rbByWave";
-            this.rbByWave.Size = new System.Drawing.Size(75, 20);
+            this.rbByWave.Size = new System.Drawing.Size(74, 20);
             this.rbByWave.TabIndex = 1;
             this.rbByWave.Text = "By Wave";
             this.rbByWave.UseVisualStyleBackColor = true;
@@ -142,7 +143,7 @@
             this.rbBySurvey.Location = new System.Drawing.Point(32, 24);
             this.rbBySurvey.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.rbBySurvey.Name = "rbBySurvey";
-            this.rbBySurvey.Size = new System.Drawing.Size(82, 20);
+            this.rbBySurvey.Size = new System.Drawing.Size(81, 20);
             this.rbBySurvey.TabIndex = 0;
             this.rbBySurvey.TabStop = true;
             this.rbBySurvey.Text = "By Survey";
@@ -154,7 +155,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(171, 79);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(50, 16);
+            this.label1.Size = new System.Drawing.Size(49, 16);
             this.label1.TabIndex = 7;
             this.label1.Text = "Studies";
             // 
@@ -163,7 +164,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(243, 79);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(46, 16);
+            this.label2.Size = new System.Drawing.Size(45, 16);
             this.label2.TabIndex = 8;
             this.label2.Text = "Waves";
             // 
@@ -172,7 +173,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(341, 79);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(53, 16);
+            this.label3.Size = new System.Drawing.Size(52, 16);
             this.label3.TabIndex = 9;
             this.label3.Text = "Surveys";
             // 
@@ -191,7 +192,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(10, 106);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(54, 16);
+            this.label4.Size = new System.Drawing.Size(53, 16);
             this.label4.TabIndex = 14;
             this.label4.Text = "Include:";
             // 
@@ -210,7 +211,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(12, 8);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(56, 16);
+            this.label5.Size = new System.Drawing.Size(55, 16);
             this.label5.TabIndex = 16;
             this.label5.Text = "Exclude:";
             // 
@@ -290,9 +291,19 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(469, 79);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(67, 16);
+            this.label7.Size = new System.Drawing.Size(66, 16);
             this.label7.TabIndex = 23;
             this.label7.Text = "VarNames";
+            // 
+            // cmdOpenFolder
+            // 
+            this.cmdOpenFolder.Image = global::SDIFrontEnd.Properties.Resources.FolderOpened;
+            this.cmdOpenFolder.Location = new System.Drawing.Point(435, 374);
+            this.cmdOpenFolder.Name = "cmdOpenFolder";
+            this.cmdOpenFolder.Size = new System.Drawing.Size(32, 39);
+            this.cmdOpenFolder.TabIndex = 24;
+            this.cmdOpenFolder.UseVisualStyleBackColor = true;
+            this.cmdOpenFolder.Click += new System.EventHandler(this.cmdOpenFolder_Click);
             // 
             // VariableListReportForm
             // 
@@ -301,6 +312,7 @@
             this.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.ClientSize = new System.Drawing.Size(583, 435);
             this.ControlBox = false;
+            this.Controls.Add(this.cmdOpenFolder);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.cmdRemoveVar);
             this.Controls.Add(this.cmdAddVar);
@@ -362,5 +374,6 @@
         private System.Windows.Forms.Button cmdAddVar;
         private System.Windows.Forms.Button cmdRemoveVar;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button cmdOpenFolder;
     }
 }

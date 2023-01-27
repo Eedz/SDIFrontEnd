@@ -50,6 +50,11 @@ namespace SDIFrontEnd
             report.CreateReport();
         }
 
+        private void cmdOpenFolder_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(@"\\psychfile\psych$\psych-lab-gfong\SMG\SDI\Reports");
+        }
+
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
@@ -135,6 +140,7 @@ namespace SDIFrontEnd
 
             return column.ToString();
         }
+
         #endregion
 
         

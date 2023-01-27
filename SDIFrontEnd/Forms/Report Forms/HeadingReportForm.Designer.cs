@@ -39,6 +39,7 @@
             this.cmdGenerate = new System.Windows.Forms.Button();
             this.chkIncludeQnum = new System.Windows.Forms.CheckBox();
             this.chkIncludeVarNames = new System.Windows.Forms.CheckBox();
+            this.cmdOpenFolder = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,7 +57,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(10, 96);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 16);
+            this.label1.Size = new System.Drawing.Size(46, 16);
             this.label1.TabIndex = 1;
             this.label1.Text = "Survey";
             // 
@@ -135,7 +136,7 @@
             this.chkIncludeQnum.AutoSize = true;
             this.chkIncludeQnum.Location = new System.Drawing.Point(13, 133);
             this.chkIncludeQnum.Name = "chkIncludeQnum";
-            this.chkIncludeQnum.Size = new System.Drawing.Size(112, 20);
+            this.chkIncludeQnum.Size = new System.Drawing.Size(111, 20);
             this.chkIncludeQnum.TabIndex = 8;
             this.chkIncludeQnum.Text = "Include Qnums";
             this.chkIncludeQnum.UseVisualStyleBackColor = true;
@@ -145,10 +146,20 @@
             this.chkIncludeVarNames.AutoSize = true;
             this.chkIncludeVarNames.Location = new System.Drawing.Point(13, 159);
             this.chkIncludeVarNames.Name = "chkIncludeVarNames";
-            this.chkIncludeVarNames.Size = new System.Drawing.Size(188, 20);
+            this.chkIncludeVarNames.Size = new System.Drawing.Size(187, 20);
             this.chkIncludeVarNames.TabIndex = 9;
             this.chkIncludeVarNames.Text = "Include First/Last VarNames";
             this.chkIncludeVarNames.UseVisualStyleBackColor = true;
+            // 
+            // cmdOpenFolder
+            // 
+            this.cmdOpenFolder.Image = global::SDIFrontEnd.Properties.Resources.FolderOpened;
+            this.cmdOpenFolder.Location = new System.Drawing.Point(206, 231);
+            this.cmdOpenFolder.Name = "cmdOpenFolder";
+            this.cmdOpenFolder.Size = new System.Drawing.Size(31, 28);
+            this.cmdOpenFolder.TabIndex = 15;
+            this.cmdOpenFolder.UseVisualStyleBackColor = true;
+            this.cmdOpenFolder.Click += new System.EventHandler(this.cmdOpenFolder_Click);
             // 
             // HeadingReportForm
             // 
@@ -157,6 +168,7 @@
             this.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.ClientSize = new System.Drawing.Size(365, 262);
             this.ControlBox = false;
+            this.Controls.Add(this.cmdOpenFolder);
             this.Controls.Add(this.chkIncludeVarNames);
             this.Controls.Add(this.chkIncludeQnum);
             this.Controls.Add(this.cmdGenerate);
@@ -193,5 +205,6 @@
         private System.Windows.Forms.Button cmdGenerate;
         private System.Windows.Forms.CheckBox chkIncludeQnum;
         private System.Windows.Forms.CheckBox chkIncludeVarNames;
+        private System.Windows.Forms.Button cmdOpenFolder;
     }
 }

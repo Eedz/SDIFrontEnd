@@ -74,6 +74,11 @@ namespace SDIFrontEnd
             report.CreateReport();
         }
 
+        private void cmdOpenFolder_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(@"\\psychfile\psych$\psych-lab-gfong\SMG\SDI\Reports");
+        }
+
         public void AddSurvey(Survey survey)
         {
             if (!lstSelected.Items.Contains(survey))
@@ -83,6 +88,6 @@ namespace SDIFrontEnd
                 cboSurvey.SelectedIndex++;
         }
 
-       
+        
     }
 }

@@ -38,6 +38,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cboSurvey = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label11 = new System.Windows.Forms.Label();
+            this.lstCategory = new System.Windows.Forms.ListBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -58,6 +60,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.cmdOpenFolder = new System.Windows.Forms.Button();
             this.cmdGenerate = new System.Windows.Forms.Button();
             this.chkShadeAlternateRows = new System.Windows.Forms.CheckBox();
             this.chkIncludePrevNames = new System.Windows.Forms.CheckBox();
@@ -65,8 +68,6 @@
             this.chkEmptyRow = new System.Windows.Forms.CheckBox();
             this.chkPraccInstructions = new System.Windows.Forms.CheckBox();
             this.cmdClose = new System.Windows.Forms.Button();
-            this.lstCategory = new System.Windows.Forms.ListBox();
-            this.label11 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -138,7 +139,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(30, 78);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 16);
+            this.label1.Size = new System.Drawing.Size(46, 16);
             this.label1.TabIndex = 2;
             this.label1.Text = "Survey";
             // 
@@ -174,13 +175,34 @@
             this.panel1.TabIndex = 4;
             this.panel1.Visible = false;
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(213, 190);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(67, 16);
+            this.label11.TabIndex = 12;
+            this.label11.Text = "Category";
+            // 
+            // lstCategory
+            // 
+            this.lstCategory.FormattingEnabled = true;
+            this.lstCategory.ItemHeight = 16;
+            this.lstCategory.Location = new System.Drawing.Point(283, 190);
+            this.lstCategory.Name = "lstCategory";
+            this.lstCategory.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.lstCategory.Size = new System.Drawing.Size(133, 132);
+            this.lstCategory.TabIndex = 11;
+            this.lstCategory.SelectedIndexChanged += new System.EventHandler(this.ListBox_SelectedIndexChanged);
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(2, 362);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(71, 16);
+            this.label6.Size = new System.Drawing.Size(70, 16);
             this.label6.TabIndex = 10;
             this.label6.Text = "Language";
             // 
@@ -190,7 +212,7 @@
             this.label5.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(22, 330);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(51, 16);
+            this.label5.Size = new System.Drawing.Size(50, 16);
             this.label5.TabIndex = 9;
             this.label5.Text = "Status";
             // 
@@ -200,7 +222,7 @@
             this.label4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(50, 187);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(23, 16);
+            this.label4.Size = new System.Drawing.Size(22, 16);
             this.label4.TabIndex = 8;
             this.label4.Text = "To";
             // 
@@ -258,7 +280,7 @@
             this.label3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(242, 47);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(39, 16);
+            this.label3.Size = new System.Drawing.Size(38, 16);
             this.label3.TabIndex = 3;
             this.label3.Text = "From";
             // 
@@ -268,7 +290,7 @@
             this.label2.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(34, 48);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(39, 16);
+            this.label2.Size = new System.Drawing.Size(38, 16);
             this.label2.TabIndex = 2;
             this.label2.Text = "Date";
             // 
@@ -371,7 +393,7 @@
             this.label9.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.Location = new System.Drawing.Point(17, 187);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(23, 16);
+            this.label9.Size = new System.Drawing.Size(22, 16);
             this.label9.TabIndex = 2;
             this.label9.Text = "To";
             // 
@@ -381,7 +403,7 @@
             this.label8.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(192, 48);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(39, 16);
+            this.label8.Size = new System.Drawing.Size(38, 16);
             this.label8.TabIndex = 1;
             this.label8.Text = "From";
             // 
@@ -391,13 +413,14 @@
             this.label7.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(6, 47);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(39, 16);
+            this.label7.Size = new System.Drawing.Size(38, 16);
             this.label7.TabIndex = 0;
             this.label7.Text = "Date";
             // 
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.cmdOpenFolder);
             this.panel3.Controls.Add(this.cmdGenerate);
             this.panel3.Controls.Add(this.chkShadeAlternateRows);
             this.panel3.Controls.Add(this.chkIncludePrevNames);
@@ -410,6 +433,16 @@
             this.panel3.Size = new System.Drawing.Size(838, 129);
             this.panel3.TabIndex = 6;
             this.panel3.Visible = false;
+            // 
+            // cmdOpenFolder
+            // 
+            this.cmdOpenFolder.Image = global::SDIFrontEnd.Properties.Resources.FolderOpened;
+            this.cmdOpenFolder.Location = new System.Drawing.Point(622, 39);
+            this.cmdOpenFolder.Name = "cmdOpenFolder";
+            this.cmdOpenFolder.Size = new System.Drawing.Size(58, 49);
+            this.cmdOpenFolder.TabIndex = 7;
+            this.cmdOpenFolder.UseVisualStyleBackColor = true;
+            this.cmdOpenFolder.Click += new System.EventHandler(this.cmdOpenFolder_Click);
             // 
             // cmdGenerate
             // 
@@ -430,7 +463,7 @@
             this.chkShadeAlternateRows.Location = new System.Drawing.Point(253, 11);
             this.chkShadeAlternateRows.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkShadeAlternateRows.Name = "chkShadeAlternateRows";
-            this.chkShadeAlternateRows.Size = new System.Drawing.Size(154, 20);
+            this.chkShadeAlternateRows.Size = new System.Drawing.Size(153, 20);
             this.chkShadeAlternateRows.TabIndex = 5;
             this.chkShadeAlternateRows.Text = "Shade Alternate Rows";
             this.chkShadeAlternateRows.UseVisualStyleBackColor = true;
@@ -443,7 +476,7 @@
             this.chkIncludePrevNames.Location = new System.Drawing.Point(34, 96);
             this.chkIncludePrevNames.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkIncludePrevNames.Name = "chkIncludePrevNames";
-            this.chkIncludePrevNames.Size = new System.Drawing.Size(144, 20);
+            this.chkIncludePrevNames.Size = new System.Drawing.Size(143, 20);
             this.chkIncludePrevNames.TabIndex = 4;
             this.chkIncludePrevNames.Text = "Include Prev. Names";
             this.chkIncludePrevNames.UseVisualStyleBackColor = true;
@@ -455,7 +488,7 @@
             this.chkIncludeQnums.Location = new System.Drawing.Point(34, 68);
             this.chkIncludeQnums.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkIncludeQnums.Name = "chkIncludeQnums";
-            this.chkIncludeQnums.Size = new System.Drawing.Size(112, 20);
+            this.chkIncludeQnums.Size = new System.Drawing.Size(111, 20);
             this.chkIncludeQnums.TabIndex = 3;
             this.chkIncludeQnums.Text = "Include Qnums";
             this.chkIncludeQnums.UseVisualStyleBackColor = true;
@@ -469,7 +502,7 @@
             this.chkEmptyRow.Location = new System.Drawing.Point(34, 39);
             this.chkEmptyRow.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkEmptyRow.Name = "chkEmptyRow";
-            this.chkEmptyRow.Size = new System.Drawing.Size(136, 20);
+            this.chkEmptyRow.Size = new System.Drawing.Size(135, 20);
             this.chkEmptyRow.TabIndex = 2;
             this.chkEmptyRow.Text = "Include Empty Row";
             this.chkEmptyRow.UseVisualStyleBackColor = true;
@@ -483,7 +516,7 @@
             this.chkPraccInstructions.Location = new System.Drawing.Point(34, 11);
             this.chkPraccInstructions.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkPraccInstructions.Name = "chkPraccInstructions";
-            this.chkPraccInstructions.Size = new System.Drawing.Size(173, 20);
+            this.chkPraccInstructions.Size = new System.Drawing.Size(172, 20);
             this.chkPraccInstructions.TabIndex = 0;
             this.chkPraccInstructions.Text = "Include Pracc Instructions";
             this.chkPraccInstructions.UseVisualStyleBackColor = true;
@@ -499,27 +532,6 @@
             this.cmdClose.UseVisualStyleBackColor = true;
             this.cmdClose.Visible = false;
             this.cmdClose.Click += new System.EventHandler(this.cmdClose_Click);
-            // 
-            // lstCategory
-            // 
-            this.lstCategory.FormattingEnabled = true;
-            this.lstCategory.ItemHeight = 16;
-            this.lstCategory.Location = new System.Drawing.Point(283, 190);
-            this.lstCategory.Name = "lstCategory";
-            this.lstCategory.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.lstCategory.Size = new System.Drawing.Size(133, 132);
-            this.lstCategory.TabIndex = 11;
-            this.lstCategory.SelectedIndexChanged += new System.EventHandler(this.ListBox_SelectedIndexChanged);
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(213, 190);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(68, 16);
-            this.label11.TabIndex = 12;
-            this.label11.Text = "Category";
             // 
             // PraccingReportForm
             // 
@@ -596,5 +608,6 @@
         private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ListBox lstCategory;
+        private System.Windows.Forms.Button cmdOpenFolder;
     }
 }

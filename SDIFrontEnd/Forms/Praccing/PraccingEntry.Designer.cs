@@ -56,7 +56,6 @@
             this.bindingNavigatorMoveNextItem1 = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveLastItem1 = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
             this.picMain = new System.Windows.Forms.PictureBox();
             this.dataRepeater1 = new Microsoft.VisualBasic.PowerPacks.DataRepeater();
@@ -149,10 +148,23 @@
             this.bindingNavigatorMoveNextItem2 = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveLastItem2 = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator8 = new System.Windows.Forms.ToolStripSeparator();
-            this.bindingNavigatorAddNewItem1 = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorDeleteItem1 = new System.Windows.Forms.ToolStripButton();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.bindingNavigator1 = new System.Windows.Forms.BindingNavigator(this.components);
+            this.bindingNavigatorMoveFirstItem3 = new System.Windows.Forms.ToolStripButton();
+            this.bindingNavigatorMovePreviousItem3 = new System.Windows.Forms.ToolStripButton();
+            this.bindingNavigatorSeparator9 = new System.Windows.Forms.ToolStripSeparator();
+            this.bindingNavigatorPositionItem3 = new System.Windows.Forms.ToolStripTextBox();
+            this.bindingNavigatorCountItem3 = new System.Windows.Forms.ToolStripLabel();
+            this.bindingNavigatorSeparator10 = new System.Windows.Forms.ToolStripSeparator();
+            this.bindingNavigatorMoveNextItem3 = new System.Windows.Forms.ToolStripButton();
+            this.bindingNavigatorMoveLastItem3 = new System.Windows.Forms.ToolStripButton();
+            this.bindingNavigatorSeparator11 = new System.Windows.Forms.ToolStripSeparator();
+            this.bindingNavigatorAddNewItem2 = new System.Windows.Forms.ToolStripButton();
+            this.bindingNavigatorDeleteItem2 = new System.Windows.Forms.ToolStripButton();
+            this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
+            this.bindingNavigatorAddNewItem1 = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.navMainIssues)).BeginInit();
             this.navMainIssues.SuspendLayout();
             this.panelImages.SuspendLayout();
@@ -171,6 +183,8 @@
             this.panelResponseImages.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.navResponseImages)).BeginInit();
             this.navResponseImages.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
+            this.bindingNavigator1.SuspendLayout();
             this.SuspendLayout();
             // 
             // cboGoToSurvey
@@ -191,7 +205,7 @@
             this.label1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(47, 17);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(81, 16);
+            this.label1.Size = new System.Drawing.Size(80, 16);
             this.label1.TabIndex = 9;
             this.label1.Text = "Go to Survey";
             // 
@@ -215,7 +229,7 @@
             this.label2.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(56, 56);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(72, 16);
+            this.label2.Size = new System.Drawing.Size(71, 16);
             this.label2.TabIndex = 11;
             this.label2.Text = "Go to Issue";
             // 
@@ -294,6 +308,7 @@
             // 
             this.bindingNavigatorPositionItem.AccessibleName = "Position";
             this.bindingNavigatorPositionItem.AutoSize = false;
+            this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
             this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(58, 23);
             this.bindingNavigatorPositionItem.Text = "0";
@@ -403,6 +418,7 @@
             // 
             this.bindingNavigatorPositionItem1.AccessibleName = "Position";
             this.bindingNavigatorPositionItem1.AutoSize = false;
+            this.bindingNavigatorPositionItem1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.bindingNavigatorPositionItem1.Name = "bindingNavigatorPositionItem1";
             this.bindingNavigatorPositionItem1.Size = new System.Drawing.Size(58, 23);
             this.bindingNavigatorPositionItem1.Text = "0";
@@ -435,16 +451,6 @@
             // 
             this.bindingNavigatorSeparator5.Name = "bindingNavigatorSeparator5";
             this.bindingNavigatorSeparator5.Size = new System.Drawing.Size(6, 25);
-            // 
-            // bindingNavigatorAddNewItem
-            // 
-            this.bindingNavigatorAddNewItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorAddNewItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorAddNewItem.Image")));
-            this.bindingNavigatorAddNewItem.Name = "bindingNavigatorAddNewItem";
-            this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorAddNewItem.Text = "Add new";
-            this.bindingNavigatorAddNewItem.Click += new System.EventHandler(this.bindingNavigatorAddNewItem_Click);
             // 
             // bindingNavigatorDeleteItem
             // 
@@ -645,7 +651,7 @@
             this.lblTotalIssues.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotalIssues.Location = new System.Drawing.Point(387, 25);
             this.lblTotalIssues.Name = "lblTotalIssues";
-            this.lblTotalIssues.Size = new System.Drawing.Size(108, 16);
+            this.lblTotalIssues.Size = new System.Drawing.Size(107, 16);
             this.lblTotalIssues.TabIndex = 55;
             this.lblTotalIssues.Text = "## total issue(s).";
             // 
@@ -667,7 +673,7 @@
             this.chkFilterUnresolved.Location = new System.Drawing.Point(639, 4);
             this.chkFilterUnresolved.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkFilterUnresolved.Name = "chkFilterUnresolved";
-            this.chkFilterUnresolved.Size = new System.Drawing.Size(114, 26);
+            this.chkFilterUnresolved.Size = new System.Drawing.Size(113, 26);
             this.chkFilterUnresolved.TabIndex = 53;
             this.chkFilterUnresolved.Text = "Filter Unresolved";
             this.chkFilterUnresolved.UseVisualStyleBackColor = true;
@@ -698,7 +704,7 @@
             this.lblIssueType7.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblIssueType7.Location = new System.Drawing.Point(405, 104);
             this.lblIssueType7.Name = "lblIssueType7";
-            this.lblIssueType7.Size = new System.Drawing.Size(73, 16);
+            this.lblIssueType7.Size = new System.Drawing.Size(72, 16);
             this.lblIssueType7.TabIndex = 43;
             this.lblIssueType7.Text = "IssueType7";
             // 
@@ -708,7 +714,7 @@
             this.lblIssueType6.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblIssueType6.Location = new System.Drawing.Point(405, 82);
             this.lblIssueType6.Name = "lblIssueType6";
-            this.lblIssueType6.Size = new System.Drawing.Size(73, 16);
+            this.lblIssueType6.Size = new System.Drawing.Size(72, 16);
             this.lblIssueType6.TabIndex = 42;
             this.lblIssueType6.Text = "IssueType6";
             // 
@@ -718,7 +724,7 @@
             this.lblIssueType5.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblIssueType5.Location = new System.Drawing.Point(405, 60);
             this.lblIssueType5.Name = "lblIssueType5";
-            this.lblIssueType5.Size = new System.Drawing.Size(73, 16);
+            this.lblIssueType5.Size = new System.Drawing.Size(72, 16);
             this.lblIssueType5.TabIndex = 41;
             this.lblIssueType5.Text = "IssueType5";
             // 
@@ -728,7 +734,7 @@
             this.lblIssueType4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblIssueType4.Location = new System.Drawing.Point(44, 126);
             this.lblIssueType4.Name = "lblIssueType4";
-            this.lblIssueType4.Size = new System.Drawing.Size(73, 16);
+            this.lblIssueType4.Size = new System.Drawing.Size(72, 16);
             this.lblIssueType4.TabIndex = 40;
             this.lblIssueType4.Text = "IssueType4";
             // 
@@ -738,7 +744,7 @@
             this.lblIssueType3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblIssueType3.Location = new System.Drawing.Point(44, 104);
             this.lblIssueType3.Name = "lblIssueType3";
-            this.lblIssueType3.Size = new System.Drawing.Size(73, 16);
+            this.lblIssueType3.Size = new System.Drawing.Size(72, 16);
             this.lblIssueType3.TabIndex = 39;
             this.lblIssueType3.Text = "IssueType3";
             // 
@@ -748,7 +754,7 @@
             this.lblIssueType2.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblIssueType2.Location = new System.Drawing.Point(44, 81);
             this.lblIssueType2.Name = "lblIssueType2";
-            this.lblIssueType2.Size = new System.Drawing.Size(73, 16);
+            this.lblIssueType2.Size = new System.Drawing.Size(72, 16);
             this.lblIssueType2.TabIndex = 38;
             this.lblIssueType2.Text = "IssueType2";
             // 
@@ -758,7 +764,7 @@
             this.lblIssueType1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblIssueType1.Location = new System.Drawing.Point(44, 60);
             this.lblIssueType1.Name = "lblIssueType1";
-            this.lblIssueType1.Size = new System.Drawing.Size(73, 16);
+            this.lblIssueType1.Size = new System.Drawing.Size(72, 16);
             this.lblIssueType1.TabIndex = 37;
             this.lblIssueType1.Text = "IssueType1";
             // 
@@ -768,7 +774,7 @@
             this.lblUnresolvedIssues.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblUnresolvedIssues.Location = new System.Drawing.Point(177, 25);
             this.lblUnresolvedIssues.Name = "lblUnresolvedIssues";
-            this.lblUnresolvedIssues.Size = new System.Drawing.Size(106, 16);
+            this.lblUnresolvedIssues.Size = new System.Drawing.Size(105, 16);
             this.lblUnresolvedIssues.TabIndex = 35;
             this.lblUnresolvedIssues.Text = "## unresolved.";
             // 
@@ -862,7 +868,7 @@
             this.label16.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label16.Location = new System.Drawing.Point(47, 17);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(81, 16);
+            this.label16.Size = new System.Drawing.Size(80, 16);
             this.label16.TabIndex = 9;
             this.label16.Text = "Go to Survey";
             // 
@@ -872,7 +878,7 @@
             this.label17.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label17.Location = new System.Drawing.Point(56, 56);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(72, 16);
+            this.label17.Size = new System.Drawing.Size(71, 16);
             this.label17.TabIndex = 11;
             this.label17.Text = "Go to Issue";
             // 
@@ -950,7 +956,7 @@
             this.label18.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label18.Location = new System.Drawing.Point(16, 252);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(59, 16);
+            this.label18.Size = new System.Drawing.Size(58, 16);
             this.label18.TabIndex = 36;
             this.label18.Text = "Category";
             // 
@@ -972,7 +978,7 @@
             this.label19.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label19.Location = new System.Drawing.Point(57, 220);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(23, 16);
+            this.label19.Size = new System.Drawing.Size(22, 16);
             this.label19.TabIndex = 34;
             this.label19.Text = "To";
             // 
@@ -982,7 +988,7 @@
             this.label20.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label20.Location = new System.Drawing.Point(40, 188);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(38, 16);
+            this.label20.Size = new System.Drawing.Size(37, 16);
             this.label20.TabIndex = 33;
             this.label20.Text = "From";
             // 
@@ -992,7 +998,7 @@
             this.label21.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label21.Location = new System.Drawing.Point(44, 156);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(34, 16);
+            this.label21.Size = new System.Drawing.Size(33, 16);
             this.label21.TabIndex = 32;
             this.label21.Text = "Date";
             // 
@@ -1002,7 +1008,7 @@
             this.label22.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label22.Location = new System.Drawing.Point(6, 108);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(67, 16);
+            this.label22.Size = new System.Drawing.Size(66, 16);
             this.label22.TabIndex = 31;
             this.label22.Text = "VarNames";
             // 
@@ -1012,7 +1018,7 @@
             this.label23.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label23.Location = new System.Drawing.Point(17, 78);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(57, 16);
+            this.label23.Size = new System.Drawing.Size(56, 16);
             this.label23.TabIndex = 30;
             this.label23.Text = "Issue No";
             // 
@@ -1024,7 +1030,7 @@
             this.chkResolved.Margin = new System.Windows.Forms.Padding(0);
             this.chkResolved.Name = "chkResolved";
             this.chkResolved.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.chkResolved.Size = new System.Drawing.Size(78, 20);
+            this.chkResolved.Size = new System.Drawing.Size(77, 20);
             this.chkResolved.TabIndex = 29;
             this.chkResolved.Text = "Resolved";
             this.chkResolved.UseVisualStyleBackColor = true;
@@ -1038,7 +1044,7 @@
             this.label24.Location = new System.Drawing.Point(923, 135);
             this.label24.Margin = new System.Windows.Forms.Padding(0);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(21, 16);
+            this.label24.Size = new System.Drawing.Size(20, 16);
             this.label24.TabIndex = 28;
             this.label24.Text = "by";
             // 
@@ -1062,7 +1068,7 @@
             this.label25.Location = new System.Drawing.Point(922, 107);
             this.label25.Margin = new System.Windows.Forms.Padding(0);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(22, 16);
+            this.label25.Size = new System.Drawing.Size(21, 16);
             this.label25.TabIndex = 26;
             this.label25.Text = "on";
             // 
@@ -1085,7 +1091,7 @@
             this.label26.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label26.Location = new System.Drawing.Point(587, 0);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(71, 16);
+            this.label26.Size = new System.Drawing.Size(70, 16);
             this.label26.TabIndex = 24;
             this.label26.Text = "Description";
             // 
@@ -1095,7 +1101,7 @@
             this.label27.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label27.Location = new System.Drawing.Point(266, 23);
             this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(63, 16);
+            this.label27.Size = new System.Drawing.Size(62, 16);
             this.label27.TabIndex = 22;
             this.label27.Text = "Language";
             // 
@@ -1199,7 +1205,7 @@
             this.label28.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label28.Location = new System.Drawing.Point(29, 44);
             this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(47, 16);
+            this.label28.Size = new System.Drawing.Size(46, 16);
             this.label28.TabIndex = 13;
             this.label28.Text = "Survey";
             // 
@@ -1262,7 +1268,7 @@
             this.label3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(226, 15);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(193, 16);
+            this.label3.Size = new System.Drawing.Size(192, 16);
             this.label3.TabIndex = 24;
             this.label3.Text = "Double click the response to edit";
             // 
@@ -1440,6 +1446,7 @@
             // 
             this.bindingNavigatorPositionItem2.AccessibleName = "Position";
             this.bindingNavigatorPositionItem2.AutoSize = false;
+            this.bindingNavigatorPositionItem2.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.bindingNavigatorPositionItem2.Name = "bindingNavigatorPositionItem2";
             this.bindingNavigatorPositionItem2.Size = new System.Drawing.Size(58, 23);
             this.bindingNavigatorPositionItem2.Text = "0";
@@ -1473,16 +1480,6 @@
             this.bindingNavigatorSeparator8.Name = "bindingNavigatorSeparator8";
             this.bindingNavigatorSeparator8.Size = new System.Drawing.Size(6, 25);
             // 
-            // bindingNavigatorAddNewItem1
-            // 
-            this.bindingNavigatorAddNewItem1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorAddNewItem1.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorAddNewItem1.Image")));
-            this.bindingNavigatorAddNewItem1.Name = "bindingNavigatorAddNewItem1";
-            this.bindingNavigatorAddNewItem1.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorAddNewItem1.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorAddNewItem1.Text = "Add new";
-            this.bindingNavigatorAddNewItem1.Click += new System.EventHandler(this.bindingNavigatorAddNewItem1_Click);
-            // 
             // bindingNavigatorDeleteItem1
             // 
             this.bindingNavigatorDeleteItem1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -1499,7 +1496,7 @@
             this.label5.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(1139, 250);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(94, 16);
+            this.label5.Size = new System.Drawing.Size(93, 16);
             this.label5.TabIndex = 56;
             this.label5.Text = "Issue Images";
             // 
@@ -1509,9 +1506,143 @@
             this.label6.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(1139, 567);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(122, 16);
+            this.label6.Size = new System.Drawing.Size(121, 16);
             this.label6.TabIndex = 57;
             this.label6.Text = "Response Images";
+            // 
+            // bindingNavigator1
+            // 
+            this.bindingNavigator1.AddNewItem = this.bindingNavigatorAddNewItem2;
+            this.bindingNavigator1.CountItem = this.bindingNavigatorCountItem3;
+            this.bindingNavigator1.DeleteItem = this.bindingNavigatorDeleteItem2;
+            this.bindingNavigator1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.bindingNavigatorMoveFirstItem3,
+            this.bindingNavigatorMovePreviousItem3,
+            this.bindingNavigatorSeparator9,
+            this.bindingNavigatorPositionItem3,
+            this.bindingNavigatorCountItem3,
+            this.bindingNavigatorSeparator10,
+            this.bindingNavigatorMoveNextItem3,
+            this.bindingNavigatorMoveLastItem3,
+            this.bindingNavigatorSeparator11,
+            this.bindingNavigatorAddNewItem2,
+            this.bindingNavigatorDeleteItem2});
+            this.bindingNavigator1.Location = new System.Drawing.Point(0, 49);
+            this.bindingNavigator1.MoveFirstItem = this.bindingNavigatorMoveFirstItem3;
+            this.bindingNavigator1.MoveLastItem = this.bindingNavigatorMoveLastItem3;
+            this.bindingNavigator1.MoveNextItem = this.bindingNavigatorMoveNextItem3;
+            this.bindingNavigator1.MovePreviousItem = this.bindingNavigatorMovePreviousItem3;
+            this.bindingNavigator1.Name = "bindingNavigator1";
+            this.bindingNavigator1.PositionItem = this.bindingNavigatorPositionItem3;
+            this.bindingNavigator1.Size = new System.Drawing.Size(1669, 25);
+            this.bindingNavigator1.TabIndex = 58;
+            this.bindingNavigator1.Text = "bindingNavigator1";
+            // 
+            // bindingNavigatorMoveFirstItem3
+            // 
+            this.bindingNavigatorMoveFirstItem3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.bindingNavigatorMoveFirstItem3.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveFirstItem3.Image")));
+            this.bindingNavigatorMoveFirstItem3.Name = "bindingNavigatorMoveFirstItem";
+            this.bindingNavigatorMoveFirstItem3.RightToLeftAutoMirrorImage = true;
+            this.bindingNavigatorMoveFirstItem3.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorMoveFirstItem3.Text = "Move first";
+            // 
+            // bindingNavigatorMovePreviousItem3
+            // 
+            this.bindingNavigatorMovePreviousItem3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.bindingNavigatorMovePreviousItem3.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMovePreviousItem3.Image")));
+            this.bindingNavigatorMovePreviousItem3.Name = "bindingNavigatorMovePreviousItem";
+            this.bindingNavigatorMovePreviousItem3.RightToLeftAutoMirrorImage = true;
+            this.bindingNavigatorMovePreviousItem3.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorMovePreviousItem3.Text = "Move previous";
+            // 
+            // bindingNavigatorSeparator9
+            // 
+            this.bindingNavigatorSeparator9.Name = "bindingNavigatorSeparator";
+            this.bindingNavigatorSeparator9.Size = new System.Drawing.Size(6, 25);
+            // 
+            // bindingNavigatorPositionItem3
+            // 
+            this.bindingNavigatorPositionItem3.AccessibleName = "Position";
+            this.bindingNavigatorPositionItem3.AutoSize = false;
+            this.bindingNavigatorPositionItem3.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.bindingNavigatorPositionItem3.Name = "bindingNavigatorPositionItem";
+            this.bindingNavigatorPositionItem3.Size = new System.Drawing.Size(50, 23);
+            this.bindingNavigatorPositionItem3.Text = "0";
+            this.bindingNavigatorPositionItem3.ToolTipText = "Current position";
+            // 
+            // bindingNavigatorCountItem3
+            // 
+            this.bindingNavigatorCountItem3.Name = "bindingNavigatorCountItem";
+            this.bindingNavigatorCountItem3.Size = new System.Drawing.Size(35, 22);
+            this.bindingNavigatorCountItem3.Text = "of {0}";
+            this.bindingNavigatorCountItem3.ToolTipText = "Total number of items";
+            // 
+            // bindingNavigatorSeparator10
+            // 
+            this.bindingNavigatorSeparator10.Name = "bindingNavigatorSeparator";
+            this.bindingNavigatorSeparator10.Size = new System.Drawing.Size(6, 25);
+            // 
+            // bindingNavigatorMoveNextItem3
+            // 
+            this.bindingNavigatorMoveNextItem3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.bindingNavigatorMoveNextItem3.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveNextItem3.Image")));
+            this.bindingNavigatorMoveNextItem3.Name = "bindingNavigatorMoveNextItem";
+            this.bindingNavigatorMoveNextItem3.RightToLeftAutoMirrorImage = true;
+            this.bindingNavigatorMoveNextItem3.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorMoveNextItem3.Text = "Move next";
+            // 
+            // bindingNavigatorMoveLastItem3
+            // 
+            this.bindingNavigatorMoveLastItem3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.bindingNavigatorMoveLastItem3.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveLastItem3.Image")));
+            this.bindingNavigatorMoveLastItem3.Name = "bindingNavigatorMoveLastItem";
+            this.bindingNavigatorMoveLastItem3.RightToLeftAutoMirrorImage = true;
+            this.bindingNavigatorMoveLastItem3.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorMoveLastItem3.Text = "Move last";
+            // 
+            // bindingNavigatorSeparator11
+            // 
+            this.bindingNavigatorSeparator11.Name = "bindingNavigatorSeparator";
+            this.bindingNavigatorSeparator11.Size = new System.Drawing.Size(6, 25);
+            // 
+            // bindingNavigatorAddNewItem2
+            // 
+            this.bindingNavigatorAddNewItem2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.bindingNavigatorAddNewItem2.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorAddNewItem2.Image")));
+            this.bindingNavigatorAddNewItem2.Name = "bindingNavigatorAddNewItem";
+            this.bindingNavigatorAddNewItem2.RightToLeftAutoMirrorImage = true;
+            this.bindingNavigatorAddNewItem2.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorAddNewItem2.Text = "Add new";
+            // 
+            // bindingNavigatorDeleteItem2
+            // 
+            this.bindingNavigatorDeleteItem2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.bindingNavigatorDeleteItem2.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorDeleteItem2.Image")));
+            this.bindingNavigatorDeleteItem2.Name = "bindingNavigatorDeleteItem";
+            this.bindingNavigatorDeleteItem2.RightToLeftAutoMirrorImage = true;
+            this.bindingNavigatorDeleteItem2.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorDeleteItem2.Text = "Delete";
+            // 
+            // bindingNavigatorAddNewItem
+            // 
+            this.bindingNavigatorAddNewItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.bindingNavigatorAddNewItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorAddNewItem.Image")));
+            this.bindingNavigatorAddNewItem.Name = "bindingNavigatorAddNewItem";
+            this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
+            this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorAddNewItem.Text = "Add new";
+            this.bindingNavigatorAddNewItem.Click += new System.EventHandler(this.bindingNavigatorAddNewItem_Click);
+            // 
+            // bindingNavigatorAddNewItem1
+            // 
+            this.bindingNavigatorAddNewItem1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.bindingNavigatorAddNewItem1.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorAddNewItem1.Image")));
+            this.bindingNavigatorAddNewItem1.Name = "bindingNavigatorAddNewItem1";
+            this.bindingNavigatorAddNewItem1.RightToLeftAutoMirrorImage = true;
+            this.bindingNavigatorAddNewItem1.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorAddNewItem1.Text = "Add new";
+            this.bindingNavigatorAddNewItem1.Click += new System.EventHandler(this.bindingNavigatorAddNewItem1_Click);
             // 
             // PraccingEntry
             // 
@@ -1520,6 +1651,7 @@
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(232)))), ((int)(((byte)(160)))));
             this.ClientSize = new System.Drawing.Size(1669, 1000);
+            this.Controls.Add(this.bindingNavigator1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.panelResponseImages);
@@ -1569,6 +1701,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.navResponseImages)).EndInit();
             this.navResponseImages.ResumeLayout(false);
             this.navResponseImages.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).EndInit();
+            this.bindingNavigator1.ResumeLayout(false);
+            this.bindingNavigator1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1666,7 +1801,6 @@
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.BindingNavigator navMainImages;
-        private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem1;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveFirstItem1;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMovePreviousItem1;
@@ -1678,7 +1812,6 @@
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator5;
         private System.Windows.Forms.Panel panelResponseImages;
         private System.Windows.Forms.BindingNavigator navResponseImages;
-        private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem1;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem2;
         private System.Windows.Forms.ToolStripButton bindingNavigatorDeleteItem1;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveFirstItem2;
@@ -1698,5 +1831,19 @@
         private System.Windows.Forms.Label lblEnteredBy;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
+        private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem1;
+        private System.Windows.Forms.BindingNavigator bindingNavigator1;
+        private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem2;
+        private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem3;
+        private System.Windows.Forms.ToolStripButton bindingNavigatorDeleteItem2;
+        private System.Windows.Forms.ToolStripButton bindingNavigatorMoveFirstItem3;
+        private System.Windows.Forms.ToolStripButton bindingNavigatorMovePreviousItem3;
+        private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator9;
+        private System.Windows.Forms.ToolStripTextBox bindingNavigatorPositionItem3;
+        private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator10;
+        private System.Windows.Forms.ToolStripButton bindingNavigatorMoveNextItem3;
+        private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem3;
+        private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator11;
     }
 }
