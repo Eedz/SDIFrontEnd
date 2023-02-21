@@ -91,6 +91,7 @@ namespace SDIFrontEnd
                     RunProperties rPr = c.Descendants<RunProperties>().First();
                     rPr.Append(new RunFonts() { Ascii = "Verdana" });
                     rPr.Append(new FontSize() { Val = "20" });
+
                 }
 
                 table.Append(header);
@@ -100,6 +101,7 @@ namespace SDIFrontEnd
                     TableRow row = new TableRow();
 
                     TableCell qnum = new TableCell();
+                   
                     ParagraphProperties pPr = new ParagraphProperties(new SpacingBetweenLines() { Before = "0", After = "0", Line = "240", LineRule = LineSpacingRuleValues.Auto, AfterAutoSpacing = false, BeforeAutoSpacing = false });
                     qnum.Append(new Paragraph(pPr, new Run(new Text(q.Qnum))));
                     row.Append(qnum);
@@ -120,6 +122,11 @@ namespace SDIFrontEnd
 
 
                     table.Append(row);
+                }
+
+                foreach (TableCell cell in table.Descendants<TableCell>())
+                {
+                    cell.Append(new TableCellProperties(XMLUtilities.BlackSingleCellBorder()));
                 }
 
                 body.Append(table);
@@ -147,7 +154,7 @@ namespace SDIFrontEnd
         private void CreatePraccingSheetXLS(Survey survey)
         {
             List<SurveyQuestion> questionList = DBAction.GetSurveyQuestions(survey).ToList();
-            int num_ids = 10;
+
             string filePath = @"\\psychfile\psych$\psych-lab-gfong\SMG\SDI\Reports\Praccing\" + survey.SurveyCode + " Praccing Sheet - " + DateTime.Now.DateTimeForFile() + ".xlsx";
 
             using (SpreadsheetDocument spreadSheet = SpreadsheetDocument.Create(filePath, SpreadsheetDocumentType.Workbook))

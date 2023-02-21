@@ -187,7 +187,8 @@ namespace SDIFrontEnd
             if (MessageBox.Show("Are you sure you want to delete this wave?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
 
-                DBAction.DeleteWave(CurrentRecord);
+                DBAction.DeleteRecord(CurrentRecord);
+                WaveList.Remove(CurrentRecord);
                 toolStripGoTo.ComboBox.DataSource = new List<StudyWaveRecord>(WaveList);
                 bs.RemoveCurrent();
                 RefreshCurrentWave();

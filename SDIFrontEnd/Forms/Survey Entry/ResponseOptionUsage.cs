@@ -494,7 +494,7 @@ namespace SDIFrontEnd
             {
                 if (MessageBox.Show("This will delete " + CurrentSet.FieldName + " " + CurrentSet.RespSetName + ".\r\nDo you want to proceed?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    if (DBAction.DeleteResponseSet(CurrentSet) == 1)
+                    if (DBAction.DeleteRecord(CurrentSet) == 1)
                     {
                         MessageBox.Show("Error deleting response set.");
                     }

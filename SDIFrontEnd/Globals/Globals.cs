@@ -50,6 +50,7 @@ namespace SDIFrontEnd
         public static List<SurveyCohortRecord> AllCohorts;
         public static List<UserStateRecord> AllUserStates;
         public static List<SimilarWordsRecord> AllSimilarWords;
+        public static List<SurveyMode> AllModes;
 
         // comments
         public static List<CommentType> AllCommentTypes;
@@ -123,11 +124,15 @@ namespace SDIFrontEnd
         public static void CreateOtherLists()
         {
             AllPeople = DBAction.GetPeople();
+            
             AllContentLabels = DBAction.ListContentLabels();
             AllTopicLabels = DBAction.ListTopicLabels();
             AllDomainLabels = DBAction.ListDomainLabels();
             AllProductLabels = DBAction.ListProductLabels();
             AllCohorts = DBAction.GetCohortInfo();
+            AllModes = DBAction.GetModeInfo();
+            AllModes.Insert(0, new SurveyMode());
+
             AllUserStates = DBAction.GetUserStates();
             AllSimilarWords = DBAction.GetSimilarWordings();
         }
@@ -148,8 +153,6 @@ namespace SDIFrontEnd
             state.SaveRecord();
             
         }
-
-
 
         public static EventHandler RefreshPeople;
         public static EventHandler RefreshDomains;

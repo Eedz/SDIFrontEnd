@@ -398,16 +398,18 @@ namespace SDIFrontEnd
             if (EnterMode == EntryMode.Copy)
             {
                 int count = 1;
+                string qnum = NextQnum(DestinationQnum);
                 foreach (ListViewItem i in lstToCopy.Items)
                 {
+
                     QuestionRecord q = (QuestionRecord)i.Tag;
                     q.SurveyCode = DestinationSurvey.SurveyCode;
                     q.NewRecord = true;
                     string newVarCC = Utilities.ChangeCC(q.VarName.VarName, DestinationSurvey.CountryCode);
                     q.VarName.VarName = newVarCC;
-                    q.VarName.RefVarName = Utilities.ChangeCC(newVarCC);
-                    q.Qnum = DestinationQnum + new String('z', count);
-
+                    q.VarName.RefVarName = Utilities.ChangeCC(newVarCC);                   
+                    q.Qnum = qnum;
+                    qnum = NextQnum(qnum);
                     // add to list of questions to create
                     QuestionsToAdd.Add(q);
                     count++;
@@ -420,12 +422,33 @@ namespace SDIFrontEnd
                 if (q != null)
                 {
                     q.NewRecord = true;
-                    q.Qnum = DestinationQnum + 'z';
+                    q.Qnum = NextQnum(DestinationQnum);
                     QuestionsToAdd.Add(q);
                 }
             }
 
             return QuestionsToAdd;
+        }
+
+        // transpose - true if tail should be kept as is
+        private string NextQnum(string qnum, bool transpose = false)
+        {
+            if (qnum.Length < 3)
+                return qnum;
+
+            if (!Int32.TryParse(qnum.Substring(0, 3), out int value))
+                return qnum;
+
+            if (!transpose)
+                return (value + 1).ToString("000");
+
+            string tail = string.Empty;
+            if (qnum.Length >3)
+                tail = qnum.Substring(3);
+
+            value++;
+
+            return value.ToString("000") + tail;
         }
 
         /// <summary>

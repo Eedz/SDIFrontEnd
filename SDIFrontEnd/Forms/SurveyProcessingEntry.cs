@@ -395,7 +395,7 @@ namespace SDIFrontEnd
                 var dataRepeater = (Microsoft.VisualBasic.PowerPacks.DataRepeater)dataRepeaterItem.Parent;
                 var datasource = (List<SurveyProcessingDate>)((BindingSource)dataRepeater.DataSource).DataSource;
                 SurveyProcessingDate item = datasource[dataRepeaterItem.ItemIndex];
-                if (DBAction.DeleteSurveyProcessingDate(item.ID) != 1)
+                if (DBAction.DeleteRecord(item) != 1)
                     dataRepeater.RemoveAt(dataRepeaterItem.ItemIndex);
                 else
                     MessageBox.Show("Error deleting this date.");
@@ -448,7 +448,7 @@ namespace SDIFrontEnd
                 var dataRepeater = (Microsoft.VisualBasic.PowerPacks.DataRepeater)dataRepeaterItem.Parent;
                 var datasource = (List<SurveyProcessingNote>)((BindingSource)dataRepeater.DataSource).DataSource;
                 SurveyProcessingNote item = datasource[dataRepeaterItem.ItemIndex];
-                if (DBAction.DeleteSurveyProcessingNote(item.ID) != 1)
+                if (DBAction.DeleteRecord(item) != 1)
                     dataRepeater.RemoveAt(dataRepeaterItem.ItemIndex);
                 else
                     MessageBox.Show("Error deleting this note.");

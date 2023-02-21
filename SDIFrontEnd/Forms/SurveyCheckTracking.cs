@@ -394,7 +394,7 @@ namespace SDIFrontEnd
             {
                 // delete record from database
                 if (MessageBox.Show("Are you sure you want to delete this record?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                    DBAction.DeleteSurveyCheckRecord(CurrentRecord.ID);
+                    DBAction.DeleteRecord(CurrentRecord);
                 else
                     return;
             }
@@ -595,7 +595,7 @@ namespace SDIFrontEnd
             {
                 // delete records
                 SurveyCheckRefSurvey rec = (SurveyCheckRefSurvey) dgvRefSurveys.Rows[e.Row.Index].DataBoundItem;
-                DBAction.DeleteSurveyCheckRef(rec.ID);
+                DBAction.DeleteRecord(rec);
             }
             
         }

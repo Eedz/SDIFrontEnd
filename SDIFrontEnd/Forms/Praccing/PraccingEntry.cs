@@ -43,6 +43,7 @@ namespace SDIFrontEnd
 
             IssuesList = new List<PraccingIssue>();
             PeopleList = Globals.AllPeople;
+            
             CategoryList = DBAction.GetPraccingCategories();
             SurveyList = Globals.AllSurveys;
 
@@ -60,6 +61,8 @@ namespace SDIFrontEnd
             bsMainIssues.PositionChanged += BsMainIssues_PositionChanged;
             bsResponses.PositionChanged += BsResponses_PositionChanged;
 
+            AddMouseWheelEvents();
+
             FillBoxes();
 
             cboGoToSurvey.SelectedValueChanged += cboGoToSurvey_SelectedValueChanged;
@@ -67,7 +70,7 @@ namespace SDIFrontEnd
             
             BindProperties();
 
-            this.MouseWheel += PraccingEntry_OnMouseWheel;
+            
         }
 
         
@@ -242,6 +245,14 @@ namespace SDIFrontEnd
         {
             SaveSurveyFilter();
             FormManager.Remove(this);
+        }
+
+        private void ComboBox_MouseWheel(object sender, MouseEventArgs e)
+        {
+            ComboBox control = (ComboBox)sender;
+
+            if (!control.DroppedDown)
+                ((HandledMouseEventArgs)e).Handled = true;
         }
 
         private void cboGoToSurvey_SelectedValueChanged(object sender, EventArgs e)
@@ -502,12 +513,15 @@ namespace SDIFrontEnd
                     return;
                 }
 
-
-                bsMainIssues.DataSource = IssuesList.Where(x => !x.Resolved).ToList();
+                bsMainIssues.DataSource = unresolved; // IssuesList.Where(x => !x.Resolved).ToList();
+                
+                cboGoToIssueNo.DataSource = unresolved.ToList();
             }
             else
             {
                 bsMainIssues.DataSource = IssuesList;
+                
+                cboGoToIssueNo.DataSource = IssuesList;
             }
 
             RefreshCurrentIssue();
@@ -559,7 +573,7 @@ namespace SDIFrontEnd
             {
 
                 if (current.ID > 0)                   
-                    DBAction.DeletePraccingImage(current.ID);
+                    DBAction.DeleteRecord(current);
 
                 try
                 {
@@ -611,7 +625,7 @@ namespace SDIFrontEnd
             {
 
                 if (current.ID > 0)
-                    DBAction.DeletePraccingResponseImage(current.ID);
+                    DBAction.DeletePraccResponseImage(current);
 
                 try
                 {
@@ -637,17 +651,19 @@ namespace SDIFrontEnd
 
         private void dataRepeater1_ItemCloned(object sender, Microsoft.VisualBasic.PowerPacks.DataRepeaterItemEventArgs e)
         {
+            IEnumerable<Person> names = GetNames(false);
+
             var combo = (ComboBox)e.DataRepeaterItem.Controls.Find("cboResponseFrom", false)[0];
             //Set the data source
             combo.DisplayMember = "Name";
             combo.ValueMember = "ID";
-            combo.DataSource = new List<Person>(PeopleList);
+            combo.DataSource = new List<Person>(names);
 
             var combo2 = (ComboBox)e.DataRepeaterItem.Controls.Find("cboResponseTo", false)[0];
             //Set the data source
             combo2.DisplayMember = "Name";
             combo2.ValueMember = "ID";
-            combo2.DataSource = new List<Person>(PeopleList);
+            combo2.DataSource = new List<Person>(names);
         }
 
         /// <summary>
@@ -833,9 +849,10 @@ namespace SDIFrontEnd
         private void GoToIssue(int issueNum)
         {
             int issuePosition = 0;
-            for (int i = 0; i < IssuesList.Count; i++)
+
+            for (int i = 0; i < bsMainIssues.Count; i++)
             {
-                if (IssuesList[i].IssueNo == issueNum)
+                if (((PraccingIssue)bsMainIssues[i]).IssueNo == issueNum)
                 {
                     issuePosition = i;
                     break;
@@ -939,6 +956,21 @@ namespace SDIFrontEnd
 
         }
 
+        private void AddMouseWheelEvents()
+        {
+            this.MouseWheel += PraccingEntry_OnMouseWheel;
+            cboGoToSurvey.MouseWheel += ComboBox_MouseWheel;
+            cboGoToIssueNo.MouseWheel += ComboBox_MouseWheel;
+            cboIssueFrom.MouseWheel += ComboBox_MouseWheel;
+            cboIssueTo.MouseWheel += ComboBox_MouseWheel;
+            cboIssueCategory.MouseWheel += ComboBox_MouseWheel;
+            rtbDescription.MouseWheel += PraccingEntry_OnMouseWheel;
+            cboResolvedBy.MouseWheel += ComboBox_MouseWheel;
+            cboResponseFrom.MouseWheel += ComboBox_MouseWheel;
+            cboResponseTo.MouseWheel += ComboBox_MouseWheel;
+            
+        }
+
         /// <summary>
         /// Fill the combo boxes in the main issue area.
         /// </summary>
@@ -950,25 +982,39 @@ namespace SDIFrontEnd
 
             cboGoToIssueNo.DisplayMember = "IssueNo";
             cboGoToIssueNo.ValueMember = "ID";
-            cboGoToIssueNo.DataSource = IssuesList;
-
-            cboIssueFrom.DisplayMember = "Name";
-            cboIssueFrom.ValueMember = "ID";
-            cboIssueFrom.DataSource = new List<Person>(PeopleList);
-
-            cboIssueTo.DisplayMember = "Name";
-            cboIssueTo.ValueMember = "ID";
-            cboIssueTo.DataSource = new List<Person>(PeopleList);
+            cboGoToIssueNo.DataSource = bsMainIssues;
 
             cboIssueCategory.DisplayMember = "Category";
             cboIssueCategory.ValueMember = "ID";
             cboIssueCategory.DataSource = new List<PraccingCategory>(CategoryList);
 
+            FillNameBoxes(false);
+
+        }
+
+        private void FillNameBoxes(bool all)
+        {
+            IEnumerable<Person> filteredNames = GetNames(all);
+
+            cboIssueFrom.DisplayMember = "Name";
+            cboIssueFrom.ValueMember = "ID";
+            cboIssueFrom.DataSource = new List<Person>(filteredNames);
+
+            cboIssueTo.DisplayMember = "Name";
+            cboIssueTo.ValueMember = "ID";
+            cboIssueTo.DataSource = new List<Person>(filteredNames);
+
             cboResolvedBy.DisplayMember = "Name";
             cboResolvedBy.ValueMember = "ID";
-            cboResolvedBy.DataSource = new List<Person>(PeopleList);
-            
+            cboResolvedBy.DataSource = new List<Person>(filteredNames);
+        }
 
+        private IEnumerable<Person> GetNames(bool all)
+        {
+            if (all)
+                return PeopleList.OrderByDescending(x => x.Active || x.ID==0).ThenBy(x => x.FirstName).ThenBy(x => x.LastName);
+            else
+                return PeopleList.Where(x => x.PraccEntry || x.ID == 0).OrderByDescending(x => x.Active).ThenBy(x => x.FirstName).ThenBy(x => x.LastName);
         }
 
         private void BindControl(System.Windows.Forms.Control ctl, string prop, object datasource, string dataMember, bool formatting = false)
@@ -1031,7 +1077,7 @@ namespace SDIFrontEnd
                 return;
             if (MessageBox.Show("Are you sure you want to delete this praccing issue?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                DBAction.DeletePraccingIssue(CurrentIssue.ID);
+                DBAction.DeleteRecord(CurrentIssue);
                 bsMainIssues.RemoveCurrent();
             }
         }
@@ -1044,17 +1090,15 @@ namespace SDIFrontEnd
             int index = dataRepeater1.CurrentItem.ItemIndex;
             PraccingResponse currentReponse = CurrentIssue.Responses[index];
 
-            DBAction.DeletePraccingResponse(currentReponse.ID);
+            DBAction.DeleteRecord(currentReponse);
             dataRepeater1.RemoveAt(index);
         }
        
 
         private int SaveRecord()
         {
-
             if (NewRecord)
             {
-
                 if (CurrentIssue.ID ==0 && DBAction.InsertPraccingIssue(CurrentIssue) == 1)
                     return 1;
 
@@ -1078,7 +1122,6 @@ namespace SDIFrontEnd
                     if (DBAction.InsertPraccingImage(img) == 1)
                         return 1;
                 }
-
 
                 NewRecord = false;
                 Dirty = false;
@@ -1132,7 +1175,6 @@ namespace SDIFrontEnd
 
         private void MoveRecord(int count)
         {
-            
             if (count > 0)
                 for (int i = 0; i < count; i++)
                 {
@@ -1143,12 +1185,7 @@ namespace SDIFrontEnd
                 {
                     bsMainIssues.MovePrevious();
                 }
-
-            
         }
-
-
-        
 
         private void CreateNew()
         {

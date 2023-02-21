@@ -111,7 +111,7 @@ namespace SDIFrontEnd
 
             if (MessageBox.Show("Are you sure you want to delete this survey? (All questions, comments and translations will also be deleted for this survey)?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                DBAction.DeleteSurvey(CurrentRecord);
+                DBAction.DeleteRecord(CurrentRecord);
                 bs.RemoveCurrent();
                 RefreshCurrentRecord();
             }
@@ -278,7 +278,7 @@ namespace SDIFrontEnd
         private void FillLists()
         {
             SurveyList = new BindingList<SurveyRecord>(Globals.AllSurveys);
-            WaveList = Globals.AllWaves;
+            WaveList = new List<StudyWaveRecord>(Globals.AllWaves);
             LockedSurveys = DBAction.GetLockedSurveys();
             UserStateList = Globals.AllUserStates;
             ScreenedProductList = DBAction.GetScreenProducts();
@@ -390,21 +390,21 @@ namespace SDIFrontEnd
         /// </summary>
         private void FillBoxes()
         {
-            toolStripGoTo.ComboBox.DataSource = new List<Survey>(SurveyList);
             toolStripGoTo.ComboBox.ValueMember = "SID";
             toolStripGoTo.ComboBox.DisplayMember = "SurveyCode";
+            toolStripGoTo.ComboBox.DataSource = new List<Survey>(SurveyList);
 
             cboWaveID.DisplayMember = "WaveCode";
             cboWaveID.ValueMember = "ID";
             cboWaveID.DataSource = new List<StudyWaveRecord>(WaveList);
 
-            cboMode.DataSource = DBAction.GetModeInfo();
             cboMode.DisplayMember = "ModeAbbrev";
             cboMode.ValueMember = "ID";
+            cboMode.DataSource = new List<SurveyMode>(Globals.AllModes);
 
-            cboSurveyType.DataSource = DBAction.GetCohortInfo();
             cboSurveyType.DisplayMember = "Cohort";
             cboSurveyType.ValueMember = "ID";
+            cboSurveyType.DataSource = new List<SurveyCohort>(Globals.AllCohorts);
         }
         #endregion
 
@@ -479,18 +479,16 @@ namespace SDIFrontEnd
 
         private void dgvLanguages_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
-            
             if (MessageBox.Show("Are you sure you want to delete the selected language?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 SurveyLanguage newLanguage = (SurveyLanguage)e.Row.DataBoundItem;
-                DBAction.DeleteSurveyLanguage(newLanguage);
 
+                DBAction.DeleteRecord(newLanguage);
             }
             else
             {
                 e.Cancel = true;
             }
-           
         }
 
         private void dgvLanguages_DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -578,7 +576,7 @@ namespace SDIFrontEnd
             if (MessageBox.Show("Are you sure you want to delete the selected user state?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 SurveyUserState state = (SurveyUserState)e.Row.DataBoundItem;
-                DBAction.DeleteSurveyUserState(state);
+                DBAction.DeleteRecord(state);
 
             }
             else
@@ -665,7 +663,7 @@ namespace SDIFrontEnd
             if (MessageBox.Show("Are you sure you want to delete the selected screend product?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 SurveyScreenedProduct product = (SurveyScreenedProduct)e.Row.DataBoundItem;
-                DBAction.DeleteSurveyScreenedProduct(product);
+                DBAction.DeleteRecord(product);
 
             }
             else

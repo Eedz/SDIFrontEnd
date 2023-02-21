@@ -495,7 +495,7 @@ namespace SDIFrontEnd
             if (MessageBox.Show("Are you sure you want to delete this comment and all of its uses?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.No)
                 return;
 
-            if (DBAction.DeleteNote(CurrentNote.ID) == 1)
+            if (DBAction.DeleteRecord(CurrentNote) == 1)
             {
                 MessageBox.Show("Error deleting note.");
             }

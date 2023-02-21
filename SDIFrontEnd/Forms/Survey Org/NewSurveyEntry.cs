@@ -44,13 +44,20 @@ namespace SDIFrontEnd
             cboWaveID.DisplayMember = "WaveCode";
             cboWaveID.ValueMember = "ID";
 
-            cboMode.DataSource = DBAction.GetModeInfo();
+            var modes = new List<SurveyMode>(DBAction.GetModeInfo());
+            modes.Insert(0, new SurveyMode());
+            cboMode.DataSource = modes;
             cboMode.DisplayMember = "ModeAbbrev";
             cboMode.ValueMember = "ID";
 
             cboSurveyType.DataSource = new List<SurveyCohortRecord>(Globals.AllCohorts); 
             cboSurveyType.DisplayMember = "Cohort";
             cboSurveyType.ValueMember = "ID";
+
+            cboCopyQuestions.ValueMember = "SID";
+            cboCopyQuestions.DisplayMember = "SurveyCode";
+            cboCopyQuestions.DataSource = new List<SurveyRecord>(Globals.AllSurveys);
+            cboCopyQuestions.SelectedItem = null;
         }
 
         private void BindProperties()
@@ -118,6 +125,10 @@ namespace SDIFrontEnd
             var wave = Globals.AllWaves.Where(x => x.ID == NewSurvey.WaveID).First();
             NewSurvey.CountryCode = Globals.AllStudies.Where(x => x.ID == wave.StudyID).First().CountryCode.ToString("00");
             Globals.AllSurveys.Add(NewSurvey);
+
+            if (cboCopyQuestions.SelectedItem != null)
+                DBAction.CopySurvey(((SurveyRecord)cboCopyQuestions.SelectedItem).SurveyCode, NewSurvey.SurveyCode);
+
             DialogResult = DialogResult.OK;
             Close();
         }

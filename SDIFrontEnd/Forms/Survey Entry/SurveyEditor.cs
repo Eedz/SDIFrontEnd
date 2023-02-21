@@ -435,7 +435,7 @@ namespace SDIFrontEnd
                 else
                 {
                     bs.Position = state.RecordPosition;
-                    if (state.RecordPosition > bs.Count)
+                    if (state.RecordPosition >= bs.Count)
                         state.RecordPosition = bs.Count-1;
                     lstQuestionList.Items[state.RecordPosition].EnsureVisible();
                 }
@@ -1103,7 +1103,7 @@ namespace SDIFrontEnd
                     CurrentRecord.RespOptions = DBAction.GetResponseText(CurrentRecord.RespName);
                     break;
                 case "NRCodes":
-                    CurrentRecord.RespOptions = DBAction.GetNonResponseText(CurrentRecord.NRName);
+                    CurrentRecord.NRCodes = DBAction.GetNonResponseText(CurrentRecord.NRName);
                     break;
             }
             LoadQuestion();
@@ -1525,14 +1525,15 @@ namespace SDIFrontEnd
             // if the dialog was closed with an 'OK' result
             if (frm.DialogResult == DialogResult.OK)
             {
+                int pos = bs.Position + 1;
                 foreach (QuestionRecord r in frm.QuestionsToAdd)
                 {
                     if (CurrentSurvey.QuestionByVar(r.VarName.VarName) == null)
                     {
-                        CurrentSurvey.AddQuestion(r, bs.Position + 1, true);
+                        CurrentSurvey.AddQuestion(r, pos, true);
                         CurrentSurvey.QuestionsAdded = true;
                         PendingAdds.Add(r);
-
+                        pos++;
                     }
                 }
                 
@@ -1681,9 +1682,15 @@ namespace SDIFrontEnd
 
         private void ShadeListItem(int index, Color c)
         {
-            QuestionRecord r = (QuestionRecord)lstQuestionList.Items[index].Tag;
+            try
+            {
+                QuestionRecord r = (QuestionRecord)lstQuestionList.Items[index].Tag;
+                lstQuestionList.Items[index].BackColor = c;
+            }
+            catch
+            {
 
-            lstQuestionList.Items[index].BackColor = c;
+            }
         }
 
         /// <summary>

@@ -443,8 +443,8 @@ namespace SDIFrontEnd
         private int SaveRecord()
         {
             UpdatePlainText();
-            Wording current = (Wording)bs.Current;
-            if (CurrentWording.WordID == 0) // new wording created by this form
+
+            if (NewRecord) // new wording created by this form
             {
                 // insert into table
                 DBAction.InsertWording(CurrentWording);

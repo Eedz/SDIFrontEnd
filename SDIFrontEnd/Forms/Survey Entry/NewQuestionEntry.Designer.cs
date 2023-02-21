@@ -72,14 +72,14 @@
             this.txtFilter = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.panelCopy = new System.Windows.Forms.Panel();
+            this.label14 = new System.Windows.Forms.Label();
+            this.cboVarName = new System.Windows.Forms.ComboBox();
             this.lblCopyToNewInfo = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.cboSurveySource = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.lblDestination = new System.Windows.Forms.Label();
-            this.cboVarName = new System.Windows.Forms.ComboBox();
-            this.label14 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRelatedVars)).BeginInit();
             this.panelNew.SuspendLayout();
             this.panelCopy.SuspendLayout();
@@ -161,24 +161,20 @@
             // 
             // chNewQnum
             // 
-            this.chNewQnum.DisplayIndex = 3;
             this.chNewQnum.Width = 0;
             // 
             // chNewVarName
             // 
-            this.chNewVarName.DisplayIndex = 0;
             this.chNewVarName.Text = "VarName";
             this.chNewVarName.Width = 65;
             // 
             // chNewVarLabel
             // 
-            this.chNewVarLabel.DisplayIndex = 1;
             this.chNewVarLabel.Text = "VarLabel";
             this.chNewVarLabel.Width = 280;
             // 
             // chNewRespName
             // 
-            this.chNewRespName.DisplayIndex = 2;
             this.chNewRespName.Text = "RespName";
             this.chNewRespName.Width = 75;
             // 
@@ -472,7 +468,7 @@
             this.panelNew.Controls.Add(this.cboContent);
             this.panelNew.Controls.Add(this.txtVarLabel);
             this.panelNew.Controls.Add(this.cboProduct);
-            this.panelNew.Location = new System.Drawing.Point(529, 80);
+            this.panelNew.Location = new System.Drawing.Point(530, 80);
             this.panelNew.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panelNew.Name = "panelNew";
             this.panelNew.Size = new System.Drawing.Size(605, 428);
@@ -535,9 +531,27 @@
             this.panelCopy.Location = new System.Drawing.Point(14, 80);
             this.panelCopy.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panelCopy.Name = "panelCopy";
-            this.panelCopy.Size = new System.Drawing.Size(509, 428);
+            this.panelCopy.Size = new System.Drawing.Size(510, 366);
             this.panelCopy.TabIndex = 18;
             this.panelCopy.Visible = false;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(285, 60);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(55, 16);
+            this.label14.TabIndex = 10;
+            this.label14.Text = "Find Var";
+            // 
+            // cboVarName
+            // 
+            this.cboVarName.FormattingEnabled = true;
+            this.cboVarName.Location = new System.Drawing.Point(346, 56);
+            this.cboVarName.Name = "cboVarName";
+            this.cboVarName.Size = new System.Drawing.Size(121, 24);
+            this.cboVarName.TabIndex = 9;
+            this.cboVarName.SelectedIndexChanged += new System.EventHandler(this.cboVarName_SelectedIndexChanged);
             // 
             // lblCopyToNewInfo
             // 
@@ -599,24 +613,6 @@
             this.lblDestination.Size = new System.Drawing.Size(294, 25);
             this.lblDestination.TabIndex = 19;
             this.lblDestination.Text = "Adding to [Survey] at [Qnum]";
-            // 
-            // cboVarName
-            // 
-            this.cboVarName.FormattingEnabled = true;
-            this.cboVarName.Location = new System.Drawing.Point(346, 56);
-            this.cboVarName.Name = "cboVarName";
-            this.cboVarName.Size = new System.Drawing.Size(121, 24);
-            this.cboVarName.TabIndex = 9;
-            this.cboVarName.SelectedIndexChanged += new System.EventHandler(this.cboVarName_SelectedIndexChanged);
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(285, 60);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(55, 16);
-            this.label14.TabIndex = 10;
-            this.label14.Text = "Find Var";
             // 
             // NewQuestionEntry
             // 
