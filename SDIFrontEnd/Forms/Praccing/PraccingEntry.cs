@@ -823,8 +823,8 @@ namespace SDIFrontEnd
             IssuesList = DBAction.GetPraccingIssues(survID);
             cboGoToIssueNo.DataSource = IssuesList;
 
-            var langList = DBAction.GetLanguages(new Survey() { SID = survID });
-            langList.Add("English");
+            var langList = DBAction.ListLanguages(new Survey() { SID = survID }).Select(x=>x.LanguageName).ToList();
+            if (!langList.Contains("English")) langList.Add("English");
 
             lstLanguage.DataSource = langList;
             lstLanguage.SelectedItem = null;

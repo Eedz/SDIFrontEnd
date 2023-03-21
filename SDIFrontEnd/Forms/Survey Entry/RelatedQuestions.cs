@@ -78,6 +78,8 @@ namespace SDIFrontEnd
             bsTranslations.PositionChanged += BsTranslations_PositionChanged;
         }
 
+        
+
         private void BindProperties()
         {
             txtVarName.DataBindings.Add("Text", bs, "VarName.VarName");
@@ -96,8 +98,6 @@ namespace SDIFrontEnd
 
             // translation panel
             txtTranslationPreP.DataBindings.Add("Text", bs, "PreP");
-            //txtLanguage.DataBindings.Add("Text", bsTranslations, "Language");
-            //rtbTranslation.DataBindings.Add("RTF", bsTranslations, "TranslationText");
             txtTranslationPstP.DataBindings.Add("Text", bs, "PstP");
         }
 
@@ -121,6 +121,7 @@ namespace SDIFrontEnd
         private void RelatedQuestions_Load(object sender, EventArgs e)
         {
             UpdateQuestion();
+            UpdateTranslation();
         }
 
         /// <summary>
@@ -131,8 +132,8 @@ namespace SDIFrontEnd
         private void Bs_PositionChanged(object sender, EventArgs e)
         {
             UpdateQuestion();
+            UpdateTranslation();
         }
-
 
         /// <summary>
         /// Update the translation text and CurrentTranslation.
@@ -403,7 +404,9 @@ namespace SDIFrontEnd
             Questions = new BindingList<QuestionRecord>(DBAction.GetRefVarNameQuestionsGlob(refVarName, SurveyGlob));
             foreach (QuestionRecord q in Questions)
             {
-                q.Translations = DBAction.GetQuestionTranslationRecords(q.ID);
+                var translations = DBAction.GetQuestionTranslations(q.ID);
+                foreach (Translation t in translations)
+                    q.Translations.Add(new TranslationRecord(t));
             }
             bs.DataSource = Questions;
             bs.ResetBindings(false);
@@ -439,7 +442,8 @@ namespace SDIFrontEnd
             bsTranslations.DataMember = "Translations";
             if (bsTranslations.Count > 0)
             {
-                txtLanguage.DataBindings.Add("Text", bsTranslations, "Language");
+                
+                txtLanguage.DataBindings.Add("Text", bsTranslations, "LanguageName.LanguageName");
                 rtbTranslation.DataBindings.Add("RTF", bsTranslations, "TranslationRTF");
             }
         }
@@ -648,8 +652,27 @@ namespace SDIFrontEnd
         }
 
 
+
         #endregion
 
-        
+        private void bindingNavigatorMoveNextItem1_Click(object sender, EventArgs e)
+        {
+            bsTranslations.MoveNext();
+        }
+
+        private void bindingNavigatorMoveLastItem1_Click(object sender, EventArgs e)
+        {
+            bsTranslations.MoveLast();
+        }
+
+        private void bindingNavigatorMovePreviousItem1_Click(object sender, EventArgs e)
+        {
+            bsTranslations.MovePrevious();
+        }
+
+        private void bindingNavigatorMoveFirstItem1_Click(object sender, EventArgs e)
+        {
+            bsTranslations.MoveFirst();
+        }
     }
 }

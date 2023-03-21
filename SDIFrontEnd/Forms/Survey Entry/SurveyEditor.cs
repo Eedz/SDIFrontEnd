@@ -555,7 +555,9 @@ namespace SDIFrontEnd
                 frmComments.UpdateForm(CurrentRecord);
 
             if (frmTranslations != null && !frmTranslations.IsDisposed)
-                frmTranslations.UpdateForm(CurrentSurvey, CurrentRecord, (SurveyLanguage) toolStripLanguage.ComboBox.SelectedItem);
+            {
+                frmTranslations.UpdateForm(CurrentSurvey, CurrentRecord, (SurveyLanguage)toolStripLanguage.ComboBox.SelectedItem);
+            }
 
             // deselect previous selection
             for (int i = 0; i < lstQuestionList.Items.Count; i++)
@@ -1044,7 +1046,7 @@ namespace SDIFrontEnd
 
         private List<SurveyLanguage> RefreshLanguages()
         {
-            List<SurveyLanguage> langs = DBAction.GetSurveyLanguages(CurrentSurvey);
+            List<SurveyLanguage> langs = CurrentSurvey.LanguageList;
             langs.RemoveAll(x => x.SurvLanguage.LanguageName.Equals("English"));
             SurveyLanguage all = new SurveyLanguage() { ID = 0, SurvID = CurrentSurvey.SID, SurvLanguage = new Language() { LanguageName = "<All>" } };
             langs.Insert(0, all);

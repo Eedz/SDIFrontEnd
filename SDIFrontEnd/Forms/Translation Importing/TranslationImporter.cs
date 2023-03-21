@@ -170,7 +170,8 @@ namespace SDIFrontEnd
                         }
 
                         Translation tq = new Translation();
-                        tq.ID = DBAction.GetSurveyTranslation(TargetSurvey.SurveyCode, varname, TargetLanguage.LanguageName).ID;
+                        Translation existingT = DBAction.GetSurveyTranslation(TargetSurvey.SurveyCode, varname, TargetLanguage.LanguageName) ?? new Translation();
+                        tq.ID = existingT.ID;
                         tq.QID = DBAction.GetQuestionID(TargetSurvey.SurveyCode, varname);
                         tq.Language = TargetLanguage.LanguageName;
                         tq.Survey = TargetSurvey.SurveyCode;
@@ -318,7 +319,8 @@ namespace SDIFrontEnd
                         {
                             string trimmed = Utilities.TrimString(surv, " ");
                             Translation tq = new Translation();
-                            tq.ID = DBAction.GetSurveyTranslation(trimmed, varname, TargetLanguage.LanguageName).ID;
+                            Translation existingT = DBAction.GetSurveyTranslation(TargetSurvey.SurveyCode, varname, TargetLanguage.LanguageName) ?? new Translation();
+                            tq.ID = existingT.ID;
                             tq.QID = DBAction.GetQuestionID(trimmed, varname);
                             tq.Language = TargetLanguage.LanguageName;
                             tq.Survey = trimmed;

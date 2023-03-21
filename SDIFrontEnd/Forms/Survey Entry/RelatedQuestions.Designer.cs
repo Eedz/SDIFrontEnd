@@ -231,10 +231,10 @@
             this.bindingNavigatorMoveLastItem1,
             this.bindingNavigatorSeparator5});
             this.navTranslations.Location = new System.Drawing.Point(0, 209);
-            this.navTranslations.MoveFirstItem = this.bindingNavigatorMoveFirstItem1;
-            this.navTranslations.MoveLastItem = this.bindingNavigatorMoveLastItem1;
-            this.navTranslations.MoveNextItem = this.bindingNavigatorMoveNextItem1;
-            this.navTranslations.MovePreviousItem = this.bindingNavigatorMovePreviousItem1;
+            this.navTranslations.MoveFirstItem = null;
+            this.navTranslations.MoveLastItem = null;
+            this.navTranslations.MoveNextItem = null;
+            this.navTranslations.MovePreviousItem = null;
             this.navTranslations.Name = "navTranslations";
             this.navTranslations.PositionItem = this.bindingNavigatorPositionItem1;
             this.navTranslations.Size = new System.Drawing.Size(652, 25);
@@ -256,6 +256,7 @@
             this.bindingNavigatorMoveFirstItem1.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorMoveFirstItem1.Size = new System.Drawing.Size(23, 22);
             this.bindingNavigatorMoveFirstItem1.Text = "Move first";
+            this.bindingNavigatorMoveFirstItem1.Click += new System.EventHandler(this.bindingNavigatorMoveFirstItem1_Click);
             // 
             // bindingNavigatorMovePreviousItem1
             // 
@@ -265,6 +266,7 @@
             this.bindingNavigatorMovePreviousItem1.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorMovePreviousItem1.Size = new System.Drawing.Size(23, 22);
             this.bindingNavigatorMovePreviousItem1.Text = "Move previous";
+            this.bindingNavigatorMovePreviousItem1.Click += new System.EventHandler(this.bindingNavigatorMovePreviousItem1_Click);
             // 
             // bindingNavigatorSeparator3
             // 
@@ -275,6 +277,7 @@
             // 
             this.bindingNavigatorPositionItem1.AccessibleName = "Position";
             this.bindingNavigatorPositionItem1.AutoSize = false;
+            this.bindingNavigatorPositionItem1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.bindingNavigatorPositionItem1.Name = "bindingNavigatorPositionItem1";
             this.bindingNavigatorPositionItem1.Size = new System.Drawing.Size(58, 23);
             this.bindingNavigatorPositionItem1.Text = "0";
@@ -293,6 +296,7 @@
             this.bindingNavigatorMoveNextItem1.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorMoveNextItem1.Size = new System.Drawing.Size(23, 22);
             this.bindingNavigatorMoveNextItem1.Text = "Move next";
+            this.bindingNavigatorMoveNextItem1.Click += new System.EventHandler(this.bindingNavigatorMoveNextItem1_Click);
             // 
             // bindingNavigatorMoveLastItem1
             // 
@@ -302,6 +306,7 @@
             this.bindingNavigatorMoveLastItem1.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorMoveLastItem1.Size = new System.Drawing.Size(23, 22);
             this.bindingNavigatorMoveLastItem1.Text = "Move last";
+            this.bindingNavigatorMoveLastItem1.Click += new System.EventHandler(this.bindingNavigatorMoveLastItem1_Click);
             // 
             // bindingNavigatorSeparator5
             // 
@@ -417,6 +422,7 @@
             // 
             this.bindingNavigatorPositionItem.AccessibleName = "Position";
             this.bindingNavigatorPositionItem.AutoSize = false;
+            this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
             this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(58, 23);
             this.bindingNavigatorPositionItem.Text = "0";
@@ -657,7 +663,7 @@
             this.label10.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.Location = new System.Drawing.Point(9, 10);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(80, 16);
+            this.label10.Size = new System.Drawing.Size(79, 16);
             this.label10.TabIndex = 39;
             this.label10.Text = "Survey Filter";
             // 
@@ -667,7 +673,7 @@
             this.label11.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.Location = new System.Drawing.Point(304, 9);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(113, 16);
+            this.label11.Size = new System.Drawing.Size(112, 16);
             this.label11.TabIndex = 40;
             this.label11.Text = "Transfer wordings";
             // 

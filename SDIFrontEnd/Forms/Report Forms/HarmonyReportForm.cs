@@ -155,7 +155,7 @@ namespace SDIFrontEnd
             if (index > -1)
                 lstWaves.SetSelected(index, true);
 
-            cboLanguage.DataSource = DBAction.GetLanguages((StudyWaveRecord)cboWaves.SelectedItem);
+            cboLanguage.DataSource = DBAction.ListLanguages((StudyWaveRecord)cboWaves.SelectedItem).Select(x=>x.LanguageName).ToList();
             
         }
 

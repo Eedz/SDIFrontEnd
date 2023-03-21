@@ -84,7 +84,7 @@
             this.rtbTranslationText.Size = new System.Drawing.Size(493, 292);
             this.rtbTranslationText.TabIndex = 2;
             this.rtbTranslationText.Text = "";
-   
+            this.rtbTranslationText.Validated += new System.EventHandler(this.rtbTranslationText_Validated);
             // 
             // txtLanguage
             // 

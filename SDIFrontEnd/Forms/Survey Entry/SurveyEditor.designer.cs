@@ -864,6 +864,7 @@
             this.rtbQuestionText.Location = new System.Drawing.Point(160, 53);
             this.rtbQuestionText.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.rtbQuestionText.Name = "rtbQuestionText";
+            this.rtbQuestionText.ReadOnly = true;
             this.rtbQuestionText.Size = new System.Drawing.Size(467, 460);
             this.rtbQuestionText.TabIndex = 25;
             this.rtbQuestionText.Text = "";

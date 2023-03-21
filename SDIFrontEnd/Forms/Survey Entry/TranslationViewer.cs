@@ -43,7 +43,7 @@ namespace SDIFrontEnd
 
             txtSurvey.DataBindings.Add(new Binding("Text", bs, "Survey"));
             txtVarName.DataBindings.Add(new Binding("Text", bs, "VarName"));
-            txtLanguage.DataBindings.Add(new Binding("Text", bs, "Language"));
+            txtLanguage.DataBindings.Add(new Binding("Text", bs, "LanguageName.LanguageName"));
             rtbPreP.Rtf = MainQuestion.PrepRTF;
             rtbPstP.Rtf = MainQuestion.PstpRTF;
 
@@ -67,7 +67,10 @@ namespace SDIFrontEnd
 
         private void Bs_ListChanged(object sender, ListChangedEventArgs e)
         {
-            if (e.ListChangedType == ListChangedType.ItemChanged)
+            if (e.PropertyDescriptor == null)
+                return;
+
+            if (e.PropertyDescriptor.Name != null) 
                 CurrentRecord.Dirty = true;
         }
 
@@ -183,6 +186,15 @@ namespace SDIFrontEnd
             MainQuestion = question;
             Translations = question.Translations;
             rtbTranslationText.Rtf = null;
+
+            if (Translations.Count() == 0)
+            {
+                LockForm(false);
+                return;
+            }
+            else
+                LockForm(true);
+
             if (language!=null && !language.SurvLanguage.LanguageName.Equals("<All>"))
                 bs.DataSource = Translations.Where(x=>x.Language.Equals(language.SurvLanguage.LanguageName));
             else
@@ -196,6 +208,17 @@ namespace SDIFrontEnd
             AdjustRouting();
 
             SetReadingDirection();
+        }
+
+
+        private void LockForm(bool locks)
+        {
+            txtSurvey.Enabled = locks;
+            txtVarName.Enabled = locks;
+            txtLanguage.Enabled = locks;
+            rtbPreP.Enabled = locks;
+            rtbTranslationText.Enabled = locks;
+            rtbPstP.Enabled = locks;
         }
 
         /// <summary>
@@ -257,8 +280,13 @@ namespace SDIFrontEnd
             plain = Utilities.TrimString(plain, "<br>");
             CurrentRecord.TranslationText = plain;
 
-            CurrentRecord.Dirty = true;
+            
             bs.ResetCurrentItem();
+        }
+
+        private void rtbTranslationText_Validated(object sender, EventArgs e)
+        {
+            CurrentRecord.Dirty = true;
         }
     }
 }
