@@ -63,6 +63,8 @@
             // 
             // cboPrefix
             // 
+            this.cboPrefix.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboPrefix.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboPrefix.FormattingEnabled = true;
             this.cboPrefix.Location = new System.Drawing.Point(95, 79);
             this.cboPrefix.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);

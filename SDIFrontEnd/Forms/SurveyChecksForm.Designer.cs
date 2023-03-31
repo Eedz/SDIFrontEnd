@@ -67,6 +67,14 @@
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.pageSeriesConsistency = new System.Windows.Forms.TabPage();
+            this.rtbSeriesStarterPstP = new System.Windows.Forms.RichTextBox();
+            this.rtbSeriesErrorPstP = new System.Windows.Forms.RichTextBox();
+            this.rtbSeriesStarterPreI = new System.Windows.Forms.RichTextBox();
+            this.rtbSeriesErrorPreI = new System.Windows.Forms.RichTextBox();
+            this.rtbSeriesStarterPreP = new System.Windows.Forms.RichTextBox();
+            this.rtbSeriesErrorPreP = new System.Windows.Forms.RichTextBox();
+            this.rtbSeriesStarterPstI = new System.Windows.Forms.RichTextBox();
+            this.rtbSeriesErrorPstI = new System.Windows.Forms.RichTextBox();
             this.lblSeriesCheckDesc = new System.Windows.Forms.Label();
             this.rtbSeriesStarterLitQ = new System.Windows.Forms.RichTextBox();
             this.rtbSeriesErrorLitQ = new System.Windows.Forms.RichTextBox();
@@ -105,14 +113,7 @@
             this.cmdRunChecks = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rtbSeriesErrorPstI = new System.Windows.Forms.RichTextBox();
-            this.rtbSeriesStarterPstI = new System.Windows.Forms.RichTextBox();
-            this.rtbSeriesErrorPreP = new System.Windows.Forms.RichTextBox();
-            this.rtbSeriesStarterPreP = new System.Windows.Forms.RichTextBox();
-            this.rtbSeriesErrorPreI = new System.Windows.Forms.RichTextBox();
-            this.rtbSeriesStarterPreI = new System.Windows.Forms.RichTextBox();
-            this.rtbSeriesErrorPstP = new System.Windows.Forms.RichTextBox();
-            this.rtbSeriesStarterPstP = new System.Windows.Forms.RichTextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.tabResults.SuspendLayout();
             this.pageRoutingCheck.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.navRouting)).BeginInit();
@@ -157,6 +158,8 @@
             // 
             // cboSource
             // 
+            this.cboSource.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboSource.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboSource.FormattingEnabled = true;
             this.cboSource.Location = new System.Drawing.Point(62, 169);
             this.cboSource.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -170,7 +173,7 @@
             this.lblSource.AutoSize = true;
             this.lblSource.Location = new System.Drawing.Point(112, 149);
             this.lblSource.Name = "lblSource";
-            this.lblSource.Size = new System.Drawing.Size(48, 16);
+            this.lblSource.Size = new System.Drawing.Size(47, 16);
             this.lblSource.TabIndex = 3;
             this.lblSource.Text = "Source";
             // 
@@ -191,7 +194,7 @@
             this.chkExcludeSeriesCheck.Location = new System.Drawing.Point(25, 93);
             this.chkExcludeSeriesCheck.Name = "chkExcludeSeriesCheck";
             this.chkExcludeSeriesCheck.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.chkExcludeSeriesCheck.Size = new System.Drawing.Size(148, 20);
+            this.chkExcludeSeriesCheck.Size = new System.Drawing.Size(147, 20);
             this.chkExcludeSeriesCheck.TabIndex = 5;
             this.chkExcludeSeriesCheck.Text = "Exclude Series Check";
             this.chkExcludeSeriesCheck.UseVisualStyleBackColor = true;
@@ -201,7 +204,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(22, 66);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(63, 16);
+            this.label3.Size = new System.Drawing.Size(62, 16);
             this.label3.TabIndex = 4;
             this.label3.Text = "Language";
             // 
@@ -218,12 +221,14 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(31, 15);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(58, 16);
+            this.label2.Size = new System.Drawing.Size(57, 16);
             this.label2.TabIndex = 2;
             this.label2.Text = "Survey 2";
             // 
             // cboSurvey2
             // 
+            this.cboSurvey2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboSurvey2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboSurvey2.FormattingEnabled = true;
             this.cboSurvey2.Location = new System.Drawing.Point(95, 12);
             this.cboSurvey2.Name = "cboSurvey2";
@@ -266,7 +271,7 @@
             this.pageRoutingCheck.Location = new System.Drawing.Point(4, 25);
             this.pageRoutingCheck.Name = "pageRoutingCheck";
             this.pageRoutingCheck.Padding = new System.Windows.Forms.Padding(3);
-            this.pageRoutingCheck.Size = new System.Drawing.Size(988, 626);
+            this.pageRoutingCheck.Size = new System.Drawing.Size(988, 686);
             this.pageRoutingCheck.TabIndex = 0;
             this.pageRoutingCheck.Text = "Routing Check";
             // 
@@ -275,7 +280,7 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(437, 303);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(32, 16);
+            this.label8.Size = new System.Drawing.Size(31, 16);
             this.label8.TabIndex = 17;
             this.label8.Text = "PstP";
             // 
@@ -284,7 +289,7 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(433, 72);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(34, 16);
+            this.label7.Size = new System.Drawing.Size(33, 16);
             this.label7.TabIndex = 16;
             this.label7.Text = "PreP";
             // 
@@ -293,7 +298,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(473, 319);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(36, 16);
+            this.label6.Size = new System.Drawing.Size(35, 16);
             this.label6.TabIndex = 15;
             this.label6.Text = "Early";
             // 
@@ -302,7 +307,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(381, 319);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(50, 16);
+            this.label5.Size = new System.Drawing.Size(49, 16);
             this.label5.TabIndex = 14;
             this.label5.Text = "Missing";
             // 
@@ -311,7 +316,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(473, 88);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(32, 16);
+            this.label4.Size = new System.Drawing.Size(31, 16);
             this.label4.TabIndex = 13;
             this.label4.Text = "Late";
             // 
@@ -320,7 +325,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(381, 88);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(50, 16);
+            this.label1.Size = new System.Drawing.Size(49, 16);
             this.label1.TabIndex = 12;
             this.label1.Text = "Missing";
             // 
@@ -407,7 +412,7 @@
             this.bindingNavigatorMoveNextItem,
             this.bindingNavigatorMoveLastItem,
             this.bindingNavigatorSeparator2});
-            this.navRouting.Location = new System.Drawing.Point(3, 598);
+            this.navRouting.Location = new System.Drawing.Point(3, 658);
             this.navRouting.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.navRouting.MoveLastItem = this.bindingNavigatorMoveLastItem;
             this.navRouting.MoveNextItem = this.bindingNavigatorMoveNextItem;
@@ -452,6 +457,7 @@
             // 
             this.bindingNavigatorPositionItem.AccessibleName = "Position";
             this.bindingNavigatorPositionItem.AutoSize = false;
+            this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
             this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
             this.bindingNavigatorPositionItem.Text = "0";
@@ -515,12 +521,84 @@
             this.pageSeriesConsistency.TabIndex = 1;
             this.pageSeriesConsistency.Text = "Series Check";
             // 
+            // rtbSeriesStarterPstP
+            // 
+            this.rtbSeriesStarterPstP.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbSeriesStarterPstP.Location = new System.Drawing.Point(573, 594);
+            this.rtbSeriesStarterPstP.Name = "rtbSeriesStarterPstP";
+            this.rtbSeriesStarterPstP.Size = new System.Drawing.Size(353, 77);
+            this.rtbSeriesStarterPstP.TabIndex = 33;
+            this.rtbSeriesStarterPstP.Text = "";
+            // 
+            // rtbSeriesErrorPstP
+            // 
+            this.rtbSeriesErrorPstP.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbSeriesErrorPstP.Location = new System.Drawing.Point(191, 594);
+            this.rtbSeriesErrorPstP.Name = "rtbSeriesErrorPstP";
+            this.rtbSeriesErrorPstP.Size = new System.Drawing.Size(376, 77);
+            this.rtbSeriesErrorPstP.TabIndex = 32;
+            this.rtbSeriesErrorPstP.Text = "";
+            // 
+            // rtbSeriesStarterPreI
+            // 
+            this.rtbSeriesStarterPreI.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbSeriesStarterPreI.Location = new System.Drawing.Point(573, 126);
+            this.rtbSeriesStarterPreI.Name = "rtbSeriesStarterPreI";
+            this.rtbSeriesStarterPreI.Size = new System.Drawing.Size(353, 64);
+            this.rtbSeriesStarterPreI.TabIndex = 31;
+            this.rtbSeriesStarterPreI.Text = "";
+            // 
+            // rtbSeriesErrorPreI
+            // 
+            this.rtbSeriesErrorPreI.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbSeriesErrorPreI.Location = new System.Drawing.Point(191, 126);
+            this.rtbSeriesErrorPreI.Name = "rtbSeriesErrorPreI";
+            this.rtbSeriesErrorPreI.Size = new System.Drawing.Size(376, 64);
+            this.rtbSeriesErrorPreI.TabIndex = 30;
+            this.rtbSeriesErrorPreI.Text = "";
+            // 
+            // rtbSeriesStarterPreP
+            // 
+            this.rtbSeriesStarterPreP.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbSeriesStarterPreP.Location = new System.Drawing.Point(573, 59);
+            this.rtbSeriesStarterPreP.Name = "rtbSeriesStarterPreP";
+            this.rtbSeriesStarterPreP.Size = new System.Drawing.Size(353, 61);
+            this.rtbSeriesStarterPreP.TabIndex = 29;
+            this.rtbSeriesStarterPreP.Text = "";
+            // 
+            // rtbSeriesErrorPreP
+            // 
+            this.rtbSeriesErrorPreP.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbSeriesErrorPreP.Location = new System.Drawing.Point(191, 59);
+            this.rtbSeriesErrorPreP.Name = "rtbSeriesErrorPreP";
+            this.rtbSeriesErrorPreP.Size = new System.Drawing.Size(376, 61);
+            this.rtbSeriesErrorPreP.TabIndex = 28;
+            this.rtbSeriesErrorPreP.Text = "";
+            // 
+            // rtbSeriesStarterPstI
+            // 
+            this.rtbSeriesStarterPstI.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbSeriesStarterPstI.Location = new System.Drawing.Point(573, 532);
+            this.rtbSeriesStarterPstI.Name = "rtbSeriesStarterPstI";
+            this.rtbSeriesStarterPstI.Size = new System.Drawing.Size(353, 59);
+            this.rtbSeriesStarterPstI.TabIndex = 27;
+            this.rtbSeriesStarterPstI.Text = "";
+            // 
+            // rtbSeriesErrorPstI
+            // 
+            this.rtbSeriesErrorPstI.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbSeriesErrorPstI.Location = new System.Drawing.Point(191, 531);
+            this.rtbSeriesErrorPstI.Name = "rtbSeriesErrorPstI";
+            this.rtbSeriesErrorPstI.Size = new System.Drawing.Size(376, 59);
+            this.rtbSeriesErrorPstI.TabIndex = 26;
+            this.rtbSeriesErrorPstI.Text = "";
+            // 
             // lblSeriesCheckDesc
             // 
             this.lblSeriesCheckDesc.AutoSize = true;
             this.lblSeriesCheckDesc.Location = new System.Drawing.Point(13, 12);
             this.lblSeriesCheckDesc.Name = "lblSeriesCheckDesc";
-            this.lblSeriesCheckDesc.Size = new System.Drawing.Size(498, 16);
+            this.lblSeriesCheckDesc.Size = new System.Drawing.Size(497, 16);
             this.lblSeriesCheckDesc.TabIndex = 25;
             this.lblSeriesCheckDesc.Text = "The following questions have different wordings than the first member of their se" +
     "ries.";
@@ -596,7 +674,7 @@
             this.lblSeriesStarter.AutoSize = true;
             this.lblSeriesStarter.Location = new System.Drawing.Point(704, 42);
             this.lblSeriesStarter.Name = "lblSeriesStarter";
-            this.lblSeriesStarter.Size = new System.Drawing.Size(88, 16);
+            this.lblSeriesStarter.Size = new System.Drawing.Size(87, 16);
             this.lblSeriesStarter.TabIndex = 5;
             this.lblSeriesStarter.Text = "Series Starter";
             // 
@@ -605,7 +683,7 @@
             this.lblSeriesError.AutoSize = true;
             this.lblSeriesError.Location = new System.Drawing.Point(351, 42);
             this.lblSeriesError.Name = "lblSeriesError";
-            this.lblSeriesError.Size = new System.Drawing.Size(77, 16);
+            this.lblSeriesError.Size = new System.Drawing.Size(76, 16);
             this.lblSeriesError.TabIndex = 3;
             this.lblSeriesError.Text = "Series Error";
             // 
@@ -629,7 +707,7 @@
             this.pageSeriesConsistency2.Location = new System.Drawing.Point(4, 25);
             this.pageSeriesConsistency2.Name = "pageSeriesConsistency2";
             this.pageSeriesConsistency2.Padding = new System.Windows.Forms.Padding(3);
-            this.pageSeriesConsistency2.Size = new System.Drawing.Size(988, 626);
+            this.pageSeriesConsistency2.Size = new System.Drawing.Size(988, 686);
             this.pageSeriesConsistency2.TabIndex = 2;
             this.pageSeriesConsistency2.Text = "Series Compare";
             // 
@@ -638,7 +716,7 @@
             this.lblSeriesCompareDesc.AutoSize = true;
             this.lblSeriesCompareDesc.Location = new System.Drawing.Point(6, 39);
             this.lblSeriesCompareDesc.Name = "lblSeriesCompareDesc";
-            this.lblSeriesCompareDesc.Size = new System.Drawing.Size(462, 16);
+            this.lblSeriesCompareDesc.Size = new System.Drawing.Size(461, 16);
             this.lblSeriesCompareDesc.TabIndex = 1;
             this.lblSeriesCompareDesc.Text = "The following questions are part of a series in only one of the selected surveys." +
     "";
@@ -661,7 +739,7 @@
             this.pageBlankLabels.Location = new System.Drawing.Point(4, 25);
             this.pageBlankLabels.Name = "pageBlankLabels";
             this.pageBlankLabels.Padding = new System.Windows.Forms.Padding(3);
-            this.pageBlankLabels.Size = new System.Drawing.Size(988, 626);
+            this.pageBlankLabels.Size = new System.Drawing.Size(988, 686);
             this.pageBlankLabels.TabIndex = 3;
             this.pageBlankLabels.Text = "Blank Labels";
             // 
@@ -680,7 +758,7 @@
             this.lblBlankLabelsDesc.AutoSize = true;
             this.lblBlankLabelsDesc.Location = new System.Drawing.Point(6, 16);
             this.lblBlankLabelsDesc.Name = "lblBlankLabelsDesc";
-            this.lblBlankLabelsDesc.Size = new System.Drawing.Size(363, 16);
+            this.lblBlankLabelsDesc.Size = new System.Drawing.Size(362, 16);
             this.lblBlankLabelsDesc.TabIndex = 1;
             this.lblBlankLabelsDesc.Text = "The following VarNames have one or more unassigned labels.";
             // 
@@ -693,6 +771,7 @@
             this.chBLTopic,
             this.chBLDomain,
             this.chBLProduct});
+            this.lstBlankLabels.HideSelection = false;
             this.lstBlankLabels.Location = new System.Drawing.Point(9, 51);
             this.lstBlankLabels.Name = "lstBlankLabels";
             this.lstBlankLabels.Size = new System.Drawing.Size(971, 569);
@@ -737,7 +816,7 @@
             this.pageYQnums.Location = new System.Drawing.Point(4, 25);
             this.pageYQnums.Name = "pageYQnums";
             this.pageYQnums.Padding = new System.Windows.Forms.Padding(3);
-            this.pageYQnums.Size = new System.Drawing.Size(988, 626);
+            this.pageYQnums.Size = new System.Drawing.Size(988, 686);
             this.pageYQnums.TabIndex = 4;
             this.pageYQnums.Text = "\'y\' Qnums";
             // 
@@ -746,7 +825,7 @@
             this.lblYQnumDesc.AutoSize = true;
             this.lblYQnumDesc.Location = new System.Drawing.Point(6, 12);
             this.lblYQnumDesc.Name = "lblYQnumDesc";
-            this.lblYQnumDesc.Size = new System.Drawing.Size(289, 16);
+            this.lblYQnumDesc.Size = new System.Drawing.Size(288, 16);
             this.lblYQnumDesc.TabIndex = 1;
             this.lblYQnumDesc.Text = "The following VarNames have generic \'y\' Qnums.";
             // 
@@ -755,6 +834,7 @@
             this.lstYQnums.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.chYQnumVarName,
             this.chYQnumQnum});
+            this.lstYQnums.HideSelection = false;
             this.lstYQnums.Location = new System.Drawing.Point(6, 66);
             this.lstYQnums.Name = "lstYQnums";
             this.lstYQnums.Size = new System.Drawing.Size(182, 357);
@@ -779,7 +859,7 @@
             this.pageCanonVars.Location = new System.Drawing.Point(4, 25);
             this.pageCanonVars.Name = "pageCanonVars";
             this.pageCanonVars.Padding = new System.Windows.Forms.Padding(3);
-            this.pageCanonVars.Size = new System.Drawing.Size(988, 626);
+            this.pageCanonVars.Size = new System.Drawing.Size(988, 686);
             this.pageCanonVars.TabIndex = 5;
             this.pageCanonVars.Text = "Canonical Vars";
             // 
@@ -788,7 +868,7 @@
             this.lblCanonVarsDesc.AutoSize = true;
             this.lblCanonVarsDesc.Location = new System.Drawing.Point(10, 16);
             this.lblCanonVarsDesc.Name = "lblCanonVarsDesc";
-            this.lblCanonVarsDesc.Size = new System.Drawing.Size(379, 16);
+            this.lblCanonVarsDesc.Size = new System.Drawing.Size(378, 16);
             this.lblCanonVarsDesc.TabIndex = 1;
             this.lblCanonVarsDesc.Text = "The following Canonical VarNames were not found in the survey.";
             // 
@@ -811,7 +891,7 @@
             this.pageTranslationVars.Location = new System.Drawing.Point(4, 25);
             this.pageTranslationVars.Name = "pageTranslationVars";
             this.pageTranslationVars.Padding = new System.Windows.Forms.Padding(3);
-            this.pageTranslationVars.Size = new System.Drawing.Size(988, 626);
+            this.pageTranslationVars.Size = new System.Drawing.Size(988, 686);
             this.pageTranslationVars.TabIndex = 6;
             this.pageTranslationVars.Text = "Translation Vars";
             // 
@@ -820,7 +900,7 @@
             this.lblTranslationCheckDesc.AutoSize = true;
             this.lblTranslationCheckDesc.Location = new System.Drawing.Point(13, 20);
             this.lblTranslationCheckDesc.Name = "lblTranslationCheckDesc";
-            this.lblTranslationCheckDesc.Size = new System.Drawing.Size(478, 16);
+            this.lblTranslationCheckDesc.Size = new System.Drawing.Size(477, 16);
             this.lblTranslationCheckDesc.TabIndex = 6;
             this.lblTranslationCheckDesc.Text = "The following questions reference different variables in English and in Translati" +
     "on.";
@@ -852,84 +932,23 @@
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
-            // rtbSeriesErrorPstI
+            // label9
             // 
-            this.rtbSeriesErrorPstI.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbSeriesErrorPstI.Location = new System.Drawing.Point(191, 531);
-            this.rtbSeriesErrorPstI.Name = "rtbSeriesErrorPstI";
-            this.rtbSeriesErrorPstI.Size = new System.Drawing.Size(376, 59);
-            this.rtbSeriesErrorPstI.TabIndex = 26;
-            this.rtbSeriesErrorPstI.Text = "";
-            // 
-            // rtbSeriesStarterPstI
-            // 
-            this.rtbSeriesStarterPstI.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbSeriesStarterPstI.Location = new System.Drawing.Point(573, 532);
-            this.rtbSeriesStarterPstI.Name = "rtbSeriesStarterPstI";
-            this.rtbSeriesStarterPstI.Size = new System.Drawing.Size(353, 59);
-            this.rtbSeriesStarterPstI.TabIndex = 27;
-            this.rtbSeriesStarterPstI.Text = "";
-            // 
-            // rtbSeriesErrorPreP
-            // 
-            this.rtbSeriesErrorPreP.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbSeriesErrorPreP.Location = new System.Drawing.Point(191, 59);
-            this.rtbSeriesErrorPreP.Name = "rtbSeriesErrorPreP";
-            this.rtbSeriesErrorPreP.Size = new System.Drawing.Size(376, 61);
-            this.rtbSeriesErrorPreP.TabIndex = 28;
-            this.rtbSeriesErrorPreP.Text = "";
-            // 
-            // rtbSeriesStarterPreP
-            // 
-            this.rtbSeriesStarterPreP.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbSeriesStarterPreP.Location = new System.Drawing.Point(573, 59);
-            this.rtbSeriesStarterPreP.Name = "rtbSeriesStarterPreP";
-            this.rtbSeriesStarterPreP.Size = new System.Drawing.Size(353, 61);
-            this.rtbSeriesStarterPreP.TabIndex = 29;
-            this.rtbSeriesStarterPreP.Text = "";
-            // 
-            // rtbSeriesErrorPreI
-            // 
-            this.rtbSeriesErrorPreI.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbSeriesErrorPreI.Location = new System.Drawing.Point(191, 126);
-            this.rtbSeriesErrorPreI.Name = "rtbSeriesErrorPreI";
-            this.rtbSeriesErrorPreI.Size = new System.Drawing.Size(376, 64);
-            this.rtbSeriesErrorPreI.TabIndex = 30;
-            this.rtbSeriesErrorPreI.Text = "";
-            // 
-            // rtbSeriesStarterPreI
-            // 
-            this.rtbSeriesStarterPreI.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbSeriesStarterPreI.Location = new System.Drawing.Point(573, 126);
-            this.rtbSeriesStarterPreI.Name = "rtbSeriesStarterPreI";
-            this.rtbSeriesStarterPreI.Size = new System.Drawing.Size(353, 64);
-            this.rtbSeriesStarterPreI.TabIndex = 31;
-            this.rtbSeriesStarterPreI.Text = "";
-            // 
-            // rtbSeriesErrorPstP
-            // 
-            this.rtbSeriesErrorPstP.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbSeriesErrorPstP.Location = new System.Drawing.Point(191, 594);
-            this.rtbSeriesErrorPstP.Name = "rtbSeriesErrorPstP";
-            this.rtbSeriesErrorPstP.Size = new System.Drawing.Size(376, 77);
-            this.rtbSeriesErrorPstP.TabIndex = 32;
-            this.rtbSeriesErrorPstP.Text = "";
-            // 
-            // rtbSeriesStarterPstP
-            // 
-            this.rtbSeriesStarterPstP.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbSeriesStarterPstP.Location = new System.Drawing.Point(573, 594);
-            this.rtbSeriesStarterPstP.Name = "rtbSeriesStarterPstP";
-            this.rtbSeriesStarterPstP.Size = new System.Drawing.Size(353, 77);
-            this.rtbSeriesStarterPstP.TabIndex = 33;
-            this.rtbSeriesStarterPstP.Text = "";
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(106, 35);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(80, 16);
+            this.label9.TabIndex = 13;
+            this.label9.Text = "Check Scope";
             // 
             // SurveyChecksForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(1408, 757);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.cmdRunChecks);
             this.Controls.Add(this.cmdSectionsCheck);
             this.Controls.Add(this.tabResults);
@@ -1054,5 +1073,6 @@
         private System.Windows.Forms.RichTextBox rtbSeriesErrorPreI;
         private System.Windows.Forms.RichTextBox rtbSeriesStarterPreP;
         private System.Windows.Forms.RichTextBox rtbSeriesErrorPreP;
+        private System.Windows.Forms.Label label9;
     }
 }

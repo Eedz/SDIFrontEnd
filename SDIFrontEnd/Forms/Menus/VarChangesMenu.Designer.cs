@@ -132,6 +132,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(933, 554);
             this.Controls.Add(this.cmdOpenVarUsage);
             this.Controls.Add(this.cmdOpenVarUsageReport);

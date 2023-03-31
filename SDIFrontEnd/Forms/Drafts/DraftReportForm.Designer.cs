@@ -66,6 +66,8 @@
             // 
             // cboDraft
             // 
+            this.cboDraft.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboDraft.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboDraft.DropDownWidth = 500;
             this.cboDraft.FormattingEnabled = true;
             this.cboDraft.Location = new System.Drawing.Point(116, 13);
@@ -94,6 +96,8 @@
             // 
             // cboInvestigator
             // 
+            this.cboInvestigator.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboInvestigator.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboInvestigator.FormattingEnabled = true;
             this.cboInvestigator.Location = new System.Drawing.Point(116, 74);
             this.cboInvestigator.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -125,7 +129,7 @@
             this.chkIncludeUpdates.Location = new System.Drawing.Point(156, 266);
             this.chkIncludeUpdates.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkIncludeUpdates.Name = "chkIncludeUpdates";
-            this.chkIncludeUpdates.Size = new System.Drawing.Size(118, 20);
+            this.chkIncludeUpdates.Size = new System.Drawing.Size(117, 20);
             this.chkIncludeUpdates.TabIndex = 7;
             this.chkIncludeUpdates.Text = "Include Updates";
             this.chkIncludeUpdates.UseVisualStyleBackColor = true;
@@ -137,7 +141,7 @@
             this.chkShading.Location = new System.Drawing.Point(21, 266);
             this.chkShading.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkShading.Name = "chkShading";
-            this.chkShading.Size = new System.Drawing.Size(129, 20);
+            this.chkShading.Size = new System.Drawing.Size(128, 20);
             this.chkShading.TabIndex = 8;
             this.chkShading.Text = "Alternate Shading";
             this.chkShading.UseVisualStyleBackColor = true;
@@ -159,7 +163,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(71, 82);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 16);
+            this.label1.Size = new System.Drawing.Size(46, 16);
             this.label1.TabIndex = 10;
             this.label1.Text = "Survey";
             // 
@@ -168,7 +172,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(31, 222);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(82, 16);
+            this.label5.Size = new System.Drawing.Size(81, 16);
             this.label5.TabIndex = 14;
             this.label5.Text = "Qnum Range";
             // 
@@ -221,7 +225,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(237, 48);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(13, 16);
+            this.label2.Size = new System.Drawing.Size(12, 16);
             this.label2.TabIndex = 17;
             this.label2.Text = "-";
             // 
@@ -230,7 +234,7 @@
             this.rbInvestigator.AutoSize = true;
             this.rbInvestigator.Location = new System.Drawing.Point(13, 75);
             this.rbInvestigator.Name = "rbInvestigator";
-            this.rbInvestigator.Size = new System.Drawing.Size(93, 20);
+            this.rbInvestigator.Size = new System.Drawing.Size(92, 20);
             this.rbInvestigator.TabIndex = 16;
             this.rbInvestigator.TabStop = true;
             this.rbInvestigator.Text = "Investigator";
@@ -242,7 +246,7 @@
             this.rbDate.AutoSize = true;
             this.rbDate.Location = new System.Drawing.Point(13, 44);
             this.rbDate.Name = "rbDate";
-            this.rbDate.Size = new System.Drawing.Size(92, 20);
+            this.rbDate.Size = new System.Drawing.Size(91, 20);
             this.rbDate.TabIndex = 15;
             this.rbDate.TabStop = true;
             this.rbDate.Text = "Date Range";
@@ -254,7 +258,7 @@
             this.rbDraft.AutoSize = true;
             this.rbDraft.Location = new System.Drawing.Point(13, 14);
             this.rbDraft.Name = "rbDraft";
-            this.rbDraft.Size = new System.Drawing.Size(54, 20);
+            this.rbDraft.Size = new System.Drawing.Size(53, 20);
             this.rbDraft.TabIndex = 14;
             this.rbDraft.TabStop = true;
             this.rbDraft.Text = "Draft";
@@ -266,7 +270,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(245, 225);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(13, 16);
+            this.label3.Size = new System.Drawing.Size(12, 16);
             this.label3.TabIndex = 18;
             this.label3.Text = "-";
             // 

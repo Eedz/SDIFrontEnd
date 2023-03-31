@@ -275,6 +275,8 @@
             // 
             // cboGoToVar
             // 
+            this.cboGoToVar.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboGoToVar.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboGoToVar.FormattingEnabled = true;
             this.cboGoToVar.Location = new System.Drawing.Point(87, 108);
             this.cboGoToVar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -288,7 +290,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(15, 112);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(66, 16);
+            this.label1.Size = new System.Drawing.Size(65, 16);
             this.label1.TabIndex = 47;
             this.label1.Text = "Go To Var";
             // 
@@ -450,7 +452,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(15, 695);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(84, 16);
+            this.label2.Size = new System.Drawing.Size(83, 16);
             this.label2.TabIndex = 55;
             this.label2.Text = "Current Filter";
             // 
@@ -458,6 +460,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(196)))), ((int)(((byte)(153)))));
             this.ClientSize = new System.Drawing.Size(1477, 848);
             this.Controls.Add(this.label2);

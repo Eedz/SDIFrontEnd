@@ -31,6 +31,7 @@ namespace SDIFrontEnd
             cboSurvey.DataSource = SurveyList;
 
             cboSurvey.SelectedIndexChanged += cboSurvey_SelectedIndexChanged;
+            cboSurvey.MouseWheel += ComboBox_MouseWheel;
 
             IssuesList = new List<PraccingIssue>();
             FilteredIssuesList = new List<PraccingIssue>();
@@ -86,6 +87,14 @@ namespace SDIFrontEnd
 
 
         #region Control Events
+
+        void ComboBox_MouseWheel(object sender, MouseEventArgs e)
+        {
+            ComboBox control = (ComboBox)sender;
+
+            if (!control.DroppedDown)
+                ((HandledMouseEventArgs)e).Handled = true;
+        }
 
         private void cboSurvey_SelectedIndexChanged(object sender, EventArgs e)
         {

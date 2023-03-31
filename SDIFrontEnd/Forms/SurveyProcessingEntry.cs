@@ -49,6 +49,7 @@ namespace SDIFrontEnd
             cboSurvey.ValueMember = "SID";
             cboSurvey.DataSource = SurveyList;
             cboSurvey.SelectedIndexChanged += cboSurvey_SelectedIndexChanged;
+            cboSurvey.MouseWheel += ComboBox_MouseWheel;
 
             bs = new BindingSource()
             {
@@ -84,8 +85,6 @@ namespace SDIFrontEnd
             txtNotes.DataBindings.Add(new Binding("Text", bsNotes, "Note"));
             dtpNoteDate.DataBindings.Add(new Binding("Value", bsNotes, "NoteDate", true));
         }
-
-        
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -148,6 +147,14 @@ namespace SDIFrontEnd
         #endregion
 
         #region Control Events
+        void ComboBox_MouseWheel(object sender, MouseEventArgs e)
+        {
+            ComboBox control = (ComboBox)sender;
+
+            if (!control.DroppedDown)
+                ((HandledMouseEventArgs)e).Handled = true;
+        }
+
         private void cboSurvey_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cboSurvey.SelectedItem == null)

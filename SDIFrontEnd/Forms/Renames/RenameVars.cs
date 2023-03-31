@@ -29,6 +29,9 @@ namespace SDIFrontEnd
         {
             InitializeComponent();
 
+            cboSource.MouseWheel += ComboBox_MouseWheel;
+            cboDest.MouseWheel += ComboBox_MouseWheel;
+
             VarNameList = new List<VariableName>(Globals.AllVarNames);
             RefVarNameList = new List<RefVariableName>(Globals.AllRefVarNames);
 
@@ -65,6 +68,14 @@ namespace SDIFrontEnd
         #endregion
 
         #region Events
+
+        void ComboBox_MouseWheel(object sender, MouseEventArgs e)
+        {
+            ComboBox control = (ComboBox)sender;
+
+            if (!control.DroppedDown)
+                ((HandledMouseEventArgs)e).Handled = true;
+        }
 
         private void Scope_Click(object sender, EventArgs e)
         {

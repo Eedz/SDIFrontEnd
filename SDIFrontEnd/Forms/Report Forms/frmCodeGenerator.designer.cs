@@ -74,6 +74,8 @@
             // 
             // cboJump
             // 
+            this.cboJump.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboJump.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboJump.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboJump.FormattingEnabled = true;
             this.cboJump.Location = new System.Drawing.Point(53, 50);
@@ -273,6 +275,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(181)))), ((int)(((byte)(211)))));
             this.ClientSize = new System.Drawing.Size(252, 482);
+            this.ControlBox = false;
             this.Controls.Add(this.cmdOpenFolder);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmdBrowse);

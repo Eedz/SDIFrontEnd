@@ -116,6 +116,8 @@
             // 
             // cboSurvey
             // 
+            this.cboSurvey.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboSurvey.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboSurvey.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboSurvey.FormattingEnabled = true;
             this.cboSurvey.Location = new System.Drawing.Point(427, 76);
@@ -285,7 +287,7 @@
             this.dataRepeater3.ItemTemplate.Leave += new System.EventHandler(this.dataRepeater3_ItemTemplate_Leave);
             this.dataRepeater3.Location = new System.Drawing.Point(12, 161);
             this.dataRepeater3.Name = "dataRepeater3";
-            this.dataRepeater3.Size = new System.Drawing.Size(388, 597);
+            this.dataRepeater3.Size = new System.Drawing.Size(388, 469);
             this.dataRepeater3.TabIndex = 6;
             this.dataRepeater3.Text = "dataRepeater3";
             this.dataRepeater3.DrawItem += new Microsoft.VisualBasic.PowerPacks.DataRepeaterItemEventHandler(this.dataRepeater3_DrawItem);
@@ -294,9 +296,9 @@
             // 
             this.lblEntries.AutoSize = true;
             this.lblEntries.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEntries.Location = new System.Drawing.Point(285, 4);
+            this.lblEntries.Location = new System.Drawing.Point(279, 4);
             this.lblEntries.Name = "lblEntries";
-            this.lblEntries.Size = new System.Drawing.Size(47, 16);
+            this.lblEntries.Size = new System.Drawing.Size(46, 16);
             this.lblEntries.TabIndex = 3;
             this.lblEntries.Text = "Entries";
             // 
@@ -365,7 +367,7 @@
             this.bindingNavigatorMoveNextItem,
             this.bindingNavigatorMoveLastItem,
             this.bindingNavigatorSeparator2});
-            this.bindingNavigator1.Location = new System.Drawing.Point(0, 762);
+            this.bindingNavigator1.Location = new System.Drawing.Point(0, 656);
             this.bindingNavigator1.MoveFirstItem = null;
             this.bindingNavigator1.MoveLastItem = null;
             this.bindingNavigator1.MoveNextItem = null;
@@ -412,6 +414,7 @@
             // 
             this.bindingNavigatorPositionItem.AccessibleName = "Position";
             this.bindingNavigatorPositionItem.AutoSize = false;
+            this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
             this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
             this.bindingNavigatorPositionItem.Text = "0";
@@ -453,7 +456,7 @@
             this.label1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(129, 143);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(46, 16);
+            this.label1.Size = new System.Drawing.Size(45, 16);
             this.label1.TabIndex = 10;
             this.label1.Text = "Stage";
             // 
@@ -463,7 +466,7 @@
             this.label2.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(241, 143);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(34, 16);
+            this.label2.Size = new System.Drawing.Size(33, 16);
             this.label2.TabIndex = 11;
             this.label2.Text = "N/A";
             // 
@@ -473,7 +476,7 @@
             this.label3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(281, 143);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(41, 16);
+            this.label3.Size = new System.Drawing.Size(40, 16);
             this.label3.TabIndex = 12;
             this.label3.Text = "Done";
             // 
@@ -483,7 +486,7 @@
             this.label4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(336, 79);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(85, 16);
+            this.label4.Size = new System.Drawing.Size(84, 16);
             this.label4.TabIndex = 13;
             this.label4.Text = "Go To Survey";
             // 
@@ -493,7 +496,7 @@
             this.lblStageNameDates.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStageNameDates.Location = new System.Drawing.Point(409, 160);
             this.lblStageNameDates.Name = "lblStageNameDates";
-            this.lblStageNameDates.Size = new System.Drawing.Size(127, 16);
+            this.lblStageNameDates.Size = new System.Drawing.Size(126, 16);
             this.lblStageNameDates.TabIndex = 14;
             this.lblStageNameDates.Text = "Stage Name Dates";
             // 
@@ -503,7 +506,7 @@
             this.lblNotes.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNotes.Location = new System.Drawing.Point(409, 399);
             this.lblNotes.Name = "lblNotes";
-            this.lblNotes.Size = new System.Drawing.Size(45, 16);
+            this.lblNotes.Size = new System.Drawing.Size(44, 16);
             this.lblNotes.TabIndex = 15;
             this.lblNotes.Text = "Notes";
             // 
@@ -549,7 +552,7 @@
             this.label5.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(454, 184);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(71, 16);
+            this.label5.Size = new System.Drawing.Size(70, 16);
             this.label5.TabIndex = 19;
             this.label5.Text = "Stage Date";
             // 
@@ -559,7 +562,7 @@
             this.label6.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(563, 184);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(67, 16);
+            this.label6.Size = new System.Drawing.Size(66, 16);
             this.label6.TabIndex = 20;
             this.label6.Text = "Entry Date";
             // 
@@ -569,7 +572,7 @@
             this.label7.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(677, 184);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(69, 16);
+            this.label7.Size = new System.Drawing.Size(68, 16);
             this.label7.TabIndex = 21;
             this.label7.Text = "Entered By";
             // 
@@ -579,7 +582,7 @@
             this.label8.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(789, 184);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(51, 16);
+            this.label8.Size = new System.Drawing.Size(50, 16);
             this.label8.TabIndex = 22;
             this.label8.Text = "Contact";
             // 
@@ -587,8 +590,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ClientSize = new System.Drawing.Size(965, 787);
+            this.ClientSize = new System.Drawing.Size(965, 681);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);

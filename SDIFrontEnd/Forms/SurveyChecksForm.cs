@@ -49,12 +49,23 @@ namespace SDIFrontEnd
             cboSurvey2.DataSource = new List<Survey>(Globals.AllSurveys);
             cboSurvey2.DisplayMember = "SurveyCode";
             cboSurvey2.ValueMember = "SID";
+            cboSurvey2.MouseWheel += ComboBox_MouseWheel;
+
+            cboSource.MouseWheel += ComboBox_MouseWheel;
 
             BindProperties();
             tabResults.TabPages.Remove(pageTranslationVars);
         }
 
         #region Events 
+        void ComboBox_MouseWheel(object sender, MouseEventArgs e)
+        {
+            ComboBox control = (ComboBox)sender;
+
+            if (!control.DroppedDown)
+                ((HandledMouseEventArgs)e).Handled = true;
+        }
+
         private void ScopeChanged(object sender, EventArgs e)
         {
             if (rbSurvey.Checked)
@@ -72,7 +83,7 @@ namespace SDIFrontEnd
                 lblSource.Text = "Wave";
                 cboSource.DataSource = new List<StudyWave>(Globals.AllWaves);
                 cboSource.DisplayMember = "WaveCode";
-                cboSource.ValueMember = "ID";
+                cboSource.ValueMember = "WaveCode";
 
                 cmdSectionsCheck.Left = resultsX;
                 cmdSectionsCheck.Top = resultsY;

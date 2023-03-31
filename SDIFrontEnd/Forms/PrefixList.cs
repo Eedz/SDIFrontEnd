@@ -29,6 +29,7 @@ namespace SDIFrontEnd
             InitializeComponent();
 
             this.MouseWheel += PrefixList_MouseWheel;
+            cboGoTo.MouseWheel += ComboBox_MouseWheel;
 
             Prefixes = Globals.AllPrefixes;
             Usages = new List<VariableNameSurveys>();
@@ -70,8 +71,21 @@ namespace SDIFrontEnd
             }
         }
 
+        void ComboBox_MouseWheel(object sender, MouseEventArgs e)
+        {
+            ComboBox control = (ComboBox)sender;
+
+            if (!control.DroppedDown)
+                ((HandledMouseEventArgs)e).Handled = true;
+        }
+
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            bs.EndEdit();
+
+            if (SaveRecord() == 1)
+                return;
+
             Close();
         }
 
@@ -90,6 +104,19 @@ namespace SDIFrontEnd
 
                 bs.RemoveCurrent();
             }
+        }
+
+        private void toolStripDatasheet_Click(object sender, EventArgs e)
+        {
+            PrefixListSheet getFrm = (PrefixListSheet)FormManager.GetForm("PrefixListSheet", 1);
+            if (getFrm == null)
+
+            {
+                PrefixListSheet frm = new PrefixListSheet();
+                frm.Tag = 1;
+                FormManager.Add(frm);
+            }
+            ((MainMenu)FormManager.GetForm("MainMenu")).SelectTab("PrefixListSheet1");
         }
 
         private void chkShowWordings_CheckedChanged(object sender, EventArgs e)
@@ -389,9 +416,6 @@ namespace SDIFrontEnd
         #endregion
 
         #endregion
-
-
-
         #region Methods
 
         private void UpdateCurrentRecord()
@@ -585,18 +609,6 @@ namespace SDIFrontEnd
         }
 
         #endregion
-
-        private void toolStripDatasheet_Click(object sender, EventArgs e)
-        {
-            PrefixListSheet getFrm = (PrefixListSheet)FormManager.GetForm("PrefixListSheet", 1);
-            if (getFrm == null)
-            
-            {
-                PrefixListSheet frm = new PrefixListSheet();
-                frm.Tag = 1;
-                FormManager.Add(frm);
-            }
-            ((MainMenu)FormManager.GetForm("MainMenu")).SelectTab("PrefixListSheet1");
-        }
+        
     }
 }

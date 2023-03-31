@@ -31,10 +31,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvPrefixes = new System.Windows.Forms.DataGridView();
-            this.dgvRanges = new System.Windows.Forms.DataGridView();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.chPrefix = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.chPrefixName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.chProductType = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -42,6 +38,10 @@
             this.chDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.chComments = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.chInactive = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dgvRanges = new System.Windows.Forms.DataGridView();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPrefixes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRanges)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -85,6 +85,47 @@
             this.dgvPrefixes.TabIndex = 0;
             this.dgvPrefixes.CellValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPrefixes_CellValidated);
             this.dgvPrefixes.RowValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPrefixes_RowValidated);
+            // 
+            // chPrefix
+            // 
+            this.chPrefix.HeaderText = "Prefix";
+            this.chPrefix.Name = "chPrefix";
+            this.chPrefix.Width = 50;
+            // 
+            // chPrefixName
+            // 
+            this.chPrefixName.HeaderText = "Prefix Name";
+            this.chPrefixName.Name = "chPrefixName";
+            // 
+            // chProductType
+            // 
+            this.chProductType.HeaderText = "Product Type";
+            this.chProductType.Name = "chProductType";
+            this.chProductType.Width = 90;
+            // 
+            // chRelatedPrefix
+            // 
+            this.chRelatedPrefix.HeaderText = "See Also";
+            this.chRelatedPrefix.Name = "chRelatedPrefix";
+            this.chRelatedPrefix.Width = 80;
+            // 
+            // chDescription
+            // 
+            this.chDescription.HeaderText = "Description";
+            this.chDescription.Name = "chDescription";
+            this.chDescription.Width = 200;
+            // 
+            // chComments
+            // 
+            this.chComments.HeaderText = "Comments";
+            this.chComments.Name = "chComments";
+            this.chComments.Width = 200;
+            // 
+            // chInactive
+            // 
+            this.chInactive.HeaderText = "Inactive?";
+            this.chInactive.Name = "chInactive";
+            this.chInactive.Width = 75;
             // 
             // dgvRanges
             // 
@@ -131,51 +172,11 @@
             this.splitContainer1.SplitterWidth = 2;
             this.splitContainer1.TabIndex = 3;
             // 
-            // chPrefix
-            // 
-            this.chPrefix.HeaderText = "Prefix";
-            this.chPrefix.Name = "chPrefix";
-            this.chPrefix.Width = 50;
-            // 
-            // chPrefixName
-            // 
-            this.chPrefixName.HeaderText = "Prefix Name";
-            this.chPrefixName.Name = "chPrefixName";
-            // 
-            // chProductType
-            // 
-            this.chProductType.HeaderText = "Product Type";
-            this.chProductType.Name = "chProductType";
-            this.chProductType.Width = 90;
-            // 
-            // chRelatedPrefix
-            // 
-            this.chRelatedPrefix.HeaderText = "See Also";
-            this.chRelatedPrefix.Name = "chRelatedPrefix";
-            this.chRelatedPrefix.Width = 80;
-            // 
-            // chDescription
-            // 
-            this.chDescription.HeaderText = "Description";
-            this.chDescription.Name = "chDescription";
-            this.chDescription.Width = 200;
-            // 
-            // chComments
-            // 
-            this.chComments.HeaderText = "Comments";
-            this.chComments.Name = "chComments";
-            this.chComments.Width = 200;
-            // 
-            // chInactive
-            // 
-            this.chInactive.HeaderText = "Inactive?";
-            this.chInactive.Name = "chInactive";
-            this.chInactive.Width = 75;
-            // 
             // PrefixListSheet
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1347, 565);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);

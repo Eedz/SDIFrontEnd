@@ -437,6 +437,8 @@
             // 
             // cboChangedBy
             // 
+            this.cboChangedBy.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboChangedBy.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboChangedBy.FormattingEnabled = true;
             this.cboChangedBy.Location = new System.Drawing.Point(93, 98);
             this.cboChangedBy.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
@@ -622,6 +624,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(177)))), ((int)(((byte)(226)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(1169, 542);
             this.Controls.Add(this.chkToggleHistory);

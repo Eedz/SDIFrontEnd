@@ -715,7 +715,7 @@ namespace SDIFrontEnd
         {
             if (FormManager.FormOpen("ProductCrosstab"))
             {
-                tabControl1.SelectTab("ProductCrosstab1");
+                //tabControl1.SelectTab("ProductCrosstab1");
                 return;
             }
 
@@ -728,7 +728,7 @@ namespace SDIFrontEnd
         {
             if (FormManager.FormOpen("ParallelVarReport"))
             {
-                tabControl1.SelectTab("ParallelVarReport1");
+                //tabControl1.SelectTab("ParallelVarReport1");
                 return;
             }
 

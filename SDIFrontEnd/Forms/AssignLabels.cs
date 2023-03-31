@@ -36,6 +36,7 @@ namespace SDIFrontEnd
             cboGoToVar.DataSource = new List<RefVariableName>(Globals.AllRefVarNames);
             cboGoToVar.DisplayMember = "RefVarName";
             cboGoToVar.ValueMember = "RefVarName";
+            cboGoToVar.MouseWheel += ComboBox_MouseWheel;
 
             toolStripLabelType.ComboBox.DataSource = new List<string> { "Domain", "Topic", "Content", "Product" };
             toolStripLabelType.ComboBox.SelectedItem = null;
@@ -210,6 +211,14 @@ namespace SDIFrontEnd
             column.DisplayMember = "LabelText";
         }
 
+        void ComboBox_MouseWheel(object sender, MouseEventArgs e)
+        {
+            ComboBox control = (ComboBox)sender;
+
+            if (!control.DroppedDown)
+                ((HandledMouseEventArgs)e).Handled = true;
+        }
+
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
@@ -355,6 +364,7 @@ namespace SDIFrontEnd
             chTopic.DisplayMember = "LabelText";
             chTopic.ValueMember = "ID";
             chTopic.Width = 200;
+            
             dgvVars.Columns.Add(chTopic);
 
             DataGridViewComboBoxColumn chContent = new DataGridViewComboBoxColumn();

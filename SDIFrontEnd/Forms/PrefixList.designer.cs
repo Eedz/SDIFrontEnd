@@ -101,6 +101,8 @@
             // 
             // cboGoTo
             // 
+            this.cboGoTo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboGoTo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboGoTo.FormattingEnabled = true;
             this.cboGoTo.Location = new System.Drawing.Point(100, 80);
             this.cboGoTo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -114,7 +116,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(49, 84);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(43, 16);
+            this.label1.Size = new System.Drawing.Size(42, 16);
             this.label1.TabIndex = 3;
             this.label1.Text = "Go to:";
             // 
@@ -222,7 +224,7 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(236, 21);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(41, 16);
+            this.label8.Size = new System.Drawing.Size(40, 16);
             this.label8.TabIndex = 7;
             this.label8.Text = "Name";
             // 
@@ -233,7 +235,7 @@
             this.chkInactive.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkInactive.Name = "chkInactive";
             this.chkInactive.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.chkInactive.Size = new System.Drawing.Size(71, 20);
+            this.chkInactive.Size = new System.Drawing.Size(70, 20);
             this.chkInactive.TabIndex = 6;
             this.chkInactive.Text = "Inactive";
             this.chkInactive.UseVisualStyleBackColor = true;
@@ -244,7 +246,7 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(3, 133);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(63, 16);
+            this.label7.Size = new System.Drawing.Size(62, 16);
             this.label7.TabIndex = 5;
             this.label7.Text = "Comment";
             // 
@@ -253,7 +255,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(5, 104);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(71, 16);
+            this.label6.Size = new System.Drawing.Size(70, 16);
             this.label6.TabIndex = 4;
             this.label6.Text = "Description";
             // 
@@ -262,7 +264,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(5, 77);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(57, 16);
+            this.label5.Size = new System.Drawing.Size(56, 16);
             this.label5.TabIndex = 3;
             this.label5.Text = "See also";
             // 
@@ -271,7 +273,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(5, 49);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(83, 16);
+            this.label4.Size = new System.Drawing.Size(82, 16);
             this.label4.TabIndex = 2;
             this.label4.Text = "Product Type";
             // 
@@ -289,7 +291,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(5, 21);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(40, 16);
+            this.label3.Size = new System.Drawing.Size(39, 16);
             this.label3.TabIndex = 0;
             this.label3.Text = "Prefix";
             // 
@@ -354,7 +356,7 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(8, 360);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(107, 16);
+            this.label9.Size = new System.Drawing.Size(106, 16);
             this.label9.TabIndex = 12;
             this.label9.Text = "VarName Ranges";
             // 
@@ -365,7 +367,7 @@
             this.chkFilterByRange.Location = new System.Drawing.Point(243, 353);
             this.chkFilterByRange.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkFilterByRange.Name = "chkFilterByRange";
-            this.chkFilterByRange.Size = new System.Drawing.Size(104, 26);
+            this.chkFilterByRange.Size = new System.Drawing.Size(103, 26);
             this.chkFilterByRange.TabIndex = 13;
             this.chkFilterByRange.Text = "Filter By Range";
             this.chkFilterByRange.UseVisualStyleBackColor = true;
@@ -378,7 +380,7 @@
             this.chkShowWordings.Location = new System.Drawing.Point(353, 353);
             this.chkShowWordings.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkShowWordings.Name = "chkShowWordings";
-            this.chkShowWordings.Size = new System.Drawing.Size(108, 26);
+            this.chkShowWordings.Size = new System.Drawing.Size(107, 26);
             this.chkShowWordings.TabIndex = 14;
             this.chkShowWordings.Text = "Show Wordings";
             this.chkShowWordings.UseVisualStyleBackColor = true;
@@ -438,7 +440,7 @@
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(205, 14);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(117, 16);
+            this.label11.Size = new System.Drawing.Size(116, 16);
             this.label11.TabIndex = 7;
             this.label11.Text = "Columns to Include";
             // 
@@ -494,6 +496,8 @@
             // 
             // cboInclude
             // 
+            this.cboInclude.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboInclude.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboInclude.FormattingEnabled = true;
             this.cboInclude.Location = new System.Drawing.Point(20, 43);
             this.cboInclude.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -506,7 +510,7 @@
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(30, 14);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(113, 16);
+            this.label10.Size = new System.Drawing.Size(112, 16);
             this.label10.TabIndex = 0;
             this.label10.Text = "Prefixes to Include";
             // 
@@ -517,7 +521,7 @@
             this.toggleLock.Location = new System.Drawing.Point(652, 80);
             this.toggleLock.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.toggleLock.Name = "toggleLock";
-            this.toggleLock.Size = new System.Drawing.Size(57, 26);
+            this.toggleLock.Size = new System.Drawing.Size(56, 26);
             this.toggleLock.TabIndex = 16;
             this.toggleLock.Text = "Locked";
             this.toggleLock.UseVisualStyleBackColor = true;
@@ -586,6 +590,7 @@
             // 
             this.bindingNavigatorPositionItem.AccessibleName = "Position";
             this.bindingNavigatorPositionItem.AutoSize = false;
+            this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
             this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(58, 23);
             this.bindingNavigatorPositionItem.Text = "0";
@@ -702,6 +707,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1866, 808);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.navPrefixes);

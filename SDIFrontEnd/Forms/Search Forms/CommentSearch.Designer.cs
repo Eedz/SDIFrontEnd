@@ -165,6 +165,8 @@
             // 
             // cboSurvey
             // 
+            this.cboSurvey.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboSurvey.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboSurvey.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboSurvey.FormattingEnabled = true;
             this.cboSurvey.Location = new System.Drawing.Point(128, 94);
@@ -190,7 +192,7 @@
             this.optRefVarName.Location = new System.Drawing.Point(12, 122);
             this.optRefVarName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.optRefVarName.Name = "optRefVarName";
-            this.optRefVarName.Size = new System.Drawing.Size(95, 20);
+            this.optRefVarName.Size = new System.Drawing.Size(94, 20);
             this.optRefVarName.TabIndex = 2;
             this.optRefVarName.TabStop = true;
             this.optRefVarName.Text = "refVarName";
@@ -203,7 +205,7 @@
             this.optVarName.Location = new System.Drawing.Point(12, 150);
             this.optVarName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.optVarName.Name = "optVarName";
-            this.optVarName.Size = new System.Drawing.Size(79, 20);
+            this.optVarName.Size = new System.Drawing.Size(78, 20);
             this.optVarName.TabIndex = 3;
             this.optVarName.Text = "VarName";
             this.optVarName.UseVisualStyleBackColor = true;
@@ -234,6 +236,8 @@
             // 
             // cboAuthor
             // 
+            this.cboAuthor.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboAuthor.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboAuthor.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboAuthor.FormattingEnabled = true;
             this.cboAuthor.Location = new System.Drawing.Point(127, 204);
@@ -244,6 +248,8 @@
             // 
             // cboType
             // 
+            this.cboType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboType.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboType.FormattingEnabled = true;
             this.cboType.Location = new System.Drawing.Point(127, 238);
@@ -301,7 +307,7 @@
             this.label1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(68, 97);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 16);
+            this.label1.Size = new System.Drawing.Size(46, 16);
             this.label1.TabIndex = 12;
             this.label1.Text = "Survey";
             // 
@@ -311,7 +317,7 @@
             this.label2.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(40, 178);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(71, 16);
+            this.label2.Size = new System.Drawing.Size(70, 16);
             this.label2.TabIndex = 13;
             this.label2.Text = "Date range";
             // 
@@ -321,7 +327,7 @@
             this.label3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(258, 178);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(29, 16);
+            this.label3.Size = new System.Drawing.Size(28, 16);
             this.label3.TabIndex = 14;
             this.label3.Text = "and";
             // 
@@ -331,7 +337,7 @@
             this.label4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(64, 208);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(46, 16);
+            this.label4.Size = new System.Drawing.Size(45, 16);
             this.label4.TabIndex = 15;
             this.label4.Text = "Author";
             // 
@@ -341,7 +347,7 @@
             this.label5.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(76, 241);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(36, 16);
+            this.label5.Size = new System.Drawing.Size(35, 16);
             this.label5.TabIndex = 16;
             this.label5.Text = "Type";
             // 
@@ -351,7 +357,7 @@
             this.label6.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(62, 274);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(48, 16);
+            this.label6.Size = new System.Drawing.Size(47, 16);
             this.label6.TabIndex = 17;
             this.label6.Text = "Source";
             // 
@@ -361,7 +367,7 @@
             this.label7.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(49, 308);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(63, 16);
+            this.label7.Size = new System.Drawing.Size(62, 16);
             this.label7.TabIndex = 18;
             this.label7.Text = "Comment";
             // 
@@ -1010,7 +1016,7 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(261, 5);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(22, 16);
+            this.label8.Size = new System.Drawing.Size(21, 16);
             this.label8.TabIndex = 8;
             this.label8.Text = "->";
             // 
@@ -1225,7 +1231,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1552, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1537, 24);
             this.menuStrip1.TabIndex = 20;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -1240,7 +1246,7 @@
             // 
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1552, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(1537, 25);
             this.toolStrip1.TabIndex = 21;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -1258,6 +1264,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(241)))), ((int)(((byte)(222)))));
             this.ClientSize = new System.Drawing.Size(1552, 704);
             this.Controls.Add(this.label9);

@@ -119,6 +119,8 @@
             // 
             // cboSurvey
             // 
+            this.cboSurvey.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboSurvey.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboSurvey.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboSurvey.FormattingEnabled = true;
             this.cboSurvey.Location = new System.Drawing.Point(165, 65);
@@ -474,6 +476,8 @@
             // 
             // cboCategory
             // 
+            this.cboCategory.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboCategory.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboCategory.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboCategory.FormattingEnabled = true;
             this.cboCategory.Location = new System.Drawing.Point(73, 118);
@@ -483,6 +487,8 @@
             // 
             // cboTo
             // 
+            this.cboTo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboTo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboTo.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboTo.FormattingEnabled = true;
             this.cboTo.Location = new System.Drawing.Point(73, 91);
@@ -492,6 +498,8 @@
             // 
             // cboFrom
             // 
+            this.cboFrom.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboFrom.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboFrom.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboFrom.FormattingEnabled = true;
             this.cboFrom.Location = new System.Drawing.Point(73, 64);
@@ -641,6 +649,8 @@
             // 
             // cboNewFrom
             // 
+            this.cboNewFrom.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboNewFrom.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboNewFrom.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboNewFrom.FormattingEnabled = true;
             this.cboNewFrom.Location = new System.Drawing.Point(39, 26);
@@ -661,6 +671,8 @@
             // 
             // cboNewTo
             // 
+            this.cboNewTo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboNewTo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboNewTo.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboNewTo.FormattingEnabled = true;
             this.cboNewTo.Location = new System.Drawing.Point(39, 48);

@@ -175,7 +175,7 @@
             // 
             // cboGoToSurvey
             // 
-            this.cboGoToSurvey.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboGoToSurvey.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cboGoToSurvey.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboGoToSurvey.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboGoToSurvey.FormattingEnabled = true;
@@ -197,7 +197,7 @@
             // 
             // cboGoToIssueNo
             // 
-            this.cboGoToIssueNo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboGoToIssueNo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cboGoToIssueNo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboGoToIssueNo.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboGoToIssueNo.FormattingEnabled = true;
@@ -1046,7 +1046,7 @@
             // 
             // cboResolvedBy
             // 
-            this.cboResolvedBy.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboResolvedBy.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cboResolvedBy.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboResolvedBy.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboResolvedBy.FormattingEnabled = true;
@@ -1115,7 +1115,7 @@
             // 
             // cboIssueCategory
             // 
-            this.cboIssueCategory.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboIssueCategory.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cboIssueCategory.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboIssueCategory.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboIssueCategory.FormattingEnabled = true;
@@ -1129,7 +1129,7 @@
             // 
             // cboIssueTo
             // 
-            this.cboIssueTo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboIssueTo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cboIssueTo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboIssueTo.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboIssueTo.FormattingEnabled = true;
@@ -1142,7 +1142,7 @@
             // 
             // cboIssueFrom
             // 
-            this.cboIssueFrom.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboIssueFrom.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cboIssueFrom.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboIssueFrom.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboIssueFrom.FormattingEnabled = true;

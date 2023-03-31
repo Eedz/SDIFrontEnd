@@ -97,7 +97,7 @@ namespace SDIFrontEnd
 
         private void SurveyManager_Load(object sender, EventArgs e)
         {
-            txtSurveyCode.Focus();
+            //txtSurveyCode.Focus();
         }
 
         private void cmdDelete_Click(object sender, EventArgs e)
@@ -142,12 +142,6 @@ namespace SDIFrontEnd
 
                 ToggleLocks(false);
             }
-
-            
-            
-            
-            
-
         }
 
         void ComboBox_MouseWheel(object sender, MouseEventArgs e)
@@ -160,6 +154,8 @@ namespace SDIFrontEnd
 
         private void SurveyManager_MouseWheel(object sender, MouseEventArgs e)
         {
+            bs.EndEdit();
+
             if (CurrentRecord.SaveRecord()==1)
             {
                 MessageBox.Show("Error saving record.");
@@ -771,25 +767,24 @@ namespace SDIFrontEnd
         private void ToggleLocks(bool lockFlag)
         {
             txtID.ReadOnly = true;
-            txtSurveyCode.ReadOnly = lockFlag;
+            txtSurveyCode.Enabled = !lockFlag;
             cboWaveID.Enabled = !lockFlag;
-            txtSurveyTitle.ReadOnly = lockFlag;
+            txtSurveyTitle.Enabled = !lockFlag;
             cboSurveyType.Enabled = !lockFlag;
             cboMode.Enabled = !lockFlag;
             dtpCreationDate.Enabled = !lockFlag;
-            txtFileName.ReadOnly = lockFlag;
+            txtFileName.Enabled = !lockFlag;
             chkHideSurvey.Enabled = !lockFlag;
             chkITCSurvey.Enabled = !lockFlag;
             chkNCT.Enabled = !lockFlag;
 
-            dgvLanguages.ReadOnly = lockFlag;
-            dgvUserStates.ReadOnly = lockFlag;
-            dgvScreenedProducts.ReadOnly = lockFlag;
+            dgvLanguages.Enabled = !lockFlag;
+            dgvUserStates.Enabled = !lockFlag;
+            dgvScreenedProducts.Enabled = !lockFlag;
 
-            if (lockFlag)
-                chkLocked.Text = "Locked";
-            else
-                chkLocked.Text = "Unlocked";
+            
+            chkLocked.Visible = lockFlag;
+            
 
         }
 

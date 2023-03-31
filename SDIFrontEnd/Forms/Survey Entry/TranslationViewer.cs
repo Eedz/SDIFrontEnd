@@ -20,10 +20,12 @@ namespace SDIFrontEnd
         BindingSource bs;
         SurveyQuestion MainQuestion;
         TranslationRecord CurrentRecord;
+        TextBox plainTranslation;
         
         public TranslationViewer(Survey survey, QuestionRecord question)
         {
             InitializeComponent();
+            plainTranslation = new TextBox();
 
             ParentSurvey = survey;
             Translations = new List<TranslationRecord>(question.Translations);
@@ -47,9 +49,11 @@ namespace SDIFrontEnd
             rtbPreP.Rtf = MainQuestion.PrepRTF;
             rtbPstP.Rtf = MainQuestion.PstpRTF;
 
-            rtbTranslationText.DataBindings.Add(new Binding("Rtf", bs, "TranslationRTF"));
-
+            plainTranslation.DataBindings.Add("Text", bs, "TranslationText");
+            extraRichTextBox1.DataBindings.Add(new Binding("Rtf", bs, "TranslationRTF"));
             CurrentRecord = (TranslationRecord)bs.Current;
+
+            LockForm(!ParentSurvey.Locked);
             AdjustRouting();
             SetReadingDirection();
         }
@@ -63,6 +67,7 @@ namespace SDIFrontEnd
         private void TranslationViewer_Load(object sender, EventArgs e)
         {
             CurrentRecord = (TranslationRecord)bs.Current;
+
         }
 
         private void Bs_ListChanged(object sender, ListChangedEventArgs e)
@@ -72,45 +77,6 @@ namespace SDIFrontEnd
 
             if (e.PropertyDescriptor.Name != null) 
                 CurrentRecord.Dirty = true;
-        }
-
-        private void cmdBold_Click(object sender, EventArgs e)
-        {
-            Font oldFont = rtbTranslationText.SelectionFont;
-            Font newFont;
-
-            if (oldFont.Bold)
-                newFont = new Font(oldFont, oldFont.Style & ~FontStyle.Bold);
-            else
-                newFont = new Font(oldFont, oldFont.Style | FontStyle.Bold);
-
-            rtbTranslationText.SelectionFont = newFont;
-        }
-
-        private void cmdItalic_Click(object sender, EventArgs e)
-        {
-            Font oldFont = rtbTranslationText.SelectionFont;
-            Font newFont;
-
-            if (oldFont.Italic)
-                newFont = new Font(oldFont, oldFont.Style & ~FontStyle.Italic);
-            else
-                newFont = new Font(oldFont, oldFont.Style | FontStyle.Italic);
-
-            rtbTranslationText.SelectionFont = newFont;
-        }
-
-        private void cmdUnderline_Click(object sender, EventArgs e)
-        {
-            Font oldFont = rtbTranslationText.SelectionFont;
-            Font newFont;
-
-            if (oldFont.Underline)
-                newFont = new Font(oldFont, oldFont.Style & ~FontStyle.Underline);
-            else
-                newFont = new Font(oldFont, oldFont.Style | FontStyle.Underline);
-
-            rtbTranslationText.SelectionFont = newFont;
         }
 
         private void cmdSave_Click(object sender, EventArgs e)
@@ -185,9 +151,9 @@ namespace SDIFrontEnd
             ParentSurvey = survey;
             MainQuestion = question;
             Translations = question.Translations;
-            rtbTranslationText.Rtf = null;
+            extraRichTextBox1.Rtf = null;
 
-            if (Translations.Count() == 0)
+            if (Translations.Count() == 0 || ParentSurvey.Locked)
             {
                 LockForm(false);
                 return;
@@ -204,9 +170,7 @@ namespace SDIFrontEnd
             rtbPstP.Rtf = MainQuestion.PstpRTF;
 
             CurrentRecord = (TranslationRecord)bs.Current;
-
             AdjustRouting();
-
             SetReadingDirection();
         }
 
@@ -217,7 +181,7 @@ namespace SDIFrontEnd
             txtVarName.Enabled = locks;
             txtLanguage.Enabled = locks;
             rtbPreP.Enabled = locks;
-            rtbTranslationText.Enabled = locks;
+            extraRichTextBox1.Enabled = locks;
             rtbPstP.Enabled = locks;
         }
 
@@ -231,16 +195,12 @@ namespace SDIFrontEnd
 
             if (ParentSurvey.EnglishRouting)
             {
-                rtbTranslationText.Top = rtbPreP.Top + rtbPreP.Height + cmdBold.Height + 5;
+                extraRichTextBox1.Top = rtbPreP.Top + rtbPreP.Height + 5;
             }
             else
             {
-
-                cmdBold.Top = rtbPreP.Top;
-                cmdItalic.Top = rtbPreP.Top;
-                cmdUnderline.Top = rtbPreP.Top;
-                rtbTranslationText.Top = rtbPreP.Top + rtbPreP.Height;
-                rtbTranslationText.Height += rtbPreP.Height + rtbPreP.Height;
+                extraRichTextBox1.Top = rtbPreP.Top + rtbPreP.Height;
+                extraRichTextBox1.Height += rtbPreP.Height + rtbPreP.Height;
             }
         }
 
@@ -250,9 +210,9 @@ namespace SDIFrontEnd
         public void SetReadingDirection()
         {
             if (CurrentRecord != null && CurrentRecord.LanguageName.RTL)
-                rtbTranslationText.RightToLeft = RightToLeft.Yes;
+                extraRichTextBox1.RightToLeft = RightToLeft.Yes;
             else
-                rtbTranslationText.RightToLeft = RightToLeft.No;
+                extraRichTextBox1.RightToLeft = RightToLeft.No;
         }
 
         private int SaveRecord()
@@ -273,18 +233,22 @@ namespace SDIFrontEnd
         private void UpdatePlainText()
         {
             // change RTF tags to HTML tags
-            rtbTranslationText.Rtf = Utilities.FormatRTF(rtbTranslationText.Rtf);
-
+            extraRichTextBox1.Rtf = Utilities.FormatRTF(extraRichTextBox1.Rtf);
             // now get plain text which includes the HTML tags we've inserted
-            string plain = rtbTranslationText.Text;
+            string plain = extraRichTextBox1.Text;
             plain = Utilities.TrimString(plain, "<br>");
             CurrentRecord.TranslationText = plain;
-
+            
             
             bs.ResetCurrentItem();
         }
 
         private void rtbTranslationText_Validated(object sender, EventArgs e)
+        {
+            CurrentRecord.Dirty = true;
+        }
+
+        private void extraRichTextBox1_Validated(object sender, EventArgs e)
         {
             CurrentRecord.Dirty = true;
         }

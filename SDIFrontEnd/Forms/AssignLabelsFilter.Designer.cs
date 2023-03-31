@@ -43,7 +43,7 @@
             this.optVarName.Location = new System.Drawing.Point(14, 15);
             this.optVarName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.optVarName.Name = "optVarName";
-            this.optVarName.Size = new System.Drawing.Size(79, 20);
+            this.optVarName.Size = new System.Drawing.Size(78, 20);
             this.optVarName.TabIndex = 0;
             this.optVarName.TabStop = true;
             this.optVarName.Text = "VarName";
@@ -56,7 +56,7 @@
             this.optRefVar.Location = new System.Drawing.Point(14, 43);
             this.optRefVar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.optRefVar.Name = "optRefVar";
-            this.optRefVar.Size = new System.Drawing.Size(95, 20);
+            this.optRefVar.Size = new System.Drawing.Size(94, 20);
             this.optRefVar.TabIndex = 1;
             this.optRefVar.TabStop = true;
             this.optRefVar.Text = "refVarName";
@@ -65,6 +65,8 @@
             // 
             // cboVarList
             // 
+            this.cboVarList.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboVarList.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboVarList.FormattingEnabled = true;
             this.cboVarList.Location = new System.Drawing.Point(13, 68);
             this.cboVarList.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);

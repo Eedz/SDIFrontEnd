@@ -163,7 +163,7 @@
             this.chkDeleted.AutoSize = true;
             this.chkDeleted.Location = new System.Drawing.Point(3, 60);
             this.chkDeleted.Name = "chkDeleted";
-            this.chkDeleted.Size = new System.Drawing.Size(70, 20);
+            this.chkDeleted.Size = new System.Drawing.Size(69, 20);
             this.chkDeleted.TabIndex = 18;
             this.chkDeleted.Text = "Deleted";
             this.chkDeleted.UseVisualStyleBackColor = true;
@@ -173,7 +173,7 @@
             this.chkNewRow.AutoSize = true;
             this.chkNewRow.Location = new System.Drawing.Point(3, 34);
             this.chkNewRow.Name = "chkNewRow";
-            this.chkNewRow.Size = new System.Drawing.Size(81, 20);
+            this.chkNewRow.Size = new System.Drawing.Size(80, 20);
             this.chkNewRow.TabIndex = 17;
             this.chkNewRow.Text = "New Row";
             this.chkNewRow.UseVisualStyleBackColor = true;
@@ -316,7 +316,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(6, 19);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(47, 16);
+            this.label2.Size = new System.Drawing.Size(46, 16);
             this.label2.TabIndex = 4;
             this.label2.Text = "Survey";
             // 
@@ -325,7 +325,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(217, 49);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(75, 16);
+            this.label3.Size = new System.Drawing.Size(74, 16);
             this.label3.TabIndex = 5;
             this.label3.Text = "Investigator";
             // 
@@ -334,7 +334,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(6, 49);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(34, 16);
+            this.label4.Size = new System.Drawing.Size(33, 16);
             this.label4.TabIndex = 6;
             this.label4.Text = "Date";
             // 
@@ -343,7 +343,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(213, 19);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(61, 16);
+            this.label6.Size = new System.Drawing.Size(60, 16);
             this.label6.TabIndex = 8;
             this.label6.Text = "VarName";
             // 
@@ -352,7 +352,7 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(402, 20);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(87, 16);
+            this.label7.Size = new System.Drawing.Size(86, 16);
             this.label7.TabIndex = 9;
             this.label7.Text = "Question Text";
             // 
@@ -361,12 +361,14 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(679, 20);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(92, 16);
+            this.label8.Size = new System.Drawing.Size(91, 16);
             this.label8.TabIndex = 10;
             this.label8.Text = "Comment Text";
             // 
             // cboInvestigatorFilter
             // 
+            this.cboInvestigatorFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboInvestigatorFilter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboInvestigatorFilter.FormattingEnabled = true;
             this.cboInvestigatorFilter.Location = new System.Drawing.Point(296, 46);
             this.cboInvestigatorFilter.Name = "cboInvestigatorFilter";
@@ -410,7 +412,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(28, 2);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(42, 16);
+            this.label5.Size = new System.Drawing.Size(41, 16);
             this.label5.TabIndex = 16;
             this.label5.Text = "Qnum";
             // 
@@ -450,7 +452,7 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(83, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(41, 16);
+            this.label9.Size = new System.Drawing.Size(40, 16);
             this.label9.TabIndex = 19;
             this.label9.Text = "AltQ#";
             // 
@@ -459,7 +461,7 @@
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(148, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(61, 16);
+            this.label10.Size = new System.Drawing.Size(60, 16);
             this.label10.TabIndex = 20;
             this.label10.Text = "VarName";
             // 
@@ -607,6 +609,7 @@
             // 
             this.bindingNavigatorPositionItem.AccessibleName = "Position";
             this.bindingNavigatorPositionItem.AutoSize = false;
+            this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
             this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
             this.bindingNavigatorPositionItem.Text = "0";
@@ -644,6 +647,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(228)))), ((int)(((byte)(189)))));
             this.ClientSize = new System.Drawing.Size(1746, 1061);
             this.Controls.Add(this.panelResults);

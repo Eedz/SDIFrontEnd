@@ -128,7 +128,7 @@
             this.label1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(67, 80);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(20, 16);
+            this.label1.Size = new System.Drawing.Size(19, 16);
             this.label1.TabIndex = 4;
             this.label1.Text = "ID";
             // 
@@ -138,7 +138,7 @@
             this.label2.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(7, 140);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(80, 16);
+            this.label2.Size = new System.Drawing.Size(79, 16);
             this.label2.TabIndex = 5;
             this.label2.Text = "Survey Code";
             // 
@@ -148,13 +148,14 @@
             this.label3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(48, 109);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(40, 16);
+            this.label3.Size = new System.Drawing.Size(39, 16);
             this.label3.TabIndex = 6;
             this.label3.Text = "Wave";
             // 
             // cboWaveID
             // 
-            this.cboWaveID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboWaveID.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboWaveID.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboWaveID.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cboWaveID.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboWaveID.FormattingEnabled = true;
@@ -169,7 +170,7 @@
             this.lblSurveyTitle.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSurveyTitle.Location = new System.Drawing.Point(283, 140);
             this.lblSurveyTitle.Name = "lblSurveyTitle";
-            this.lblSurveyTitle.Size = new System.Drawing.Size(33, 16);
+            this.lblSurveyTitle.Size = new System.Drawing.Size(32, 16);
             this.lblSurveyTitle.TabIndex = 8;
             this.lblSurveyTitle.Text = "Title";
             // 
@@ -187,13 +188,14 @@
             this.label4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(251, 169);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(65, 16);
+            this.label4.Size = new System.Drawing.Size(64, 16);
             this.label4.TabIndex = 10;
             this.label4.Text = "File Name";
             // 
             // cboSurveyType
             // 
-            this.cboSurveyType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboSurveyType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboSurveyType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboSurveyType.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cboSurveyType.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboSurveyType.FormattingEnabled = true;
@@ -208,13 +210,14 @@
             this.label5.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(51, 169);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(36, 16);
+            this.label5.Size = new System.Drawing.Size(35, 16);
             this.label5.TabIndex = 12;
             this.label5.Text = "Type";
             // 
             // cboMode
             // 
-            this.cboMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboMode.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboMode.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboMode.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cboMode.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboMode.FormattingEnabled = true;
@@ -229,7 +232,7 @@
             this.label6.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(48, 199);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(39, 16);
+            this.label6.Size = new System.Drawing.Size(38, 16);
             this.label6.TabIndex = 14;
             this.label6.Text = "Mode";
             // 
@@ -249,7 +252,7 @@
             this.chkNCT.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkNCT.Location = new System.Drawing.Point(320, 200);
             this.chkNCT.Name = "chkNCT";
-            this.chkNCT.Size = new System.Drawing.Size(99, 20);
+            this.chkNCT.Size = new System.Drawing.Size(98, 20);
             this.chkNCT.TabIndex = 17;
             this.chkNCT.Text = "NCT Country";
             this.chkNCT.UseVisualStyleBackColor = true;
@@ -260,7 +263,7 @@
             this.chkHideSurvey.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkHideSurvey.Location = new System.Drawing.Point(425, 200);
             this.chkHideSurvey.Name = "chkHideSurvey";
-            this.chkHideSurvey.Size = new System.Drawing.Size(95, 20);
+            this.chkHideSurvey.Size = new System.Drawing.Size(94, 20);
             this.chkHideSurvey.TabIndex = 18;
             this.chkHideSurvey.Text = "Hide Survey";
             this.chkHideSurvey.UseVisualStyleBackColor = true;
@@ -272,7 +275,7 @@
             this.chkLocked.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkLocked.Location = new System.Drawing.Point(320, 104);
             this.chkLocked.Name = "chkLocked";
-            this.chkLocked.Size = new System.Drawing.Size(57, 26);
+            this.chkLocked.Size = new System.Drawing.Size(56, 26);
             this.chkLocked.TabIndex = 19;
             this.chkLocked.Text = "Locked";
             this.chkLocked.UseVisualStyleBackColor = true;
@@ -284,7 +287,7 @@
             this.label7.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(14, 231);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(73, 16);
+            this.label7.Size = new System.Drawing.Size(72, 16);
             this.label7.TabIndex = 22;
             this.label7.Text = "Created On";
             // 
@@ -294,7 +297,7 @@
             this.label8.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(425, 271);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(69, 16);
+            this.label8.Size = new System.Drawing.Size(68, 16);
             this.label8.TabIndex = 23;
             this.label8.Text = "Languages";
             // 
@@ -304,7 +307,7 @@
             this.label9.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.Location = new System.Drawing.Point(57, 273);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(74, 16);
+            this.label9.Size = new System.Drawing.Size(73, 16);
             this.label9.TabIndex = 24;
             this.label9.Text = "User States";
             // 
@@ -314,7 +317,7 @@
             this.label10.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.Location = new System.Drawing.Point(223, 271);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(115, 16);
+            this.label10.Size = new System.Drawing.Size(114, 16);
             this.label10.TabIndex = 25;
             this.label10.Text = "Screened Products";
             // 
@@ -381,6 +384,7 @@
             // 
             this.bindingNavigatorPositionItem.AccessibleName = "Position";
             this.bindingNavigatorPositionItem.AutoSize = false;
+            this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
             this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
             this.bindingNavigatorPositionItem.Text = "0";
@@ -566,7 +570,7 @@
             this.chkITCSurvey.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkITCSurvey.Location = new System.Drawing.Point(425, 223);
             this.chkITCSurvey.Name = "chkITCSurvey";
-            this.chkITCSurvey.Size = new System.Drawing.Size(90, 20);
+            this.chkITCSurvey.Size = new System.Drawing.Size(89, 20);
             this.chkITCSurvey.TabIndex = 32;
             this.chkITCSurvey.Text = "ITC Survey";
             this.chkITCSurvey.UseVisualStyleBackColor = true;
@@ -602,6 +606,8 @@
             // 
             // toolStripGoTo
             // 
+            this.toolStripGoTo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.toolStripGoTo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.toolStripGoTo.Name = "toolStripGoTo";
             this.toolStripGoTo.Size = new System.Drawing.Size(75, 25);
             this.toolStripGoTo.SelectedIndexChanged += new System.EventHandler(this.toolStripGoTo_SelectedIndexChanged);
@@ -655,6 +661,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(219)))), ((int)(((byte)(244)))));
             this.ClientSize = new System.Drawing.Size(563, 530);
             this.ControlBox = false;

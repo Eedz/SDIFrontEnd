@@ -40,6 +40,7 @@ namespace SDIFrontEnd
         List<StringPair> namesToFix;
         List<StringPair> images;
 
+        bool loaded;
         string SurveyCode;
         double minuteOffset;
         // these 2 keep new issues and responses unique by assigning incremental IDs
@@ -209,6 +210,8 @@ namespace SDIFrontEnd
         {
             if (cboSurvey.SelectedItem == null)
                 return;
+            if (loaded)
+                ClearForm();
 
             SurveyCode = ((Survey)cboSurvey.SelectedItem).SurveyCode;
 
@@ -255,6 +258,7 @@ namespace SDIFrontEnd
 
                 ShowResults();
                 cmdLoad.Enabled = false;
+                
             }
             catch (IOException)
             {
@@ -478,11 +482,9 @@ namespace SDIFrontEnd
                     {
 
                     }
-
-                    
-
                 }
             }
+            loaded = true;
         }
 
         /// <summary>
@@ -1446,6 +1448,7 @@ namespace SDIFrontEnd
             CurrentResponse = null;
             txtPath.Text = string.Empty;
 
+            loaded = false;
 
         }
 

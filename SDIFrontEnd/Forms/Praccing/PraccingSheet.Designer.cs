@@ -77,13 +77,13 @@
             this.label1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(17, 18);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 16);
+            this.label1.Size = new System.Drawing.Size(46, 16);
             this.label1.TabIndex = 6;
             this.label1.Text = "Survey";
             // 
             // cboSurvey
             // 
-            this.cboSurvey.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboSurvey.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cboSurvey.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboSurvey.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboSurvey.FormattingEnabled = true;
@@ -99,7 +99,7 @@
             this.rbWord.Checked = true;
             this.rbWord.Location = new System.Drawing.Point(77, 46);
             this.rbWord.Name = "rbWord";
-            this.rbWord.Size = new System.Drawing.Size(57, 20);
+            this.rbWord.Size = new System.Drawing.Size(56, 20);
             this.rbWord.TabIndex = 10;
             this.rbWord.TabStop = true;
             this.rbWord.Text = "Word";
@@ -110,7 +110,7 @@
             this.rbExcel.AutoSize = true;
             this.rbExcel.Location = new System.Drawing.Point(77, 72);
             this.rbExcel.Name = "rbExcel";
-            this.rbExcel.Size = new System.Drawing.Size(55, 20);
+            this.rbExcel.Size = new System.Drawing.Size(54, 20);
             this.rbExcel.TabIndex = 11;
             this.rbExcel.Text = "Excel";
             this.rbExcel.UseVisualStyleBackColor = true;
@@ -129,6 +129,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cboSurvey);
             this.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "PraccingSheet";
             this.Text = "Praccing Sheet";

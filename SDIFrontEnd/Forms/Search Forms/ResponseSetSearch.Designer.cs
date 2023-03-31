@@ -42,8 +42,8 @@
             this.cboResponseType = new System.Windows.Forms.ComboBox();
             this.lblResultCount = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.rbMatchAny = new System.Windows.Forms.RadioButton();
             this.rbMatchExact = new System.Windows.Forms.RadioButton();
+            this.rbMatchAny = new System.Windows.Forms.RadioButton();
             this.menuStrip1.SuspendLayout();
             this.repeaterResults.ItemTemplate.SuspendLayout();
             this.repeaterResults.SuspendLayout();
@@ -196,6 +196,17 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Match";
             // 
+            // rbMatchExact
+            // 
+            this.rbMatchExact.AutoSize = true;
+            this.rbMatchExact.Location = new System.Drawing.Point(15, 47);
+            this.rbMatchExact.Name = "rbMatchExact";
+            this.rbMatchExact.Size = new System.Drawing.Size(55, 20);
+            this.rbMatchExact.TabIndex = 1;
+            this.rbMatchExact.TabStop = true;
+            this.rbMatchExact.Text = "Exact";
+            this.rbMatchExact.UseVisualStyleBackColor = true;
+            // 
             // rbMatchAny
             // 
             this.rbMatchAny.AutoSize = true;
@@ -208,23 +219,14 @@
             this.rbMatchAny.Text = "Any";
             this.rbMatchAny.UseVisualStyleBackColor = true;
             // 
-            // rbMatchExact
-            // 
-            this.rbMatchExact.AutoSize = true;
-            this.rbMatchExact.Location = new System.Drawing.Point(15, 47);
-            this.rbMatchExact.Name = "rbMatchExact";
-            this.rbMatchExact.Size = new System.Drawing.Size(55, 20);
-            this.rbMatchExact.TabIndex = 1;
-            this.rbMatchExact.TabStop = true;
-            this.rbMatchExact.Text = "Exact";
-            this.rbMatchExact.UseVisualStyleBackColor = true;
-            // 
             // ResponseSetSearch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.ClientSize = new System.Drawing.Size(730, 915);
+            this.ControlBox = false;
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lblResultCount);
             this.Controls.Add(this.cboResponseType);

@@ -205,16 +205,16 @@
             // cboTypeFilter
             // 
             this.cboTypeFilter.FormattingEnabled = true;
-            this.cboTypeFilter.Location = new System.Drawing.Point(754, 12);
+            this.cboTypeFilter.Location = new System.Drawing.Point(737, 11);
             this.cboTypeFilter.Name = "cboTypeFilter";
-            this.cboTypeFilter.Size = new System.Drawing.Size(96, 22);
+            this.cboTypeFilter.Size = new System.Drawing.Size(86, 22);
             this.cboTypeFilter.TabIndex = 4;
             this.cboTypeFilter.Visible = false;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(688, 14);
+            this.label3.Location = new System.Drawing.Point(696, 14);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(33, 14);
             this.label3.TabIndex = 5;
@@ -1038,6 +1038,8 @@
             // 
             // cboStoredAuthority
             // 
+            this.cboStoredAuthority.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboStoredAuthority.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboStoredAuthority.FormattingEnabled = true;
             this.cboStoredAuthority.Location = new System.Drawing.Point(626, 3);
             this.cboStoredAuthority.Name = "cboStoredAuthority";
@@ -1048,6 +1050,8 @@
             // 
             // cboStoredType
             // 
+            this.cboStoredType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboStoredType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboStoredType.FormattingEnabled = true;
             this.cboStoredType.Location = new System.Drawing.Point(218, 3);
             this.cboStoredType.Name = "cboStoredType";
@@ -1058,6 +1062,8 @@
             // 
             // cboStoredName
             // 
+            this.cboStoredName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboStoredName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboStoredName.FormattingEnabled = true;
             this.cboStoredName.Location = new System.Drawing.Point(117, 3);
             this.cboStoredName.Name = "cboStoredName";
@@ -1148,7 +1154,7 @@
             this.navNotes.MovePreviousItem = null;
             this.navNotes.Name = "navNotes";
             this.navNotes.PositionItem = this.bindingNavigatorPositionItem;
-            this.navNotes.Size = new System.Drawing.Size(860, 25);
+            this.navNotes.Size = new System.Drawing.Size(839, 25);
             this.navNotes.TabIndex = 19;
             this.navNotes.Text = "navNotes";
             // 
@@ -1188,6 +1194,7 @@
             // 
             this.bindingNavigatorPositionItem.AccessibleName = "Position";
             this.bindingNavigatorPositionItem.AutoSize = false;
+            this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
             this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(58, 23);
             this.bindingNavigatorPositionItem.Text = "0";
@@ -1240,7 +1247,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(237)))), ((int)(((byte)(215)))));
-            this.ClientSize = new System.Drawing.Size(860, 857);
+            this.ClientSize = new System.Drawing.Size(839, 857);
             this.Controls.Add(this.lblNewID);
             this.Controls.Add(this.navNotes);
             this.Controls.Add(this.cmdStoreComment);
@@ -1263,6 +1270,7 @@
             this.Controls.Add(this.txtID);
             this.Controls.Add(this.lblTitle);
             this.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "CommentEntry";
             this.Text = "Comment Entry";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CommentEntry_FormClosed);

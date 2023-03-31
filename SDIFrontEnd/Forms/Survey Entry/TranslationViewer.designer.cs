@@ -32,7 +32,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TranslationViewer));
             this.txtVarName = new System.Windows.Forms.TextBox();
             this.txtSurvey = new System.Windows.Forms.TextBox();
-            this.rtbTranslationText = new System.Windows.Forms.RichTextBox();
             this.txtLanguage = new System.Windows.Forms.TextBox();
             this.navTranslations = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
@@ -46,10 +45,8 @@
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.rtbPreP = new System.Windows.Forms.RichTextBox();
             this.rtbPstP = new System.Windows.Forms.RichTextBox();
-            this.cmdItalic = new System.Windows.Forms.Button();
-            this.cmdBold = new System.Windows.Forms.Button();
             this.cmdSave = new System.Windows.Forms.Button();
-            this.cmdUnderline = new System.Windows.Forms.Button();
+            this.extraRichTextBox1 = new SDIFrontEnd.ExtraRichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.navTranslations)).BeginInit();
             this.navTranslations.SuspendLayout();
             this.SuspendLayout();
@@ -73,18 +70,6 @@
             this.txtSurvey.ReadOnly = true;
             this.txtSurvey.Size = new System.Drawing.Size(116, 23);
             this.txtSurvey.TabIndex = 1;
-            // 
-            // rtbTranslationText
-            // 
-            this.rtbTranslationText.BackColor = System.Drawing.Color.White;
-            this.rtbTranslationText.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbTranslationText.Location = new System.Drawing.Point(5, 116);
-            this.rtbTranslationText.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.rtbTranslationText.Name = "rtbTranslationText";
-            this.rtbTranslationText.Size = new System.Drawing.Size(493, 292);
-            this.rtbTranslationText.TabIndex = 2;
-            this.rtbTranslationText.Text = "";
-            this.rtbTranslationText.Validated += new System.EventHandler(this.rtbTranslationText_Validated);
             // 
             // txtLanguage
             // 
@@ -112,14 +97,14 @@
             this.bindingNavigatorMoveNextItem,
             this.bindingNavigatorMoveLastItem,
             this.bindingNavigatorSeparator2});
-            this.navTranslations.Location = new System.Drawing.Point(0, 493);
+            this.navTranslations.Location = new System.Drawing.Point(0, 587);
             this.navTranslations.MoveFirstItem = null;
             this.navTranslations.MoveLastItem = null;
             this.navTranslations.MoveNextItem = null;
             this.navTranslations.MovePreviousItem = null;
             this.navTranslations.Name = "navTranslations";
             this.navTranslations.PositionItem = this.bindingNavigatorPositionItem;
-            this.navTranslations.Size = new System.Drawing.Size(505, 25);
+            this.navTranslations.Size = new System.Drawing.Size(502, 25);
             this.navTranslations.TabIndex = 4;
             this.navTranslations.Text = "bindingNavigator1";
             // 
@@ -210,36 +195,12 @@
             // 
             this.rtbPstP.BackColor = System.Drawing.Color.White;
             this.rtbPstP.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbPstP.Location = new System.Drawing.Point(5, 411);
+            this.rtbPstP.Location = new System.Drawing.Point(5, 507);
             this.rtbPstP.Name = "rtbPstP";
             this.rtbPstP.ReadOnly = true;
             this.rtbPstP.Size = new System.Drawing.Size(493, 74);
             this.rtbPstP.TabIndex = 8;
             this.rtbPstP.Text = "";
-            // 
-            // cmdItalic
-            // 
-            this.cmdItalic.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdItalic.Location = new System.Drawing.Point(33, 92);
-            this.cmdItalic.Name = "cmdItalic";
-            this.cmdItalic.Size = new System.Drawing.Size(27, 23);
-            this.cmdItalic.TabIndex = 16;
-            this.cmdItalic.Text = "I";
-            this.cmdItalic.UseCompatibleTextRendering = true;
-            this.cmdItalic.UseVisualStyleBackColor = true;
-            this.cmdItalic.Click += new System.EventHandler(this.cmdItalic_Click);
-            // 
-            // cmdBold
-            // 
-            this.cmdBold.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdBold.Location = new System.Drawing.Point(6, 92);
-            this.cmdBold.Name = "cmdBold";
-            this.cmdBold.Size = new System.Drawing.Size(27, 23);
-            this.cmdBold.TabIndex = 15;
-            this.cmdBold.Text = "B";
-            this.cmdBold.UseCompatibleTextRendering = true;
-            this.cmdBold.UseVisualStyleBackColor = true;
-            this.cmdBold.Click += new System.EventHandler(this.cmdBold_Click);
             // 
             // cmdSave
             // 
@@ -251,33 +212,32 @@
             this.cmdSave.UseVisualStyleBackColor = true;
             this.cmdSave.Click += new System.EventHandler(this.cmdSave_Click);
             // 
-            // cmdUnderline
+            // extraRichTextBox1
             // 
-            this.cmdUnderline.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdUnderline.Location = new System.Drawing.Point(61, 92);
-            this.cmdUnderline.Name = "cmdUnderline";
-            this.cmdUnderline.Size = new System.Drawing.Size(27, 23);
-            this.cmdUnderline.TabIndex = 19;
-            this.cmdUnderline.Text = "U";
-            this.cmdUnderline.UseCompatibleTextRendering = true;
-            this.cmdUnderline.UseVisualStyleBackColor = true;
-            this.cmdUnderline.Click += new System.EventHandler(this.cmdUnderline_Click);
+            this.extraRichTextBox1.Location = new System.Drawing.Point(5, 96);
+            this.extraRichTextBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.extraRichTextBox1.Name = "extraRichTextBox1";
+            this.extraRichTextBox1.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat\\deflang1033{\\fonttbl{\\f0\\fnil\\fcharset0 " +
+    "Tahoma;}}\r\n{\\*\\generator Riched20 10.0.19041}\\viewkind4\\uc1 \r\n\\pard\\f0\\fs20\\par\r" +
+    "\n}\r\n";
+            this.extraRichTextBox1.ShowFamilies = false;
+            this.extraRichTextBox1.ShowSize = false;
+            this.extraRichTextBox1.Size = new System.Drawing.Size(493, 400);
+            this.extraRichTextBox1.TabIndex = 20;
+            this.extraRichTextBox1.Validated += new System.EventHandler(this.extraRichTextBox1_Validated);
             // 
             // TranslationViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(196)))), ((int)(((byte)(153)))));
-            this.ClientSize = new System.Drawing.Size(505, 518);
-            this.Controls.Add(this.cmdUnderline);
+            this.ClientSize = new System.Drawing.Size(502, 612);
+            this.Controls.Add(this.extraRichTextBox1);
             this.Controls.Add(this.cmdSave);
-            this.Controls.Add(this.cmdItalic);
-            this.Controls.Add(this.cmdBold);
             this.Controls.Add(this.rtbPstP);
             this.Controls.Add(this.rtbPreP);
             this.Controls.Add(this.navTranslations);
             this.Controls.Add(this.txtLanguage);
-            this.Controls.Add(this.rtbTranslationText);
             this.Controls.Add(this.txtSurvey);
             this.Controls.Add(this.txtVarName);
             this.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -299,7 +259,6 @@
 
         private System.Windows.Forms.TextBox txtVarName;
         private System.Windows.Forms.TextBox txtSurvey;
-        private System.Windows.Forms.RichTextBox rtbTranslationText;
         private System.Windows.Forms.TextBox txtLanguage;
         private System.Windows.Forms.BindingNavigator navTranslations;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
@@ -313,9 +272,7 @@
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.RichTextBox rtbPreP;
         private System.Windows.Forms.RichTextBox rtbPstP;
-        private System.Windows.Forms.Button cmdItalic;
-        private System.Windows.Forms.Button cmdBold;
         private System.Windows.Forms.Button cmdSave;
-        private System.Windows.Forms.Button cmdUnderline;
+        private ExtraRichTextBox extraRichTextBox1;
     }
 }

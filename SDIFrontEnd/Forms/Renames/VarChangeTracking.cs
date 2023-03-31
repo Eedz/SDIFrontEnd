@@ -13,11 +13,6 @@ namespace SDIFrontEnd
 {
     public partial class VarChangeTracking : Form
     {
-        // TODO history
-        // TODO indicate deleted var
-        // TODO toggle hidden/prefws
-        // TODO undo change
-
         BindingList<VarNameChangeRecord> Records;
         VarNameChangeRecord CurrentRecord;
 

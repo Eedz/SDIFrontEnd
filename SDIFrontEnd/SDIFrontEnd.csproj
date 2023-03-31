@@ -80,7 +80,14 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class1.cs" />
     <Compile Include="CustomEvents.cs" />
+    <Compile Include="ExtraRichTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ExtraRichTextBox.Designer.cs">
+      <DependentUpon>ExtraRichTextBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Drafts\DraftReportForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -673,6 +680,9 @@
     <Compile Include="TranslatorTemplateForm.Designer.cs">
       <DependentUpon>TranslatorTemplateForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ExtraRichTextBox.resx">
+      <DependentUpon>ExtraRichTextBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Drafts\DraftReportForm.resx">
       <DependentUpon>DraftReportForm.cs</DependentUpon>
     </EmbeddedResource>
