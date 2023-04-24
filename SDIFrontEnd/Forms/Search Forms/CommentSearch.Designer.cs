@@ -950,7 +950,7 @@
             this.txtPVarName.Location = new System.Drawing.Point(125, 1);
             this.txtPVarName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtPVarName.Name = "txtPVarName";
-            this.txtPVarName.Size = new System.Drawing.Size(116, 23);
+            this.txtPVarName.Size = new System.Drawing.Size(366, 23);
             this.txtPVarName.TabIndex = 1;
             // 
             // txtPSurvey

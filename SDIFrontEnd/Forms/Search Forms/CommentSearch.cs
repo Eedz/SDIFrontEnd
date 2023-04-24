@@ -308,13 +308,6 @@ namespace SDIFrontEnd
             if (dtpUpper.Checked)
                 dateUpperFilter = dtpUpper.Value;
 
-            if (cboType.SelectedItem != null)
-            {
-                CommentType type = (CommentType)cboType.SelectedItem;
-                typeFilter = type.TypeName;
-            }
-
-
             if (cboAuthor.SelectedItem != null)
                 authorFilter = (int)cboAuthor.SelectedValue;
             else
@@ -437,22 +430,22 @@ namespace SDIFrontEnd
             txtWSourceName.DataBindings.Add("Text", bsWaveComments, "SourceName");
             txtWComment.DataBindings.Add("Text", bsWaveComments, "Notes");
 
-            txtDSurvey.DataBindings.Add("Text", bsQuestionComments, "Survey");
-            txtDVarName.DataBindings.Add("Text", bsQuestionComments, "VarName");
-            txtDNoteDate.DataBindings.Add("Text", bsQuestionComments, "NoteDate");
-            txtDNoteType.DataBindings.Add("Text", bsQuestionComments, "NoteType");
-            txtDAuthor.DataBindings.Add("Text", bsQuestionComments, "Name");
-            txtDSource.DataBindings.Add("Text", bsQuestionComments, "Source");
-            txtDSourceName.DataBindings.Add("Text", bsQuestionComments, "SourceName");
-            txtDComment.DataBindings.Add("Text", bsQuestionComments, "Notes");
+            txtDSurvey.DataBindings.Add("Text", bsDeletedComments, "Survey");
+            txtDVarName.DataBindings.Add("Text", bsDeletedComments, "VarName");
+            txtDNoteDate.DataBindings.Add("Text", bsDeletedComments, "NoteDate");
+            txtDNoteType.DataBindings.Add("Text", bsDeletedComments, "NoteType");
+            txtDAuthor.DataBindings.Add("Text", bsDeletedComments, "Name");
+            txtDSource.DataBindings.Add("Text", bsDeletedComments, "Source");
+            txtDSourceName.DataBindings.Add("Text", bsDeletedComments, "SourceName");
+            txtDComment.DataBindings.Add("Text", bsDeletedComments, "Notes");
 
-            txtPSurvey.DataBindings.Add("Text", bsQuestionComments, "Survey.SurveyCode");
-            txtPVarName.DataBindings.Add("Text", bsQuestionComments, "VarNames");
-            txtPNoteDate.DataBindings.Add("Text", bsQuestionComments, "IssueDate");
-            txtPNoteType.DataBindings.Add("Text", bsQuestionComments, "IssueType");
-            txtPAuthorFrom.DataBindings.Add("Text", bsQuestionComments, "IssueFrom");
-            txtPAuthorTo.DataBindings.Add("Text", bsQuestionComments, "IssueTo");
-            txtPComment.DataBindings.Add("Text", bsQuestionComments, "Description");
+            txtPSurvey.DataBindings.Add("Text", bsPraccingComments, "Survey");
+            txtPVarName.DataBindings.Add("Text", bsPraccingComments, "VarNames");
+            txtPNoteDate.DataBindings.Add("Text", bsPraccingComments, "IssueDate");
+            txtPNoteType.DataBindings.Add("Text", bsPraccingComments, "Category");
+            txtPAuthorFrom.DataBindings.Add("Text", bsPraccingComments, "IssueFrom");
+            txtPAuthorTo.DataBindings.Add("Text", bsPraccingComments, "IssueTo");
+            txtPComment.DataBindings.Add("Text", bsPraccingComments, "Description");
 
             txtChangeSurvey.DataBindings.Add("Text", bsChangeComments, "SurveyList");
             txtOldVarName.DataBindings.Add("Text", bsChangeComments, "OldName");

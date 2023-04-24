@@ -63,8 +63,8 @@ namespace SDIFrontEnd
             SO.ShowQuestion = false;
 
             SO.GenerateReport();
-            SO.FileName = "\\\\psychfile\\psych$\\psych-lab-gfong\\SMG\\SDI\\Reports\\External\\" + source.SurveyCode + " Survey Overview.docx";
-            SO.OutputReportTableXML();
+            SO.FileName = "\\\\psychfile\\psych$\\psych-lab-gfong\\SMG\\SDI\\Reports\\External\\";
+            SO.OutputReportTableXML(source.SurveyCode + " Survey Overview");
         }
 
         private void cmdOpenFolder_Click(object sender, EventArgs e)

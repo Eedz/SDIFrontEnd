@@ -14,7 +14,6 @@ namespace SDIFrontEnd
     
     public partial class SurveyProcessingEntry : Form
     {
-
         List<SurveyProcessingRecord> Records;
         BindingSource bs;
         BindingSource bsStages;

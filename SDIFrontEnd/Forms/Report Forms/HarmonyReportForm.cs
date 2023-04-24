@@ -274,6 +274,9 @@ namespace SDIFrontEnd
                     case "Domain":
                         domain = true;
                         break;
+                    case "Product":
+                        product = true;
+                        break;
                     case "Translation":
                         translation = true;
                         break;
@@ -327,7 +330,7 @@ namespace SDIFrontEnd
         private List<string> GetVarFilter()
         {
             List<string> vars = new List<string>();
-            foreach (VariableName r in lstSelVar.Items)
+            foreach (RefVariableName r in lstSelVar.Items)
             {
                 vars.Add(r.RefVarName);
             }
@@ -423,10 +426,12 @@ namespace SDIFrontEnd
 
             lstSelVar.Items.Clear();
 
-            List<RefVariableName> vars = DBAction.GetRefVarNamesPrefix(lstPrefixes.SelectedItems[0].ToString());
+            List<RefVariableName> vars = new List<RefVariableName>();
+            foreach (string prefix in lstPrefixes.SelectedItems)
+                vars.AddRange(DBAction.GetRefVarNamesPrefix(prefix));
 
             foreach (RefVariableName s in vars)
-                lstSelVar.Items.Add(s.RefVarName);
+                lstSelVar.Items.Add(s);
         }
 
         private void FillLists()

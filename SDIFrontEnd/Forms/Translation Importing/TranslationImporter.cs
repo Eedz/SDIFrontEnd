@@ -173,7 +173,7 @@ namespace SDIFrontEnd
                         Translation existingT = DBAction.GetSurveyTranslation(TargetSurvey.SurveyCode, varname, TargetLanguage.LanguageName) ?? new Translation();
                         tq.ID = existingT.ID;
                         tq.QID = DBAction.GetQuestionID(TargetSurvey.SurveyCode, varname);
-                        tq.Language = TargetLanguage.LanguageName;
+                        tq.LanguageName = TargetLanguage;
                         tq.Survey = TargetSurvey.SurveyCode;
                         tq.VarName = varname;
                         tq.TranslationText = FormatTranslation(question);
@@ -322,7 +322,7 @@ namespace SDIFrontEnd
                             Translation existingT = DBAction.GetSurveyTranslation(TargetSurvey.SurveyCode, varname, TargetLanguage.LanguageName) ?? new Translation();
                             tq.ID = existingT.ID;
                             tq.QID = DBAction.GetQuestionID(trimmed, varname);
-                            tq.Language = TargetLanguage.LanguageName;
+                            tq.LanguageName = TargetLanguage;
                             tq.Survey = trimmed;
                             tq.VarName = varname;
                             tq.TranslationText = questionText;

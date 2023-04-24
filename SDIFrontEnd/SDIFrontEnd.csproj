@@ -80,12 +80,15 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Controls\ToolStripBindableButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ControlExtensions.cs" />
     <Compile Include="CustomEvents.cs" />
-    <Compile Include="ExtraRichTextBox.cs">
+    <Compile Include="Controls\ExtraRichTextBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ExtraRichTextBox.Designer.cs">
+    <Compile Include="Controls\ExtraRichTextBox.Designer.cs">
       <DependentUpon>ExtraRichTextBox.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Drafts\DraftReportForm.cs">
@@ -680,7 +683,7 @@
     <Compile Include="TranslatorTemplateForm.Designer.cs">
       <DependentUpon>TranslatorTemplateForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="ExtraRichTextBox.resx">
+    <EmbeddedResource Include="Controls\ExtraRichTextBox.resx">
       <DependentUpon>ExtraRichTextBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Drafts\DraftReportForm.resx">

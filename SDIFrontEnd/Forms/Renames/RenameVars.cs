@@ -177,7 +177,7 @@ namespace SDIFrontEnd
         {
             if (refvar == null)
             {
-                lstSurveyList.Items.Clear();
+                lstSurveyList.DataSource = null;
                 return;
             }
             List<string> surveyNames = DBAction.GetRefVarNameSurveys(refvar.RefVarName);

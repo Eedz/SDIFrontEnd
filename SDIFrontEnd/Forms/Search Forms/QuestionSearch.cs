@@ -396,7 +396,8 @@ namespace SDIFrontEnd
 
                 for (int i = 0; i < terms.Length; i++)
                 {
-                    criteria.Append(new SearchCriterium(field, Comparity.Contains, new List<string>() { terms[i] }, true));                    
+                    SearchCriterium c = new SearchCriterium(field, Comparity.Contains, new List<string>() { terms[i] }, true);
+                    criteria.Add(c);                    
                 }
             }
 
