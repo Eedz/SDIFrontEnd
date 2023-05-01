@@ -109,6 +109,7 @@
             this.cmdOpenQuestionHistory = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.worker = new System.ComponentModel.BackgroundWorker();
+            this.cmdParallelQuestions = new System.Windows.Forms.Button();
             this.menuMainMenuStrip.SuspendLayout();
             this.pageMain.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -384,6 +385,7 @@
             this.pageMain.Controls.Add(this.cmdOpenSurveyEditor5);
             this.pageMain.Controls.Add(this.cmdOpenSurveyEditor4);
             this.pageMain.Controls.Add(this.tableLayoutPanel1);
+            this.pageMain.Controls.Add(this.cmdOpenQuestionHistory);
             this.pageMain.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pageMain.Location = new System.Drawing.Point(4, 25);
             this.pageMain.Name = "pageMain";
@@ -689,6 +691,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 190F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 199F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 204F));
+            this.tableLayoutPanel1.Controls.Add(this.cmdParallelQuestions, 1, 6);
             this.tableLayoutPanel1.Controls.Add(this.cmdOpenVarChangesMenu, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.cmdOpenParallelVarReport, 3, 4);
             this.tableLayoutPanel1.Controls.Add(this.cmdExternalReportsMenu, 3, 1);
@@ -709,7 +712,6 @@
             this.tableLayoutPanel1.Controls.Add(this.cmdOpenProductCrosstab, 3, 3);
             this.tableLayoutPanel1.Controls.Add(this.cmdOpenAssignLabelsJIT, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.cmdOpenVariableInfo, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.cmdOpenQuestionHistory, 1, 6);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(20, 145);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 7;
@@ -972,9 +974,8 @@
             // cmdOpenQuestionHistory
             // 
             this.cmdOpenQuestionHistory.AutoSize = true;
-            this.cmdOpenQuestionHistory.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmdOpenQuestionHistory.Enabled = false;
-            this.cmdOpenQuestionHistory.Location = new System.Drawing.Point(193, 213);
+            this.cmdOpenQuestionHistory.Location = new System.Drawing.Point(1016, 361);
             this.cmdOpenQuestionHistory.Name = "cmdOpenQuestionHistory";
             this.cmdOpenQuestionHistory.Size = new System.Drawing.Size(184, 36);
             this.cmdOpenQuestionHistory.TabIndex = 19;
@@ -1001,6 +1002,17 @@
             // worker
             // 
             this.worker.WorkerSupportsCancellation = true;
+            // 
+            // cmdParallelQuestions
+            // 
+            this.cmdParallelQuestions.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cmdParallelQuestions.Location = new System.Drawing.Point(193, 213);
+            this.cmdParallelQuestions.Name = "cmdParallelQuestions";
+            this.cmdParallelQuestions.Size = new System.Drawing.Size(184, 36);
+            this.cmdParallelQuestions.TabIndex = 23;
+            this.cmdParallelQuestions.Text = "Parallel Questions";
+            this.cmdParallelQuestions.UseVisualStyleBackColor = true;
+            this.cmdParallelQuestions.Click += new System.EventHandler(this.cmdParallelQuestions_Click);
             // 
             // MainMenu
             // 
@@ -1112,6 +1124,7 @@
         private System.Windows.Forms.ToolStripMenuItem viewTempToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewOrphansToolStripMenuItem;
         private System.ComponentModel.BackgroundWorker worker;
+        private System.Windows.Forms.Button cmdParallelQuestions;
     }
 }
 

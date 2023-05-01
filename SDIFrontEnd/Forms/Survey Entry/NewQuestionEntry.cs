@@ -468,10 +468,10 @@ namespace SDIFrontEnd
                 newQ.VarName.VarLabel = "[blank]";
             else
                 newQ.VarName.VarLabel = txtVarLabel.Text;
-            newQ.VarName.Content = (ContentLabel)cboContent.SelectedItem;
-            newQ.VarName.Topic = (TopicLabel)cboTopic.SelectedItem;
-            newQ.VarName.Domain = (DomainLabel)cboDomain.SelectedItem;
-            newQ.VarName.Product = (ProductLabel)cboProduct.SelectedItem;
+            newQ.VarName.Content = (ContentLabel)cboContent.SelectedItem ?? new ContentLabel();
+            newQ.VarName.Topic = (TopicLabel)cboTopic.SelectedItem ?? new TopicLabel();
+            newQ.VarName.Domain = (DomainLabel)cboDomain.SelectedItem ?? new DomainLabel();
+            newQ.VarName.Product = (ProductLabel)cboProduct.SelectedItem ?? new ProductLabel();
 
             return newQ;
         }

@@ -666,6 +666,19 @@ namespace SDIFrontEnd
             FormManager.Add(frm);
         }
 
+        private void cmdParallelQuestions_Click(object sender, EventArgs e)
+        {
+            if (FormManager.FormOpen("ParallelQuestions"))
+            {
+                tabControl1.SelectTab("ParallelQuestions1");
+                return;
+            }
+
+            ParallelQuestions frm = new ParallelQuestions();
+            frm.Tag = 1;
+            FormManager.Add(frm);
+        }
+
         private void cmdOpenQuestionHistory_Click(object sender, EventArgs e)
         {
             //if (FormManager.FormOpen("QuestionHistory"))
@@ -1046,5 +1059,7 @@ namespace SDIFrontEnd
             worker.CancelAsync();
             Application.Exit();
         }
+
+        
     }
 }

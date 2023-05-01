@@ -103,6 +103,7 @@
             this.label3.Size = new System.Drawing.Size(76, 16);
             this.label3.TabIndex = 6;
             this.label3.Text = "Rename By:";
+            this.label3.Visible = false;
             // 
             // optRefVarName
             // 
@@ -115,6 +116,7 @@
             this.optRefVarName.TabStop = true;
             this.optRefVarName.Text = "refVarName";
             this.optRefVarName.UseVisualStyleBackColor = true;
+            this.optRefVarName.Visible = false;
             this.optRefVarName.Click += new System.EventHandler(this.Scope_Click);
             // 
             // optVarName
@@ -128,6 +130,7 @@
             this.optVarName.TabStop = true;
             this.optVarName.Text = "VarName";
             this.optVarName.UseVisualStyleBackColor = true;
+            this.optVarName.Visible = false;
             this.optVarName.Click += new System.EventHandler(this.Scope_Click);
             // 
             // label2
@@ -143,7 +146,6 @@
             // 
             this.cboDest.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cboDest.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cboDest.FormattingEnabled = true;
             this.cboDest.Location = new System.Drawing.Point(294, 7);
             this.cboDest.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cboDest.Name = "cboDest";
