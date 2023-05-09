@@ -166,7 +166,7 @@ namespace SDIFrontEnd
             if (MessageBox.Show("Are you sure you want to delete the selected record?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 VarNameChangeSurveyRecord record = (VarNameChangeSurveyRecord)e.Row.DataBoundItem;
-                DBAction.DeleteVarNameChangeSurvey(record.ID);
+                DBAction.DeleteRecord(record);
             }
             else
             {
@@ -211,7 +211,7 @@ namespace SDIFrontEnd
             if (MessageBox.Show("Are you sure you want to delete the selected record?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 VarNameChangeNotificationRecord record = (VarNameChangeNotificationRecord)e.Row.DataBoundItem;
-                DBAction.DeleteVarNameChangeNotification(record.ID);
+                DBAction.DeleteRecord(record);
 
             }
             else
@@ -366,7 +366,7 @@ namespace SDIFrontEnd
         {
             if (MessageBox.Show("Are you sure you want to delete this record?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                DBAction.DeleteVarNameChange(CurrentRecord.ID);
+                DBAction.DeleteRecord(CurrentRecord);
                 bs.RemoveCurrent();
             }
         }

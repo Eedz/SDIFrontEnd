@@ -256,7 +256,7 @@ namespace SDIFrontEnd
         {
             if (MessageBox.Show("Are you sure you want to delete this draft?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                DBAction.DeleteSurveyDraft(CurrentRecord.ID);
+                DBAction.DeleteRecord(CurrentRecord);
                 bs.Remove(CurrentRecord);
                 CurrentRecord = (SurveyDraftRecord)bs.Current;
             }
@@ -351,7 +351,7 @@ namespace SDIFrontEnd
                 SurveyDraftExtraFieldRecord record = (SurveyDraftExtraFieldRecord)e.Row.DataBoundItem;
 
                     
-                DBAction.DeleteDraftExtraField(record.ID);
+                DBAction.DeleteRecord(record);
                 bsEF.Remove(record);
 
             }

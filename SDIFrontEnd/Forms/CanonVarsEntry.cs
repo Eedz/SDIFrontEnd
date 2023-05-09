@@ -74,7 +74,7 @@ namespace SDIFrontEnd
                 int index = repeaterRecords.CurrentItemIndex;
                 CanonicalVariableRecord itemRecord = (CanonicalVariableRecord)datasource[index];
                 bs.RemoveAt(index);
-                DBAction.DeleteCanonVar(itemRecord.ID);
+                DBAction.DeleteRecord(itemRecord);
                 
             }
         }

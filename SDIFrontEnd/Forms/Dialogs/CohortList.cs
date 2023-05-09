@@ -75,7 +75,7 @@ namespace SDIFrontEnd
             if (MessageBox.Show("Are you sure you want to delete the selected record?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 SurveyCohortRecord cohort = (SurveyCohortRecord)e.Row.DataBoundItem;
-                DBAction.DeleteCohort(cohort.ID);
+                DBAction.DeleteRecord(cohort);
             }
             else
             {

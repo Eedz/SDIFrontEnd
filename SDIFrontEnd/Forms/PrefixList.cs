@@ -99,7 +99,7 @@ namespace SDIFrontEnd
         {
             if (MessageBox.Show("Are you sure you want to delete this prefix?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                if (DBAction.DeletePrefix(CurrentRecord.ID) == 1)
+                if (DBAction.DeleteRecord(CurrentRecord) == 1)
                     MessageBox.Show("Error deleting prefix.");
 
                 bs.RemoveCurrent();
@@ -224,7 +224,7 @@ namespace SDIFrontEnd
             if (MessageBox.Show("Are you sure you want to delete the selected record?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 ParallelPrefixRecord record = (ParallelPrefixRecord)e.Row.DataBoundItem;
-                DBAction.DeleteParallelPrefix(record.ID);
+                DBAction.DeleteRecord(record);
             }
             else
             {
@@ -282,7 +282,7 @@ namespace SDIFrontEnd
             if (MessageBox.Show("Are you sure you want to delete the selected record?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 VariableRangeRecord record = (VariableRangeRecord)e.Row.DataBoundItem;
-                DBAction.DeletePrefixRange(record.ID);
+                DBAction.DeleteRecord(record);
             }
             else
             {

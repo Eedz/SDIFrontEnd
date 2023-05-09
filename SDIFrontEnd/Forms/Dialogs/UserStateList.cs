@@ -75,7 +75,7 @@ namespace SDIFrontEnd
             if (MessageBox.Show("Are you sure you want to delete the selected record?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 UserStateRecord userstate = (UserStateRecord)e.Row.DataBoundItem;
-                DBAction.DeleteUserState(userstate.ID);
+                DBAction.DeleteRecord(userstate);
             }
             else
             {

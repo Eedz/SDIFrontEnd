@@ -320,14 +320,13 @@
             this.lstQuestionList.TabIndex = 36;
             this.lstQuestionList.UseCompatibleStateImageBehavior = false;
             this.lstQuestionList.View = System.Windows.Forms.View.Details;
+            this.lstQuestionList.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.lstQuestionList_ItemDrag);
             this.lstQuestionList.DragDrop += new System.Windows.Forms.DragEventHandler(this.lstQuestionList_DragDrop);
             this.lstQuestionList.DragEnter += new System.Windows.Forms.DragEventHandler(this.lstQuestionList_DragEnter);
             this.lstQuestionList.DragOver += new System.Windows.Forms.DragEventHandler(this.lstQuestionList_DragOver);
             this.lstQuestionList.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lstQuestionList_MouseClick);
             this.lstQuestionList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lstQuestionList_MouseDoubleClick);
-            this.lstQuestionList.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lstQuestionList_MouseDown);
-            this.lstQuestionList.MouseMove += new System.Windows.Forms.MouseEventHandler(this.lstQuestionList_MouseMove);
-            this.lstQuestionList.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lstQuestionList_MouseUp);
+
             // 
             // NewQnum
             // 

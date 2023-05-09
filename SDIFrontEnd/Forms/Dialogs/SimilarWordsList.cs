@@ -75,7 +75,7 @@ namespace SDIFrontEnd
             if (MessageBox.Show("Are you sure you want to delete the selected record?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 SimilarWordsRecord words = (SimilarWordsRecord)e.Row.DataBoundItem;
-                DBAction.DeleteSimilarWords(words.ID);
+                DBAction.DeleteRecord(words);
             }
             else
             {

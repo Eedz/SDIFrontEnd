@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -253,6 +254,8 @@ namespace SDIFrontEnd
             if (txtNR.DataBindings["ReadOnly"] != null)
                 txtNR.DataBindings.Remove(txtNR.DataBindings["ReadOnly"]);
             txtNR.DataBindings.Add("ReadOnly", CurrentSurvey, "Locked");
+
+            cmdUnlock.Enabled = CurrentSurvey.Locked;
         }
 
         /// <summary>
@@ -605,6 +608,11 @@ namespace SDIFrontEnd
 
         private void cmdSaveSurvey_Click(object sender, EventArgs e)
         {
+            if (CurrentSurvey.Locked)
+            {
+                MessageBox.Show("This survey needs to be unlocked before saving.");
+                return;
+            }
             SaveChanges();
             FillList();
             CurrentSurvey.NeedsRenumber = NeedsRenumber();
@@ -1009,8 +1017,6 @@ namespace SDIFrontEnd
             return 0;
         }
 
-
-       
         /// <summary>
         /// Allow the user 
         /// </summary>
@@ -1111,7 +1117,6 @@ namespace SDIFrontEnd
             LoadQuestion();
         }
 
-        
         private void UpdateWording(Wording wording)
         {
             switch (wording.FieldName)
@@ -1168,8 +1173,6 @@ namespace SDIFrontEnd
             }
 
         }
-
-
 
         private void UpdateStatus()
         {
@@ -1296,7 +1299,6 @@ namespace SDIFrontEnd
             RenumberQuestions();
             ColorRows();
         }
-
 
         private void ColorRows()
         {
@@ -1560,7 +1562,6 @@ namespace SDIFrontEnd
             {
                 frmQuestionViewer.Focus();
             }
-            
         }
 
         private void ExportQuestion()
@@ -1755,13 +1756,6 @@ namespace SDIFrontEnd
                 }
             }
 
-            // delete unused varnames
-            //foreach (SurveyQuestion deleted in deleteWins)
-            //{
-            //    if (!deleted.VarName.VarName.Equals("DUMMY") && !DBAction.VarNameIsUsed(deleted.VarName.VarName))
-            //        DBAction.DeleteVariable(deleted.VarName.VarName);
-            //}
-
             // display fails
             StringBuilder sb = new StringBuilder();
             if (modifyFails.Count > 0)
@@ -1775,7 +1769,7 @@ namespace SDIFrontEnd
                 MessageBox.Show(sb.ToString());
             else
             {
-                DBAction.DeleteRenumberedSurvey(CurrentSurvey.SID);
+                DBAction.DeleteRenumberedSurvey(CurrentSurvey);
             }
         }
 
@@ -1957,9 +1951,6 @@ namespace SDIFrontEnd
             }
         }
 
-
-
-        
         #endregion
 
         #region Navigation buttons
@@ -1994,6 +1985,117 @@ namespace SDIFrontEnd
 
         #region ListView Events
 
+        /// <summary>
+        /// Start the drag and drop procedure.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void lstQuestionList_ItemDrag(object sender, ItemDragEventArgs e)
+        {
+            lstQuestionList.DoDragDrop(e.Item, DragDropEffects.Move);
+        }
+
+        /// <summary>
+        /// Change the cursor so the user knows they are dragging.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void lstQuestionList_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Move;
+        }
+
+        /// <summary>
+        /// Make sure the item being dragged over is visible.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void lstQuestionList_DragOver(object sender, DragEventArgs e)
+        {
+            Point cp = lstQuestionList.PointToClient(new Point(e.X, e.Y));
+            ListViewItem hoverItem = lstQuestionList.GetItemAt(cp.X, cp.Y);
+            if (hoverItem == null)
+            {
+                e.Effect = DragDropEffects.None;
+                return;
+            }
+            foreach (ListViewItem moveItem in lstQuestionList.SelectedItems)
+            {
+                if (moveItem.Index == hoverItem.Index)
+                {
+                    e.Effect = DragDropEffects.None;
+                    hoverItem.EnsureVisible();
+                    return;
+                }
+            }
+           
+            e.Effect = DragDropEffects.Move;
+            hoverItem.EnsureVisible();
+        }
+
+        /// <summary>
+        /// Drop the item and re-order the questions.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void lstQuestionList_DragDrop(object sender, DragEventArgs e)
+        {
+            if (lstQuestionList.SelectedItems.Count == 0)
+            {
+                return;
+            }
+
+            Point cp = lstQuestionList.PointToClient(new Point(e.X, e.Y));
+            ListViewItem dragToItem = lstQuestionList.GetItemAt(cp.X, cp.Y);
+
+            if (dragToItem == null)
+            {
+                return;
+            }
+
+            int dropIndex = dragToItem.Index;
+
+            if (dropIndex > lstQuestionList.SelectedItems[0].Index)
+            {
+                dropIndex++;
+            }
+            
+            ArrayList insertItems = new ArrayList(lstQuestionList.SelectedItems.Count);
+
+            foreach (ListViewItem item in lstQuestionList.SelectedItems)
+            {
+                insertItems.Add(item.Clone());
+            }
+
+            foreach (ListViewItem removeItem in lstQuestionList.SelectedItems)
+            {
+                lstQuestionList.Items.Remove(removeItem);
+                CurrentSurvey.Questions.Remove((QuestionRecord)removeItem.Tag);
+            }
+
+            for (int i = insertItems.Count - 1; i >= 0; i--)
+            {
+                ListViewItem insertItem = (ListViewItem)insertItems[i];
+                lstQuestionList.Items.Insert(dropIndex, insertItem);
+               
+                CurrentSurvey.Questions.Insert(dropIndex, (QuestionRecord)insertItem.Tag);
+            }
+            
+            ReNumberSurvey();
+
+            // Show the user that a drag operation is happening
+            Cursor = Cursors.Arrow;
+            if (NeedsRenumber())
+                CurrentSurvey.NeedsRenumber = true;
+
+            UpdateStatus();
+        }
+
+        /// <summary>
+        /// Go to the question that was clicked on.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void lstQuestionList_MouseClick(object sender, MouseEventArgs e)
         {
             int index = lstQuestionList.SelectedIndices[0];
@@ -2003,6 +2105,11 @@ namespace SDIFrontEnd
           
         }
 
+        /// <summary>
+        /// Toggle a question between standalone and series.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void lstQuestionList_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             // toggle standalone/series
@@ -2048,102 +2155,9 @@ namespace SDIFrontEnd
             UpdateStatus();
         }
 
-        private void lstQuestionList_DragDrop(object sender, DragEventArgs e)
-        {
-            // Show the user that a drag operation is happening
-            Cursor = Cursors.Arrow;
-            if (NeedsRenumber())
-                CurrentSurvey.NeedsRenumber = true;
-
-            UpdateStatus();
-        }
-
-        private void lstQuestionList_DragEnter(object sender, DragEventArgs e)
-        {
-
-        }
-
         private void lstQuestionList_DragLeave(object sender, EventArgs e)
         {
-
-        }
-
-        private void lstQuestionList_MouseDown(object sender, MouseEventArgs e)
-        {
-            dragItem = lstQuestionList.GetItemAt(e.X, e.Y);
-            // if the LV is still empty, no item will be found anyway,
-            // so we don't have to consider this case
-        }
-
-        private void lstQuestionList_MouseUp(object sender, MouseEventArgs e)
-        {
-            // use 0 instead of e.X so that you don't have
-            // to keep inside the columns while dragging
-            ListViewItem itemOver = lstQuestionList.GetItemAt(0, e.Y);
-
-            if (itemOver == null)
-                return;
-            if (dragItem == null)
-                return;
-
-            Rectangle rc = itemOver.GetBounds(ItemBoundsPortion.Entire);
-
-            // find out if we insert before or after the item the mouse is over
-            bool insertBefore;
-            if (e.Y < rc.Top + (rc.Height / 2))
-                insertBefore = true;
-            else
-                insertBefore = false;
-
-            // if we dropped the item on itself, nothing is to be done
-            if (dragItem != itemOver)
-            {
-                if (insertBefore)
-                {
-                    var item = CurrentSurvey.Questions[dragItem.Index];
-                    CurrentSurvey.Questions.RemoveAt(dragItem.Index);
-                    CurrentSurvey.Questions.Insert(itemOver.Index, item);
-
-                    lstQuestionList.Items.Remove(dragItem);
-                    lstQuestionList.Items.Insert(itemOver.Index, dragItem);
-                }
-                else
-                {
-                    // remove the question from the list and insert it back at the original target's index
-                    var item = CurrentSurvey.Questions[dragItem.Index];
-                    CurrentSurvey.Questions.RemoveAt(dragItem.Index);
-                    CurrentSurvey.Questions.Insert(itemOver.Index, item);
-
-                    // remove the item from the list and insert it back 1 spot ahead of the target's index
-                    lstQuestionList.Items.Remove(dragItem);
-                    lstQuestionList.Items.Insert(itemOver.Index+1, dragItem);
-                }
-
-                ReNumberSurvey();
-
-                if (NeedsRenumber())
-                    CurrentSurvey.NeedsRenumber = true;
-
-                UpdateStatus();
-            }
-            dragItem = null;
-            Cursor = Cursors.Arrow;
-        }
-
-        private void lstQuestionList_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (dragItem == null)
-                return;
-
-            // Show the user that a drag operation is happening
-            Cursor = Cursors.Hand;
-        }
-
-        private void lstQuestionList_DragOver(object sender, DragEventArgs e)
-        {
-            ListViewItem liRow = lstQuestionList.HitTest(e.X, e.Y).Item;
-
-            if (liRow != null) liRow.EnsureVisible();
+            
         }
 
         #endregion
@@ -2160,6 +2174,4 @@ namespace SDIFrontEnd
             UpdateInfo();
         }
     }
-
-    
 }

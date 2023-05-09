@@ -82,6 +82,8 @@ namespace SDIFrontEnd
 
         private void cmdSave_Click(object sender, EventArgs e)
         {
+            if (Records.Count == 0) return;
+
             SaveRecords();
 
             ClearList();
@@ -172,6 +174,7 @@ namespace SDIFrontEnd
 
         private void cmdLoad_Click(object sender, EventArgs e)
         {
+            if (Surveys.Count==0 || ShownProducts.Count==0) return;
             ClearList();
 
             GetData(Surveys);
@@ -464,7 +467,7 @@ namespace SDIFrontEnd
         {
             foreach (ParallelQuestion pq in Deletes)
             {
-                DBAction.DeleteParallelQuestion(pq.ID);
+                DBAction.DeleteRecord(pq);
             }
 
             foreach (ParallelQuestion pq in Moves)

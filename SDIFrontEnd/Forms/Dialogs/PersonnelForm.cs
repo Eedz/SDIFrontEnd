@@ -353,7 +353,7 @@ namespace SDIFrontEnd
             if (MessageBox.Show("Are you sure you want to delete the selected record?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 PersonnelStudyRecord newStudy = (PersonnelStudyRecord)e.Row.DataBoundItem;
-                DBAction.DeletePersonnelStudy(newStudy.ID);
+                DBAction.DeleteRecord(newStudy);
 
             }
             else
@@ -397,7 +397,7 @@ namespace SDIFrontEnd
             if (MessageBox.Show("Are you sure you want to delete the selected record?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 PersonnelCommentRecord newComment = (PersonnelCommentRecord)e.Row.DataBoundItem;
-                DBAction.DeletePersonnelComment(newComment.ID);
+                DBAction.DeleteRecord(newComment);
 
             }
             else

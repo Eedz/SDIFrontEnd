@@ -62,9 +62,9 @@ namespace SDIFrontEnd
             bsChangeComments = new BindingSource();
             bsChangeComments.DataSource = cComments;
 
-            //drComments = new List<SurveyDraft>();
-            //bsDraftComments = new BindingSource();
-            //bsDraftComments.DataSource = drComments;
+            drComments = new List<SurveyDraft>();
+            bsDraftComments = new BindingSource();
+            bsDraftComments.DataSource = drComments;
 
             tabResults.TabPages.Remove(pageDrafts);
 
