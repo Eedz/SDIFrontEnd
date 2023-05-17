@@ -53,6 +53,8 @@
             this.Corrected = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.QType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panelQuestion = new System.Windows.Forms.Panel();
+            this.dgvTimeFrames = new System.Windows.Forms.DataGridView();
+            this.chTimeFrame = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtPstP = new System.Windows.Forms.TextBox();
             this.txtPstI = new System.Windows.Forms.TextBox();
             this.txtNR = new System.Windows.Forms.TextBox();
@@ -135,6 +137,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.lblEdited = new System.Windows.Forms.Label();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rtbPlainFilter = new SDIFrontEnd.ExtraRichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.navQuestions)).BeginInit();
             this.navQuestions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -142,6 +146,7 @@
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.panelQuestion.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTimeFrames)).BeginInit();
             this.panelRelated.SuspendLayout();
             this.panelQnum.SuspendLayout();
             this.panelLabels.SuspendLayout();
@@ -191,14 +196,14 @@
             this.bindingNavigatorMoveNextItem,
             this.bindingNavigatorMoveLastItem,
             this.bindingNavigatorSeparator2});
-            this.navQuestions.Location = new System.Drawing.Point(0, 866);
+            this.navQuestions.Location = new System.Drawing.Point(0, 882);
             this.navQuestions.MoveFirstItem = null;
             this.navQuestions.MoveLastItem = null;
             this.navQuestions.MoveNextItem = null;
             this.navQuestions.MovePreviousItem = null;
             this.navQuestions.Name = "navQuestions";
             this.navQuestions.PositionItem = this.bindingNavigatorPositionItem;
-            this.navQuestions.Size = new System.Drawing.Size(1207, 25);
+            this.navQuestions.Size = new System.Drawing.Size(1457, 25);
             this.navQuestions.TabIndex = 34;
             this.navQuestions.Text = "bindingNavigator1";
             // 
@@ -292,8 +297,8 @@
             // 
             this.splitContainer1.Panel2.AutoScroll = true;
             this.splitContainer1.Panel2.Controls.Add(this.panelQuestion);
-            this.splitContainer1.Size = new System.Drawing.Size(1187, 669);
-            this.splitContainer1.SplitterDistance = 543;
+            this.splitContainer1.Size = new System.Drawing.Size(1447, 685);
+            this.splitContainer1.SplitterDistance = 526;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 37;
             this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
@@ -316,7 +321,7 @@
             this.lstQuestionList.Location = new System.Drawing.Point(0, 0);
             this.lstQuestionList.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.lstQuestionList.Name = "lstQuestionList";
-            this.lstQuestionList.Size = new System.Drawing.Size(539, 665);
+            this.lstQuestionList.Size = new System.Drawing.Size(522, 681);
             this.lstQuestionList.TabIndex = 36;
             this.lstQuestionList.UseCompatibleStateImageBehavior = false;
             this.lstQuestionList.View = System.Windows.Forms.View.Details;
@@ -326,7 +331,6 @@
             this.lstQuestionList.DragOver += new System.Windows.Forms.DragEventHandler(this.lstQuestionList_DragOver);
             this.lstQuestionList.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lstQuestionList_MouseClick);
             this.lstQuestionList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lstQuestionList_MouseDoubleClick);
-
             // 
             // NewQnum
             // 
@@ -369,6 +373,8 @@
             // panelQuestion
             // 
             this.panelQuestion.AutoScroll = true;
+            this.panelQuestion.Controls.Add(this.rtbPlainFilter);
+            this.panelQuestion.Controls.Add(this.dgvTimeFrames);
             this.panelQuestion.Controls.Add(this.txtPstP);
             this.panelQuestion.Controls.Add(this.txtPstI);
             this.panelQuestion.Controls.Add(this.txtNR);
@@ -394,8 +400,26 @@
             this.panelQuestion.Location = new System.Drawing.Point(0, 0);
             this.panelQuestion.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panelQuestion.Name = "panelQuestion";
-            this.panelQuestion.Size = new System.Drawing.Size(635, 665);
+            this.panelQuestion.Size = new System.Drawing.Size(912, 681);
             this.panelQuestion.TabIndex = 34;
+            // 
+            // dgvTimeFrames
+            // 
+            this.dgvTimeFrames.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvTimeFrames.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.chTimeFrame});
+            this.dgvTimeFrames.Location = new System.Drawing.Point(3, 517);
+            this.dgvTimeFrames.Name = "dgvTimeFrames";
+            this.dgvTimeFrames.RowHeadersWidth = 30;
+            this.dgvTimeFrames.Size = new System.Drawing.Size(145, 140);
+            this.dgvTimeFrames.TabIndex = 70;
+            this.dgvTimeFrames.Visible = false;
+            // 
+            // chTimeFrame
+            // 
+            this.chTimeFrame.HeaderText = "Time Frames";
+            this.chTimeFrame.Name = "chTimeFrame";
+            this.chTimeFrame.Width = 110;
             // 
             // txtPstP
             // 
@@ -897,7 +921,7 @@
             this.menuMain.Location = new System.Drawing.Point(0, 0);
             this.menuMain.Name = "menuMain";
             this.menuMain.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
-            this.menuMain.Size = new System.Drawing.Size(1207, 24);
+            this.menuMain.Size = new System.Drawing.Size(1457, 24);
             this.menuMain.TabIndex = 41;
             this.menuMain.Text = "menuStrip1";
             // 
@@ -1292,13 +1316,34 @@
             this.lblEdited.TabIndex = 53;
             this.lblEdited.Text = "Edited";
             // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "Time Frames";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.Width = 110;
+            // 
+            // rtbPlainFilter
+            // 
+            this.rtbPlainFilter.AutoScroll = true;
+            this.rtbPlainFilter.Location = new System.Drawing.Point(629, 54);
+            this.rtbPlainFilter.Margin = new System.Windows.Forms.Padding(4);
+            this.rtbPlainFilter.Name = "rtbPlainFilter";
+            this.rtbPlainFilter.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat\\deflang1033{\\fonttbl{\\f0\\fnil\\fcharset0 " +
+    "Tahoma;}}\r\n{\\*\\generator Riched20 10.0.19041}\\viewkind4\\uc1 \r\n\\pard\\f0\\fs20\\par\r" +
+    "\n}\r\n";
+            this.rtbPlainFilter.ShowFamilies = false;
+            this.rtbPlainFilter.ShowSize = false;
+            this.rtbPlainFilter.Size = new System.Drawing.Size(272, 459);
+            this.rtbPlainFilter.TabIndex = 72;
+            this.rtbPlainFilter.Validated += new System.EventHandler(this.rtbPlainFilter_Validated);
+            // 
             // SurveyEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(196)))), ((int)(((byte)(153)))));
-            this.ClientSize = new System.Drawing.Size(1207, 891);
+            this.ClientSize = new System.Drawing.Size(1457, 907);
             this.Controls.Add(this.lblEdited);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -1337,6 +1382,7 @@
             this.splitContainer1.ResumeLayout(false);
             this.panelQuestion.ResumeLayout(false);
             this.panelQuestion.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTimeFrames)).EndInit();
             this.panelRelated.ResumeLayout(false);
             this.panelRelated.PerformLayout();
             this.panelQnum.ResumeLayout(false);
@@ -1464,5 +1510,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblEdited;
+        private System.Windows.Forms.DataGridView dgvTimeFrames;
+        private System.Windows.Forms.DataGridViewTextBoxColumn chTimeFrame;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private ExtraRichTextBox rtbPlainFilter;
     }
 }

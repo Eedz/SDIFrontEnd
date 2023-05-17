@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
+using FM = FormManager;
 
 namespace SDIFrontEnd
 {
@@ -108,15 +109,15 @@ namespace SDIFrontEnd
 
         private void toolStripDatasheet_Click(object sender, EventArgs e)
         {
-            PrefixListSheet getFrm = (PrefixListSheet)FormManager.GetForm("PrefixListSheet", 1);
+            PrefixListSheet getFrm = (PrefixListSheet)FM.FormManager.GetForm("PrefixListSheet", 1);
             if (getFrm == null)
 
             {
                 PrefixListSheet frm = new PrefixListSheet();
                 frm.Tag = 1;
-                FormManager.Add(frm);
+                FM.FormManager.Add(frm);
             }
-            ((MainMenu)FormManager.GetForm("MainMenu")).SelectTab("PrefixListSheet1");
+            ((MainMenu)FM.FormManager.GetForm("MainMenu")).SelectTab("PrefixListSheet1");
         }
 
         private void chkShowWordings_CheckedChanged(object sender, EventArgs e)
@@ -345,16 +346,16 @@ namespace SDIFrontEnd
                 string cellValue = dgv.Rows[e.RowIndex].Cells["RefVarName"].Value.ToString();
                 string pattern = cellValue.Substring(0, 3);
 
-                if (FormManager.FormOpen("VarNameUsage"))
+                if (FM.FormManager.FormOpen("VarNameUsage"))
                 {
-                    VarNameUsage getFrm = (VarNameUsage)FormManager.GetForm("VarNameUsage", 1);
+                    VarNameUsage getFrm = (VarNameUsage)FM.FormManager.GetForm("VarNameUsage", 1);
                     getFrm.SearchVars(pattern);
                     getFrm.BringToFront();
                     return;
                 }
                 VarNameUsage frm = new VarNameUsage(pattern);
                 frm.Tag = 1;
-                FormManager.AddPopup(frm);
+                FM.FormManager.AddPopup(frm);
             }
             catch
             {
@@ -370,7 +371,7 @@ namespace SDIFrontEnd
 
         private void PrefixList_FormClosed(object sender, FormClosedEventArgs e)
         {
-            FormManager.Remove(this);
+            FM.FormManager.Remove(this);
         }
 
         #region Navigation buttons

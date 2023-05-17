@@ -40,7 +40,7 @@
             // 
             this.cmbFontFamily.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbFontFamily.FormattingEnabled = true;
-            this.cmbFontFamily.Location = new System.Drawing.Point(250, 7);
+            this.cmbFontFamily.Location = new System.Drawing.Point(115, 7);
             this.cmbFontFamily.Name = "cmbFontFamily";
             this.cmbFontFamily.Size = new System.Drawing.Size(121, 21);
             this.cmbFontFamily.TabIndex = 0;
@@ -50,7 +50,7 @@
             // 
             this.cmbFontSize.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbFontSize.FormattingEnabled = true;
-            this.cmbFontSize.Location = new System.Drawing.Point(377, 7);
+            this.cmbFontSize.Location = new System.Drawing.Point(242, 7);
             this.cmbFontSize.Name = "cmbFontSize";
             this.cmbFontSize.Size = new System.Drawing.Size(46, 21);
             this.cmbFontSize.TabIndex = 1;
@@ -58,10 +58,13 @@
             // 
             // txtFunctionality
             // 
+            this.txtFunctionality.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFunctionality.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFunctionality.Location = new System.Drawing.Point(0, 32);
             this.txtFunctionality.Name = "txtFunctionality";
-            this.txtFunctionality.Size = new System.Drawing.Size(426, 303);
+            this.txtFunctionality.Size = new System.Drawing.Size(291, 297);
             this.txtFunctionality.TabIndex = 5;
             this.txtFunctionality.Text = "";
             this.txtFunctionality.SelectionChanged += new System.EventHandler(this.txtFunctionality_SelectionChanged);
@@ -99,7 +102,7 @@
             this.ckbBold.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ckbBold.Location = new System.Drawing.Point(3, 3);
             this.ckbBold.Name = "ckbBold";
-            this.ckbBold.Size = new System.Drawing.Size(22, 23);
+            this.ckbBold.Size = new System.Drawing.Size(22, 25);
             this.ckbBold.TabIndex = 2;
             this.ckbBold.Text = "B";
             this.ckbBold.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -111,6 +114,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.Controls.Add(this.txtFunctionality);
             this.Controls.Add(this.ckbUnderline);
             this.Controls.Add(this.ckbItalic);
@@ -118,7 +122,8 @@
             this.Controls.Add(this.cmbFontSize);
             this.Controls.Add(this.cmbFontFamily);
             this.Name = "ExtraRichTextBox";
-            this.Size = new System.Drawing.Size(432, 340);
+            this.Size = new System.Drawing.Size(294, 332);
+            this.Load += new System.EventHandler(this.ExtraRichTextBox_Load);
             this.ResumeLayout(false);
 
         }

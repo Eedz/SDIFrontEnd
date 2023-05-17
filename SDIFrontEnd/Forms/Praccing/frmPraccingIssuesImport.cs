@@ -15,6 +15,7 @@ using ITCLib;
 using OpenXMLHelper;
 using System.Text.RegularExpressions;
 using System.IO;
+using FM = FormManager;
 
 namespace SDIFrontEnd
 {
@@ -1397,7 +1398,7 @@ namespace SDIFrontEnd
                 // delete images from app path
                 File.Delete(AppImageRepo + @"\" + sp.String2);
             }
-            FormManager.Remove(this);
+            FM.FormManager.Remove(this);
         }
 
 

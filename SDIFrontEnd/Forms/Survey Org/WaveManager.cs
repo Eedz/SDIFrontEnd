@@ -8,11 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
+using FM = FormManager;
 
 namespace SDIFrontEnd
 {
-    
-    
     public partial class WaveManager : Form
     {
         StudyWaveRecord CurrentRecord;
@@ -21,7 +20,7 @@ namespace SDIFrontEnd
         BindingSource bs;
 
         public WaveManager()
-     {
+        {
             InitializeComponent();
 
             this.MouseWheel += WaveManager_MouseWheel;
@@ -80,7 +79,7 @@ namespace SDIFrontEnd
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
-            FormManager.Remove(this);
+            FM.FormManager.Remove(this);
         }
 
         private void addToolStripMenuItem_Click(object sender, EventArgs e)

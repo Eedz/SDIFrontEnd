@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using ITCLib;
+using FM = FormManager;
 
 namespace SDIFrontEnd
 {
@@ -75,7 +76,7 @@ namespace SDIFrontEnd
 
         private void UserPreferencesForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            FormManager.RemovePopup(this);
+            FM.FormManager.RemovePopup(this);
         }
     }
 }

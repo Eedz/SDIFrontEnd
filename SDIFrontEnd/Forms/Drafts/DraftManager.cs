@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
+using FM = FormManager;
 
 namespace SDIFrontEnd
 {
@@ -137,7 +138,7 @@ namespace SDIFrontEnd
                 return;
 
             Close();
-            FormManager.Remove(this);
+            FM.FormManager.Remove(this);
         }
 
         private void toolStripClearFilter_Click(object sender, EventArgs e)
@@ -155,7 +156,7 @@ namespace SDIFrontEnd
                 return;
 
             // open a the survey draft seach to this draft
-            DraftSearch getFrm = (DraftSearch)FormManager.GetForm("DraftSearch", 1);
+            DraftSearch getFrm = (DraftSearch)FM.FormManager.GetForm("DraftSearch", 1);
             if (getFrm != null)
             {
                 getFrm.GoToDraft(CurrentRecord.SurvID, CurrentRecord.ID);                
@@ -164,10 +165,10 @@ namespace SDIFrontEnd
             {
                 DraftSearch frm = new DraftSearch();
                 frm.Tag = 1;
-                FormManager.Add(frm);
+                FM.FormManager.Add(frm);
                 frm.GoToDraft(CurrentRecord.SurvID, CurrentRecord.ID);
             }
-            ((MainMenu)FormManager.GetForm("MainMenu")).SelectTab("DraftSearch1");
+            ((MainMenu)FM.FormManager.GetForm("MainMenu")).SelectTab("DraftSearch1");
         }
 
         private void toolStripDelete_Click(object sender, EventArgs e)

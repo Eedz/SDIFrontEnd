@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
 using System.Text.RegularExpressions;
+using FM = FormManager;
 
 namespace SDIFrontEnd
 {
@@ -38,7 +39,7 @@ namespace SDIFrontEnd
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
-            FormManager.Remove(this);
+            FM.FormManager.Remove(this);
         }
 
         private void txtCriteria_Validating(object sender, CancelEventArgs e)
@@ -54,7 +55,7 @@ namespace SDIFrontEnd
 
         private void VarNameUsage_FormClosed(object sender, FormClosedEventArgs e)
         {
-            FormManager.Remove(this);
+            FM.FormManager.Remove(this);
         }
         #endregion
 

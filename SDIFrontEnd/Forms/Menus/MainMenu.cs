@@ -9,8 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
 using System.IO;
-
-
+using FM = FormManager;
 
 namespace SDIFrontEnd
 {
@@ -33,27 +32,27 @@ namespace SDIFrontEnd
             CurrentUser = Globals.CurrentUser;
 
             this.Tag = 1;
-            FormManager.Add(this);
+            FM.FormManager.Add(this);
 
             // add this event to the FormManager handler so that it removes forms when we close their tab.
-            FormManager.FormRemoved += this.FormRemovedHandler;
-            FormManager.PopupRemoved += this.PopupRemovedHandler;
+            FM.FormManager.FormRemoved += this.FormRemovedHandler;
+            FM.FormManager.PopupRemoved += this.PopupRemovedHandler;
 
             // add this event to the FormManager handler so that it adds a tab with the form that was added to the collection.
-            FormManager.FormAdded += FormManager_FormAdded;
-            FormManager.PopupAdded += FormManager_PopupAdded;
+            FM.FormManager.FormAdded += FormManager_FormAdded;
+            FM.FormManager.PopupAdded += FormManager_PopupAdded;
 
             this.worker.DoWork += BackgroundWorker1_DoWork;
             worker.RunWorkerCompleted += backgroundWorker1_RunWorkerCompleted;
         }
 
 
-        private void FormManager_FormAdded(object sender, FormAddedEventArgs e)
+        private void FormManager_FormAdded(object sender, FM.FormAddedEventArgs e)
         {
             AddTab(e.form, e.key, e.form.Name);
         }
 
-        private void FormManager_PopupAdded(object sender, FormPopupAddedEventArgs e)
+        private void FormManager_PopupAdded(object sender, FM.FormPopupAddedEventArgs e)
         {
             e.form.BringToFront();
             e.form.TopLevel = true;
@@ -61,14 +60,14 @@ namespace SDIFrontEnd
             e.form.Show();
         }
 
-        public void FormRemovedHandler(object sender, FormRemovedEventArgs e)
+        public void FormRemovedHandler(object sender, FM.FormRemovedEventArgs e)
         {
             // check if survey entry, if so, refresh SE buttons
             CloseTab(e.key);
             LabelSurveyEditorButtons();
         }
 
-        public void PopupRemovedHandler(object sender, FormPopupRemovedEventArgs e)
+        public void PopupRemovedHandler(object sender, FM.FormPopupRemovedEventArgs e)
         {
            
         }
@@ -178,7 +177,7 @@ namespace SDIFrontEnd
 
         private void canonicalVarsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("CanonVarsEntry"))
+            if (FM.FormManager.FormOpen("CanonVarsEntry"))
             {
                 tabControl1.SelectTab("CanonVarsEntry1");
                 return;
@@ -186,7 +185,7 @@ namespace SDIFrontEnd
 
             CanonVarsEntry frm = new CanonVarsEntry(Globals.AllCanonVars);
             frm.Tag = 1;
-            FormManager.Add(frm);
+            FM.FormManager.Add(frm);
         }
         #endregion
 
@@ -194,7 +193,7 @@ namespace SDIFrontEnd
 
         private void regionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("RegionManager"))
+            if (FM.FormManager.FormOpen("RegionManager"))
             {
                 tabControl1.SelectTab("RegionManager1");
                 return;
@@ -202,12 +201,12 @@ namespace SDIFrontEnd
 
             RegionManager frm = new RegionManager();
             frm.Tag = 1;
-            FormManager.Add(frm);
+            FM.FormManager.Add(frm);
         }
 
         private void studiesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("StudyManager"))
+            if (FM.FormManager.FormOpen("StudyManager"))
             {
                 tabControl1.SelectTab("StudynManager1");
                 return;
@@ -215,12 +214,12 @@ namespace SDIFrontEnd
 
             StudyManager frm = new StudyManager();
             frm.Tag = 1;
-            FormManager.Add(frm);
+            FM.FormManager.Add(frm);
         }
 
         private void wavesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("WaveManager"))
+            if (FM.FormManager.FormOpen("WaveManager"))
             {
                 tabControl1.SelectTab("WaveManager1");
                 return;
@@ -228,12 +227,12 @@ namespace SDIFrontEnd
 
             WaveManager frm = new WaveManager();
             frm.Tag = 1;
-            FormManager.Add(frm);
+            FM.FormManager.Add(frm);
         }
 
         private void surveysToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("SurveyManager"))
+            if (FM.FormManager.FormOpen("SurveyManager"))
             {
                 tabControl1.SelectTab("SurveyManager1");
                 return;
@@ -241,7 +240,7 @@ namespace SDIFrontEnd
 
             SurveyManager frm = new SurveyManager();
             frm.Tag = 1;
-            FormManager.Add(frm);
+            FM.FormManager.Add(frm);
         }
         #endregion
 
@@ -253,26 +252,26 @@ namespace SDIFrontEnd
 
         private void unlockToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("UnlockSurvey"))
+            if (FM.FormManager.FormOpen("UnlockSurvey"))
             {
 
                 return;
             }
             UnlockSurvey frm = new UnlockSurvey();
             frm.Tag = 1;
-            FormManager.AddPopup(frm);
+            FM.FormManager.AddPopup(frm);
         }
 
         private void viewTempToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("TempVarViewer"))
+            if (FM.FormManager.FormOpen("TempVarViewer"))
             {
 
                 return;
             }
             TempVarViewer frm = new TempVarViewer();
             frm.Tag = 1;
-            FormManager.AddPopup(frm);
+            FM.FormManager.AddPopup(frm);
         }
 
         private void viewOrphansToolStripMenuItem_Click(object sender, EventArgs e)
@@ -349,7 +348,7 @@ namespace SDIFrontEnd
         {
             int survID = CurrentUser.GetFilterID("frmSurveyEntry", 1);
             // check if a tab exists for this Survey
-            foreach (Form se in FormManager.List)
+            foreach (Form se in FM.FormManager.List)
             {
                 if (se is SurveyEditor && ((SurveyEditor)se).CurrentSurvey.SID == survID)
                 {
@@ -358,7 +357,7 @@ namespace SDIFrontEnd
                 }
             }
             // check if a tab exists for this SurveyEditor instance number
-            if (FormManager.FormOpen("SurveyEditor", 1))
+            if (FM.FormManager.FormOpen("SurveyEditor", 1))
             {
                 tabControl1.SelectTab("SurveyEditor1");
                 return;
@@ -366,14 +365,14 @@ namespace SDIFrontEnd
             
             SurveyEditor frm = new SurveyEditor(survID);
             frm.Tag = 1;
-            FormManager.Add(frm);
+            FM.FormManager.Add(frm);
         }
 
         private void cmdOpenSurveyEditor2_Click(object sender, EventArgs e)
         {
             int survID = CurrentUser.GetFilterID("frmSurveyEntry", 2);
             // check if a tab exists for this Survey
-            foreach (Form se in FormManager.List)
+            foreach (Form se in FM.FormManager.List)
             {
                 if (se is SurveyEditor && ((SurveyEditor)se).CurrentSurvey.SID == survID)
                 {
@@ -382,7 +381,7 @@ namespace SDIFrontEnd
                 }
             }
             // check if a tab exists for this SurveyEditor instance number
-            if (FormManager.FormOpen("SurveyEditor", 2))
+            if (FM.FormManager.FormOpen("SurveyEditor", 2))
             {
                 tabControl1.SelectTab("SurveyEditor2");
                 return;
@@ -390,14 +389,14 @@ namespace SDIFrontEnd
             
             SurveyEditor frm = new SurveyEditor(survID);
             frm.Tag = 2;
-            FormManager.Add(frm);
+            FM.FormManager.Add(frm);
         }
 
         private void cmdOpenSurveyEditor3_Click(object sender, EventArgs e)
         {
             int survID = CurrentUser.GetFilterID("frmSurveyEntry", 3);
             // check if a tab exists for this Survey
-            foreach (Form se in FormManager.List)
+            foreach (Form se in FM.FormManager.List)
             {
                 if (se is SurveyEditor && ((SurveyEditor)se).CurrentSurvey.SID == survID)
                 {
@@ -406,7 +405,7 @@ namespace SDIFrontEnd
                 }
             }
             // check if a tab exists for this SurveyEditor instance number
-            if (FormManager.FormOpen("SurveyEditor", 3))
+            if (FM.FormManager.FormOpen("SurveyEditor", 3))
             {
                 tabControl1.SelectTab("SurveyEditor3");
                 return;
@@ -414,14 +413,14 @@ namespace SDIFrontEnd
 
             SurveyEditor frm = new SurveyEditor(survID);
             frm.Tag = 3;
-            FormManager.Add(frm);
+            FM.FormManager.Add(frm);
         }
 
         private void cmdOpenSurveyEditor4_Click(object sender, EventArgs e)
         {
             int survID = CurrentUser.GetFilterID("frmSurveyEntry", 4);
             // check if a tab exists for this Survey
-            foreach (Form se in FormManager.List)
+            foreach (Form se in FM.FormManager.List)
             {
                 if (se is SurveyEditor && ((SurveyEditor)se).CurrentSurvey.SID == survID)
                 {
@@ -430,7 +429,7 @@ namespace SDIFrontEnd
                 }
             }
             // check if a tab exists for this SurveyEditor instance number
-            if (FormManager.FormOpen("SurveyEditor", 4))
+            if (FM.FormManager.FormOpen("SurveyEditor", 4))
             {
                 tabControl1.SelectTab("SurveyEditor4");
                 return;
@@ -438,14 +437,14 @@ namespace SDIFrontEnd
 
             SurveyEditor frm = new SurveyEditor(survID);
             frm.Tag = 4;
-            FormManager.Add(frm);
+            FM.FormManager.Add(frm);
         }
 
         private void cmdOpenSurveyEditor5_Click(object sender, EventArgs e)
         {
             int survID = CurrentUser.GetFilterID("frmSurveyEntry", 5);
             // check if a tab exists for this Survey
-            foreach (Form se in FormManager.List)
+            foreach (Form se in FM.FormManager.List)
             {
                 if (se is SurveyEditor && ((SurveyEditor)se).CurrentSurvey.SID == survID)
                 {
@@ -454,7 +453,7 @@ namespace SDIFrontEnd
                 }
             }
             // check if a tab exists for this SurveyEditor instance number
-            if (FormManager.FormOpen("SurveyEditor", 5))
+            if (FM.FormManager.FormOpen("SurveyEditor", 5))
             {
                 tabControl1.SelectTab("SurveyEditor5");
                 return;
@@ -462,14 +461,14 @@ namespace SDIFrontEnd
 
             SurveyEditor frm = new SurveyEditor(survID);
             frm.Tag = 5;
-            FormManager.Add(frm);
+            FM.FormManager.Add(frm);
         }
 
         private void cmdOpenSurveyEditor6_Click(object sender, EventArgs e)
         {
             int survID = CurrentUser.GetFilterID("frmSurveyEntry", 6);
             // check if a tab exists for this Survey
-            foreach (Form se in FormManager.List)
+            foreach (Form se in FM.FormManager.List)
             {
                 if (se is SurveyEditor && ((SurveyEditor)se).CurrentSurvey.SID == survID)
                 {
@@ -478,7 +477,7 @@ namespace SDIFrontEnd
                 }
             }
             // check if a tab exists for this SurveyEditor instance number
-            if (FormManager.FormOpen("SurveyEditor", 6))
+            if (FM.FormManager.FormOpen("SurveyEditor", 6))
             {
                 tabControl1.SelectTab("SurveyEditor6");
                 return;
@@ -486,7 +485,7 @@ namespace SDIFrontEnd
 
             SurveyEditor frm = new SurveyEditor(survID);
             frm.Tag = 6;
-            FormManager.Add(frm);
+            FM.FormManager.Add(frm);
         }
 
         #endregion
@@ -498,7 +497,7 @@ namespace SDIFrontEnd
 
         private void cmdOpenStudyAttributes_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("SurveyManager"))
+            if (FM.FormManager.FormOpen("SurveyManager"))
             {
                 tabControl1.SelectTab("SurveyManager1");
                 return;
@@ -506,24 +505,24 @@ namespace SDIFrontEnd
 
             SurveyManager frm = new SurveyManager();
             frm.Tag = 1;
-            FormManager.Add(frm);
+            FM.FormManager.Add(frm);
         }
 
         private void cmdOpenSurveyProcessing_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("SurveyProcessingEntry"))
+            if (FM.FormManager.FormOpen("SurveyProcessingEntry"))
             {
                 tabControl1.SelectTab("SurveyProcessingEntry1");
                 return;
             }
             SurveyProcessingEntry frm = new SurveyProcessingEntry();
             frm.Tag = 1;
-            FormManager.Add(frm);
+            FM.FormManager.Add(frm);
         }
 
         private void cmdOpenSurveyChecks_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("SurveyChecksMenu"))
+            if (FM.FormManager.FormOpen("SurveyChecksMenu"))
             {
                 tabControl1.SelectTab("SurveyChecksMenu1");
                 return;
@@ -531,19 +530,19 @@ namespace SDIFrontEnd
 
             SurveyChecksForm frm = new SurveyChecksForm();
             frm.Tag = 1;
-            FormManager.Add(frm);
+            FM.FormManager.Add(frm);
         }
 
         private void cmdOpenTranslationImporter_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("TranslationImporter"))
+            if (FM.FormManager.FormOpen("TranslationImporter"))
             {
                 return;
             }
 
             TranslationImporter frm = new TranslationImporter();
             frm.Tag = 1;
-            FormManager.AddPopup(frm);
+            FM.FormManager.AddPopup(frm);
         }
 
         #endregion
@@ -555,7 +554,7 @@ namespace SDIFrontEnd
 
         private void cmdOpenQuestionSearch_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("QuestionSearch"))
+            if (FM.FormManager.FormOpen("QuestionSearch"))
             {
                 tabControl1.SelectTab("QuestionSearch");
                 return;
@@ -563,12 +562,12 @@ namespace SDIFrontEnd
 
             QuestionSearch frm = new QuestionSearch();
             frm.Tag = 1;
-            FormManager.Add(frm);
+            FM.FormManager.Add(frm);
         }
 
         private void cmdOpenRespOptionSearch_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("RespOptionSearch"))
+            if (FM.FormManager.FormOpen("RespOptionSearch"))
             {
                 tabControl1.SelectTab("RespOptionSearch");
                 return;
@@ -576,12 +575,12 @@ namespace SDIFrontEnd
 
             ResponseSetSearch frm = new ResponseSetSearch();
             frm.Tag = 1;
-            FormManager.Add(frm);
+            FM.FormManager.Add(frm);
         }
 
         private void cmdOpenCommentSearch_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("CommentSearch"))
+            if (FM.FormManager.FormOpen("CommentSearch"))
             {
                 tabControl1.SelectTab("CommentSearch1");
                 return;
@@ -589,7 +588,7 @@ namespace SDIFrontEnd
 
             CommentSearch frm = new CommentSearch();
             frm.Tag = 1;
-            FormManager.Add(frm);
+            FM.FormManager.Add(frm);
         }
 
         #endregion
@@ -601,7 +600,7 @@ namespace SDIFrontEnd
 
         private void cmdOpenVarChangesMenu_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("VarChangesMenu"))
+            if (FM.FormManager.FormOpen("VarChangesMenu"))
             {
                 tabControl1.SelectTab("VarChangesMenu1");
                 return;
@@ -609,12 +608,12 @@ namespace SDIFrontEnd
 
             VarNameMenu frm = new VarNameMenu();
             frm.Tag = 1;
-            FormManager.Add(frm);
+            FM.FormManager.Add(frm);
         }
 
         private void cmdOpenAssignLabelsJIT_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("AssignLabels"))
+            if (FM.FormManager.FormOpen("AssignLabels"))
             {
                 tabControl1.SelectTab("AssignLabels1");
                 return;
@@ -622,12 +621,12 @@ namespace SDIFrontEnd
 
             AssignLabels frm = new AssignLabels();
             frm.Tag = 1;
-            FormManager.Add(frm);
+            FM.FormManager.Add(frm);
         }
 
         private void cmdOpenVariableInfo_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("VariableInformation"))
+            if (FM.FormManager.FormOpen("VariableInformation"))
             {
                 tabControl1.SelectTab("VariableInformation1");
                 return;
@@ -635,14 +634,14 @@ namespace SDIFrontEnd
 
             VariableInformation frm = new VariableInformation();
             frm.Tag = 1;
-            FormManager.Add(frm);
+            FM.FormManager.Add(frm);
 
         }
 
         private void cmdOpenCommentUsage_Click(object sender, EventArgs e)
         {
 
-            if (FormManager.FormOpen("CommentEntry"))
+            if (FM.FormManager.FormOpen("CommentEntry"))
             {
 
                 return;
@@ -650,12 +649,12 @@ namespace SDIFrontEnd
 
             CommentEntry frm = new CommentEntry();
             frm.Tag = 1;
-            FormManager.AddPopup(frm);
+            FM.FormManager.AddPopup(frm);
         }
 
         private void cmdOpenPrefixList_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("PrefixList"))
+            if (FM.FormManager.FormOpen("PrefixList"))
             {
                 tabControl1.SelectTab("PrefixList1");
                 return;
@@ -663,12 +662,12 @@ namespace SDIFrontEnd
 
             PrefixList frm = new PrefixList();
             frm.Tag = 1;
-            FormManager.Add(frm);
+            FM.FormManager.Add(frm);
         }
 
         private void cmdParallelQuestions_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("ParallelQuestions"))
+            if (FM.FormManager.FormOpen("ParallelQuestions"))
             {
                 tabControl1.SelectTab("ParallelQuestions1");
                 return;
@@ -676,7 +675,7 @@ namespace SDIFrontEnd
 
             ParallelQuestions frm = new ParallelQuestions();
             frm.Tag = 1;
-            FormManager.Add(frm);
+            FM.FormManager.Add(frm);
         }
 
         private void cmdOpenQuestionHistory_Click(object sender, EventArgs e)
@@ -700,7 +699,7 @@ namespace SDIFrontEnd
 
         private void cmdExternalReportsMenu_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("ExternalReportsMenu"))
+            if (FM.FormManager.FormOpen("ExternalReportsMenu"))
             {
                 tabControl1.SelectTab("ExternalReportsMenu1");
                 return;
@@ -708,12 +707,12 @@ namespace SDIFrontEnd
 
             ExternalReportsMenu frm = new ExternalReportsMenu();
             frm.Tag = 1;
-            FormManager.Add(frm);
+            FM.FormManager.Add(frm);
         }
 
         private void cmdOpenHarmonyReport_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("HarmonyReport"))
+            if (FM.FormManager.FormOpen("HarmonyReport"))
             {
                // tabControl1.SelectTab("HarmonyReport1");
                 return;
@@ -721,12 +720,12 @@ namespace SDIFrontEnd
 
             HarmonyReportForm frm = new HarmonyReportForm();
             frm.Tag = 1;
-            FormManager.AddPopup(frm);
+            FM.FormManager.AddPopup(frm);
         }
 
         private void cmdOpenProductCrosstab_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("ProductCrosstab"))
+            if (FM.FormManager.FormOpen("ProductCrosstab"))
             {
                 //tabControl1.SelectTab("ProductCrosstab1");
                 return;
@@ -734,12 +733,12 @@ namespace SDIFrontEnd
 
             ProductCrosstab frm = new ProductCrosstab();
             frm.Tag = 1;
-            FormManager.AddPopup(frm);
+            FM.FormManager.AddPopup(frm);
         }
 
         private void cmdOpenParallelVarReport_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("ParallelVarReport"))
+            if (FM.FormManager.FormOpen("ParallelVarReport"))
             {
                 //tabControl1.SelectTab("ParallelVarReport1");
                 return;
@@ -747,7 +746,7 @@ namespace SDIFrontEnd
 
             ParallelVarReport frm = new ParallelVarReport();
             frm.Tag = 1;
-            FormManager.AddPopup(frm);
+            FM.FormManager.AddPopup(frm);
         }
 
         #endregion
@@ -756,9 +755,9 @@ namespace SDIFrontEnd
         private void cmdOpenPraccingEntry_Click(object sender, EventArgs e)
         {
 
-            if (FormManager.FormOpen("PraccingEntry", 1))
+            if (FM.FormManager.FormOpen("PraccingEntry", 1))
             {
-                ((MainMenu)FormManager.GetForm("MainMenu")).SelectTab("PraccingEntry1");
+                ((MainMenu)FM.FormManager.GetForm("MainMenu")).SelectTab("PraccingEntry1");
                 return;
             }
 
@@ -768,12 +767,12 @@ namespace SDIFrontEnd
             PraccingEntry frm = new PraccingEntry(survID);
 
             frm.Tag = 1;
-            FormManager.Add(frm);
+            FM.FormManager.Add(frm);
         }
 
         private void cmdOpenIssuesImport_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("frmPraccingIssuesImport", 1))
+            if (FM.FormManager.FormOpen("frmPraccingIssuesImport", 1))
             {
                 tabControl1.SelectTab("frmPraccingIssuesImport1");
                 return;
@@ -782,12 +781,12 @@ namespace SDIFrontEnd
             frmPraccingIssuesImport frm = new frmPraccingIssuesImport();
 
             frm.Tag = 1;
-            FormManager.Add(frm);
+            FM.FormManager.Add(frm);
         }
 
         private void cmdOpenPraccingReport_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("PraccingReportForm", 1))
+            if (FM.FormManager.FormOpen("PraccingReportForm", 1))
             {
                 tabControl1.SelectTab("PraccingReportForm1");
                 return;
@@ -795,7 +794,7 @@ namespace SDIFrontEnd
 
             PraccingReportForm frm = new PraccingReportForm();
             frm.Tag = 1;
-            FormManager.Add(frm);
+            FM.FormManager.Add(frm);
         }
 
         private void cmdPraccingSheet_Click(object sender, EventArgs e)
@@ -821,7 +820,7 @@ namespace SDIFrontEnd
 
         private void cmdOpenDraftManager_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("DraftManager"))
+            if (FM.FormManager.FormOpen("DraftManager"))
             {
                 ((MainMenu)this.Parent.Parent.Parent).SelectTab("DraftManager1");
                 return;
@@ -829,12 +828,12 @@ namespace SDIFrontEnd
 
             DraftManager frm = new DraftManager();
             frm.Tag = 1;
-            FormManager.Add(frm);
+            FM.FormManager.Add(frm);
         }
 
         private void cmdOpenDraftSearch_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("DraftSearch"))
+            if (FM.FormManager.FormOpen("DraftSearch"))
             {
                 ((MainMenu)this.Parent.Parent.Parent).SelectTab("DraftSearch1");
                 return;
@@ -842,31 +841,31 @@ namespace SDIFrontEnd
 
             DraftSearch frm = new DraftSearch();
             frm.Tag = 1;
-            FormManager.Add(frm);
+            FM.FormManager.Add(frm);
         }
 
         private void cmdOpenDraftReport_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("DraftReport"))
+            if (FM.FormManager.FormOpen("DraftReport"))
             {
                 return;
             }
 
             DraftReportForm frm = new DraftReportForm();
             frm.Tag = 1;
-            FormManager.AddPopup(frm);
+            FM.FormManager.AddPopup(frm);
         }
 
         private void cmdOpenDraftImporter_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("SurveyDraftImportForm"))
+            if (FM.FormManager.FormOpen("SurveyDraftImportForm"))
             {
                 return;
             }
 
             SurveyDraftImportForm frm = new SurveyDraftImportForm();
             frm.Tag = 1;
-            FormManager.AddPopup(frm);
+            FM.FormManager.AddPopup(frm);
         }
         #endregion
 

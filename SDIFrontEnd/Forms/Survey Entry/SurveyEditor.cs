@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
+using FM = FormManager;
 
 namespace SDIFrontEnd
 {
@@ -378,7 +379,7 @@ namespace SDIFrontEnd
 
         private void assignLabelsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AssignLabels frm = (AssignLabels)FormManager.GetForm("AssignLabels");
+            AssignLabels frm = (AssignLabels)FM.FormManager.GetForm("AssignLabels");
             if(frm == null)
             {
                 frm = new AssignLabels(CurrentRecord.VarName.RefVarName);
@@ -388,7 +389,7 @@ namespace SDIFrontEnd
 
         private void harmonyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            HarmonyReportForm frm = (HarmonyReportForm)FormManager.GetForm("HarmonyReport");
+            HarmonyReportForm frm = (HarmonyReportForm)FM.FormManager.GetForm("HarmonyReport");
             if (frm == null)
             {
                 frm = new HarmonyReportForm(CurrentRecord.VarName);
@@ -398,7 +399,7 @@ namespace SDIFrontEnd
 
         private void prefixListToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            PrefixList frm = (PrefixList)FormManager.GetForm("PrefixList");
+            PrefixList frm = (PrefixList)FM.FormManager.GetForm("PrefixList");
             if (frm == null)
             {
                 frm = new PrefixList();
@@ -408,7 +409,7 @@ namespace SDIFrontEnd
 
         private void unusedVarsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            VarNameUsage frm = (VarNameUsage)FormManager.GetForm("VarNameUsage");
+            VarNameUsage frm = (VarNameUsage)FM.FormManager.GetForm("VarNameUsage");
             if (frm == null)
             { 
                 frm = new VarNameUsage(CurrentRecord.VarName.VarName.Substring(0,3));
@@ -418,7 +419,7 @@ namespace SDIFrontEnd
 
         private void renameVarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            RenameVars frm = (RenameVars)FormManager.GetForm("RenameVars");
+            RenameVars frm = (RenameVars)FM.FormManager.GetForm("RenameVars");
             if (frm == null)
             {
                 frm = new RenameVars(CurrentRecord.VarName);
@@ -525,6 +526,9 @@ namespace SDIFrontEnd
                     ShadeListItem(index, Color.Orange);
                     UpdateStatus();
                     return;
+                case "FilterDescription":
+                    ((QuestionRecord)bs[index]).DirtyPlainFilter = true;
+                    break;
                 default:
                     return;
             }
@@ -694,13 +698,14 @@ namespace SDIFrontEnd
 
             bs.Dispose();
 
-            FormManager.Remove(this);
+            FM.FormManager.Remove(this);
         }
 
         private void cmdUnlock_Click(object sender, EventArgs e)
         {
             DBAction.UnlockSurvey(CurrentSurvey, 60);
             MessageBox.Show(CurrentSurvey.SurveyCode + " unlocked for 1 hour.");
+            cmdUnlock.Enabled = false;
         }
 
         private void Label_Validated(object sender, EventArgs e)
@@ -886,6 +891,9 @@ namespace SDIFrontEnd
 
             rtbQuestionText.Rtf = "";
             rtbQuestionText.Rtf = rich;
+
+            rtbPlainFilter.Rtf = null;
+            rtbPlainFilter.Rtf = CurrentRecord.FilterDescriptionRTF;
         }
 
         /// <summary>
@@ -2045,6 +2053,8 @@ namespace SDIFrontEnd
                 return;
             }
 
+            int count = lstQuestionList.SelectedItems.Count;
+
             Point cp = lstQuestionList.PointToClient(new Point(e.X, e.Y));
             ListViewItem dragToItem = lstQuestionList.GetItemAt(cp.X, cp.Y);
 
@@ -2055,32 +2065,47 @@ namespace SDIFrontEnd
 
             int dropIndex = dragToItem.Index;
 
+            // ensure the drop location is where we dropped it
             if (dropIndex > lstQuestionList.SelectedItems[0].Index)
             {
                 dropIndex++;
             }
-            
-            ArrayList insertItems = new ArrayList(lstQuestionList.SelectedItems.Count);
 
+            ArrayList insertItems = new ArrayList(lstQuestionList.SelectedItems.Count);
+            ArrayList insertQuestions = new ArrayList(lstQuestionList.SelectedItems.Count);
+
+            // record the items to be added at the new location
             foreach (ListViewItem item in lstQuestionList.SelectedItems)
             {
                 insertItems.Add(item.Clone());
+                insertQuestions.Add(item.Tag);
             }
 
-            foreach (ListViewItem removeItem in lstQuestionList.SelectedItems)
-            {
-                lstQuestionList.Items.Remove(removeItem);
-                CurrentSurvey.Questions.Remove((QuestionRecord)removeItem.Tag);
-            }
-
+            // insert the items in the list starting from the last one
             for (int i = insertItems.Count - 1; i >= 0; i--)
             {
                 ListViewItem insertItem = (ListViewItem)insertItems[i];
                 lstQuestionList.Items.Insert(dropIndex, insertItem);
-               
-                CurrentSurvey.Questions.Insert(dropIndex, (QuestionRecord)insertItem.Tag);
             }
-            
+
+            // remove items from their old locations in the list and the underlying question list
+            foreach (ListViewItem removeItem in lstQuestionList.SelectedItems)
+            {
+                lstQuestionList.Items.Remove(removeItem);
+                CurrentSurvey.Questions.Remove((QuestionRecord)removeItem.Tag);
+
+            }
+
+            // if dropped at the end of the list, reset the drop index to account for the removals
+            if (dropIndex > CurrentSurvey.Questions.Count)
+                dropIndex = dropIndex - count;
+
+            // now insert the questions back into the question list at their new location
+            for (int i = insertQuestions.Count - 1; i >= 0; i--)
+            {
+                CurrentSurvey.Questions.Insert(dropIndex, (QuestionRecord)insertQuestions[i]);
+            }
+
             ReNumberSurvey();
 
             // Show the user that a drag operation is happening
@@ -2172,6 +2197,19 @@ namespace SDIFrontEnd
                 }
             }
             UpdateInfo();
+        }
+
+        private void rtbPlainFilter_Validated(object sender, EventArgs e)
+        {
+            // change RTF tags to HTML tags
+            rtbPlainFilter.Rtf = Utilities.FormatRTF(rtbPlainFilter.Rtf);
+
+            // now get plain text which includes the HTML tags we've inserted
+            string plain = rtbPlainFilter.Text;
+            plain = Utilities.TrimString(plain, "<br>");
+            CurrentRecord.FilterDescription = plain;
+            rtbPlainFilter.Rtf = null;
+            rtbPlainFilter.Rtf = CurrentRecord.FilterDescriptionRTF;
         }
     }
 }

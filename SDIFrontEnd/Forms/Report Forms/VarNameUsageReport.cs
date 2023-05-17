@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
+using FM = FormManager;
 
 namespace SDIFrontEnd
 {
@@ -79,7 +80,7 @@ namespace SDIFrontEnd
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
-            FormManager.RemovePopup(this);
+            FM.FormManager.RemovePopup(this);
         }
         #endregion
 

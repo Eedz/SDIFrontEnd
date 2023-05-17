@@ -12,6 +12,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 using Word = Microsoft.Office.Interop.Word;
 using ITCLib;
+using FM = FormManager;
 
 namespace SDIFrontEnd
 {
@@ -37,7 +38,7 @@ namespace SDIFrontEnd
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
-            FormManager.Remove(this);
+            FM.FormManager.Remove(this);
         }
 
         private void cmdGenerate_Click(object sender, EventArgs e)

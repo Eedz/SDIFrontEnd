@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
+using FM = FormManager;
 
 namespace SDIFrontEnd
 {
@@ -64,7 +65,7 @@ namespace SDIFrontEnd
         {
             CurrentRecord.SaveRecord();
             Close();
-            FormManager.Remove(this);
+            FM.FormManager.Remove(this);
         }
 
         private void listViewToolStripMenuItem_Click(object sender, EventArgs e)

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FM = FormManager;
 
 namespace SDIFrontEnd
 {
@@ -20,12 +21,12 @@ namespace SDIFrontEnd
         private void toolStripClose_Click(object sender, EventArgs e)
         {
             Close();
-            FormManager.Remove(this);
+            FM.FormManager.Remove(this);
         }
 
         private void cmdOpenDraftManager_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("DraftManager"))
+            if (FM.FormManager.FormOpen("DraftManager"))
             {
                 ((MainMenu)this.Parent.Parent.Parent).SelectTab("DraftManager1");
                 return;
@@ -33,12 +34,12 @@ namespace SDIFrontEnd
 
             DraftManager frm = new DraftManager();
             frm.Tag = 1;
-            FormManager.Add(frm);
+            FM.FormManager.Add(frm);
         }
 
         private void cmdOpenDraftSearch_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("DraftSearch"))
+            if (FM.FormManager.FormOpen("DraftSearch"))
             {
                 ((MainMenu)this.Parent.Parent.Parent).SelectTab("DraftSearch1");
                 return;
@@ -46,30 +47,30 @@ namespace SDIFrontEnd
 
             DraftSearch frm = new DraftSearch();
             frm.Tag = 1;
-            FormManager.Add(frm);
+            FM.FormManager.Add(frm);
         }
 
         private void cmdOpenDraftReport_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("DraftReport"))
+            if (FM.FormManager.FormOpen("DraftReport"))
             {
                 return;
             }
             DraftReportForm frm = new DraftReportForm();
             frm.Tag = 1;
-            FormManager.AddPopup(frm);
+            FM.FormManager.AddPopup(frm);
         }
 
         private void cmdOpenDraftImport_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("SurveyDraftImportForm"))
+            if (FM.FormManager.FormOpen("SurveyDraftImportForm"))
             {
                 return;
             }
 
             SurveyDraftImportForm frm = new SurveyDraftImportForm();
             frm.Tag = 1;
-            FormManager.AddPopup(frm);
+            FM.FormManager.AddPopup(frm);
         }
     }
 }

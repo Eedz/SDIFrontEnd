@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
-
+using FM = FormManager;
 
 namespace SDIFrontEnd
 {
@@ -111,7 +111,7 @@ namespace SDIFrontEnd
 
         private void toolStripEditor_Click(object sender, EventArgs e)
         {
-            SurveyEditor getFrm = (SurveyEditor)FormManager.GetForm("SurveyEditor", 6);
+            SurveyEditor getFrm = (SurveyEditor)FM.FormManager.GetForm("SurveyEditor", 6);
             if (getFrm!=null)
             {
                 
@@ -127,10 +127,10 @@ namespace SDIFrontEnd
             {
                 SurveyEditor frm = new SurveyEditor(CurrentQuestion.SurveyCode, CurrentQuestion.VarName.RefVarName);
                 frm.Tag = 6;
-                FormManager.Add(frm);
+                FM.FormManager.Add(frm);
                 frm.GoToQuestion(CurrentQuestion.VarName.RefVarName);
             }
-            ((MainMenu)FormManager.GetForm("MainMenu")).SelectTab("SurveyEditor6");
+            ((MainMenu)FM.FormManager.GetForm("MainMenu")).SelectTab("SurveyEditor6");
         }
 
         private void toolStripHarmony_Click(object sender, EventArgs e)
@@ -139,13 +139,13 @@ namespace SDIFrontEnd
             foreach (SurveyQuestion sq in Results)
                 vars.Add(sq.VarName);
 
-            if (FormManager.FormOpen("HarmonyReport"))
+            if (FM.FormManager.FormOpen("HarmonyReport"))
             {
-                HarmonyReportForm f = (HarmonyReportForm) FormManager.GetForm("HarmonyReport");
+                HarmonyReportForm f = (HarmonyReportForm) FM.FormManager.GetForm("HarmonyReport");
                 foreach (RefVariableName rv in vars)
                     f.AddVar(rv);
                 
-                ((MainMenu)FormManager.GetForm("MainMenu")).SelectTab("HarmonyReport1");
+                ((MainMenu)FM.FormManager.GetForm("MainMenu")).SelectTab("HarmonyReport1");
                 return;
             }
             
@@ -154,13 +154,13 @@ namespace SDIFrontEnd
                 frm.AddVar(rv);
 
             frm.Tag = 1;
-            FormManager.AddPopup(frm);
+            FM.FormManager.AddPopup(frm);
         }
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
-            FormManager.Remove(this);
+            FM.FormManager.Remove(this);
         }
         #endregion
 

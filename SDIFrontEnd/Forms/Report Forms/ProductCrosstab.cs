@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
+using FM = FormManager;
 
 namespace SDIFrontEnd
 {
@@ -43,7 +44,7 @@ namespace SDIFrontEnd
         #region Events 
         private void ProductCrosstab_FormClosed(object sender, FormClosedEventArgs e)
         {
-            FormManager.Remove(this);
+            FM.FormManager.Remove(this);
         }
 
         private void lstSurvey_SelectedIndexChanged(object sender, EventArgs e)

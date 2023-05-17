@@ -13,6 +13,7 @@ using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Word = Microsoft.Office.Interop.Word;
+using FM = FormManager;
 
 namespace SDIFrontEnd
 {
@@ -28,9 +29,9 @@ namespace SDIFrontEnd
         private void cmdOpenPraccingEntry_Click(object sender, EventArgs e)
         {
 
-            if (FormManager.FormOpen("PraccingEntry", 1))
+            if (FM.FormManager.FormOpen("PraccingEntry", 1))
             {
-                ((MainMenu)FormManager.GetForm("MainMenu")).SelectTab("PraccingEntry1");
+                ((MainMenu)FM.FormManager.GetForm("MainMenu")).SelectTab("PraccingEntry1");
                 return;
             }
 
@@ -40,34 +41,34 @@ namespace SDIFrontEnd
             PraccingEntry frm = new PraccingEntry(survID);
 
             frm.Tag = 1;
-            FormManager.Add(frm);
+            FM.FormManager.Add(frm);
         }
 
         private void cmdOpenIssuesImport_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("frmPraccingIssuesImport", 1))
+            if (FM.FormManager.FormOpen("frmPraccingIssuesImport", 1))
             {
-                ((MainMenu)FormManager.GetForm("MainMenu")).SelectTab("frmPraccingIssuesImport1");
+                ((MainMenu)FM.FormManager.GetForm("MainMenu")).SelectTab("frmPraccingIssuesImport1");
                 return;
             }
 
             frmPraccingIssuesImport frm = new frmPraccingIssuesImport();
 
             frm.Tag = 1;
-            FormManager.Add(frm);
+            FM.FormManager.Add(frm);
         }
 
         private void cmdOpenPraccingReport_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("PraccingReportForm", 1))
+            if (FM.FormManager.FormOpen("PraccingReportForm", 1))
             {
-                ((MainMenu)FormManager.GetForm("MainMenu")).SelectTab("PraccingReportForm1");
+                ((MainMenu)FM.FormManager.GetForm("MainMenu")).SelectTab("PraccingReportForm1");
                 return;
             }
 
             PraccingReportForm frm = new PraccingReportForm();
             frm.Tag = 1;
-            FormManager.Add(frm);
+            FM.FormManager.Add(frm);
         }
 
         private void cmdPraccingSheet_Click(object sender, EventArgs e)
@@ -91,7 +92,7 @@ namespace SDIFrontEnd
 
         private void PraccingMenu_FormClosed(object sender, FormClosedEventArgs e)
         {
-            FormManager.Remove(this);
+            FM.FormManager.Remove(this);
         }
         #endregion
 
@@ -186,7 +187,7 @@ namespace SDIFrontEnd
 
         private void toolStripClose_Click(object sender, EventArgs e)
         {
-            FormManager.Remove(this);
+            FM.FormManager.Remove(this);
         }
     }
 }

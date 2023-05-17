@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
+using FM = FormManager;
 
 namespace SDIFrontEnd
 {
@@ -28,7 +29,7 @@ namespace SDIFrontEnd
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
-            FormManager.RemovePopup(this);
+            FM.FormManager.RemovePopup(this);
         }
 
         private void cmdAdd_Click(object sender, EventArgs e)
@@ -59,6 +60,7 @@ namespace SDIFrontEnd
             // get heading list for each survey
             List<SurveyRecord> surveys = lstSelected.Items.Cast<SurveyRecord>().ToList();
             List<List<Heading>> headingLists = new List<List<Heading>>();
+
             foreach (SurveyRecord survey in surveys)
             {
                 List<Heading> headingList = DBAction.GetHeadingQuestions(survey);

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
+using FM = FormManager;
 
 namespace SDIFrontEnd
 {
@@ -236,7 +237,7 @@ namespace SDIFrontEnd
 
             VarNameUsage frm = new VarNameUsage(pattern);
             frm.Tag = 1;
-            FormManager.AddPopup(frm);
+            FM.FormManager.AddPopup(frm);
         }
 
         private void toolStripFilterVars_Click(object sender, EventArgs e)
@@ -296,7 +297,7 @@ namespace SDIFrontEnd
 
         private void AssignLabels_FormClosed(object sender, FormClosedEventArgs e)
         {
-            FormManager.Remove(this);
+            FM.FormManager.Remove(this);
         }
         #endregion
 

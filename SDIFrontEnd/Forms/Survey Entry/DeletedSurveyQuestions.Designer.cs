@@ -136,7 +136,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 75);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(71, 16);
+            this.label1.Size = new System.Drawing.Size(70, 16);
             this.label1.TabIndex = 3;
             this.label1.Text = "Go To Var:";
             // 
@@ -167,7 +167,7 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(244, 115);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(73, 16);
+            this.label9.Size = new System.Drawing.Size(72, 16);
             this.label9.TabIndex = 6;
             this.label9.Text = "Deleted By:";
             // 
@@ -176,7 +176,7 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(7, 115);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(76, 16);
+            this.label8.Size = new System.Drawing.Size(75, 16);
             this.label8.TabIndex = 5;
             this.label8.Text = "Deleted On:";
             // 
@@ -193,7 +193,7 @@
             // 
             this.txtDeletedBy.BackColor = System.Drawing.SystemColors.Control;
             this.txtDeletedBy.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtDeletedBy.Location = new System.Drawing.Point(323, 115);
+            this.txtDeletedBy.Location = new System.Drawing.Point(323, 116);
             this.txtDeletedBy.Name = "txtDeletedBy";
             this.txtDeletedBy.Size = new System.Drawing.Size(76, 16);
             this.txtDeletedBy.TabIndex = 4;
@@ -211,7 +211,7 @@
             // 
             this.txtDeletedOn.BackColor = System.Drawing.SystemColors.Control;
             this.txtDeletedOn.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtDeletedOn.Location = new System.Drawing.Point(84, 112);
+            this.txtDeletedOn.Location = new System.Drawing.Point(84, 116);
             this.txtDeletedOn.Name = "txtDeletedOn";
             this.txtDeletedOn.Size = new System.Drawing.Size(154, 16);
             this.txtDeletedOn.TabIndex = 3;
@@ -230,7 +230,7 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(328, 68);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(52, 16);
+            this.label7.Size = new System.Drawing.Size(51, 16);
             this.label7.TabIndex = 11;
             this.label7.Text = "Content";
             // 
@@ -239,7 +239,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(330, 39);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(39, 16);
+            this.label6.Size = new System.Drawing.Size(38, 16);
             this.label6.TabIndex = 10;
             this.label6.Text = "Topic";
             // 
@@ -248,7 +248,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(329, 10);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(51, 16);
+            this.label5.Size = new System.Drawing.Size(50, 16);
             this.label5.TabIndex = 9;
             this.label5.Text = "Domain";
             // 
@@ -257,7 +257,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(7, 38);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(58, 16);
+            this.label4.Size = new System.Drawing.Size(57, 16);
             this.label4.TabIndex = 5;
             this.label4.Text = "VarLabel";
             // 
@@ -266,7 +266,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(4, 10);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(61, 16);
+            this.label3.Size = new System.Drawing.Size(60, 16);
             this.label3.TabIndex = 4;
             this.label3.Text = "VarName";
             // 
@@ -303,7 +303,7 @@
             this.lblComments.AutoSize = true;
             this.lblComments.Location = new System.Drawing.Point(8, 7);
             this.lblComments.Name = "lblComments";
-            this.lblComments.Size = new System.Drawing.Size(78, 16);
+            this.lblComments.Size = new System.Drawing.Size(77, 16);
             this.lblComments.TabIndex = 3;
             this.lblComments.Text = "Comments: ";
             // 
@@ -388,6 +388,7 @@
             // 
             this.bindingNavigatorPositionItem.AccessibleName = "Position";
             this.bindingNavigatorPositionItem.AutoSize = false;
+            this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
             this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
             this.bindingNavigatorPositionItem.Text = "0";
@@ -446,7 +447,7 @@
             this.label14.AutoSize = true;
             this.label14.Location = new System.Drawing.Point(169, 4);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(48, 16);
+            this.label14.Size = new System.Drawing.Size(47, 16);
             this.label14.TabIndex = 8;
             this.label14.Text = "Source";
             // 
@@ -591,6 +592,7 @@
             // 
             this.bindingNavigatorPositionItem1.AccessibleName = "Position";
             this.bindingNavigatorPositionItem1.AutoSize = false;
+            this.bindingNavigatorPositionItem1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.bindingNavigatorPositionItem1.Name = "bindingNavigatorPositionItem1";
             this.bindingNavigatorPositionItem1.Size = new System.Drawing.Size(50, 23);
             this.bindingNavigatorPositionItem1.Text = "0";

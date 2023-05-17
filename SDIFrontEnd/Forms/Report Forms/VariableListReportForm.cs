@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
 using System.Text.RegularExpressions;
+using FM = FormManager;
 
 namespace SDIFrontEnd
 {
@@ -262,7 +263,7 @@ namespace SDIFrontEnd
 
         private void VariableListReportForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            FormManager.RemovePopup(this);
+            FM.FormManager.RemovePopup(this);
         }
         #endregion
 

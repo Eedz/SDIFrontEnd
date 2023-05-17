@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FM = FormManager;
 
 namespace SDIFrontEnd
 {
@@ -20,77 +21,77 @@ namespace SDIFrontEnd
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
-            FormManager.Remove(this);
+            FM.FormManager.Remove(this);
         }
 
         private void cmdOpenRenameSingle_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("RenameVars"))
+            if (FM.FormManager.FormOpen("RenameVars"))
             {
                 return;
             }
             RenameVars frm = new RenameVars();
             frm.Tag = 1;
-            FormManager.AddPopup(frm);
+            FM.FormManager.AddPopup(frm);
         }
 
         private void cmdOpenRenameBulk_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("RenameVarsBulk"))
+            if (FM.FormManager.FormOpen("RenameVarsBulk"))
             {
                 return;
             }
             RenameVarsBulk frm = new RenameVarsBulk();
             frm.Tag = 1;
-            FormManager.Add(frm);
+            FM.FormManager.Add(frm);
         }
 
         private void cmdOpenVarChangeTracking_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("VarChangeTracking"))
+            if (FM.FormManager.FormOpen("VarChangeTracking"))
             {
                 return;
             }
             VarChangeTracking frm = new VarChangeTracking();
             frm.Tag = 1;
-            FormManager.Add(frm);
+            FM.FormManager.Add(frm);
         }
 
         
 
         private void cmdOpenVarNameChangeReport_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("VarNameChangeReportForm"))
+            if (FM.FormManager.FormOpen("VarNameChangeReportForm"))
             {
                 return;
             }
             VarNameChangeReportForm frm = new VarNameChangeReportForm();
             frm.Tag = 1;
-            FormManager.AddPopup(frm);
+            FM.FormManager.AddPopup(frm);
         }
 
         private void cmdOpenVarUsage_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("VarNameUsage"))
+            if (FM.FormManager.FormOpen("VarNameUsage"))
             {
                 return;
             }
 
             VarNameUsage frm = new VarNameUsage();
             frm.Tag = 1;
-            FormManager.AddPopup(frm);
+            FM.FormManager.AddPopup(frm);
         }
 
         private void cmdOpenVarUsageReport_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("VarNameUsageReport"))
+            if (FM.FormManager.FormOpen("VarNameUsageReport"))
             {
                 return;
             }
 
             VarNameUsageReport frm = new VarNameUsageReport();
             frm.Tag = 1;
-            FormManager.AddPopup(frm);
+            FM.FormManager.AddPopup(frm);
         }
     }
 }

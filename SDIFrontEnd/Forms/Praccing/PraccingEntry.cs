@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using ITCLib;
-
+using FM = FormManager;
 
 namespace SDIFrontEnd
 {
@@ -120,29 +120,29 @@ namespace SDIFrontEnd
 
         private void reportToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("PraccingReport", 1))
+            if (FM.FormManager.FormOpen("PraccingReport", 1))
             {
-                ((MainMenu)FormManager.GetForm("MainMenu")).SelectTab("PraccingReport1");
+                ((MainMenu)FM.FormManager.GetForm("MainMenu")).SelectTab("PraccingReport1");
                 return;
             }
 
             PraccingReportForm frm = new PraccingReportForm();
             frm.Tag = 1;
-            FormManager.Add(frm);
+            FM.FormManager.Add(frm);
 
         }
 
         private void importToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("frmPraccingIssuesImport", 1))
+            if (FM.FormManager.FormOpen("frmPraccingIssuesImport", 1))
             {
-                ((MainMenu)FormManager.GetForm("MainMenu")).SelectTab("frmPraccingIssuesImport1");
+                ((MainMenu)FM.FormManager.GetForm("MainMenu")).SelectTab("frmPraccingIssuesImport1");
                 return;
             }
 
             frmPraccingIssuesImport frm = new frmPraccingIssuesImport();
             frm.Tag = 1;
-            FormManager.Add(frm);
+            FM.FormManager.Add(frm);
         }
 
         private void toolstripDisplay_Click(object sender, EventArgs e)
@@ -150,7 +150,6 @@ namespace SDIFrontEnd
             List<SurveyQuestion> questions = new List<SurveyQuestion>();
             string[] varnames = CurrentIssue.VarNames.Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries);
             Survey survey = (Survey)cboGoToSurvey.SelectedItem;
-
             foreach (string v in varnames)
             {
                 int id = DBAction.GetQuestionID(survey.SurveyCode, Utilities.ChangeCC(v, survey.CountryCode));
@@ -164,7 +163,7 @@ namespace SDIFrontEnd
 
                     toAdd.Translations = DBAction.GetQuestionTranslations(id);
 
-                    toAdd.Comments = DBAction.GetQuesCommentsByQID(id);
+                    toAdd.Comments = DBAction.GetQuesCommentsByQID(toAdd);
                     questions.Add(toAdd);
                 }
             }
@@ -213,7 +212,7 @@ namespace SDIFrontEnd
                         toAdd.Translations = DBAction.GetQuestionTranslations(id);
 
                     if (c)
-                        toAdd.Comments = DBAction.GetQuesCommentsByQID(id);
+                        toAdd.Comments = DBAction.GetQuesCommentsByQID(toAdd);
 
                     questions.Add(toAdd);
                 }
@@ -244,7 +243,7 @@ namespace SDIFrontEnd
         private void PraccingEntry_FormClosed(object sender, FormClosedEventArgs e)
         {
             SaveSurveyFilter();
-            FormManager.Remove(this);
+            FM.FormManager.Remove(this);
         }
 
         private void ComboBox_MouseWheel(object sender, MouseEventArgs e)

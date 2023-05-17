@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
+using FM = FormManager;
 
 // TODO test moving, then moving back
 namespace SDIFrontEnd
@@ -174,7 +175,23 @@ namespace SDIFrontEnd
 
         private void cmdLoad_Click(object sender, EventArgs e)
         {
-            if (Surveys.Count==0 || ShownProducts.Count==0) return;
+            ShownProducts.Clear();
+
+            foreach (DataGridViewRow row in dgvSurveys.Rows)
+            {
+                foreach (DataGridViewColumn column in dgvSurveys.Columns)
+                {
+                    if (column.Index == 0) continue;
+                    DataGridViewCheckBoxCell cell = (DataGridViewCheckBoxCell)row.Cells[column.Name];
+                    if (!(bool)cell.FormattedValue) continue;
+
+                    ProductLabel product = ProductLabels.First(x => x.ID == (int)column.Tag);
+
+                    if (!ShownProducts.Contains(product)) ShownProducts.Add(product);
+                }
+            }
+
+            if (Surveys.Count == 0 || ShownProducts.Count==0) return;
             ClearList();
 
             GetData(Surveys);
@@ -247,7 +264,7 @@ namespace SDIFrontEnd
 
         private void ParallelQuestions_FormClosed(object sender, FormClosedEventArgs e)
         {
-            FormManager.Remove(this);
+            FM.FormManager.Remove(this);
         }
 
         #endregion
@@ -515,7 +532,7 @@ namespace SDIFrontEnd
                         }
                         else
                         {
-                            items.Add(question.Question.GetQuestionText());
+                            items.Add(question.Question.VarName.RefVarName + "\r\n" + question.Question.GetQuestionText());
                         }
                     }
 

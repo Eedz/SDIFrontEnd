@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
+using FM = FormManager;
 
 namespace SDIFrontEnd
 {
@@ -54,9 +55,9 @@ namespace SDIFrontEnd
 
         private void entryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("PraccingEntry", 1))
+            if (FM.FormManager.FormOpen("PraccingEntry", 1))
             {
-                ((MainMenu)FormManager.GetForm("MainMenu")).SelectTab("PraccingEntry1");
+                ((MainMenu)FM.FormManager.GetForm("MainMenu")).SelectTab("PraccingEntry1");
                 return;
             }
 
@@ -68,20 +69,20 @@ namespace SDIFrontEnd
             PraccingEntry frm = new PraccingEntry(survID);
 
             frm.Tag = 1;
-            FormManager.Add(frm);
+            FM.FormManager.Add(frm);
         }
 
         private void importToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (FormManager.FormOpen("frmPraccingIssuesImport", 1))
+            if (FM.FormManager.FormOpen("frmPraccingIssuesImport", 1))
             {
-                ((MainMenu)FormManager.GetForm("MainMenu")).SelectTab("frmPraccingIssuesImport1");
+                ((MainMenu)FM.FormManager.GetForm("MainMenu")).SelectTab("frmPraccingIssuesImport1");
                 return;
             }
 
             frmPraccingIssuesImport frm = new frmPraccingIssuesImport();
             frm.Tag = 1;
-            FormManager.Add(frm);
+            FM.FormManager.Add(frm);
         }
         #endregion
 
@@ -192,7 +193,7 @@ namespace SDIFrontEnd
 
         private void PraccingReportForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            FormManager.Remove(this);
+            FM.FormManager.Remove(this);
         }
 
         private void PraccingReportForm_Resize(object sender, EventArgs e)

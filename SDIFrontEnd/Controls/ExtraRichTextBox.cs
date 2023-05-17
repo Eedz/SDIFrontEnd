@@ -429,6 +429,11 @@ namespace SDIFrontEnd
             else
                 ckbUnderline.CheckState = CheckState.Unchecked;
         }
+
+        private void ExtraRichTextBox_Load(object sender, EventArgs e)
+        {
+            txtFunctionality.Width = this.Width - 10;
+        }
     }
 }
 

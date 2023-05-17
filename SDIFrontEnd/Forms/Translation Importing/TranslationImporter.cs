@@ -13,7 +13,7 @@ using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 
-
+using FM = FormManager;
 using OpenXMLHelper;
 using System.Text.RegularExpressions;
 using System.Globalization;
@@ -1344,7 +1344,7 @@ namespace SDIFrontEnd
 
         private void TranslationImporter_FormClosed(object sender, FormClosedEventArgs e)
         {
-            FormManager.RemovePopup(this);
+            FM.FormManager.RemovePopup(this);
         }
     }
 }

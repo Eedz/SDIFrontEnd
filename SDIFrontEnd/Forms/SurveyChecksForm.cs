@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
+using FM = FormManager;
 
 namespace SDIFrontEnd
 {
@@ -141,7 +142,7 @@ namespace SDIFrontEnd
 
         private void SurveyChecksMenu_FormClosed(object sender, FormClosedEventArgs e)
         {
-            FormManager.Remove(this);
+            FM.FormManager.Remove(this);
         }
 
         private void lstSeriesErrors_SelectedIndexChanged(object sender, EventArgs e)

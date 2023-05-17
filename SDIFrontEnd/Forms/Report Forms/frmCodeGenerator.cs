@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
+using FM = FormManager;
 
 namespace SDIFrontEnd
 {
@@ -57,7 +58,7 @@ namespace SDIFrontEnd
 
             ReportSurvey rs = new ReportSurvey((Survey)lstSurveys.SelectedItem);
 
-            DBAction.FillQuestions(rs);
+            rs.AddQuestions(new BindingList<SurveyQuestion>(DBAction.GetSurveyQuestions(rs)));
 
             try
             {
@@ -90,7 +91,7 @@ namespace SDIFrontEnd
 
         private void frmCodeGenerator_FormClosed(object sender, FormClosedEventArgs e)
         {
-            FormManager.Remove(this);
+            FM.FormManager.Remove(this);
         }
     }
 }

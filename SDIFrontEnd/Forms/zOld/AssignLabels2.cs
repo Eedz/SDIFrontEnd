@@ -11,6 +11,7 @@ using ITCLib;
 
 using System.Configuration;
 using System.Data.SqlClient;
+using FM = FormManager;
 
 namespace SDIFrontEnd
 {
@@ -323,7 +324,7 @@ namespace SDIFrontEnd
 
             VarNameUsage frm = new VarNameUsage(pattern);
             frm.Tag = "VarNameUsage";
-            FormManager.AddPopup(frm);
+            FM.FormManager.AddPopup(frm);
         }
 
         private void toolStripFilterVars_Click(object sender, EventArgs e)
@@ -341,7 +342,7 @@ namespace SDIFrontEnd
 
         private void AssignLabels_FormClosed(object sender, FormClosedEventArgs e)
         {
-            FormManager.Remove(this);
+            FM.FormManager.Remove(this);
         }
         #endregion
 

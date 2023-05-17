@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
+using FM = FormManager;
 
 namespace SDIFrontEnd
 {
@@ -32,7 +33,7 @@ namespace SDIFrontEnd
             var datasource = (List<KeyValuePair<int, string>>)dataRepeater.DataSource;
             KeyValuePair<int, string> item = datasource[dataRepeater.CurrentItemIndex];
 
-            SurveyEditor getFrm = (SurveyEditor)FormManager.GetForm("SurveyEditor", 6);
+            SurveyEditor getFrm = (SurveyEditor)FM.FormManager.GetForm("SurveyEditor", 6);
             if (getFrm != null)
             {
                 if (!getFrm.CurrentSurvey.SurveyCode.Equals(item.Value))
@@ -44,9 +45,9 @@ namespace SDIFrontEnd
             {
                 SurveyEditor frm = new SurveyEditor(item.Key);
                 frm.Tag = 6;
-                FormManager.Add(frm);
+                FM.FormManager.Add(frm);
             }
-            ((MainMenu)FormManager.GetForm("MainMenu")).SelectTab("SurveyEditor6");
+            ((MainMenu)FM.FormManager.GetForm("MainMenu")).SelectTab("SurveyEditor6");
         }
 
         private void cmdClose_Click(object sender, EventArgs e)

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
+using FM = FormManager;
 
 namespace SDIFrontEnd
 {
@@ -170,7 +171,7 @@ namespace SDIFrontEnd
 
         private void QuestionSearch_FormClosed(object sender, FormClosedEventArgs e)
         {
-            FormManager.Remove(this);
+            FM.FormManager.Remove(this);
         }
 
         #endregion
@@ -228,13 +229,13 @@ namespace SDIFrontEnd
                 return;
             }
 
-            if (FormManager.FormOpen("QuestionSearchResults"))
+            if (FM.FormManager.FormOpen("QuestionSearchResults"))
             {
-                FormManager.Remove(FormManager.GetForm("QuestionSearchResults", 1));
+                FM.FormManager.Remove(FM.FormManager.GetForm("QuestionSearchResults", 1));
             }
             QuestionSearchResults frm = new QuestionSearchResults(SearchResults, showTranslation);
             frm.Tag = 1;
-            FormManager.Add(frm);
+            FM.FormManager.Add(frm);
             
 
         }
