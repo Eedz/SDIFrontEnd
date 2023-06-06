@@ -48,6 +48,9 @@ namespace SDIFrontEnd
 
         public event EventHandler LabelAdded;
 
+        QuestionTimeFrame editedTimeFrame;
+        int timeFrameRow = -1;
+        bool rowCommit = true;
 
         public SurveyEditor(int survID)
         {
@@ -474,7 +477,6 @@ namespace SDIFrontEnd
         /// <param name="e"></param>
         private void SurveyEditor_ListChanged(object sender, ListChangedEventArgs e)
         {
-            
             if (e.PropertyDescriptor == null) return;
 
             int index = e.NewIndex; // index of the changed item
@@ -553,7 +555,10 @@ namespace SDIFrontEnd
             if (CurrentRecord == null)
                 return;
 
-            bs.ResetBindings(false);         
+            bs.ResetBindings(false);
+
+            dgvTimeFrames.Rows.Clear();
+            dgvTimeFrames.RowCount = CurrentRecord.TimeFrames.Count + 1;
 
             if (frmRelated != null && !frmRelated.IsDisposed)
                 frmRelated.UpdateForm(CurrentRecord);
@@ -745,6 +750,172 @@ namespace SDIFrontEnd
             cboProductLabel.DataSource = new List<ProductLabel>(Globals.AllProductLabels);
             cboProductLabel.ValueMember = "ID";
             cboProductLabel.DisplayMember = "LabelText";
+        }
+
+        private void dgvTimeFrames_NewRowNeeded(object sender, DataGridViewRowEventArgs e)
+        {
+            // Create a new QuestionTimeFrame object when the user edits the row for new records.
+            this.editedTimeFrame = new QuestionTimeFrame();
+            this.timeFrameRow = this.dgvTimeFrames.Rows.Count - 1;
+        }
+
+        private void dgvTimeFrames_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+
+            // If this is the row for new records, no values are needed.
+            if (e.RowIndex == dgv.RowCount - 1) return;
+            // If the current record has no TimeFrames, no values are needed.
+            if (CurrentRecord.TimeFrames.Count == 0) return;
+
+            QuestionTimeFrame tmp = null;
+
+            // Store a reference to the CoAuthor object for the row being painted.
+            if (e.RowIndex == timeFrameRow)
+            {
+                tmp = editedTimeFrame;
+            }
+            else
+            {
+                tmp = CurrentRecord.TimeFrames[e.RowIndex];
+            }
+
+            if (tmp == null) return;
+
+            // Set the cell value to paint using the CoAuthor object retrieved.
+            switch (dgv.Columns[e.ColumnIndex].Name)
+            {
+                case "chTimeFrame":
+                    e.Value = tmp.TimeFrame;
+                    break;
+            }
+        }
+
+        private void dgvTimeFrames_CellValuePushed(object sender, DataGridViewCellValueEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+
+            QuestionTimeFrame tmp = null;
+            // Store a reference to the QuestionTimeFrame object for the row being edited.
+            if (e.RowIndex < CurrentRecord.TimeFrames.Count)
+            {
+                // If the user is editing a new row, create a new QuestionTimeFrame object.
+                if (editedTimeFrame == null)
+                    editedTimeFrame = new QuestionTimeFrame()
+                    {
+                        ID = CurrentRecord.TimeFrames[e.RowIndex].ID,
+                        QID = CurrentRecord.TimeFrames[e.RowIndex].QID,
+                        TimeFrame = CurrentRecord.TimeFrames[e.RowIndex].TimeFrame
+                    };
+
+                tmp = this.editedTimeFrame;
+                this.timeFrameRow = e.RowIndex;
+            }
+            else
+            {
+                tmp = this.editedTimeFrame;
+            }
+
+            // Set the appropriate property to the cell value entered.
+            switch (dgv.Columns[e.ColumnIndex].Name)
+            {
+                case "chTimeFrame":
+                    QuestionTimeFrame newValue = new QuestionTimeFrame();
+                    tmp.ID = newValue.ID;
+                    tmp.QID = CurrentRecord.ID;
+                    tmp.TimeFrame = (string)e.Value;
+                    break;
+
+            }
+        }
+
+        private void dgvTimeFrames_RowValidated(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+
+            // Save row changes if any were made and release the edited
+            // QuestionTimeFrame object if there is one.
+            if (editedTimeFrame != null && e.RowIndex >= CurrentRecord.TimeFrames.Count && e.RowIndex != dgv.Rows.Count - 1)
+            {
+                // Add the new QuestionTimeFrame object to the data store.
+                CurrentRecord.TimeFrames.Add(editedTimeFrame);
+                CurrentRecord.AddTimeFrames.Add(editedTimeFrame);
+                UpdateStatus();
+                editedTimeFrame = null;
+                timeFrameRow = -1;
+            }
+            else if (editedTimeFrame != null && e.RowIndex < CurrentRecord.TimeFrames.Count)
+            {
+                // ignore edits to time frames
+                editedTimeFrame = null;
+                timeFrameRow = -1;
+            }
+            else if (dgv.ContainsFocus)
+            {
+                editedTimeFrame = null;
+                timeFrameRow = -1;
+            }
+        }
+
+        private void dgvTimeFrames_RowDirtyStateNeeded(object sender, QuestionEventArgs e)
+        {
+            if (!rowCommit)
+            {
+                DataGridView dgv = (DataGridView)sender;
+                // In cell-level commit scope, indicate whether the value of the current cell has been modified.
+                e.Response = dgv.IsCurrentCellDirty;
+            }
+        }
+
+        private void dgvTimeFrames_CancelRowEdit(object sender, QuestionEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+
+            if (timeFrameRow == dgv.Rows.Count - 2 && timeFrameRow == CurrentRecord.TimeFrames.Count)
+            {
+                // If the user has canceled the edit of a newly created row,
+                // replace the corresponding QuestionTimeFrame object with a new, empty one.
+                editedTimeFrame = new QuestionTimeFrame();
+            }
+            else
+            {
+                // If the user has canceled the edit of an existing row, release the corresponding QuestionTimeFrame object.
+                editedTimeFrame = null;
+                timeFrameRow = -1;
+            }
+        }
+
+        private void dgvTimeFrames_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            if (e.Row.Index < this.CurrentRecord.TimeFrames.Count)
+            {
+                if (MessageBox.Show("Are you sure you want to delete this time frame?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    QuestionTimeFrame record = CurrentRecord.TimeFrames[e.Row.Index];
+                    // If the user has deleted an existing row, remove the
+                    // corresponding QuestionTimeFrame object from the data store.
+                    this.CurrentRecord.TimeFrames.RemoveAt(e.Row.Index);
+                    CurrentRecord.DeleteTimeFrames.Add(record);
+                    UpdateStatus();
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
+            }
+
+            if (e.Row.Index == this.timeFrameRow)
+            {
+                // If the user has deleted a newly created row, release
+                // the corresponding QuestionTimeFrame object.
+                this.timeFrameRow = -1;
+                this.editedTimeFrame = null;
+            }
+        }
+
+        private void dgvTimeFrames_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+
         }
         #endregion
 
@@ -1190,7 +1361,7 @@ namespace SDIFrontEnd
             bool showMessage = false;
 
             var added = CurrentSurvey.Questions.Where(x => x.ID == 0);
-            int edits = CurrentSurvey.Questions.Where(x => x.Dirty || x.DirtyLabels || x.DirtyQnum || x.DirtyAltQnum).Count();
+            int edits = CurrentSurvey.Questions.Where(x => x.IsEdited()).Count();
             int adds = PendingAdds.Count;
             int deletes = PendingDeletes.Count;
 

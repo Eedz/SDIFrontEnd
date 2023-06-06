@@ -86,6 +86,7 @@
             this.cmdOpenSurveyEditor5 = new System.Windows.Forms.Button();
             this.cmdOpenSurveyEditor4 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.cmdParallelQuestions = new System.Windows.Forms.Button();
             this.cmdOpenVarChangesMenu = new System.Windows.Forms.Button();
             this.cmdOpenParallelVarReport = new System.Windows.Forms.Button();
             this.cmdExternalReportsMenu = new System.Windows.Forms.Button();
@@ -109,7 +110,7 @@
             this.cmdOpenQuestionHistory = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.worker = new System.ComponentModel.BackgroundWorker();
-            this.cmdParallelQuestions = new System.Windows.Forms.Button();
+            this.cmdOpenTCReport = new System.Windows.Forms.Button();
             this.menuMainMenuStrip.SuspendLayout();
             this.pageMain.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -691,6 +692,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 190F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 199F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 204F));
+            this.tableLayoutPanel1.Controls.Add(this.cmdOpenTCReport, 3, 5);
             this.tableLayoutPanel1.Controls.Add(this.cmdParallelQuestions, 1, 6);
             this.tableLayoutPanel1.Controls.Add(this.cmdOpenVarChangesMenu, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.cmdOpenParallelVarReport, 3, 4);
@@ -724,6 +726,17 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(783, 252);
             this.tableLayoutPanel1.TabIndex = 6;
+            // 
+            // cmdParallelQuestions
+            // 
+            this.cmdParallelQuestions.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cmdParallelQuestions.Location = new System.Drawing.Point(193, 213);
+            this.cmdParallelQuestions.Name = "cmdParallelQuestions";
+            this.cmdParallelQuestions.Size = new System.Drawing.Size(184, 36);
+            this.cmdParallelQuestions.TabIndex = 23;
+            this.cmdParallelQuestions.Text = "Parallel Questions";
+            this.cmdParallelQuestions.UseVisualStyleBackColor = true;
+            this.cmdParallelQuestions.Click += new System.EventHandler(this.cmdParallelQuestions_Click);
             // 
             // cmdOpenVarChangesMenu
             // 
@@ -1003,16 +1016,15 @@
             // 
             this.worker.WorkerSupportsCancellation = true;
             // 
-            // cmdParallelQuestions
+            // cmdOpenTCReport
             // 
-            this.cmdParallelQuestions.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cmdParallelQuestions.Location = new System.Drawing.Point(193, 213);
-            this.cmdParallelQuestions.Name = "cmdParallelQuestions";
-            this.cmdParallelQuestions.Size = new System.Drawing.Size(184, 36);
-            this.cmdParallelQuestions.TabIndex = 23;
-            this.cmdParallelQuestions.Text = "Parallel Questions";
-            this.cmdParallelQuestions.UseVisualStyleBackColor = true;
-            this.cmdParallelQuestions.Click += new System.EventHandler(this.cmdParallelQuestions_Click);
+            this.cmdOpenTCReport.Location = new System.Drawing.Point(582, 178);
+            this.cmdOpenTCReport.Name = "cmdOpenTCReport";
+            this.cmdOpenTCReport.Size = new System.Drawing.Size(198, 29);
+            this.cmdOpenTCReport.TabIndex = 23;
+            this.cmdOpenTCReport.Text = "Topic/Content";
+            this.cmdOpenTCReport.UseVisualStyleBackColor = true;
+            this.cmdOpenTCReport.Click += new System.EventHandler(this.cmdOpenTCReport_Click);
             // 
             // MainMenu
             // 
@@ -1125,6 +1137,7 @@
         private System.Windows.Forms.ToolStripMenuItem viewOrphansToolStripMenuItem;
         private System.ComponentModel.BackgroundWorker worker;
         private System.Windows.Forms.Button cmdParallelQuestions;
+        private System.Windows.Forms.Button cmdOpenTCReport;
     }
 }
 

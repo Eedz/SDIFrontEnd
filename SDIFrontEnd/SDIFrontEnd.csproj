@@ -573,6 +573,12 @@
     <Compile Include="Forms\Utility Forms\Picker.designer.cs">
       <DependentUpon>Picker.cs</DependentUpon>
     </Compile>
+    <Compile Include="LabelReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LabelReport.Designer.cs">
+      <DependentUpon>LabelReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Forms\SurveyProcessingEntry.cs">
@@ -952,6 +958,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Utility Forms\Picker.resx">
       <DependentUpon>Picker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LabelReport.resx">
+      <DependentUpon>LabelReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

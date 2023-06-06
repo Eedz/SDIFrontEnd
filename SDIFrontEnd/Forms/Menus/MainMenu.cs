@@ -727,7 +727,6 @@ namespace SDIFrontEnd
         {
             if (FM.FormManager.FormOpen("ProductCrosstab"))
             {
-                //tabControl1.SelectTab("ProductCrosstab1");
                 return;
             }
 
@@ -740,11 +739,22 @@ namespace SDIFrontEnd
         {
             if (FM.FormManager.FormOpen("ParallelVarReport"))
             {
-                //tabControl1.SelectTab("ParallelVarReport1");
                 return;
             }
 
             ParallelVarReport frm = new ParallelVarReport();
+            frm.Tag = 1;
+            FM.FormManager.AddPopup(frm);
+        }
+
+        private void cmdOpenTCReport_Click(object sender, EventArgs e)
+        {
+            if (FM.FormManager.FormOpen("LabelReport"))
+            {
+                return;
+            }
+
+            LabelReport frm = new LabelReport();
             frm.Tag = 1;
             FM.FormManager.AddPopup(frm);
         }
