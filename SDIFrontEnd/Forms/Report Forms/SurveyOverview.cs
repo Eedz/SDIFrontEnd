@@ -45,11 +45,12 @@ namespace SDIFrontEnd
         {
             SurveyReport SO = new SurveyReport();
             ReportSurvey source = new ReportSurvey(DBAction.GetSurveyInfo(cboSurvey.GetItemText(cboSurvey.SelectedItem)));
+
             source.AddQuestions(DBAction.GetSurveyQuestions(source));
             SO.Surveys.Add(source);
             SO.Surveys[0].Qnum = true;
             SO.Surveys[0].Primary = true;
-
+            
             foreach (ReportSurvey rs in SO.Surveys)
             {
                 rs.VarLabelCol = true;

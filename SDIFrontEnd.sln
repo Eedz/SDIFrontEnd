@@ -16,17 +16,27 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{1F878409-8602-4DC3-A0CB-45CCCC21289E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1F878409-8602-4DC3-A0CB-45CCCC21289E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F878409-8602-4DC3-A0CB-45CCCC21289E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1F878409-8602-4DC3-A0CB-45CCCC21289E}.Debug|x64.Build.0 = Debug|Any CPU
 		{1F878409-8602-4DC3-A0CB-45CCCC21289E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F878409-8602-4DC3-A0CB-45CCCC21289E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F878409-8602-4DC3-A0CB-45CCCC21289E}.Release|x64.ActiveCfg = Release|Any CPU
+		{1F878409-8602-4DC3-A0CB-45CCCC21289E}.Release|x64.Build.0 = Release|Any CPU
 		{A95EC154-7009-4323-A432-1261B2CC7124}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A95EC154-7009-4323-A432-1261B2CC7124}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A95EC154-7009-4323-A432-1261B2CC7124}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A95EC154-7009-4323-A432-1261B2CC7124}.Debug|x64.Build.0 = Debug|Any CPU
 		{A95EC154-7009-4323-A432-1261B2CC7124}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A95EC154-7009-4323-A432-1261B2CC7124}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A95EC154-7009-4323-A432-1261B2CC7124}.Release|x64.ActiveCfg = Release|Any CPU
+		{A95EC154-7009-4323-A432-1261B2CC7124}.Release|x64.Build.0 = Release|Any CPU
 		{4768A591-7669-4ABE-8F28-F02D43D475A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4768A591-7669-4ABE-8F28-F02D43D475A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4768A591-7669-4ABE-8F28-F02D43D475A2}.Release|Any CPU.ActiveCfg = Release|Any CPU

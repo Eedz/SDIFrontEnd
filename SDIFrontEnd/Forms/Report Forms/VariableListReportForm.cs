@@ -272,7 +272,7 @@ namespace SDIFrontEnd
         {
             DataTable crosstab = new DataTable();
 
-            List<string> surveys = GetSurveys();
+            List<Survey> surveys = GetSurveys();
             if (surveys.Count == 0)
                 return crosstab;
 
@@ -280,58 +280,25 @@ namespace SDIFrontEnd
             List<string> exclusions = GetExclusions();          
             List<string> vars = GetVars();
 
-            crosstab = DBAction.GetSurveysVariableList(surveys, vars, inclusions, exclusions);
-
-            
+            crosstab = DBAction.GetSurveysVariableList(surveys.Select(x=>x.SurveyCode).ToList(), vars, inclusions, exclusions);
 
             // remove screeners from results
-            foreach (KeyValuePair<int, string> item in lstExclusions.SelectedItems)
-            {
-                Exclusions i = (Exclusions)Enum.ToObject(typeof(Exclusions), item.Key);
-
-                switch (i)
-                {
-                    case Exclusions.Screeners:
-
-                        for (int c = crosstab.Columns.Count - 1; c >= 0; c--)
-                            if (crosstab.Columns[c].ColumnName.Contains("-sc"))
-                                crosstab.Columns.RemoveAt(c);
-                        break;
-                }
-            }
+            RemoveScreeners(crosstab);
 
             // change 0s and 1s
-            foreach (DataRow r in crosstab.Rows)
-            {
-                foreach (DataColumn c in crosstab.Columns)
-                {
-                    if (surveys.Contains(c.ColumnName))
-                    {
-                        if (r[c].Equals("0"))
-                            r[c] = string.Empty;
-                    }
-                }
-            }
+            Edit0sAnd1s(surveys.Select(x => x.SurveyCode).ToList(), crosstab);
+
+            // change varlabels
+            AddQuestionTimeFrames(surveys, crosstab);
 
             // add totals row
-            DataRow totalsRow = crosstab.NewRow();
-            totalsRow[0] = "Total";
-            for (int c = 0; c < crosstab.Columns.Count ;  c++)
-                if (surveys.Contains(crosstab.Columns[c].ColumnName))
-                {
-                    int count = 0;
-                    foreach(DataRow r in crosstab.Rows)
-                    {
-                        if (!string.IsNullOrEmpty(r[c].ToString()))
-                            count++;
-                    }
-                    totalsRow[c] = count;
-                }
-
-            crosstab.Rows.InsertAt(totalsRow,0);
+            AddTotalRow(surveys.Select(x => x.SurveyCode).ToList(), crosstab);
+            
 
             return crosstab;
         }
+
+
 
         private DataTable GenerateWaveVarList()
         {
@@ -383,6 +350,102 @@ namespace SDIFrontEnd
             return crosstab;
         }
 
+        private void RemoveScreeners(DataTable table)
+        {
+            foreach (KeyValuePair<int, string> item in lstExclusions.SelectedItems)
+            {
+                Exclusions i = (Exclusions)Enum.ToObject(typeof(Exclusions), item.Key);
+                switch (i)
+                {
+                    case Exclusions.Screeners:
+
+                        for (int c = table.Columns.Count - 1; c >= 0; c--)
+                            if (table.Columns[c].ColumnName.Contains("-sc"))
+                                table.Columns.RemoveAt(c);
+                        break;
+                }
+            }
+        }
+
+        private void Edit0sAnd1s(List<string> surveys, DataTable table)
+        {
+            foreach (DataRow r in table.Rows)
+            {
+                foreach (DataColumn c in table.Columns)
+                {
+                    if (surveys.Contains(c.ColumnName))
+                    {
+                        if (r[c].Equals("0"))
+                            r[c] = string.Empty;
+                    }
+                }
+            }
+        }
+
+        private void AddQuestionTimeFrames(List<Survey> surveys, DataTable table)
+        {
+            List<SurveyQuestion> questions = new List<SurveyQuestion>();
+            List<QuestionTimeFrame> timeframes = new List<QuestionTimeFrame>();
+            Dictionary <string, string> combos = new Dictionary<string, string>();
+
+            foreach (Survey s in surveys)
+                questions.AddRange(DBAction.GetSurveyQuestions(s));
+
+            foreach (DataRow r in table.Rows)
+            {
+                StringBuilder varlabel = new StringBuilder();
+                string refvarname = (string)r["refVarName"];
+                combos.Clear();
+                // gather all the varlabel versions
+                foreach (Survey s in surveys)
+                {
+                    var question = questions.
+                                    Where(x => x.SurveyCode.Equals(s.SurveyCode) && x.GetRefVarName().Equals(refvarname)).
+                                    FirstOrDefault();
+                    if (question == null)
+                        continue;
+
+                    var tfs = question.TimeFrames;
+                    if (tfs.Count() == 0)
+                        combos.Add(s.SurveyCode, (string)r["VarLabel"]);
+                    else 
+                        combos.Add(s.SurveyCode, (string)r["VarLabel"] + " -- {" + string.Join(", ", tfs.Select(x=>x.TimeFrame)) + "}");
+                }
+                // group them by varlabel string
+                var groups = combos.GroupBy(x => x.Value).ToList();
+                // display each group along with the surveys that use that varlabel
+                foreach (var group in groups) 
+                {
+                    if (group.Count()!=combos.Count)
+                        varlabel.AppendLine("<strong>" + string.Join(", ", group.Select(x => x.Key)) + "</strong>:");
+
+                    varlabel.AppendLine(group.Key);
+                }
+
+                r["VarLabel"] = varlabel.ToString();
+            }
+        }
+
+        private void AddTotalRow(List<string> surveys, DataTable table)
+        {
+            DataRow totalsRow = table.NewRow();
+            totalsRow[0] = "Total";
+
+            for (int c = 0; c < table.Columns.Count; c++)
+                if (surveys.Contains(table.Columns[c].ColumnName))
+                {
+                    int count = 0;
+                    foreach (DataRow r in table.Rows)
+                    {
+                        if (!string.IsNullOrEmpty(r[c].ToString()))
+                            count++;
+                    }
+                    totalsRow[c] = count;
+                }
+
+            table.Rows.InsertAt(totalsRow, 0);
+        }
+
         private void UpdateWaveList()
         {
             // if study = all, get all waves
@@ -415,9 +478,7 @@ namespace SDIFrontEnd
 
         private void UpdateSurveyList()
         {
-            
-            lstSurvey.Items.Clear();
-            lstSurvey.Items.Add("<All>");
+            List<Survey> surveys = new List<Survey>() { new Survey() { SID = -1, SurveyCode = "<All>" } };
 
             // if wave <> all, get the selected wave surveys
             if (!lstStudyWave.GetSelected(0))
@@ -425,8 +486,8 @@ namespace SDIFrontEnd
                 foreach (string wave in lstStudyWave.SelectedItems)
                 {
                     var theWave = Globals.AllWaves.Where(x => x.WaveCode.Equals(wave)).FirstOrDefault();
-                    var theSurveys = theWave.Surveys.Select(x => x.SurveyCode).ToArray();
-                    lstSurvey.Items.AddRange(theSurveys);
+                    var theSurveys = theWave.Surveys.ToList();
+                    surveys.AddRange(theSurveys);
                 }
             }
             // if wave = all and study <> all then get surveys for those in the waves list
@@ -436,23 +497,20 @@ namespace SDIFrontEnd
                 {
                     var theWave = Globals.AllWaves.Where(x => x.WaveCode.Equals(wave)).FirstOrDefault();
                     if (theWave == null)
-                        continue; 
+                        continue;
 
-                    var theSurveys = theWave.Surveys.Select(x => x.SurveyCode).ToArray();
-                    lstSurvey.Items.AddRange(theSurveys);
+                    var theSurveys = theWave.Surveys.ToList();
+                    surveys.AddRange(theSurveys);
                 }
 
             }
             // if wave = all and study = all then get all surveys
             else if (lstStudyWave.GetSelected(0) && lstStudy.GetSelected(0))
             {
-                foreach (Survey survey in Globals.AllSurveys)
-                {
-                    lstSurvey.Items.Add(survey.SurveyCode);
-                }
+                surveys = new List<Survey>(Globals.AllSurveys);
             }
 
-            
+            lstSurvey.DataSource = surveys;
             lstSurvey.SetSelected(0, true);
             lstSurvey.Tag = true;
 
@@ -469,27 +527,27 @@ namespace SDIFrontEnd
             } else if (lstSurvey.GetSelected(0))
             {
                 // all surveys in box
-                List<string> surveys = GetSurveys();
-                cboVarNameBox.DataSource = DBAction.GetSurveyVarNames(surveys);
+                List<Survey> surveys = GetSurveys();
+                cboVarNameBox.DataSource = DBAction.GetSurveyVarNames(surveys.Select(x => x.SurveyCode).ToList());
             }
             else
             {
                 // selected surveys
-                List<string> surveys = GetSelectedSurveys();
-                cboVarNameBox.DataSource = DBAction.GetSurveyVarNames(surveys);
+                List<Survey> surveys = GetSelectedSurveys();
+                cboVarNameBox.DataSource = DBAction.GetSurveyVarNames(surveys.Select(x=>x.SurveyCode).ToList());
             }
             cboVarNameBox.SelectedItem = null;
         }
 
-        private List<string> GetSurveys()
+        private List<Survey> GetSurveys()
         {
-            List<string> surveys = new List<string>();
+            List<Survey> surveys = new List<Survey>();
 
             if (lstSurvey.GetSelected(0))
             {
-                foreach (string s in lstSurvey.Items)
+                foreach (Survey s in lstSurvey.Items)
                 {
-                    if (s.Equals("<All>"))
+                    if (s.SurveyCode.Equals("<All>"))
                         continue;
 
                     surveys.Add(s);
@@ -502,16 +560,16 @@ namespace SDIFrontEnd
             return surveys;
         }
 
-        private List<string> GetSelectedSurveys()
+        private List<Survey> GetSelectedSurveys()
         {
-            List<string> surveys = new List<string>();
+            List<Survey> surveys = new List<Survey>();
 
             for (int i = 0; i < lstSurvey.Items.Count; i++)
             {
-                if (lstSurvey.Items[i].Equals("<All>") || !lstSurvey.GetSelected(i))
+                if (((Survey)lstSurvey.Items[i]).SurveyCode.Equals("<All>") || !lstSurvey.GetSelected(i))
                     continue;
 
-                surveys.Add(lstSurvey.Items[i].ToString());
+                surveys.Add((Survey)lstSurvey.Items[i]);
             }
 
             return surveys;
@@ -653,10 +711,12 @@ namespace SDIFrontEnd
             lstStudyWave.SetSelected(0, true);
             lstStudyWave.Tag = true;
 
-            lstSurvey.Items.Add("<All>");
+            lstSurvey.DisplayMember = "SurveyCode";
+            lstSurvey.ValueMember = "SID";
+            lstSurvey.Items.Add(new Survey() { SID = -1, SurveyCode = "<All>" });
             foreach (Survey survey in Globals.AllSurveys)
             {
-                lstSurvey.Items.Add(survey.SurveyCode);
+                lstSurvey.Items.Add(survey);
             }
             lstSurvey.SetSelected(0, true);
             lstSurvey.Tag = true;

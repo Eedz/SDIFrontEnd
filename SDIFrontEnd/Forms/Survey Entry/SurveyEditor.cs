@@ -705,12 +705,13 @@ namespace SDIFrontEnd
 
             FM.FormManager.Remove(this);
         }
-
+        // TODO adderror handling
         private void cmdUnlock_Click(object sender, EventArgs e)
         {
             DBAction.UnlockSurvey(CurrentSurvey, 60);
             MessageBox.Show(CurrentSurvey.SurveyCode + " unlocked for 1 hour.");
             cmdUnlock.Enabled = false;
+            CurrentSurvey.Locked = false;
         }
 
         private void Label_Validated(object sender, EventArgs e)
