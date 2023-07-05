@@ -33,8 +33,8 @@ namespace SDIFrontEnd
         int QuestionTextColumn;
         int SurveysColumn;
 
-        public SurveyRecord TargetSurvey { get; set; }
-        public StudyWaveRecord TargetWave { get; set; }
+        public Survey TargetSurvey { get; set; }
+        public StudyWave TargetWave { get; set; }
         public Language TargetLanguage { get; set; }
         public List<Language> AvailableLanguages { get; set; }
         
@@ -55,8 +55,6 @@ namespace SDIFrontEnd
         BindingSource bsImported;
         BindingSource bsSuccess;
         BindingSource bsFailed;
-
-
 
         bool errorsExist;
         #endregion
@@ -88,7 +86,6 @@ namespace SDIFrontEnd
             optSingle.CheckedChanged += ImportType_CheckedChanged;
             optSingle.Checked = true;
             TypeOfImport = ImportType.Single;
-
             
             tabResults.TabPages.Remove(pageSuccess);
             tabResults.TabPages.Remove(pageFailed);
@@ -610,12 +607,11 @@ namespace SDIFrontEnd
             if (TargetSurvey == null)
                 return;
 
-            frmSurveyLanguages frm = new frmSurveyLanguages(TargetSurvey);
+            SurveyLanguages frm = new SurveyLanguages(TargetSurvey);
             frm.ShowDialog();
 
             GetLanguages(TargetSurvey);
         }
-
         
         /// <summary>
         /// Update or Create translation records as needed. Surveys are unlocked if needed and confirmed by the user.
@@ -638,15 +634,12 @@ namespace SDIFrontEnd
                         return;
                     }
 
-
                 if (MessageBox.Show("Do you want to overwrite the existing translations for " + TargetSurvey.SurveyCode + ": " + TargetLanguage.LanguageName, "Overwrite", MessageBoxButtons.YesNo) == DialogResult.No)
                     return;
-
-
             }
             else if (TypeOfImport == ImportType.Multi)
             {
-                TargetWave.Surveys = new BindingList<SurveyRecord>(DBAction.GetSurveys(TargetWave.ID));
+                TargetWave.Surveys = new List<Survey>(DBAction.GetSurveys(TargetWave.ID));
 
                 if (TargetWave.Surveys.Any(s => s.Locked))
                 {
@@ -662,8 +655,6 @@ namespace SDIFrontEnd
 
                     if (MessageBox.Show("Do you want to overwrite the existing " + TargetLanguage.LanguageName + " translations for any surveys found in the document?", "Overwrite", MessageBoxButtons.YesNo) == DialogResult.No)
                         return;
-                    
-
                 }
             }
 
@@ -673,8 +664,6 @@ namespace SDIFrontEnd
                 LockSurveys();
 
             ShowSavedResults();
-
-            
 
             // TODO add survey comment about imported survey
             // TODO add survey processing record for imported survey
@@ -697,7 +686,6 @@ namespace SDIFrontEnd
                 txtFileName.Text = fd.FileName;
 
                 CheckDocument(fd.FileName);
-
             }
             else
             {
@@ -729,22 +717,21 @@ namespace SDIFrontEnd
             {
                 if (TypeOfImport== ImportType.Single)
                 {
-                    TargetSurvey = (SurveyRecord)cboSurvey.SelectedItem;
-                    SurveyRecord selectedSurvey = (SurveyRecord)cboSurvey.SelectedItem;
+                    TargetSurvey = (Survey)cboSurvey.SelectedItem;
+                    Survey selectedSurvey = (Survey)cboSurvey.SelectedItem;
                     GetLanguages(selectedSurvey);
                     cmdAddLanguage.Enabled = true;
                 }
                 else if (TypeOfImport == ImportType.Multi)
                 {
-                    TargetWave = (StudyWaveRecord)cboSurvey.SelectedItem;
-                    StudyWaveRecord selectedWave = (StudyWaveRecord)cboSurvey.SelectedItem;
+                    TargetWave = (StudyWave)cboSurvey.SelectedItem;
+                    StudyWave selectedWave = (StudyWave)cboSurvey.SelectedItem;
                     GetLanguages(selectedWave);
                     cmdAddLanguage.Enabled = false;
                 }
             }
 
             cmdBrowse.Enabled = TargetLanguage != null;
-            
         }
 
         /// <summary>
@@ -776,7 +763,7 @@ namespace SDIFrontEnd
             {
                 TypeOfImport = ImportType.Single;
                 lblSurveyWave.Text = "Survey";
-                cboSurvey.DataSource = new List<SurveyRecord>(Globals.AllSurveys);
+                cboSurvey.DataSource = new List<Survey>(Globals.AllSurveys);
                 cboSurvey.DisplayMember = "SurveyCode";
                 cboSurvey.ValueMember = "SID";
              
@@ -786,7 +773,7 @@ namespace SDIFrontEnd
             {
                 TypeOfImport = ImportType.Multi;
                 lblSurveyWave.Text = "Wave";
-                cboSurvey.DataSource = new List<StudyWaveRecord>(Globals.AllWaves);
+                cboSurvey.DataSource = new List<StudyWave>(Globals.AllWaves);
                 cboSurvey.DisplayMember = "WaveCode";
                 cboSurvey.ValueMember = "WaveCode";
                
@@ -900,8 +887,6 @@ namespace SDIFrontEnd
         }
         #endregion
 
-
-
         /// <summary>
         /// Returns true if the minimum required fields have been entered.
         /// </summary>
@@ -931,8 +916,6 @@ namespace SDIFrontEnd
                 MessageBox.Show("Choose a file to import.");
                 return false;
             }
-
-
 
             return true;
         }
@@ -1004,8 +987,6 @@ namespace SDIFrontEnd
 
             }
 
-
-
             if (empties.Count == 0)
             {
                 pageEmpties.Hide();
@@ -1042,8 +1023,6 @@ namespace SDIFrontEnd
             Expanded = true;
             ExpandForm();
 
-            
-
             //pageSuccess.Hide();
             //pageFailed.Hide();
         }
@@ -1079,9 +1058,7 @@ namespace SDIFrontEnd
             bsFailed.Position = 1;
             bsFailed.Position = 0;
 
-
             MessageBox.Show("Translations Saved: " + success.Count + "\r\n" + "Translations failed to save: " + failed.Count);
-
         }
 
         /// <summary>
@@ -1092,15 +1069,12 @@ namespace SDIFrontEnd
             if (!Expanded)
             {
                 resultsPanel.Width = 10;
-                this.Width = 475  + 10;
-
-               
+                this.Width = 550  + 10;
             }
             else
             {
                 resultsPanel.Width = 430 +  10;
                 this.Width = 910;
-               
             }
 
             //Expanded = !Expanded;
@@ -1120,7 +1094,6 @@ namespace SDIFrontEnd
                     DBAction.UnlockSurvey(s, 5 * 60000);
                 }
             }
-
         }
 
         /// <summary>
@@ -1137,7 +1110,6 @@ namespace SDIFrontEnd
                     DBAction.LockSurvey(s);
                 }
             }
-
         }
 
         /// <summary>
@@ -1147,7 +1119,7 @@ namespace SDIFrontEnd
         {
             if (duplicates.Count > 0)
             {
-                MessageBox.Show(duplicates.Count + " rows with duplicate VarNames were found. These could now be imported.");
+                MessageBox.Show(duplicates.Count + " rows with duplicate VarNames were found. These could not be imported.");
                 ImportedDuplicates duplicatesForm = new ImportedDuplicates(duplicates);
                 duplicatesForm.Left = this.Left + this.Width;
                 duplicatesForm.Visible = true;
@@ -1161,12 +1133,10 @@ namespace SDIFrontEnd
         {
             if (empties.Count > 0)
             {
-
                 MessageBox.Show(empties.Count + " rows with no VarName were found. These could not be imported.");
                 ImportedEmpties emptiesForm = new ImportedEmpties(empties);
                 emptiesForm.Visible = true;
             }
-
         }
 
         /// <summary>
@@ -1258,11 +1228,8 @@ namespace SDIFrontEnd
         /// Get a list of laguages used by the specified wave. English not included.
         /// </summary>
         /// <param name="selectedWave"></param>
-        private void GetLanguages(StudyWaveRecord selectedWave)
+        private void GetLanguages(StudyWave selectedWave)
         {
-            //List<string> languages = DBAction.GetLanguages(selectedSurvey);
-            //languages.Remove("English");
-
             List<Language> langs = DBAction.ListLanguages(selectedWave);
             langs.RemoveAll(x => x.LanguageName.Equals("English"));
             

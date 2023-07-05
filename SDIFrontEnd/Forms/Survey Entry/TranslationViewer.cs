@@ -28,7 +28,9 @@ namespace SDIFrontEnd
             plainTranslation = new TextBox();
 
             ParentSurvey = survey;
-            Translations = new List<TranslationRecord>(question.Translations);
+            Translations = new List<TranslationRecord>();
+            foreach (Translation t in question.Item.Translations)
+                Translations.Add(new TranslationRecord(t));
 
             if (Translations.Count == 0)
             {
@@ -41,7 +43,7 @@ namespace SDIFrontEnd
             bs.ListChanged += Bs_ListChanged;
             bs.PositionChanged += Bs_PositionChanged;
             navTranslations.BindingSource = bs;
-            MainQuestion = question;
+            MainQuestion = question.Item;
 
             txtSurvey.DataBindings.Add(new Binding("Text", bs, "Survey"));
             txtVarName.DataBindings.Add(new Binding("Text", bs, "VarName"));
@@ -149,8 +151,12 @@ namespace SDIFrontEnd
         public void UpdateForm(Survey survey, QuestionRecord question, SurveyLanguage language = null)
         {
             ParentSurvey = survey;
-            MainQuestion = question;
-            Translations = question.Translations;
+            MainQuestion = question.Item;
+
+            Translations.Clear();
+            foreach (Translation t in question.Item.Translations)
+                Translations.Add(new TranslationRecord(t));
+
             extraRichTextBox1.Rtf = null;
 
             if (Translations.Count() == 0 || ParentSurvey.Locked)

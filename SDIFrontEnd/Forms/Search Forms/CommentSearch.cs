@@ -69,7 +69,7 @@ namespace SDIFrontEnd
 
             tabResults.TabPages.Remove(pageDrafts);
 
-            cboSurvey.DataSource = new List<SurveyRecord>(Globals.AllSurveys);
+            cboSurvey.DataSource = new List<Survey>(Globals.AllSurveys);
             cboSurvey.DisplayMember = "SurveyCode";
             cboSurvey.ValueMember = "SID";
 
@@ -194,7 +194,7 @@ namespace SDIFrontEnd
             string commentFilter = "";
 
             if (cboSurvey.SelectedItem != null)
-                waveFilter = (Globals.AllWaves.Where(x=>x.ID  == ((SurveyRecord)cboSurvey.SelectedItem).WaveID).FirstOrDefault()).WaveCode;
+                waveFilter = (Globals.AllWaves.Where(x=>x.ID  == ((Survey)cboSurvey.SelectedItem).WaveID).FirstOrDefault()).WaveCode;
 
             if (dtpLower.Checked)
                 dateLowerFilter = dtpLower.Value;

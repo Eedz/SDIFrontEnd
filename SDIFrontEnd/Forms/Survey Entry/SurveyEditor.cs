@@ -13,19 +13,20 @@ using FM = FormManager;
 
 namespace SDIFrontEnd
 {
+    // keep a reference to the survey record
+    // keep a list of question records
     public partial class SurveyEditor : Form
     {  
         // TODO delete documentation
         
         // TODO corrected form (on hold)
 
-
-        // TODO search wordings
-
-        public SurveyRecord CurrentSurvey { get; set; }       // current survey record
+        public Survey CurrentSurvey { get; set; }       // current survey record
+        public List<QuestionRecord> Records { get; set; }       // list of question records
         public QuestionRecord CurrentRecord { get; set; }     // currently displayed question record 
         
         BindingSource bs;
+        BindingSource bsCurrent;
         
         // reference to dragged item in Question List
         private ListViewItem dragItem = null;
@@ -65,23 +66,17 @@ namespace SDIFrontEnd
                 return;
             }
 
+            Records = new List<QuestionRecord>();
+
             PendingChanges = new List<ModifiedQuestion>();
             PendingDeletes = new List<QuestionRecord>();
             PendingAdds = new List<QuestionRecord>();
 
             AddMouseWheelEvents();
-            
-            // binding source for the "question records"
-            bs = new BindingSource
-            {
-                DataSource = CurrentSurvey.Questions
-            };
-            bs.PositionChanged += Bs_PositionChanged;
-            bs.ListChanged += SurveyEditor_ListChanged;
-            
-            navQuestions.BindingSource = bs;
 
-            CurrentRecord = (QuestionRecord)bs.Current;
+            SetupBindingSources();
+
+            
 
             FillBoxes();
             BindProperties();
@@ -94,6 +89,8 @@ namespace SDIFrontEnd
             Globals.RefreshTopics += SurveyEditor_RefreshTopics;
             Globals.RefreshContents += SurveyEditor_RefreshContents;
             Globals.RefreshProducts += SurveyEditor_RefreshProducts;
+
+            CurrentRecord = (QuestionRecord)bs.Current;
         }
 
         public SurveyEditor(string surveyCode, string varname)
@@ -109,23 +106,17 @@ namespace SDIFrontEnd
                 return;
             }
 
+            Records = new List<QuestionRecord>();
+
             PendingChanges = new List<ModifiedQuestion>();
             PendingDeletes = new List<QuestionRecord>();
             PendingAdds = new List<QuestionRecord>();
 
             AddMouseWheelEvents();
 
-            // binding source for the "question records"
-            bs = new BindingSource
-            {
-                DataSource = CurrentSurvey.Questions
-            };
-            bs.PositionChanged += Bs_PositionChanged;
-            bs.ListChanged += SurveyEditor_ListChanged;
+            SetupBindingSources();
 
-            navQuestions.BindingSource = bs;
-
-            CurrentRecord = (QuestionRecord)bs.Current;
+            
 
             FillBoxes();
             BindProperties();
@@ -135,10 +126,37 @@ namespace SDIFrontEnd
             LockForm();
             UpdateStatus();
 
+            Globals.RefreshDomains += SurveyEditor_RefreshDomains;
+            Globals.RefreshTopics += SurveyEditor_RefreshTopics;
+            Globals.RefreshContents += SurveyEditor_RefreshContents;
+            Globals.RefreshProducts += SurveyEditor_RefreshProducts;
+
             GoToQuestion(varname);
+
+            CurrentRecord = (QuestionRecord)bs.Current;
         }
 
         #region Form Setup
+
+        private void SetupBindingSources()
+        {
+            // binding source for the "question records"
+            bs = new BindingSource
+            {
+                DataSource = Records
+            };
+            bs.PositionChanged += Bs_PositionChanged;
+
+            bsCurrent = new BindingSource()
+            {
+                DataSource = bs
+            };
+            bsCurrent.DataMember = "Item";
+
+            bsCurrent.ListChanged += SurveyEditor_ListChanged;
+
+            navQuestions.BindingSource = bs;
+        }
 
         /// <summary>
         /// Load questions, translations, comments and filters into the survey matching surveyCode.
@@ -148,11 +166,13 @@ namespace SDIFrontEnd
         {
             CurrentSurvey = Globals.AllSurveys.Where(x => x.SurveyCode.Equals(surveyCode)).FirstOrDefault();
 
-            CurrentSurvey.Questions = DBAction.GetCompleteSurvey(CurrentSurvey);
+            Records = new List<QuestionRecord>();
+            foreach (SurveyQuestion sq in DBAction.GetCompleteSurvey(CurrentSurvey))
+                Records.Add(new QuestionRecord(sq));
             
-            foreach (SurveyQuestion q in CurrentSurvey.Questions)
+            foreach (QuestionRecord q in Records)
             {
-                q.Filters = string.Join("\r\n", q.GetFilterVars());
+                q.Item.Filters = string.Join("\r\n", q.Item.GetFilterVars());
             }
         }
 
@@ -162,28 +182,28 @@ namespace SDIFrontEnd
         private void BindProperties()
         {
             // varname and qnum
-            txtVarName.DataBindings.Add(new Binding("Text", bs, "VarName.VarName"));
-            txtQnum.DataBindings.Add(new Binding("Text", bs, "Qnum"));
-            txtAltQnum.DataBindings.Add(new Binding("Text", bs, "AltQnum"));
-            txtAltQnum2.DataBindings.Add(new Binding("Text", bs, "AltQnum2"));
-            txtAltQnum3.DataBindings.Add(new Binding("Text", bs, "AltQnum3"));
+            txtVarName.DataBindings.Add(new Binding("Text", bsCurrent, "VarName.VarName"));
+            txtQnum.DataBindings.Add(new Binding("Text", bsCurrent, "Qnum"));
+            txtAltQnum.DataBindings.Add(new Binding("Text", bsCurrent, "AltQnum"));
+            txtAltQnum2.DataBindings.Add(new Binding("Text", bsCurrent, "AltQnum2"));
+            txtAltQnum3.DataBindings.Add(new Binding("Text", bsCurrent, "AltQnum3"));
 
             // wordings
-            txtPreP.DataBindings.Add(new Binding("Text", bs, "PrePNum"));
-            txtPreI.DataBindings.Add(new Binding("Text", bs, "PreINum"));
-            txtPreA.DataBindings.Add(new Binding("Text", bs, "PreANum"));
-            txtLitQ.DataBindings.Add(new Binding("Text", bs, "LitQNum"));
-            txtPstI.DataBindings.Add(new Binding("Text", bs, "PstINum"));
-            txtPstP.DataBindings.Add(new Binding("Text", bs, "PstPNum"));
-            txtRO.DataBindings.Add(new Binding("Text", bs, "RespName"));
-            txtNR.DataBindings.Add(new Binding("Text", bs, "NRName"));
+            txtPreP.DataBindings.Add(new Binding("Text", bsCurrent, "PrePNum"));
+            txtPreI.DataBindings.Add(new Binding("Text", bsCurrent, "PreINum"));
+            txtPreA.DataBindings.Add(new Binding("Text", bsCurrent, "PreANum"));
+            txtLitQ.DataBindings.Add(new Binding("Text", bsCurrent, "LitQNum"));
+            txtPstI.DataBindings.Add(new Binding("Text", bsCurrent, "PstINum"));
+            txtPstP.DataBindings.Add(new Binding("Text", bsCurrent, "PstPNum"));
+            txtRO.DataBindings.Add(new Binding("Text", bsCurrent, "RespName"));
+            txtNR.DataBindings.Add(new Binding("Text", bsCurrent, "NRName"));
 
             // labels
-            txtVarLabel.DataBindings.Add(new Binding("Text", bs, "VarName.VarLabel"));
-            cboDomainLabel.DataBindings.Add("SelectedValue", bs, "VarName.Domain.ID");
-            cboTopicLabel.DataBindings.Add("SelectedValue", bs, "VarName.Topic.ID");
-            cboContentLabel.DataBindings.Add("SelectedValue", bs, "VarName.Content.ID");
-            cboProductLabel.DataBindings.Add("SelectedValue", bs, "VarName.Product.ID");
+            txtVarLabel.DataBindings.Add(new Binding("Text", bsCurrent, "VarName.VarLabel"));
+            cboDomainLabel.DataBindings.Add("SelectedValue", bsCurrent, "VarName.Domain.ID");
+            cboTopicLabel.DataBindings.Add("SelectedValue", bsCurrent, "VarName.Topic.ID");
+            cboContentLabel.DataBindings.Add("SelectedValue", bsCurrent, "VarName.Content.ID");
+            cboProductLabel.DataBindings.Add("SelectedValue", bsCurrent, "VarName.Product.ID");
         }
 
         /// <summary>
@@ -197,7 +217,7 @@ namespace SDIFrontEnd
             toolStripLanguage.ComboBox.ValueMember = "SurvLanguage";
 
             // top portion
-            cboSurvey.DataSource = new List<SurveyRecord>(Globals.AllSurveys);
+            cboSurvey.DataSource = new List<Survey>(Globals.AllSurveys);
             cboSurvey.DisplayMember = "SurveyCode";
             cboSurvey.ValueMember = "SID";
             cboSurvey.SelectedValue = CurrentSurvey.SID;
@@ -225,7 +245,6 @@ namespace SDIFrontEnd
         /// </summary>
         private void LockForm()
         {
-
             if (txtPreP.DataBindings["ReadOnly"] != null)
                 txtPreP.DataBindings.Remove(txtPreP.DataBindings["ReadOnly"]);
 
@@ -272,17 +291,17 @@ namespace SDIFrontEnd
             lstQuestionList.Items.Clear();
             lstQuestionList.View = View.Details;
 
-            foreach (QuestionRecord qr in CurrentSurvey.Questions)
+            foreach (QuestionRecord qr in Records)
             {
                 string corr;
-                if (qr.CorrectedFlag)
+                if (qr.Item.CorrectedFlag)
                     corr = "Yes";
                 else
                     corr = "No";
 
-                QuestionType type = Utilities.GetQuestionType(qr);
+                QuestionType type = Utilities.GetQuestionType(qr.Item);
                 ListViewItem li = new ListViewItem(
-                    new string[] { qr.Qnum, qr.Qnum, qr.AltQnum, qr.VarName.VarName, qr.VarName.VarLabel, qr.RespName, corr, ((int)type).ToString() });
+                    new string[] { qr.Item.Qnum, qr.Item.Qnum, qr.Item.AltQnum, qr.Item.VarName.VarName, qr.Item.VarName.VarLabel, qr.Item.RespName, corr, ((int)type).ToString() });
                 li.Tag = qr;
                 lstQuestionList.Items.Add(li);
 
@@ -385,7 +404,7 @@ namespace SDIFrontEnd
             AssignLabels frm = (AssignLabels)FM.FormManager.GetForm("AssignLabels");
             if(frm == null)
             {
-                frm = new AssignLabels(CurrentRecord.VarName.RefVarName);
+                frm = new AssignLabels(CurrentRecord.Item.VarName.RefVarName);
             }
             frm.Show();
         }
@@ -395,7 +414,7 @@ namespace SDIFrontEnd
             HarmonyReportForm frm = (HarmonyReportForm)FM.FormManager.GetForm("HarmonyReport");
             if (frm == null)
             {
-                frm = new HarmonyReportForm(CurrentRecord.VarName);
+                frm = new HarmonyReportForm(CurrentRecord.Item.VarName);
             }
             frm.Show();
         }
@@ -415,7 +434,7 @@ namespace SDIFrontEnd
             VarNameUsage frm = (VarNameUsage)FM.FormManager.GetForm("VarNameUsage");
             if (frm == null)
             { 
-                frm = new VarNameUsage(CurrentRecord.VarName.VarName.Substring(0,3));
+                frm = new VarNameUsage(CurrentRecord.Item.VarName.VarName.Substring(0,3));
             }
             frm.Show();
         }
@@ -425,7 +444,7 @@ namespace SDIFrontEnd
             RenameVars frm = (RenameVars)FM.FormManager.GetForm("RenameVars");
             if (frm == null)
             {
-                frm = new RenameVars(CurrentRecord.VarName);
+                frm = new RenameVars(CurrentRecord.Item.VarName);
             }
             frm.Show();
         }
@@ -479,57 +498,64 @@ namespace SDIFrontEnd
         {
             if (e.PropertyDescriptor == null) return;
 
-            int index = e.NewIndex; // index of the changed item
+            // get the question record that was modified
+            SurveyQuestion modifiedQuestion = (SurveyQuestion)bsCurrent[e.NewIndex];
+            QuestionRecord modifiedRecord = Records.Where(x => x.Item == modifiedQuestion).FirstOrDefault();
+
+            int index = bs.IndexOf(modifiedRecord);
+
+            if (modifiedRecord == null)
+                return;
 
             switch (e.PropertyDescriptor.Name)
             {
                 case "PrePNum":
-                    CurrentRecord.PreP = DBAction.GetWordingText("PreP", CurrentRecord.PrePNum);
-                    ((QuestionRecord)bs[index]).Dirty = true;
+                    CurrentRecord.Item.PreP = DBAction.GetWordingText("PreP", CurrentRecord.Item.PrePNum);
+                    modifiedRecord.Dirty = true;
                     break;
                 case "PreINum":
-                    CurrentRecord.PreI = DBAction.GetWordingText("PreI", CurrentRecord.PreINum);
-                    ((QuestionRecord)bs[index]).Dirty = true;
+                    CurrentRecord.Item.PreI = DBAction.GetWordingText("PreI", CurrentRecord.Item.PreINum);
+                    modifiedRecord.Dirty = true;
                     break;
                 case "PreANum":
-                    CurrentRecord.PreA = DBAction.GetWordingText("PreA", CurrentRecord.PreANum);
-                    ((QuestionRecord)bs[index]).Dirty = true;
+                    CurrentRecord.Item.PreA = DBAction.GetWordingText("PreA", CurrentRecord.Item.PreANum);
+                    modifiedRecord.Dirty = true;
                     break;
                 case "LitQNum":
-                    CurrentRecord.LitQ = DBAction.GetWordingText("LitQ", CurrentRecord.LitQNum);
-                    ((QuestionRecord)bs[index]).Dirty = true;
+                    CurrentRecord.Item.LitQ = DBAction.GetWordingText("LitQ", CurrentRecord.Item.LitQNum);
+                    //((QuestionRecord)bs[index]).Dirty = true;
+                    modifiedRecord.Dirty = true;
                     break;
                 case "PstINum":
-                    CurrentRecord.PstI = DBAction.GetWordingText("PstI", CurrentRecord.PstINum);
-                    ((QuestionRecord)bs[index]).Dirty = true;
+                    CurrentRecord.Item.PstI = DBAction.GetWordingText("PstI", CurrentRecord.Item.PstINum);
+                    modifiedRecord.Dirty = true;
                     break;
                 case "PstPNum":
-                    CurrentRecord.PstP = DBAction.GetWordingText("PstP", CurrentRecord.PstPNum);
-                    ((QuestionRecord)bs[index]).Dirty = true;
+                    CurrentRecord.Item.PstP = DBAction.GetWordingText("PstP", CurrentRecord.Item.PstPNum);
+                    modifiedRecord.Dirty = true;
                     break;
                 case "RespName":
-                    CurrentRecord.RespOptions = DBAction.GetResponseText(CurrentRecord.RespName);
-                    ((QuestionRecord)bs[index]).Dirty = true;
+                    CurrentRecord.Item.RespOptions = DBAction.GetResponseText(CurrentRecord.Item.RespName);
+                    modifiedRecord.Dirty = true;
                     break;
                 case "NRName":
-                    CurrentRecord.NRCodes = DBAction.GetNonResponseText(CurrentRecord.NRName);
-                    ((QuestionRecord)bs[index]).Dirty = true;
+                    CurrentRecord.Item.NRCodes = DBAction.GetNonResponseText(CurrentRecord.Item.NRName);
+                    modifiedRecord.Dirty = true;
                     break;
                 case "Qnum":
-                    ((QuestionRecord)bs[index]).DirtyQnum = true;
-                    CurrentSurvey.NeedsRenumber = true;
+                    modifiedRecord.DirtyQnum = true;
                     ShadeListItem(index, Color.Orange);
                     UpdateStatus();
                     return;
                 case "AltQnum":
                 case "AltQnum2":
                 case "AltQnum3":
-                    ((QuestionRecord)bs[index]).DirtyAltQnum = true;
+                    modifiedRecord.DirtyAltQnum = true;
                     ShadeListItem(index, Color.Orange);
                     UpdateStatus();
                     return;
                 case "FilterDescription":
-                    ((QuestionRecord)bs[index]).DirtyPlainFilter = true;
+                    modifiedRecord.DirtyPlainFilter = true;
                     break;
                 default:
                     return;
@@ -558,13 +584,13 @@ namespace SDIFrontEnd
             bs.ResetBindings(false);
 
             dgvTimeFrames.Rows.Clear();
-            dgvTimeFrames.RowCount = CurrentRecord.TimeFrames.Count + 1;
+            dgvTimeFrames.RowCount = CurrentRecord.Item.TimeFrames.Count + 1;
 
             if (frmRelated != null && !frmRelated.IsDisposed)
                 frmRelated.UpdateForm(CurrentRecord);
 
             if (frmComments != null && !frmComments.IsDisposed)
-                frmComments.UpdateForm(CurrentRecord);
+                frmComments.UpdateForm(CurrentRecord.Item);
 
             if (frmTranslations != null && !frmTranslations.IsDisposed)
             {
@@ -580,7 +606,7 @@ namespace SDIFrontEnd
             // select and ensure that the current item is visible
             for (int i = 0; i < lstQuestionList.Items.Count; i++)
             {
-                if (lstQuestionList.Items[i].SubItems[3].Text.Equals(CurrentRecord.VarName.VarName))
+                if (lstQuestionList.Items[i].SubItems[3].Text.Equals(CurrentRecord.Item.VarName.VarName))
                 {
                     lstQuestionList.Items[i].Selected = true;
                     lstQuestionList.Items[i].EnsureVisible();
@@ -598,7 +624,7 @@ namespace SDIFrontEnd
             if (cboSurvey.SelectedItem == null)
                 return;
 
-            if (CurrentSurvey.Questions.Any(x => x.Dirty))
+            if (Records.Any(x => x.IsEdited()))
             {
                 if (MessageBox.Show("This survey has unsaved changes. Save before changing surveys?", "Confirm.", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     SaveChanges();
@@ -624,7 +650,6 @@ namespace SDIFrontEnd
             }
             SaveChanges();
             FillList();
-            CurrentSurvey.NeedsRenumber = NeedsRenumber();
             UpdateStatus();
             lstQuestionList.Items[bs.Position].EnsureVisible();
         }
@@ -675,7 +700,7 @@ namespace SDIFrontEnd
         /// <param name="e"></param>
         private void SurveyEditor_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (CurrentSurvey.Questions.Any(x => x.Dirty))
+            if (Records.Any(x => x.IsEdited()))
             {
                 if (MessageBox.Show("This survey has unsaved changes. Are you sure you want to close this survey and lose those changes?", "Confirm close.", MessageBoxButtons.YesNo) == DialogResult.No)
                     e.Cancel = true;
@@ -688,8 +713,7 @@ namespace SDIFrontEnd
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void SurveyEditor_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            
+        {  
             FormStateRecord state = new FormStateRecord();
             state.FormName = "frmSurveyEntry";
             state.FormNum = (int)Tag;
@@ -697,7 +721,7 @@ namespace SDIFrontEnd
             state.RecordPosition = bs.Position;
             Globals.UpdateUserFormState(state);
 
-            CurrentSurvey.Questions.Clear();
+            Records.Clear();
 
             ClosePopups();
 
@@ -767,7 +791,7 @@ namespace SDIFrontEnd
             // If this is the row for new records, no values are needed.
             if (e.RowIndex == dgv.RowCount - 1) return;
             // If the current record has no TimeFrames, no values are needed.
-            if (CurrentRecord.TimeFrames.Count == 0) return;
+            if (CurrentRecord.Item.TimeFrames.Count == 0) return;
 
             QuestionTimeFrame tmp = null;
 
@@ -778,7 +802,7 @@ namespace SDIFrontEnd
             }
             else
             {
-                tmp = CurrentRecord.TimeFrames[e.RowIndex];
+                tmp = CurrentRecord.Item.TimeFrames[e.RowIndex];
             }
 
             if (tmp == null) return;
@@ -798,15 +822,15 @@ namespace SDIFrontEnd
 
             QuestionTimeFrame tmp = null;
             // Store a reference to the QuestionTimeFrame object for the row being edited.
-            if (e.RowIndex < CurrentRecord.TimeFrames.Count)
+            if (e.RowIndex < CurrentRecord.Item.TimeFrames.Count)
             {
                 // If the user is editing a new row, create a new QuestionTimeFrame object.
                 if (editedTimeFrame == null)
                     editedTimeFrame = new QuestionTimeFrame()
                     {
-                        ID = CurrentRecord.TimeFrames[e.RowIndex].ID,
-                        QID = CurrentRecord.TimeFrames[e.RowIndex].QID,
-                        TimeFrame = CurrentRecord.TimeFrames[e.RowIndex].TimeFrame
+                        ID = CurrentRecord.Item.TimeFrames[e.RowIndex].ID,
+                        QID = CurrentRecord.Item.TimeFrames[e.RowIndex].QID,
+                        TimeFrame = CurrentRecord.Item.TimeFrames[e.RowIndex].TimeFrame
                     };
 
                 tmp = this.editedTimeFrame;
@@ -823,7 +847,7 @@ namespace SDIFrontEnd
                 case "chTimeFrame":
                     QuestionTimeFrame newValue = new QuestionTimeFrame();
                     tmp.ID = newValue.ID;
-                    tmp.QID = CurrentRecord.ID;
+                    tmp.QID = CurrentRecord.Item.ID;
                     tmp.TimeFrame = (string)e.Value;
                     break;
 
@@ -836,16 +860,16 @@ namespace SDIFrontEnd
 
             // Save row changes if any were made and release the edited
             // QuestionTimeFrame object if there is one.
-            if (editedTimeFrame != null && e.RowIndex >= CurrentRecord.TimeFrames.Count && e.RowIndex != dgv.Rows.Count - 1)
+            if (editedTimeFrame != null && e.RowIndex >= CurrentRecord.Item.TimeFrames.Count && e.RowIndex != dgv.Rows.Count - 1)
             {
                 // Add the new QuestionTimeFrame object to the data store.
-                CurrentRecord.TimeFrames.Add(editedTimeFrame);
+                CurrentRecord.Item.TimeFrames.Add(editedTimeFrame);
                 CurrentRecord.AddTimeFrames.Add(editedTimeFrame);
                 UpdateStatus();
                 editedTimeFrame = null;
                 timeFrameRow = -1;
             }
-            else if (editedTimeFrame != null && e.RowIndex < CurrentRecord.TimeFrames.Count)
+            else if (editedTimeFrame != null && e.RowIndex < CurrentRecord.Item.TimeFrames.Count)
             {
                 // ignore edits to time frames
                 editedTimeFrame = null;
@@ -872,7 +896,7 @@ namespace SDIFrontEnd
         {
             DataGridView dgv = (DataGridView)sender;
 
-            if (timeFrameRow == dgv.Rows.Count - 2 && timeFrameRow == CurrentRecord.TimeFrames.Count)
+            if (timeFrameRow == dgv.Rows.Count - 2 && timeFrameRow == CurrentRecord.Item.TimeFrames.Count)
             {
                 // If the user has canceled the edit of a newly created row,
                 // replace the corresponding QuestionTimeFrame object with a new, empty one.
@@ -888,14 +912,14 @@ namespace SDIFrontEnd
 
         private void dgvTimeFrames_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
-            if (e.Row.Index < this.CurrentRecord.TimeFrames.Count)
+            if (e.Row.Index < this.CurrentRecord.Item.TimeFrames.Count)
             {
                 if (MessageBox.Show("Are you sure you want to delete this time frame?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    QuestionTimeFrame record = CurrentRecord.TimeFrames[e.Row.Index];
+                    QuestionTimeFrame record = CurrentRecord.Item.TimeFrames[e.Row.Index];
                     // If the user has deleted an existing row, remove the
                     // corresponding QuestionTimeFrame object from the data store.
-                    this.CurrentRecord.TimeFrames.RemoveAt(e.Row.Index);
+                    this.CurrentRecord.Item.TimeFrames.RemoveAt(e.Row.Index);
                     CurrentRecord.DeleteTimeFrames.Add(record);
                     UpdateStatus();
                 }
@@ -923,32 +947,32 @@ namespace SDIFrontEnd
         #region Wording Buttons
         private void cmdOpenPreP_Click(object sender, EventArgs e)
         {
-            OpenWordingForm("PreP", CurrentRecord.PrePNum, CurrentRecord.PreP);
+            OpenWordingForm("PreP", CurrentRecord.Item.PrePNum, CurrentRecord.Item.PreP);
         }
 
         private void cmdOpenPreI_Click(object sender, EventArgs e)
         {
-            OpenWordingForm("PreI", CurrentRecord.PreINum, CurrentRecord.PreI);
+            OpenWordingForm("PreI", CurrentRecord.Item.PreINum, CurrentRecord.Item.PreI);
         }
 
         private void cmdOpenPreA_Click(object sender, EventArgs e)
         {
-            OpenWordingForm("PreA", CurrentRecord.PreANum, CurrentRecord.PreA);
+            OpenWordingForm("PreA", CurrentRecord.Item.PreANum, CurrentRecord.Item.PreA);
         }
 
         private void cmdOpenLitQ_Click(object sender, EventArgs e)
         {
-            OpenWordingForm("LitQ", CurrentRecord.LitQNum, CurrentRecord.LitQ);
+            OpenWordingForm("LitQ", CurrentRecord.Item.LitQNum, CurrentRecord.Item.LitQ);
         }
 
         private void cmdOpenPstI_Click(object sender, EventArgs e)
         {
-            OpenWordingForm("PstI", CurrentRecord.PstINum, CurrentRecord.PstI);
+            OpenWordingForm("PstI", CurrentRecord.Item.PstINum, CurrentRecord.Item.PstI);
         }
 
         private void cmdOpenPstP_Click(object sender, EventArgs e)
         {
-            OpenWordingForm("PstP", CurrentRecord.PstPNum, CurrentRecord.PstP);
+            OpenWordingForm("PstP", CurrentRecord.Item.PstPNum, CurrentRecord.Item.PstP);
         }
 
         private void cmdOpenResp_Click(object sender, EventArgs e)
@@ -956,8 +980,8 @@ namespace SDIFrontEnd
             ResponseSet toBeEdited = new ResponseSet()
             {
                 FieldName = "RespOptions",
-                RespSetName = CurrentRecord.RespName,
-                RespList = CurrentRecord.RespOptions
+                RespSetName = CurrentRecord.Item.RespName,
+                RespList = CurrentRecord.Item.RespOptions
             };
 
             ResponseOptionUsage frm = new ResponseOptionUsage(toBeEdited);
@@ -979,8 +1003,8 @@ namespace SDIFrontEnd
             ResponseSet toBeEdited = new ResponseSet()
             {
                 FieldName = "NRCodes",
-                RespSetName = CurrentRecord.NRName,
-                RespList = CurrentRecord.NRCodes
+                RespSetName = CurrentRecord.Item.NRName,
+                RespList = CurrentRecord.Item.NRCodes
             };
 
             ResponseOptionUsage frm = new ResponseOptionUsage(toBeEdited);
@@ -1012,14 +1036,14 @@ namespace SDIFrontEnd
             // ensure the currently displayed item in the survey filter is the chosen survey
             SetSurvey();
 
-            bs.DataSource = CurrentSurvey.Questions;
+            bs.DataSource = Records;
 
             CurrentRecord = (QuestionRecord)bs.Current;
             
             // go to box
             cboGoToVar.ValueMember = "refVarName";
-            cboGoToVar.DataSource = CurrentSurvey.Questions.Select(x => x.VarName).OrderBy(x=>x.RefVarName).ToList<VariableName>();
             cboGoToVar.DisplayMember = "refVarName";
+            cboGoToVar.DataSource = Records.Select(x => x.Item.VarName).OrderBy(x => x.RefVarName).ToList<VariableName>();
             cboGoToVar.SelectedValue = "";
 
             toolStripLanguage.ComboBox.DataSource = RefreshLanguages();
@@ -1059,13 +1083,13 @@ namespace SDIFrontEnd
             if (CurrentRecord == null)
                 return;
 
-            string rich = CurrentRecord.GetQuestionTextRich(true);
+            string rich = CurrentRecord.Item.GetQuestionTextRich(true);
 
             rtbQuestionText.Rtf = "";
             rtbQuestionText.Rtf = rich;
 
             rtbPlainFilter.Rtf = null;
-            rtbPlainFilter.Rtf = CurrentRecord.FilterDescriptionRTF;
+            rtbPlainFilter.Rtf = CurrentRecord.Item.FilterDescriptionRTF;
         }
 
         /// <summary>
@@ -1076,21 +1100,21 @@ namespace SDIFrontEnd
         {
             try
             {
-                SurveyQuestion previousQ = (SurveyQuestion)bs[bs.Position - 1];
-                CurrentRecord.PrePNum = previousQ.PrePNum;
-                CurrentRecord.PreINum = previousQ.PreINum;
-                CurrentRecord.PreANum = previousQ.PreANum;
-                // litq not copied -- CurrentRecord.LitQNum = previousQ.LitQNum;
-                CurrentRecord.PstINum = previousQ.PstINum;
-                CurrentRecord.PstPNum = previousQ.PstPNum;
-                CurrentRecord.RespName = previousQ.RespName;
-                CurrentRecord.NRName = previousQ.NRName;
+                QuestionRecord previousQ = (QuestionRecord)bs[bs.Position - 1];
+                CurrentRecord.Item.PrePNum = previousQ.Item.PrePNum;
+                CurrentRecord.Item.PreINum = previousQ.Item.PreINum;
+                CurrentRecord.Item.PreANum = previousQ.Item.PreANum;
+                // litq not copied 
+                CurrentRecord.Item.PstINum = previousQ.Item.PstINum;
+                CurrentRecord.Item.PstPNum = previousQ.Item.PstPNum;
+                CurrentRecord.Item.RespName = previousQ.Item.RespName;
+                CurrentRecord.Item.NRName = previousQ.Item.NRName;
 
                 // copy labels only if they are blank
-                if (CurrentRecord.VarName.Domain.ID == 0) CurrentRecord.VarName.Domain = previousQ.VarName.Domain;
-                if (CurrentRecord.VarName.Topic.ID == 0) CurrentRecord.VarName.Topic = previousQ.VarName.Topic;
-                // content label not copied -- if (CurrentRecord.VarName.Content.ID== 0) CurrentRecord.VarName.Content = previousQ.VarName.Content;
-                if (CurrentRecord.VarName.Product.ID == 0) CurrentRecord.VarName.Product = previousQ.VarName.Product;
+                if (CurrentRecord.Item.VarName.Domain.ID == 0) CurrentRecord.Item.VarName.Domain = previousQ.Item.VarName.Domain;
+                if (CurrentRecord.Item.VarName.Topic.ID == 0) CurrentRecord.Item.VarName.Topic = previousQ.Item.VarName.Topic;
+                // content label not copied 
+                if (CurrentRecord.Item.VarName.Product.ID == 0) CurrentRecord.Item.VarName.Product = previousQ.Item.VarName.Product;
 
                 bs.ResetCurrentItem();
             }
@@ -1115,7 +1139,6 @@ namespace SDIFrontEnd
                 return;
             }
 
-            
             ResponseOptionUsage frmRespOptions = new ResponseOptionUsage("RespOptions");
 
             if (frmRespOptions.FilterWordings(Clipboard.GetText()) > 0)
@@ -1123,7 +1146,6 @@ namespace SDIFrontEnd
                 frmRespOptions.Visible = true;
                 return;
             }
-
 
             ResponseOptionUsage frmNonRespOptions = new ResponseOptionUsage("NRCodes");
 
@@ -1143,7 +1165,7 @@ namespace SDIFrontEnd
             string deletions = "";
             if (lstQuestionList.SelectedIndices.Count == 1)
             {
-                deletions = ((QuestionRecord)lstQuestionList.SelectedItems[0].Tag).VarName.RefVarName;
+                deletions = ((QuestionRecord)lstQuestionList.SelectedItems[0].Tag).Item.VarName.RefVarName;
             }
             else if (lstQuestionList.SelectedIndices.Count == 0)
                 return;
@@ -1179,11 +1201,11 @@ namespace SDIFrontEnd
             try
             {
                 // backup comments
-                DBAction.BackupComments(record.ID);
+                DBAction.BackupComments(record.Item.ID);
                 // delete question from database
-                DBAction.DeleteQuestion(record.VarName.VarName, record.SurveyCode);
+                DBAction.DeleteQuestion(record.Item.VarName.VarName, record.Item.SurveyCode);
                 // remove question from the list
-                CurrentSurvey.Questions.Remove(record);
+                Records.Remove(record);
                 // remove current item from bindingsource
                 bs.Remove(record);
                 // remove item from list
@@ -1201,7 +1223,7 @@ namespace SDIFrontEnd
         /// Allow the user 
         /// </summary>
         /// <param name="deletes"></param>
-        private void DocumentDeletes(List<QuestionRecord> deletes)
+        private void DocumentDeletes(List<SurveyQuestion> deletes)
         {
             CommentEntry frm = new CommentEntry(NoteScope.Deleted, deletes);
             frm.ShowDialog();
@@ -1223,11 +1245,11 @@ namespace SDIFrontEnd
         /// <param name="product"></param>
         public void SetLabels(string varlabel, DomainLabel domain, TopicLabel topic, ContentLabel content, ProductLabel product)
         {
-            CurrentRecord.VarName.VarLabel = varlabel;
-            CurrentRecord.VarName.Domain = domain;
-            CurrentRecord.VarName.Topic = topic;
-            CurrentRecord.VarName.Content = content;
-            CurrentRecord.VarName.Product = product;
+            CurrentRecord.Item.VarName.VarLabel = varlabel;
+            CurrentRecord.Item.VarName.Domain = domain;
+            CurrentRecord.Item.VarName.Topic = topic;
+            CurrentRecord.Item.VarName.Content = content;
+            CurrentRecord.Item.VarName.Product = product;
         }
 
         private List<SurveyLanguage> RefreshLanguages()
@@ -1270,28 +1292,28 @@ namespace SDIFrontEnd
             switch (wordingField)
             {
                 case "PreP":
-                    CurrentRecord.PreP = DBAction.GetWordingText("PreP", CurrentRecord.PrePNum);
+                    CurrentRecord.Item.PreP = DBAction.GetWordingText("PreP", CurrentRecord.Item.PrePNum);
                     break;
                 case "PreI":
-                    CurrentRecord.PreI = DBAction.GetWordingText("PreI", CurrentRecord.PreINum);
+                    CurrentRecord.Item.PreI = DBAction.GetWordingText("PreI", CurrentRecord.Item.PreINum);
                     break;
                 case "PreA":
-                    CurrentRecord.PreA = DBAction.GetWordingText("PreA", CurrentRecord.PreANum);
+                    CurrentRecord.Item.PreA = DBAction.GetWordingText("PreA", CurrentRecord.Item.PreANum);
                     break;
                 case "LitQ":
-                    CurrentRecord.LitQ = DBAction.GetWordingText("LitQ", CurrentRecord.LitQNum);
+                    CurrentRecord.Item.LitQ = DBAction.GetWordingText("LitQ", CurrentRecord.Item.LitQNum);
                     break;
                 case "PstI":
-                    CurrentRecord.PstI = DBAction.GetWordingText("PstI", CurrentRecord.PstINum);
+                    CurrentRecord.Item.PstI = DBAction.GetWordingText("PstI", CurrentRecord.Item.PstINum);
                     break;
                 case "PstP":
-                    CurrentRecord.PstP = DBAction.GetWordingText("PstP", CurrentRecord.PstPNum);
+                    CurrentRecord.Item.PstP = DBAction.GetWordingText("PstP", CurrentRecord.Item.PstPNum);
                     break;
                 case "RespOptions":
-                    CurrentRecord.RespOptions = DBAction.GetResponseText(CurrentRecord.RespName);
+                    CurrentRecord.Item.RespOptions = DBAction.GetResponseText(CurrentRecord.Item.RespName);
                     break;
                 case "NRCodes":
-                    CurrentRecord.NRCodes = DBAction.GetNonResponseText(CurrentRecord.NRName);
+                    CurrentRecord.Item.NRCodes = DBAction.GetNonResponseText(CurrentRecord.Item.NRName);
                     break;
             }
             LoadQuestion();
@@ -1302,33 +1324,33 @@ namespace SDIFrontEnd
             switch (wording.FieldName)
             {
                 case "PreP":
-                    CurrentRecord.PrePNum = wording.WordID;
-                    CurrentRecord.PreP = wording.WordingText;
+                    CurrentRecord.Item.PrePNum = wording.WordID;
+                    CurrentRecord.Item.PreP = wording.WordingText;
                     txtPreP.Text = wording.WordID.ToString();
                     break;
                 case "PreI":
-                    CurrentRecord.PreINum = wording.WordID;
-                    CurrentRecord.PreI = wording.WordingText;
+                    CurrentRecord.Item.PreINum = wording.WordID;
+                    CurrentRecord.Item.PreI = wording.WordingText;
                     txtPreI.Text = wording.WordID.ToString();
                     break;
                 case "PreA":
-                    CurrentRecord.PreANum = wording.WordID;
-                    CurrentRecord.PreA = wording.WordingText;
+                    CurrentRecord.Item.PreANum = wording.WordID;
+                    CurrentRecord.Item.PreA = wording.WordingText;
                     txtPreA.Text = wording.WordID.ToString();
                     break;
                 case "LitQ":
-                    CurrentRecord.LitQNum = wording.WordID;
-                    CurrentRecord.LitQ = wording.WordingText;
+                    CurrentRecord.Item.LitQNum = wording.WordID;
+                    CurrentRecord.Item.LitQ = wording.WordingText;
                     txtLitQ.Text = wording.WordID.ToString();
                     break;
                 case "PstI":
-                    CurrentRecord.PstINum = wording.WordID;
-                    CurrentRecord.PstI = wording.WordingText;
+                    CurrentRecord.Item.PstINum = wording.WordID;
+                    CurrentRecord.Item.PstI = wording.WordingText;
                     txtPstI.Text = wording.WordID.ToString();
                     break;
                 case "PstP":
-                    CurrentRecord.PstPNum = wording.WordID;
-                    CurrentRecord.PstP = wording.WordingText;
+                    CurrentRecord.Item.PstPNum = wording.WordID;
+                    CurrentRecord.Item.PstP = wording.WordingText;
                     txtPstP.Text = wording.WordID.ToString();
                     break;
             }
@@ -1340,13 +1362,13 @@ namespace SDIFrontEnd
             switch (response.FieldName)
             {
                 case "RespOptions":
-                    CurrentRecord.RespName = response.RespSetName;
-                    CurrentRecord.RespOptions = response.RespList;
+                    CurrentRecord.Item.RespName = response.RespSetName;
+                    CurrentRecord.Item.RespOptions = response.RespList;
                     txtRO.Text = response.RespSetName;
                     break;
                 case "NRCodes":
-                    CurrentRecord.NRName = response.RespSetName;
-                    CurrentRecord.NRCodes = response.RespList;
+                    CurrentRecord.Item.NRName = response.RespSetName;
+                    CurrentRecord.Item.NRCodes = response.RespList;
                     txtNR.Text = response.RespSetName;
                     break;
                 
@@ -1361,8 +1383,8 @@ namespace SDIFrontEnd
 
             bool showMessage = false;
 
-            var added = CurrentSurvey.Questions.Where(x => x.ID == 0);
-            int edits = CurrentSurvey.Questions.Where(x => x.IsEdited()).Count();
+            var added = Records.Where(x => x.Item.ID == 0);
+            int edits = Records.Where(x => x.IsEdited()).Count();
             int adds = PendingAdds.Count;
             int deletes = PendingDeletes.Count;
 
@@ -1436,9 +1458,9 @@ namespace SDIFrontEnd
             int index = 0;
             bool found = false;
 
-            foreach (QuestionRecord qr in CurrentSurvey.Questions)
+            foreach (QuestionRecord qr in Records)
             {
-                if (qr.VarName.RefVarName == refVarName)
+                if (qr.Item.VarName.RefVarName == refVarName)
                 {
                     found = true;
                     break;
@@ -1457,9 +1479,9 @@ namespace SDIFrontEnd
             int index = 0;
             bool found = false;
 
-            foreach (QuestionRecord qr in CurrentSurvey.Questions)
+            foreach (QuestionRecord qr in Records)
             {
-                if (qr.Qnum == qnum)
+                if (qr.Item.Qnum == qnum)
                 {
                     found = true;
                     break;
@@ -1513,12 +1535,13 @@ namespace SDIFrontEnd
                 if (newQnum.Equals(oldQnum))
                 {
                     // set the qnum but then turn off the dirty flag because we know this is an "undo" change
-                    question.Qnum = newQnum;
+                    question.Item.Qnum = newQnum;
                     question.DirtyQnum = false;
                 }
                 else
                 {
-                    question.Qnum = newQnum;
+                    question.Item.Qnum = newQnum;
+                    question.DirtyQnum = true;
                 }
             }
             bs.ResetBindings(false);
@@ -1638,23 +1661,23 @@ namespace SDIFrontEnd
         {
             switch (field) {
                 case "PreP":
-                    CurrentRecord.PrePNum = wnum;
+                    CurrentRecord.Item.PrePNum = wnum;
                     break;
                 case "PreI":
-                    CurrentRecord.PreINum = wnum;
+                    CurrentRecord.Item.PreINum = wnum;
                     break;
                 case "PreA":
-                    CurrentRecord.PreANum = wnum;
+                    CurrentRecord.Item.PreANum = wnum;
                     break;
                 case "LitQ":
-                    CurrentRecord.LitQNum = wnum;
+                    CurrentRecord.Item.LitQNum = wnum;
                     break;
 
                 case "PstI":
-                    CurrentRecord.PstINum = wnum;
+                    CurrentRecord.Item.PstINum = wnum;
                     break;
                 case "PstP":
-                    CurrentRecord.PstPNum = wnum;
+                    CurrentRecord.Item.PstPNum = wnum;
                     break;
             }
         }
@@ -1664,10 +1687,10 @@ namespace SDIFrontEnd
             switch (field)
             {
                 case "RespOptions":
-                    CurrentRecord.RespName = respname;
+                    CurrentRecord.Item.RespName = respname;
                     break;
                 case "NRCodes":
-                    CurrentRecord.NRName = respname;
+                    CurrentRecord.Item.NRName = respname;
                     break;
             }
         }
@@ -1692,16 +1715,16 @@ namespace SDIFrontEnd
             if (CurrentRecord == null)
                 return;
 
-            lblCommentCount.Text = CurrentRecord.Comments.Count() + " Comment(s).";
-            lblTranslationCount.Text = CurrentRecord.Translations.Count() + " Translation(s).";
-            lblCorrectCount.Text = CurrentSurvey.CorrectedQuestions.Where(x => x.VarName.VarName.Equals(CurrentRecord.VarName.VarName)).Count() + " Corrected wording(s).";
+            lblCommentCount.Text = CurrentRecord.Item.Comments.Count() + " Comment(s).";
+            lblTranslationCount.Text = CurrentRecord.Item.Translations.Count() + " Translation(s).";
+            lblCorrectCount.Text = CurrentSurvey.CorrectedQuestions.Where(x => x.VarName.VarName.Equals(CurrentRecord.Item.VarName.VarName)).Count() + " Corrected wording(s).";
         }
 
         private void AddQuestions()
         {
             string qnum = "0";
             if (CurrentRecord != null)
-                qnum = CurrentRecord.Qnum;
+                qnum = CurrentRecord.Item.Qnum;
 
             NewQuestionEntry frm = new NewQuestionEntry(CurrentSurvey, qnum);
             frm.ShowDialog();
@@ -1710,19 +1733,21 @@ namespace SDIFrontEnd
             if (frm.DialogResult == DialogResult.OK)
             {
                 int pos = bs.Position + 1;
-                foreach (QuestionRecord r in frm.QuestionsToAdd)
+                foreach (SurveyQuestion r in frm.QuestionsToAdd)
                 {
-                    if (CurrentSurvey.QuestionByVar(r.VarName.VarName) == null)
+                    if (!Records.Any(x=>x.Item.VarName.RefVarName.Equals(r.VarName.RefVarName)))
                     {
-                        CurrentSurvey.AddQuestion(r, pos, true);
-                        CurrentSurvey.QuestionsAdded = true;
-                        PendingAdds.Add(r);
+                        QuestionRecord newQ = new QuestionRecord(r);
+                        newQ.NewRecord = true;
+                        Records.Insert(pos, newQ);
+                        PendingAdds.Add(newQ);
                         pos++;
                     }
                 }
-                
+
                 // refresh the list view
                 FillList();
+                ReNumberSurvey();
                 // go to the first new question
                 GoToQuestion(frm.QuestionsToAdd[0].VarName.RefVarName);
                 
@@ -1734,7 +1759,7 @@ namespace SDIFrontEnd
         {
             if (frmQuestionViewer == null || frmQuestionViewer.IsDisposed)
             {
-                frmQuestionViewer = new QuestionViewer(new List<SurveyQuestion>() { CurrentRecord });
+                frmQuestionViewer = new QuestionViewer(new List<SurveyQuestion>() { CurrentRecord.Item });
                 frmQuestionViewer.Owner = this;
                 frmQuestionViewer.Show();
             }
@@ -1760,10 +1785,10 @@ namespace SDIFrontEnd
             f = toolStripF.Checked;
 
             List<SurveyQuestion> questions = new List<SurveyQuestion>();
-            SurveyQuestion question = CurrentRecord;
-            question.Translations.AddRange(CurrentRecord.Translations);
+            SurveyQuestion question = CurrentRecord.Item;
+            question.Translations.AddRange(CurrentRecord.Item.Translations);
             
-            questions.Add(CurrentRecord);
+            questions.Add(CurrentRecord.Item);
 
             QuestionReport report = new QuestionReport();
             report.SelectedSurvey = CurrentSurvey;
@@ -1780,10 +1805,10 @@ namespace SDIFrontEnd
         {
             if (frmComments == null || frmComments.IsDisposed)
             {
-                frmComments = new CommentEntry(CurrentRecord);
+                frmComments = new CommentEntry(CurrentRecord.Item);
                 frmComments.CreatedComment += SurveyEditor_RefreshCommentCount;
 
-                frmComments.UpdateForm(CurrentRecord);
+                frmComments.UpdateForm(CurrentRecord.Item);
                 frmComments.Owner = this;
                 frmComments.Show();
             }
@@ -1796,7 +1821,7 @@ namespace SDIFrontEnd
         private void ViewTranslation()
         {
 
-            if (CurrentRecord.Translations.Count == 0)
+            if (CurrentRecord.Item.Translations.Count == 0)
             {
                 MessageBox.Show("No translations found for this question.");
                 return;
@@ -1887,8 +1912,7 @@ namespace SDIFrontEnd
             List<QuestionRecord> deleteWins = new List<QuestionRecord>();
 
             // save modified questions
-
-            foreach (QuestionRecord qr in CurrentSurvey.Questions)
+            foreach (QuestionRecord qr in Records)
             {
                 if (qr.SaveRecord() == 1)
                     modifyFails.Add(qr);
@@ -1904,8 +1928,8 @@ namespace SDIFrontEnd
             PendingAdds.AddRange(newFails);
 
             // delete questions 
-            QuestionRecord dummy = CurrentSurvey.Questions.FirstOrDefault(x => x.VarName.RefVarName.Equals("DUMMY"));
-            if (CurrentSurvey.Questions.Count > 1 && dummy != null)
+            QuestionRecord dummy = Records.FirstOrDefault(x => x.Item.VarName.RefVarName.Equals("DUMMY"));
+            if (Records.Count > 1 && dummy != null)
                 PendingDeletes.Add(dummy);
 
             foreach (QuestionRecord dq in PendingDeletes)
@@ -1923,7 +1947,7 @@ namespace SDIFrontEnd
 
             // ask to document
             bool skipDocument = false;
-            if (deleteWins.Count == 1 && deleteWins[0].VarName.VarName.Equals("DUMMY"))
+            if (deleteWins.Count == 1 && deleteWins[0].Item.VarName.VarName.Equals("DUMMY"))
                 skipDocument = true;
 
             if (deleteWins.Count>0 && !skipDocument)
@@ -1932,7 +1956,7 @@ namespace SDIFrontEnd
 
                 if (result == DialogResult.Yes)
                 {
-                    DocumentDeletes(deleteWins);  
+                    DocumentDeletes(deleteWins.Select(x=>x.Item).ToList());  
                 }
             }
 
@@ -2003,7 +2027,7 @@ namespace SDIFrontEnd
             if (field == "<All>")
                 found = rtbQuestionText.Text.IndexOf(searchText, searchStart) > -1; 
             else
-                found = CurrentRecord.ContainsString(field, searchText, searchStart);
+                found = CurrentRecord.Item.ContainsString(field, searchText, searchStart);
 
             // if no match, then search through questions until a match is found
             if (found)
@@ -2016,9 +2040,9 @@ namespace SDIFrontEnd
                 for (int i = currentPos + 1;i<bs.Count; i++)
                 {
                     if (field == "<All>")
-                        found = CurrentSurvey.Questions[i].ContainsString(searchText, searchStart);
+                        found = Records[i].Item.ContainsString(searchText, searchStart);
                     else
-                        found = CurrentSurvey.Questions[i].ContainsString(field, searchText, searchStart);
+                        found = Records[i].Item.ContainsString(field, searchText, searchStart);
 
                     if (found)
                     {
@@ -2033,9 +2057,9 @@ namespace SDIFrontEnd
                     for (int i = 0; i < currentPos; i++)
                     {
                         if (field == "<All>")
-                            found = CurrentSurvey.Questions[i].ContainsString(searchText, searchStart);
+                            found = Records[i].Item.ContainsString(searchText, searchStart);
                         else
-                            found = CurrentSurvey.Questions[i].ContainsString(field, searchText, searchStart);
+                            found = Records[i].Item.ContainsString(field, searchText, searchStart);
 
                         if (found)
                         {
@@ -2061,7 +2085,7 @@ namespace SDIFrontEnd
             if (field == "<All>")
                 found = rtbQuestionText.Text.IndexOf(searchText, searchStart) > -1;
             else
-                found = CurrentRecord.ContainsString(field, searchText, searchStart);
+                found = CurrentRecord.Item.ContainsString(field, searchText, searchStart);
 
             // if no match, then search through questions until a match is found
             if (found)
@@ -2074,9 +2098,9 @@ namespace SDIFrontEnd
                 for (int i = currentPos - 1; i > 0; i--)
                 {
                     if (field == "<All>")
-                        found = CurrentSurvey.Questions[i].ContainsString(searchText, searchStart);
+                        found = Records[i].Item.ContainsString(searchText, searchStart);
                     else
-                        found = CurrentSurvey.Questions[i].ContainsString(field, searchText, searchStart);
+                        found = Records[i].Item.ContainsString(field, searchText, searchStart);
 
                     if (found)
                     {
@@ -2091,9 +2115,9 @@ namespace SDIFrontEnd
                     for (int i = bs.Count; i > currentPos; i--)
                     {
                         if (field == "<All>")
-                            found = CurrentSurvey.Questions[i].ContainsString(searchText, searchStart);
+                            found = Records[i].Item.ContainsString(searchText, searchStart);
                         else
-                            found = CurrentSurvey.Questions[i].ContainsString(field, searchText, searchStart);
+                            found = Records[i].Item.ContainsString(field, searchText, searchStart);
 
                         if (found)
                         {
@@ -2130,6 +2154,8 @@ namespace SDIFrontEnd
                 rtbQuestionText.SelectionBackColor = Color.White;
             }
         }
+
+        
 
         #endregion
 
@@ -2264,26 +2290,23 @@ namespace SDIFrontEnd
             foreach (ListViewItem removeItem in lstQuestionList.SelectedItems)
             {
                 lstQuestionList.Items.Remove(removeItem);
-                CurrentSurvey.Questions.Remove((QuestionRecord)removeItem.Tag);
-
+                Records.Remove((QuestionRecord)removeItem.Tag);
             }
 
             // if dropped at the end of the list, reset the drop index to account for the removals
-            if (dropIndex > CurrentSurvey.Questions.Count)
+            if (dropIndex > Records.Count)
                 dropIndex = dropIndex - count;
 
             // now insert the questions back into the question list at their new location
             for (int i = insertQuestions.Count - 1; i >= 0; i--)
             {
-                CurrentSurvey.Questions.Insert(dropIndex, (QuestionRecord)insertQuestions[i]);
+                Records.Insert(dropIndex, (QuestionRecord)insertQuestions[i]);
             }
 
             ReNumberSurvey();
 
             // Show the user that a drag operation is happening
             Cursor = Cursors.Arrow;
-            if (NeedsRenumber())
-                CurrentSurvey.NeedsRenumber = true;
 
             UpdateStatus();
         }
@@ -2324,7 +2347,7 @@ namespace SDIFrontEnd
             bool newQ = !items[0].Font.Bold;
             foreach (ListViewItem item in items)
             {
-                QuestionType qt = Utilities.GetQuestionType((QuestionRecord)item.Tag);
+                QuestionType qt = Utilities.GetQuestionType(((QuestionRecord)item.Tag).Item);
                 if (qt == QuestionType.Heading || qt == QuestionType.Subheading)
                     continue;
 
@@ -2365,7 +2388,7 @@ namespace SDIFrontEnd
             {
                 if (qc.Survey.Equals(CurrentSurvey.SurveyCode))
                 {
-                    CurrentSurvey.QuestionByVar(qc.VarName).Comments.Add(qc);
+                    Records.First(x=>x.Item.VarName.VarName.Equals(qc.VarName)).Item.Comments.Add(qc);
                 }
             }
             UpdateInfo();
@@ -2379,9 +2402,9 @@ namespace SDIFrontEnd
             // now get plain text which includes the HTML tags we've inserted
             string plain = rtbPlainFilter.Text;
             plain = Utilities.TrimString(plain, "<br>");
-            CurrentRecord.FilterDescription = plain;
+            CurrentRecord.Item.FilterDescription = plain;
             rtbPlainFilter.Rtf = null;
-            rtbPlainFilter.Rtf = CurrentRecord.FilterDescriptionRTF;
+            rtbPlainFilter.Rtf = CurrentRecord.Item.FilterDescriptionRTF;
         }
     }
 }

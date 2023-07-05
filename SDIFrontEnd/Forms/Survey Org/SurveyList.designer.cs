@@ -28,7 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgv = new System.Windows.Forms.DataGridView();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.backToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.chSurveyCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.chTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.chType = new System.Windows.Forms.DataGridViewComboBoxColumn();
@@ -40,24 +48,16 @@
             this.chReRun = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.chHide = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.chLocked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.backToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // dgv
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgv.AllowUserToAddRows = false;
+            this.dgv.AllowUserToDeleteRows = false;
+            this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.chSurveyCode,
             this.chTitle,
             this.chType,
@@ -69,89 +69,14 @@
             this.chReRun,
             this.chHide,
             this.chLocked});
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 24);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(1300, 461);
-            this.dataGridView1.TabIndex = 0;
-            this.dataGridView1.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgvSurveys_CellValidating);
-            this.dataGridView1.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvSurveys_DataError);
-            this.dataGridView1.RowLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSurveys_RowLeave);
-            this.dataGridView1.RowValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSurveys_RowValidated);
-            // 
-            // chSurveyCode
-            // 
-            this.chSurveyCode.HeaderText = "Survey Code";
-            this.chSurveyCode.Name = "chSurveyCode";
-            // 
-            // chTitle
-            // 
-            this.chTitle.HeaderText = "Title";
-            this.chTitle.Name = "chTitle";
-            this.chTitle.Width = 200;
-            // 
-            // chType
-            // 
-            this.chType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chType.HeaderText = "Type";
-            this.chType.Name = "chType";
-            this.chType.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.chType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // chMode
-            // 
-            this.chMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chMode.HeaderText = "Mode";
-            this.chMode.Name = "chMode";
-            this.chMode.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.chMode.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.chMode.Width = 75;
-            // 
-            // chUserState
-            // 
-            this.chUserState.HeaderText = "User States";
-            this.chUserState.Name = "chUserState";
-            this.chUserState.Width = 150;
-            // 
-            // chProducts
-            // 
-            this.chProducts.HeaderText = "Products";
-            this.chProducts.Name = "chProducts";
-            this.chProducts.ReadOnly = true;
-            this.chProducts.Width = 150;
-            // 
-            // chLanguages
-            // 
-            this.chLanguages.HeaderText = "Languages";
-            this.chLanguages.Name = "chLanguages";
-            this.chLanguages.ReadOnly = true;
-            this.chLanguages.Width = 150;
-            // 
-            // chFileName
-            // 
-            this.chFileName.HeaderText = "File Name";
-            this.chFileName.Name = "chFileName";
-            this.chFileName.Width = 200;
-            // 
-            // chReRun
-            // 
-            this.chReRun.HeaderText = "ReRun";
-            this.chReRun.Name = "chReRun";
-            this.chReRun.Width = 50;
-            // 
-            // chHide
-            // 
-            this.chHide.HeaderText = "Hide";
-            this.chHide.Name = "chHide";
-            this.chHide.Width = 50;
-            // 
-            // chLocked
-            // 
-            this.chLocked.HeaderText = "Locked";
-            this.chLocked.Name = "chLocked";
-            this.chLocked.Width = 50;
+            this.dgv.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgv.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dgv.Location = new System.Drawing.Point(0, 24);
+            this.dgv.Name = "dgv";
+            this.dgv.RowHeadersVisible = false;
+            this.dgv.Size = new System.Drawing.Size(1300, 461);
+            this.dgv.TabIndex = 0;
+            this.dgv.VirtualMode = true;
             // 
             // menuStrip1
             // 
@@ -202,18 +127,93 @@
             this.dataGridViewTextBoxColumn6.HeaderText = "File Name";
             this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             // 
+            // chSurveyCode
+            // 
+            this.chSurveyCode.HeaderText = "Survey Code";
+            this.chSurveyCode.Name = "chSurveyCode";
+            // 
+            // chTitle
+            // 
+            this.chTitle.HeaderText = "Title";
+            this.chTitle.Name = "chTitle";
+            this.chTitle.Width = 200;
+            // 
+            // chType
+            // 
+            this.chType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chType.HeaderText = "Type";
+            this.chType.Name = "chType";
+            this.chType.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.chType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // chMode
+            // 
+            this.chMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chMode.HeaderText = "Mode";
+            this.chMode.Name = "chMode";
+            this.chMode.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.chMode.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.chMode.Width = 75;
+            // 
+            // chUserState
+            // 
+            this.chUserState.HeaderText = "User States";
+            this.chUserState.Name = "chUserState";
+            this.chUserState.ReadOnly = true;
+            this.chUserState.Width = 150;
+            // 
+            // chProducts
+            // 
+            this.chProducts.HeaderText = "Products";
+            this.chProducts.Name = "chProducts";
+            this.chProducts.ReadOnly = true;
+            this.chProducts.Width = 150;
+            // 
+            // chLanguages
+            // 
+            this.chLanguages.HeaderText = "Languages";
+            this.chLanguages.Name = "chLanguages";
+            this.chLanguages.ReadOnly = true;
+            this.chLanguages.Width = 150;
+            // 
+            // chFileName
+            // 
+            this.chFileName.HeaderText = "File Name";
+            this.chFileName.Name = "chFileName";
+            this.chFileName.Width = 200;
+            // 
+            // chReRun
+            // 
+            this.chReRun.HeaderText = "ReRun";
+            this.chReRun.Name = "chReRun";
+            this.chReRun.Width = 50;
+            // 
+            // chHide
+            // 
+            this.chHide.HeaderText = "Hide";
+            this.chHide.Name = "chHide";
+            this.chHide.Width = 50;
+            // 
+            // chLocked
+            // 
+            this.chLocked.HeaderText = "Locked";
+            this.chLocked.Name = "chLocked";
+            this.chLocked.ReadOnly = true;
+            this.chLocked.Width = 50;
+            // 
             // SurveyList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1300, 485);
-            this.Controls.Add(this.dataGridView1);
+            this.ControlBox = false;
+            this.Controls.Add(this.dgv);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "SurveyList";
             this.Text = "Survey Details";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -223,7 +223,7 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgv;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem backToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
+
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -88,10 +88,10 @@ namespace SDIFrontEnd
         {
             List<VariableNameSurveys> list = new List<VariableNameSurveys>();
             string prefix = "";
-            foreach (RegionRecord r in Globals.AllRegions)
-                foreach (StudyRecord st in r.Studies)
-                    foreach (StudyWaveRecord w in st.Waves)
-                        foreach (SurveyRecord surv in w.Surveys)
+            foreach (Region r in Globals.AllRegions)
+                foreach (Study st in r.Studies)
+                    foreach (StudyWave w in st.Waves)
+                        foreach (Survey surv in w.Surveys)
                             if (surv.SurveyCode.Equals(survey))
                                 prefix = r.TempVarPrefix;
 

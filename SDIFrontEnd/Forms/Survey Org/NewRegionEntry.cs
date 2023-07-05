@@ -18,32 +18,52 @@ namespace SDIFrontEnd
 
         public NewRegionEntry()
         {
-            NewRegion = new RegionRecord();
             InitializeComponent();
-            bs = new BindingSource();
-            bs.DataSource = NewRegion;
 
-            txtID.DataBindings.Add(new Binding("Text", bs, "ID"));
-            txtRegionName.DataBindings.Add(new Binding("Text", bs, "RegionName"));
-            txtTempVarPrefix.DataBindings.Add(new Binding("Text", bs, "TempVarPrefix"));
+            NewRegion = new RegionRecord();
+
+            SetupBindingSources();
+
+            BindProperties();
         }
 
         private void cmdSave_Click(object sender, EventArgs e)
         {
-            if (DBAction.InsertRegion(NewRegion) == 1)
+            if (SaveRecord() == 0)
             {
-                MessageBox.Show("Error creating new region.");
-                return;
+                DialogResult = DialogResult.OK;
+                Close();
             }
-            Globals.AllRegions.Add(NewRegion);
-            DialogResult = DialogResult.OK;
-            Close();
         }
 
         private void cmdCancel_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
             Close();
+        }
+
+        private void SetupBindingSources()
+        {
+            bs = new BindingSource();
+            bs.DataSource = NewRegion.Item;
+        }
+
+        private void BindProperties()
+        {
+            txtID.DataBindings.Add(new Binding("Text", bs, "ID"));
+            txtRegionName.DataBindings.Add(new Binding("Text", bs, "RegionName"));
+            txtTempVarPrefix.DataBindings.Add(new Binding("Text", bs, "TempVarPrefix"));
+        }
+
+        private int SaveRecord()
+        {
+            if (DBAction.InsertRegion(NewRegion.Item) == 1)
+            {
+                MessageBox.Show("Error creating new region.");
+                return 1;
+            }
+            Globals.AllRegions.Add(NewRegion.Item);
+            return 0;
         }
     }
 }

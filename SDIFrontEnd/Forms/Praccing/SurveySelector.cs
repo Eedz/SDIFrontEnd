@@ -13,7 +13,6 @@ namespace SDIFrontEnd
 {
     public partial class SurveySelector : Form
     {
-
         public Survey Selected;
 
         public SurveySelector()
@@ -22,7 +21,7 @@ namespace SDIFrontEnd
 
             cboSurvey.DisplayMember = "SurveyCode";
             cboSurvey.ValueMember = "SID";
-            cboSurvey.DataSource = new List<SurveyRecord>(Globals.AllSurveys);
+            cboSurvey.DataSource = new List<Survey>(Globals.AllSurveys);
         }
 
         private void cmdOK_Click(object sender, EventArgs e)

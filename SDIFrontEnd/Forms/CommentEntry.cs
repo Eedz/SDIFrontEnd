@@ -121,7 +121,7 @@ namespace SDIFrontEnd
             bs.Position = 0;
         }
 
-        public CommentEntry(NoteScope scope, List<QuestionRecord> questions) : this()
+        public CommentEntry(NoteScope scope, List<SurveyQuestion> questions) : this()
         {
             Scope = scope;
             
@@ -438,14 +438,14 @@ namespace SDIFrontEnd
             if (Scope == NoteScope.Wave || chkSurvWave.Checked)
             {
 
-                cboSurvWaveList.DataSource = new List<StudyWaveRecord>(Globals.AllWaves);
+                cboSurvWaveList.DataSource = new List<StudyWave>(Globals.AllWaves);
                 cboSurvWaveList.DisplayMember = "WaveCode";
                 cboSurvWaveList.ValueMember = "ID";
 
             }
             else
             {
-                cboSurvWaveList.DataSource = new List<SurveyRecord>(Globals.AllSurveys);
+                cboSurvWaveList.DataSource = new List<Survey>(Globals.AllSurveys);
                 cboSurvWaveList.DisplayMember = "SurveyCode";
                 cboSurvWaveList.ValueMember = "SID";
 

@@ -49,7 +49,7 @@ namespace SDIFrontEnd
             lstSelVar.DisplayMember = "RefVarName";
 
             // wave tab
-            cboWaves.DataSource = new List<StudyWaveRecord>( Globals.AllWaves);
+            cboWaves.DataSource = new List<StudyWave>( Globals.AllWaves);
             cboWaves.DisplayMember = "WaveCode";
             cboWaves.ValueMember = "ID";
             cboWaves.SelectedItem = null;
@@ -142,7 +142,7 @@ namespace SDIFrontEnd
         {
             if (cboWaves.SelectedItem == null)
                 return;
-            string wave = ((StudyWaveRecord)cboWaves.SelectedItem).WaveCode;
+            string wave = ((StudyWave)cboWaves.SelectedItem).WaveCode;
             int index = -1;
             for (int i = 0; i < lstWaves.Items.Count; i++)
             {
@@ -156,7 +156,7 @@ namespace SDIFrontEnd
             if (index > -1)
                 lstWaves.SetSelected(index, true);
 
-            cboLanguage.DataSource = DBAction.ListLanguages((StudyWaveRecord)cboWaves.SelectedItem).Select(x=>x.LanguageName).ToList();
+            cboLanguage.DataSource = DBAction.ListLanguages((StudyWave)cboWaves.SelectedItem).Select(x=>x.LanguageName).ToList();
             
         }
 
@@ -202,8 +202,15 @@ namespace SDIFrontEnd
         private void GenerateReport()
         {
             List<string> vars = GetVarFilter();
-            DataTable results = GetHarmonyResults(vars);
 
+            if (vars.Count == 0)
+            {
+                MessageBox.Show("Select at least 1 VarName to be included in the report.");
+                return;
+            }
+
+            DataTable results = GetHarmonyResults(vars);
+            
             HR.CreateHarmonyReport(results);
         }
 
@@ -211,9 +218,14 @@ namespace SDIFrontEnd
         {
             List<string> vars = GetVarFilter();
 
-            foreach(string v in vars)
+            if (vars.Count == 0)
             {
-                //HarmonyReport hr = new HarmonyReport();
+                MessageBox.Show("Select at least 1 VarName to be included in the report.");
+                return;
+            }
+
+            foreach (string v in vars)
+            {
                 DataTable results = GetHarmonyResults(new List<string> { v });
                 HR.CustomFileName = v + " - Harmony Report";
                 HR.OpenFinalReport = false;

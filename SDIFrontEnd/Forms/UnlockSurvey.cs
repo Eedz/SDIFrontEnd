@@ -50,7 +50,7 @@ namespace SDIFrontEnd
                 if (record.UnlockedForMin <= 0)
                 {
                     DBAction.LockSurvey(new Survey(record.SurveyCode));
-                    (Globals.AllSurveys.First(x => x.SurveyCode.Equals(record.SurveyCode))).Locked = true;
+                    Globals.AllSurveys.First(x => x.SurveyCode.Equals(record.SurveyCode)).Locked = true;
                 }
             }
             IEnumerable<LockedSurveyRecord> toRemove = Records.Where(x => x.UnlockedForMin <= 0);
@@ -71,8 +71,8 @@ namespace SDIFrontEnd
             }
             else if (rbWave.Checked)
             {
-                foreach (StudyWaveRecord w in lstAllSurveys.SelectedItems)
-                    foreach (SurveyRecord s in w.Surveys)
+                foreach (StudyWave w in lstAllSurveys.SelectedItems)
+                    foreach (Survey s in w.Surveys)
                         lstSelected.Items.Add(s);
             }
         }
@@ -121,7 +121,7 @@ namespace SDIFrontEnd
             lstAllSurveys.DataSource = null;
             lstAllSurveys.DisplayMember = "WaveCode";
             lstAllSurveys.ValueMember = "ID";
-            lstAllSurveys.DataSource = new List<StudyWaveRecord>(Globals.AllWaves);
+            lstAllSurveys.DataSource = new List<StudyWave>(Globals.AllWaves);
         }
         #endregion
 
@@ -167,7 +167,7 @@ namespace SDIFrontEnd
         {
             lstAllSurveys.DisplayMember = "SurveyCode";
             lstAllSurveys.ValueMember = "SID";
-            lstAllSurveys.DataSource = new List<SurveyRecord>(Globals.AllSurveys);
+            lstAllSurveys.DataSource = new List<Survey>(Globals.AllSurveys);
 
             lstSelected.DisplayMember = "SurveyCode";
             lstSelected.ValueMember = "SID";

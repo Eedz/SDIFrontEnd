@@ -46,7 +46,7 @@ namespace SDIFrontEnd
             
             chStudyName.DisplayMember = "StudyNameISO";
             chStudyName.ValueMember = "ID";
-            chStudyName.DataSource = new List<StudyRecord>(Globals.AllStudies);
+            chStudyName.DataSource = new List<Study>(Globals.AllStudies);
             chStudyName.DataPropertyName = "StudyID";
 
 

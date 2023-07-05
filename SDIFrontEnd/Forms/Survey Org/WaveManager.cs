@@ -15,90 +15,92 @@ namespace SDIFrontEnd
     public partial class WaveManager : Form
     {
         StudyWaveRecord CurrentRecord;
-        BindingList<StudyWaveRecord> WaveList;
-        List<StudyRecord> StudyList;
+        List<StudyWaveRecord> Records;
+        List<Study> StudyList;
+
         BindingSource bs;
+        BindingSource bsCurrent;
 
         public WaveManager()
         {
             InitializeComponent();
 
-            this.MouseWheel += WaveManager_MouseWheel;
-            cboProject.MouseWheel += ComboBox_MouseWheel;
+            SetupMouseWheel();
 
-            WaveList = new BindingList<StudyWaveRecord>(Globals.AllWaves);
-            StudyList = new List<StudyRecord>(Globals.AllStudies);
+            FillLists();
 
-            bs = new BindingSource();
-            bs.DataSource = WaveList;
-            bs.PositionChanged += Bs_PositionChanged;
-            bindingNavigator1.BindingSource = bs;
-
+            SetupBindingSources();
+            
             FillBoxes();
 
             BindProperties();
 
             SetupGrid();
-
-            RefreshCurrentWave();
         }
 
-        
-
-        public WaveManager(int waveid)
+        public WaveManager(int waveid) : base()
         {
-            InitializeComponent();
-
-            this.MouseWheel += WaveManager_MouseWheel;
-            cboProject.MouseWheel += ComboBox_MouseWheel;
-
-            WaveList = new BindingList<StudyWaveRecord>(Globals.AllWaves);
-            StudyList = new List<StudyRecord>(Globals.AllStudies);
-
-            bs = new BindingSource();
-            bs.DataSource = WaveList;
-            bs.PositionChanged += Bs_PositionChanged;
-            bs.ListChanged += Bs_ListChanged;
-            bindingNavigator1.BindingSource = bs;
-
-            FillBoxes();
-
-            BindProperties();
-
-            SetupGrid();
-
             GoToWave(waveid);
-
-            RefreshCurrentWave();
         }
-
-       
 
         #region Events
 
+        private void WaveManager_Load(object sender, EventArgs e)
+        {
+            UpdateCurrentRecord();
+        }
+
+        private void WaveManager_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            FM.FormManager.Remove(this);
+        }
+
+        private void Bs_PositionChanged(object sender, EventArgs e)
+        {
+            UpdateCurrentRecord();
+        }
+
+        private void Bs_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            // item: bs[e.NewIndex]
+            // property name: e.PropertyDescriptor.Name
+            if (e.PropertyDescriptor != null)
+            {
+                // get the paper record that was modified
+                StudyWave modifiedRegion = (StudyWave)bsCurrent[e.NewIndex];
+                StudyWaveRecord modifiedRecord = Records.Where(x => x.Item == modifiedRegion).FirstOrDefault();
+
+                if (modifiedRecord == null)
+                    return;
+
+                switch (e.PropertyDescriptor.Name)
+                {
+                    case "Surveys":
+                    case "FieldworkDates":
+                        break;
+                    default:
+                        modifiedRecord.Dirty = true;
+                        break;
+                }
+                //if (CurrentRecord.Dirty)
+                //lblStatus.Text = "*";
+            }
+        }
+
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            SaveRecord();
             Close();
-            FM.FormManager.Remove(this);
         }
 
         private void addToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
-            NewWaveEntry frm = new NewWaveEntry();
-            frm.ShowDialog();
-
-            if (frm.DialogResult == DialogResult.OK)
-            {
-                bs.Add(frm.NewWave);
-                GoToWave(frm.NewWave.ID);
-            }
+            AddWave();
         }
 
         private void toolbuttonStudies_Click(object sender, EventArgs e)
         {
-            StudyManager frm = new StudyManager();
-            frm.Show();
+            ViewStudies();
         }
 
         private void toolStripGoTo_SelectedIndexChanged(object sender, EventArgs e)
@@ -106,13 +108,13 @@ namespace SDIFrontEnd
             if (toolStripGoTo.SelectedItem == null)
                 return;
 
-            GoToWave(((StudyWaveRecord)toolStripGoTo.SelectedItem).ID);
+            SaveRecord();
+            GoToWave(((StudyWave)toolStripGoTo.SelectedItem).ID);
         }
 
         private void listViewToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            WaveList frm = new WaveList(new List<StudyWaveRecord>(WaveList));
-            frm.ShowDialog();
+            OpenListView();
         }
 
         void ComboBox_MouseWheel(object sender, MouseEventArgs e)
@@ -125,11 +127,7 @@ namespace SDIFrontEnd
 
         private void WaveManager_MouseWheel(object sender, MouseEventArgs e)
         {
-            if (CurrentRecord.SaveRecord() == 1)
-            {
-                MessageBox.Show("Error saving record.");
-                return;
-            }
+            SaveRecord();
 
             if (e.Delta == -120)
                 MoveRecord(1);
@@ -138,108 +136,108 @@ namespace SDIFrontEnd
                 MoveRecord(-1);
             }
         }
-        
-
-
-        private void Bs_PositionChanged(object sender, EventArgs e)
-        {
-            RefreshCurrentWave();
-        }
-
-        private void Bs_ListChanged(object sender, ListChangedEventArgs e)
-        {
-            if (e.PropertyDescriptor == null) return;
-
-            int index = e.NewIndex; // index of the changed item
-
-            switch (e.PropertyDescriptor.Name)
-            {
-                default:
-                    ((StudyWaveRecord)bs[index]).Dirty = true;
-                    break;
-            }
-        }
 
         private void cmdAddStudy_Click(object sender, EventArgs e)
         {
-            NewStudyEntry frm = new NewStudyEntry();
-            frm.ShowDialog();
-
-            if (frm.DialogResult == DialogResult.OK)
-            {
-                StudyList.Add(frm.NewStudy);
-                cboProject.DataSource = null;
-                cboProject.DataSource = StudyList;
-                cboProject.SelectedItem = frm.NewStudy;
-            }
+            AddStudy();
         }
 
         private void cmdDelete_Click(object sender, EventArgs e)
         {
-            if (CurrentRecord.Surveys.Count > 1)
-            {
-                MessageBox.Show("This wave has 1 or more surveys. Unable to delete. If you really want to delete this wave, contact the ITC Programmer.");
-                return;
-            }
+            DeleteRecord();
+        }
+        #endregion
 
-
-            if (MessageBox.Show("Are you sure you want to delete this wave?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-
-                DBAction.DeleteRecord(CurrentRecord);
-                WaveList.Remove(CurrentRecord);
-                toolStripGoTo.ComboBox.DataSource = new List<StudyWaveRecord>(WaveList);
-                bs.RemoveCurrent();
-                RefreshCurrentWave();
-
-            }
-
+        #region Navigation Bar events
+        private void bindingNavigatorMoveNextItem_Click(object sender, EventArgs e)
+        {
+            SaveRecord();
+            MoveRecord(1);
         }
 
-        private void Control_Validated(object sender, EventArgs e)
+        private void bindingNavigatorMovePreviousItem_Click(object sender, EventArgs e)
         {
-           // CurrentRecord.Dirty = true;
+            SaveRecord();
+            MoveRecord(-1);
+        }
+
+        private void bindingNavigatorMoveLastItem_Click(object sender, EventArgs e)
+        {
+            SaveRecord();
+            bs.MoveLast();
+        }
+
+        private void bindingNavigatorMoveFirstItem_Click(object sender, EventArgs e)
+        {
+            SaveRecord();
+            bs.MoveFirst();
         }
 
         #endregion
 
-        private void RefreshCurrentWave()
+        private void SetupMouseWheel()
         {
-            CurrentRecord = (StudyWaveRecord)bs.Current;
+            this.MouseWheel += WaveManager_MouseWheel;
+            cboProject.MouseWheel += ComboBox_MouseWheel;
         }
 
-        
+        private void FillLists()
+        {
+            Records = new List<StudyWaveRecord>();
+            foreach (StudyWave wave in Globals.AllWaves)
+            {
+                Records.Add(new StudyWaveRecord(wave));
+            }
+
+            StudyList = new List<Study>(Globals.AllStudies);
+        }
+
+        private void SetupBindingSources()
+        {
+            bs = new BindingSource();
+            bs.DataSource = Records;
+            bs.PositionChanged += Bs_PositionChanged;
+
+            bsCurrent = new BindingSource();
+            bsCurrent.DataSource = bs;
+            bsCurrent.DataMember = "Item";
+
+            bindingNavigator1.BindingSource = bs;
+        }
+
         private void FillBoxes()
         {
-            toolStripGoTo.ComboBox.DataSource = new List<StudyWaveRecord>(WaveList);
+            toolStripGoTo.ComboBox.DataSource = new List<StudyWave>(Globals.AllWaves);
             toolStripGoTo.ComboBox.ValueMember = "ID";
             toolStripGoTo.ComboBox.DisplayMember = "WaveCode";
+            toolStripGoTo.ComboBox.SelectedItem = null;
+            toolStripGoTo.ComboBox.SelectedIndexChanged += toolStripGoTo_SelectedIndexChanged;
 
-            cboProject.DataSource = StudyList;
             cboProject.DisplayMember = "StudyName";
             cboProject.ValueMember = "ID";
+            cboProject.DataSource = StudyList;
         }
 
         private void BindProperties()
         {
-            txtID.DataBindings.Add(new Binding("Text", bs, "ID"));
-            txtWaveNumber.DataBindings.Add(new Binding("Text", bs, "Wave"));
-            chkEnglishRouting.DataBindings.Add(new Binding("Checked", bs, "EnglishRouting"));
-            txtCountries.DataBindings.Add(new Binding("Text", bs, "Countries"));
-            txtWaveCode.DataBindings.Add(new Binding("Text", bs, "WaveCode"));
-            cboProject.DataBindings.Add(new Binding("SelectedValue", bs, "StudyID"));
+            txtID.DataBindings.Add(new Binding("Text", bsCurrent, "ID"));
+            txtWaveNumber.DataBindings.Add(new Binding("Text", bsCurrent, "Wave"));
+            chkEnglishRouting.DataBindings.Add(new Binding("Checked", bsCurrent, "EnglishRouting"));
+            txtCountries.DataBindings.Add(new Binding("Text", bsCurrent, "Countries"));
+            txtWaveCode.DataBindings.Add(new Binding("Text", bsCurrent, "WaveCode"));
+            cboProject.DataBindings.Add(new Binding("SelectedValue", bsCurrent, "StudyID"));
         }
 
         private void SetupGrid()
         {
             dgvSurveys.AutoGenerateColumns = false;
-            dgvSurveys.DataSource = bs;
+            dgvSurveys.DataSource = bsCurrent;
             dgvSurveys.DataMember = "Surveys";
 
             chSurveyCode.DataPropertyName = "SurveyCode";
 
             dgvFieldwork.AutoGenerateColumns = false;
-            dgvFieldwork.DataSource = bs;
+            dgvFieldwork.DataSource = bsCurrent;
             dgvFieldwork.DataMember = "FieldworkDates";
 
             chCountry.DataPropertyName = "CountryName";
@@ -247,13 +245,33 @@ namespace SDIFrontEnd
             chFWEnd.DataPropertyName = "End";
         }
 
-        
+        private void UpdateCurrentRecord()
+        {
+            CurrentRecord = (StudyWaveRecord)bs.Current;
+        }
+
+        private void SaveRecord()
+        {
+            bsCurrent.EndEdit();
+
+            bool newRec = CurrentRecord.NewRecord;
+            int updated = CurrentRecord.SaveRecord();
+
+            if (updated == 0)
+            {
+                //lblStatus.Text = "";
+                CurrentRecord.Dirty = false;
+
+                if (newRec)
+                    Globals.AllWaves.Add(CurrentRecord.Item);
+            }
+        }
 
         private void GoToWave(int waveid)
         {
-            for (int i = 0; i < WaveList.Count(); i++)
+            for (int i = 0; i < Records.Count(); i++)
             {
-                if (WaveList[i].ID == waveid)
+                if (Records[i].Item.ID == waveid)
                 {
                     bs.Position = i;
                     return;
@@ -275,59 +293,62 @@ namespace SDIFrontEnd
                 }
         }
 
-        #region Navigation Bar events
-        private void bindingNavigatorMoveNextItem_Click(object sender, EventArgs e)
+        private void AddWave()
         {
-            bs.EndEdit();
+            NewWaveEntry frm = new NewWaveEntry();
+            frm.ShowDialog();
 
-            if (CurrentRecord.SaveRecord() == 1)
+            if (frm.DialogResult == DialogResult.OK)
             {
-                MessageBox.Show("Error saving this issue.");
+                bs.Add(frm.NewWave);
+                GoToWave(frm.NewWave.Item.ID);
+            }
+        }
+
+        private void AddStudy()
+        {
+            NewStudyEntry frm = new NewStudyEntry();
+            frm.ShowDialog();
+
+            if (frm.DialogResult == DialogResult.OK)
+            {
+                StudyList.Add(frm.NewStudy.Item);
+                cboProject.DataSource = null;
+                cboProject.DataSource = StudyList;
+                cboProject.SelectedItem = frm.NewStudy;
+            }
+        }
+
+        // TODO use form manager, new instance?
+        private void ViewStudies()
+        {
+            StudyManager frm = new StudyManager();
+            frm.Show();
+        }
+
+        private void OpenListView()
+        {
+            WaveList frm = new WaveList(new List<StudyWaveRecord>(Records));
+            frm.ShowDialog();
+        }
+
+        private void DeleteRecord()
+        {
+            if (CurrentRecord.Item.Surveys.Count > 1)
+            {
+                MessageBox.Show("This wave has 1 or more surveys. Unable to delete. If you really want to delete this wave, contact the ITC Programmer.");
                 return;
             }
 
-            MoveRecord(1);
-        }
-
-        private void bindingNavigatorMovePreviousItem_Click(object sender, EventArgs e)
-        {
-            bs.EndEdit();
-
-            if (CurrentRecord.SaveRecord() == 1)
+            if (MessageBox.Show("Are you sure you want to delete this wave?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                MessageBox.Show("Error saving this issue.");
-                return;
+                DBAction.DeleteRecord(CurrentRecord);
+                Records.Remove(CurrentRecord);
+                toolStripGoTo.ComboBox.DataSource = new List<StudyWaveRecord>(Records);
+                bs.RemoveCurrent();
+                UpdateCurrentRecord();
             }
-
-            MoveRecord(-1);
         }
-
-        private void bindingNavigatorMoveLastItem_Click(object sender, EventArgs e)
-        {
-            bs.EndEdit();
-
-            if (CurrentRecord.SaveRecord() == 1)
-            {
-                MessageBox.Show("Error saving this issue.");
-                return;
-            }
-
-            bs.MoveLast();
-        }
-
-        private void bindingNavigatorMoveFirstItem_Click(object sender, EventArgs e)
-        {
-            bs.EndEdit();
-
-            if (CurrentRecord.SaveRecord() == 1)
-            {
-                MessageBox.Show("Error saving this issue.");
-                return;
-            }
-
-            bs.MoveFirst();
-        }
-
-        #endregion
+        
     }
 }

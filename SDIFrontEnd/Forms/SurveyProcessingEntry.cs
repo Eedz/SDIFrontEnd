@@ -22,7 +22,7 @@ namespace SDIFrontEnd
         BindingSource bsNotes;
 
         List<Person> PeopleList;
-        List<SurveyRecord> SurveyList;
+        List<Survey> SurveyList;
 
         Survey CurrentSurvey;
         SurveyProcessingRecord CurrentStage;
@@ -40,8 +40,8 @@ namespace SDIFrontEnd
             InitializeComponent();
             this.MouseWheel += SurveyProcessingEntry_MouseWheel;
 
-            PeopleList = new List<Person>(DBAction.GetPeople());
-            SurveyList = Globals.AllSurveys;
+            PeopleList = new List<Person>(Globals.AllPeople);
+            SurveyList = new List<Survey>(Globals.AllSurveys);
             CurrentSurvey = new Survey();
             Records = new List<SurveyProcessingRecord>();
 

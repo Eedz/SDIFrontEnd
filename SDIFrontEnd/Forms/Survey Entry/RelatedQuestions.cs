@@ -20,8 +20,9 @@ namespace SDIFrontEnd
         private string SurveyGlob;      // survey code pattern, could be a complete survey code or partial with wildcards, or empty
         private int FormNumber;
 
-        BindingList<QuestionRecord> Questions;
+        List<QuestionRecord> Records;
         BindingSource bs;
+        BindingSource bsCurrent;
         BindingSource bsTranslations;
 
         public bool Pin { get; set; }
@@ -38,15 +39,15 @@ namespace SDIFrontEnd
             FormNumber = formNumber;
 
             SurveyGlob = Globals.CurrentUser.GetFilter("sfrmSurveyEntryBrown", FormNumber);
-            SurveyGlob = SurveyGlob == "" || SurveyGlob == null ? "%" : SurveyGlob;
+            SurveyGlob = SurveyGlob == "" || SurveyGlob == null ? "*" : SurveyGlob;
 
-            Questions = new BindingList<QuestionRecord>();
+            Records = new List<QuestionRecord>();
 
             SetupBindingSource();
 
             BindProperties();
-           
-            UpdateRefVarName(MainQuestion.VarName.RefVarName);
+            
+            UpdateRefVarName(MainQuestion.Item.VarName.RefVarName);
 
             SetupFilter();
             
@@ -61,44 +62,46 @@ namespace SDIFrontEnd
         {
             bs = new BindingSource()
             {
-                DataSource = Questions
+                DataSource = Records
             };
-            CurrentQuestion = (QuestionRecord)bs.Current;
             bs.PositionChanged += Bs_PositionChanged;
-            bs.ListChanged += RelatedQuestions_ListChanged;
 
-            navQuestions.BindingSource = bs;
+            bsCurrent = new BindingSource()
+            {
+                DataSource = bs,
+                DataMember = "Item"
+            };
+            bsCurrent.ListChanged += RelatedQuestions_ListChanged;
 
             bsTranslations = new BindingSource()
             {
-                DataSource = bs.Current,
+                DataSource = bsCurrent,
                 DataMember = "Translations"
             };
-            navTranslations.BindingSource = bsTranslations;
             bsTranslations.PositionChanged += BsTranslations_PositionChanged;
-        }
 
-        
+            navQuestions.BindingSource = bs;
+            navTranslations.BindingSource = bsTranslations;
+        }
 
         private void BindProperties()
         {
-            txtVarName.DataBindings.Add("Text", bs, "VarName.VarName");
-            txtSurvey.DataBindings.Add("Text", bs, "SurveyCode");
-            txtQnum.DataBindings.Add("Text", bs, "Qnum");
-            txtVarLabel.DataBindings.Add(new Binding("Text", bs, "VarName.VarLabel"));
-            txtPrePNum.DataBindings.Add(new Binding("Text", bs, "PrePNum"));
-            txtPreINum.DataBindings.Add("Text", bs, "PreINum");
-            txtPreANum.DataBindings.Add("Text", bs, "PreANum");
-            txtLitQNum.DataBindings.Add("Text", bs, "LitQNum");
-            txtPstINum.DataBindings.Add("Text", bs, "PstINum");
-            txtPstPNum.DataBindings.Add("Text", bs, "PstPNum");
-            txtRespName.DataBindings.Add("Text", bs, "RespName");
-            txtNRName.DataBindings.Add("Text", bs, "NRName");
-
+            txtVarName.DataBindings.Add("Text", bsCurrent, "VarName.VarName");
+            txtSurvey.DataBindings.Add("Text", bsCurrent, "SurveyCode");
+            txtQnum.DataBindings.Add("Text", bsCurrent, "Qnum");
+            txtVarLabel.DataBindings.Add("Text", bsCurrent, "VarName.VarLabel");
+            txtPrePNum.DataBindings.Add("Text", bsCurrent, "PrePNum");
+            txtPreINum.DataBindings.Add("Text", bsCurrent, "PreINum");
+            txtPreANum.DataBindings.Add("Text", bsCurrent, "PreANum");
+            txtLitQNum.DataBindings.Add("Text", bsCurrent, "LitQNum");
+            txtPstINum.DataBindings.Add("Text", bsCurrent, "PstINum");
+            txtPstPNum.DataBindings.Add("Text", bsCurrent, "PstPNum");
+            txtRespName.DataBindings.Add("Text", bsCurrent, "RespName");
+            txtNRName.DataBindings.Add("Text", bsCurrent, "NRName");
 
             // translation panel
-            txtTranslationPreP.DataBindings.Add("Text", bs, "PreP");
-            txtTranslationPstP.DataBindings.Add("Text", bs, "PstP");
+            txtTranslationPreP.DataBindings.Add("Text", bsCurrent, "PreP");
+            txtTranslationPstP.DataBindings.Add("Text", bsCurrent, "PstP");
         }
 
         private void SetupFilter()
@@ -107,8 +110,8 @@ namespace SDIFrontEnd
             foreach (string surveycode in Globals.AllSurveys.Select(x => x.SurveyCode).ToList<string>())
                 cboSurveyFilter.Items.Add(surveycode);
 
-            if (SurveyGlob.Contains("%"))
-                cboSurveyFilter.Items.Add(SurveyGlob.Replace("%", "*"));
+            if (SurveyGlob.Contains("*"))
+                cboSurveyFilter.Items.Add(SurveyGlob);
 
             cboSurveyFilter.SelectedItem = SurveyGlob;
             cboSurveyFilter.SelectedIndexChanged += cboSurveyFilter_SelectedIndexChanged;
@@ -133,6 +136,9 @@ namespace SDIFrontEnd
         {
             UpdateQuestion();
             UpdateTranslation();
+
+            bool locked = Globals.AllSurveys.First(x => x.SurveyCode.Equals(CurrentQuestion.Item.SurveyCode)).Locked;
+            LockForm(locked);
         }
 
         /// <summary>
@@ -142,46 +148,53 @@ namespace SDIFrontEnd
         /// <param name="e"></param>
         private void BsTranslations_PositionChanged(object sender, EventArgs e)
         {
-            Translation CurrentTranslation = (Translation)bsTranslations.Current;
-            if (CurrentTranslation != null)
-                rtbTranslation.Rtf = CurrentTranslation.TranslationRTF;
+            RefreshCurrentTranslation();
         }
 
         private void RelatedQuestions_ListChanged(object sender, ListChangedEventArgs e)
         {
             if (e.PropertyDescriptor == null) return;
 
+            // get the question record that was modified
+            SurveyQuestion modifiedQuestion = (SurveyQuestion)bsCurrent[e.NewIndex];
+            QuestionRecord modifiedRecord = Records.Where(x => x.Item == modifiedQuestion).FirstOrDefault();
+
+            int index = bs.IndexOf(modifiedRecord);
+
+            if (modifiedRecord == null)
+                return;
+
             switch (e.PropertyDescriptor.Name)
             {
                 case "PrePNum":
-                    CurrentQuestion.PreP = DBAction.GetWordingText("PreP", CurrentQuestion.PrePNum);
+                    CurrentQuestion.Item.PreP = DBAction.GetWordingText("PreP", CurrentQuestion.Item.PrePNum);
                     break;
                 case "PreINum":
-                    CurrentQuestion.PreI = DBAction.GetWordingText("PreI", CurrentQuestion.PreINum);
+                    CurrentQuestion.Item.PreI = DBAction.GetWordingText("PreI", CurrentQuestion.Item.PreINum);
                     break;
                 case "PreANum":
-                    CurrentQuestion.PreA = DBAction.GetWordingText("PreA", CurrentQuestion.PreANum);
+                    CurrentQuestion.Item.PreA = DBAction.GetWordingText("PreA", CurrentQuestion.Item.PreANum);
                     break;
                 case "LitQNum":
-                    CurrentQuestion.LitQ = DBAction.GetWordingText("LitQ", CurrentQuestion.LitQNum);
+                    CurrentQuestion.Item.LitQ = DBAction.GetWordingText("LitQ", CurrentQuestion.Item.LitQNum);
                     break;
                 case "PstINum":
-                    CurrentQuestion.PstI = DBAction.GetWordingText("PstI", CurrentQuestion.PstINum);
+                    CurrentQuestion.Item.PstI = DBAction.GetWordingText("PstI", CurrentQuestion.Item.PstINum);
                     break;
                 case "PstPNum":
-                    CurrentQuestion.PstP = DBAction.GetWordingText("PstP", CurrentQuestion.PstPNum);
+                    CurrentQuestion.Item.PstP = DBAction.GetWordingText("PstP", CurrentQuestion.Item.PstPNum);
                     break;
                 case "RespName":
-                    CurrentQuestion.RespOptions = DBAction.GetResponseText(CurrentQuestion.RespName);
+                    CurrentQuestion.Item.RespOptions = DBAction.GetResponseText(CurrentQuestion.Item.RespName);
                     break;
                 case "NRName":
-                    CurrentQuestion.NRCodes = DBAction.GetNonResponseText(CurrentQuestion.NRName);
+                    CurrentQuestion.Item.NRCodes = DBAction.GetNonResponseText(CurrentQuestion.Item.NRName);
                     break;
             }
             bs.ResetBindings(false);
             UpdateQuestion();
 
-            CurrentQuestion.Dirty = true;
+            Records[index].Dirty = true;
         }
 
         /// <summary>
@@ -191,17 +204,8 @@ namespace SDIFrontEnd
         /// <param name="e"></param>
         private void cmdViewTranslation_Click(object sender, EventArgs e)
         {
-            if (translationPanel.Height == 0)
-            {
-                this.Height = ExpandedHeight;
-                translationPanel.Height = TranslationHeight;
-            }
-            else
-            {
-                this.Height = CollapsedHeight;
-                translationPanel.Height = 0;
-            }
-        }
+            ToggleTranslation();
+        }       
 
         /// <summary>
         /// Hide unneccesary columns and rename others.
@@ -214,11 +218,10 @@ namespace SDIFrontEnd
             {
                 switch (dgvDS.Columns[i].Name)
                 {
-
-                    case "VarName":
                     case "SurveyCode":
                         dgvDS.Columns[i].HeaderText = "Survey";
                         break;
+                    case "VarName":
                     case "Qnum":
                     case "RespName":
                     case "NRName":
@@ -256,16 +259,7 @@ namespace SDIFrontEnd
         /// <param name="e"></param>
         private void cboSurveyFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cboSurveyFilter.SelectedItem == null)
-            {
-                SurveyGlob = "%";
-            }
-            else
-            {
-                SurveyGlob = ((string)cboSurveyFilter.SelectedItem).Replace("*", "%");
-            }
-
-            UpdateRefVarName(MainQuestion.VarName.RefVarName);
+            UpdateFilter();
         }
 
         /// <summary>
@@ -278,13 +272,7 @@ namespace SDIFrontEnd
             if (cboSurveyFilter.Text == null)
                 return;
 
-            string enteredValue = cboSurveyFilter.Text;
-
-            if (!cboSurveyFilter.Items.Contains(enteredValue))
-                cboSurveyFilter.Items.Add(enteredValue);
-
-            cboSurveyFilter.SelectedItem = enteredValue;
-
+            CheckForNewFilter();
         }
 
         private void cboSurveyFilter_KeyDown(object sender, KeyEventArgs e)
@@ -294,23 +282,18 @@ namespace SDIFrontEnd
                 if (cboSurveyFilter.Text == null)
                     return;
 
-                string enteredValue = cboSurveyFilter.Text;
-
-                if (!cboSurveyFilter.Items.Contains(enteredValue))
-                    cboSurveyFilter.Items.Add(enteredValue);
-
-                cboSurveyFilter.SelectedItem = enteredValue;
+                CheckForNewFilter();
             }
         }
 
         private void cmdToEditor_Click(object sender, EventArgs e)
         {
-            ExportWordings(CurrentQuestion);
+            ExportWordings(CurrentQuestion.Item);
         }
 
         private void cmdFromEditor_Click(object sender, EventArgs e)
         {
-            ImportWordings(MainQuestion);
+            ImportWordings(MainQuestion.Item);
             UpdateQuestion();
         }
 
@@ -325,19 +308,20 @@ namespace SDIFrontEnd
                 if (result == DialogResult.Cancel)
                     e.Cancel = true;
                 else if (result == DialogResult.Yes)
-                    CurrentQuestion.SaveRecord();
+                    SaveChanges();
             }
         }
 
         private void RelatedQuestions_FormClosed(object sender, FormClosedEventArgs e)
         {
             FormStateRecord state = Globals.CurrentUser.FormStates.Where(x => x.FormName.Equals("sfrmSurveyEntryBrown") && x.FormNum == FormNumber).FirstOrDefault();
-            state.Filter = (string)cboSurveyFilter.SelectedItem;
+            state.Filter = SurveyGlob;
             state.RecordPosition = 0;
             state.Dirty = true;
             state.SaveRecord();
             
             bs.Dispose();
+            bsCurrent.Dispose();
             bsTranslations.Dispose();
         }
         #endregion
@@ -350,14 +334,13 @@ namespace SDIFrontEnd
         /// <param name="record"></param>
         public void UpdateForm(QuestionRecord record)
         {
-
             if (CurrentQuestion !=null && CurrentQuestion.Dirty)
                 CurrentQuestion.SaveRecord();
 
             CurrentQuestion = (QuestionRecord)bs.Current;
             MainQuestion = record;
             
-            UpdateRefVarName(record.VarName.RefVarName);
+            UpdateRefVarName(record.Item.VarName.RefVarName);
             UpdateQuestion();               // update question text
             UpdateTranslation();
 
@@ -386,11 +369,11 @@ namespace SDIFrontEnd
             if (CurrentQuestion == null)
                 return false;
 
-            if (CurrentQuestion.Translations.Count == 0)
+            if (CurrentQuestion.Item.Translations.Count == 0)
                 return false;
 
-            string prep = CurrentQuestion.PreP;
-            string translation = CurrentQuestion.Translations[0].TranslationText;
+            string prep = CurrentQuestion.Item.PreP;
+            string translation = CurrentQuestion.Item.Translations[0].TranslationText;
 
             return !translation.StartsWith(prep);
         }
@@ -401,19 +384,22 @@ namespace SDIFrontEnd
         /// <param name="refVarName"></param>
         public void UpdateRefVarName(string refVarName)
         {
-            Questions = new BindingList<QuestionRecord>(DBAction.GetRefVarNameQuestionsGlob(refVarName, SurveyGlob));
-            foreach (QuestionRecord q in Questions)
+            Records.Clear();
+            var qs = DBAction.GetRefVarNameQuestionsGlob(refVarName, SurveyGlob.Replace("*", "%"));
+            foreach (SurveyQuestion q in qs)
+                Records.Add(new QuestionRecord(q));
+
+            foreach (QuestionRecord q in Records)
             {
-                var translations = DBAction.GetQuestionTranslations(q.ID);
-                foreach (Translation t in translations)
-                    q.Translations.Add(new TranslationRecord(t));
+                q.Item.Translations = DBAction.GetQuestionTranslations(q.Item.ID);
             }
-            bs.DataSource = Questions;
+            bs.DataSource = Records;
             bs.ResetBindings(false);
 
             CurrentQuestion = (QuestionRecord)bs.Current;
             UpdateTranslation();
-            dgvDS.DataSource = Questions;
+
+            dgvDS.DataSource = Records.Select(x => x.Item).ToList();
         }
 
         /// <summary>
@@ -425,8 +411,7 @@ namespace SDIFrontEnd
             rtbQuestionText.Rtf = "";
 
             if (CurrentQuestion != null)
-                rtbQuestionText.Rtf = CurrentQuestion.GetQuestionTextRich(true);
-
+                rtbQuestionText.Rtf = CurrentQuestion.Item.GetQuestionTextRich(true);
         }
 
         /// <summary>
@@ -438,7 +423,7 @@ namespace SDIFrontEnd
             txtLanguage.Text = "";
             rtbTranslation.DataBindings.Clear();
             rtbTranslation.Rtf = "";
-            bsTranslations.DataSource = bs.Current;
+            bsTranslations.DataSource = bsCurrent;
             bsTranslations.DataMember = "Translations";
             if (bsTranslations.Count > 0)
             {
@@ -458,22 +443,22 @@ namespace SDIFrontEnd
             switch (field)
             {
                 case "PreP":
-                    MainQuestion.PrePNum = wnum;
+                    MainQuestion.Item.PrePNum = wnum;
                     break;
                 case "PreI":
-                    MainQuestion.PreINum = wnum;
+                    MainQuestion.Item.PreINum = wnum;
                     break;
                 case "PreA":
-                    MainQuestion.PreANum = wnum;
+                    MainQuestion.Item.PreANum = wnum;
                     break;
                 case "LitQ":
-                    MainQuestion.LitQNum = wnum;
+                    MainQuestion.Item.LitQNum = wnum;
                     break;
                 case "PstI":
-                    MainQuestion.PstINum = wnum;
+                    MainQuestion.Item.PstINum = wnum;
                     break;
                 case "PstP":
-                    MainQuestion.PstPNum = wnum;
+                    MainQuestion.Item.PstPNum = wnum;
                     break;
             }
         }
@@ -488,10 +473,10 @@ namespace SDIFrontEnd
             switch (field)
             {
                 case "RespOptions":
-                    MainQuestion.RespName = respname;
+                    MainQuestion.Item.RespName = respname;
                     break;
                 case "NRCodes":
-                    MainQuestion.NRName = respname;
+                    MainQuestion.Item.NRName = respname;
                     break;
             }
         }
@@ -506,23 +491,23 @@ namespace SDIFrontEnd
             switch (field)
             {
                 case "PreP":
-                    CurrentQuestion.PrePNum = wnum;
+                    CurrentQuestion.Item.PrePNum = wnum;
                     break;
                 case "PreI":
-                    CurrentQuestion.PreINum = wnum;
+                    CurrentQuestion.Item.PreINum = wnum;
                     break;
                 case "PreA":
-                    CurrentQuestion.PreANum = wnum;
+                    CurrentQuestion.Item.PreANum = wnum;
                     break;
                 case "LitQ":
-                    CurrentQuestion.LitQNum = wnum;
+                    CurrentQuestion.Item.LitQNum = wnum;
                     break;
 
                 case "PstI":
-                    CurrentQuestion.PstINum = wnum;
+                    CurrentQuestion.Item.PstINum = wnum;
                     break;
                 case "PstP":
-                    CurrentQuestion.PstPNum = wnum;
+                    CurrentQuestion.Item.PstPNum = wnum;
                     break;
             }
         }
@@ -537,10 +522,10 @@ namespace SDIFrontEnd
             switch (field)
             {
                 case "RespOptions":
-                    CurrentQuestion.RespName = respname;
+                    CurrentQuestion.Item.RespName = respname;
                     break;
                 case "NRCodes":
-                    CurrentQuestion.NRName = respname;
+                    CurrentQuestion.Item.NRName = respname;
                     break;
             }
         }
@@ -595,65 +580,99 @@ namespace SDIFrontEnd
                 }
         }
 
+        private void SaveChanges()
+        {
+            bs.EndEdit();
+
+            if (CurrentQuestion.SaveRecord() == 1)
+            {
+                MessageBox.Show("Error saving this question.");
+                return;
+            }
+        }
+
+        private void RefreshCurrentTranslation()
+        {
+            Translation CurrentTranslation = (Translation)bsTranslations.Current;
+            if (CurrentTranslation != null)
+                rtbTranslation.Rtf = CurrentTranslation.TranslationRTF;
+        }
+
+        private void ToggleTranslation()
+        {
+            if (translationPanel.Height == 0)
+            {
+                this.Height = ExpandedHeight;
+                translationPanel.Height = TranslationHeight;
+            }
+            else
+            {
+                this.Height = CollapsedHeight;
+                translationPanel.Height = 0;
+            }
+        }
+
+        private void UpdateFilter()
+        {
+            if (cboSurveyFilter.SelectedItem == null)
+            {
+                SurveyGlob = "*";
+            }
+            else
+            {
+                SurveyGlob = (string)cboSurveyFilter.SelectedItem;
+            }
+
+            UpdateRefVarName(MainQuestion.Item.VarName.RefVarName);
+        }
+
+        private void CheckForNewFilter()
+        {
+            string enteredValue = cboSurveyFilter.Text;
+
+            if (!cboSurveyFilter.Items.Contains(enteredValue))
+                cboSurveyFilter.Items.Add(enteredValue);
+
+            cboSurveyFilter.SelectedItem = enteredValue;
+        }
+
+        private void LockForm(bool locked)
+        {
+            txtPrePNum.ReadOnly = locked;
+            txtPreINum.ReadOnly = locked;
+            txtPreANum.ReadOnly = locked;
+            txtLitQNum.ReadOnly = locked;
+            txtRespName.ReadOnly = locked;
+            txtNRName.ReadOnly = locked;
+            txtPstINum.ReadOnly = locked;
+            txtPstPNum.ReadOnly = locked;
+        }
         #endregion
 
         #region Navigation buttons
         private void bindingNavigatorMoveNextItem_Click(object sender, EventArgs e)
         {
-            bs.EndEdit();
-
-            if (CurrentQuestion.SaveRecord() == 1)
-            {
-                MessageBox.Show("Error saving this question.");
-                return;
-            }
-
+            SaveChanges();
             MoveRecord(1);
-
         }
 
         private void bindingNavigatorMoveLastItem_Click(object sender, EventArgs e)
         {
-            bs.EndEdit();
-
-            if (CurrentQuestion.SaveRecord() == 1)
-            {
-                MessageBox.Show("Error saving this question.");
-                return;
-            }
-
+            SaveChanges();
             bs.MoveLast();
         }
 
         private void bindingNavigatorMovePreviousItem_Click(object sender, EventArgs e)
         {
-            bs.EndEdit();
-
-            if (CurrentQuestion.SaveRecord() == 1)
-            {
-                MessageBox.Show("Error saving this question.");
-                return;
-            }
-
+            SaveChanges();
             MoveRecord(-1);
         }
 
         private void bindingNavigatorMoveFirstItem_Click(object sender, EventArgs e)
         {
-            bs.EndEdit();
-
-            if (CurrentQuestion.SaveRecord() == 1)
-            {
-                MessageBox.Show("Error saving this question.");
-                return;
-            }
-
+            SaveChanges();
             bs.MoveFirst();
         }
-
-
-
-        #endregion
 
         private void bindingNavigatorMoveNextItem1_Click(object sender, EventArgs e)
         {
@@ -674,5 +693,8 @@ namespace SDIFrontEnd
         {
             bsTranslations.MoveFirst();
         }
+        #endregion
+
+
     }
 }

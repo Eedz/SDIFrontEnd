@@ -556,7 +556,7 @@ namespace SDIFrontEnd
         {
             if (FM.FormManager.FormOpen("QuestionSearch"))
             {
-                tabControl1.SelectTab("QuestionSearch");
+                tabControl1.SelectTab("QuestionSearch1");
                 return;
             }
 
@@ -567,9 +567,9 @@ namespace SDIFrontEnd
 
         private void cmdOpenRespOptionSearch_Click(object sender, EventArgs e)
         {
-            if (FM.FormManager.FormOpen("RespOptionSearch"))
+            if (FM.FormManager.FormOpen("ResponseSetSearch"))
             {
-                tabControl1.SelectTab("RespOptionSearch");
+                tabControl1.SelectTab("ResponseSetSearch1");
                 return;
             }
 

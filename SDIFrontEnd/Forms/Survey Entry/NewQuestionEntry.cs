@@ -17,9 +17,9 @@ namespace SDIFrontEnd
         public enum EntryMode { Copy, Create }
 
         public EntryMode EnterMode;
-        public SurveyRecord DestinationSurvey;
+        public Survey DestinationSurvey;
         public string DestinationQnum;
-        public List<QuestionRecord> QuestionsToAdd;
+        public List<SurveyQuestion> QuestionsToAdd;
         List<VariableName> RelatedQuestions;
 
 
@@ -29,7 +29,7 @@ namespace SDIFrontEnd
         int newWidth = 820;
         int newHeight = 500;
 
-        public NewQuestionEntry(SurveyRecord destinationSurvey, string destinationQnum)
+        public NewQuestionEntry(Survey destinationSurvey, string destinationQnum)
         {
             InitializeComponent();
 
@@ -38,7 +38,7 @@ namespace SDIFrontEnd
             RelatedQuestions = new List<VariableName>();
             string tempPrefix = DBAction.GetTempPrefix(DestinationSurvey);
 
-            cboSurveySource.DataSource = new List<SurveyRecord>(Globals.AllSurveys);
+            cboSurveySource.DataSource = new List<Survey>(Globals.AllSurveys);
             cboSurveySource.ValueMember = "SID";
             cboSurveySource.DisplayMember = "SurveyCode";
             cboSurveySource.SelectedItem = null;
@@ -331,7 +331,7 @@ namespace SDIFrontEnd
         {
             if (s == null) return;
 
-            List<QuestionRecord> questions = DBAction.GetSurveyQuestionRecords(s).ToList();
+            List<SurveyQuestion> questions = DBAction.GetSurveyQuestionRecords(s).ToList();
 
             cboVarName.DisplayMember = "VarName";
             cboVarName.ValueMember = "VarName";
@@ -340,7 +340,7 @@ namespace SDIFrontEnd
             lstQuestionSource.Items.Clear();
             lstQuestionSource.View = View.Details;
 
-            foreach (QuestionRecord sq in questions)
+            foreach (SurveyQuestion sq in questions)
             {
                 string corr;
                 if (sq.CorrectedFlag)
@@ -388,13 +388,13 @@ namespace SDIFrontEnd
         /// Creates a list of survey questions intended for the DestinationSurvey.
         /// </summary>
         /// <returns></returns>
-        private List<QuestionRecord> CreateQuestions()
+        private List<SurveyQuestion> CreateQuestions()
         {
             // for each item in the ToCopy list, 
             // create a VariableName that is to be created.
             // then check if it already exists,
             // if not, create it
-            List<QuestionRecord> QuestionsToAdd = new List<QuestionRecord>();
+            List<SurveyQuestion> QuestionsToAdd = new List<SurveyQuestion>();
             if (EnterMode == EntryMode.Copy)
             {
                 int count = 1;
@@ -402,9 +402,9 @@ namespace SDIFrontEnd
                 foreach (ListViewItem i in lstToCopy.Items)
                 {
 
-                    QuestionRecord q = (QuestionRecord)i.Tag;
+                    SurveyQuestion q = (SurveyQuestion)i.Tag;
                     q.SurveyCode = DestinationSurvey.SurveyCode;
-                    q.NewRecord = true;
+                   // q.NewRecord = true;
                     string newVarCC = Utilities.ChangeCC(q.VarName.VarName, DestinationSurvey.CountryCode);
                     q.VarName.VarName = newVarCC;
                     q.VarName.RefVarName = Utilities.ChangeCC(newVarCC);                   
@@ -417,11 +417,12 @@ namespace SDIFrontEnd
             }
             else
             {
-                QuestionRecord q = GetEnteredQuestion();
+                SurveyQuestion q = GetEnteredQuestion();
 
                 if (q != null)
                 {
-                    q.NewRecord = true;
+
+                    //q.NewRecord = true;
                     q.Qnum = NextQnum(DestinationQnum);
                     QuestionsToAdd.Add(q);
                 }
@@ -455,12 +456,12 @@ namespace SDIFrontEnd
         /// Returns a SurveyQuestion with the name and labels entered on the form.
         /// </summary>
         /// <returns>A new SurveyQuestion</returns>
-        private QuestionRecord GetEnteredQuestion()
+        private SurveyQuestion GetEnteredQuestion()
         {
             if (string.IsNullOrEmpty(txtNewVarName.Text))
                 return null;
 
-            QuestionRecord newQ = new QuestionRecord();
+            SurveyQuestion newQ = new SurveyQuestion();
             newQ.SurveyCode = DestinationSurvey.SurveyCode;
             newQ.VarName.VarName = Utilities.ChangeCC(txtNewVarName.Text, DestinationSurvey.CountryCode);
             newQ.VarName.RefVarName = Utilities.ChangeCC(txtNewVarName.Text);

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
+
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,49 +14,76 @@ namespace SDIFrontEnd
 {
     public partial class RegionManager : Form
     {
-        List<RegionRecord> RegionList;
+        List<RegionRecord> Records;
 
         RegionRecord CurrentRecord;
 
         BindingSource bs;
+        BindingSource bsCurrent;
 
         public RegionManager()
         {
             InitializeComponent();
-            this.MouseWheel += RegionManager_MouseWheel;
 
-            RegionList = Globals.AllRegions;
+            SetupMouseWheel();
 
-            bs = new BindingSource();
-            bs.DataSource = RegionList;
-            bs.PositionChanged += Bs_PositionChanged;
+            FillLists();
 
-            bindingNavigator1.BindingSource = bs;
+            SetupBindingSources();
 
-            toolStripGoTo.ComboBox.DataSource = new List<RegionRecord> (RegionList);
-            toolStripGoTo.ComboBox.ValueMember = "ID";
-            toolStripGoTo.ComboBox.DisplayMember = "RegionName";
+            FillBoxes();
 
             BindProperties();
 
             SetupGrid();
-            CurrentRecord = (RegionRecord)bs.Current;
         }
 
         #region Events 
+
+        private void RegionManager_Load(object sender, EventArgs e)
+        {
+            UpdateCurrentRecord();
+        }
+
+        private void RegionManager_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            FM.FormManager.Remove(this);
+        }
+
         private void Bs_PositionChanged(object sender, EventArgs e)
         {
-            CurrentRecord = (RegionRecord)bs.Current;
+            UpdateCurrentRecord();
+        }
+
+        private void bsCurrent_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            // item: bs[e.NewIndex]
+            // property name: e.PropertyDescriptor.Name
+            if (e.PropertyDescriptor != null)
+            {
+                // get the paper record that was modified
+                Region modifiedRegion = (Region)bsCurrent[e.NewIndex];
+                RegionRecord modifiedRecord = Records.Where(x => x.Item == modifiedRegion).FirstOrDefault();
+
+                if (modifiedRecord == null)
+                    return;
+
+                switch (e.PropertyDescriptor.Name)
+                {
+                    case "Studies":
+                        break;
+                    default:
+                        modifiedRecord.Dirty = true;
+                        break;
+                }
+                //if (CurrentRecord.Dirty)
+                //lblStatus.Text = "*";
+            }
         }
 
         private void RegionManager_MouseWheel(object sender, MouseEventArgs e)
         {
-            bs.EndEdit();
-            if (CurrentRecord.SaveRecord() == 1)
-            {
-                MessageBox.Show("Error saving record.");
-                return;
-            }
+            SaveRecord();
 
             if (e.Delta == -120)
                 MoveRecord(1);
@@ -66,9 +93,13 @@ namespace SDIFrontEnd
             }
         }
 
-        private void Control_Validated(object sender, EventArgs e)
+        private void txtTempVarPrefix_Validating(object sender, CancelEventArgs e)
         {
-            CurrentRecord.Dirty = true;
+            if (txtTempVarPrefix.Text.Length > 2)
+            {
+                MessageBox.Show("Temp Var Prefix must be 2 characters long.");
+                e.Cancel = true;
+            }
         }
 
         private void toolStripGoTo_SelectedIndexChanged(object sender, EventArgs e)
@@ -76,49 +107,108 @@ namespace SDIFrontEnd
             if (toolStripGoTo.SelectedItem == null)
                 return;
 
-            GoToRegion(((RegionRecord)toolStripGoTo.SelectedItem).ID);
+            SaveRecord();
+            GoToRegion(((Region)toolStripGoTo.SelectedItem).ID);
         }
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            SaveRecord();
             Close();
-            FM.FormManager.Remove(this);
         }
 
         private void addToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            NewRegionEntry frm = new NewRegionEntry();
-            frm.ShowDialog();
-
-            if (frm.DialogResult == DialogResult.OK)
-            {
-                bs.Add(frm.NewRegion);
-                GoToRegion(frm.NewRegion.ID);
-            }
+            SaveRecord();
+            AddRegion();
         }
 
         private void listViewToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            RegionList frm = new RegionList(new List<RegionRecord>(RegionList));
-            frm.ShowDialog();
+            OpenListView();
         }
 
         private void cmdDelete_Click(object sender, EventArgs e)
         {
-            if (cmdDelete.Text.Equals("Delete"))
-            {
-                MessageBox.Show("Deleting Regions is not allowed.");
-                return;
-            }
+            DeleteRecord();
         }
 
         #endregion
 
+        #region Navigation Bar events
+        private void bindingNavigatorMoveNextItem_Click(object sender, EventArgs e)
+        {
+            SaveRecord();
+            MoveRecord(1);
+        }
+
+        private void bindingNavigatorMovePreviousItem_Click(object sender, EventArgs e)
+        {
+            SaveRecord();
+            MoveRecord(-1);
+        }
+
+        private void bindingNavigatorMoveLastItem_Click(object sender, EventArgs e)
+        {
+            SaveRecord();
+            bs.MoveLast();
+        }
+
+        private void bindingNavigatorMoveFirstItem_Click(object sender, EventArgs e)
+        {
+            SaveRecord();
+            bs.MoveFirst();
+        }
+        #endregion
+
+        private void SetupMouseWheel()
+        {
+            this.MouseWheel += RegionManager_MouseWheel;
+        }
+
+        private void UpdateCurrentRecord()
+        {
+            CurrentRecord = (RegionRecord)bs.Current;
+        }
+
+        private void FillLists()
+        {
+            Records = new List<RegionRecord>();
+
+            foreach (Region region in Globals.AllRegions)
+            {
+                Records.Add(new RegionRecord(region));
+            }
+        }
+
+        private void SetupBindingSources()
+        {
+            bs = new BindingSource();
+            bs.DataSource = Records;
+            bs.PositionChanged += Bs_PositionChanged;
+
+            bsCurrent = new BindingSource();
+            bsCurrent.DataSource = bs;
+            bsCurrent.DataMember = "Item";
+            bsCurrent.ListChanged += bsCurrent_ListChanged;
+
+            bindingNavigator1.BindingSource = bs;
+        }
+
         private void BindProperties()
         {
-            txtID.DataBindings.Add("Text", bs, "ID");
-            txtRegionName.DataBindings.Add("Text", bs, "RegionName");
-            txtTempVarPrefix.DataBindings.Add("Text", bs, "TempVarPrefix");
+            txtID.DataBindings.Add("Text", bsCurrent, "ID");
+            txtRegionName.DataBindings.Add("Text", bsCurrent, "RegionName");
+            txtTempVarPrefix.DataBindings.Add("Text", bsCurrent, "TempVarPrefix");
+        }
+
+        private void FillBoxes()
+        {
+            toolStripGoTo.ComboBox.DataSource = new List<Region>(Globals.AllRegions);
+            toolStripGoTo.ComboBox.ValueMember = "ID";
+            toolStripGoTo.ComboBox.DisplayMember = "RegionName";
+            toolStripGoTo.SelectedItem = null;
+            toolStripGoTo.SelectedIndexChanged += toolStripGoTo_SelectedIndexChanged;
         }
 
         private void SetupGrid()
@@ -126,13 +216,24 @@ namespace SDIFrontEnd
             chStudy.DataPropertyName = "StudyName";
             chCode.DataPropertyName = "ISO_Code";
             dgvStudies.AutoGenerateColumns = false;
-            dgvStudies.DataSource = bs;
+            dgvStudies.DataSource = bsCurrent;
             dgvStudies.DataMember = "Studies";
+        }
+
+        private void AddRegion()
+        {
+            NewRegionEntry frm = new NewRegionEntry();
+            frm.ShowDialog();
+
+            if (frm.DialogResult == DialogResult.OK)
+            {
+                bs.Add(frm.NewRegion);
+                GoToRegion(frm.NewRegion.Item.ID);
+            }
         }
 
         private void MoveRecord(int count)
         {
-
             if (count > 0)
                 for (int i = 0; i < count; i++)
                 {
@@ -143,64 +244,35 @@ namespace SDIFrontEnd
                 {
                     bs.MovePrevious();
                 }
-
-
         }
 
-        #region Navigation Bar events
-        private void bindingNavigatorMoveNextItem_Click(object sender, EventArgs e)
+        private void SaveRecord()
         {
-            this.Validate();
-            bs.EndEdit();
+            bsCurrent.EndEdit();
 
-            if (CurrentRecord.SaveRecord() == 1)
+            bool newRec = CurrentRecord.NewRecord;
+            int updated = CurrentRecord.SaveRecord();
+
+            if (updated == 0)
             {
-                MessageBox.Show("Error saving this issue.");
-                return;
-            }
+                //lblStatus.Text = "";
+                CurrentRecord.Dirty = false;
 
-            MoveRecord(1);
+                if (newRec)
+                    Globals.AllRegions.Add(CurrentRecord.Item);
+            }
         }
 
-        private void bindingNavigatorMovePreviousItem_Click(object sender, EventArgs e)
+        private void OpenListView()
         {
-            bs.EndEdit();
-
-            if (CurrentRecord.SaveRecord() == 1)
-            {
-                MessageBox.Show("Error saving this issue.");
-                return;
-            }
-
-            MoveRecord(-1);
+            RegionList frm = new RegionList(new List<RegionRecord>(Records));
+            frm.ShowDialog();
         }
 
-        private void bindingNavigatorMoveLastItem_Click(object sender, EventArgs e)
+        private void DeleteRecord()
         {
-            bs.EndEdit();
-
-            if (CurrentRecord.SaveRecord() == 1)
-            {
-                MessageBox.Show("Error saving this issue.");
-                return;
-            }
-
-            bs.MoveLast();
+            MessageBox.Show("Deleting Regions is not allowed.");
         }
-
-        private void bindingNavigatorMoveFirstItem_Click(object sender, EventArgs e)
-        {
-            bs.EndEdit();
-
-            if (CurrentRecord.SaveRecord() == 1)
-            {
-                MessageBox.Show("Error saving this issue.");
-                return;
-            }
-
-            bs.MoveFirst();
-        }
-        #endregion
 
         /// <summary>
         /// Navigate the bindingsource to the specified region ID.
@@ -208,14 +280,14 @@ namespace SDIFrontEnd
         /// <param name="regionID"></param>
         private void GoToRegion(int regionID)
         {
-            for (int i = 0; i < RegionList.Count(); i++)
+            for (int i = 0; i < Records.Count(); i++)
             {
-                if (RegionList[i].ID == regionID)
+                if (Records[i].Item.ID == regionID)
                 {
                     bs.Position = i;
                     return;
                 }
             }
-        }
+        }       
     }
 }

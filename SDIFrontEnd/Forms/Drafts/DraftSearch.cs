@@ -80,7 +80,7 @@ namespace SDIFrontEnd
 
         private void FillBoxes()
         {
-            cboSurveyFilter.DataSource = new List<SurveyRecord>(Globals.AllSurveys);
+            cboSurveyFilter.DataSource = new List<Survey>(Globals.AllSurveys);
             cboSurveyFilter.DisplayMember = "SurveyCode";
             cboSurveyFilter.ValueMember = "SID";
             cboSurveyFilter.SelectedItem = null;

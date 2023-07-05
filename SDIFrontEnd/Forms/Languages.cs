@@ -11,22 +11,26 @@ using ITCLib;
 
 namespace SDIFrontEnd
 {
-    public partial class frmLanguages : Form
+    public partial class Languages : Form
     {
-        List<Language> languages;
+        List<Language> Records;
         BindingSource bs;
-        public frmLanguages()
+
+        public Languages()
         {
             InitializeComponent();
-            languages = DBAction.ListLanguages();
+
+            Records = DBAction.ListLanguages();
+
             bs = new BindingSource();
-            bs.DataSource = languages;
-            dataGridView1.DataSource = bs;
+            bs.DataSource = Records;
+
+            dgv.DataSource = bs;
         }
 
-        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        private void dgv_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            DataGridViewRow newRow = dataGridView1.Rows[e.RowIndex];
+            DataGridViewRow newRow = dgv.Rows[e.RowIndex];
 
             Language newLanguage = (Language)newRow.DataBoundItem;
             if (newLanguage == null)

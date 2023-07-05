@@ -46,6 +46,7 @@
             this.lblCode = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.dgvSurveys = new System.Windows.Forms.DataGridView();
+            this.chSurveyCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label6 = new System.Windows.Forms.Label();
             this.txtWaveCode = new System.Windows.Forms.TextBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -66,15 +67,14 @@
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.cmdAddStudy = new System.Windows.Forms.Button();
             this.dgvFieldwork = new System.Windows.Forms.DataGridView();
+            this.chCountry = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chFWStart = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chFWEnd = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label7 = new System.Windows.Forms.Label();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chCountry = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chFWStart = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chFWEnd = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chSurveyCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSurveys)).BeginInit();
             this.toolStrip1.SuspendLayout();
@@ -99,7 +99,6 @@
             this.txtWaveNumber.Name = "txtWaveNumber";
             this.txtWaveNumber.Size = new System.Drawing.Size(140, 23);
             this.txtWaveNumber.TabIndex = 1;
-            this.txtWaveNumber.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // cboProject
             // 
@@ -109,7 +108,6 @@
             this.cboProject.Name = "cboProject";
             this.cboProject.Size = new System.Drawing.Size(140, 24);
             this.cboProject.TabIndex = 2;
-            this.cboProject.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // chkEnglishRouting
             // 
@@ -122,7 +120,6 @@
             this.chkEnglishRouting.TabIndex = 3;
             this.chkEnglishRouting.Text = "English Routing";
             this.chkEnglishRouting.UseVisualStyleBackColor = true;
-            this.chkEnglishRouting.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // txtCountries
             // 
@@ -132,7 +129,6 @@
             this.txtCountries.Name = "txtCountries";
             this.txtCountries.Size = new System.Drawing.Size(140, 54);
             this.txtCountries.TabIndex = 4;
-            this.txtCountries.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // menuStrip1
             // 
@@ -242,6 +238,12 @@
             this.dgvSurveys.Size = new System.Drawing.Size(110, 156);
             this.dgvSurveys.TabIndex = 13;
             // 
+            // chSurveyCode
+            // 
+            this.chSurveyCode.HeaderText = "Survey";
+            this.chSurveyCode.Name = "chSurveyCode";
+            this.chSurveyCode.ReadOnly = true;
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -259,7 +261,6 @@
             this.txtWaveCode.Name = "txtWaveCode";
             this.txtWaveCode.Size = new System.Drawing.Size(140, 23);
             this.txtWaveCode.TabIndex = 15;
-            this.txtWaveCode.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // toolStrip1
             // 
@@ -284,7 +285,6 @@
             // 
             this.toolStripGoTo.Name = "toolStripGoTo";
             this.toolStripGoTo.Size = new System.Drawing.Size(75, 25);
-            this.toolStripGoTo.SelectedIndexChanged += new System.EventHandler(this.toolStripGoTo_SelectedIndexChanged);
             // 
             // toolStripSeparator1
             // 
@@ -439,6 +439,27 @@
             this.dgvFieldwork.Size = new System.Drawing.Size(310, 156);
             this.dgvFieldwork.TabIndex = 40;
             // 
+            // chCountry
+            // 
+            this.chCountry.HeaderText = "Country";
+            this.chCountry.Name = "chCountry";
+            this.chCountry.ReadOnly = true;
+            this.chCountry.Width = 68;
+            // 
+            // chFWStart
+            // 
+            this.chFWStart.HeaderText = "Start";
+            this.chFWStart.Name = "chFWStart";
+            this.chFWStart.ReadOnly = true;
+            this.chFWStart.Width = 54;
+            // 
+            // chFWEnd
+            // 
+            this.chFWEnd.HeaderText = "End";
+            this.chFWEnd.Name = "chFWEnd";
+            this.chFWEnd.ReadOnly = true;
+            this.chFWEnd.Width = 51;
+            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -468,33 +489,6 @@
             // 
             this.dataGridViewTextBoxColumn4.HeaderText = "End";
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            // 
-            // chCountry
-            // 
-            this.chCountry.HeaderText = "Country";
-            this.chCountry.Name = "chCountry";
-            this.chCountry.ReadOnly = true;
-            this.chCountry.Width = 68;
-            // 
-            // chFWStart
-            // 
-            this.chFWStart.HeaderText = "Start";
-            this.chFWStart.Name = "chFWStart";
-            this.chFWStart.ReadOnly = true;
-            this.chFWStart.Width = 54;
-            // 
-            // chFWEnd
-            // 
-            this.chFWEnd.HeaderText = "End";
-            this.chFWEnd.Name = "chFWEnd";
-            this.chFWEnd.ReadOnly = true;
-            this.chFWEnd.Width = 51;
-            // 
-            // chSurveyCode
-            // 
-            this.chSurveyCode.HeaderText = "Survey";
-            this.chSurveyCode.Name = "chSurveyCode";
-            this.chSurveyCode.ReadOnly = true;
             // 
             // WaveManager
             // 
@@ -527,6 +521,8 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "WaveManager";
             this.Text = "Wave Manager";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.WaveManager_FormClosed);
+            this.Load += new System.EventHandler(this.WaveManager_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSurveys)).EndInit();

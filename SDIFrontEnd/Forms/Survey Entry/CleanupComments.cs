@@ -30,12 +30,12 @@ namespace SDIFrontEnd
             dataRepeater1.DataSource = bs; 
         }
 
-        public CleanupComments(List<QuestionRecord> deletedQuestions)
+        public CleanupComments(List<SurveyQuestion> deletedQuestions)
         {
             InitializeComponent();
 
             List<DeletedComment> comments = new List<DeletedComment>();
-            foreach (QuestionRecord qr in deletedQuestions)
+            foreach (SurveyQuestion qr in deletedQuestions)
                 comments.AddRange(DBAction.GetDeletedComments(qr.SurveyCode, qr.VarName.VarName));
 
             Comments = comments;
@@ -63,16 +63,16 @@ namespace SDIFrontEnd
 
         private void cmdDelete_Click(object sender, EventArgs e)
         {
-           
-
             var datasource = ((BindingSource)dataRepeater1.DataSource);
             int index = dataRepeater1.CurrentItemIndex;
-            int id =  ((QuestionComment)datasource[index]).ID;
+            int id =  ((Comment)datasource[index]).ID;
 
             if (DBAction.DeleteDeletedComment(id)==1)
             {
                 MessageBox.Show("Error deleting comment.");
             }
+            Comments.RemoveAt(index);
+            bs.ResetBindings(false);
         }
 
         private void cmdOK_Click(object sender, EventArgs e)

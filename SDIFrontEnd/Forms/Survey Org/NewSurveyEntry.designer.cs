@@ -373,7 +373,7 @@
             this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "NewSurveyEntry";
             this.Text = "New Survey";
-            this.Load += new System.EventHandler(this.NewSurveyEntry_Load);
+
             this.ResumeLayout(false);
             this.PerformLayout();
 

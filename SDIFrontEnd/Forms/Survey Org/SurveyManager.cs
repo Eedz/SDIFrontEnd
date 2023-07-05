@@ -15,8 +15,8 @@ namespace SDIFrontEnd
     // TODO saving locked survey changes
     public partial class SurveyManager : Form
     {
-        BindingList<SurveyRecord> SurveyList;
-        List<StudyWaveRecord> WaveList;
+        List<SurveyRecord> Records;
+        List<StudyWave> WaveList;
         List<int> LockedSurveys;
         SurveyRecord CurrentRecord;
 
@@ -25,6 +25,7 @@ namespace SDIFrontEnd
         List<ScreenedProduct> ScreenedProductList;
 
         BindingSource bs;
+        BindingSource bsCurrent;
         BindingSource bsLanguages;
         BindingSource bsUserStates;
         BindingSource bsScreenedProducts;
@@ -41,10 +42,7 @@ namespace SDIFrontEnd
         {
             InitializeComponent();
 
-            this.MouseWheel += SurveyManager_MouseWheel;
-            cboWaveID.MouseWheel += ComboBox_MouseWheel;
-            cboSurveyType.MouseWheel += ComboBox_MouseWheel;
-            cboMode.MouseWheel += ComboBox_MouseWheel;
+            SetupMouseWheel();
 
             FillLists();
 
@@ -56,22 +54,20 @@ namespace SDIFrontEnd
 
             BindProperties();
             
-            RefreshCurrentRecord();
+            UpdateCurrentRecord();
 
         }
 
         #region Menu bars
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CurrentRecord.SaveRecord();
-            Close();
-            FM.FormManager.Remove(this);
+            SaveRecord();
+            Close(); 
         }
 
         private void listViewToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SurveyList frm = new SurveyList(new List<SurveyRecord>(SurveyList));
-            frm.ShowDialog();
+            OpenListView();
         }
 
         private void addToolStripMenuItem_Click(object sender, EventArgs e)
@@ -84,13 +80,13 @@ namespace SDIFrontEnd
             if (toolStripGoTo.SelectedItem == null)
                 return;
 
+            SaveRecord();
             GoToSurvey(((Survey)toolStripGoTo.SelectedItem).SID);
         }
 
         private void toolbuttonWaves_Click(object sender, EventArgs e)
         {
-            WaveManager frm = new WaveManager(CurrentRecord.WaveID);
-            frm.Show();
+            ViewWaves();
         }
         #endregion
 
@@ -98,51 +94,22 @@ namespace SDIFrontEnd
 
         private void SurveyManager_Load(object sender, EventArgs e)
         {
-            //txtSurveyCode.Focus();
+            UpdateCurrentRecord();
+        }
+
+        private void SurveyManager_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            FM.FormManager.Remove(this);
         }
 
         private void cmdDelete_Click(object sender, EventArgs e)
         {
-
-            if (LockedSurveys.Contains(CurrentRecord.SID))
-            {
-                MessageBox.Show("Cannot delete locked surveys.");
-                return;
-            }
-
-            if (MessageBox.Show("Are you sure you want to delete this survey? (All questions, comments and translations will also be deleted for this survey)?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                DBAction.DeleteRecord(CurrentRecord);
-                bs.RemoveCurrent();
-                RefreshCurrentRecord();
-            }
-           
+            DeleteRecord();
         }
-
-
 
         private void chkLocked_Click(object sender, EventArgs e)
         {
-            // we click on unlock, 
-            // if a survey is locked already, that means it is part of the AutoLock table
-            // unlock it for 1 hour
-
-            if (chkLocked.Checked)
-            {
-                LockSurvey();
-
-                ToggleLocks(true);
-
-            }
-            else
-            {
-                if (CurrentRecord.Locked)
-                {
-                    DBAction.UnlockSurvey(CurrentRecord, 60 * 60000);
-                }
-
-                ToggleLocks(false);
-            }
+            UnlockSurvey();
         }
 
         void ComboBox_MouseWheel(object sender, MouseEventArgs e)
@@ -155,13 +122,7 @@ namespace SDIFrontEnd
 
         private void SurveyManager_MouseWheel(object sender, MouseEventArgs e)
         {
-            bs.EndEdit();
-
-            if (CurrentRecord.SaveRecord()==1)
-            {
-                MessageBox.Show("Error saving record.");
-               // return;
-            }
+            SaveRecord();
 
             if (e.Delta == -120)
                 MoveRecord(1);
@@ -173,29 +134,40 @@ namespace SDIFrontEnd
 
         private void Bs_PositionChanged(object sender, EventArgs e)
         {
-            RefreshCurrentRecord();
-
+            UpdateCurrentRecord();
         }
 
-        private void Bs_ListChanged(object sender, ListChangedEventArgs e)
+        private void BsCurrent_ListChanged(object sender, ListChangedEventArgs e)
         {
-            //if (e.PropertyDescriptor == null) return;
+            // item: bs[e.NewIndex]
+            // property name: e.PropertyDescriptor.Name
+            if (e.PropertyDescriptor != null)
+            {
+                // get the paper record that was modified
+                Survey modifiedRegion = (Survey)bsCurrent[e.NewIndex];
+                SurveyRecord modifiedRecord = Records.Where(x => x.Item == modifiedRegion).FirstOrDefault();
 
-            CurrentRecord.Dirty = true;
+                if (modifiedRecord == null)
+                    return;
+
+                switch (e.PropertyDescriptor.Name)
+                {
+                    case "LanguageList":
+                    case "ScreenedProducts":
+                    case "UserStates":
+                        break;
+                    default:
+                        modifiedRecord.Dirty = true;
+                        break;
+                }
+                //if (CurrentRecord.Dirty)
+                //lblStatus.Text = "*";
+            }
         }
 
         private void cmdAddWave_Click(object sender, EventArgs e)
         {
-            NewWaveEntry frm = new NewWaveEntry();
-            frm.ShowDialog();
-
-            if (frm.DialogResult == DialogResult.OK)
-            {
-                WaveList.Add(frm.NewWave);
-                cboWaveID.DataSource = null;
-                cboWaveID.DataSource = WaveList;
-                cboWaveID.SelectedValue = frm.NewWave.ID;
-            }
+            AddWave();
         }
 
         private void dtp_Format(object sender, ConvertEventArgs e)
@@ -212,7 +184,6 @@ namespace SDIFrontEnd
 
             if (e.Value == null)
             {
-
                 // have to set e.Value to SOMETHING, since it’s coming in as NULL 
                 // if i set to DateTime.Today, and that’s DIFFERENT than the control’s current  
                 // value, then it triggers a CHANGE to the value, which CHECKS the box (not ok) 
@@ -230,7 +201,6 @@ namespace SDIFrontEnd
                 dtp.Format = DateTimePickerFormat.Short;
                 dtp.ShowCheckBox = true;
                 dtp.Checked = true;
-
                 // leave e.Value unchanged – it’s not null, so the DTP is fine with it. 
             }
         }
@@ -262,22 +232,32 @@ namespace SDIFrontEnd
                 e.Value = new Nullable<DateTime>(val);
             }
         }
-
-        #endregion
-
-        
+        #endregion      
 
         #region Form Setup
+
+        private void SetupMouseWheel()
+        {
+            this.MouseWheel += SurveyManager_MouseWheel;
+            cboWaveID.MouseWheel += ComboBox_MouseWheel;
+            cboSurveyType.MouseWheel += ComboBox_MouseWheel;
+            cboMode.MouseWheel += ComboBox_MouseWheel;
+        }
 
         /// <summary>
         /// Get all items needed from the database.
         /// </summary>
         private void FillLists()
         {
-            SurveyList = new BindingList<SurveyRecord>(Globals.AllSurveys);
-            WaveList = new List<StudyWaveRecord>(Globals.AllWaves);
+            Records = new List<SurveyRecord>();
+            foreach (Survey survey in Globals.AllSurveys)
+            {
+                Records.Add(new SurveyRecord(survey));
+            }
+
+            WaveList = new List<StudyWave>(Globals.AllWaves);
             LockedSurveys = DBAction.GetLockedSurveys();
-            UserStateList = Globals.AllUserStates;
+            UserStateList = new List<UserStateRecord>(Globals.AllUserStates);
             ScreenedProductList = DBAction.GetScreenProducts();
             LanguageList = DBAction.ListLanguages();
         }
@@ -288,24 +268,28 @@ namespace SDIFrontEnd
         private void SetupBindingSources()
         {
             bs = new BindingSource();
+            bsCurrent = new BindingSource();
             bsLanguages = new BindingSource();
             bsUserStates = new BindingSource();
             bsScreenedProducts = new BindingSource();
 
-            bs.DataSource = SurveyList;
+            bs.DataSource = Records;
 
-            bsLanguages.DataSource = bs;
+            bsCurrent.DataSource = bs;
+            bsCurrent.DataMember = "Item";
+
+            bsLanguages.DataSource = bsCurrent;
             bsLanguages.DataMember = "LanguageList";
 
-            bsUserStates.DataSource = bs;
+            bsUserStates.DataSource = bsCurrent;
             bsUserStates.DataMember = "UserStates";
 
-            bsScreenedProducts.DataSource = bs;
+            bsScreenedProducts.DataSource = bsCurrent;
             bsScreenedProducts.DataMember = "ScreenedProducts";
 
             bindingNavigator1.BindingSource = bs;
             bs.PositionChanged += Bs_PositionChanged;
-            bs.ListChanged += Bs_ListChanged;
+            bsCurrent.ListChanged += BsCurrent_ListChanged;
         }
 
         /// <summary>
@@ -313,30 +297,29 @@ namespace SDIFrontEnd
         /// </summary>
         private void BindProperties()
         {
-            // survey info
-            txtID.DataBindings.Add(new Binding("Text", bs, "SID"));
-            txtSurveyCode.DataBindings.Add("Text", bs, "SurveyCode");
-            txtSurveyTitle.DataBindings.Add("Text", bs, "Title");
+            txtID.DataBindings.Add(new Binding("Text", bsCurrent, "SID"));
+            txtSurveyCode.DataBindings.Add("Text", bsCurrent, "SurveyCode");
+            txtSurveyTitle.DataBindings.Add("Text", bsCurrent, "Title");
 
-            cboMode.DataBindings.Add("SelectedValue", bs, "Mode.ID");
+            cboMode.DataBindings.Add("SelectedItem", bsCurrent, "Mode");
 
-            cboSurveyType.DataBindings.Add("SelectedValue", bs, "Cohort.ID");
+            cboSurveyType.DataBindings.Add("SelectedItem", bsCurrent, "Cohort");
 
-            txtFileName.DataBindings.Add("Text", bs, "WebName");
+            txtFileName.DataBindings.Add("Text", bsCurrent, "WebName");
 
-            Binding b = new Binding("Value", bs, "CreationDate", true, DataSourceUpdateMode.OnPropertyChanged);
+            Binding b = new Binding("Value", bsCurrent, "CreationDate", true, DataSourceUpdateMode.OnPropertyChanged);
             dtpCreationDate.DataBindings.Add(b);
             b.Format += new ConvertEventHandler(dtp_Format);
             b.Parse += new ConvertEventHandler(dtp_Parse);
   
-            chkNCT.DataBindings.Add("Checked", bs, "NCT");
+            chkNCT.DataBindings.Add("Checked", bsCurrent, "NCT");
             
-            chkHideSurvey.DataBindings.Add("Checked", bs, "HideSurvey");
-            chkLocked.DataBindings.Add("Checked", bs, "Locked");
-            chkITCSurvey.DataBindings.Add("Checked", bs, "ITCSurvey");
+            chkHideSurvey.DataBindings.Add("Checked", bsCurrent, "HideSurvey");
+            chkLocked.DataBindings.Add("Checked", bsCurrent, "Locked");
+            chkITCSurvey.DataBindings.Add("Checked", bsCurrent, "ITCSurvey");
           
             // study info
-            cboWaveID.DataBindings.Add("SelectedValue", bs, "WaveID");
+            cboWaveID.DataBindings.Add("SelectedValue", bsCurrent, "WaveID");
             
         }
 
@@ -345,8 +328,6 @@ namespace SDIFrontEnd
         /// </summary>
         private void SetupGrids()
         {
-
-
             // languages grid
             chSurvIDLang.DataPropertyName = "SurvID";
 
@@ -389,11 +370,13 @@ namespace SDIFrontEnd
         {
             toolStripGoTo.ComboBox.ValueMember = "SID";
             toolStripGoTo.ComboBox.DisplayMember = "SurveyCode";
-            toolStripGoTo.ComboBox.DataSource = new List<Survey>(SurveyList);
+            toolStripGoTo.ComboBox.DataSource = new List<Survey>(Globals.AllSurveys);
+            toolStripGoTo.ComboBox.SelectedItem = null;
+            toolStripGoTo.ComboBox.SelectedIndexChanged += toolStripGoTo_SelectedIndexChanged;
 
             cboWaveID.DisplayMember = "WaveCode";
             cboWaveID.ValueMember = "ID";
-            cboWaveID.DataSource = new List<StudyWaveRecord>(WaveList);
+            cboWaveID.DataSource = new List<StudyWave>(WaveList);
 
             cboMode.DisplayMember = "ModeAbbrev";
             cboMode.ValueMember = "ID";
@@ -411,12 +394,11 @@ namespace SDIFrontEnd
         private void dgvLanguages_UserAddedRow(object sender, DataGridViewRowEventArgs e)
         {
             newLanguageRow = true;
-
         }
 
         private void dgvLanguages_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
         {
-            e.Row.Cells["chSurvIDLang"].Value = CurrentRecord.SID;
+            e.Row.Cells["chSurvIDLang"].Value = CurrentRecord.Item.SID;
         }
 
         private void dgvLanguages_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
@@ -462,8 +444,7 @@ namespace SDIFrontEnd
 
 
         private void dgvLanguages_RowLeave(object sender, DataGridViewCellEventArgs e)
-        {
-            
+        { 
             if (!dgvLanguages.IsCurrentRowDirty)
                 return;
 
@@ -503,7 +484,7 @@ namespace SDIFrontEnd
 
         private void dgvUserStates_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
         {
-            e.Row.Cells["chSurvIDState"].Value = CurrentRecord.SID;
+            e.Row.Cells["chSurvIDState"].Value = CurrentRecord.Item.SID;
         }
 
         private void dgvUserStates_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
@@ -523,7 +504,6 @@ namespace SDIFrontEnd
 
         private void dgvUserStates_RowLeave(object sender, DataGridViewCellEventArgs e)
         {
-
             if (!dgvUserStates.IsCurrentRowDirty)
                 return;
 
@@ -532,13 +512,10 @@ namespace SDIFrontEnd
                 return;
 
             editedUserStateRow = newState.ID > 0;
-
-            
         }
 
         private void dgvUserStates_RowValidated(object sender, DataGridViewCellEventArgs e)
         {
-
             SurveyUserState newState;
 
             try
@@ -550,7 +527,6 @@ namespace SDIFrontEnd
                 return;
             }
 
-
             if (!newUserStateRow && editedUserStateRow)
             {
                 // update language
@@ -559,7 +535,6 @@ namespace SDIFrontEnd
             }
             else if (newUserStateRow)
             {
-
                 // insert language
                 if (DBAction.InsertSurveyUserState(newState) == 1)
                     MessageBox.Show("Error adding new user state.");
@@ -569,28 +544,21 @@ namespace SDIFrontEnd
 
         private void dgvUserStates_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
-
             if (MessageBox.Show("Are you sure you want to delete the selected user state?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 SurveyUserState state = (SurveyUserState)e.Row.DataBoundItem;
                 DBAction.DeleteRecord(state);
-
             }
             else
             {
                 e.Cancel = true;
             }
-
         }
-
 
         private void dgvUserStates_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
 
         }
-
-
-
         #endregion
 
         #region Screened Products datagridview
@@ -602,7 +570,7 @@ namespace SDIFrontEnd
 
         private void dgvScreenedProducts_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
         {
-            e.Row.Cells["chSurvIDProduct"].Value = CurrentRecord.SID;
+            e.Row.Cells["chSurvIDProduct"].Value = CurrentRecord.Item.SID;
         }
 
         private void dgvScreenedProducts_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
@@ -611,7 +579,6 @@ namespace SDIFrontEnd
 
             // Abort validation if cell is not in the Product column.
             if (!headerText.Equals("Product")) return;
-
 
             dgvScreenedProducts.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = ScreenedProductList.FirstOrDefault(x => x.ProductName.Equals(e.FormattedValue.ToString()));
         }
@@ -656,25 +623,21 @@ namespace SDIFrontEnd
 
         private void dgvScreenedProducts_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
-
             if (MessageBox.Show("Are you sure you want to delete the selected screend product?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 SurveyScreenedProduct product = (SurveyScreenedProduct)e.Row.DataBoundItem;
                 DBAction.DeleteRecord(product);
-
             }
             else
             {
                 e.Cancel = true;
             }
-
         }
 
         private void dgvScreenedProducts_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             
         }
-
         #endregion
 
         #region Navigation Bar events
@@ -742,11 +705,27 @@ namespace SDIFrontEnd
         /// <summary>
         /// Update the Current Record and lock the form if necessary.
         /// </summary>
-        private void RefreshCurrentRecord()
+        private void UpdateCurrentRecord()
         {
             CurrentRecord = (SurveyRecord)bs.Current;
-            ToggleLocks(CurrentRecord.Locked);
-            
+            ToggleLocks(CurrentRecord.Item.Locked);
+        }
+
+        private void SaveRecord()
+        {
+            bsCurrent.EndEdit();
+
+            bool newRec = CurrentRecord.NewRecord;
+            int updated = CurrentRecord.SaveRecord();
+
+            if (updated == 0)
+            {
+                //lblStatus.Text = "";
+                CurrentRecord.Dirty = false;
+
+                if (newRec)
+                    Globals.AllSurveys.Add(CurrentRecord.Item);
+            }
         }
 
         /// <summary>
@@ -754,10 +733,10 @@ namespace SDIFrontEnd
         /// </summary>
         private void LockSurvey()
         {
-            if (!CurrentRecord.Locked && LockedSurveys.Contains(CurrentRecord.SID))
+            if (!CurrentRecord.Item.Locked && LockedSurveys.Contains(CurrentRecord.Item.SID))
             {
-                if (DBAction.LockSurvey(CurrentRecord) == 0)
-                    CurrentRecord.Locked = true;
+                if (DBAction.LockSurvey(CurrentRecord.Item) == 0)
+                    CurrentRecord.Item.Locked = true;
             }
         }
 
@@ -783,10 +762,7 @@ namespace SDIFrontEnd
             dgvUserStates.Enabled = !lockFlag;
             dgvScreenedProducts.Enabled = !lockFlag;
 
-            
-            chkLocked.Visible = lockFlag;
-            
-
+            chkLocked.Visible = lockFlag;          
         }
 
         /// <summary>
@@ -795,7 +771,6 @@ namespace SDIFrontEnd
         /// <param name="count">Positive integers move forward, negative move backwards.</param>
         private void MoveRecord(int count)
         {
-
             if (count > 0)
                 for (int i = 0; i < count; i++)
                 {
@@ -819,10 +794,22 @@ namespace SDIFrontEnd
             if (frm.DialogResult == DialogResult.OK)
             {
                 bs.Add(frm.NewSurvey);
-                GoToSurvey(frm.NewSurvey.SID);
-            }
+                GoToSurvey(frm.NewSurvey.Item.SID);
+            }   
+        }
 
-            
+        private void AddWave()
+        {
+            NewWaveEntry frm = new NewWaveEntry();
+            frm.ShowDialog();
+
+            if (frm.DialogResult == DialogResult.OK)
+            {
+                WaveList.Add(frm.NewWave.Item);
+                cboWaveID.DataSource = null;
+                cboWaveID.DataSource = WaveList;
+                cboWaveID.SelectedValue = frm.NewWave.Item.ID;
+            }
         }
 
         /// <summary>
@@ -831,9 +818,9 @@ namespace SDIFrontEnd
         /// <param name="survid"></param>
         private void GoToSurvey(int survid)
         {
-            for (int i = 0; i < SurveyList.Count(); i++)
+            for (int i = 0; i < Records.Count(); i++)
             {
-                if (SurveyList[i].SID == survid)
+                if (Records[i].Item.SID == survid)
                 {
                     bs.Position = i;
                     return;
@@ -841,6 +828,53 @@ namespace SDIFrontEnd
             }
         }
 
+        // TODO use form manager, new instance?
+        private void ViewWaves()
+        {
+            WaveManager frm = new WaveManager(CurrentRecord.Item.WaveID);
+            frm.Show();
+        }
+
+        private void OpenListView()
+        {
+            SurveyList frm = new SurveyList(new List<SurveyRecord>(Records));
+            frm.ShowDialog();
+        }
         
+        private void DeleteRecord()
+        {
+            if (LockedSurveys.Contains(CurrentRecord.Item.SID))
+            {
+                MessageBox.Show("Cannot delete locked surveys.");
+                return;
+            }
+
+            if (MessageBox.Show("Are you sure you want to delete this survey? (All questions, comments and translations will also be deleted for this survey)?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                DBAction.DeleteRecord(CurrentRecord);
+                bs.RemoveCurrent();
+                UpdateCurrentRecord();
+            }
+        }
+
+        /// <summary>
+        /// If a survey is locked already, that means it is part of the AutoLock table, unlock it for 1 hour
+        /// </summary>
+        private void UnlockSurvey()
+        {
+            if (chkLocked.Checked)
+            {
+                LockSurvey();
+                ToggleLocks(true);
+            }
+            else
+            {
+                if (CurrentRecord.Item.Locked)
+                {
+                    DBAction.UnlockSurvey(CurrentRecord.Item, 60 * 60000);
+                }
+                ToggleLocks(false);
+            }
+        }
     }
 }

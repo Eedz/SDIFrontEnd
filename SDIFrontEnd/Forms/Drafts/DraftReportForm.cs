@@ -23,7 +23,7 @@ namespace SDIFrontEnd
 
             DraftList = DBAction.ListSurveyDrafts();
 
-            cboSurvey.DataSource = new List<SurveyRecord>(Globals.AllSurveys);
+            cboSurvey.DataSource = new List<Survey>(Globals.AllSurveys);
             cboSurvey.DisplayMember = "SurveyCode";
             cboSurvey.ValueMember = "SID";
             cboSurvey.SelectedItem = null;
@@ -58,7 +58,7 @@ namespace SDIFrontEnd
             if (cboSurvey.SelectedItem == null)
                 return;
 
-            SurveyRecord survey = (SurveyRecord)cboSurvey.SelectedItem;
+            Survey survey = (Survey)cboSurvey.SelectedItem;
 
             cboDraft.DataSource = DraftList.Where(x => x.SurvID == survey.SID).ToList();
             cboDraft.DisplayMember = "DateAndTitle";

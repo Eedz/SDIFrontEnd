@@ -199,12 +199,6 @@
     <Compile Include="Forms\Survey Org\WaveList.designer.cs">
       <DependentUpon>WaveList.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\zOld\PraccingMenu.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\zOld\PraccingMenu.Designer.cs">
-      <DependentUpon>PraccingMenu.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Praccing\PraccingReportForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -374,17 +368,17 @@
     <Compile Include="Forms\Report Forms\frmCodeGenerator.designer.cs">
       <DependentUpon>frmCodeGenerator.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmLanguages.cs">
+    <Compile Include="Forms\Languages.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmLanguages.designer.cs">
-      <DependentUpon>frmLanguages.cs</DependentUpon>
+    <Compile Include="Forms\Languages.designer.cs">
+      <DependentUpon>Languages.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmSurveyLanguages.cs">
+    <Compile Include="Forms\SurveyLanguages.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmSurveyLanguages.designer.cs">
-      <DependentUpon>frmSurveyLanguages.cs</DependentUpon>
+    <Compile Include="Forms\SurveyLanguages.designer.cs">
+      <DependentUpon>SurveyLanguages.cs</DependentUpon>
     </Compile>
     <Compile Include="Globals\Globals.cs" />
     <Compile Include="Forms\Dialogs\CohortList.cs">
@@ -766,9 +760,6 @@
     <EmbeddedResource Include="Forms\Survey Org\WaveList.resx">
       <DependentUpon>WaveList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\zOld\PraccingMenu.resx">
-      <DependentUpon>PraccingMenu.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Praccing\PraccingReportForm.resx">
       <DependentUpon>PraccingReportForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -935,11 +926,11 @@
     <EmbeddedResource Include="Forms\Report Forms\frmCodeGenerator.resx">
       <DependentUpon>frmCodeGenerator.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmLanguages.resx">
-      <DependentUpon>frmLanguages.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Languages.resx">
+      <DependentUpon>Languages.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmSurveyLanguages.resx">
-      <DependentUpon>frmSurveyLanguages.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\SurveyLanguages.resx">
+      <DependentUpon>SurveyLanguages.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Translation Importing\ImportedDuplicates.resx">
       <DependentUpon>ImportedDuplicates.cs</DependentUpon>

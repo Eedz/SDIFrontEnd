@@ -610,7 +610,7 @@
             this.toolStripGoTo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.toolStripGoTo.Name = "toolStripGoTo";
             this.toolStripGoTo.Size = new System.Drawing.Size(75, 25);
-            this.toolStripGoTo.SelectedIndexChanged += new System.EventHandler(this.toolStripGoTo_SelectedIndexChanged);
+            
             // 
             // toolStripSeparator1
             // 
@@ -700,6 +700,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "SurveyManager";
             this.Text = "Survey Manager";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SurveyManager_FormClosed);
             this.Load += new System.EventHandler(this.SurveyManager_Load);
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).EndInit();
             this.bindingNavigator1.ResumeLayout(false);

@@ -56,6 +56,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dgvWaves = new System.Windows.Forms.DataGridView();
             this.chWave = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bindingNavigator1 = new System.Windows.Forms.BindingNavigator(this.components);
@@ -72,7 +73,6 @@
             this.cmdDelete = new System.Windows.Forms.Button();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmdAddRegion = new System.Windows.Forms.Button();
-            this.listViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvWaves)).BeginInit();
@@ -95,7 +95,7 @@
             this.label1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(69, 61);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(20, 16);
+            this.label1.Size = new System.Drawing.Size(19, 16);
             this.label1.TabIndex = 1;
             this.label1.Text = "ID";
             // 
@@ -105,7 +105,7 @@
             this.label2.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(7, 114);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(85, 16);
+            this.label2.Size = new System.Drawing.Size(84, 16);
             this.label2.TabIndex = 2;
             this.label2.Text = "Project Name";
             // 
@@ -116,7 +116,6 @@
             this.txtStudyName.Name = "txtStudyName";
             this.txtStudyName.Size = new System.Drawing.Size(157, 23);
             this.txtStudyName.TabIndex = 3;
-            this.txtStudyName.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // label3
             // 
@@ -124,7 +123,7 @@
             this.label3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(37, 140);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(52, 16);
+            this.label3.Size = new System.Drawing.Size(51, 16);
             this.label3.TabIndex = 4;
             this.label3.Text = "Country";
             // 
@@ -135,7 +134,6 @@
             this.txtCountry.Name = "txtCountry";
             this.txtCountry.Size = new System.Drawing.Size(157, 23);
             this.txtCountry.TabIndex = 5;
-            this.txtCountry.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // label4
             // 
@@ -143,7 +141,7 @@
             this.label4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(27, 166);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(62, 16);
+            this.label4.Size = new System.Drawing.Size(61, 16);
             this.label4.TabIndex = 6;
             this.label4.Text = "ISO Code";
             // 
@@ -154,7 +152,6 @@
             this.txtISOCode.Name = "txtISOCode";
             this.txtISOCode.Size = new System.Drawing.Size(157, 23);
             this.txtISOCode.TabIndex = 7;
-            this.txtISOCode.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // label5
             // 
@@ -162,7 +159,7 @@
             this.label5.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(56, 192);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(33, 16);
+            this.label5.Size = new System.Drawing.Size(32, 16);
             this.label5.TabIndex = 8;
             this.label5.Text = "CC#";
             // 
@@ -173,7 +170,6 @@
             this.txtCC.Name = "txtCC";
             this.txtCC.Size = new System.Drawing.Size(157, 23);
             this.txtCC.TabIndex = 9;
-            this.txtCC.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // cboAgeGroup
             // 
@@ -183,7 +179,6 @@
             this.cboAgeGroup.Name = "cboAgeGroup";
             this.cboAgeGroup.Size = new System.Drawing.Size(157, 24);
             this.cboAgeGroup.TabIndex = 10;
-            this.cboAgeGroup.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // label6
             // 
@@ -191,7 +186,7 @@
             this.label6.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(43, 218);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(46, 16);
+            this.label6.Size = new System.Drawing.Size(45, 16);
             this.label6.TabIndex = 11;
             this.label6.Text = "Cohort";
             // 
@@ -201,7 +196,7 @@
             this.label7.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(21, 244);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(68, 16);
+            this.label7.Size = new System.Drawing.Size(67, 16);
             this.label7.TabIndex = 12;
             this.label7.Text = "Age Group";
             // 
@@ -212,7 +207,6 @@
             this.txtCohort.Name = "txtCohort";
             this.txtCohort.Size = new System.Drawing.Size(157, 23);
             this.txtCohort.TabIndex = 13;
-            this.txtCohort.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // cboRegion
             // 
@@ -222,7 +216,6 @@
             this.cboRegion.Name = "cboRegion";
             this.cboRegion.Size = new System.Drawing.Size(157, 24);
             this.cboRegion.TabIndex = 14;
-            this.cboRegion.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // label8
             // 
@@ -230,7 +223,7 @@
             this.label8.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(46, 87);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(47, 16);
+            this.label8.Size = new System.Drawing.Size(46, 16);
             this.label8.TabIndex = 15;
             this.label8.Text = "Region";
             // 
@@ -241,7 +234,6 @@
             this.txtLanguages.Name = "txtLanguages";
             this.txtLanguages.Size = new System.Drawing.Size(157, 23);
             this.txtLanguages.TabIndex = 16;
-            this.txtLanguages.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // label9
             // 
@@ -249,7 +241,7 @@
             this.label9.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.Location = new System.Drawing.Point(20, 271);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(69, 16);
+            this.label9.Size = new System.Drawing.Size(68, 16);
             this.label9.TabIndex = 17;
             this.label9.Text = "Languages";
             // 
@@ -276,7 +268,6 @@
             // 
             this.toolStripGoTo.Name = "toolStripGoTo";
             this.toolStripGoTo.Size = new System.Drawing.Size(75, 25);
-            this.toolStripGoTo.SelectedIndexChanged += new System.EventHandler(this.toolStripGoTo_SelectedIndexChanged);
             // 
             // toolStripSeparator1
             // 
@@ -318,6 +309,13 @@
             this.addToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
             this.addToolStripMenuItem.Text = "Add...";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
+            // 
+            // listViewToolStripMenuItem
+            // 
+            this.listViewToolStripMenuItem.Name = "listViewToolStripMenuItem";
+            this.listViewToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
+            this.listViewToolStripMenuItem.Text = "List View";
+            this.listViewToolStripMenuItem.Click += new System.EventHandler(this.listViewToolStripMenuItem_Click);
             // 
             // dgvWaves
             // 
@@ -402,6 +400,7 @@
             // 
             this.bindingNavigatorPositionItem.AccessibleName = "Position";
             this.bindingNavigatorPositionItem.AutoSize = false;
+            this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
             this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
             this.bindingNavigatorPositionItem.Text = "0";
@@ -443,7 +442,7 @@
             this.label10.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.Location = new System.Drawing.Point(295, 61);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(128, 16);
+            this.label10.Size = new System.Drawing.Size(127, 16);
             this.label10.TabIndex = 41;
             this.label10.Text = "Waves in this project";
             // 
@@ -474,13 +473,6 @@
             this.cmdAddRegion.UseCompatibleTextRendering = true;
             this.cmdAddRegion.UseVisualStyleBackColor = true;
             this.cmdAddRegion.Click += new System.EventHandler(this.cmdAddRegion_Click);
-            // 
-            // listViewToolStripMenuItem
-            // 
-            this.listViewToolStripMenuItem.Name = "listViewToolStripMenuItem";
-            this.listViewToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
-            this.listViewToolStripMenuItem.Text = "List View";
-            this.listViewToolStripMenuItem.Click += new System.EventHandler(this.listViewToolStripMenuItem_Click);
             // 
             // StudyManager
             // 
@@ -516,6 +508,8 @@
             this.Controls.Add(this.txtID);
             this.Name = "StudyManager";
             this.Text = "Study Manager";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.StudyManager_FormClosed);
+            this.Load += new System.EventHandler(this.StudyManager_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);

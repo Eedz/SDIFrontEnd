@@ -33,7 +33,7 @@ namespace SDIFrontEnd
         List<PraccingIssue> mainIssues;
         List<PersonRecord> personList;
         List<PraccingCategory> categoryList;
-        List<SurveyRecord> surveyList;
+        List<Survey> surveyList;
         PraccingIssue CurrentIssue;
         PraccingResponse CurrentResponse;
 
@@ -87,7 +87,7 @@ namespace SDIFrontEnd
             // get list of categories
             categoryList = DBAction.GetPraccingCategories();
             // get list of surveys
-            surveyList = new List<SurveyRecord>(Globals.AllSurveys);
+            surveyList = new List<Survey>(Globals.AllSurveys);
 
             AppImageRepo = System.IO.Path.GetDirectoryName(Application.StartupPath);
 

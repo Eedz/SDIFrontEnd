@@ -57,6 +57,12 @@ namespace SDIFrontEnd
                 if (c is TextBox)
                     c.Text = "";
             }
+            foreach (Control c in panelWordingFields.Controls)
+            {
+                if (c is TextBox)
+                    c.Text = "";
+            }
+
             cboProduct.SelectedItem = null;
 
             // clear global fields

@@ -101,7 +101,7 @@ namespace SDIFrontEnd
 
             if (rbWave.Checked)
             {
-                StudyWaveRecord selectedWave = (StudyWaveRecord)cboSource.SelectedItem;
+                StudyWave selectedWave = (StudyWave)cboSource.SelectedItem;
                 if (selectedWave.Surveys.Count == 1)
                 {
                     MessageBox.Show("This wave has only 1 survey. Unable to perform wave checks.");

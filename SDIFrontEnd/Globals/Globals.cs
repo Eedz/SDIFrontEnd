@@ -18,10 +18,10 @@ namespace SDIFrontEnd
         public static UserRecord CurrentUser;
 
         // surveys
-        public static List<RegionRecord> AllRegions;
-        public static List<StudyRecord> AllStudies;
-        public static List<StudyWaveRecord> AllWaves;
-        public static List<SurveyRecord> AllSurveys;
+        public static List<Region> AllRegions;
+        public static List<Study> AllStudies;
+        public static List<StudyWave> AllWaves;
+        public static List<Survey> AllSurveys;
 
         //public static List<Survey> RenumberedSurveys;
         public static List<KeyValuePair<int, string>> RenumberedSurveys;
@@ -86,19 +86,19 @@ namespace SDIFrontEnd
 
             RenumberedSurveys = DBAction.GetRenumberedSurveys();
 
-            foreach (RegionRecord region in AllRegions)
+            foreach (Region region in AllRegions)
             {
-                region.Studies = new BindingList<StudyRecord>(AllStudies.Where(x => x.RegionID == region.ID).ToList());
+                region.Studies = new List<Study>(AllStudies.Where(x => x.RegionID == region.ID).ToList());
             }
 
-            foreach (StudyRecord study in AllStudies)
+            foreach (Study study in AllStudies)
             {
-                study.Waves = new BindingList<StudyWaveRecord>(AllWaves.Where(x => x.StudyID == study.ID).ToList());
+                study.Waves = new List<StudyWave>(AllWaves.Where(x => x.StudyID == study.ID).ToList());
             }
 
-            foreach (StudyWaveRecord wave in AllWaves)
+            foreach (StudyWave wave in AllWaves)
             {
-                wave.Surveys = new BindingList<SurveyRecord>(AllSurveys.Where(x => x.WaveID == wave.ID).ToList());
+                wave.Surveys = new List<Survey>(AllSurveys.Where(x => x.WaveID == wave.ID).ToList());
             }
         }
 

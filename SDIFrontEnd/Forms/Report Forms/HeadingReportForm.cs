@@ -18,7 +18,7 @@ namespace SDIFrontEnd
         {
             InitializeComponent();
 
-            cboSurvey.DataSource = new List<SurveyRecord>(Globals.AllSurveys);
+            cboSurvey.DataSource = new List<Survey>(Globals.AllSurveys);
             cboSurvey.DisplayMember = "SurveyCode";
             cboSurvey.ValueMember = "SID";
 
@@ -58,10 +58,10 @@ namespace SDIFrontEnd
         private void cmdGenerate_Click(object sender, EventArgs e)
         {
             // get heading list for each survey
-            List<SurveyRecord> surveys = lstSelected.Items.Cast<SurveyRecord>().ToList();
+            List<Survey> surveys = lstSelected.Items.Cast<Survey>().ToList();
             List<List<Heading>> headingLists = new List<List<Heading>>();
 
-            foreach (SurveyRecord survey in surveys)
+            foreach (Survey survey in surveys)
             {
                 List<Heading> headingList = DBAction.GetHeadingQuestions(survey);
                 headingLists.Add(headingList);

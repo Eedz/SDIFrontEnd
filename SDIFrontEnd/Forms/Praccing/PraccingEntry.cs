@@ -23,7 +23,7 @@ namespace SDIFrontEnd
         List<PraccingIssue> IssuesList;
         List<PersonRecord> PeopleList;
         List<PraccingCategory> CategoryList;
-        List<SurveyRecord> SurveyList;
+        List<Survey> SurveyList;
 
         BindingSource bsMainIssues;
         BindingSource bsResponses;
@@ -42,10 +42,10 @@ namespace SDIFrontEnd
             InitializeComponent();
 
             IssuesList = new List<PraccingIssue>();
-            PeopleList = Globals.AllPeople;
+            PeopleList = new List<PersonRecord>(Globals.AllPeople);
             
             CategoryList = DBAction.GetPraccingCategories();
-            SurveyList = Globals.AllSurveys;
+            SurveyList = new List<Survey>(Globals.AllSurveys);
 
             bsMainIssues = new BindingSource();
             bsMainIssues.DataSource = IssuesList;
@@ -69,12 +69,7 @@ namespace SDIFrontEnd
             cboGoToSurvey.SelectedValue = SurvID;
             
             BindProperties();
-
-            
         }
-
-        
-
 
         #region Bindingsource Events
 

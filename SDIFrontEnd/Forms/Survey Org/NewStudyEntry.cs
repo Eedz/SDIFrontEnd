@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
+
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +14,7 @@ namespace SDIFrontEnd
     public partial class NewStudyEntry : Form
     {
         public StudyRecord NewStudy;
-        List<RegionRecord> RegionList;
+        List<Region> RegionList;
         BindingSource bs;
 
         public NewStudyEntry()
@@ -22,27 +22,39 @@ namespace SDIFrontEnd
             InitializeComponent();
 
             NewStudy = new StudyRecord();
-            bs = new BindingSource();
-            bs.DataSource = NewStudy;
 
-            RegionList = Globals.AllRegions;
+            SetupBindingSources();
+
+            RegionList = new List<Region>(Globals.AllRegions);
 
             FillBoxes();
             BindProperties();
         }
 
-        public NewStudyEntry(List<RegionRecord> regions)
+        private void cmdSave_Click(object sender, EventArgs e)
         {
-            InitializeComponent();
+            if (SaveRecord() == 0)
+            {
+                DialogResult = DialogResult.OK;
+                Close();
+            }
+        }
 
-            NewStudy = new StudyRecord();
+        private void cmdCancel_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
+            Close();
+        }
+
+        private void cmdAddRegion_Click(object sender, EventArgs e)
+        {
+            AddRegion();
+        }
+
+        private void SetupBindingSources()
+        {
             bs = new BindingSource();
-            bs.DataSource = NewStudy;
-
-            RegionList = regions;
-
-            FillBoxes();
-            BindProperties();
+            bs.DataSource = NewStudy.Item;
         }
 
         private void FillBoxes()
@@ -59,7 +71,6 @@ namespace SDIFrontEnd
 
         private void BindProperties()
         {
-            // survey info
             txtID.DataBindings.Add(new Binding("Text", bs, "ID"));
             cboRegion.DataBindings.Add("SelectedValue", bs, "RegionID");
             txtStudyName.DataBindings.Add("Text", bs, "StudyName");
@@ -72,31 +83,17 @@ namespace SDIFrontEnd
             cboAgeGroup.DataBindings.Add("SelectedItem", bs, "AgeGroup");
 
             txtLanguages.DataBindings.Add(new Binding("Text", bs, "Languages"));
-
-
         }
 
-        private void cmdSave_Click(object sender, EventArgs e)
+        private int SaveRecord()
         {
-            if (DBAction.InsertCountry(NewStudy) == 1)
+            if (DBAction.InsertCountry(NewStudy.Item) == 1)
             {
-                MessageBox.Show("Error creating new wave.");
-                return;
+                MessageBox.Show("Error creating new study.");
+                return 1;
             }
-            Globals.AllStudies.Add(NewStudy);
-            DialogResult = DialogResult.OK;
-            Close();
-        }
-
-        private void cmdCancel_Click(object sender, EventArgs e)
-        {
-            DialogResult = DialogResult.Cancel;
-            Close();
-        }
-
-        private void cmdAddRegion_Click(object sender, EventArgs e)
-        {
-            AddRegion();
+            Globals.AllStudies.Add(NewStudy.Item);
+            return 0;
         }
 
         private void AddRegion()
@@ -108,13 +105,11 @@ namespace SDIFrontEnd
             if (frm.DialogResult == DialogResult.OK)
             {
                 cboRegion.DataSource = null;
-                cboRegion.DataSource = new List<RegionRecord>( Globals.AllRegions);
+                cboRegion.DataSource = new List<Region>( Globals.AllRegions);
                 cboRegion.DisplayMember = "RegionName";
                 cboRegion.ValueMember = "ID";
                 cboRegion.SelectedItem = frm.NewRegion;
             }
-
-
         }
     }
 }

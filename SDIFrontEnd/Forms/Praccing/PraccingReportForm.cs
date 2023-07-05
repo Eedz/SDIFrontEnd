@@ -14,7 +14,7 @@ namespace SDIFrontEnd
 {
     public partial class PraccingReportForm : Form
     {
-        List<SurveyRecord> SurveyList;
+        List<Survey> SurveyList;
         List<PraccingIssue> IssuesList;
         List<PraccingIssue> FilteredIssuesList;
 
@@ -24,7 +24,7 @@ namespace SDIFrontEnd
         {
             InitializeComponent();
 
-            SurveyList =Globals.AllSurveys;
+            SurveyList = new List<Survey>(Globals.AllSurveys);
 
 
             cboSurvey.DisplayMember = "SurveyCode";

@@ -18,7 +18,7 @@ namespace SDIFrontEnd
         {
             InitializeComponent();
 
-            List<SurveyRecord> surveyList = new List<SurveyRecord>(DBAction.GetAllSurveysInfo());
+            List<Survey> surveyList = new List<Survey>(Globals.AllSurveys);
 
             lstSurveys.DisplayMember = "SurveyCode";
             lstSurveys.ValueMember = "SID";

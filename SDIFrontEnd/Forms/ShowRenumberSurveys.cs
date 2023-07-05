@@ -12,6 +12,7 @@ using FM = FormManager;
 
 namespace SDIFrontEnd
 {
+    // TODO this form may be redundant. Surveys are always renumbered automatically.
     // TODO replace already open editor
     public partial class ShowRenumberSurveys : Form
     {

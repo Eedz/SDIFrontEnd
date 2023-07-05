@@ -188,11 +188,11 @@ namespace SDIFrontEnd
 
             cboSurvey.DisplayMember = "SurveyCode";
             cboSurvey.ValueMember = "SID";
-            cboSurvey.DataSource = new List<SurveyRecord>(DBAction.GetAllSurveysInfo());
+            cboSurvey.DataSource = new List<Survey>(Globals.AllSurveys);
 
             cboCheckInit.DisplayMember = "Name";
             cboCheckInit.ValueMember = "ID";
-            cboCheckInit.DataSource = new List<Person>(DBAction.GetPeople());
+            cboCheckInit.DataSource = new List<Person>(Globals.AllPeople);
         }
 
         /// <summary>

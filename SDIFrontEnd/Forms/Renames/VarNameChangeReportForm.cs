@@ -55,7 +55,7 @@ namespace SDIFrontEnd
             }
             else if (rbWave.Checked)
             {
-                StudyWaveRecord w = (StudyWaveRecord)cboSurveyOrWave.SelectedItem;
+                StudyWave w = (StudyWave)cboSurveyOrWave.SelectedItem;
                 changes = new List<VarNameChangeRecord>(DBAction.GetVarNameChanges(w, false));
 
             }

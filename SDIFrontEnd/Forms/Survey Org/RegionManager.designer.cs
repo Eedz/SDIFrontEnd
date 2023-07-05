@@ -54,13 +54,13 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripGoTo = new System.Windows.Forms.ToolStripComboBox();
             this.cmdDelete = new System.Windows.Forms.Button();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.listViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStudies)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
             this.bindingNavigator1.SuspendLayout();
@@ -83,7 +83,7 @@
             this.label1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(73, 112);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(20, 16);
+            this.label1.Size = new System.Drawing.Size(19, 16);
             this.label1.TabIndex = 1;
             this.label1.Text = "ID";
             // 
@@ -94,7 +94,6 @@
             this.txtRegionName.Name = "txtRegionName";
             this.txtRegionName.Size = new System.Drawing.Size(100, 23);
             this.txtRegionName.TabIndex = 2;
-            this.txtRegionName.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // label2
             // 
@@ -102,7 +101,7 @@
             this.label2.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(19, 138);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(84, 16);
+            this.label2.Size = new System.Drawing.Size(83, 16);
             this.label2.TabIndex = 3;
             this.label2.Text = "Region Name";
             // 
@@ -113,7 +112,7 @@
             this.txtTempVarPrefix.Name = "txtTempVarPrefix";
             this.txtTempVarPrefix.Size = new System.Drawing.Size(100, 23);
             this.txtTempVarPrefix.TabIndex = 4;
-            this.txtTempVarPrefix.Validated += new System.EventHandler(this.Control_Validated);
+            this.txtTempVarPrefix.Validating += new System.ComponentModel.CancelEventHandler(this.txtTempVarPrefix_Validating);
             // 
             // label3
             // 
@@ -121,7 +120,7 @@
             this.label3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(9, 164);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(101, 16);
+            this.label3.Size = new System.Drawing.Size(100, 16);
             this.label3.TabIndex = 5;
             this.label3.Text = "Temp Var Prefix";
             // 
@@ -215,6 +214,7 @@
             // 
             this.bindingNavigatorPositionItem.AccessibleName = "Position";
             this.bindingNavigatorPositionItem.AutoSize = false;
+            this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
             this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
             this.bindingNavigatorPositionItem.Text = "0";
@@ -256,7 +256,7 @@
             this.label4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(13, 196);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(131, 16);
+            this.label4.Size = new System.Drawing.Size(130, 16);
             this.label4.TabIndex = 8;
             this.label4.Text = "Studies in this Region";
             // 
@@ -296,6 +296,13 @@
             this.addToolStripMenuItem.Text = "Add...";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
             // 
+            // listViewToolStripMenuItem
+            // 
+            this.listViewToolStripMenuItem.Name = "listViewToolStripMenuItem";
+            this.listViewToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
+            this.listViewToolStripMenuItem.Text = "List View";
+            this.listViewToolStripMenuItem.Click += new System.EventHandler(this.listViewToolStripMenuItem_Click);
+            // 
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -317,7 +324,6 @@
             // 
             this.toolStripGoTo.Name = "toolStripGoTo";
             this.toolStripGoTo.Size = new System.Drawing.Size(121, 25);
-            this.toolStripGoTo.SelectedIndexChanged += new System.EventHandler(this.toolStripGoTo_SelectedIndexChanged);
             // 
             // cmdDelete
             // 
@@ -339,13 +345,6 @@
             // 
             this.dataGridViewTextBoxColumn2.HeaderText = "ISO Code";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            // 
-            // listViewToolStripMenuItem
-            // 
-            this.listViewToolStripMenuItem.Name = "listViewToolStripMenuItem";
-            this.listViewToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
-            this.listViewToolStripMenuItem.Text = "List View";
-            this.listViewToolStripMenuItem.Click += new System.EventHandler(this.listViewToolStripMenuItem_Click);
             // 
             // RegionManager
             // 
@@ -370,6 +369,8 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "RegionManager";
             this.Text = "Region Manager";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.RegionManager_FormClosed);
+            this.Load += new System.EventHandler(this.RegionManager_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvStudies)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).EndInit();
             this.bindingNavigator1.ResumeLayout(false);

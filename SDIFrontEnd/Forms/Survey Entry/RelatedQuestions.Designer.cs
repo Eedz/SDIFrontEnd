@@ -648,6 +648,7 @@
             // 
             // cboSurveyFilter
             // 
+            this.cboSurveyFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cboSurveyFilter.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboSurveyFilter.FormattingEnabled = true;
             this.cboSurveyFilter.Location = new System.Drawing.Point(95, 7);
@@ -671,7 +672,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(304, 9);
+            this.label11.Location = new System.Drawing.Point(302, 9);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(112, 16);
             this.label11.TabIndex = 40;
@@ -694,6 +695,8 @@
             this.Controls.Add(this.cmdPin);
             this.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "RelatedQuestions";
             this.Text = "Related Questions";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RelatedQuestions_FormClosing);

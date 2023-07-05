@@ -15,7 +15,7 @@ namespace SDIFrontEnd
     {
         
         public SurveyRecord NewSurvey;
-        List<StudyWaveRecord> WaveList;
+        List<StudyWave> WaveList;
         BindingSource bs;
 
         public NewSurveyEntry()
@@ -23,46 +23,66 @@ namespace SDIFrontEnd
             InitializeComponent();
 
             NewSurvey = new SurveyRecord();
-            WaveList = Globals.AllWaves;
+            WaveList = new List<StudyWave>(Globals.AllWaves);
 
-            bs = new BindingSource();
-            bs.DataSource = NewSurvey;
+            SetupBindingSources();
 
             FillBoxes();
 
             BindProperties();
         }
 
-        private void NewSurveyEntry_Load(object sender, EventArgs e)
+        private void cmdNewWave_Click(object sender, EventArgs e)
         {
+            AddWave();
+        }
 
+        private void cmdSave_Click(object sender, EventArgs e)
+        {
+            if (SaveRecord() == 0)
+            {
+                DialogResult = DialogResult.OK;
+                Close();
+            }
+        }
+
+        private void cmdCancel_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
+            Close();
+        }
+
+        private void SetupBindingSources()
+        {
+            bs = new BindingSource();
+            bs.DataSource = NewSurvey;
+            bs.DataMember = "Item";
         }
 
         private void FillBoxes()
         {
-            cboWaveID.DataSource = WaveList;
             cboWaveID.DisplayMember = "WaveCode";
             cboWaveID.ValueMember = "ID";
+            cboWaveID.DataSource = WaveList;
 
             var modes = new List<SurveyMode>(DBAction.GetModeInfo());
             modes.Insert(0, new SurveyMode());
-            cboMode.DataSource = modes;
             cboMode.DisplayMember = "ModeAbbrev";
             cboMode.ValueMember = "ID";
+            cboMode.DataSource = modes;
 
-            cboSurveyType.DataSource = new List<SurveyCohortRecord>(Globals.AllCohorts); 
             cboSurveyType.DisplayMember = "Cohort";
             cboSurveyType.ValueMember = "ID";
-
+            cboSurveyType.DataSource = new List<SurveyCohortRecord>(Globals.AllCohorts);
+            
             cboCopyQuestions.ValueMember = "SID";
             cboCopyQuestions.DisplayMember = "SurveyCode";
-            cboCopyQuestions.DataSource = new List<SurveyRecord>(Globals.AllSurveys);
+            cboCopyQuestions.DataSource = new List<Survey>(Globals.AllSurveys);
             cboCopyQuestions.SelectedItem = null;
         }
 
         private void BindProperties()
         {
-            // survey info
             txtID.DataBindings.Add(new Binding("Text", bs, "SID"));
             txtSurveyCode.DataBindings.Add("Text", bs, "SurveyCode");
             txtSurveyTitle.DataBindings.Add("Text", bs, "Title");
@@ -88,55 +108,50 @@ namespace SDIFrontEnd
             cboWaveID.DataBindings.Add("SelectedValue", bs, "WaveID");
         }
 
-        private void cmdNewWave_Click(object sender, EventArgs e)
+        private void AddWave()
         {
             NewWaveEntry frm = new NewWaveEntry();
             frm.ShowDialog();
 
             if (frm.DialogResult == DialogResult.OK)
             {
-                WaveList.Add(frm.NewWave);
+                WaveList.Add(frm.NewWave.Item);
                 cboWaveID.DataSource = null;
                 cboWaveID.DataSource = WaveList;
-                cboWaveID.SelectedValue = frm.NewWave.ID;
+                cboWaveID.SelectedValue = frm.NewWave.Item.ID;
             }
         }
 
-        private void cmdSave_Click(object sender, EventArgs e)
+        private int SaveRecord()
         {
-            if (NewSurvey.Mode.ID ==0 )
+            if (NewSurvey.Item.Mode.ID == 0)
             {
                 MessageBox.Show("Please select a valid mode.");
-                return;
+                return 1;
             }
 
-            if (NewSurvey.Cohort.ID == 0)
+            if (NewSurvey.Item.Cohort.ID == 0)
             {
                 MessageBox.Show("Please select a valid survey type.");
-                return;
+                return 1;
             }
 
-            if (DBAction.InsertSurvey(NewSurvey)==1)
+            if (DBAction.InsertSurvey(NewSurvey.Item) == 1)
             {
                 MessageBox.Show("Error creating survey.");
-                return;
+                return 1;
             }
 
-            var wave = Globals.AllWaves.Where(x => x.ID == NewSurvey.WaveID).First();
-            NewSurvey.CountryCode = Globals.AllStudies.Where(x => x.ID == wave.StudyID).First().CountryCode.ToString("00");
-            Globals.AllSurveys.Add(NewSurvey);
+            var wave = Globals.AllWaves.Where(x => x.ID == NewSurvey.Item.WaveID).First();
+            NewSurvey.Item.CountryCode = Globals.AllStudies.Where(x => x.ID == wave.StudyID).First().CountryCode.ToString("00");
+            Globals.AllSurveys.Add(NewSurvey.Item);
 
             if (cboCopyQuestions.SelectedItem != null)
-                DBAction.CopySurvey(((SurveyRecord)cboCopyQuestions.SelectedItem).SurveyCode, NewSurvey.SurveyCode);
+                DBAction.CopySurvey(((Survey)cboCopyQuestions.SelectedItem).SurveyCode, NewSurvey.Item.SurveyCode);
 
-            DialogResult = DialogResult.OK;
-            Close();
+            return 0;
         }
 
-        private void cmdCancel_Click(object sender, EventArgs e)
-        {
-            DialogResult = DialogResult.Cancel;
-            Close();
-        }
+        
     }
 }
