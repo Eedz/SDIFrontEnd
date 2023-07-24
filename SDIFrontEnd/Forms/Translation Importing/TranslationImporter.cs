@@ -59,6 +59,9 @@ namespace SDIFrontEnd
         bool errorsExist;
         #endregion
 
+        int narrowWidth = 560;
+        int wideWidth = 1045;
+
         public TranslationImporter()
         {
             InitializeComponent();
@@ -1068,13 +1071,11 @@ namespace SDIFrontEnd
         {
             if (!Expanded)
             {
-                resultsPanel.Width = 10;
-                this.Width = 550  + 10;
+                this.Width = narrowWidth;
             }
             else
             {
-                resultsPanel.Width = 430 +  10;
-                this.Width = 910;
+                this.Width = wideWidth;
             }
 
             //Expanded = !Expanded;
