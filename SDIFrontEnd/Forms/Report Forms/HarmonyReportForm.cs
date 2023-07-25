@@ -43,7 +43,7 @@ namespace SDIFrontEnd
             cboVarNames.DisplayMember = "RefVarLabel";
             cboVarNames.SelectedItem = null;
 
-            lstPrefixes.DataSource = DBAction.GetVariablePrefixes();
+            lstPrefixes.DataSource = DBAction.GetVariablePrefixList();
 
             lstSelVar.Items.Clear();
             lstSelVar.DisplayMember = "RefVarLabel";
