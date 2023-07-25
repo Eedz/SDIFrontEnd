@@ -660,7 +660,7 @@ namespace SDIFrontEnd
                 return;
             }
 
-            PrefixList frm = new PrefixList();
+            PrefixList frm = new PrefixList(Globals.AllPrefixes);
             frm.Tag = 1;
             FM.FormManager.Add(frm);
         }

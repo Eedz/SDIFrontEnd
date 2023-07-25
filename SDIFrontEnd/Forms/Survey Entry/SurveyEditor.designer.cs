@@ -120,6 +120,7 @@
             this.toolStripC = new System.Windows.Forms.ToolStripButton();
             this.toolStripF = new System.Windows.Forms.ToolStripButton();
             this.toolStripRelatedData = new System.Windows.Forms.ToolStrip();
+            this.toolStripAddTranslation = new System.Windows.Forms.ToolStripButton();
             this.toolStripTranslation = new System.Windows.Forms.ToolStripButton();
             this.toolStripLanguage = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripViewComments = new System.Windows.Forms.ToolStripButton();
@@ -326,10 +327,10 @@
             this.lstQuestionList.UseCompatibleStateImageBehavior = false;
             this.lstQuestionList.View = System.Windows.Forms.View.Details;
             this.lstQuestionList.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.lstQuestionList_ItemDrag);
+            this.lstQuestionList.SelectedIndexChanged += new System.EventHandler(this.lstQuestionList_SelectedIndexChanged);
             this.lstQuestionList.DragDrop += new System.Windows.Forms.DragEventHandler(this.lstQuestionList_DragDrop);
             this.lstQuestionList.DragEnter += new System.Windows.Forms.DragEventHandler(this.lstQuestionList_DragEnter);
             this.lstQuestionList.DragOver += new System.Windows.Forms.DragEventHandler(this.lstQuestionList_DragOver);
-            this.lstQuestionList.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lstQuestionList_MouseClick);
             this.lstQuestionList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lstQuestionList_MouseDoubleClick);
             // 
             // NewQnum
@@ -1135,6 +1136,7 @@
             // 
             this.toolStripRelatedData.Dock = System.Windows.Forms.DockStyle.None;
             this.toolStripRelatedData.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripAddTranslation,
             this.toolStripTranslation,
             this.toolStripLanguage,
             this.toolStripViewComments,
@@ -1143,9 +1145,19 @@
             this.toolStripRelated});
             this.toolStripRelatedData.Location = new System.Drawing.Point(0, 49);
             this.toolStripRelatedData.Name = "toolStripRelatedData";
-            this.toolStripRelatedData.Size = new System.Drawing.Size(545, 25);
+            this.toolStripRelatedData.Size = new System.Drawing.Size(573, 25);
             this.toolStripRelatedData.TabIndex = 45;
             this.toolStripRelatedData.Text = "toolStrip2";
+            // 
+            // toolStripAddTranslation
+            // 
+            this.toolStripAddTranslation.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripAddTranslation.Image = ((System.Drawing.Image)(resources.GetObject("toolStripAddTranslation.Image")));
+            this.toolStripAddTranslation.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripAddTranslation.Name = "toolStripAddTranslation";
+            this.toolStripAddTranslation.Size = new System.Drawing.Size(23, 22);
+            this.toolStripAddTranslation.Text = "Add Translation";
+            this.toolStripAddTranslation.Click += new System.EventHandler(this.toolStripAddTranslation_Click);
             // 
             // toolStripTranslation
             // 
@@ -1154,8 +1166,8 @@
             this.toolStripTranslation.Image = ((System.Drawing.Image)(resources.GetObject("toolStripTranslation.Image")));
             this.toolStripTranslation.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripTranslation.Name = "toolStripTranslation";
-            this.toolStripTranslation.Size = new System.Drawing.Size(70, 22);
-            this.toolStripTranslation.Text = "Translation";
+            this.toolStripTranslation.Size = new System.Drawing.Size(75, 22);
+            this.toolStripTranslation.Text = "Translations";
             this.toolStripTranslation.Click += new System.EventHandler(this.toolStripTranslation_Click);
             // 
             // toolStripLanguage
@@ -1522,5 +1534,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn chTimeFrame;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private ExtraRichTextBox rtbPlainFilter;
+        private System.Windows.Forms.ToolStripButton toolStripAddTranslation;
     }
 }

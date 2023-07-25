@@ -13,31 +13,40 @@ using FM = FormManager;
 namespace SDIFrontEnd
 {
     public partial class PrefixList : Form
-    {
-        List<VariablePrefixRecord> Prefixes;
+    {      
+        List<VariablePrefixRecord> Records;
         VariablePrefixRecord CurrentRecord;
+
         BindingSource bs;
-        BindingSource bsRanges;
-        BindingSource bsParallel;
+        BindingSource bsCurrent;
 
         List<VariableNameSurveys> Usages;
         ObjectCache<VariableNameSurveys> memoryCache;
 
         VarNameWordingUsage questionUsage;
 
-        public PrefixList()
+        int rangeRow = -1;
+        VariableRange editedRange;
+        bool rowCommit = true;
+
+        public PrefixList(List<VariablePrefix> prefixes)
         {
             InitializeComponent();
 
             this.MouseWheel += PrefixList_MouseWheel;
             cboGoTo.MouseWheel += ComboBox_MouseWheel;
 
-            Prefixes = Globals.AllPrefixes;
+            Records = new List<VariablePrefixRecord>();
+            foreach (VariablePrefix prefix in prefixes)
+            {
+                Records.Add(new VariablePrefixRecord(prefix));
+            }
+
             Usages = new List<VariableNameSurveys>();
 
             SetupBindingSources();
 
-            navPrefixes.BindingSource = bs;
+            SetupGrids();
 
             FillControls();
             
@@ -57,19 +66,20 @@ namespace SDIFrontEnd
             UpdateCurrentRecord();
         }
 
+        private void BsCurrent_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            
+        }
+
         private void PrefixList_MouseWheel(object sender, MouseEventArgs e)
         {
-            bs.EndEdit();
-
             if (SaveRecord() == 1)
                 return;
 
             if (e.Delta == -120)
                 bs.MoveNext();
             else if (e.Delta == 120)
-            {
                 bs.MovePrevious();
-            }
         }
 
         void ComboBox_MouseWheel(object sender, MouseEventArgs e)
@@ -82,8 +92,6 @@ namespace SDIFrontEnd
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            bs.EndEdit();
-
             if (SaveRecord() == 1)
                 return;
 
@@ -100,7 +108,7 @@ namespace SDIFrontEnd
         {
             if (MessageBox.Show("Are you sure you want to delete this prefix?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                if (DBAction.DeleteRecord(CurrentRecord) == 1)
+                if (DBAction.DeleteRecord(CurrentRecord.Item) == 1)
                     MessageBox.Show("Error deleting prefix.");
 
                 bs.RemoveCurrent();
@@ -109,15 +117,32 @@ namespace SDIFrontEnd
 
         private void toolStripDatasheet_Click(object sender, EventArgs e)
         {
-            PrefixListSheet getFrm = (PrefixListSheet)FM.FormManager.GetForm("PrefixListSheet", 1);
-            if (getFrm == null)
+            OpenDatasheetView();
+        }
 
+        private void lstParallelPrefixes_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete && MessageBox.Show("Are you sure you want to remove this parallel prefix?", "Confirm Delete.", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                PrefixListSheet frm = new PrefixListSheet();
-                frm.Tag = 1;
-                FM.FormManager.Add(frm);
+                DeleteParallelPrefix();
             }
-            ((MainMenu)FM.FormManager.GetForm("MainMenu")).SelectTab("PrefixListSheet1");
+        }
+
+        private void cmdAddParallelPrefix_Click(object sender, EventArgs e)
+        {
+            Picker<VariablePrefix> picker = new Picker<VariablePrefix>(Records.Select(x => x.Item).ToList(), "Prefix", "ID", "Choose Prefix");
+
+            picker.ShowDialog();
+
+            ParallelPrefix parallel = new ParallelPrefix()
+            {
+                PrefixID = CurrentRecord.Item.ID,
+                RelatedPrefixID = picker.Data.ID,
+                RelatedPrefix = picker.Data.Prefix
+            };
+
+            CurrentRecord.AddedParallels.Add(parallel);
+            CurrentRecord.Item.ParallelPrefixes.Add(parallel);
         }
 
         private void chkShowWordings_CheckedChanged(object sender, EventArgs e)
@@ -142,17 +167,7 @@ namespace SDIFrontEnd
             if (cboGoTo.SelectedItem == null)
                 return;
 
-            VariablePrefix item = (VariablePrefix)cboGoTo.SelectedItem;
-            int index = -1;
-            for (int i = 0; i < Prefixes.Count; i++)
-            {
-                if (Prefixes[i].ID == item.ID)
-                {
-                    index = i;
-                    break;
-                }
-            }
-            if (index > -1) bs.Position = index;
+            GoToPrefix((VariablePrefix)cboGoTo.SelectedItem);
         }
 
         private void chkFilterByRange_Click(object sender, EventArgs e)
@@ -170,70 +185,178 @@ namespace SDIFrontEnd
             }
         }
 
-        private void Control_Validated(object sender, EventArgs e)
-        {
-            CurrentRecord.Dirty = true;
-        }
-
         #region DataGridView Events
-        private void dgvVariableInfo_RowEnter(object sender, DataGridViewCellEventArgs e)
+        
+        // ranges
+        private void dgv_NewRowNeeded(object sender, DataGridViewRowEventArgs e)
         {
             DataGridView dgv = (DataGridView)sender;
-            if (chkShowWordings.Checked)
+            // Create a new object when the user edits the row for new records.
+            this.editedRange = new VariableRange();
+            this.rangeRow = dgv.Rows.Count - 1;
+        }
+
+        private void dgv_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+
+            // if this is the row for new records, no values needed
+            if (e.RowIndex == dgv.RowCount - 1) return;
+            // if there are no records, no values needed
+            if (CurrentRecord.Item.Ranges.Count == 0) return;
+
+            VariableRange tmp = null;
+
+            // Store a reference to the Survey object for the row being painted.
+            if (e.RowIndex == rangeRow)
             {
-                if (dgvVariableInfo.CurrentRow == null)
-                    return;
-
-
-                string refvarname = (string)dgv.Rows[e.RowIndex].Cells["VarName"].Value;
-                ShowWordings(refvarname);
+                tmp = editedRange;
             }
             else
             {
-                if (questionUsage != null)
-                    questionUsage.Close();
+                tmp = CurrentRecord.Item.Ranges[e.RowIndex];
             }
-        }
 
-        private void dgvParallelPrefixes_CellValidated(object sender, DataGridViewCellEventArgs e)
-        {
-            DataGridView dgv = (DataGridView)sender;
-            ParallelPrefixRecord record = (ParallelPrefixRecord)dgv.Rows[e.RowIndex].DataBoundItem;
-            if (dgv.IsCurrentRowDirty)
-                record.Dirty = true;
-        }
+            if (tmp == null) return;
 
-        private void dgvParallelPrefixes_RowValidated(object sender, DataGridViewCellEventArgs e)
-        {
-            DataGridView dgv = (DataGridView)sender;
-            ParallelPrefixRecord record = (ParallelPrefixRecord)dgv.Rows[e.RowIndex].DataBoundItem;
-            if (record == null)
-                return;
-
-            if (record.NewRecord)
+            // Set the cell value to paint using the Survey object retrieved.
+            switch (dgv.Columns[e.ColumnIndex].Name)
             {
-                record.RelatedID = (int)dgv.Rows[e.RowIndex].Cells[0].Value;
-                record.PrefixID = CurrentRecord.ID;
-                CurrentRecord.Dirty = true;
+                case "chLower":
+                    e.Value = tmp.Lower;
+                    break;
+                case "chUpper": 
+                    e.Value = tmp.Upper; break;
+                case "chDescription":
+                    e.Value = tmp.Description; break;
+
             }
-            else 
-                record.SaveRecord();
         }
 
-        private void dgvParallelPrefixes_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        private void dgv_CellValuePushed(object sender, DataGridViewCellValueEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+
+            VariableRange tmp = null;
+            // Store a reference to the object for the row being edited.
+            if (e.RowIndex < CurrentRecord.Item.Ranges.Count)
+            {
+                // If the user is editing a new row (not THE new row), create a new object and reference the row's data.
+                if (editedRange == null)
+                    editedRange = new VariableRange()
+                    {
+                        ID = CurrentRecord.Item.Ranges[e.RowIndex].ID,
+                        PrefixID = CurrentRecord.Item.Ranges[e.RowIndex].PrefixID,
+                        Lower = CurrentRecord.Item.Ranges[e.RowIndex].Lower,
+                        Upper = CurrentRecord.Item.Ranges[e.RowIndex].Upper,
+                        Description = CurrentRecord.Item.Ranges[e.RowIndex].Description
+                     
+                    };
+
+                tmp = this.editedRange;
+                this.rangeRow = e.RowIndex;
+            }
+            else
+            {
+                tmp = this.editedRange == null ? new ITCLib.VariableRange() : this.editedRange;
+                tmp.PrefixID = CurrentRecord.Item.ID;
+            }
+
+            // Set the appropriate property to the cell value entered.
+            switch (dgv.Columns[e.ColumnIndex].Name)
+            {
+                case "chLower":
+                    tmp.Lower = (string)e.Value;
+                    break;
+                case "chUpper":
+                    tmp.Upper = (string)e.Value;
+                    break;
+                case "chDescription":
+                    tmp.Description = (string)e.Value;
+                    break;
+            }
+        }
+
+        private void dgv_RowValidated(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+            // Save row changes if any were made and release the edited object if there is one.
+            if (editedRange != null && e.RowIndex >= CurrentRecord.Item.Ranges.Count &&
+                e.RowIndex != dgv.Rows.Count - 1)
+            {
+                // Add the new object to the data store.
+                CurrentRecord.Item.Ranges.Add(editedRange);
+                CurrentRecord.AddedRanges.Add(editedRange);
+                editedRange = null;
+                rangeRow = -1;
+            }
+            if (editedRange != null && e.RowIndex < CurrentRecord.Item.Ranges.Count)
+            {
+                CurrentRecord.EditedRanges.Add(editedRange);
+                CurrentRecord.Item.Ranges[e.RowIndex] = editedRange;
+                editedRange = null;
+                rangeRow = -1;
+            }
+            else if (dgv.ContainsFocus)
+            {
+                editedRange = null;
+                rangeRow = -1;
+            }
+        }
+
+        private void dgv_RowDirtyStateNeeded(object sender, QuestionEventArgs e)
+        {
+            if (!rowCommit)
+            {
+                DataGridView dgv = (DataGridView)sender;
+                // In cell-level commit scope, indicate whether the value of the current cell has been modified.
+                e.Response = dgv.IsCurrentCellDirty;
+            }
+        }
+
+        private void dgv_CancelRowEdit(object sender, QuestionEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+
+            if (rangeRow == dgv.Rows.Count - 2 && rangeRow == CurrentRecord.Item.Ranges.Count)
+            {
+                // If the user has canceled the edit of a newly created row,
+                // replace the corresponding Survey object with a new, empty one.
+                editedRange = new VariableRange();
+            }
+            else
+            {
+                // If the user has canceled the edit of an existing row, release the corresponding Survey object.
+                editedRange = null;
+                rangeRow = -1;
+            }
+        }
+
+        private void dgv_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
             if (MessageBox.Show("Are you sure you want to delete the selected record?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                ParallelPrefixRecord record = (ParallelPrefixRecord)e.Row.DataBoundItem;
-                DBAction.DeleteRecord(record);
+                VariableRange record = CurrentRecord.Item.Ranges[e.Row.Index];
+                // If the user has deleted an existing row, remove the
+                // corresponding object from the data store.
+                this.CurrentRecord.Item.Ranges.RemoveAt(e.Row.Index);
+                CurrentRecord.DeletedRanges.Add(record);
             }
             else
             {
                 e.Cancel = true;
             }
+
+            if (e.Row.Index == this.rangeRow)
+            {
+                // If the user has deleted a newly created row, release
+                // the corresponding object.
+                this.rangeRow = -1;
+                this.editedRange = null;
+            }
         }
 
-        private void dgvParallelPrefixes_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        private void dgv_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
 
         }
@@ -253,50 +376,25 @@ namespace SDIFrontEnd
             }
         }
 
-        private void dgvVarNameRanges_CellValidated(object sender, DataGridViewCellEventArgs e)
+        // variable list
+        private void dgvVariableInfo_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
             DataGridView dgv = (DataGridView)sender;
-            VariableRangeRecord record = (VariableRangeRecord)dgv.Rows[e.RowIndex].DataBoundItem;
-            if (dgv.IsCurrentRowDirty)
-                record.Dirty = true;
-        }
-
-        private void dgvVarNameRanges_RowValidated(object sender, DataGridViewCellEventArgs e)
-        {
-            DataGridView dgv = (DataGridView)sender;
-            VariableRangeRecord record = (VariableRangeRecord)dgv.Rows[e.RowIndex].DataBoundItem;
-
-            if (record == null)
-                return;
-
-            if (record.NewRecord)
+            if (chkShowWordings.Checked)
             {
-                record.PrefixID = CurrentRecord.ID;
-                CurrentRecord.Dirty = true;
-            }
-            else
-                record.SaveRecord();
-        }
+                if (dgvVariableInfo.CurrentRow == null)
+                    return;
 
-        private void dgvVarNameRanges_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
-        {
-            if (MessageBox.Show("Are you sure you want to delete the selected record?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                VariableRangeRecord record = (VariableRangeRecord)e.Row.DataBoundItem;
-                DBAction.DeleteRecord(record);
+
+                string refvarname = (string)dgv.Rows[e.RowIndex].Cells["VarName"].Value;
+                ShowWordings(refvarname);
             }
             else
             {
-                e.Cancel = true;
+                if (questionUsage != null)
+                    questionUsage.Close();
             }
         }
-
-        private void dgvVarNameRanges_DataError(object sender, DataGridViewDataErrorEventArgs e)
-        {
-
-        }
-
-
 
         /// <summary>
         /// Set the cell's value from the memoryCache based on the name of the column
@@ -377,8 +475,6 @@ namespace SDIFrontEnd
         #region Navigation buttons
         private void bindingNavigatorMoveNextItem_Click(object sender, EventArgs e)
         {
-            bs.EndEdit();
-
             if (SaveRecord() == 1)
                 return;
 
@@ -387,8 +483,6 @@ namespace SDIFrontEnd
 
         private void bindingNavigatorMoveLastItem_Click(object sender, EventArgs e)
         {
-            bs.EndEdit();
-
             if (SaveRecord() == 1)
                 return;
 
@@ -397,8 +491,6 @@ namespace SDIFrontEnd
 
         private void bindingNavigatorMovePreviousItem_Click(object sender, EventArgs e)
         {
-            bs.EndEdit();
-
             if (SaveRecord() == 1)
                 return;
 
@@ -407,8 +499,6 @@ namespace SDIFrontEnd
 
         private void bindingNavigatorMoveFirstItem_Click(object sender, EventArgs e)
         {
-            bs.EndEdit();
-
             if (SaveRecord() == 1)
                 return;
 
@@ -417,59 +507,71 @@ namespace SDIFrontEnd
         #endregion
 
         #endregion
+
         #region Methods
-
-        private void UpdateCurrentRecord()
+        
+        async private Task UpdateQuestionRange()
         {
-            CurrentRecord = (VariablePrefixRecord)bs.Current;
-
-            if (CurrentRecord.NewRecord)
-                return;
-            Usages = DBAction.GetVarNamesPrefix(CurrentRecord.Prefix);
+            Usages = await DBAction.GetVarNamesPrefixAsync(CurrentRecord.Item.Prefix);
             if (Usages.Count > 0)
                 SetupWithObjects(Usages);
             else
                 dgvVariableInfo.RowCount = 0;
+
+            return;
+        }
+
+        async private void UpdateCurrentRecord()
+        {
+            CurrentRecord = (VariablePrefixRecord)bs.Current;
+
+            lstParallelPrefixes.DataSource = CurrentRecord.Item.ParallelPrefixes;
+
+            if (CurrentRecord.NewRecord)
+                return;
+
+            await UpdateQuestionRange();
+
+            dgvVarNameRanges.Rows.Clear();
+            dgvVarNameRanges.RowCount = CurrentRecord.Item.Ranges.Count + 1;
         }
 
         private void SetupBindingSources()
         {
             bs = new BindingSource();
-            bs.DataSource = Prefixes;
+            bs.DataSource = Records;
             bs.PositionChanged += Bs_PositionChanged;
 
-            bsRanges = new BindingSource();
-            bsRanges.DataSource = bs;
-            bsRanges.DataMember = "Ranges";
+            bsCurrent = new BindingSource();
+            bsCurrent.DataSource = bs;
+            bsCurrent.DataMember = "Item";
+            bsCurrent.ListChanged += BsCurrent_ListChanged;
 
-            bsParallel = new BindingSource();
-            bsParallel.DataSource = bs;
-            bsParallel.DataMember = "ParallelPrefixes";
+            navPrefixes.BindingSource = bs;
         }
 
         private void FillControls()
         {
-            cboGoTo.DataSource = new List<VariablePrefixRecord>(Prefixes);
+            lstParallelPrefixes.DisplayMember = "Prefix";
+            lstParallelPrefixes.ValueMember = "ID";
+
+            cboGoTo.DataSource = Records.Select(x=>x.Item).ToList();
             cboGoTo.DisplayMember = "Prefix";
             cboGoTo.ValueMember = "ID";
             cboGoTo.SelectedItem = null;
+        }
 
+        private void SetupGrids()
+        {
             dgvVarNameRanges.AutoGenerateColumns = false;
-            dgvVarNameRanges.DataSource = bsRanges;
-
-            chLower.DataPropertyName = "Lower";
-            chUpper.DataPropertyName = "Upper";
-            chDescription.DataPropertyName = "Description";
-
-            
-
-            dgvParallelPrefixes.AutoGenerateColumns = false;
-            dgvParallelPrefixes.DataSource = bsParallel;
-
-            chParallelPrefix.DataSource = new List<VariablePrefixRecord>(Prefixes);
-            chParallelPrefix.DisplayMember = "Prefix";
-            chParallelPrefix.ValueMember = "ID";
-            chParallelPrefix.DataPropertyName = "RelatedID";
+            dgvVarNameRanges.CellValueNeeded += dgv_CellValueNeeded;
+            dgvVarNameRanges.NewRowNeeded += dgv_NewRowNeeded;
+            dgvVarNameRanges.CellValuePushed += dgv_CellValuePushed;
+            dgvVarNameRanges.RowValidated += dgv_RowValidated;
+            dgvVarNameRanges.RowDirtyStateNeeded += dgv_RowDirtyStateNeeded;
+            dgvVarNameRanges.CancelRowEdit += dgv_CancelRowEdit;
+            dgvVarNameRanges.UserDeletingRow += dgv_UserDeletingRow;
+            dgvVarNameRanges.DataError += dgv_DataError;
         }
 
         void SetupWithObjects(List<VariableNameSurveys> usages)
@@ -561,13 +663,13 @@ namespace SDIFrontEnd
 
         private void BindProperties()
         {
-            txtPrefix.DataBindings.Add(new Binding("Text", bs, "Prefix"));
-            txtPrefixName.DataBindings.Add(new Binding("Text", bs, "PrefixName"));
-            txtProductType.DataBindings.Add(new Binding("Text", bs, "ProductType"));
-            txtRelatedPrefixes.DataBindings.Add(new Binding("Text", bs, "RelatedPrefixes"));
-            txtDescription.DataBindings.Add(new Binding("Text", bs, "Description"));
-            txtComments.DataBindings.Add(new Binding("Text", bs, "Comments"));
-            chkInactive.DataBindings.Add(new Binding("Checked", bs, "Inactive"));
+            txtPrefix.DataBindings.Add(new Binding("Text", bsCurrent, "Prefix"));
+            txtPrefixName.DataBindings.Add(new Binding("Text", bsCurrent, "PrefixName"));
+            txtProductType.DataBindings.Add(new Binding("Text", bsCurrent, "ProductType"));
+            txtRelatedPrefixes.DataBindings.Add(new Binding("Text", bsCurrent, "RelatedPrefixes"));
+            txtDescription.DataBindings.Add(new Binding("Text", bsCurrent, "Description"));
+            txtComments.DataBindings.Add(new Binding("Text", bsCurrent, "Comments"));
+            chkInactive.DataBindings.Add(new Binding("Checked", bsCurrent, "Inactive"));
         }
 
         private void MoveRecord(int count)
@@ -586,14 +688,24 @@ namespace SDIFrontEnd
 
         private int SaveRecord()
         {
-            if (CurrentRecord.SaveRecord() == 1)
+            bsCurrent.EndEdit();
+
+            bool newrec = CurrentRecord.NewRecord;
+            int rowsAffected = CurrentRecord.SaveRecord();
+
+            if (rowsAffected == 1)
             {
                 MessageBox.Show("Error saving record.");
                 return 1;
             }
+
+            if (newrec)
+            {
+                Globals.AllPrefixes.Add(CurrentRecord.Item);
+            }
+
             return 0;
         }
-
 
         private void ShowWordings(string varname)
         {
@@ -609,7 +721,51 @@ namespace SDIFrontEnd
             questionUsage.Show();
         }
 
+        private void DeleteParallelPrefix()
+        {
+            ParallelPrefix item = (ParallelPrefix)lstParallelPrefixes.SelectedItem;
+
+            CurrentRecord.Item.ParallelPrefixes.Remove(item);
+
+            lstParallelPrefixes.DataSource = null;
+            lstParallelPrefixes.DataSource = CurrentRecord.Item.ParallelPrefixes;
+
+            CurrentRecord.DeletedParallels.Add(item);
+        }
+
+        private void GoToPrefix(VariablePrefix prefix)
+        {
+            int index = -1;
+            for (int i = 0; i < Records.Count; i++)
+            {
+                if (Records[i].Item.ID == prefix.ID)
+                {
+                    index = i;
+                    break;
+                }
+            }
+            if (index > -1) bs.Position = index;
+        }
+
+        private void OpenDatasheetView()
+        {
+            PrefixListSheet getFrm = (PrefixListSheet)FM.FormManager.GetForm("PrefixListSheet", 1);
+            if (getFrm == null)
+
+            {
+                PrefixListSheet frm = new PrefixListSheet(Globals.AllPrefixes);
+                frm.Tag = 1;
+                FM.FormManager.Add(frm);
+            }
+            ((MainMenu)FM.FormManager.GetForm("MainMenu")).SelectTab("PrefixListSheet1");
+        }
+
         #endregion
-        
+
+
+
+
+
+
     }
 }

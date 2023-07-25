@@ -123,7 +123,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(177, 18);
+            this.label4.Location = new System.Drawing.Point(151, 19);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(86, 16);
             this.label4.TabIndex = 7;
@@ -133,26 +133,26 @@
             // 
             this.lstSelVar.FormattingEnabled = true;
             this.lstSelVar.ItemHeight = 16;
-            this.lstSelVar.Location = new System.Drawing.Point(177, 45);
+            this.lstSelVar.Location = new System.Drawing.Point(154, 45);
             this.lstSelVar.Name = "lstSelVar";
-            this.lstSelVar.Size = new System.Drawing.Size(186, 340);
+            this.lstSelVar.Size = new System.Drawing.Size(265, 356);
             this.lstSelVar.TabIndex = 6;
             // 
             // lstPrefixes
             // 
             this.lstPrefixes.FormattingEnabled = true;
             this.lstPrefixes.ItemHeight = 16;
-            this.lstPrefixes.Location = new System.Drawing.Point(29, 146);
+            this.lstPrefixes.Location = new System.Drawing.Point(11, 144);
             this.lstPrefixes.Name = "lstPrefixes";
             this.lstPrefixes.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.lstPrefixes.Size = new System.Drawing.Size(94, 244);
+            this.lstPrefixes.Size = new System.Drawing.Size(94, 260);
             this.lstPrefixes.TabIndex = 5;
             this.lstPrefixes.SelectedIndexChanged += new System.EventHandler(this.lstPrefixes_SelectedIndexChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(27, 123);
+            this.label3.Location = new System.Drawing.Point(9, 121);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(57, 16);
             this.label3.TabIndex = 4;
@@ -160,7 +160,7 @@
             // 
             // cmdAddVar
             // 
-            this.cmdAddVar.Location = new System.Drawing.Point(101, 80);
+            this.cmdAddVar.Location = new System.Drawing.Point(83, 78);
             this.cmdAddVar.Name = "cmdAddVar";
             this.cmdAddVar.Size = new System.Drawing.Size(65, 28);
             this.cmdAddVar.TabIndex = 3;
@@ -170,7 +170,7 @@
             // 
             // cmdRemoveVar
             // 
-            this.cmdRemoveVar.Location = new System.Drawing.Point(24, 80);
+            this.cmdRemoveVar.Location = new System.Drawing.Point(6, 78);
             this.cmdRemoveVar.Name = "cmdRemoveVar";
             this.cmdRemoveVar.Size = new System.Drawing.Size(65, 28);
             this.cmdRemoveVar.TabIndex = 2;
@@ -181,7 +181,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(27, 21);
+            this.label2.Location = new System.Drawing.Point(9, 19);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(38, 16);
             this.label2.TabIndex = 1;
@@ -191,8 +191,9 @@
             // 
             this.cboVarNames.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cboVarNames.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cboVarNames.DropDownWidth = 350;
             this.cboVarNames.FormattingEnabled = true;
-            this.cboVarNames.Location = new System.Drawing.Point(26, 47);
+            this.cboVarNames.Location = new System.Drawing.Point(8, 45);
             this.cboVarNames.Name = "cboVarNames";
             this.cboVarNames.Size = new System.Drawing.Size(140, 24);
             this.cboVarNames.TabIndex = 0;

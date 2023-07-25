@@ -40,13 +40,13 @@ namespace SDIFrontEnd
             
             cboVarNames.DataSource = unique;
             cboVarNames.ValueMember = "RefVarName";
-            cboVarNames.DisplayMember = "RefVarName";
+            cboVarNames.DisplayMember = "RefVarLabel";
             cboVarNames.SelectedItem = null;
 
             lstPrefixes.DataSource = DBAction.GetVariablePrefixes();
 
             lstSelVar.Items.Clear();
-            lstSelVar.DisplayMember = "RefVarName";
+            lstSelVar.DisplayMember = "RefVarLabel";
 
             // wave tab
             cboWaves.DataSource = new List<StudyWave>( Globals.AllWaves);

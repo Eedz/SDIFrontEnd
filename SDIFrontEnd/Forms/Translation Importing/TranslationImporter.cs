@@ -57,6 +57,9 @@ namespace SDIFrontEnd
         BindingSource bsFailed;
 
         bool errorsExist;
+
+        int narrowWidth = 560;
+        int wideWidth = 1045;
         #endregion
 
         int narrowWidth = 560;
