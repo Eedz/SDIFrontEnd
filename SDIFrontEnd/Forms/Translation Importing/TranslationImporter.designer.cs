@@ -157,9 +157,9 @@
             this.groupImportType.Controls.Add(this.optMulti);
             this.groupImportType.Controls.Add(this.optSingle);
             this.groupImportType.Location = new System.Drawing.Point(115, 102);
-            this.groupImportType.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupImportType.Margin = new System.Windows.Forms.Padding(4);
             this.groupImportType.Name = "groupImportType";
-            this.groupImportType.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupImportType.Padding = new System.Windows.Forms.Padding(4);
             this.groupImportType.Size = new System.Drawing.Size(141, 81);
             this.groupImportType.TabIndex = 1;
             this.groupImportType.TabStop = false;
@@ -169,7 +169,7 @@
             // 
             this.optMulti.AutoSize = true;
             this.optMulti.Location = new System.Drawing.Point(18, 52);
-            this.optMulti.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.optMulti.Margin = new System.Windows.Forms.Padding(4);
             this.optMulti.Name = "optMulti";
             this.optMulti.Size = new System.Drawing.Size(96, 20);
             this.optMulti.TabIndex = 1;
@@ -182,7 +182,7 @@
             // 
             this.optSingle.AutoSize = true;
             this.optSingle.Location = new System.Drawing.Point(18, 23);
-            this.optSingle.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.optSingle.Margin = new System.Windows.Forms.Padding(4);
             this.optSingle.Name = "optSingle";
             this.optSingle.Size = new System.Drawing.Size(103, 20);
             this.optSingle.TabIndex = 0;
@@ -196,7 +196,7 @@
             this.cboSurvey.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboSurvey.FormattingEnabled = true;
             this.cboSurvey.Location = new System.Drawing.Point(115, 211);
-            this.cboSurvey.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cboSurvey.Margin = new System.Windows.Forms.Padding(4);
             this.cboSurvey.Name = "cboSurvey";
             this.cboSurvey.Size = new System.Drawing.Size(140, 24);
             this.cboSurvey.TabIndex = 4;
@@ -208,7 +208,7 @@
             this.cboLanguage.Enabled = false;
             this.cboLanguage.FormattingEnabled = true;
             this.cboLanguage.Location = new System.Drawing.Point(115, 252);
-            this.cboLanguage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cboLanguage.Margin = new System.Windows.Forms.Padding(4);
             this.cboLanguage.Name = "cboLanguage";
             this.cboLanguage.Size = new System.Drawing.Size(140, 24);
             this.cboLanguage.TabIndex = 5;
@@ -217,7 +217,7 @@
             // txtFileName
             // 
             this.txtFileName.Location = new System.Drawing.Point(115, 295);
-            this.txtFileName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtFileName.Margin = new System.Windows.Forms.Padding(4);
             this.txtFileName.Multiline = true;
             this.txtFileName.Name = "txtFileName";
             this.txtFileName.Size = new System.Drawing.Size(248, 77);
@@ -227,7 +227,7 @@
             // 
             this.cmdBrowse.Enabled = false;
             this.cmdBrowse.Location = new System.Drawing.Point(371, 295);
-            this.cmdBrowse.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmdBrowse.Margin = new System.Windows.Forms.Padding(4);
             this.cmdBrowse.Name = "cmdBrowse";
             this.cmdBrowse.Size = new System.Drawing.Size(76, 78);
             this.cmdBrowse.TabIndex = 7;
@@ -238,7 +238,7 @@
             // cmdImport
             // 
             this.cmdImport.Location = new System.Drawing.Point(453, 295);
-            this.cmdImport.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmdImport.Margin = new System.Windows.Forms.Padding(4);
             this.cmdImport.Name = "cmdImport";
             this.cmdImport.Size = new System.Drawing.Size(74, 78);
             this.cmdImport.TabIndex = 8;
@@ -293,7 +293,7 @@
             // 
             this.chkBilingual.AutoSize = true;
             this.chkBilingual.Location = new System.Drawing.Point(371, 254);
-            this.chkBilingual.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkBilingual.Margin = new System.Windows.Forms.Padding(4);
             this.chkBilingual.Name = "chkBilingual";
             this.chkBilingual.Size = new System.Drawing.Size(73, 20);
             this.chkBilingual.TabIndex = 14;
@@ -304,7 +304,7 @@
             // 
             this.resultsPanel.Controls.Add(this.tabResults);
             this.resultsPanel.Location = new System.Drawing.Point(565, 29);
-            this.resultsPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.resultsPanel.Margin = new System.Windows.Forms.Padding(4);
             this.resultsPanel.Name = "resultsPanel";
             this.resultsPanel.Size = new System.Drawing.Size(462, 394);
             this.resultsPanel.TabIndex = 15;
@@ -319,7 +319,7 @@
             this.tabResults.Controls.Add(this.pageFailed);
             this.tabResults.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabResults.Location = new System.Drawing.Point(0, 0);
-            this.tabResults.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabResults.Margin = new System.Windows.Forms.Padding(4);
             this.tabResults.Name = "tabResults";
             this.tabResults.SelectedIndex = 0;
             this.tabResults.Size = new System.Drawing.Size(462, 394);
@@ -333,9 +333,9 @@
             this.pageEmpties.Controls.Add(this.txtMissingVarName);
             this.pageEmpties.Controls.Add(this.navMissing);
             this.pageEmpties.Location = new System.Drawing.Point(4, 25);
-            this.pageEmpties.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pageEmpties.Margin = new System.Windows.Forms.Padding(4);
             this.pageEmpties.Name = "pageEmpties";
-            this.pageEmpties.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pageEmpties.Padding = new System.Windows.Forms.Padding(4);
             this.pageEmpties.Size = new System.Drawing.Size(454, 365);
             this.pageEmpties.TabIndex = 0;
             this.pageEmpties.Text = "Missing";
@@ -344,7 +344,7 @@
             // txtMissingSurvey
             // 
             this.txtMissingSurvey.Location = new System.Drawing.Point(131, 7);
-            this.txtMissingSurvey.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtMissingSurvey.Margin = new System.Windows.Forms.Padding(4);
             this.txtMissingSurvey.Name = "txtMissingSurvey";
             this.txtMissingSurvey.Size = new System.Drawing.Size(116, 23);
             this.txtMissingSurvey.TabIndex = 10;
@@ -352,7 +352,7 @@
             // cmdCheckMissing
             // 
             this.cmdCheckMissing.Location = new System.Drawing.Point(374, 7);
-            this.cmdCheckMissing.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmdCheckMissing.Margin = new System.Windows.Forms.Padding(4);
             this.cmdCheckMissing.Name = "cmdCheckMissing";
             this.cmdCheckMissing.Size = new System.Drawing.Size(59, 25);
             this.cmdCheckMissing.TabIndex = 9;
@@ -364,7 +364,7 @@
             // 
             this.rtbMissingTranslation.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtbMissingTranslation.Location = new System.Drawing.Point(7, 38);
-            this.rtbMissingTranslation.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rtbMissingTranslation.Margin = new System.Windows.Forms.Padding(4);
             this.rtbMissingTranslation.Name = "rtbMissingTranslation";
             this.rtbMissingTranslation.ReadOnly = true;
             this.rtbMissingTranslation.Size = new System.Drawing.Size(426, 294);
@@ -374,7 +374,7 @@
             // txtMissingVarName
             // 
             this.txtMissingVarName.Location = new System.Drawing.Point(7, 7);
-            this.txtMissingVarName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtMissingVarName.Margin = new System.Windows.Forms.Padding(4);
             this.txtMissingVarName.Name = "txtMissingVarName";
             this.txtMissingVarName.Size = new System.Drawing.Size(116, 23);
             this.txtMissingVarName.TabIndex = 2;
@@ -483,9 +483,9 @@
             this.pageDuplicates.Controls.Add(this.txtDuplicateVarName);
             this.pageDuplicates.Controls.Add(this.navDuplicates);
             this.pageDuplicates.Location = new System.Drawing.Point(4, 25);
-            this.pageDuplicates.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pageDuplicates.Margin = new System.Windows.Forms.Padding(4);
             this.pageDuplicates.Name = "pageDuplicates";
-            this.pageDuplicates.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pageDuplicates.Padding = new System.Windows.Forms.Padding(4);
             this.pageDuplicates.Size = new System.Drawing.Size(454, 365);
             this.pageDuplicates.TabIndex = 1;
             this.pageDuplicates.Text = "Duplicate";
@@ -494,7 +494,7 @@
             // txtDuplicateSurvey
             // 
             this.txtDuplicateSurvey.Location = new System.Drawing.Point(131, 7);
-            this.txtDuplicateSurvey.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtDuplicateSurvey.Margin = new System.Windows.Forms.Padding(4);
             this.txtDuplicateSurvey.Name = "txtDuplicateSurvey";
             this.txtDuplicateSurvey.Size = new System.Drawing.Size(116, 23);
             this.txtDuplicateSurvey.TabIndex = 9;
@@ -502,7 +502,7 @@
             // cmdCheckDuplicate
             // 
             this.cmdCheckDuplicate.Location = new System.Drawing.Point(374, 6);
-            this.cmdCheckDuplicate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmdCheckDuplicate.Margin = new System.Windows.Forms.Padding(4);
             this.cmdCheckDuplicate.Name = "cmdCheckDuplicate";
             this.cmdCheckDuplicate.Size = new System.Drawing.Size(59, 25);
             this.cmdCheckDuplicate.TabIndex = 8;
@@ -515,7 +515,7 @@
             this.rtbDuplicateTranslation.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtbDuplicateTranslation.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.rtbDuplicateTranslation.Location = new System.Drawing.Point(7, 38);
-            this.rtbDuplicateTranslation.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rtbDuplicateTranslation.Margin = new System.Windows.Forms.Padding(4);
             this.rtbDuplicateTranslation.Name = "rtbDuplicateTranslation";
             this.rtbDuplicateTranslation.ReadOnly = true;
             this.rtbDuplicateTranslation.Size = new System.Drawing.Size(426, 294);
@@ -525,7 +525,7 @@
             // txtDuplicateVarName
             // 
             this.txtDuplicateVarName.Location = new System.Drawing.Point(7, 7);
-            this.txtDuplicateVarName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtDuplicateVarName.Margin = new System.Windows.Forms.Padding(4);
             this.txtDuplicateVarName.Name = "txtDuplicateVarName";
             this.txtDuplicateVarName.Size = new System.Drawing.Size(116, 23);
             this.txtDuplicateVarName.TabIndex = 6;
@@ -633,9 +633,9 @@
             this.pageImported.Controls.Add(this.rtbImportedTranslation);
             this.pageImported.Controls.Add(this.txtImportedVarName);
             this.pageImported.Location = new System.Drawing.Point(4, 25);
-            this.pageImported.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pageImported.Margin = new System.Windows.Forms.Padding(4);
             this.pageImported.Name = "pageImported";
-            this.pageImported.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pageImported.Padding = new System.Windows.Forms.Padding(4);
             this.pageImported.Size = new System.Drawing.Size(454, 365);
             this.pageImported.TabIndex = 2;
             this.pageImported.Text = "Imported";
@@ -644,7 +644,7 @@
             // txtImportedSurvey
             // 
             this.txtImportedSurvey.Location = new System.Drawing.Point(131, 7);
-            this.txtImportedSurvey.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtImportedSurvey.Margin = new System.Windows.Forms.Padding(4);
             this.txtImportedSurvey.Name = "txtImportedSurvey";
             this.txtImportedSurvey.Size = new System.Drawing.Size(116, 23);
             this.txtImportedSurvey.TabIndex = 12;
@@ -749,7 +749,7 @@
             // 
             this.rtbImportedTranslation.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtbImportedTranslation.Location = new System.Drawing.Point(7, 38);
-            this.rtbImportedTranslation.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rtbImportedTranslation.Margin = new System.Windows.Forms.Padding(4);
             this.rtbImportedTranslation.Name = "rtbImportedTranslation";
             this.rtbImportedTranslation.ReadOnly = true;
             this.rtbImportedTranslation.Size = new System.Drawing.Size(426, 294);
@@ -759,7 +759,7 @@
             // txtImportedVarName
             // 
             this.txtImportedVarName.Location = new System.Drawing.Point(7, 7);
-            this.txtImportedVarName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtImportedVarName.Margin = new System.Windows.Forms.Padding(4);
             this.txtImportedVarName.Name = "txtImportedVarName";
             this.txtImportedVarName.Size = new System.Drawing.Size(116, 23);
             this.txtImportedVarName.TabIndex = 9;
@@ -770,7 +770,7 @@
             this.pageSuccess.Controls.Add(this.rtbSuccess);
             this.pageSuccess.Controls.Add(this.txtSuccessVarName);
             this.pageSuccess.Location = new System.Drawing.Point(4, 25);
-            this.pageSuccess.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pageSuccess.Margin = new System.Windows.Forms.Padding(4);
             this.pageSuccess.Name = "pageSuccess";
             this.pageSuccess.Size = new System.Drawing.Size(454, 365);
             this.pageSuccess.TabIndex = 3;
@@ -875,7 +875,7 @@
             // rtbSuccess
             // 
             this.rtbSuccess.Location = new System.Drawing.Point(7, 38);
-            this.rtbSuccess.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rtbSuccess.Margin = new System.Windows.Forms.Padding(4);
             this.rtbSuccess.Name = "rtbSuccess";
             this.rtbSuccess.ReadOnly = true;
             this.rtbSuccess.Size = new System.Drawing.Size(436, 294);
@@ -885,7 +885,7 @@
             // txtSuccessVarName
             // 
             this.txtSuccessVarName.Location = new System.Drawing.Point(7, 7);
-            this.txtSuccessVarName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtSuccessVarName.Margin = new System.Windows.Forms.Padding(4);
             this.txtSuccessVarName.Name = "txtSuccessVarName";
             this.txtSuccessVarName.Size = new System.Drawing.Size(116, 23);
             this.txtSuccessVarName.TabIndex = 0;
@@ -896,7 +896,7 @@
             this.pageFailed.Controls.Add(this.rtbFailed);
             this.pageFailed.Controls.Add(this.txtFailedVarName);
             this.pageFailed.Location = new System.Drawing.Point(4, 25);
-            this.pageFailed.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pageFailed.Margin = new System.Windows.Forms.Padding(4);
             this.pageFailed.Name = "pageFailed";
             this.pageFailed.Size = new System.Drawing.Size(454, 365);
             this.pageFailed.TabIndex = 4;
@@ -1001,7 +1001,7 @@
             // rtbFailed
             // 
             this.rtbFailed.Location = new System.Drawing.Point(7, 38);
-            this.rtbFailed.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rtbFailed.Margin = new System.Windows.Forms.Padding(4);
             this.rtbFailed.Name = "rtbFailed";
             this.rtbFailed.ReadOnly = true;
             this.rtbFailed.Size = new System.Drawing.Size(433, 294);
@@ -1011,7 +1011,7 @@
             // txtFailedVarName
             // 
             this.txtFailedVarName.Location = new System.Drawing.Point(7, 7);
-            this.txtFailedVarName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtFailedVarName.Margin = new System.Windows.Forms.Padding(4);
             this.txtFailedVarName.Name = "txtFailedVarName";
             this.txtFailedVarName.Size = new System.Drawing.Size(116, 23);
             this.txtFailedVarName.TabIndex = 0;
@@ -1019,7 +1019,7 @@
             // cmdSave
             // 
             this.cmdSave.Location = new System.Drawing.Point(371, 391);
-            this.cmdSave.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmdSave.Margin = new System.Windows.Forms.Padding(4);
             this.cmdSave.Name = "cmdSave";
             this.cmdSave.Size = new System.Drawing.Size(155, 28);
             this.cmdSave.TabIndex = 16;
@@ -1032,7 +1032,7 @@
             // 
             this.cmdAddLanguage.Enabled = false;
             this.cmdAddLanguage.Location = new System.Drawing.Point(264, 249);
-            this.cmdAddLanguage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmdAddLanguage.Margin = new System.Windows.Forms.Padding(4);
             this.cmdAddLanguage.Name = "cmdAddLanguage";
             this.cmdAddLanguage.Size = new System.Drawing.Size(100, 28);
             this.cmdAddLanguage.TabIndex = 17;
@@ -1062,6 +1062,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1029, 426);
             this.ControlBox = false;
             this.Controls.Add(this.cmdAddLanguage);
@@ -1083,7 +1084,7 @@
             this.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "TranslationImporter";
             this.Text = "Translation Importer";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.TranslationImporter_FormClosed);

@@ -32,11 +32,10 @@ namespace SDIFrontEnd
         private ListViewItem dragItem = null;
 
         // references to popup forms      
-        WordingUsage frmWordings;
+        WordingEntryForm frmWordings;
         RelatedQuestions frmRelated;
         TranslationViewer frmTranslations;
         DeletedSurveyQuestions frmDeleted;
-        //ViewQuestionComments frmComments;
         CommentEntry frmComments;
         QuestionViewer frmQuestionViewer;
         public SurveyEditorSearch frmSearch;
@@ -353,7 +352,16 @@ namespace SDIFrontEnd
             OpenSearch();
         }
 
-        
+        private void toolStripAddTranslation_Click(object sender, EventArgs e)
+        {
+            if (CurrentSurvey.Locked)
+            {
+                MessageBox.Show("Unlock this survey before adding a new translation.");
+                return;
+            }
+
+            AddAndViewTranslation();
+        }
 
         private void toolStripTranslation_Click(object sender, EventArgs e)
         {
@@ -424,7 +432,7 @@ namespace SDIFrontEnd
             PrefixList frm = (PrefixList)FM.FormManager.GetForm("PrefixList");
             if (frm == null)
             {
-                frm = new PrefixList();
+                frm = new PrefixList(Globals.AllPrefixes);
             }
             frm.Show();
         }
@@ -942,6 +950,19 @@ namespace SDIFrontEnd
         {
 
         }
+
+        private void rtbPlainFilter_Validated(object sender, EventArgs e)
+        {
+            // change RTF tags to HTML tags
+            rtbPlainFilter.Rtf = Utilities.FormatRTF(rtbPlainFilter.Rtf);
+
+            // now get plain text which includes the HTML tags we've inserted
+            string plain = rtbPlainFilter.Text;
+            plain = Utilities.TrimString(plain, "<br>");
+            CurrentRecord.Item.FilterDescription = plain;
+            rtbPlainFilter.Rtf = null;
+            rtbPlainFilter.Rtf = CurrentRecord.Item.FilterDescriptionRTF;
+        }
         #endregion
 
         #region Wording Buttons
@@ -1131,7 +1152,7 @@ namespace SDIFrontEnd
         {
             string searchTerm = Clipboard.GetText();
             if (frmWordings == null)
-                frmWordings = new WordingUsage();
+                frmWordings = new WordingEntryForm();
 
             if (frmWordings.FilterWordings(Clipboard.GetText()) > 0)
             {
@@ -1273,7 +1294,7 @@ namespace SDIFrontEnd
 
             Wording toBeEdited = new Wording(number, field, wording);
 
-            frmWordings = new WordingUsage(toBeEdited);
+            frmWordings = new WordingEntryForm(toBeEdited);
             frmWordings.ShowDialog();
 
             if (frmWordings.DialogResult == DialogResult.OK) // export button
@@ -1818,9 +1839,8 @@ namespace SDIFrontEnd
             }
         }
 
-        private void ViewTranslation()
+        private void ViewTranslation(string lang = null)
         {
-
             if (CurrentRecord.Item.Translations.Count == 0)
             {
                 MessageBox.Show("No translations found for this question.");
@@ -1829,7 +1849,7 @@ namespace SDIFrontEnd
 
             if (frmTranslations == null || frmTranslations.IsDisposed)
             {
-                frmTranslations = new TranslationViewer(CurrentSurvey, CurrentRecord);
+                frmTranslations = new TranslationViewer(CurrentSurvey, CurrentRecord, lang);
                 frmTranslations.Owner = this;
                 frmTranslations.Show();
             }
@@ -2155,7 +2175,32 @@ namespace SDIFrontEnd
             }
         }
 
-        
+        private void AddAndViewTranslation()
+        {
+            // display picker to pick language
+            List<Language> languages = DBAction.ListLanguages();
+            Picker<Language> picker = new Picker<Language>(languages, "LanguageName", "ID", "Choose Language");
+
+            picker.ShowDialog();
+
+            if (picker.DialogResult == DialogResult.Cancel)
+                return;
+
+            Language l = picker.Data;
+
+            // add new translation record to this question
+            CurrentRecord.Item.Translations.Add(
+                new Translation()
+                {
+                    QID = CurrentRecord.Item.ID,
+                    Survey = CurrentSurvey.SurveyCode,
+                    VarName = CurrentRecord.Item.VarName.VarName,
+                    LanguageName = l,
+                }
+            );
+
+            ViewTranslation(l.LanguageName);
+        }
 
         #endregion
 
@@ -2311,18 +2356,15 @@ namespace SDIFrontEnd
             UpdateStatus();
         }
 
-        /// <summary>
-        /// Go to the question that was clicked on.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void lstQuestionList_MouseClick(object sender, MouseEventArgs e)
+        private void lstQuestionList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int index = lstQuestionList.SelectedIndices[0];
-            string varname = lstQuestionList.Items[index].SubItems[3].Text;
+            ListView lst = (ListView)sender;
+            if (lst.SelectedIndices.Count == 0)
+                return;
+            int index = lst.SelectedIndices[0];
+            string varname = lst.Items[index].SubItems[3].Text;
 
             GoToQuestion(Utilities.ChangeCC(varname));
-          
         }
 
         /// <summary>
@@ -2392,19 +2434,6 @@ namespace SDIFrontEnd
                 }
             }
             UpdateInfo();
-        }
-
-        private void rtbPlainFilter_Validated(object sender, EventArgs e)
-        {
-            // change RTF tags to HTML tags
-            rtbPlainFilter.Rtf = Utilities.FormatRTF(rtbPlainFilter.Rtf);
-
-            // now get plain text which includes the HTML tags we've inserted
-            string plain = rtbPlainFilter.Text;
-            plain = Utilities.TrimString(plain, "<br>");
-            CurrentRecord.Item.FilterDescription = plain;
-            rtbPlainFilter.Rtf = null;
-            rtbPlainFilter.Rtf = CurrentRecord.Item.FilterDescriptionRTF;
         }
     }
 }

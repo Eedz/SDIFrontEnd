@@ -34,6 +34,11 @@ namespace SDIFrontEnd
         public QuestionSearch()
         {
             InitializeComponent();
+
+            cboProduct.DataSource = new List<ProductLabel>(Globals.AllProductLabels);
+            cboProduct.DisplayMember = "LabelText";
+            cboProduct.ValueMember = "ID";
+            cboProduct.SelectedItem = null;
         }
 
         #region Menu Events

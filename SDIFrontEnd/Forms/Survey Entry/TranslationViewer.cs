@@ -10,49 +10,37 @@ using System.Windows.Forms;
 using ITCLib;
 
 namespace SDIFrontEnd
-{
-     
+{   
     public partial class TranslationViewer : Form
     {
-       
-        List<TranslationRecord> Translations;
-        Survey ParentSurvey;
-        BindingSource bs;
-        SurveyQuestion MainQuestion;
+        List<TranslationRecord> Records;
         TranslationRecord CurrentRecord;
-        TextBox plainTranslation;
+
+        Survey ParentSurvey;
+        SurveyQuestion MainQuestion;
+
+        BindingSource bs;
+        BindingSource bsCurrent;
         
         public TranslationViewer(Survey survey, QuestionRecord question)
         {
             InitializeComponent();
-            plainTranslation = new TextBox();
 
             ParentSurvey = survey;
-            Translations = new List<TranslationRecord>();
-            foreach (Translation t in question.Item.Translations)
-                Translations.Add(new TranslationRecord(t));
+            MainQuestion = question.Item;
 
-            if (Translations.Count == 0)
+            FillLists();
+
+            if (Records.Count == 0)
             {
                 MessageBox.Show("No translations found for this question.");
                 Close();
             }
 
-            bs = new BindingSource();
-            bs.DataSource = Translations;
-            bs.ListChanged += Bs_ListChanged;
-            bs.PositionChanged += Bs_PositionChanged;
-            navTranslations.BindingSource = bs;
-            MainQuestion = question.Item;
+            SetupBindingSources();
 
-            txtSurvey.DataBindings.Add(new Binding("Text", bs, "Survey"));
-            txtVarName.DataBindings.Add(new Binding("Text", bs, "VarName"));
-            txtLanguage.DataBindings.Add(new Binding("Text", bs, "LanguageName.LanguageName"));
-            rtbPreP.Rtf = MainQuestion.PrepRTF;
-            rtbPstP.Rtf = MainQuestion.PstpRTF;
-
-            plainTranslation.DataBindings.Add("Text", bs, "TranslationText");
-            extraRichTextBox1.DataBindings.Add(new Binding("Rtf", bs, "TranslationRTF"));
+            BindProperties();
+ 
             CurrentRecord = (TranslationRecord)bs.Current;
 
             LockForm(!ParentSurvey.Locked);
@@ -60,9 +48,13 @@ namespace SDIFrontEnd
             SetReadingDirection();
         }
 
-        private void Bs_PositionChanged(object sender, EventArgs e)
-        {
-            CurrentRecord = (TranslationRecord)bs.Current;
+        public TranslationViewer(Survey survey, QuestionRecord question, string lang) : this (survey,question)
+        { 
+            foreach (TranslationRecord r in Records)
+            {
+                if (!r.Item.LanguageName.LanguageName.Equals(lang))
+                    bs.MoveNext();
+            }
         }
 
         #region Events
@@ -72,14 +64,31 @@ namespace SDIFrontEnd
 
         }
 
-        private void Bs_ListChanged(object sender, ListChangedEventArgs e)
+        private void Bs_PositionChanged(object sender, EventArgs e)
+        {
+            CurrentRecord = (TranslationRecord)bs.Current;
+        }
+
+        private void BsCurrent_ListChanged(object sender, ListChangedEventArgs e)
         {
             if (e.PropertyDescriptor == null)
                 return;
 
-            if (e.PropertyDescriptor.Name != null) 
-                CurrentRecord.Dirty = true;
+            // get the paper record that was modified
+            Translation modifiedRegion = (Translation)bsCurrent[e.NewIndex];
+            TranslationRecord modifiedRecord = Records.Where(x => x.Item == modifiedRegion).FirstOrDefault();
+
+            if (modifiedRecord == null)
+                return;
+
+            switch (e.PropertyDescriptor.Name)
+            {
+                default:
+                    modifiedRecord.Dirty = true;
+                    break;
+            }
         }
+
 
         private void cmdSave_Click(object sender, EventArgs e)
         {
@@ -90,8 +99,6 @@ namespace SDIFrontEnd
 
         private void TranslationViewer_FormClosing(object sender, FormClosingEventArgs e)
         {
-            bs.EndEdit();
-            UpdatePlainText();
             if (SaveRecord() == 1)
             {
                 if (MessageBox.Show("This record has unsaved changes. Are you sure you want to close this record and lose those changes?", "Confirm close.", MessageBoxButtons.YesNo) == DialogResult.No)
@@ -100,14 +107,10 @@ namespace SDIFrontEnd
 
         }
 
-        
-
         #region Navigator Events
 
         private void bindingNavigatorMoveNextItem_Click(object sender, EventArgs e)
         {
-            bs.EndEdit();
-
             if (SaveRecord() == 1)
                 return;
 
@@ -116,8 +119,6 @@ namespace SDIFrontEnd
 
         private void bindingNavigatorMoveLastItem_Click(object sender, EventArgs e)
         {
-            bs.EndEdit();
-
             if (SaveRecord() == 1)
                 return;
 
@@ -126,8 +127,6 @@ namespace SDIFrontEnd
 
         private void bindingNavigatorMovePreviousItem_Click(object sender, EventArgs e)
         {
-            bs.EndEdit();
-
             if (SaveRecord() == 1)
                 return;
 
@@ -136,8 +135,6 @@ namespace SDIFrontEnd
 
         private void bindingNavigatorMoveFirstItem_Click(object sender, EventArgs e)
         {
-            bs.EndEdit();
-
             if (SaveRecord() == 1)
                 return;
 
@@ -148,18 +145,59 @@ namespace SDIFrontEnd
 
         #endregion
 
+        private void FillLists()
+        {
+            Records = new List<TranslationRecord>();
+
+            foreach (Translation t in MainQuestion.Translations)
+            {
+                TranslationRecord tr = new TranslationRecord(t);
+                if (t.ID == 0)
+                    tr.NewRecord = true;
+                Records.Add(tr);
+            }
+        }
+
+        private void SetupBindingSources()
+        {
+            bs = new BindingSource();
+            bs.DataSource = Records;
+            bs.PositionChanged += Bs_PositionChanged;
+
+            bsCurrent = new BindingSource()
+            {
+                DataSource = bs
+            };
+            bsCurrent.DataMember = "Item";
+            bsCurrent.ListChanged += BsCurrent_ListChanged;
+
+            navTranslations.BindingSource = bs;
+        }
+
+        private void BindProperties()
+        {
+            txtSurvey.DataBindings.Add(new Binding("Text", bsCurrent, "Survey"));
+            txtVarName.DataBindings.Add(new Binding("Text", bsCurrent, "VarName"));
+            txtLanguage.DataBindings.Add(new Binding("Text", bsCurrent, "LanguageName.LanguageName"));
+
+            rtbPreP.Rtf = MainQuestion.PrepRTF;
+            rtbPstP.Rtf = MainQuestion.PstpRTF;
+
+            extraRichTextBox1.DataBindings.Add(new Binding("Rtf", bsCurrent, "TranslationRTF"));
+        }
+
         public void UpdateForm(Survey survey, QuestionRecord question, SurveyLanguage language = null)
         {
             ParentSurvey = survey;
             MainQuestion = question.Item;
 
-            Translations.Clear();
+            Records.Clear();
             foreach (Translation t in question.Item.Translations)
-                Translations.Add(new TranslationRecord(t));
+                Records.Add(new TranslationRecord(t));
 
             extraRichTextBox1.Rtf = null;
 
-            if (Translations.Count() == 0 || ParentSurvey.Locked)
+            if (Records.Count() == 0 || ParentSurvey.Locked)
             {
                 LockForm(false);
                 return;
@@ -168,9 +206,9 @@ namespace SDIFrontEnd
                 LockForm(true);
 
             if (language!=null && !language.SurvLanguage.LanguageName.Equals("<All>"))
-                bs.DataSource = Translations.Where(x=>x.Language.Equals(language.SurvLanguage.LanguageName));
+                bs.DataSource = Records.Where(x=>x.Item.Language.Equals(language.SurvLanguage.LanguageName));
             else
-                bs.DataSource = Translations;
+                bs.DataSource = Records;
 
             rtbPreP.Rtf = MainQuestion.PrepRTF;
             rtbPstP.Rtf = MainQuestion.PstpRTF;
@@ -215,14 +253,19 @@ namespace SDIFrontEnd
         /// </summary>
         public void SetReadingDirection()
         {
-            if (CurrentRecord != null && CurrentRecord.LanguageName.RTL)
+            if (CurrentRecord != null && CurrentRecord.Item.LanguageName.RTL)
                 extraRichTextBox1.RightToLeft = RightToLeft.Yes;
             else
                 extraRichTextBox1.RightToLeft = RightToLeft.No;
         }
 
         private int SaveRecord()
-        { 
+        {
+            if (ParentSurvey.Locked)
+                return 0;
+
+            bsCurrent.EndEdit();
+            UpdatePlainText();
             if (CurrentRecord.SaveRecord() == 1)
             {
                 MessageBox.Show("Error saving this record.");
@@ -232,10 +275,6 @@ namespace SDIFrontEnd
             return 0;
         }
 
-        
-
-        
-
         private void UpdatePlainText()
         {
             // change RTF tags to HTML tags
@@ -243,20 +282,9 @@ namespace SDIFrontEnd
             // now get plain text which includes the HTML tags we've inserted
             string plain = extraRichTextBox1.Text;
             plain = Utilities.TrimString(plain, "<br>");
-            CurrentRecord.TranslationText = plain;
-            
+            CurrentRecord.Item.TranslationText = plain;
             
             bs.ResetCurrentItem();
-        }
-
-        private void rtbTranslationText_Validated(object sender, EventArgs e)
-        {
-            CurrentRecord.Dirty = true;
-        }
-
-        private void extraRichTextBox1_Validated(object sender, EventArgs e)
-        {
-            CurrentRecord.Dirty = true;
         }
     }
 }

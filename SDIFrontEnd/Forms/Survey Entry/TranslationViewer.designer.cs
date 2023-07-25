@@ -104,7 +104,7 @@
             this.navTranslations.MovePreviousItem = null;
             this.navTranslations.Name = "navTranslations";
             this.navTranslations.PositionItem = this.bindingNavigatorPositionItem;
-            this.navTranslations.Size = new System.Drawing.Size(502, 25);
+            this.navTranslations.Size = new System.Drawing.Size(504, 25);
             this.navTranslations.TabIndex = 4;
             this.navTranslations.Text = "bindingNavigator1";
             // 
@@ -222,16 +222,15 @@
     "\n}\r\n";
             this.extraRichTextBox1.ShowFamilies = false;
             this.extraRichTextBox1.ShowSize = false;
-            this.extraRichTextBox1.Size = new System.Drawing.Size(493, 400);
+            this.extraRichTextBox1.Size = new System.Drawing.Size(493, 404);
             this.extraRichTextBox1.TabIndex = 20;
-            this.extraRichTextBox1.Validated += new System.EventHandler(this.extraRichTextBox1_Validated);
             // 
             // TranslationViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(196)))), ((int)(((byte)(153)))));
-            this.ClientSize = new System.Drawing.Size(502, 612);
+            this.ClientSize = new System.Drawing.Size(504, 612);
             this.Controls.Add(this.extraRichTextBox1);
             this.Controls.Add(this.cmdSave);
             this.Controls.Add(this.rtbPstP);

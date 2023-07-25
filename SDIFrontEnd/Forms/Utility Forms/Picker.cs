@@ -37,6 +37,7 @@ namespace SDIFrontEnd
             T item = (T)lst.SelectedItem;
 
             Data = item;
+            DialogResult = DialogResult.OK;
             Close();
         }
 
