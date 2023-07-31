@@ -623,7 +623,7 @@ namespace SDIFrontEnd
             description = GetContentFromCell(cells, DescriptionColumn, true);
             description = Utilities.TrimString(description, " ");
             description = Utilities.TrimString(description, "<br>");
-            descriptionRTF = description.Replace(" ", "&nbsp;");
+            descriptionRTF = description;
 
             // check date and names for valid entries
             date = GetContentFromCell(cells, DateColumn, false);
