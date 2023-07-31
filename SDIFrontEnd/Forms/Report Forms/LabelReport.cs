@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using ITCLib;
+using ITCReportLib;
+
 using FM = FormManager;
 
 namespace SDIFrontEnd

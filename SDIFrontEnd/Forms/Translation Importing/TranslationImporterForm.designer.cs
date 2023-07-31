@@ -1,6 +1,6 @@
 ﻿namespace SDIFrontEnd
 {
-    partial class TranslationImporter
+    partial class TranslationImporterForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TranslationImporter));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TranslationImporterForm));
             this.label1 = new System.Windows.Forms.Label();
             this.groupImportType = new System.Windows.Forms.GroupBox();
             this.optMulti = new System.Windows.Forms.RadioButton();

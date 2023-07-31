@@ -96,7 +96,8 @@
             this.reportToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(965, 24);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(1126, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -116,21 +117,23 @@
             // 
             // cboSurvey
             // 
-            this.cboSurvey.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboSurvey.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cboSurvey.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboSurvey.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboSurvey.FormattingEnabled = true;
-            this.cboSurvey.Location = new System.Drawing.Point(427, 76);
+            this.cboSurvey.Location = new System.Drawing.Point(498, 94);
+            this.cboSurvey.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cboSurvey.Name = "cboSurvey";
-            this.cboSurvey.Size = new System.Drawing.Size(121, 24);
+            this.cboSurvey.Size = new System.Drawing.Size(140, 24);
             this.cboSurvey.TabIndex = 1;
             // 
             // txtSurvey
             // 
             this.txtSurvey.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSurvey.Location = new System.Drawing.Point(104, 117);
+            this.txtSurvey.Location = new System.Drawing.Point(121, 144);
+            this.txtSurvey.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtSurvey.Name = "txtSurvey";
-            this.txtSurvey.Size = new System.Drawing.Size(100, 23);
+            this.txtSurvey.Size = new System.Drawing.Size(116, 23);
             this.txtSurvey.TabIndex = 2;
             // 
             // dataRepeater1
@@ -144,10 +147,13 @@
             this.dataRepeater1.ItemTemplate.Controls.Add(this.cboEnteredBy);
             this.dataRepeater1.ItemTemplate.Controls.Add(this.dtpEntryDate);
             this.dataRepeater1.ItemTemplate.Controls.Add(this.dtpStageDate);
-            this.dataRepeater1.ItemTemplate.Size = new System.Drawing.Size(501, 29);
-            this.dataRepeater1.Location = new System.Drawing.Point(3, 3);
+            this.dataRepeater1.ItemTemplate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataRepeater1.ItemTemplate.Size = new System.Drawing.Size(584, 36);
+            this.dataRepeater1.Location = new System.Drawing.Point(4, 4);
+            this.dataRepeater1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dataRepeater1.Name = "dataRepeater1";
-            this.dataRepeater1.Size = new System.Drawing.Size(509, 182);
+            this.dataRepeater1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataRepeater1.Size = new System.Drawing.Size(594, 224);
             this.dataRepeater1.TabIndex = 4;
             this.dataRepeater1.Text = "dataRepeater1";
             this.dataRepeater1.ItemCloned += new Microsoft.VisualBasic.PowerPacks.DataRepeaterItemEventHandler(this.dataRepeater1_ItemCloned);
@@ -157,9 +163,10 @@
             // 
             this.cmdDeleteDate.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdDeleteDate.ForeColor = System.Drawing.Color.Red;
-            this.cmdDeleteDate.Location = new System.Drawing.Point(438, 3);
+            this.cmdDeleteDate.Location = new System.Drawing.Point(511, 4);
+            this.cmdDeleteDate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmdDeleteDate.Name = "cmdDeleteDate";
-            this.cmdDeleteDate.Size = new System.Drawing.Size(29, 23);
+            this.cmdDeleteDate.Size = new System.Drawing.Size(34, 28);
             this.cmdDeleteDate.TabIndex = 4;
             this.cmdDeleteDate.Text = "X";
             this.cmdDeleteDate.UseCompatibleTextRendering = true;
@@ -168,24 +175,26 @@
             // 
             // cboContact
             // 
-            this.cboContact.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboContact.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cboContact.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboContact.FormattingEnabled = true;
-            this.cboContact.Location = new System.Drawing.Point(338, 3);
+            this.cboContact.Location = new System.Drawing.Point(394, 4);
+            this.cboContact.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cboContact.Name = "cboContact";
-            this.cboContact.Size = new System.Drawing.Size(95, 21);
+            this.cboContact.Size = new System.Drawing.Size(110, 24);
             this.cboContact.TabIndex = 3;
             this.cboContact.SelectedIndexChanged += new System.EventHandler(this.cboContact_SelectedIndexChanged);
             this.cboContact.Validated += new System.EventHandler(this.DateControl_Validated);
             // 
             // cboEnteredBy
             // 
-            this.cboEnteredBy.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboEnteredBy.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cboEnteredBy.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboEnteredBy.FormattingEnabled = true;
-            this.cboEnteredBy.Location = new System.Drawing.Point(227, 3);
+            this.cboEnteredBy.Location = new System.Drawing.Point(265, 4);
+            this.cboEnteredBy.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cboEnteredBy.Name = "cboEnteredBy";
-            this.cboEnteredBy.Size = new System.Drawing.Size(107, 21);
+            this.cboEnteredBy.Size = new System.Drawing.Size(124, 24);
             this.cboEnteredBy.TabIndex = 2;
             this.cboEnteredBy.SelectedIndexChanged += new System.EventHandler(this.cboEnteredBy_SelectedIndexChanged);
             this.cboEnteredBy.Validated += new System.EventHandler(this.DateControl_Validated);
@@ -193,20 +202,22 @@
             // dtpEntryDate
             // 
             this.dtpEntryDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpEntryDate.Location = new System.Drawing.Point(119, 3);
+            this.dtpEntryDate.Location = new System.Drawing.Point(139, 4);
+            this.dtpEntryDate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dtpEntryDate.Name = "dtpEntryDate";
             this.dtpEntryDate.ShowCheckBox = true;
-            this.dtpEntryDate.Size = new System.Drawing.Size(102, 20);
+            this.dtpEntryDate.Size = new System.Drawing.Size(118, 23);
             this.dtpEntryDate.TabIndex = 1;
             this.dtpEntryDate.Validated += new System.EventHandler(this.DateControl_Validated);
             // 
             // dtpStageDate
             // 
             this.dtpStageDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpStageDate.Location = new System.Drawing.Point(11, 3);
+            this.dtpStageDate.Location = new System.Drawing.Point(13, 4);
+            this.dtpStageDate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dtpStageDate.Name = "dtpStageDate";
             this.dtpStageDate.ShowCheckBox = true;
-            this.dtpStageDate.Size = new System.Drawing.Size(102, 20);
+            this.dtpStageDate.Size = new System.Drawing.Size(118, 23);
             this.dtpStageDate.TabIndex = 0;
             this.dtpStageDate.Validated += new System.EventHandler(this.DateControl_Validated);
             // 
@@ -219,10 +230,13 @@
             this.dataRepeater2.ItemTemplate.Controls.Add(this.cboNoteAuthor);
             this.dataRepeater2.ItemTemplate.Controls.Add(this.dtpNoteDate);
             this.dataRepeater2.ItemTemplate.Controls.Add(this.txtNotes);
-            this.dataRepeater2.ItemTemplate.Size = new System.Drawing.Size(501, 62);
-            this.dataRepeater2.Location = new System.Drawing.Point(3, 3);
+            this.dataRepeater2.ItemTemplate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataRepeater2.ItemTemplate.Size = new System.Drawing.Size(584, 76);
+            this.dataRepeater2.Location = new System.Drawing.Point(4, 4);
+            this.dataRepeater2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dataRepeater2.Name = "dataRepeater2";
-            this.dataRepeater2.Size = new System.Drawing.Size(509, 204);
+            this.dataRepeater2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataRepeater2.Size = new System.Drawing.Size(594, 251);
             this.dataRepeater2.TabIndex = 5;
             this.dataRepeater2.Text = "dataRepeater2";
             this.dataRepeater2.ItemCloned += new Microsoft.VisualBasic.PowerPacks.DataRepeaterItemEventHandler(this.dataRepeater2_ItemCloned);
@@ -232,9 +246,10 @@
             // 
             this.cmdDeleteNote.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdDeleteNote.ForeColor = System.Drawing.Color.Red;
-            this.cmdDeleteNote.Location = new System.Drawing.Point(436, 6);
+            this.cmdDeleteNote.Location = new System.Drawing.Point(509, 7);
+            this.cmdDeleteNote.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmdDeleteNote.Name = "cmdDeleteNote";
-            this.cmdDeleteNote.Size = new System.Drawing.Size(29, 23);
+            this.cmdDeleteNote.Size = new System.Drawing.Size(34, 28);
             this.cmdDeleteNote.TabIndex = 3;
             this.cmdDeleteNote.Text = "X";
             this.cmdDeleteNote.UseCompatibleTextRendering = true;
@@ -243,12 +258,13 @@
             // 
             // cboNoteAuthor
             // 
-            this.cboNoteAuthor.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboNoteAuthor.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cboNoteAuthor.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboNoteAuthor.FormattingEnabled = true;
-            this.cboNoteAuthor.Location = new System.Drawing.Point(312, 32);
+            this.cboNoteAuthor.Location = new System.Drawing.Point(364, 39);
+            this.cboNoteAuthor.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cboNoteAuthor.Name = "cboNoteAuthor";
-            this.cboNoteAuthor.Size = new System.Drawing.Size(121, 21);
+            this.cboNoteAuthor.Size = new System.Drawing.Size(140, 24);
             this.cboNoteAuthor.TabIndex = 2;
             this.cboNoteAuthor.SelectedIndexChanged += new System.EventHandler(this.cboNoteAuthor_SelectedIndexChanged);
             this.cboNoteAuthor.Validated += new System.EventHandler(this.NoteControl_Validated);
@@ -256,18 +272,20 @@
             // dtpNoteDate
             // 
             this.dtpNoteDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpNoteDate.Location = new System.Drawing.Point(312, 6);
+            this.dtpNoteDate.Location = new System.Drawing.Point(364, 7);
+            this.dtpNoteDate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dtpNoteDate.Name = "dtpNoteDate";
-            this.dtpNoteDate.Size = new System.Drawing.Size(121, 20);
+            this.dtpNoteDate.Size = new System.Drawing.Size(140, 23);
             this.dtpNoteDate.TabIndex = 1;
             this.dtpNoteDate.Validated += new System.EventHandler(this.NoteControl_Validated);
             // 
             // txtNotes
             // 
-            this.txtNotes.Location = new System.Drawing.Point(11, 6);
+            this.txtNotes.Location = new System.Drawing.Point(13, 7);
+            this.txtNotes.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtNotes.Multiline = true;
             this.txtNotes.Name = "txtNotes";
-            this.txtNotes.Size = new System.Drawing.Size(295, 47);
+            this.txtNotes.Size = new System.Drawing.Size(344, 57);
             this.txtNotes.TabIndex = 0;
             this.txtNotes.Validated += new System.EventHandler(this.NoteControl_Validated);
             // 
@@ -282,12 +300,15 @@
             this.dataRepeater3.ItemTemplate.Controls.Add(this.chkDone);
             this.dataRepeater3.ItemTemplate.Controls.Add(this.chkNA);
             this.dataRepeater3.ItemTemplate.Controls.Add(this.txtStageName);
-            this.dataRepeater3.ItemTemplate.Size = new System.Drawing.Size(380, 30);
+            this.dataRepeater3.ItemTemplate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataRepeater3.ItemTemplate.Size = new System.Drawing.Size(442, 37);
             this.dataRepeater3.ItemTemplate.Enter += new System.EventHandler(this.dataRepeater3_ItemTemplate_Enter);
             this.dataRepeater3.ItemTemplate.Leave += new System.EventHandler(this.dataRepeater3_ItemTemplate_Leave);
-            this.dataRepeater3.Location = new System.Drawing.Point(12, 161);
+            this.dataRepeater3.Location = new System.Drawing.Point(14, 198);
+            this.dataRepeater3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dataRepeater3.Name = "dataRepeater3";
-            this.dataRepeater3.Size = new System.Drawing.Size(388, 469);
+            this.dataRepeater3.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataRepeater3.Size = new System.Drawing.Size(452, 577);
             this.dataRepeater3.TabIndex = 6;
             this.dataRepeater3.Text = "dataRepeater3";
             this.dataRepeater3.DrawItem += new Microsoft.VisualBasic.PowerPacks.DataRepeaterItemEventHandler(this.dataRepeater3_DrawItem);
@@ -296,7 +317,8 @@
             // 
             this.lblEntries.AutoSize = true;
             this.lblEntries.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEntries.Location = new System.Drawing.Point(279, 4);
+            this.lblEntries.Location = new System.Drawing.Point(326, 5);
+            this.lblEntries.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblEntries.Name = "lblEntries";
             this.lblEntries.Size = new System.Drawing.Size(46, 16);
             this.lblEntries.TabIndex = 3;
@@ -305,7 +327,8 @@
             // chkDone
             // 
             this.chkDone.AutoSize = true;
-            this.chkDone.Location = new System.Drawing.Point(262, 6);
+            this.chkDone.Location = new System.Drawing.Point(306, 7);
+            this.chkDone.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chkDone.Name = "chkDone";
             this.chkDone.Size = new System.Drawing.Size(15, 14);
             this.chkDone.TabIndex = 2;
@@ -317,7 +340,8 @@
             // chkNA
             // 
             this.chkNA.AutoSize = true;
-            this.chkNA.Location = new System.Drawing.Point(219, 6);
+            this.chkNA.Location = new System.Drawing.Point(255, 7);
+            this.chkNA.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chkNA.Name = "chkNA";
             this.chkNA.Size = new System.Drawing.Size(15, 14);
             this.chkNA.TabIndex = 1;
@@ -329,26 +353,29 @@
             // txtStageName
             // 
             this.txtStageName.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtStageName.Location = new System.Drawing.Point(3, 1);
+            this.txtStageName.Location = new System.Drawing.Point(4, 1);
+            this.txtStageName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtStageName.Name = "txtStageName";
             this.txtStageName.ReadOnly = true;
-            this.txtStageName.Size = new System.Drawing.Size(210, 23);
+            this.txtStageName.Size = new System.Drawing.Size(244, 23);
             this.txtStageName.TabIndex = 0;
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.dataRepeater1);
-            this.panel1.Location = new System.Drawing.Point(406, 203);
+            this.panel1.Location = new System.Drawing.Point(474, 250);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(520, 188);
+            this.panel1.Size = new System.Drawing.Size(607, 231);
             this.panel1.TabIndex = 7;
             // 
             // panel2
             // 
             this.panel2.Controls.Add(this.dataRepeater2);
-            this.panel2.Location = new System.Drawing.Point(406, 423);
+            this.panel2.Location = new System.Drawing.Point(474, 521);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(520, 210);
+            this.panel2.Size = new System.Drawing.Size(607, 258);
             this.panel2.TabIndex = 8;
             // 
             // bindingNavigator1
@@ -367,14 +394,14 @@
             this.bindingNavigatorMoveNextItem,
             this.bindingNavigatorMoveLastItem,
             this.bindingNavigatorSeparator2});
-            this.bindingNavigator1.Location = new System.Drawing.Point(0, 656);
+            this.bindingNavigator1.Location = new System.Drawing.Point(0, 813);
             this.bindingNavigator1.MoveFirstItem = null;
             this.bindingNavigator1.MoveLastItem = null;
             this.bindingNavigator1.MoveNextItem = null;
             this.bindingNavigator1.MovePreviousItem = null;
             this.bindingNavigator1.Name = "bindingNavigator1";
             this.bindingNavigator1.PositionItem = this.bindingNavigatorPositionItem;
-            this.bindingNavigator1.Size = new System.Drawing.Size(965, 25);
+            this.bindingNavigator1.Size = new System.Drawing.Size(1126, 25);
             this.bindingNavigator1.TabIndex = 9;
             this.bindingNavigator1.Text = "bindingNavigator1";
             // 
@@ -416,7 +443,7 @@
             this.bindingNavigatorPositionItem.AutoSize = false;
             this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
-            this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
+            this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(58, 23);
             this.bindingNavigatorPositionItem.Text = "0";
             this.bindingNavigatorPositionItem.ToolTipText = "Current position";
             // 
@@ -454,7 +481,8 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(129, 143);
+            this.label1.Location = new System.Drawing.Point(150, 176);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(45, 16);
             this.label1.TabIndex = 10;
@@ -464,7 +492,8 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(241, 143);
+            this.label2.Location = new System.Drawing.Point(281, 176);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(33, 16);
             this.label2.TabIndex = 11;
@@ -474,7 +503,8 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(281, 143);
+            this.label3.Location = new System.Drawing.Point(328, 176);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(40, 16);
             this.label3.TabIndex = 12;
@@ -484,7 +514,8 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(336, 79);
+            this.label4.Location = new System.Drawing.Point(392, 97);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(84, 16);
             this.label4.TabIndex = 13;
@@ -494,7 +525,8 @@
             // 
             this.lblStageNameDates.AutoSize = true;
             this.lblStageNameDates.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStageNameDates.Location = new System.Drawing.Point(409, 160);
+            this.lblStageNameDates.Location = new System.Drawing.Point(477, 197);
+            this.lblStageNameDates.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblStageNameDates.Name = "lblStageNameDates";
             this.lblStageNameDates.Size = new System.Drawing.Size(126, 16);
             this.lblStageNameDates.TabIndex = 14;
@@ -504,7 +536,8 @@
             // 
             this.lblNotes.AutoSize = true;
             this.lblNotes.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNotes.Location = new System.Drawing.Point(409, 399);
+            this.lblNotes.Location = new System.Drawing.Point(477, 491);
+            this.lblNotes.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNotes.Name = "lblNotes";
             this.lblNotes.Size = new System.Drawing.Size(44, 16);
             this.lblNotes.TabIndex = 15;
@@ -514,9 +547,10 @@
             // 
             this.cmdAddDate.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdAddDate.ForeColor = System.Drawing.Color.Green;
-            this.cmdAddDate.Location = new System.Drawing.Point(866, 177);
+            this.cmdAddDate.Location = new System.Drawing.Point(1010, 218);
+            this.cmdAddDate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmdAddDate.Name = "cmdAddDate";
-            this.cmdAddDate.Size = new System.Drawing.Size(29, 23);
+            this.cmdAddDate.Size = new System.Drawing.Size(34, 28);
             this.cmdAddDate.TabIndex = 16;
             this.cmdAddDate.Text = "+";
             this.cmdAddDate.UseCompatibleTextRendering = true;
@@ -527,9 +561,10 @@
             // 
             this.cmdAddNote.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdAddNote.ForeColor = System.Drawing.Color.Green;
-            this.cmdAddNote.Location = new System.Drawing.Point(864, 396);
+            this.cmdAddNote.Location = new System.Drawing.Point(1008, 487);
+            this.cmdAddNote.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmdAddNote.Name = "cmdAddNote";
-            this.cmdAddNote.Size = new System.Drawing.Size(29, 23);
+            this.cmdAddNote.Size = new System.Drawing.Size(34, 28);
             this.cmdAddNote.TabIndex = 17;
             this.cmdAddNote.Text = "+";
             this.cmdAddNote.UseCompatibleTextRendering = true;
@@ -540,7 +575,8 @@
             // 
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(333, 40);
+            this.lblTitle.Location = new System.Drawing.Point(388, 49);
+            this.lblTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(229, 33);
             this.lblTitle.TabIndex = 18;
@@ -550,7 +586,8 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(454, 184);
+            this.label5.Location = new System.Drawing.Point(530, 226);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(70, 16);
             this.label5.TabIndex = 19;
@@ -560,7 +597,8 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(563, 184);
+            this.label6.Location = new System.Drawing.Point(657, 226);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(66, 16);
             this.label6.TabIndex = 20;
@@ -570,7 +608,8 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(677, 184);
+            this.label7.Location = new System.Drawing.Point(790, 226);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(68, 16);
             this.label7.TabIndex = 21;
@@ -580,7 +619,8 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(789, 184);
+            this.label8.Location = new System.Drawing.Point(920, 226);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(50, 16);
             this.label8.TabIndex = 22;
@@ -588,11 +628,11 @@
             // 
             // SurveyProcessingEntry
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ClientSize = new System.Drawing.Size(965, 681);
+            this.ClientSize = new System.Drawing.Size(1126, 838);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -613,7 +653,9 @@
             this.Controls.Add(this.txtSurvey);
             this.Controls.Add(this.cboSurvey);
             this.Controls.Add(this.menuStrip1);
+            this.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MainMenuStrip = this.menuStrip1;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "SurveyProcessingEntry";
             this.Text = "Survey Processing";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SurveyProcessingEntry_FormClosing);

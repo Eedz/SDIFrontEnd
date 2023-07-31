@@ -61,7 +61,7 @@
             this.chkITCSurvey.AutoSize = true;
             this.chkITCSurvey.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkITCSurvey.Location = new System.Drawing.Point(338, 210);
-            this.chkITCSurvey.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkITCSurvey.Margin = new System.Windows.Forms.Padding(4);
             this.chkITCSurvey.Name = "chkITCSurvey";
             this.chkITCSurvey.Size = new System.Drawing.Size(89, 20);
             this.chkITCSurvey.TabIndex = 55;
@@ -84,7 +84,7 @@
             this.chkHideSurvey.AutoSize = true;
             this.chkHideSurvey.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkHideSurvey.Location = new System.Drawing.Point(444, 187);
-            this.chkHideSurvey.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkHideSurvey.Margin = new System.Windows.Forms.Padding(4);
             this.chkHideSurvey.Name = "chkHideSurvey";
             this.chkHideSurvey.Size = new System.Drawing.Size(94, 20);
             this.chkHideSurvey.TabIndex = 53;
@@ -96,7 +96,7 @@
             this.chkNCT.AutoSize = true;
             this.chkNCT.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkNCT.Location = new System.Drawing.Point(338, 187);
-            this.chkNCT.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkNCT.Margin = new System.Windows.Forms.Padding(4);
             this.chkNCT.Name = "chkNCT";
             this.chkNCT.Size = new System.Drawing.Size(98, 20);
             this.chkNCT.TabIndex = 52;
@@ -108,7 +108,7 @@
             this.dtpCreationDate.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpCreationDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpCreationDate.Location = new System.Drawing.Point(88, 182);
-            this.dtpCreationDate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dtpCreationDate.Margin = new System.Windows.Forms.Padding(4);
             this.dtpCreationDate.Name = "dtpCreationDate";
             this.dtpCreationDate.ShowCheckBox = true;
             this.dtpCreationDate.Size = new System.Drawing.Size(170, 23);
@@ -127,10 +127,12 @@
             // 
             // cboMode
             // 
+            this.cboMode.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboMode.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboMode.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboMode.FormattingEnabled = true;
             this.cboMode.Location = new System.Drawing.Point(88, 156);
-            this.cboMode.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cboMode.Margin = new System.Windows.Forms.Padding(4);
             this.cboMode.Name = "cboMode";
             this.cboMode.Size = new System.Drawing.Size(170, 24);
             this.cboMode.TabIndex = 49;
@@ -148,10 +150,12 @@
             // 
             // cboSurveyType
             // 
+            this.cboSurveyType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboSurveyType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboSurveyType.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboSurveyType.FormattingEnabled = true;
             this.cboSurveyType.Location = new System.Drawing.Point(88, 131);
-            this.cboSurveyType.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cboSurveyType.Margin = new System.Windows.Forms.Padding(4);
             this.cboSurveyType.Name = "cboSurveyType";
             this.cboSurveyType.Size = new System.Drawing.Size(170, 24);
             this.cboSurveyType.TabIndex = 47;
@@ -171,7 +175,7 @@
             // 
             this.txtFileName.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFileName.Location = new System.Drawing.Point(338, 156);
-            this.txtFileName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtFileName.Margin = new System.Windows.Forms.Padding(4);
             this.txtFileName.Name = "txtFileName";
             this.txtFileName.Size = new System.Drawing.Size(264, 23);
             this.txtFileName.TabIndex = 45;
@@ -189,10 +193,12 @@
             // 
             // cboWaveID
             // 
+            this.cboWaveID.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboWaveID.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboWaveID.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboWaveID.FormattingEnabled = true;
             this.cboWaveID.Location = new System.Drawing.Point(88, 80);
-            this.cboWaveID.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cboWaveID.Margin = new System.Windows.Forms.Padding(4);
             this.cboWaveID.Name = "cboWaveID";
             this.cboWaveID.Size = new System.Drawing.Size(170, 24);
             this.cboWaveID.TabIndex = 43;
@@ -234,7 +240,7 @@
             // 
             this.txtSurveyTitle.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSurveyTitle.Location = new System.Drawing.Point(338, 131);
-            this.txtSurveyTitle.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtSurveyTitle.Margin = new System.Windows.Forms.Padding(4);
             this.txtSurveyTitle.Name = "txtSurveyTitle";
             this.txtSurveyTitle.Size = new System.Drawing.Size(264, 23);
             this.txtSurveyTitle.TabIndex = 39;
@@ -243,7 +249,7 @@
             // 
             this.txtSurveyCode.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSurveyCode.Location = new System.Drawing.Point(88, 106);
-            this.txtSurveyCode.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtSurveyCode.Margin = new System.Windows.Forms.Padding(4);
             this.txtSurveyCode.Name = "txtSurveyCode";
             this.txtSurveyCode.Size = new System.Drawing.Size(170, 23);
             this.txtSurveyCode.TabIndex = 38;
@@ -252,7 +258,7 @@
             // 
             this.txtID.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtID.Location = new System.Drawing.Point(88, 54);
-            this.txtID.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtID.Margin = new System.Windows.Forms.Padding(4);
             this.txtID.Name = "txtID";
             this.txtID.ReadOnly = true;
             this.txtID.Size = new System.Drawing.Size(37, 23);
@@ -273,7 +279,7 @@
             // 
             this.cmdSave.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdSave.Location = new System.Drawing.Point(489, 252);
-            this.cmdSave.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmdSave.Margin = new System.Windows.Forms.Padding(4);
             this.cmdSave.Name = "cmdSave";
             this.cmdSave.Size = new System.Drawing.Size(55, 30);
             this.cmdSave.TabIndex = 59;
@@ -295,7 +301,7 @@
             // 
             this.cmdCancel.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdCancel.Location = new System.Drawing.Point(547, 252);
-            this.cmdCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmdCancel.Margin = new System.Windows.Forms.Padding(4);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(55, 30);
             this.cmdCancel.TabIndex = 57;
@@ -307,7 +313,7 @@
             // 
             this.cmdNewWave.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdNewWave.Location = new System.Drawing.Point(266, 80);
-            this.cmdNewWave.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmdNewWave.Margin = new System.Windows.Forms.Padding(4);
             this.cmdNewWave.Name = "cmdNewWave";
             this.cmdNewWave.Size = new System.Drawing.Size(30, 24);
             this.cmdNewWave.TabIndex = 60;
@@ -318,9 +324,11 @@
             // 
             // cboCopyQuestions
             // 
+            this.cboCopyQuestions.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboCopyQuestions.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboCopyQuestions.FormattingEnabled = true;
             this.cboCopyQuestions.Location = new System.Drawing.Point(518, 69);
-            this.cboCopyQuestions.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cboCopyQuestions.Margin = new System.Windows.Forms.Padding(4);
             this.cboCopyQuestions.Name = "cboCopyQuestions";
             this.cboCopyQuestions.Size = new System.Drawing.Size(84, 24);
             this.cboCopyQuestions.TabIndex = 61;
@@ -370,10 +378,9 @@
             this.Controls.Add(this.txtSurveyCode);
             this.Controls.Add(this.txtID);
             this.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "NewSurveyEntry";
             this.Text = "New Survey";
-
             this.ResumeLayout(false);
             this.PerformLayout();
 

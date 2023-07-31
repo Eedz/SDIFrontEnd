@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
+using ITCReportLib;
 using FM = FormManager;
 
 namespace SDIFrontEnd
@@ -43,7 +44,7 @@ namespace SDIFrontEnd
             cboVarNames.DisplayMember = "RefVarLabel";
             cboVarNames.SelectedItem = null;
 
-            lstPrefixes.DataSource = DBAction.GetVariablePrefixes();
+            lstPrefixes.DataSource = DBAction.GetVariablePrefixList();
 
             lstSelVar.Items.Clear();
             lstSelVar.DisplayMember = "RefVarLabel";

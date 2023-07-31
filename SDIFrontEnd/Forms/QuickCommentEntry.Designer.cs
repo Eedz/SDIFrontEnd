@@ -53,6 +53,8 @@
             // 
             // cboSurvWaveList
             // 
+            this.cboSurvWaveList.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboSurvWaveList.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboSurvWaveList.FormattingEnabled = true;
             this.cboSurvWaveList.Location = new System.Drawing.Point(227, 84);
             this.cboSurvWaveList.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -65,12 +67,14 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(118, 87);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(105, 16);
+            this.label1.Size = new System.Drawing.Size(104, 16);
             this.label1.TabIndex = 6;
             this.label1.Text = "Survey/VarName";
             // 
             // cboVarName
             // 
+            this.cboVarName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboVarName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboVarName.FormattingEnabled = true;
             this.cboVarName.Location = new System.Drawing.Point(375, 84);
             this.cboVarName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -91,12 +95,14 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(179, 125);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(34, 16);
+            this.label3.Size = new System.Drawing.Size(33, 16);
             this.label3.TabIndex = 10;
             this.label3.Text = "Date";
             // 
             // cboNoteAuthor
             // 
+            this.cboNoteAuthor.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboNoteAuthor.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboNoteAuthor.FormattingEnabled = true;
             this.cboNoteAuthor.Location = new System.Drawing.Point(229, 149);
             this.cboNoteAuthor.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -109,12 +115,14 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(179, 153);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(46, 16);
+            this.label4.Size = new System.Drawing.Size(45, 16);
             this.label4.TabIndex = 12;
             this.label4.Text = "Author";
             // 
             // cboNoteType
             // 
+            this.cboNoteType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboNoteType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboNoteType.FormattingEnabled = true;
             this.cboNoteType.Location = new System.Drawing.Point(229, 183);
             this.cboNoteType.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -127,7 +135,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(181, 186);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(36, 16);
+            this.label5.Size = new System.Drawing.Size(35, 16);
             this.label5.TabIndex = 14;
             this.label5.Text = "Type";
             // 
@@ -142,6 +150,8 @@
             // 
             // cboNoteAuthority
             // 
+            this.cboNoteAuthority.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboNoteAuthority.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboNoteAuthority.FormattingEnabled = true;
             this.cboNoteAuthority.Location = new System.Drawing.Point(229, 216);
             this.cboNoteAuthority.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -154,7 +164,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(162, 219);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(59, 16);
+            this.label6.Size = new System.Drawing.Size(58, 16);
             this.label6.TabIndex = 17;
             this.label6.Text = "Authority";
             // 
@@ -172,7 +182,7 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(160, 252);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(63, 16);
+            this.label7.Size = new System.Drawing.Size(62, 16);
             this.label7.TabIndex = 19;
             this.label7.Text = "Comment";
             // 
@@ -181,7 +191,7 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(173, 382);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(48, 16);
+            this.label8.Size = new System.Drawing.Size(47, 16);
             this.label8.TabIndex = 20;
             this.label8.Text = "Source";
             // 
@@ -221,7 +231,7 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(119, 56);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(102, 16);
+            this.label9.Size = new System.Drawing.Size(101, 16);
             this.label9.TabIndex = 24;
             this.label9.Text = "Comment Scope";
             // 
@@ -237,6 +247,8 @@
             // 
             // cboCommentScope
             // 
+            this.cboCommentScope.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboCommentScope.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboCommentScope.FormattingEnabled = true;
             this.cboCommentScope.Location = new System.Drawing.Point(227, 53);
             this.cboCommentScope.Name = "cboCommentScope";

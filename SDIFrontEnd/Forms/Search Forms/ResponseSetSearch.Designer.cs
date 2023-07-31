@@ -166,6 +166,8 @@
             // 
             // cboResponseType
             // 
+            this.cboResponseType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboResponseType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboResponseType.FormattingEnabled = true;
             this.cboResponseType.Items.AddRange(new object[] {
             "RespOptions",

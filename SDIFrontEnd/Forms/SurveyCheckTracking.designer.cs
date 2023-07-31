@@ -105,6 +105,8 @@
             // 
             // cboCheckType
             // 
+            this.cboCheckType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboCheckType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboCheckType.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboCheckType.FormattingEnabled = true;
             this.cboCheckType.Location = new System.Drawing.Point(138, 34);
@@ -114,6 +116,8 @@
             // 
             // cboCheckInit
             // 
+            this.cboCheckInit.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboCheckInit.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboCheckInit.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboCheckInit.FormattingEnabled = true;
             this.cboCheckInit.Location = new System.Drawing.Point(138, 89);
@@ -123,6 +127,8 @@
             // 
             // cboSurvey
             // 
+            this.cboSurvey.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboSurvey.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboSurvey.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboSurvey.FormattingEnabled = true;
             this.cboSurvey.Location = new System.Drawing.Point(138, 118);
@@ -159,7 +165,7 @@
             this.label1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(115, 11);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(20, 16);
+            this.label1.Size = new System.Drawing.Size(19, 16);
             this.label1.TabIndex = 17;
             this.label1.Text = "ID";
             // 
@@ -169,7 +175,7 @@
             this.label2.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(99, 37);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(36, 16);
+            this.label2.Size = new System.Drawing.Size(35, 16);
             this.label2.TabIndex = 18;
             this.label2.Text = "Type";
             // 
@@ -179,7 +185,7 @@
             this.label3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(101, 65);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(34, 16);
+            this.label3.Size = new System.Drawing.Size(33, 16);
             this.label3.TabIndex = 19;
             this.label3.Text = "Date";
             // 
@@ -189,7 +195,7 @@
             this.label4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(94, 92);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(41, 16);
+            this.label4.Size = new System.Drawing.Size(40, 16);
             this.label4.TabIndex = 20;
             this.label4.Text = "Name";
             // 
@@ -199,7 +205,7 @@
             this.label10.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.Location = new System.Drawing.Point(88, 121);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(47, 16);
+            this.label10.Size = new System.Drawing.Size(46, 16);
             this.label10.TabIndex = 26;
             this.label10.Text = "Survey";
             // 
@@ -209,7 +215,7 @@
             this.label11.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.Location = new System.Drawing.Point(10, 150);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(125, 16);
+            this.label11.Size = new System.Drawing.Size(124, 16);
             this.label11.TabIndex = 27;
             this.label11.Text = "Reference Survey(s)";
             // 
@@ -219,7 +225,7 @@
             this.label12.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.Location = new System.Drawing.Point(66, 303);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(69, 16);
+            this.label12.Size = new System.Drawing.Size(68, 16);
             this.label12.TabIndex = 28;
             this.label12.Text = "Comments";
             // 
@@ -286,6 +292,7 @@
             // 
             this.bindingNavigatorPositionItem.AccessibleName = "Position";
             this.bindingNavigatorPositionItem.AutoSize = false;
+            this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
             this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
             this.bindingNavigatorPositionItem.Text = "0";
@@ -403,7 +410,7 @@
             this.lblRecordStatus.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRecordStatus.Location = new System.Drawing.Point(182, 79);
             this.lblRecordStatus.Name = "lblRecordStatus";
-            this.lblRecordStatus.Size = new System.Drawing.Size(88, 16);
+            this.lblRecordStatus.Size = new System.Drawing.Size(87, 16);
             this.lblRecordStatus.TabIndex = 37;
             this.lblRecordStatus.Text = "Record Status";
             // 

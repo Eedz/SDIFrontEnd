@@ -255,7 +255,7 @@
             // 
             // cboVarNameBox
             // 
-            this.cboVarNameBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboVarNameBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cboVarNameBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboVarNameBox.DropDownWidth = 125;
             this.cboVarNameBox.FormattingEnabled = true;

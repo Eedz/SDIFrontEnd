@@ -37,6 +37,8 @@
             // 
             // cboIssueNo
             // 
+            this.cboIssueNo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboIssueNo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboIssueNo.FormattingEnabled = true;
             this.cboIssueNo.Location = new System.Drawing.Point(101, 18);
             this.cboIssueNo.Name = "cboIssueNo";

@@ -324,9 +324,7 @@
             this.dgvVarNameRanges.Size = new System.Drawing.Size(335, 390);
             this.dgvVarNameRanges.TabIndex = 10;
             this.dgvVarNameRanges.VirtualMode = true;
-            
             this.dgvVarNameRanges.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVarNameRanges_RowEnter);
-            
             // 
             // chLower
             // 
@@ -510,7 +508,7 @@
             // 
             // cboInclude
             // 
-            this.cboInclude.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboInclude.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cboInclude.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboInclude.FormattingEnabled = true;
             this.cboInclude.Location = new System.Drawing.Point(20, 43);

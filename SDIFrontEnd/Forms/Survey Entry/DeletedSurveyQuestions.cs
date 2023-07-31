@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
+using ITCReportLib;
 
 namespace SDIFrontEnd
 {
@@ -124,5 +125,51 @@ namespace SDIFrontEnd
         }
         #endregion
 
+        private void reportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var deletedVars = DeletedQuestions.Where(x => !x.VarName.Equals("DUMMY")).ToList();
+            string[,] data = new string[deletedVars.Count, 8];
+
+            for (int i = 0; i < deletedVars.Count; i ++)
+            {
+                data[i, 0] = deletedVars[i].VarName;
+                data[i, 1] = deletedVars[i].VarLabel;
+                data[i, 2] = deletedVars[i].DomainLabel;
+                data[i, 3] = deletedVars[i].TopicLabel;
+                data[i, 4] = deletedVars[i].ContentLabel;
+                data[i, 5] = deletedVars[i].ProductLabel;
+                data[i, 6] = deletedVars[i].DeleteDate.Value.ToString();
+                foreach (DeletedComment dc in deletedVars[i].DeleteNotes)
+                {
+                    data[i, 7] += dc.Author.Name + ": " + dc.NoteDate.Value.ToString("dd-MMM-yyyy") + "\r\n" + dc.Notes.NoteText + "\r\n" + dc.Source;
+                }
+                
+
+            }
+
+            DataTable dt = new DataTable();
+            dt.Columns.Add("VarName");
+            dt.Columns.Add("VarLabel");
+            dt.Columns.Add("Domain");
+            dt.Columns.Add("Topic");
+            dt.Columns.Add("Content");
+            dt.Columns.Add("Product");
+            dt.Columns.Add("Delete Date");
+            dt.Columns.Add("Comments");
+
+            for(int i = 0; i < deletedVars.Count; i++)
+            {
+                var newRow = dt.NewRow();
+                for (int j = 0; j < 8; j++)
+                {
+                    newRow[j] = data[i,j];
+                }
+                dt.Rows.Add(newRow);
+            }
+
+            DataTableReport rpt = new DataTableReport(dt);
+            
+            rpt.CreateReport();
+        }
     }
 }

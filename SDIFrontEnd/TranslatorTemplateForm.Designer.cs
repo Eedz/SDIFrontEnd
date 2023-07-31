@@ -45,9 +45,11 @@
             // 
             // comboBox1
             // 
+            this.comboBox1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.comboBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(14, 150);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(140, 24);
             this.comboBox1.TabIndex = 0;

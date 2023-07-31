@@ -49,6 +49,8 @@
             // 
             // cboSurveys
             // 
+            this.cboSurveys.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboSurveys.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboSurveys.FormattingEnabled = true;
             this.cboSurveys.Location = new System.Drawing.Point(11, 100);
             this.cboSurveys.Margin = new System.Windows.Forms.Padding(4);

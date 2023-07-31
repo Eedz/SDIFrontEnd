@@ -291,7 +291,7 @@
             // 
             // cboSurveyFilter
             // 
-            this.cboSurveyFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboSurveyFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cboSurveyFilter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboSurveyFilter.FormattingEnabled = true;
             this.cboSurveyFilter.Location = new System.Drawing.Point(55, 16);
@@ -367,7 +367,7 @@
             // 
             // cboInvestigatorFilter
             // 
-            this.cboInvestigatorFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboInvestigatorFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cboInvestigatorFilter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboInvestigatorFilter.FormattingEnabled = true;
             this.cboInvestigatorFilter.Location = new System.Drawing.Point(296, 46);
@@ -377,6 +377,8 @@
             // 
             // cboDateFilter
             // 
+            this.cboDateFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboDateFilter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboDateFilter.DropDownWidth = 500;
             this.cboDateFilter.FormattingEnabled = true;
             this.cboDateFilter.Location = new System.Drawing.Point(55, 46);

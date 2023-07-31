@@ -145,7 +145,7 @@
             // 
             // cboSurvey
             // 
-            this.cboSurvey.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboSurvey.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cboSurvey.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboSurvey.FormattingEnabled = true;
             this.cboSurvey.Location = new System.Drawing.Point(84, 74);
@@ -230,7 +230,7 @@
             // 
             // cboLanguage
             // 
-            this.cboLanguage.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboLanguage.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cboLanguage.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboLanguage.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboLanguage.FormattingEnabled = true;
@@ -242,7 +242,7 @@
             // 
             // cboStatus
             // 
-            this.cboStatus.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboStatus.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cboStatus.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboStatus.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboStatus.FormattingEnabled = true;
