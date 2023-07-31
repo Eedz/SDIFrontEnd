@@ -40,6 +40,8 @@
             // 
             // cboSurveyFilter
             // 
+            this.cboSurveyFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboSurveyFilter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboSurveyFilter.FormattingEnabled = true;
             this.cboSurveyFilter.Location = new System.Drawing.Point(81, 30);
             this.cboSurveyFilter.Margin = new System.Windows.Forms.Padding(4);

@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
+using ITCReportLib;
 using FM = FormManager;
 
 namespace SDIFrontEnd
@@ -1481,7 +1482,7 @@ namespace SDIFrontEnd
 
             foreach (QuestionRecord qr in Records)
             {
-                if (qr.Item.VarName.RefVarName == refVarName)
+                if (qr.Item.VarName.RefVarName == refVarName || qr.Item.VarName.VarName == refVarName)
                 {
                     found = true;
                     break;

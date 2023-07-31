@@ -40,6 +40,8 @@
             // 
             // cboField
             // 
+            this.cboField.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboField.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboField.FormattingEnabled = true;
             this.cboField.Items.AddRange(new object[] {
             "<All>",
@@ -116,7 +118,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(3, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 16);
+            this.label1.Size = new System.Drawing.Size(34, 16);
             this.label1.TabIndex = 6;
             this.label1.Text = "Field";
             // 
@@ -125,7 +127,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(3, 37);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(77, 16);
+            this.label2.Size = new System.Drawing.Size(76, 16);
             this.label2.TabIndex = 7;
             this.label2.Text = "Search Text";
             // 

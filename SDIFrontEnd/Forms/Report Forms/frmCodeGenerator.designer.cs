@@ -74,7 +74,7 @@
             // 
             // cboJump
             // 
-            this.cboJump.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboJump.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cboJump.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboJump.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboJump.FormattingEnabled = true;

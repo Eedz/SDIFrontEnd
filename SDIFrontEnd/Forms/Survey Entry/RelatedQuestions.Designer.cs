@@ -77,7 +77,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.cmdPin = new System.Windows.Forms.Button();
             this.rtbQuestionText = new System.Windows.Forms.RichTextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabpageForm = new System.Windows.Forms.TabPage();
@@ -530,16 +529,6 @@
             this.label9.TabIndex = 33;
             this.label9.Text = "NRs";
             // 
-            // cmdPin
-            // 
-            this.cmdPin.Image = global::SDIFrontEnd.Properties.Resources.Pin_small;
-            this.cmdPin.Location = new System.Drawing.Point(644, 5);
-            this.cmdPin.Name = "cmdPin";
-            this.cmdPin.Size = new System.Drawing.Size(29, 26);
-            this.cmdPin.TabIndex = 22;
-            this.cmdPin.UseVisualStyleBackColor = true;
-            this.cmdPin.Visible = false;
-            // 
             // rtbQuestionText
             // 
             this.rtbQuestionText.Location = new System.Drawing.Point(111, 38);
@@ -649,6 +638,7 @@
             // cboSurveyFilter
             // 
             this.cboSurveyFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboSurveyFilter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboSurveyFilter.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboSurveyFilter.FormattingEnabled = true;
             this.cboSurveyFilter.Location = new System.Drawing.Point(95, 7);
@@ -692,7 +682,6 @@
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.translationPanel);
             this.Controls.Add(this.cmdViewTranslation);
-            this.Controls.Add(this.cmdPin);
             this.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -732,7 +721,6 @@
         private System.Windows.Forms.TextBox txtVarName;
         private System.Windows.Forms.TextBox txtSurvey;
         private System.Windows.Forms.TextBox txtVarLabel;
-        private System.Windows.Forms.Button cmdPin;
         private System.Windows.Forms.Button cmdViewTranslation;
         private System.Windows.Forms.Panel translationPanel;
         private System.Windows.Forms.Label label1;

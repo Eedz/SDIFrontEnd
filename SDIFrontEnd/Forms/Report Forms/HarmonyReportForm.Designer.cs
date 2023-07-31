@@ -189,7 +189,7 @@
             // 
             // cboVarNames
             // 
-            this.cboVarNames.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboVarNames.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cboVarNames.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboVarNames.DropDownWidth = 350;
             this.cboVarNames.FormattingEnabled = true;
@@ -249,7 +249,7 @@
             // 
             // cboLanguage
             // 
-            this.cboLanguage.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboLanguage.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cboLanguage.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboLanguage.FormattingEnabled = true;
             this.cboLanguage.Location = new System.Drawing.Point(108, 95);
@@ -289,7 +289,7 @@
             // 
             // cboWaves
             // 
-            this.cboWaves.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboWaves.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cboWaves.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboWaves.FormattingEnabled = true;
             this.cboWaves.Location = new System.Drawing.Point(83, 22);

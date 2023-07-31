@@ -51,6 +51,7 @@ namespace SDIFrontEnd
         public static List<UserStateRecord> AllUserStates;
         public static List<SimilarWordsRecord> AllSimilarWords;
         public static List<SurveyMode> AllModes;
+        public static List<Language> AllLanguages;
 
         // comments
         public static List<CommentType> AllCommentTypes;
@@ -135,6 +136,8 @@ namespace SDIFrontEnd
 
             AllUserStates = DBAction.GetUserStates();
             AllSimilarWords = DBAction.GetSimilarWordings();
+
+            AllLanguages = DBAction.ListLanguages();
         }
 
         public static void CreateComments()

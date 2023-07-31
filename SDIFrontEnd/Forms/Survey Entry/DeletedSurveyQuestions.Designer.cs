@@ -84,6 +84,7 @@
             this.bindingNavigatorMoveNextItem1 = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveLastItem1 = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.reportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -97,7 +98,8 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.closeToolStripMenuItem});
+            this.closeToolStripMenuItem,
+            this.reportToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
@@ -124,6 +126,8 @@
             // 
             // cboGoToVar
             // 
+            this.cboGoToVar.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboGoToVar.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboGoToVar.FormattingEnabled = true;
             this.cboGoToVar.Location = new System.Drawing.Point(89, 72);
             this.cboGoToVar.Name = "cboGoToVar";
@@ -626,6 +630,13 @@
             this.bindingNavigatorSeparator5.Name = "bindingNavigatorSeparator5";
             this.bindingNavigatorSeparator5.Size = new System.Drawing.Size(6, 25);
             // 
+            // reportToolStripMenuItem
+            // 
+            this.reportToolStripMenuItem.Name = "reportToolStripMenuItem";
+            this.reportToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
+            this.reportToolStripMenuItem.Text = "Report";
+            this.reportToolStripMenuItem.Click += new System.EventHandler(this.reportToolStripMenuItem_Click);
+            // 
             // DeletedSurveyQuestions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -719,5 +730,6 @@
         private System.Windows.Forms.TextBox txtDeletedBy;
         private System.Windows.Forms.TextBox txtDeletedOn;
         private System.Windows.Forms.Label lblComments;
+        private System.Windows.Forms.ToolStripMenuItem reportToolStripMenuItem;
     }
 }

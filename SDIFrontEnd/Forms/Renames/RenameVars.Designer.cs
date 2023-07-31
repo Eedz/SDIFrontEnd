@@ -144,7 +144,7 @@
             // 
             // cboDest
             // 
-            this.cboDest.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboDest.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cboDest.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboDest.Location = new System.Drawing.Point(294, 7);
             this.cboDest.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -165,7 +165,7 @@
             // 
             // cboSource
             // 
-            this.cboSource.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboSource.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cboSource.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboSource.FormattingEnabled = true;
             this.cboSource.Location = new System.Drawing.Point(47, 7);
