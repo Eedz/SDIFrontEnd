@@ -204,6 +204,7 @@
             // cboLanguage
             // 
             this.cboLanguage.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboLanguage.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboLanguage.Enabled = false;
             this.cboLanguage.FormattingEnabled = true;
             this.cboLanguage.Location = new System.Drawing.Point(115, 252);
@@ -287,7 +288,6 @@
             this.label5.Size = new System.Drawing.Size(108, 16);
             this.label5.TabIndex = 13;
             this.label5.Text = "Source Document";
-           
             // 
             // resultsPanel
             // 
@@ -1073,7 +1073,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "TranslationImporter";
+            this.Name = "TranslationImporterForm";
             this.Text = "Translation Importer";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.TranslationImporter_FormClosed);
             this.Load += new System.EventHandler(this.TranslationImporter_Load);

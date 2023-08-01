@@ -134,6 +134,9 @@ namespace SDIFrontEnd
 
             picker.ShowDialog();
 
+            if (picker.DialogResult == DialogResult.Cancel)
+                return;
+
             ParallelPrefix parallel = new ParallelPrefix()
             {
                 PrefixID = CurrentRecord.Item.ID,
@@ -143,6 +146,9 @@ namespace SDIFrontEnd
 
             CurrentRecord.AddedParallels.Add(parallel);
             CurrentRecord.Item.ParallelPrefixes.Add(parallel);
+
+            lstParallelPrefixes.DataSource = null;
+            lstParallelPrefixes.DataSource = CurrentRecord.Item.ParallelPrefixes;
         }
 
         private void chkShowWordings_CheckedChanged(object sender, EventArgs e)
@@ -532,8 +538,7 @@ namespace SDIFrontEnd
 
             await UpdateQuestionRange();
 
-            dgvVarNameRanges.Rows.Clear();
-            dgvVarNameRanges.RowCount = CurrentRecord.Item.Ranges.Count + 1;
+            dgvVarNameRanges.SetVirtualGridRows(CurrentRecord.Item.Ranges.Count + 1);
         }
 
         private void SetupBindingSources()
