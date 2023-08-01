@@ -64,18 +64,22 @@
             // 
             // comboBox2
             // 
+            this.comboBox2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.comboBox2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBox2.FormattingEnabled = true;
             this.comboBox2.Location = new System.Drawing.Point(179, 150);
-            this.comboBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBox2.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(140, 24);
             this.comboBox2.TabIndex = 2;
             // 
             // comboBox3
             // 
+            this.comboBox3.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.comboBox3.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBox3.FormattingEnabled = true;
             this.comboBox3.Location = new System.Drawing.Point(355, 150);
-            this.comboBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBox3.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(150, 24);
             this.comboBox3.TabIndex = 3;
@@ -84,7 +88,7 @@
             // 
             this.chkCommentColumn.AutoSize = true;
             this.chkCommentColumn.Location = new System.Drawing.Point(530, 150);
-            this.chkCommentColumn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkCommentColumn.Margin = new System.Windows.Forms.Padding(4);
             this.chkCommentColumn.Name = "chkCommentColumn";
             this.chkCommentColumn.Size = new System.Drawing.Size(128, 20);
             this.chkCommentColumn.TabIndex = 4;
@@ -171,7 +175,7 @@
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "TranslatorTemplateForm";
             this.Text = "TranslatorTemplateForm";
             this.menuStrip1.ResumeLayout(false);

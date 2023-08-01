@@ -43,7 +43,6 @@
             this.lblSurveyWave = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.chkBilingual = new System.Windows.Forms.CheckBox();
             this.resultsPanel = new System.Windows.Forms.Panel();
             this.tabResults = new System.Windows.Forms.TabControl();
             this.pageEmpties = new System.Windows.Forms.TabPage();
@@ -1058,7 +1057,7 @@
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
-            // TranslationImporter
+            // TranslationImporterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -1067,7 +1066,6 @@
             this.Controls.Add(this.cmdAddLanguage);
             this.Controls.Add(this.cmdSave);
             this.Controls.Add(this.resultsPanel);
-            this.Controls.Add(this.chkBilingual);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.lblSurveyWave);
@@ -1139,7 +1137,6 @@
         private System.Windows.Forms.Label lblSurveyWave;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.CheckBox chkBilingual;
         private System.Windows.Forms.Panel resultsPanel;
         private System.Windows.Forms.TabControl tabResults;
         private System.Windows.Forms.TabPage pageEmpties;

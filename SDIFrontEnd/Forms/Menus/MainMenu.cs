@@ -56,7 +56,6 @@ namespace SDIFrontEnd
         {
             e.form.BringToFront();
             e.form.TopLevel = true;
-            //e.form.FormBorderStyle = FormBorderStyle.None;
             e.form.Show();
         }
 

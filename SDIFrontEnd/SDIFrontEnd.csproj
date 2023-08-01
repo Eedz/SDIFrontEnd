@@ -109,6 +109,7 @@
     <Compile Include="Controls\CustomPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="DocImporter.cs" />
     <Compile Include="Forms\Drafts\DraftReportForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -712,6 +713,7 @@
     <Compile Include="TranslatorTemplateForm.Designer.cs">
       <DependentUpon>TranslatorTemplateForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="WaveTranslationImporter.cs" />
     <EmbeddedResource Include="Controls\ExtraRichTextBox.resx">
       <DependentUpon>ExtraRichTextBox.cs</DependentUpon>
     </EmbeddedResource>
@@ -1112,6 +1114,10 @@
     <ProjectReference Include="..\..\ITCLib\ITCLib\ITCLib.csproj">
       <Project>{1f878409-8602-4dc3-a0cb-45cccc21289e}</Project>
       <Name>ITCLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ITCReportLib\ITCReportLib\ITCReportLib.csproj">
+      <Project>{8ceb9cde-9507-4909-b517-7437ed8f42fe}</Project>
+      <Name>ITCReportLib</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\OpenXMLHelper\OpenXMLHelper\OpenXMLHelper.csproj">
       <Project>{4768a591-7669-4abe-8f28-f02d43d475a2}</Project>
