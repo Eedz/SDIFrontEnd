@@ -765,6 +765,12 @@ namespace SDIFrontEnd
             else
                 TargetLanguage = null;
 
+            if (TargetLanguage != null && TargetLanguage.ID == -1)
+            {
+                TargetLanguage = null;
+                cboLanguage.SelectedIndex = 0;
+            }
+
             cmdBrowse.Enabled = TargetLanguage != null;
         }
 
