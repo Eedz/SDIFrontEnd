@@ -287,17 +287,7 @@
             this.label5.Size = new System.Drawing.Size(108, 16);
             this.label5.TabIndex = 13;
             this.label5.Text = "Source Document";
-            // 
-            // chkBilingual
-            // 
-            this.chkBilingual.AutoSize = true;
-            this.chkBilingual.Location = new System.Drawing.Point(371, 254);
-            this.chkBilingual.Margin = new System.Windows.Forms.Padding(4);
-            this.chkBilingual.Name = "chkBilingual";
-            this.chkBilingual.Size = new System.Drawing.Size(73, 20);
-            this.chkBilingual.TabIndex = 14;
-            this.chkBilingual.Text = "Bilingual";
-            this.chkBilingual.UseVisualStyleBackColor = true;
+           
             // 
             // resultsPanel
             // 

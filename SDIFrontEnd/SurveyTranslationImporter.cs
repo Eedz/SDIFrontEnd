@@ -21,10 +21,8 @@ namespace SDIFrontEnd
     /// </summary>
     public class SurveyTranslationImporter : DocImporter
     {
-
         int VarNameColumn;
         int QuestionTextColumn;
-        int SurveysColumn;
 
         public Survey TargetSurvey { get; set; }
         public Language TargetLanguage { get; set; }
@@ -257,7 +255,6 @@ namespace SDIFrontEnd
 
             VarNameColumn = -1;
             QuestionTextColumn = -1;
-            SurveysColumn = -1;
 
             for (int i = 0; i < headerCells.Count(); i++)
             {
@@ -275,14 +272,6 @@ namespace SDIFrontEnd
                     case "varname":
                         VarNameColumn = i;
                         break;
-                    case "Survey":
-                    case "survey":
-                    case "Surveys":
-                    case "surveys":
-                        SurveysColumn = i;
-                        break;
-
-
                 }
 
                 if (TargetSurvey != null && cellText.Equals(TargetSurvey))

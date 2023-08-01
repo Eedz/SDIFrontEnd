@@ -675,7 +675,7 @@
     <Compile Include="SplashScreen.Designer.cs">
       <DependentUpon>SplashScreen.cs</DependentUpon>
     </Compile>
-    <Compile Include="TranslationImporter.cs" />
+    <Compile Include="SurveyTranslationImporter.cs" />
     <Compile Include="TranslatorTemplateForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -955,7 +955,6 @@
     <EmbeddedResource Include="Forms\Survey Entry\SurveyEditorSearch.resx">
       <DependentUpon>SurveyEditorSearch.cs</DependentUpon>
     </EmbeddedResource>
-    
     <EmbeddedResource Include="Forms\Renames\RenameVarsBulk.resx">
       <DependentUpon>RenameVarsBulk.cs</DependentUpon>
     </EmbeddedResource>
