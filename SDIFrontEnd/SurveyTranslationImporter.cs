@@ -294,32 +294,6 @@ namespace SDIFrontEnd
             // if varname and surveys are found, and there are 3 columns, the other column is question text
         }
 
-        /// <summary>
-        /// Returns the text contents from the specified cell in a group of cells. If a cell doesn't exist at that index, an empty string is returned.
-        /// </summary>
-        /// <param name="cells"></param>
-        /// <param name="index"></param>
-        /// <returns></returns>
-        private string GetContentFromCell(IEnumerable<TableCell> cells, int index, bool richText)
-        {
-            string text;
-            try
-            {
-                text = cells.ElementAt(index).GetCellText();
-                if (richText)
-                    text = text.Replace("\r\n", "<br>");
-            }
-            catch (Exception)
-            {
-                text = "";
-            }
-
-            if (!richText)
-                text = RemoveTags(text);
-
-            return text;
-        }
-
         private string GetSeriesStarterText(string litq, string rest)
         {
             string completeQuestion;
@@ -342,19 +316,6 @@ namespace SDIFrontEnd
             }
 
             return completeQuestion;
-        }
-
-        private string RemoveTags(string input)
-        {
-            string text = input;
-            text = text.Replace("<Font Color=Red>", "");
-            text = text.Replace("<Font Color=Blue>", "");
-            text = text.Replace("</Font>", "");
-            text = text.Replace("<strong>", "").Replace("</strong>", "");
-            text = text.Replace("<em>", "").Replace("</em>", "");
-            text = text.Replace("<u>", "").Replace("</u>", "");
-            return text;
-
         }
     }
 }

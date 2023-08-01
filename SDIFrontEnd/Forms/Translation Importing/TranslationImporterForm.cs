@@ -751,8 +751,6 @@ namespace SDIFrontEnd
                 }
             }
 
-            //Importer.TargetLanguage = TargetLanguage;
-           // cmdBrowse.Enabled = TargetLanguage != null;
         }
 
         /// <summary>
