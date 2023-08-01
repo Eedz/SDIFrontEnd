@@ -758,6 +758,9 @@
     <EmbeddedResource Include="Forms\Drafts\SurveyDraftImportForm.resx">
       <DependentUpon>SurveyDraftImportForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Translation Importing\TranslationImporterForm.resx">
+      <DependentUpon>TranslationImporterForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\UnlockSurvey.resx">
       <DependentUpon>UnlockSurvey.cs</DependentUpon>
     </EmbeddedResource>

@@ -141,7 +141,7 @@ namespace SDIFrontEnd
                 data[i, 6] = deletedVars[i].DeleteDate.Value.ToString();
                 foreach (DeletedComment dc in deletedVars[i].DeleteNotes)
                 {
-                    data[i, 7] += dc.Author.Name + ": " + dc.NoteDate.Value.ToString("dd-MMM-yyyy") + "\r\n" + dc.Notes.NoteText + "\r\n" + dc.Source;
+                    data[i, 7] += dc.Author.Name + ": " + dc.NoteDate.Value.ToString("dd-MMM-yyyy") + "\r\n" + dc.Notes.NoteText + "\r\n" + dc.Source + "\r\n";
                 }
                 
 
