@@ -204,6 +204,8 @@
             // 
             // cboTypeFilter
             // 
+            this.cboTypeFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboTypeFilter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboTypeFilter.FormattingEnabled = true;
             this.cboTypeFilter.Location = new System.Drawing.Point(737, 11);
             this.cboTypeFilter.Name = "cboTypeFilter";
@@ -375,6 +377,8 @@
             // 
             // cboCommentScope
             // 
+            this.cboCommentScope.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboCommentScope.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboCommentScope.FormattingEnabled = true;
             this.cboCommentScope.Location = new System.Drawing.Point(53, 6);
             this.cboCommentScope.Name = "cboCommentScope";
@@ -460,7 +464,7 @@
             // 
             // cboVarNameList
             // 
-            this.cboVarNameList.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboVarNameList.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cboVarNameList.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboVarNameList.FormattingEnabled = true;
             this.cboVarNameList.Location = new System.Drawing.Point(556, 33);
@@ -497,7 +501,7 @@
             // 
             // cboSurvWaveList
             // 
-            this.cboSurvWaveList.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboSurvWaveList.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cboSurvWaveList.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboSurvWaveList.FormattingEnabled = true;
             this.cboSurvWaveList.Location = new System.Drawing.Point(335, 33);
@@ -507,7 +511,7 @@
             // 
             // cboNoteAuthority
             // 
-            this.cboNoteAuthority.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboNoteAuthority.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cboNoteAuthority.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboNoteAuthority.FormattingEnabled = true;
             this.cboNoteAuthority.Location = new System.Drawing.Point(106, 139);
@@ -525,7 +529,7 @@
             // 
             // cboNoteAuthor
             // 
-            this.cboNoteAuthor.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboNoteAuthor.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cboNoteAuthor.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboNoteAuthor.FormattingEnabled = true;
             this.cboNoteAuthor.Location = new System.Drawing.Point(106, 81);
@@ -535,7 +539,7 @@
             // 
             // cboNoteType
             // 
-            this.cboNoteType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboNoteType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cboNoteType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboNoteType.FormattingEnabled = true;
             this.cboNoteType.Location = new System.Drawing.Point(106, 57);
@@ -1038,7 +1042,7 @@
             // 
             // cboStoredAuthority
             // 
-            this.cboStoredAuthority.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboStoredAuthority.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cboStoredAuthority.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboStoredAuthority.FormattingEnabled = true;
             this.cboStoredAuthority.Location = new System.Drawing.Point(626, 3);
@@ -1050,7 +1054,7 @@
             // 
             // cboStoredType
             // 
-            this.cboStoredType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboStoredType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cboStoredType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboStoredType.FormattingEnabled = true;
             this.cboStoredType.Location = new System.Drawing.Point(218, 3);
@@ -1062,7 +1066,7 @@
             // 
             // cboStoredName
             // 
-            this.cboStoredName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboStoredName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cboStoredName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboStoredName.FormattingEnabled = true;
             this.cboStoredName.Location = new System.Drawing.Point(117, 3);

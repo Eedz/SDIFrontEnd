@@ -12,6 +12,8 @@ using System.Data.SqlClient;
 using System.Configuration;
 using Word = Microsoft.Office.Interop.Word;
 using ITCLib;
+using ITCReportLib;
+
 using FM = FormManager;
 
 namespace SDIFrontEnd

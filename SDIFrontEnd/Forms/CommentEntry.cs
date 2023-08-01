@@ -366,6 +366,7 @@ namespace SDIFrontEnd
             lstTargetSurvWave.DisplayMember = "SurveyCode";
             cboVarNameList.DataSource = new List<RefVariableName>(Globals.AllRefVarNames);
             cboVarNameList.DisplayMember = "RefVarName";
+
             lstTargetVar.DisplayMember = "RefVarName";
 
             FillTargetSurveyList();

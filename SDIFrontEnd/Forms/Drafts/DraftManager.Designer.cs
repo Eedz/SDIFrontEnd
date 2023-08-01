@@ -146,7 +146,7 @@
             // 
             // toolStripSurveyFilter
             // 
-            this.toolStripSurveyFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.toolStripSurveyFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.toolStripSurveyFilter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.toolStripSurveyFilter.Name = "toolStripSurveyFilter";
             this.toolStripSurveyFilter.Size = new System.Drawing.Size(120, 25);
@@ -217,7 +217,7 @@
             // 
             // cboInvestigator
             // 
-            this.cboInvestigator.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboInvestigator.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cboInvestigator.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboInvestigator.FormattingEnabled = true;
             this.cboInvestigator.Location = new System.Drawing.Point(457, 150);
@@ -227,7 +227,7 @@
             // 
             // cboSurvey
             // 
-            this.cboSurvey.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboSurvey.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cboSurvey.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboSurvey.FormattingEnabled = true;
             this.cboSurvey.Location = new System.Drawing.Point(88, 150);

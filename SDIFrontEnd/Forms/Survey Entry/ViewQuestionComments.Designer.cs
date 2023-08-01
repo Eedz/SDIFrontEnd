@@ -90,6 +90,8 @@
             // 
             // cboAuthor
             // 
+            this.cboAuthor.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboAuthor.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboAuthor.FormattingEnabled = true;
             this.cboAuthor.Location = new System.Drawing.Point(83, 56);
             this.cboAuthor.Name = "cboAuthor";
@@ -104,7 +106,7 @@
             this.label4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(18, 86);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(59, 16);
+            this.label4.Size = new System.Drawing.Size(58, 16);
             this.label4.TabIndex = 10;
             this.label4.Text = "Authority";
             // 
@@ -128,6 +130,8 @@
             // 
             // cboNoteType
             // 
+            this.cboNoteType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboNoteType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboNoteType.FormattingEnabled = true;
             this.cboNoteType.Location = new System.Drawing.Point(83, 3);
             this.cboNoteType.Name = "cboNoteType";
@@ -141,7 +145,7 @@
             this.label5.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(152, 111);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(48, 16);
+            this.label5.Size = new System.Drawing.Size(47, 16);
             this.label5.TabIndex = 11;
             this.label5.Text = "Source";
             // 
@@ -151,7 +155,7 @@
             this.label3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(31, 59);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(46, 16);
+            this.label3.Size = new System.Drawing.Size(45, 16);
             this.label3.TabIndex = 9;
             this.label3.Text = "Author";
             // 
@@ -161,7 +165,7 @@
             this.label2.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(43, 33);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(34, 16);
+            this.label2.Size = new System.Drawing.Size(33, 16);
             this.label2.TabIndex = 8;
             this.label2.Text = "Date";
             // 
@@ -171,7 +175,7 @@
             this.label1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(41, 7);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(36, 16);
+            this.label1.Size = new System.Drawing.Size(35, 16);
             this.label1.TabIndex = 7;
             this.label1.Text = "Type";
             // 

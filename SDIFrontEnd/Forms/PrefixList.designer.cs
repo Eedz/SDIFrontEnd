@@ -34,9 +34,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panelMain = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label12 = new System.Windows.Forms.Label();
+            this.cmdAddParallelPrefix = new System.Windows.Forms.Button();
+            this.lstParallelPrefixes = new System.Windows.Forms.ListBox();
             this.txtDescription = new System.Windows.Forms.TextBox();
-            this.dgvParallelPrefixes = new System.Windows.Forms.DataGridView();
-            this.chParallelPrefix = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.txtComments = new System.Windows.Forms.TextBox();
             this.txtRelatedPrefixes = new System.Windows.Forms.TextBox();
             this.txtProductType = new System.Windows.Forms.TextBox();
@@ -89,7 +91,7 @@
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelMain.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvParallelPrefixes)).BeginInit();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVarNameRanges)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVariableInfo)).BeginInit();
             this.panelReport.SuspendLayout();
@@ -101,7 +103,7 @@
             // 
             // cboGoTo
             // 
-            this.cboGoTo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboGoTo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cboGoTo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboGoTo.FormattingEnabled = true;
             this.cboGoTo.Location = new System.Drawing.Point(100, 80);
@@ -133,8 +135,8 @@
             // panelMain
             // 
             this.panelMain.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelMain.Controls.Add(this.panel1);
             this.panelMain.Controls.Add(this.txtDescription);
-            this.panelMain.Controls.Add(this.dgvParallelPrefixes);
             this.panelMain.Controls.Add(this.txtComments);
             this.panelMain.Controls.Add(this.txtRelatedPrefixes);
             this.panelMain.Controls.Add(this.txtProductType);
@@ -153,6 +155,46 @@
             this.panelMain.Size = new System.Drawing.Size(703, 234);
             this.panelMain.TabIndex = 9;
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.label12);
+            this.panel1.Controls.Add(this.cmdAddParallelPrefix);
+            this.panel1.Controls.Add(this.lstParallelPrefixes);
+            this.panel1.Location = new System.Drawing.Point(580, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(112, 95);
+            this.panel1.TabIndex = 16;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(3, 5);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(82, 16);
+            this.label12.TabIndex = 16;
+            this.label12.Text = "Parallel with:";
+            // 
+            // cmdAddParallelPrefix
+            // 
+            this.cmdAddParallelPrefix.Location = new System.Drawing.Point(61, 24);
+            this.cmdAddParallelPrefix.Name = "cmdAddParallelPrefix";
+            this.cmdAddParallelPrefix.Size = new System.Drawing.Size(18, 18);
+            this.cmdAddParallelPrefix.TabIndex = 15;
+            this.cmdAddParallelPrefix.Text = "+";
+            this.cmdAddParallelPrefix.UseCompatibleTextRendering = true;
+            this.cmdAddParallelPrefix.UseVisualStyleBackColor = true;
+            this.cmdAddParallelPrefix.Click += new System.EventHandler(this.cmdAddParallelPrefix_Click);
+            // 
+            // lstParallelPrefixes
+            // 
+            this.lstParallelPrefixes.FormattingEnabled = true;
+            this.lstParallelPrefixes.ItemHeight = 16;
+            this.lstParallelPrefixes.Location = new System.Drawing.Point(3, 24);
+            this.lstParallelPrefixes.Name = "lstParallelPrefixes";
+            this.lstParallelPrefixes.Size = new System.Drawing.Size(52, 68);
+            this.lstParallelPrefixes.TabIndex = 14;
+            this.lstParallelPrefixes.KeyUp += new System.Windows.Forms.KeyEventHandler(this.lstParallelPrefixes_KeyUp);
+            // 
             // txtDescription
             // 
             this.txtDescription.Location = new System.Drawing.Point(94, 101);
@@ -160,27 +202,6 @@
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(598, 23);
             this.txtDescription.TabIndex = 13;
-            this.txtDescription.Validated += new System.EventHandler(this.Control_Validated);
-            // 
-            // dgvParallelPrefixes
-            // 
-            this.dgvParallelPrefixes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvParallelPrefixes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.chParallelPrefix});
-            this.dgvParallelPrefixes.Location = new System.Drawing.Point(545, 18);
-            this.dgvParallelPrefixes.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.dgvParallelPrefixes.Name = "dgvParallelPrefixes";
-            this.dgvParallelPrefixes.Size = new System.Drawing.Size(147, 80);
-            this.dgvParallelPrefixes.TabIndex = 12;
-            this.dgvParallelPrefixes.CellValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvParallelPrefixes_CellValidated);
-            this.dgvParallelPrefixes.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvParallelPrefixes_DataError);
-            this.dgvParallelPrefixes.RowValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvParallelPrefixes_RowValidated);
-            this.dgvParallelPrefixes.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvParallelPrefixes_UserDeletingRow);
-            // 
-            // chParallelPrefix
-            // 
-            this.chParallelPrefix.HeaderText = "Parallel Prefix";
-            this.chParallelPrefix.Name = "chParallelPrefix";
             // 
             // txtComments
             // 
@@ -190,7 +211,6 @@
             this.txtComments.Name = "txtComments";
             this.txtComments.Size = new System.Drawing.Size(598, 68);
             this.txtComments.TabIndex = 11;
-            this.txtComments.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // txtRelatedPrefixes
             // 
@@ -198,8 +218,7 @@
             this.txtRelatedPrefixes.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtRelatedPrefixes.Name = "txtRelatedPrefixes";
             this.txtRelatedPrefixes.Size = new System.Drawing.Size(445, 23);
-            this.txtRelatedPrefixes.TabIndex = 10;
-            this.txtRelatedPrefixes.Validated += new System.EventHandler(this.Control_Validated);
+            this.txtRelatedPrefixes.TabIndex = 17;
             // 
             // txtProductType
             // 
@@ -208,7 +227,6 @@
             this.txtProductType.Name = "txtProductType";
             this.txtProductType.Size = new System.Drawing.Size(445, 23);
             this.txtProductType.TabIndex = 9;
-            this.txtProductType.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // txtPrefixName
             // 
@@ -217,7 +235,6 @@
             this.txtPrefixName.Name = "txtPrefixName";
             this.txtPrefixName.Size = new System.Drawing.Size(256, 23);
             this.txtPrefixName.TabIndex = 8;
-            this.txtPrefixName.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // label8
             // 
@@ -239,7 +256,6 @@
             this.chkInactive.TabIndex = 6;
             this.chkInactive.Text = "Inactive";
             this.chkInactive.UseVisualStyleBackColor = true;
-            this.chkInactive.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // label7
             // 
@@ -284,7 +300,6 @@
             this.txtPrefix.Name = "txtPrefix";
             this.txtPrefix.Size = new System.Drawing.Size(89, 23);
             this.txtPrefix.TabIndex = 1;
-            this.txtPrefix.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // label3
             // 
@@ -308,11 +323,8 @@
             this.dgvVarNameRanges.RowHeadersWidth = 25;
             this.dgvVarNameRanges.Size = new System.Drawing.Size(335, 390);
             this.dgvVarNameRanges.TabIndex = 10;
-            this.dgvVarNameRanges.CellValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVarNameRanges_CellValidated);
-            this.dgvVarNameRanges.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvVarNameRanges_DataError);
+            this.dgvVarNameRanges.VirtualMode = true;
             this.dgvVarNameRanges.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVarNameRanges_RowEnter);
-            this.dgvVarNameRanges.RowValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVarNameRanges_RowValidated);
-            this.dgvVarNameRanges.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvVarNameRanges_UserDeletingRow);
             // 
             // chLower
             // 
@@ -496,7 +508,7 @@
             // 
             // cboInclude
             // 
-            this.cboInclude.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboInclude.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cboInclude.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboInclude.FormattingEnabled = true;
             this.cboInclude.Location = new System.Drawing.Point(20, 43);
@@ -568,7 +580,6 @@
             this.bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
             this.bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMoveFirstItem.Text = "Move first";
             this.bindingNavigatorMoveFirstItem.Click += new System.EventHandler(this.bindingNavigatorMoveFirstItem_Click);
             // 
             // bindingNavigatorMovePreviousItem
@@ -578,7 +589,6 @@
             this.bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
             this.bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMovePreviousItem.Text = "Move previous";
             this.bindingNavigatorMovePreviousItem.Click += new System.EventHandler(this.bindingNavigatorMovePreviousItem_Click);
             // 
             // bindingNavigatorSeparator
@@ -608,7 +618,6 @@
             this.bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
             this.bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMoveNextItem.Text = "Move next";
             this.bindingNavigatorMoveNextItem.Click += new System.EventHandler(this.bindingNavigatorMoveNextItem_Click);
             // 
             // bindingNavigatorMoveLastItem
@@ -618,7 +627,6 @@
             this.bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
             this.bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMoveLastItem.Text = "Move last";
             this.bindingNavigatorMoveLastItem.Click += new System.EventHandler(this.bindingNavigatorMoveLastItem_Click);
             // 
             // bindingNavigatorSeparator2
@@ -732,7 +740,8 @@
             this.Load += new System.EventHandler(this.PrefixList_Load);
             this.panelMain.ResumeLayout(false);
             this.panelMain.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvParallelPrefixes)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVarNameRanges)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVariableInfo)).EndInit();
             this.panelReport.ResumeLayout(false);
@@ -754,7 +763,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panelMain;
-        private System.Windows.Forms.DataGridView dgvParallelPrefixes;
         private System.Windows.Forms.TextBox txtComments;
         private System.Windows.Forms.TextBox txtRelatedPrefixes;
         private System.Windows.Forms.TextBox txtProductType;
@@ -803,10 +811,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn chLower;
         private System.Windows.Forms.DataGridViewTextBoxColumn chUpper;
         private System.Windows.Forms.DataGridViewTextBoxColumn chDescription;
-        private System.Windows.Forms.DataGridViewComboBoxColumn chParallelPrefix;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.ToolStripButton toolStripDatasheet;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Button cmdAddParallelPrefix;
+        private System.Windows.Forms.ListBox lstParallelPrefixes;
     }
 }

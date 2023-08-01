@@ -53,7 +53,6 @@
             this.Corrected = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.QType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panelQuestion = new System.Windows.Forms.Panel();
-            this.rtbPlainFilter = new SDIFrontEnd.ExtraRichTextBox();
             this.dgvTimeFrames = new System.Windows.Forms.DataGridView();
             this.chTimeFrame = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtPstP = new System.Windows.Forms.TextBox();
@@ -120,6 +119,7 @@
             this.toolStripC = new System.Windows.Forms.ToolStripButton();
             this.toolStripF = new System.Windows.Forms.ToolStripButton();
             this.toolStripRelatedData = new System.Windows.Forms.ToolStrip();
+            this.toolStripAddTranslation = new System.Windows.Forms.ToolStripButton();
             this.toolStripTranslation = new System.Windows.Forms.ToolStripButton();
             this.toolStripLanguage = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripViewComments = new System.Windows.Forms.ToolStripButton();
@@ -139,6 +139,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.lblEdited = new System.Windows.Forms.Label();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rtbPlainFilter = new SDIFrontEnd.ExtraRichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.navQuestions)).BeginInit();
             this.navQuestions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -179,7 +180,7 @@
             this.cboGoToVar.Size = new System.Drawing.Size(95, 24);
             this.cboGoToVar.TabIndex = 24;
             this.cboGoToVar.SelectedIndexChanged += new System.EventHandler(this.cboGoToVar_SelectedIndexChanged);
-            // 
+                    // 
             // navQuestions
             // 
             this.navQuestions.AddNewItem = null;
@@ -326,10 +327,10 @@
             this.lstQuestionList.UseCompatibleStateImageBehavior = false;
             this.lstQuestionList.View = System.Windows.Forms.View.Details;
             this.lstQuestionList.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.lstQuestionList_ItemDrag);
+            this.lstQuestionList.SelectedIndexChanged += new System.EventHandler(this.lstQuestionList_SelectedIndexChanged);
             this.lstQuestionList.DragDrop += new System.Windows.Forms.DragEventHandler(this.lstQuestionList_DragDrop);
             this.lstQuestionList.DragEnter += new System.Windows.Forms.DragEventHandler(this.lstQuestionList_DragEnter);
             this.lstQuestionList.DragOver += new System.Windows.Forms.DragEventHandler(this.lstQuestionList_DragOver);
-            this.lstQuestionList.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lstQuestionList_MouseClick);
             this.lstQuestionList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lstQuestionList_MouseDoubleClick);
             // 
             // NewQnum
@@ -402,21 +403,6 @@
             this.panelQuestion.Name = "panelQuestion";
             this.panelQuestion.Size = new System.Drawing.Size(912, 681);
             this.panelQuestion.TabIndex = 34;
-            // 
-            // rtbPlainFilter
-            // 
-            this.rtbPlainFilter.AutoScroll = true;
-            this.rtbPlainFilter.Location = new System.Drawing.Point(629, 54);
-            this.rtbPlainFilter.Margin = new System.Windows.Forms.Padding(4);
-            this.rtbPlainFilter.Name = "rtbPlainFilter";
-            this.rtbPlainFilter.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat\\deflang1033{\\fonttbl{\\f0\\fnil\\fcharset0 " +
-    "Tahoma;}}\r\n{\\*\\generator Riched20 10.0.19041}\\viewkind4\\uc1 \r\n\\pard\\f0\\fs20\\par\r" +
-    "\n}\r\n";
-            this.rtbPlainFilter.ShowFamilies = false;
-            this.rtbPlainFilter.ShowSize = false;
-            this.rtbPlainFilter.Size = new System.Drawing.Size(272, 459);
-            this.rtbPlainFilter.TabIndex = 72;
-            this.rtbPlainFilter.Validated += new System.EventHandler(this.rtbPlainFilter_Validated);
             // 
             // dgvTimeFrames
             // 
@@ -1135,6 +1121,7 @@
             // 
             this.toolStripRelatedData.Dock = System.Windows.Forms.DockStyle.None;
             this.toolStripRelatedData.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripAddTranslation,
             this.toolStripTranslation,
             this.toolStripLanguage,
             this.toolStripViewComments,
@@ -1143,9 +1130,19 @@
             this.toolStripRelated});
             this.toolStripRelatedData.Location = new System.Drawing.Point(0, 49);
             this.toolStripRelatedData.Name = "toolStripRelatedData";
-            this.toolStripRelatedData.Size = new System.Drawing.Size(545, 25);
+            this.toolStripRelatedData.Size = new System.Drawing.Size(573, 25);
             this.toolStripRelatedData.TabIndex = 45;
             this.toolStripRelatedData.Text = "toolStrip2";
+            // 
+            // toolStripAddTranslation
+            // 
+            this.toolStripAddTranslation.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripAddTranslation.Image = ((System.Drawing.Image)(resources.GetObject("toolStripAddTranslation.Image")));
+            this.toolStripAddTranslation.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripAddTranslation.Name = "toolStripAddTranslation";
+            this.toolStripAddTranslation.Size = new System.Drawing.Size(23, 22);
+            this.toolStripAddTranslation.Text = "Add Translation";
+            this.toolStripAddTranslation.Click += new System.EventHandler(this.toolStripAddTranslation_Click);
             // 
             // toolStripTranslation
             // 
@@ -1154,8 +1151,8 @@
             this.toolStripTranslation.Image = ((System.Drawing.Image)(resources.GetObject("toolStripTranslation.Image")));
             this.toolStripTranslation.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripTranslation.Name = "toolStripTranslation";
-            this.toolStripTranslation.Size = new System.Drawing.Size(70, 22);
-            this.toolStripTranslation.Text = "Translation";
+            this.toolStripTranslation.Size = new System.Drawing.Size(75, 22);
+            this.toolStripTranslation.Text = "Translations";
             this.toolStripTranslation.Click += new System.EventHandler(this.toolStripTranslation_Click);
             // 
             // toolStripLanguage
@@ -1345,6 +1342,21 @@
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.Width = 110;
             // 
+            // rtbPlainFilter
+            // 
+            this.rtbPlainFilter.AutoScroll = true;
+            this.rtbPlainFilter.Location = new System.Drawing.Point(629, 54);
+            this.rtbPlainFilter.Margin = new System.Windows.Forms.Padding(4);
+            this.rtbPlainFilter.Name = "rtbPlainFilter";
+            this.rtbPlainFilter.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat\\deflang1033{\\fonttbl{\\f0\\fnil\\fcharset0 " +
+    "Tahoma;}}\r\n{\\*\\generator Riched20 10.0.19041}\\viewkind4\\uc1 \r\n\\pard\\f0\\fs20\\par\r" +
+    "\n}\r\n";
+            this.rtbPlainFilter.ShowFamilies = false;
+            this.rtbPlainFilter.ShowSize = false;
+            this.rtbPlainFilter.Size = new System.Drawing.Size(272, 459);
+            this.rtbPlainFilter.TabIndex = 72;
+            this.rtbPlainFilter.Validated += new System.EventHandler(this.rtbPlainFilter_Validated);
+            // 
             // SurveyEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -1522,5 +1534,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn chTimeFrame;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private ExtraRichTextBox rtbPlainFilter;
+        private System.Windows.Forms.ToolStripButton toolStripAddTranslation;
     }
 }

@@ -27,7 +27,7 @@ namespace SDIFrontEnd
         public static List<KeyValuePair<int, string>> RenumberedSurveys;
 
         // varnames
-        public static List<VariablePrefixRecord> AllPrefixes;
+        public static List<VariablePrefix> AllPrefixes;
         public static List<VariableName> AllVarNames;
         public static List<RefVariableName> AllRefVarNames;
         public static List<CanonicalVariableRecord> AllCanonVars;
@@ -51,11 +51,12 @@ namespace SDIFrontEnd
         public static List<UserStateRecord> AllUserStates;
         public static List<SimilarWordsRecord> AllSimilarWords;
         public static List<SurveyMode> AllModes;
+        public static List<Language> AllLanguages;
 
         // comments
         public static List<CommentType> AllCommentTypes;
         public static List<NoteRecord> AllNotes;
-        
+
         public static void CreateWorld()
         {
             CreateUser();
@@ -104,7 +105,7 @@ namespace SDIFrontEnd
 
         public static void CreateVarNames()
         {
-            AllPrefixes = DBAction.GetVarPrefixes();
+            AllPrefixes = DBAction.GetVariablePrefixes();
             AllVarNames = DBAction.GetAllVarNames();
             AllRefVarNames = DBAction.GetAllRefVarNames();
             AllCanonVars = DBAction.GetAllCanonVars();
@@ -135,6 +136,8 @@ namespace SDIFrontEnd
 
             AllUserStates = DBAction.GetUserStates();
             AllSimilarWords = DBAction.GetSimilarWordings();
+
+            AllLanguages = DBAction.ListLanguages();
         }
 
         public static void CreateComments()

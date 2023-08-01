@@ -322,6 +322,8 @@
             // 
             // toolStripGoTo
             // 
+            this.toolStripGoTo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.toolStripGoTo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.toolStripGoTo.Name = "toolStripGoTo";
             this.toolStripGoTo.Size = new System.Drawing.Size(121, 25);
             // 

@@ -12,7 +12,7 @@ using ITCLib;
 namespace SDIFrontEnd
 {   
     // TODO unlock surveys for editing
-    public partial class WordingUsage : Form
+    public partial class WordingEntryForm : Form
     {
         public Wording CurrentWording;
 
@@ -41,7 +41,7 @@ namespace SDIFrontEnd
             }
         }
 
-        public WordingUsage()
+        public WordingEntryForm()
         {
             InitializeComponent();
 
@@ -64,7 +64,7 @@ namespace SDIFrontEnd
             AddGridColumns();
         }
 
-        public WordingUsage(Wording wording)
+        public WordingEntryForm(Wording wording)
         {
             InitializeComponent();
 
@@ -164,18 +164,7 @@ namespace SDIFrontEnd
         private void WordingUsage_FormClosing(object sender, FormClosingEventArgs e)
         {
             SaveRecord();
-        }
-
-        private void txtWordingR_Validated(object sender, EventArgs e)
-        {
-            //txtWordingR.Rtf = Utilities.FormatRTF(txtWordingR.Rtf);
-            //Wording current = (Wording)bs.Current;
-            //string plain = txtWordingR.Text;
-            //current.WordingText = plain;
-            //Dirty = true;
-        }
-
-        
+        }      
 
         private void chkEdit_Click(object sender, EventArgs e)
         {

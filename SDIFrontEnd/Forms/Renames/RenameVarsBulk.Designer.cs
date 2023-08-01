@@ -279,7 +279,7 @@
             // 
             // cboChangedBy
             // 
-            this.cboChangedBy.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboChangedBy.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cboChangedBy.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboChangedBy.FormattingEnabled = true;
             this.cboChangedBy.Location = new System.Drawing.Point(6, 433);

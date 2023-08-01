@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
+using ITCReportLib;
 using System.IO;
 using FM = FormManager;
 
@@ -539,7 +540,7 @@ namespace SDIFrontEnd
                 return;
             }
 
-            TranslationImporter frm = new TranslationImporter();
+            TranslationImporterForm frm = new TranslationImporterForm();
             frm.Tag = 1;
             FM.FormManager.AddPopup(frm);
         }
@@ -659,7 +660,7 @@ namespace SDIFrontEnd
                 return;
             }
 
-            PrefixList frm = new PrefixList();
+            PrefixList frm = new PrefixList(Globals.AllPrefixes);
             frm.Tag = 1;
             FM.FormManager.Add(frm);
         }

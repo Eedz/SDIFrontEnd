@@ -11,6 +11,7 @@ using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 using System.Text.RegularExpressions;
+using FM = FormManager;
 
 namespace SDIFrontEnd
 {
@@ -67,17 +68,17 @@ namespace SDIFrontEnd
         }
 
         #region Event Handlers
-        private void Form1_Load(object sender, EventArgs e)
+        private void SurveyDraftImportForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-
+            FM.FormManager.RemovePopup(this);
         }
 
-        private void cmdClose_Click(object sender, EventArgs e)
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void cmdClear_Click(object sender, EventArgs e)
+        private void clearToolStripMenuItem_Click(object sender, EventArgs e)
         {
             cboSurvey.SelectedIndex = -1;
             txtDraftTitle.Text = "";
@@ -808,6 +809,8 @@ namespace SDIFrontEnd
                 
             }
         }
+
+
 
         #endregion
 

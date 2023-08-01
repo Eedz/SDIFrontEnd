@@ -75,7 +75,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 311F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 64F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 31F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 72F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 73F));
             this.tableLayoutPanel1.Controls.Add(this.txtRefVarName, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.txtSurveys, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.rtbQuestion, 1, 0);
@@ -92,13 +92,13 @@
             this.txtRefVarName.Location = new System.Drawing.Point(3, 4);
             this.txtRefVarName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtRefVarName.Name = "txtRefVarName";
-            this.txtRefVarName.Size = new System.Drawing.Size(98, 23);
+            this.txtRefVarName.Size = new System.Drawing.Size(97, 23);
             this.txtRefVarName.TabIndex = 1;
             // 
             // txtSurveys
             // 
             this.txtSurveys.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtSurveys.Location = new System.Drawing.Point(455, 4);
+            this.txtSurveys.Location = new System.Drawing.Point(454, 4);
             this.txtSurveys.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtSurveys.Multiline = true;
             this.txtSurveys.Name = "txtSurveys";
@@ -109,7 +109,7 @@
             // rtbQuestion
             // 
             this.rtbQuestion.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtbQuestion.Location = new System.Drawing.Point(107, 4);
+            this.rtbQuestion.Location = new System.Drawing.Point(106, 4);
             this.rtbQuestion.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.rtbQuestion.Name = "rtbQuestion";
             this.rtbQuestion.Size = new System.Drawing.Size(342, 279);

@@ -20,7 +20,7 @@ namespace SDIFrontEnd
         {
             InitializeComponent();
 
-            Records = DBAction.ListLanguages();
+            Records = new List<Language>(Globals.AllLanguages);
 
             bs = new BindingSource();
             bs.DataSource = Records;
@@ -47,6 +47,8 @@ namespace SDIFrontEnd
                 // insert language
                 if (DBAction.InsertLanguage(newLanguage) == 1)
                     MessageBox.Show("Error adding new language.");
+                else
+                    Globals.AllLanguages.Add(newLanguage);
             }
         }
     }

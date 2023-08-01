@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
+using ITCReportLib;
 using FM = FormManager;
 
 namespace SDIFrontEnd
@@ -31,8 +32,6 @@ namespace SDIFrontEnd
             InitializeComponent();
 
             this.dgvVars.CellValueNeeded += DgvVars_CellValueNeeded;
-
-            FullList = DBAction.GetVarNameUsage();
 
             cboGoToVar.DataSource = new List<RefVariableName>(Globals.AllRefVarNames);
             cboGoToVar.DisplayMember = "RefVarName";
@@ -166,8 +165,8 @@ namespace SDIFrontEnd
 
         private void AssignLabels_Load(object sender, EventArgs e)
         {
-            AddGridColumns();
-            SetupWithObjects(FullList);
+            FillList();
+            
 
             this.dgvVars.CellValuePushed += DgvVars_CellValuePushed;
             this.dgvVars.RowValidated += DgvVars_RowValidated;
@@ -302,6 +301,14 @@ namespace SDIFrontEnd
         #endregion
 
         #region Methods
+
+        async void FillList()
+        {
+            FullList = await DBAction.GetVarNameUsageAsync();
+
+            AddGridColumns();
+            SetupWithObjects(FullList);
+        }
 
         // Create an ObjectDataRetriever and use it to create an ObjectCache object
         // and to initialize the DataGridView rows.

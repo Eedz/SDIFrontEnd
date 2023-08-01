@@ -263,6 +263,14 @@
   <metadata name="toolStripRelatedData.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>362, 17</value>
   </metadata>
+  <data name="toolStripAddTranslation.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABlSURBVDhPY0AG8g3y/6FM8sDAGADShAtDlRAPyNKEDAbe
+        ADyAUV5efpeSkpI1lE86UFBQsJORkXkJNMgBKkQ6IGiIqKjoT0VFxf9E4HNQLaQBirwBtNUVqPE1uWFA
+        eSzQCDAwAAC8yjLcwfLkFwAAAABJRU5ErkJggg==
+</value>
+  </data>
   <data name="toolStripTranslation.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8

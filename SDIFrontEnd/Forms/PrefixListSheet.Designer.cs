@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvPrefixes = new System.Windows.Forms.DataGridView();
             this.chPrefix = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.chPrefixName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -39,9 +39,13 @@
             this.chComments = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.chInactive = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dgvRanges = new System.Windows.Forms.DataGridView();
+            this.chLower = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chUpper = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chRangeDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.formViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPrefixes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRanges)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -68,23 +72,23 @@
             this.dgvPrefixes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvPrefixes.Location = new System.Drawing.Point(0, 0);
             this.dgvPrefixes.Name = "dgvPrefixes";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvPrefixes.RowHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvPrefixes.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvPrefixes.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvPrefixes.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvPrefixes.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
             this.dgvPrefixes.RowTemplate.DefaultCellStyle.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvPrefixes.Size = new System.Drawing.Size(1000, 541);
             this.dgvPrefixes.TabIndex = 0;
-            this.dgvPrefixes.CellValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPrefixes_CellValidated);
-            this.dgvPrefixes.RowValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPrefixes_RowValidated);
+            this.dgvPrefixes.VirtualMode = true;
+            this.dgvPrefixes.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPrefixes_RowEnter);
             // 
             // chPrefix
             // 
@@ -130,17 +134,38 @@
             // dgvRanges
             // 
             this.dgvRanges.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvRanges.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.chLower,
+            this.chUpper,
+            this.chRangeDescription});
             this.dgvRanges.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvRanges.Location = new System.Drawing.Point(0, 0);
             this.dgvRanges.Name = "dgvRanges";
             this.dgvRanges.Size = new System.Drawing.Size(345, 541);
             this.dgvRanges.TabIndex = 1;
-            this.dgvRanges.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridView2_DataBindingComplete);
+            this.dgvRanges.VirtualMode = true;
+            // 
+            // chLower
+            // 
+            this.chLower.HeaderText = "Lower";
+            this.chLower.Name = "chLower";
+            // 
+            // chUpper
+            // 
+            this.chUpper.HeaderText = "Upper";
+            this.chUpper.Name = "chUpper";
+            // 
+            // chRangeDescription
+            // 
+            this.chRangeDescription.HeaderText = "Description";
+            this.chRangeDescription.Name = "chRangeDescription";
+            this.chRangeDescription.Width = 200;
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.closeToolStripMenuItem});
+            this.closeToolStripMenuItem,
+            this.formViewToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1347, 24);
@@ -172,6 +197,13 @@
             this.splitContainer1.SplitterWidth = 2;
             this.splitContainer1.TabIndex = 3;
             // 
+            // formViewToolStripMenuItem
+            // 
+            this.formViewToolStripMenuItem.Name = "formViewToolStripMenuItem";
+            this.formViewToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
+            this.formViewToolStripMenuItem.Text = "Form View";
+            this.formViewToolStripMenuItem.Click += new System.EventHandler(this.formViewToolStripMenuItem_Click);
+            // 
             // PrefixListSheet
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -183,7 +215,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "PrefixListSheet";
             this.Text = "Prefix List (Datasheet)";
-            this.Load += new System.EventHandler(this.PrefixListSheet_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.PrefixListSheet_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.dgvPrefixes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRanges)).EndInit();
             this.menuStrip1.ResumeLayout(false);
@@ -211,5 +243,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn chDescription;
         private System.Windows.Forms.DataGridViewTextBoxColumn chComments;
         private System.Windows.Forms.DataGridViewCheckBoxColumn chInactive;
+        private System.Windows.Forms.DataGridViewTextBoxColumn chLower;
+        private System.Windows.Forms.DataGridViewTextBoxColumn chUpper;
+        private System.Windows.Forms.DataGridViewTextBoxColumn chRangeDescription;
+        private System.Windows.Forms.ToolStripMenuItem formViewToolStripMenuItem;
     }
 }

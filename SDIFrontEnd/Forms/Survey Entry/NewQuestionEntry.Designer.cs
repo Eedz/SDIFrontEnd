@@ -546,6 +546,8 @@
             // 
             // cboVarName
             // 
+            this.cboVarName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboVarName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboVarName.FormattingEnabled = true;
             this.cboVarName.Location = new System.Drawing.Point(346, 56);
             this.cboVarName.Name = "cboVarName";
@@ -574,6 +576,8 @@
             // 
             // cboSurveySource
             // 
+            this.cboSurveySource.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboSurveySource.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboSurveySource.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboSurveySource.FormattingEnabled = true;
             this.cboSurveySource.Location = new System.Drawing.Point(111, 55);

@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
+using ITCReportLib;
 using FM = FormManager;
 
 namespace SDIFrontEnd
@@ -40,13 +41,13 @@ namespace SDIFrontEnd
             
             cboVarNames.DataSource = unique;
             cboVarNames.ValueMember = "RefVarName";
-            cboVarNames.DisplayMember = "RefVarName";
+            cboVarNames.DisplayMember = "RefVarLabel";
             cboVarNames.SelectedItem = null;
 
-            lstPrefixes.DataSource = DBAction.GetVariablePrefixes();
+            lstPrefixes.DataSource = DBAction.GetVariablePrefixList();
 
             lstSelVar.Items.Clear();
-            lstSelVar.DisplayMember = "RefVarName";
+            lstSelVar.DisplayMember = "RefVarLabel";
 
             // wave tab
             cboWaves.DataSource = new List<StudyWave>( Globals.AllWaves);

@@ -92,7 +92,7 @@
             // 
             // cboSurveyOrWave
             // 
-            this.cboSurveyOrWave.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboSurveyOrWave.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cboSurveyOrWave.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboSurveyOrWave.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboSurveyOrWave.FormattingEnabled = true;
@@ -109,7 +109,7 @@
             this.rbWave.Location = new System.Drawing.Point(15, 46);
             this.rbWave.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.rbWave.Name = "rbWave";
-            this.rbWave.Size = new System.Drawing.Size(58, 20);
+            this.rbWave.Size = new System.Drawing.Size(57, 20);
             this.rbWave.TabIndex = 1;
             this.rbWave.TabStop = true;
             this.rbWave.Text = "Wave";
@@ -123,7 +123,7 @@
             this.rbSurvey.Location = new System.Drawing.Point(15, 25);
             this.rbSurvey.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.rbSurvey.Name = "rbSurvey";
-            this.rbSurvey.Size = new System.Drawing.Size(65, 20);
+            this.rbSurvey.Size = new System.Drawing.Size(64, 20);
             this.rbSurvey.TabIndex = 0;
             this.rbSurvey.TabStop = true;
             this.rbSurvey.Text = "Survey";
@@ -156,7 +156,7 @@
             this.chkExcludePreFW.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkExcludePreFW.Location = new System.Drawing.Point(163, 165);
             this.chkExcludePreFW.Name = "chkExcludePreFW";
-            this.chkExcludePreFW.Size = new System.Drawing.Size(170, 20);
+            this.chkExcludePreFW.Size = new System.Drawing.Size(169, 20);
             this.chkExcludePreFW.TabIndex = 10;
             this.chkExcludePreFW.Text = "Exclude Pre-FW Changes";
             this.chkExcludePreFW.UseVisualStyleBackColor = true;
@@ -168,7 +168,7 @@
             this.chkExcludeHidden.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkExcludeHidden.Location = new System.Drawing.Point(163, 135);
             this.chkExcludeHidden.Name = "chkExcludeHidden";
-            this.chkExcludeHidden.Size = new System.Drawing.Size(166, 20);
+            this.chkExcludeHidden.Size = new System.Drawing.Size(165, 20);
             this.chkExcludeHidden.TabIndex = 9;
             this.chkExcludeHidden.Text = "Exclude Hidden Changes";
             this.chkExcludeHidden.UseVisualStyleBackColor = true;
@@ -180,7 +180,7 @@
             this.chkExcludeHeadings.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkExcludeHeadings.Location = new System.Drawing.Point(163, 105);
             this.chkExcludeHeadings.Name = "chkExcludeHeadings";
-            this.chkExcludeHeadings.Size = new System.Drawing.Size(126, 20);
+            this.chkExcludeHeadings.Size = new System.Drawing.Size(125, 20);
             this.chkExcludeHeadings.TabIndex = 8;
             this.chkExcludeHeadings.Text = "Exclude Headings";
             this.chkExcludeHeadings.UseVisualStyleBackColor = true;
@@ -202,7 +202,7 @@
             this.rbBoth.AutoSize = true;
             this.rbBoth.Location = new System.Drawing.Point(18, 71);
             this.rbBoth.Name = "rbBoth";
-            this.rbBoth.Size = new System.Drawing.Size(51, 20);
+            this.rbBoth.Size = new System.Drawing.Size(50, 20);
             this.rbBoth.TabIndex = 2;
             this.rbBoth.Text = "Both";
             this.rbBoth.UseVisualStyleBackColor = true;
@@ -212,7 +212,7 @@
             this.rbRefVarName.AutoSize = true;
             this.rbRefVarName.Location = new System.Drawing.Point(18, 45);
             this.rbRefVarName.Name = "rbRefVarName";
-            this.rbRefVarName.Size = new System.Drawing.Size(95, 20);
+            this.rbRefVarName.Size = new System.Drawing.Size(94, 20);
             this.rbRefVarName.TabIndex = 1;
             this.rbRefVarName.Text = "refVarName";
             this.rbRefVarName.UseVisualStyleBackColor = true;
@@ -223,7 +223,7 @@
             this.rbVarName.Checked = true;
             this.rbVarName.Location = new System.Drawing.Point(18, 19);
             this.rbVarName.Name = "rbVarName";
-            this.rbVarName.Size = new System.Drawing.Size(79, 20);
+            this.rbVarName.Size = new System.Drawing.Size(78, 20);
             this.rbVarName.TabIndex = 0;
             this.rbVarName.TabStop = true;
             this.rbVarName.Text = "VarName";
@@ -234,7 +234,7 @@
             this.chkIncludeWordings.AutoSize = true;
             this.chkIncludeWordings.Location = new System.Drawing.Point(21, 131);
             this.chkIncludeWordings.Name = "chkIncludeWordings";
-            this.chkIncludeWordings.Size = new System.Drawing.Size(126, 20);
+            this.chkIncludeWordings.Size = new System.Drawing.Size(125, 20);
             this.chkIncludeWordings.TabIndex = 6;
             this.chkIncludeWordings.Text = "Include Wordings";
             this.chkIncludeWordings.UseVisualStyleBackColor = true;
@@ -244,7 +244,7 @@
             this.chkIncludeVarLabel.AutoSize = true;
             this.chkIncludeVarLabel.Location = new System.Drawing.Point(21, 105);
             this.chkIncludeVarLabel.Name = "chkIncludeVarLabel";
-            this.chkIncludeVarLabel.Size = new System.Drawing.Size(122, 20);
+            this.chkIncludeVarLabel.Size = new System.Drawing.Size(121, 20);
             this.chkIncludeVarLabel.TabIndex = 5;
             this.chkIncludeVarLabel.Text = "Include VarLabel";
             this.chkIncludeVarLabel.UseVisualStyleBackColor = true;
@@ -274,7 +274,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(57, 42);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(74, 16);
+            this.label2.Size = new System.Drawing.Size(73, 16);
             this.label2.TabIndex = 2;
             this.label2.Text = "Date Range";
             // 

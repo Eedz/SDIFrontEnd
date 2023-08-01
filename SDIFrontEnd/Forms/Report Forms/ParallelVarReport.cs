@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
+using ITCReportLib;
 using FM = FormManager;
 
 namespace SDIFrontEnd
@@ -22,7 +23,7 @@ namespace SDIFrontEnd
 
             cboPrefixes.DisplayMember = "Prefix";
             cboPrefixes.ValueMember = "Prefix";
-            cboPrefixes.DataSource = DBAction.GetVarPrefixes();
+            cboPrefixes.DataSource = DBAction.GetVariablePrefixes();
             cboPrefixes.SelectedItem = null;
 
             for (int i = 0; i <= 900; i += 100)
@@ -41,7 +42,10 @@ namespace SDIFrontEnd
         {
             VariablePrefix prefixInfo = (VariablePrefix)cboPrefixes.SelectedItem;
 
-            string prefix = ((VariablePrefixRecord)cboPrefixes.SelectedItem).Prefix;
+            if (prefixInfo == null)
+                return;
+
+            string prefix = prefixInfo.Prefix;
             // get range information if requested
 
             // get crosstab table

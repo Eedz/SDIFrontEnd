@@ -180,6 +180,8 @@
             // 
             // toolStripLabelType
             // 
+            this.toolStripLabelType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.toolStripLabelType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.toolStripLabelType.Name = "toolStripLabelType";
             this.toolStripLabelType.Size = new System.Drawing.Size(121, 25);
             // 
@@ -275,7 +277,7 @@
             // 
             // cboGoToVar
             // 
-            this.cboGoToVar.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboGoToVar.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cboGoToVar.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboGoToVar.FormattingEnabled = true;
             this.cboGoToVar.Location = new System.Drawing.Point(87, 108);

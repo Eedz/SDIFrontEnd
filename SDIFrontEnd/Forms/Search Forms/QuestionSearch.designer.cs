@@ -265,6 +265,8 @@
             // 
             // cboProduct
             // 
+            this.cboProduct.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboProduct.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboProduct.FormattingEnabled = true;
             this.cboProduct.Location = new System.Drawing.Point(368, 90);
             this.cboProduct.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
+using ITCReportLib;
 using FM = FormManager;
 
 namespace SDIFrontEnd
@@ -20,7 +21,7 @@ namespace SDIFrontEnd
 
             cboPrefix.DisplayMember = "Prefix";
             cboPrefix.ValueMember = "ID";
-            cboPrefix.DataSource = DBAction.GetVarPrefixes();
+            cboPrefix.DataSource = DBAction.GetVariablePrefixes();
             cboPrefix.SelectedItem = null;
         }
 
@@ -31,7 +32,7 @@ namespace SDIFrontEnd
                 return;
 
             // create a list from lower to upper of all variables in the prefix
-            VariablePrefixRecord prefix = (VariablePrefixRecord)cboPrefix.SelectedItem;
+            VariablePrefix prefix  = (VariablePrefix)cboPrefix.SelectedItem;
             int lower = Int32.Parse(txtLower.Text);
             int upper = Int32.Parse(txtUpper.Text);
 
@@ -84,7 +85,7 @@ namespace SDIFrontEnd
         }
         #endregion
 
-        private DataTable GetData(VariablePrefixRecord prefix, int lower = 0, int upper = 999)
+        private DataTable GetData(VariablePrefix prefix, int lower = 0, int upper = 999)
         {
             DataTable data = new DataTable();
 

@@ -65,7 +65,7 @@
             // 
             // cboVarList
             // 
-            this.cboVarList.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboVarList.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cboVarList.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboVarList.FormattingEnabled = true;
             this.cboVarList.Location = new System.Drawing.Point(13, 68);

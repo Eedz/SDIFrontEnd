@@ -1,6 +1,6 @@
 ﻿namespace SDIFrontEnd
 {
-    partial class WordingUsage
+    partial class WordingEntryForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WordingUsage));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WordingEntryForm));
             this.lblTitle = new System.Windows.Forms.Label();
             this.cmdExport = new System.Windows.Forms.Button();
             this.cmdAdd = new System.Windows.Forms.Button();
@@ -191,7 +191,7 @@
             this.txtWordingR.Size = new System.Drawing.Size(688, 168);
             this.txtWordingR.TabIndex = 16;
             this.txtWordingR.Text = "";
-            this.txtWordingR.Validated += new System.EventHandler(this.txtWordingR_Validated);
+  
             // 
             // navWordings
             // 
