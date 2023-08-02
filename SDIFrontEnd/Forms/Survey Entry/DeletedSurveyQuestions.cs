@@ -167,8 +167,8 @@ namespace SDIFrontEnd
                 dt.Rows.Add(newRow);
             }
 
-            DataTableReport rpt = new DataTableReport(dt);
-            
+            DataTableReport rpt = new DataTableReport(dt, "Deleted VarNames Report - " + DeletedQuestions[0].SurveyCode);
+
             rpt.CreateReport();
         }
     }

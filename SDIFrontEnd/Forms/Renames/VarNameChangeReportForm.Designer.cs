@@ -51,6 +51,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cmdGenerate = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
+            this.lstSelected = new System.Windows.Forms.ListBox();
+            this.cmdAdd = new System.Windows.Forms.Button();
+            this.cmdRemove = new System.Windows.Forms.Button();
+            this.chkIncludeAllSurveys = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -64,7 +68,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(371, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(418, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -77,6 +81,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cmdRemove);
+            this.groupBox1.Controls.Add(this.cmdAdd);
+            this.groupBox1.Controls.Add(this.lstSelected);
             this.groupBox1.Controls.Add(this.cboSurveyOrWave);
             this.groupBox1.Controls.Add(this.rbWave);
             this.groupBox1.Controls.Add(this.rbSurvey);
@@ -85,7 +92,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox1.Size = new System.Drawing.Size(345, 83);
+            this.groupBox1.Size = new System.Drawing.Size(390, 134);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Report scope";
@@ -96,10 +103,10 @@
             this.cboSurveyOrWave.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboSurveyOrWave.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboSurveyOrWave.FormattingEnabled = true;
-            this.cboSurveyOrWave.Location = new System.Drawing.Point(114, 32);
+            this.cboSurveyOrWave.Location = new System.Drawing.Point(89, 25);
             this.cboSurveyOrWave.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cboSurveyOrWave.Name = "cboSurveyOrWave";
-            this.cboSurveyOrWave.Size = new System.Drawing.Size(178, 24);
+            this.cboSurveyOrWave.Size = new System.Drawing.Size(123, 24);
             this.cboSurveyOrWave.TabIndex = 2;
             // 
             // rbWave
@@ -133,6 +140,7 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.chkIncludeAllSurveys);
             this.panel1.Controls.Add(this.chkExcludePreFW);
             this.panel1.Controls.Add(this.chkExcludeHidden);
             this.panel1.Controls.Add(this.chkExcludeHeadings);
@@ -144,9 +152,9 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.dtpLower);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(19, 165);
+            this.panel1.Location = new System.Drawing.Point(19, 212);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(345, 269);
+            this.panel1.Size = new System.Drawing.Size(390, 269);
             this.panel1.TabIndex = 2;
             // 
             // chkExcludePreFW
@@ -154,7 +162,7 @@
             this.chkExcludePreFW.AutoSize = true;
             this.chkExcludePreFW.Checked = true;
             this.chkExcludePreFW.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkExcludePreFW.Location = new System.Drawing.Point(163, 165);
+            this.chkExcludePreFW.Location = new System.Drawing.Point(181, 157);
             this.chkExcludePreFW.Name = "chkExcludePreFW";
             this.chkExcludePreFW.Size = new System.Drawing.Size(169, 20);
             this.chkExcludePreFW.TabIndex = 10;
@@ -166,7 +174,7 @@
             this.chkExcludeHidden.AutoSize = true;
             this.chkExcludeHidden.Checked = true;
             this.chkExcludeHidden.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkExcludeHidden.Location = new System.Drawing.Point(163, 135);
+            this.chkExcludeHidden.Location = new System.Drawing.Point(181, 131);
             this.chkExcludeHidden.Name = "chkExcludeHidden";
             this.chkExcludeHidden.Size = new System.Drawing.Size(165, 20);
             this.chkExcludeHidden.TabIndex = 9;
@@ -178,7 +186,7 @@
             this.chkExcludeHeadings.AutoSize = true;
             this.chkExcludeHeadings.Checked = true;
             this.chkExcludeHeadings.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkExcludeHeadings.Location = new System.Drawing.Point(163, 105);
+            this.chkExcludeHeadings.Location = new System.Drawing.Point(181, 105);
             this.chkExcludeHeadings.Name = "chkExcludeHeadings";
             this.chkExcludeHeadings.Size = new System.Drawing.Size(125, 20);
             this.chkExcludeHeadings.TabIndex = 8;
@@ -190,7 +198,7 @@
             this.groupBox2.Controls.Add(this.rbBoth);
             this.groupBox2.Controls.Add(this.rbRefVarName);
             this.groupBox2.Controls.Add(this.rbVarName);
-            this.groupBox2.Location = new System.Drawing.Point(20, 164);
+            this.groupBox2.Location = new System.Drawing.Point(38, 164);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(123, 96);
             this.groupBox2.TabIndex = 7;
@@ -232,7 +240,7 @@
             // chkIncludeWordings
             // 
             this.chkIncludeWordings.AutoSize = true;
-            this.chkIncludeWordings.Location = new System.Drawing.Point(21, 131);
+            this.chkIncludeWordings.Location = new System.Drawing.Point(39, 131);
             this.chkIncludeWordings.Name = "chkIncludeWordings";
             this.chkIncludeWordings.Size = new System.Drawing.Size(125, 20);
             this.chkIncludeWordings.TabIndex = 6;
@@ -242,7 +250,7 @@
             // chkIncludeVarLabel
             // 
             this.chkIncludeVarLabel.AutoSize = true;
-            this.chkIncludeVarLabel.Location = new System.Drawing.Point(21, 105);
+            this.chkIncludeVarLabel.Location = new System.Drawing.Point(39, 105);
             this.chkIncludeVarLabel.Name = "chkIncludeVarLabel";
             this.chkIncludeVarLabel.Size = new System.Drawing.Size(121, 20);
             this.chkIncludeVarLabel.TabIndex = 5;
@@ -252,7 +260,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(148, 72);
+            this.label3.Location = new System.Drawing.Point(166, 72);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(10, 21);
             this.label3.TabIndex = 4;
@@ -263,7 +271,7 @@
             // 
             this.dtpUpper.Checked = false;
             this.dtpUpper.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpUpper.Location = new System.Drawing.Point(164, 67);
+            this.dtpUpper.Location = new System.Drawing.Point(182, 67);
             this.dtpUpper.Name = "dtpUpper";
             this.dtpUpper.ShowCheckBox = true;
             this.dtpUpper.Size = new System.Drawing.Size(120, 23);
@@ -272,7 +280,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(57, 42);
+            this.label2.Location = new System.Drawing.Point(75, 42);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(73, 16);
             this.label2.TabIndex = 2;
@@ -282,7 +290,7 @@
             // 
             this.dtpLower.Checked = false;
             this.dtpLower.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpLower.Location = new System.Drawing.Point(21, 67);
+            this.dtpLower.Location = new System.Drawing.Point(39, 67);
             this.dtpLower.Name = "dtpLower";
             this.dtpLower.ShowCheckBox = true;
             this.dtpLower.Size = new System.Drawing.Size(120, 23);
@@ -300,7 +308,7 @@
             // 
             // cmdGenerate
             // 
-            this.cmdGenerate.Location = new System.Drawing.Point(274, 440);
+            this.cmdGenerate.Location = new System.Drawing.Point(319, 487);
             this.cmdGenerate.Name = "cmdGenerate";
             this.cmdGenerate.Size = new System.Drawing.Size(90, 28);
             this.cmdGenerate.TabIndex = 3;
@@ -318,12 +326,54 @@
             this.label4.TabIndex = 4;
             this.label4.Text = "VarName Changes Report";
             // 
+            // lstSelected
+            // 
+            this.lstSelected.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstSelected.FormattingEnabled = true;
+            this.lstSelected.ItemHeight = 16;
+            this.lstSelected.Location = new System.Drawing.Point(264, 25);
+            this.lstSelected.Name = "lstSelected";
+            this.lstSelected.Size = new System.Drawing.Size(123, 100);
+            this.lstSelected.TabIndex = 5;
+            // 
+            // cmdAdd
+            // 
+            this.cmdAdd.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdAdd.Location = new System.Drawing.Point(218, 25);
+            this.cmdAdd.Name = "cmdAdd";
+            this.cmdAdd.Size = new System.Drawing.Size(40, 28);
+            this.cmdAdd.TabIndex = 6;
+            this.cmdAdd.Text = "->";
+            this.cmdAdd.UseVisualStyleBackColor = true;
+            this.cmdAdd.Click += new System.EventHandler(this.cmdAdd_Click);
+            // 
+            // cmdRemove
+            // 
+            this.cmdRemove.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdRemove.Location = new System.Drawing.Point(218, 59);
+            this.cmdRemove.Name = "cmdRemove";
+            this.cmdRemove.Size = new System.Drawing.Size(40, 28);
+            this.cmdRemove.TabIndex = 7;
+            this.cmdRemove.Text = "<-";
+            this.cmdRemove.UseVisualStyleBackColor = true;
+            this.cmdRemove.Click += new System.EventHandler(this.cmdRemove_Click);
+            // 
+            // chkIncludeAllSurveys
+            // 
+            this.chkIncludeAllSurveys.AutoSize = true;
+            this.chkIncludeAllSurveys.Location = new System.Drawing.Point(181, 183);
+            this.chkIncludeAllSurveys.Name = "chkIncludeAllSurveys";
+            this.chkIncludeAllSurveys.Size = new System.Drawing.Size(134, 20);
+            this.chkIncludeAllSurveys.TabIndex = 11;
+            this.chkIncludeAllSurveys.Text = "Include All Surveys";
+            this.chkIncludeAllSurveys.UseVisualStyleBackColor = true;
+            // 
             // VarNameChangeReportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(221)))), ((int)(((byte)(236)))));
-            this.ClientSize = new System.Drawing.Size(371, 475);
+            this.ClientSize = new System.Drawing.Size(418, 520);
             this.ControlBox = false;
             this.Controls.Add(this.label4);
             this.Controls.Add(this.cmdGenerate);
@@ -374,5 +424,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button cmdGenerate;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button cmdRemove;
+        private System.Windows.Forms.Button cmdAdd;
+        private System.Windows.Forms.ListBox lstSelected;
+        private System.Windows.Forms.CheckBox chkIncludeAllSurveys;
     }
 }

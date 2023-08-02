@@ -20,7 +20,6 @@ namespace SDIFrontEnd
 {
     public partial class SurveyOverview : Form
     {
-        
         public SurveyOverview()
         {
             InitializeComponent();
@@ -28,13 +27,10 @@ namespace SDIFrontEnd
 
         private void SurveyOverview_Load(object sender, EventArgs e)
         {
-
-           
             cboSurvey.ValueMember = "SurveyCode";
             cboSurvey.DisplayMember = "SurveyCode";
             cboSurvey.DataSource =new List<Survey>( Globals.AllSurveys);
-            
-            
+            cboSurvey.SelectedItem = null;
         }
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -45,8 +41,11 @@ namespace SDIFrontEnd
 
         private void cmdGenerate_Click(object sender, EventArgs e)
         {
+            if (cboSurvey.SelectedItem == null)
+                return;
+
             SurveyReport SO = new SurveyReport();
-            ReportSurvey source = new ReportSurvey(DBAction.GetSurveyInfo(cboSurvey.GetItemText(cboSurvey.SelectedItem)));
+            ReportSurvey source = new ReportSurvey((Survey)cboSurvey.SelectedItem);
 
             source.AddQuestions(DBAction.GetSurveyQuestions(source));
             SO.Surveys.Add(source);

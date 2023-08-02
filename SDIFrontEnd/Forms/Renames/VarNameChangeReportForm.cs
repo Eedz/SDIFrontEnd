@@ -15,6 +15,10 @@ namespace SDIFrontEnd
 {
     public partial class VarNameChangeReportForm : Form
     {
+        private enum ReportScope { Survey, Wave }
+
+        ReportScope Scope { get; set; }
+
         public VarNameChangeReportForm()
         {
             InitializeComponent();
@@ -28,9 +32,7 @@ namespace SDIFrontEnd
             cboSurveyOrWave.ValueMember = "SID";
             cboSurveyOrWave.DataSource = new List<Survey>(Globals.AllSurveys);
             cboSurveyOrWave.SelectedItem = null;
-            chkIncludeWordings.Enabled = true;
-
-
+            Scope = ReportScope.Survey;
         }
 
         private void rbWave_Click(object sender, EventArgs e)
@@ -42,32 +44,39 @@ namespace SDIFrontEnd
             cboSurveyOrWave.SelectedItem = null;
             chkIncludeWordings.Enabled = false;
             chkIncludeWordings.Checked = false;
+            Scope = ReportScope.Wave;
+        }
+
+        private void cmdAdd_Click(object sender, EventArgs e)
+        {
+            if (cboSurveyOrWave.SelectedItem == null)
+                return;
+
+            if (!lstSelected.Items.Contains(cboSurveyOrWave.SelectedItem))
+                lstSelected.Items.Add(cboSurveyOrWave.SelectedItem);
+
+            chkIncludeWordings.Enabled = lstSelected.Items.Count == 1 && Scope == ReportScope.Survey;
+            chkIncludeWordings.Checked = false;
+        }
+
+        private void cmdRemove_Click(object sender, EventArgs e)
+        {
+            lstSelected.Items.Remove(lstSelected.SelectedItem);
+
+            chkIncludeWordings.Enabled = lstSelected.Items.Count == 1 && Scope == ReportScope.Survey;
+            chkIncludeWordings.Checked = false;
         }
 
         private void cmdGenerate_Click(object sender, EventArgs e)
         {
+            if (lstSelected.Items.Count == 0) return;
 
-            // get change records for survey/wave
-            List<VarNameChangeRecord> changes;
-            if (rbSurvey.Checked)
-            {
-                Survey s = (Survey)cboSurveyOrWave.SelectedItem;
-                changes = new List<VarNameChangeRecord>(DBAction.GetVarNameChangeBySurvey(s.SurveyCode));
-            }
-            else if (rbWave.Checked)
-            {
-                StudyWave w = (StudyWave)cboSurveyOrWave.SelectedItem;
-                changes = new List<VarNameChangeRecord>(DBAction.GetVarNameChanges(w, false));
+            GetReportDetails(out List<VarNameChangeRecord> changes, out string title);
+            
 
-            }
-            else
-                return;
+            DataTable data = CreateReportSource(changes);
 
-            DataTable data = CreateReportTable();
-
-            FillReportTable(data, changes);
-
-            DataTableReport rpt = new DataTableReport(data);
+            DataTableReport rpt = new DataTableReport(data, title);
             rpt.CreateReport();
         }
 
@@ -79,14 +88,48 @@ namespace SDIFrontEnd
         #endregion
 
         #region Methods
+
+        private void GetReportDetails (out List<VarNameChangeRecord> changes, out string title)
+        {
+            title = string.Empty;
+            changes = new List<VarNameChangeRecord>();
+            if (Scope == ReportScope.Survey)
+            {
+                foreach (Survey survey in lstSelected.Items)
+                {
+                    changes.AddRange(DBAction.GetVarNameChangeBySurvey(survey.SurveyCode));
+                }
+                title = "VarName Change Report - " + string.Join(", ", lstSelected.Items.Cast<Survey>().Select(x => x.SurveyCode));
+            }
+            else if (Scope == ReportScope.Wave)
+            {
+                foreach (StudyWave wave in lstSelected.Items)
+                {
+                    changes.AddRange(DBAction.GetVarNameChanges(wave, false));
+                }
+                title = "VarName Change Report - " + string.Join(", ", lstSelected.Items.Cast<StudyWave>().Select(x => x.WaveCode));
+            }
+
+            changes = changes.OrderBy(x => x.ChangeDate).ToList();
+        }
+
+        private DataTable CreateReportSource(List<VarNameChangeRecord> changes)
+        {
+            DataTable data = CreateReportTable();
+            FillReportTable(data, changes);
+
+            return data;
+        }
+
         private void FillReportTable(DataTable data, List<VarNameChangeRecord> changes)
         {
+            // get wordings if needed
             List<SurveyQuestion> referenceQs = new List<SurveyQuestion>();
             Survey s = new Survey();
             if (chkIncludeWordings.Checked)
             {
-                s = (Survey)cboSurveyOrWave.SelectedItem;
-                referenceQs = new List<SurveyQuestion>(DBAction.GetSurveyQuestions(s));
+                s = (Survey)lstSelected.Items[0];
+                referenceQs.AddRange(DBAction.GetSurveyQuestions(s));
             }
 
             DateTime? lowerBound;
@@ -118,8 +161,8 @@ namespace SDIFrontEnd
                 if (upperBound != null && change.ChangeDate > upperBound)
                     continue;
 
-
                 DataRow newrow = data.NewRow();
+
                 newrow["Old Name"] = change.OldName;
                 newrow["New Name"] = change.NewName;
 
@@ -137,17 +180,41 @@ namespace SDIFrontEnd
                         newrow["Wording (" + s.SurveyCode + ")"] = matchingQ.GetQuestionText();
                 }
 
-                newrow["Change Date"] = change.ChangeDate;
+                newrow["Change Date"] = change.ChangeDate.ToString("dd-MMM-yyyy");
                 newrow["Rationale"] = change.Rationale;
-                newrow["Surveys"] = change.GetSurveysAffected();
+
+                if (chkIncludeAllSurveys.Checked)
+                    newrow["Surveys"] = change.GetSurveysAffected();
+                else 
+                {
+                    newrow["Surveys"] = GetAffectedSurveysList(change);
+                }
                 data.Rows.Add(newrow);
+            }
+        }
+
+        private string GetAffectedSurveysList(VarNameChangeRecord change)
+        {
+            if (Scope == ReportScope.Survey)
+            {
+                List<Survey> surveys = lstSelected.Items.Cast<Survey>().ToList();
+                return string.Join(", ", change.SurveysAffected.Where(x => surveys.Any(y => y.SurveyCode.Equals(x.SurveyCode))).Select(x => x.SurveyCode));
+            }
+            else if (Scope == ReportScope.Wave)
+            {
+                List<StudyWave> waves = lstSelected.Items.Cast<StudyWave>().ToList();
+                List<Survey> surveys = waves.SelectMany(x => x.Surveys).ToList();
+                return string.Join(", ", change.SurveysAffected.Where(x => surveys.Any(y => y.SurveyCode.Equals(x.SurveyCode))).Select(x => x.SurveyCode));
+            }
+            else
+            {
+                return string.Empty;
             }
         }
 
         private DataTable CreateReportTable()
         {
             DataTable data = new DataTable();
-            //data.Columns.Add(new DataColumn("ID", Type.GetType("System.String")));
 
             if (rbBoth.Checked)
             {
@@ -171,7 +238,7 @@ namespace SDIFrontEnd
                 data.Columns.Add(new DataColumn("VarLabel", Type.GetType("System.String")));
             if (chkIncludeWordings.Checked)
             {
-                Survey s = (Survey)cboSurveyOrWave.SelectedItem;
+                Survey s = (Survey)lstSelected.Items[0];
                 data.Columns.Add(new DataColumn("Wording (" + s.SurveyCode + ")", Type.GetType("System.String")));
             }
 
@@ -180,10 +247,6 @@ namespace SDIFrontEnd
             data.Columns.Add(new DataColumn("Surveys", Type.GetType("System.String")));
             return data;
         }
-        #endregion
-
-
-
-
+        #endregion       
     }
 }
