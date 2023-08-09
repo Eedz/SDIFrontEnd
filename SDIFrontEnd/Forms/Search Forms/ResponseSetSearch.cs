@@ -96,6 +96,8 @@ namespace SDIFrontEnd
         {
             bool exactMatch = rbMatchExact.Checked;
 
+            
+
             if (field.Equals("RespOptions")) 
                 Records = DBAction.GetResponseSets(criteria, exactMatch);
             else if (field.Equals("NonRespOptions"))

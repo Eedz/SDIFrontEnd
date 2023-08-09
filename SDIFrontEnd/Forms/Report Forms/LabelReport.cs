@@ -206,7 +206,7 @@ namespace SDIFrontEnd
 
                 // varchanges (for appendix)
                 if (Report.VarChangesApp)
-                    rs.VarChanges = new List<VarNameChange>(DBAction.GetVarNameChangeBySurvey(rs.SurveyCode).Where(x => x.PreFWChange != Report.ExcludeTempChanges));
+                    rs.VarChanges = new List<VarNameChange>(DBAction.GetVarNameChanges(rs).Where(x => x.PreFWChange != Report.ExcludeTempChanges));
 
 
             }

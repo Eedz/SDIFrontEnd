@@ -179,7 +179,7 @@ namespace SDIFrontEnd
             dgvRefSurveys.Columns.Add(column3);
 
             // survey filter list
-            dgvSurveys.DataSource = DBAction.GetSurveyCheckSurveys();
+            dgvSurveys.DataSource = SurveyCheckRecords.Select(x => x.SurveyCode).ToList(); // DBAction.GetSurveyCheckSurveys();
 
             // combo boxes
             cboCheckType.DisplayMember = "CheckName";
@@ -471,7 +471,7 @@ namespace SDIFrontEnd
             }
 
             // refresh survey filter list in case a new survey was added
-            dgvSurveys.DataSource = DBAction.GetSurveyCheckSurveys();
+            dgvSurveys.DataSource = SurveyCheckRecords.Select(x => x.SurveyCode).ToList(); //DBAction.GetSurveyCheckSurveys();
                 
             SetRecordStatus("");
             return 0;

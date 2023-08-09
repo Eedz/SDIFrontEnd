@@ -44,7 +44,12 @@ namespace SDIFrontEnd
             cboVarNames.DisplayMember = "RefVarLabel";
             cboVarNames.SelectedItem = null;
 
-            lstPrefixes.DataSource = DBAction.GetVariablePrefixList();
+            var prefixes = unique.GroupBy(x => x.Prefix).Select(grp => grp.ToList()).ToList();
+            foreach (var grp in prefixes)
+            {
+                if (!string.IsNullOrEmpty(grp[0].Prefix) && !grp[0].Prefix.StartsWith("Z"))
+                    lstPrefixes.Items.Add(grp[0].Prefix);
+            }
 
             lstSelVar.Items.Clear();
             lstSelVar.DisplayMember = "RefVarLabel";
@@ -442,7 +447,7 @@ namespace SDIFrontEnd
 
             List<RefVariableName> vars = new List<RefVariableName>();
             foreach (string prefix in lstPrefixes.SelectedItems)
-                vars.AddRange(DBAction.GetRefVarNamesPrefix(prefix));
+                vars.AddRange(Globals.AllVarNames.Where(x => x.Prefix.Equals(prefix)).ToList()); // DBAction.GetRefVarNamesPrefix(prefix));
 
             foreach (RefVariableName s in vars)
                 lstSelVar.Items.Add(s);

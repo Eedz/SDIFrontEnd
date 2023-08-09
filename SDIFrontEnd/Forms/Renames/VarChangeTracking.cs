@@ -82,7 +82,7 @@ namespace SDIFrontEnd
             if (cboSurvey.SelectedItem == null)
                 return;
             Survey selected = (Survey)cboSurvey.SelectedItem;
-            LoadRecords(DBAction.GetVarNameChangeBySurvey(selected.SurveyCode));
+            LoadRecords(DBAction.GetVarNameChanges(selected));
         }
 
         private void VarChangeTracking_MouseWheel(object sender, MouseEventArgs e)

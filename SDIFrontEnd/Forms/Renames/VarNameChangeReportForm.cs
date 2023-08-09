@@ -32,6 +32,7 @@ namespace SDIFrontEnd
             cboSurveyOrWave.ValueMember = "SID";
             cboSurveyOrWave.DataSource = new List<Survey>(Globals.AllSurveys);
             cboSurveyOrWave.SelectedItem = null;
+            lstSelected.Items.Clear();
             Scope = ReportScope.Survey;
         }
 
@@ -44,6 +45,7 @@ namespace SDIFrontEnd
             cboSurveyOrWave.SelectedItem = null;
             chkIncludeWordings.Enabled = false;
             chkIncludeWordings.Checked = false;
+            lstSelected.Items.Clear();
             Scope = ReportScope.Wave;
         }
 
@@ -97,7 +99,7 @@ namespace SDIFrontEnd
             {
                 foreach (Survey survey in lstSelected.Items)
                 {
-                    changes.AddRange(DBAction.GetVarNameChangeBySurvey(survey.SurveyCode));
+                    changes.AddRange(DBAction.GetVarNameChanges(survey));
                 }
                 title = "VarName Change Report - " + string.Join(", ", lstSelected.Items.Cast<Survey>().Select(x => x.SurveyCode));
             }
@@ -105,7 +107,7 @@ namespace SDIFrontEnd
             {
                 foreach (StudyWave wave in lstSelected.Items)
                 {
-                    changes.AddRange(DBAction.GetVarNameChanges(wave, false));
+                    changes.AddRange(DBAction.GetVarNameChanges(wave));
                 }
                 title = "VarName Change Report - " + string.Join(", ", lstSelected.Items.Cast<StudyWave>().Select(x => x.WaveCode));
             }

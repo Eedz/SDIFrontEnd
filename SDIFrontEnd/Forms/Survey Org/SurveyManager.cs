@@ -117,9 +117,11 @@ namespace SDIFrontEnd
             txtFileName.DataBindings.Add("Text", bsCurrent, "WebName");
 
             Binding b = new Binding("Value", bsCurrent, "CreationDate", true, DataSourceUpdateMode.OnPropertyChanged);
-            dtpCreationDate.DataBindings.Add(b);
             b.Format += new ConvertEventHandler(dtp_Format);
             b.Parse += new ConvertEventHandler(dtp_Parse);
+
+            dtpCreationDate.DataBindings.Add(b);
+            
   
             chkNCT.DataBindings.Add("Checked", bsCurrent, "NCT");
             
@@ -389,7 +391,7 @@ namespace SDIFrontEnd
             {
                 if (CurrentRecord.Item.Locked)
                 {
-                    DBAction.UnlockSurvey(CurrentRecord.Item, 60 * 60000);
+                    DBAction.UnlockSurvey(CurrentRecord.Item.SurveyCode, 60 * 60000);
                 }
                 ToggleLocks(false);
             }

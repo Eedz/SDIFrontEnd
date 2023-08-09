@@ -36,7 +36,7 @@ namespace SDIFrontEnd
             DestinationSurvey = destinationSurvey;
             DestinationQnum = destinationQnum;
             RelatedQuestions = new List<VariableName>();
-            string tempPrefix = DBAction.GetTempPrefix(DestinationSurvey);
+            string tempPrefix = Globals.GetTempVarPrefix(DestinationSurvey);
 
             cboSurveySource.DataSource = new List<Survey>(Globals.AllSurveys);
             cboSurveySource.ValueMember = "SID";

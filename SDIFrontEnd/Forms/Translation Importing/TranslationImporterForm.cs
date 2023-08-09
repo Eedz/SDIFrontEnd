@@ -306,12 +306,12 @@ namespace SDIFrontEnd
         private void UnlockSurveys()
         {
             if (TypeOfImport == ImportType.Single)
-                DBAction.UnlockSurvey(TargetSurvey, 5 * 60000);
+                DBAction.UnlockSurvey(TargetSurvey.SurveyCode, 5 * 60000);
             else
             {
                 foreach (Survey s in TargetWave.Surveys)
                 {
-                    DBAction.UnlockSurvey(s, 5 * 60000);
+                    DBAction.UnlockSurvey(s.SurveyCode, 5 * 60000);
                 }
             }
         }

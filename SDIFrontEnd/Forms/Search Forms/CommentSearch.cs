@@ -68,6 +68,7 @@ namespace SDIFrontEnd
             bsDraftComments.DataSource = drComments;
 
             tabResults.TabPages.Remove(pageDrafts);
+            tabResults.TabPages.Remove(pageChangeComments);
 
             cboSurvey.DataSource = new List<Survey>(Globals.AllSurveys);
             cboSurvey.DisplayMember = "SurveyCode";
@@ -333,7 +334,7 @@ namespace SDIFrontEnd
             string varnameFilter = null;
             DateTime? dateLowerFilter = null;
             DateTime? dateUpperFilter = null;
-            int authorFilter = 0;
+            int? authorFilter = null;
             string sourceFilter = null;
             string commentFilter = null;
 
@@ -356,7 +357,7 @@ namespace SDIFrontEnd
             if (cboAuthor.SelectedItem != null)
                 authorFilter = (int)cboAuthor.SelectedValue;
             else
-                authorFilter = 0;
+                authorFilter = null;
 
             if (!string.IsNullOrEmpty(txtSource.Text))
                 sourceFilter = txtSource.Text;
@@ -377,7 +378,7 @@ namespace SDIFrontEnd
             wComments = GetWaveComments();
             dComments = GetDeletedComments();
             pComments = GetPraccingComments();
-            cComments = GetVarNameChangeComments();
+            //cComments = GetVarNameChangeComments();
 
             bsQuestionComments.DataSource = qComments;
             tabResults.TabPages["pageQuestionComments"].Text = "Var Comments (" + qComments.Count + ")";
@@ -399,9 +400,9 @@ namespace SDIFrontEnd
             tabResults.TabPages["pagePraccingComments"].Text = "Praccing Comments (" + pComments.Count + ")";
             dataRepeater5.DataSource = bsPraccingComments;
 
-            bsChangeComments.DataSource = cComments;
-            tabResults.TabPages["pageChangeComments"].Text = "VarName Change Comments (" + cComments.Count + ")";
-            dataRepeater6.DataSource = bsChangeComments;
+            //bsChangeComments.DataSource = cComments;
+            //tabResults.TabPages["pageChangeComments"].Text = "VarName Change Comments (" + cComments.Count + ")";
+            //dataRepeater6.DataSource = bsChangeComments;
         }
 
         private void BindProperties()
@@ -448,14 +449,14 @@ namespace SDIFrontEnd
             txtPAuthorTo.DataBindings.Add("Text", bsPraccingComments, "IssueTo");
             txtPComment.DataBindings.Add("Text", bsPraccingComments, "Description");
 
-            txtChangeSurvey.DataBindings.Add("Text", bsChangeComments, "SurveyList");
-            txtOldVarName.DataBindings.Add("Text", bsChangeComments, "OldName");
-            txtNewVarName.DataBindings.Add("Text", bsChangeComments, "NewName");
-            txtChangeDate.DataBindings.Add("Text", bsChangeComments, "ChangeDate");
-            txtChangedBy.DataBindings.Add("Text", bsChangeComments, "ChangedBy");
-            txtChangeReason.DataBindings.Add("Text", bsChangeComments, "Rationale");
-            txtChangeAuth.DataBindings.Add("Text", bsChangeComments, "Authorization");
-            txtChangeSource.DataBindings.Add("Text", bsChangeComments, "Source");
+            //txtChangeSurvey.DataBindings.Add("Text", bsChangeComments, "SurveyList");
+            //txtOldVarName.DataBindings.Add("Text", bsChangeComments, "OldName");
+            //txtNewVarName.DataBindings.Add("Text", bsChangeComments, "NewName");
+            //txtChangeDate.DataBindings.Add("Text", bsChangeComments, "ChangeDate");
+            //txtChangedBy.DataBindings.Add("Text", bsChangeComments, "ChangedBy");
+            //txtChangeReason.DataBindings.Add("Text", bsChangeComments, "Rationale");
+            //txtChangeAuth.DataBindings.Add("Text", bsChangeComments, "Authorization");
+            //txtChangeSource.DataBindings.Add("Text", bsChangeComments, "Source");
 
         }
 

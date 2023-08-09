@@ -36,8 +36,8 @@ namespace SDIFrontEnd
                 ListAllTempVars();
                 return;
             }
-            string survey = ((Survey)cboSurveyFilter.SelectedItem).SurveyCode;
-            ListTempVars(survey);
+            
+            ListTempVars((Survey)cboSurveyFilter.SelectedItem);
         }
 
         private void cmdClearFilter_Click(object sender, EventArgs e)
@@ -75,29 +75,22 @@ namespace SDIFrontEnd
 
         #region Methods
 
-        private void ListAllTempVars()
+        async private void ListAllTempVars()
         {
             List<VariableNameSurveys> list = new List<VariableNameSurveys>();
             foreach (string s in Globals.AllTempPrefixes)
-                list.AddRange(DBAction.GetVarNamesPrefix(s));
+                list.AddRange(await DBAction.GetVarNamesPrefixAsync(s));
 
             dgvTempVars.DataSource = list;
         }
 
-        private void ListTempVars(string survey)
+        async private void ListTempVars(Survey survey)
         {
             List<VariableNameSurveys> list = new List<VariableNameSurveys>();
-            string prefix = "";
-            foreach (Region r in Globals.AllRegions)
-                foreach (Study st in r.Studies)
-                    foreach (StudyWave w in st.Waves)
-                        foreach (Survey surv in w.Surveys)
-                            if (surv.SurveyCode.Equals(survey))
-                                prefix = r.TempVarPrefix;
-
-
+            string prefix = Globals.GetTempVarPrefix(survey);
+         
             if (!string.IsNullOrEmpty(prefix))
-                list.AddRange(DBAction.GetVarNamesPrefix(prefix));
+                list.AddRange(await DBAction.GetVarNamesPrefixAsync(prefix));
 
             dgvTempVars.DataSource = list;
         }
