@@ -132,6 +132,7 @@ namespace SDIFrontEnd
 
             // get the survey data for all chosen surveys
             PopulateSurveys();
+            Report.LayoutOptions.PaperSize = PaperSizes.Legal;
             Report.LayoutOptions.BlankColumn = true;
             Report.FileName = new UserPrefs().ReportPath;
 

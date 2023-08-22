@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
+using FM = FormManager;
 using ITCLib;
 
 namespace SDIFrontEnd
@@ -382,7 +384,6 @@ namespace SDIFrontEnd
             ColorControl(txtNRName);
 
             ColorControl(chkCorrected);
-            ColorControl(chkTableFormat);
             ColorControl(chkScriptOnly);
 
             ColorControl(txtVarType);
@@ -888,6 +889,16 @@ namespace SDIFrontEnd
                 }
             }
 
+        }
+
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void QuestionHistory_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            FM.FormManager.Remove(this);
         }
 
         private string GetWording(string wordingType, int wordingID, DateTime since)
