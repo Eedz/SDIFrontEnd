@@ -680,14 +680,14 @@ namespace SDIFrontEnd
 
         private void cmdOpenQuestionHistory_Click(object sender, EventArgs e)
         {
-            //if (FormManager.FormOpen("QuestionHistory"))
-            //{
-            //    tabControl1.SelectTab("QuestionHistory1");
-            //    return;
-            //}
-            //QuestionHistory.QuestionHistory frm = new QuestionHistory.QuestionHistory();
-            //frm.Tag = 1;
-            //FormManager.Add(frm);
+            if (FM.FormManager.FormOpen("QuestionHistory"))
+            {
+                tabControl1.SelectTab("QuestionHistory1");
+                return;
+            }
+            QuestionHistory frm = new QuestionHistory();
+            frm.Tag = 1;
+            FM.FormManager.Add(frm);
         }
 
         #endregion

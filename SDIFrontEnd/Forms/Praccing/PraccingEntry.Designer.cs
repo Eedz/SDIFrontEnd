@@ -58,6 +58,8 @@
             this.bindingNavigatorSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.picMain = new System.Windows.Forms.PictureBox();
             this.dataRepeater1 = new Microsoft.VisualBasic.PowerPacks.DataRepeater();
             this.lblImageCount = new System.Windows.Forms.Label();
@@ -254,7 +256,7 @@
             this.navMainIssues.MovePreviousItem = null;
             this.navMainIssues.Name = "navMainIssues";
             this.navMainIssues.PositionItem = this.bindingNavigatorPositionItem;
-            this.navMainIssues.Size = new System.Drawing.Size(1669, 25);
+            this.navMainIssues.Size = new System.Drawing.Size(1749, 25);
             this.navMainIssues.TabIndex = 15;
             this.navMainIssues.Text = "bindingNavigator1";
             // 
@@ -332,13 +334,14 @@
             // 
             // panelImages
             // 
+            this.panelImages.AutoScroll = true;
             this.panelImages.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelImages.Controls.Add(this.navMainImages);
             this.panelImages.Controls.Add(this.picMain);
             this.panelImages.Location = new System.Drawing.Point(1139, 271);
             this.panelImages.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panelImages.Name = "panelImages";
-            this.panelImages.Size = new System.Drawing.Size(459, 286);
+            this.panelImages.Size = new System.Drawing.Size(600, 286);
             this.panelImages.TabIndex = 16;
             // 
             // navMainImages
@@ -358,7 +361,9 @@
             this.bindingNavigatorMoveLastItem1,
             this.bindingNavigatorSeparator5,
             this.bindingNavigatorAddNewItem,
-            this.bindingNavigatorDeleteItem});
+            this.bindingNavigatorDeleteItem,
+            this.toolStripButton1,
+            this.toolStripButton2});
             this.navMainImages.Location = new System.Drawing.Point(0, 259);
             this.navMainImages.MoveFirstItem = this.bindingNavigatorMoveFirstItem1;
             this.navMainImages.MoveLastItem = this.bindingNavigatorMoveLastItem1;
@@ -366,7 +371,7 @@
             this.navMainImages.MovePreviousItem = this.bindingNavigatorMovePreviousItem1;
             this.navMainImages.Name = "navMainImages";
             this.navMainImages.PositionItem = this.bindingNavigatorPositionItem1;
-            this.navMainImages.Size = new System.Drawing.Size(457, 25);
+            this.navMainImages.Size = new System.Drawing.Size(598, 25);
             this.navMainImages.TabIndex = 1;
             this.navMainImages.Text = "bindingNavigator2";
             // 
@@ -458,17 +463,40 @@
             this.bindingNavigatorDeleteItem.Text = "Delete";
             this.bindingNavigatorDeleteItem.Click += new System.EventHandler(this.bindingNavigatorDeleteItem_Click);
             // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton1.Text = "toolStripButton1";
+            this.toolStripButton1.Visible = false;
+            // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton2.Text = "toolStripButton2";
+            this.toolStripButton2.Visible = false;
+            // 
             // picMain
             // 
             this.picMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.picMain.Location = new System.Drawing.Point(0, 0);
             this.picMain.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.picMain.Name = "picMain";
-            this.picMain.Size = new System.Drawing.Size(457, 284);
-            this.picMain.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picMain.Size = new System.Drawing.Size(598, 284);
+            this.picMain.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.picMain.TabIndex = 0;
             this.picMain.TabStop = false;
-            this.picMain.DoubleClick += new System.EventHandler(this.picMain_DoubleClick);
+            this.picMain.Paint += new System.Windows.Forms.PaintEventHandler(this.picMain_Paint);
+            this.picMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picMain_MouseDown);
+            this.picMain.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picMain_MouseMove);
+            this.picMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picMain_MouseUp);
             // 
             // dataRepeater1
             // 
@@ -783,7 +811,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1669, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1749, 24);
             this.menuStrip1.TabIndex = 22;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -1280,7 +1308,7 @@
             this.toolstripF});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1669, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(1749, 25);
             this.toolStrip1.TabIndex = 28;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -1357,10 +1385,14 @@
             this.picResponse.Location = new System.Drawing.Point(0, 0);
             this.picResponse.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.picResponse.Name = "picResponse";
-            this.picResponse.Size = new System.Drawing.Size(457, 272);
-            this.picResponse.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picResponse.Size = new System.Drawing.Size(596, 313);
+            this.picResponse.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.picResponse.TabIndex = 53;
             this.picResponse.TabStop = false;
+            this.picResponse.Paint += new System.Windows.Forms.PaintEventHandler(this.picMain_Paint);
+            this.picResponse.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picMain_MouseDown);
+            this.picResponse.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picMain_MouseMove);
+            this.picResponse.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picMain_MouseUp);
             // 
             // imageList1
             // 
@@ -1370,13 +1402,14 @@
             // 
             // panelResponseImages
             // 
+            this.panelResponseImages.AutoScroll = true;
             this.panelResponseImages.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelResponseImages.Controls.Add(this.navResponseImages);
             this.panelResponseImages.Controls.Add(this.picResponse);
             this.panelResponseImages.Location = new System.Drawing.Point(1139, 596);
             this.panelResponseImages.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panelResponseImages.Name = "panelResponseImages";
-            this.panelResponseImages.Size = new System.Drawing.Size(459, 274);
+            this.panelResponseImages.Size = new System.Drawing.Size(598, 315);
             this.panelResponseImages.TabIndex = 55;
             // 
             // navResponseImages
@@ -1397,14 +1430,14 @@
             this.bindingNavigatorSeparator8,
             this.bindingNavigatorAddNewItem1,
             this.bindingNavigatorDeleteItem1});
-            this.navResponseImages.Location = new System.Drawing.Point(0, 247);
+            this.navResponseImages.Location = new System.Drawing.Point(0, 288);
             this.navResponseImages.MoveFirstItem = this.bindingNavigatorMoveFirstItem2;
             this.navResponseImages.MoveLastItem = this.bindingNavigatorMoveLastItem2;
             this.navResponseImages.MoveNextItem = this.bindingNavigatorMoveNextItem2;
             this.navResponseImages.MovePreviousItem = this.bindingNavigatorMovePreviousItem2;
             this.navResponseImages.Name = "navResponseImages";
             this.navResponseImages.PositionItem = this.bindingNavigatorPositionItem2;
-            this.navResponseImages.Size = new System.Drawing.Size(457, 25);
+            this.navResponseImages.Size = new System.Drawing.Size(596, 25);
             this.navResponseImages.TabIndex = 54;
             this.navResponseImages.Text = "bindingNavigator2";
             // 
@@ -1522,7 +1555,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(232)))), ((int)(((byte)(160)))));
-            this.ClientSize = new System.Drawing.Size(1669, 1000);
+            this.ClientSize = new System.Drawing.Size(1749, 1000);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.panelResponseImages);
@@ -1701,5 +1734,7 @@
         private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem1;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton toolStripButton2;
     }
 }

@@ -34,9 +34,12 @@ namespace SDIFrontEnd
         string DBImageRepo = @"\\psychfile\psych$\psych-lab-gfong\SMG\Praccing Images";
 
         private bool Dirty { get; set; }
-        
-
         private bool NewRecord { get; set; }
+
+        // picture box panning properties
+        private Point startingPoint = Point.Empty;
+        private Point movingPoint = Point.Empty;
+        private bool panning = false;
 
         public PraccingEntry(int SurvID)
         {
@@ -76,7 +79,6 @@ namespace SDIFrontEnd
 
         private void BsMainIssues_PositionChanged(object sender, EventArgs e)
         {
-            
             RefreshCurrentIssue();
         }
 
@@ -84,8 +86,38 @@ namespace SDIFrontEnd
         {
             RefreshCurrentResponse();
         }
-
         #endregion
+
+        
+
+        void picMain_MouseDown(object sender, MouseEventArgs e)
+        {
+            panning = true;
+            startingPoint = new Point(e.Location.X - movingPoint.X, e.Location.Y - movingPoint.Y);
+        }
+
+        void picMain_MouseUp(object sender, MouseEventArgs e)
+        {
+            panning = false;
+        }
+
+        void picMain_MouseMove(object sender, MouseEventArgs e)
+        {
+            PictureBox picBox = (PictureBox)sender;
+            if (panning)
+            {
+                movingPoint = new Point(e.Location.X - startingPoint.X, e.Location.Y - startingPoint.Y);
+                picBox.Invalidate();
+            }
+        }
+
+        void picMain_Paint(object sender, PaintEventArgs e)
+        {
+            PictureBox picBox = (PictureBox)sender;
+            if (picBox.Image == null) return;
+            e.Graphics.Clear(Color.White);
+            e.Graphics.DrawImage(picBox.Image, movingPoint);
+        }
 
         #region Menu Events
 
@@ -159,7 +191,7 @@ namespace SDIFrontEnd
 
                     toAdd.Translations = DBAction.GetQuestionTranslations(id);
 
-                    toAdd.Comments = DBAction.GetQuesCommentsByQID(toAdd);
+                    toAdd.Comments = DBAction.GetQuesComments(toAdd);
                     questions.Add(toAdd);
                 }
             }
@@ -208,7 +240,7 @@ namespace SDIFrontEnd
                         toAdd.Translations = DBAction.GetQuestionTranslations(id);
 
                     if (c)
-                        toAdd.Comments = DBAction.GetQuesCommentsByQID(toAdd);
+                        toAdd.Comments = DBAction.GetQuesComments(toAdd);
 
                     questions.Add(toAdd);
                 }
@@ -633,12 +665,6 @@ namespace SDIFrontEnd
                 bsResponseImages.RemoveCurrent();
             }
         }
-
-        private void picMain_DoubleClick(object sender, EventArgs e)
-        {
-
-        }
-
         #endregion
 
 
@@ -834,7 +860,6 @@ namespace SDIFrontEnd
             
             RefreshCurrentIssue();
             UpdateSummary();
-
         }
 
         /// <summary>
@@ -863,7 +888,7 @@ namespace SDIFrontEnd
         private void RefreshCurrentIssue()
         {
             CurrentIssue = (PraccingIssue)bsMainIssues.Current;
-
+            movingPoint = new Point(0, 0);
             rtbDescription.Rtf = "";
             
             if (CurrentIssue == null)
@@ -888,12 +913,10 @@ namespace SDIFrontEnd
                 dtpResolvedDate.Checked = false;
             }
                 
-
             CurrentIssue.Responses.Sort((x, y) => x.ResponseDate.Value.CompareTo(y.ResponseDate));
 
             rtbDescription.Rtf = CurrentIssue.DescriptionRTF;
 
-          
             bsImages.DataSource = CurrentIssue.Images;
 
             bsResponses.DataSource = CurrentIssue.Responses;
@@ -901,7 +924,6 @@ namespace SDIFrontEnd
             dataRepeater1.DataSource = bsResponses;
 
             RefreshCurrentResponse();
-
         }
 
         private void RefreshCurrentResponse()
@@ -918,7 +940,6 @@ namespace SDIFrontEnd
             
             bsResponseImages.DataSource = CurrentResponse.Images;
             BindControl(picResponse, "ImageLocation", bsResponseImages, "Path");
-
         }
 
         /// <summary>
@@ -1246,6 +1267,6 @@ namespace SDIFrontEnd
             }
         }
 
-      
+        
     }
 }

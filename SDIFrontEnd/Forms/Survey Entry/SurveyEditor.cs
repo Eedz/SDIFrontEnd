@@ -14,24 +14,22 @@ using FM = FormManager;
 
 namespace SDIFrontEnd
 {
-    // keep a reference to the survey record
-    // keep a list of question records
+    /// <summary>
+    /// Form for adding, deleting and modifying questions in a survey.
+    /// </summary>
     public partial class SurveyEditor : Form
     {  
         // TODO delete documentation
         
         // TODO corrected form (on hold)
 
-        public Survey CurrentSurvey { get; set; }       // current survey record
-        public List<QuestionRecord> Records { get; set; }       // list of question records
-        public QuestionRecord CurrentRecord { get; set; }     // currently displayed question record 
+        public Survey CurrentSurvey { get; set; }           // current survey record
+        public List<QuestionRecord> Records { get; set; }   // list of question records
+        public QuestionRecord CurrentRecord { get; set; }   // currently displayed question record 
         
         BindingSource bs;
         BindingSource bsCurrent;
         
-        // reference to dragged item in Question List
-        private ListViewItem dragItem = null;
-
         // references to popup forms      
         WordingEntryForm frmWordings;
         RelatedQuestions frmRelated;
@@ -76,8 +74,6 @@ namespace SDIFrontEnd
 
             SetupBindingSources();
 
-            
-
             FillBoxes();
             BindProperties();
 
@@ -115,8 +111,6 @@ namespace SDIFrontEnd
             AddMouseWheelEvents();
 
             SetupBindingSources();
-
-            
 
             FillBoxes();
             BindProperties();
@@ -645,9 +639,20 @@ namespace SDIFrontEnd
 
         private void cboGoToVar_SelectedIndexChanged(object sender, EventArgs e)
         {
-            GoToQuestion(cboGoToVar.GetItemText(cboGoToVar.SelectedItem));
+            if (string.IsNullOrEmpty((string)cboGoToVar.SelectedItem))
+                return;
 
-            cboGoToVar.SelectedValue = "";
+            GoToQuestion((string)cboGoToVar.SelectedItem);
+            cboGoToVar.SelectedItem = null;
+        }
+
+        private void cboGoToVar_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                ComboBox cbo = (ComboBox)sender;
+                cbo.AddAndSelect((string)cbo.Text);
+            }
         }
 
         private void cmdSaveSurvey_Click(object sender, EventArgs e)
@@ -1063,10 +1068,9 @@ namespace SDIFrontEnd
             CurrentRecord = (QuestionRecord)bs.Current;
             
             // go to box
-            cboGoToVar.ValueMember = "refVarName";
-            cboGoToVar.DisplayMember = "refVarName";
-            cboGoToVar.DataSource = Records.Select(x => x.Item.VarName).OrderBy(x => x.RefVarName).ToList<VariableName>();
-            cboGoToVar.SelectedValue = "";
+            List<string> l = Records.Select(x => x.Item.VarName.RefVarName).OrderBy(x=>x).ToList();
+            cboGoToVar.Items.AddRange (l.ToArray<object>());
+            cboGoToVar.SelectedItem = string.Empty;
 
             toolStripLanguage.ComboBox.DataSource = RefreshLanguages();
             toolStripLanguage.ComboBox.DisplayMember = "SurvLanguage";
@@ -1493,7 +1497,10 @@ namespace SDIFrontEnd
                 }
             }
 
-            if (found) bs.Position = index;
+            if (found) bs.Position = index; else
+            {
+                MessageBox.Show(refVarName + " not found in this survey.");
+            }
         }
 
         private void GoToQnum(string qnum)
@@ -2202,7 +2209,6 @@ namespace SDIFrontEnd
 
             ViewTranslation(l.LanguageName);
         }
-
         #endregion
 
         #region Navigation buttons

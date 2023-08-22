@@ -91,6 +91,7 @@
             this.dgvVars.TabIndex = 0;
             this.dgvVars.VirtualMode = true;
             this.dgvVars.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvVars_DataError);
+  
             // 
             // menuStrip1
             // 

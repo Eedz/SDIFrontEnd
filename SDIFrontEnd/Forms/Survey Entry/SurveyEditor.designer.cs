@@ -180,7 +180,9 @@
             this.cboGoToVar.Size = new System.Drawing.Size(95, 24);
             this.cboGoToVar.TabIndex = 24;
             this.cboGoToVar.SelectedIndexChanged += new System.EventHandler(this.cboGoToVar_SelectedIndexChanged);
-                    // 
+
+            this.cboGoToVar.KeyUp += new System.Windows.Forms.KeyEventHandler(this.cboGoToVar_KeyUp);
+            // 
             // navQuestions
             // 
             this.navQuestions.AddNewItem = null;

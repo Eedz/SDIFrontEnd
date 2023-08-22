@@ -132,7 +132,7 @@ namespace SDIFrontEnd
 
             // get the survey data for all chosen surveys
             PopulateSurveys();
-
+            Report.LayoutOptions.BlankColumn = true;
             Report.FileName = new UserPrefs().ReportPath;
 
             result = Report.GenerateLabelReport();
@@ -178,7 +178,7 @@ namespace SDIFrontEnd
 
                 // survey notes
                 if (Report.SurvNotes)
-                    rs.SurveyNotes = DBAction.GetSurvCommentsBySurvey(rs);
+                    rs.SurveyNotes = DBAction.GetSurvComments(rs);
 
                 // comments
                 if (rs.CommentFields.Count > 0)

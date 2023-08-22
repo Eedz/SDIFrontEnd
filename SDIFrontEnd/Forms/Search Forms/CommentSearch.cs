@@ -73,14 +73,17 @@ namespace SDIFrontEnd
             cboSurvey.DataSource = new List<Survey>(Globals.AllSurveys);
             cboSurvey.DisplayMember = "SurveyCode";
             cboSurvey.ValueMember = "SID";
+            cboSurvey.SelectedItem = null;
 
             cboAuthor.DataSource = new List<Person>(Globals.AllPeople);
             cboAuthor.DisplayMember = "Name";
             cboAuthor.ValueMember = "ID";
+            cboAuthor.SelectedItem = null;
 
             cboType.DataSource = new List<CommentType>(Globals.AllCommentTypes);
             cboType.DisplayMember = "TypeName";
             cboType.ValueMember = "ID";
+            cboType.SelectedItem = null;
 
             BindProperties();
         }
@@ -93,7 +96,7 @@ namespace SDIFrontEnd
             string varnameFilter = null;
             DateTime? dateLowerFilter = null;
             DateTime? dateUpperFilter = null;
-            int authorFilter=0;
+            int? authorFilter=null;
             string typeFilter=null ;
             string sourceFilter=null;
             string commentFilter = null;
@@ -123,7 +126,7 @@ namespace SDIFrontEnd
             
 
             if (cboAuthor.SelectedItem != null)
-                authorFilter = (int)cboAuthor.SelectedValue ;
+                authorFilter = (int)cboAuthor.SelectedValue;
 
             if (!string.IsNullOrEmpty(txtSource.Text))
                 sourceFilter = txtSource.Text;
@@ -138,14 +141,13 @@ namespace SDIFrontEnd
 
         private List<SurveyComment> GetSurveyComments()
         {
-            List<SurveyComment> results = new List<SurveyComment>();
             string surveyFilter = null;
             DateTime? dateLowerFilter = null;
             DateTime? dateUpperFilter = null;
-            int authorFilter=0;
-            string typeFilter=null;
-            string sourceFilter=null;
-            string commentFilter = "";
+            int? authorFilter = null;
+            string typeFilter = null;
+            string sourceFilter = null;
+            string commentFilter = null;
 
             if (cboSurvey.SelectedItem != null)
                 surveyFilter = ((Survey)cboSurvey.SelectedItem).SurveyCode;
@@ -157,30 +159,18 @@ namespace SDIFrontEnd
                 dateUpperFilter = dtpUpper.Value;
 
             if (cboType.SelectedItem != null)
-            {
-                CommentType type = (CommentType)cboType.SelectedItem;
-                typeFilter = type.TypeName;
-            }
+                typeFilter = ((CommentType)cboType.SelectedItem).TypeName;
 
             if (cboAuthor.SelectedItem != null)
                 authorFilter =  (int)cboAuthor.SelectedValue ;
-            else
-                authorFilter = 0;
 
             if (!string.IsNullOrEmpty(txtSource.Text))
                 sourceFilter =  txtSource.Text ;
-            else
-                sourceFilter = null;
 
             if (!string.IsNullOrEmpty(txtComment.Text))
                 commentFilter = txtComment.Text;
-            else
-                commentFilter = null;
 
-
-            results = DBAction.GetSurveyComments(surveyFilter, typeFilter, dateLowerFilter, dateUpperFilter, authorFilter, sourceFilter, commentFilter);
-
-            return results;
+            return DBAction.GetSurveyComments(surveyFilter, typeFilter, dateLowerFilter, dateUpperFilter, authorFilter, sourceFilter, commentFilter);
         }
 
         private List<WaveComment> GetWaveComments()
@@ -189,10 +179,10 @@ namespace SDIFrontEnd
             string waveFilter = null;
             DateTime? dateLowerFilter = null;
             DateTime? dateUpperFilter = null;
-            int authorFilter = 0;
+            int? authorFilter = null;
             string typeFilter = null;
             string sourceFilter = null;
-            string commentFilter = "";
+            string commentFilter = null;
 
             if (cboSurvey.SelectedItem != null)
                 waveFilter = (Globals.AllWaves.Where(x=>x.ID  == ((Survey)cboSurvey.SelectedItem).WaveID).FirstOrDefault()).WaveCode;
@@ -204,26 +194,16 @@ namespace SDIFrontEnd
                 dateUpperFilter = dtpUpper.Value;
 
             if (cboType.SelectedItem != null)
-            {
-                CommentType type = (CommentType)cboType.SelectedItem;
-                typeFilter = type.TypeName;
-            }
+                typeFilter = ((CommentType)cboType.SelectedItem).TypeName;
 
             if (cboAuthor.SelectedItem != null)
                 authorFilter = (int)cboAuthor.SelectedValue;
-            else
-                authorFilter = 0;
 
             if (!string.IsNullOrEmpty(txtSource.Text))
                 sourceFilter = txtSource.Text;
-            else
-                sourceFilter = null;
 
             if (!string.IsNullOrEmpty(txtComment.Text))
                 commentFilter = txtComment.Text;
-            else
-                commentFilter = null;
-
 
             results = DBAction.GetWaveComments(waveFilter, typeFilter, dateLowerFilter, dateUpperFilter, authorFilter, sourceFilter, commentFilter);
 
@@ -238,7 +218,7 @@ namespace SDIFrontEnd
             string varnameFilter = null;
             DateTime? dateLowerFilter = null;
             DateTime? dateUpperFilter = null;
-            int authorFilter = 0;
+            int? authorFilter = null;
             string typeFilter = null;
             string sourceFilter = null;
             string commentFilter = null;
@@ -250,9 +230,7 @@ namespace SDIFrontEnd
             refvarname = optRefVarName.Checked;
 
             if (!string.IsNullOrEmpty(txtVarName.Text))
-            {
                 varnameFilter = txtVarName.Text;
-            }
 
             if (dtpLower.Checked)
                 dateLowerFilter = dtpLower.Value;
@@ -261,16 +239,10 @@ namespace SDIFrontEnd
                 dateUpperFilter = dtpUpper.Value;
 
             if (cboType.SelectedItem != null)
-            {
-                CommentType type = (CommentType)cboType.SelectedItem;
-                typeFilter = type.TypeName;
-            }
-
+                typeFilter = ((CommentType)cboType.SelectedItem).TypeName;
 
             if (cboAuthor.SelectedItem != null)
                 authorFilter = (int)cboAuthor.SelectedValue;
-            else
-                authorFilter = 0;
 
             if (!string.IsNullOrEmpty(txtSource.Text))
                 sourceFilter = txtSource.Text;

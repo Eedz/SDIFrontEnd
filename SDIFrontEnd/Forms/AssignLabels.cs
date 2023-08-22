@@ -13,6 +13,7 @@ using FM = FormManager;
 
 namespace SDIFrontEnd
 {
+    // try removing cache
     public partial class AssignLabels : Form
     {
         private ObjectCache<VariableNameSurveys> memoryCache;
@@ -24,6 +25,7 @@ namespace SDIFrontEnd
         // Declare a variable to store the index of a row being edited.
         // A value of -1 indicates that there is no row currently in edit.
         private int rowInEdit = -1;
+        private VariableName editedRowOldValue;
 
         public event EventHandler LabelAdded;
 
@@ -101,12 +103,14 @@ namespace SDIFrontEnd
         private void DgvVars_CellValuePushed(object sender, DataGridViewCellValueEventArgs e)
         {
             VariableName item = memoryCache.RetrieveRow(e.RowIndex);
+            
+            editedRowOldValue = new VariableName(item); // make a copy of the old values
 
             // Set the appropriate property to the cell value entered.
             switch (this.dgvVars.Columns[e.ColumnIndex].Name)
             {
                 case "VarLabel":
-                    String newValue = e.Value as String;
+                    string newValue = (string)e.Value;
                     item.VarLabel = newValue;
                     break;
                 case "Content":
@@ -139,18 +143,27 @@ namespace SDIFrontEnd
 
             if (e.RowIndex != rowInEdit)
                 return;
-
-            DBAction.UpdateLabels(item);
-
+            if (editedRowOldValue != null && (MessageBox.Show("Save changes?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes))
+            {
+                DBAction.UpdateLabels(item);
+            }
+            else
+            {
+                item.VarLabel = editedRowOldValue.VarLabel;
+                item.Domain = editedRowOldValue.Domain;
+                item.Topic = editedRowOldValue.Topic;
+                item.Content = editedRowOldValue.Content;
+                item.Product = editedRowOldValue.Product;
+            }
+            editedRowOldValue = null;
             rowInEdit = -1;
-
         }
 
         private void DgvVars_CancelRowEdit(object sender, QuestionEventArgs e)
         {
             // If the user has canceled the edit of an existing row,
             // release the corresponding Customer object.
-           // this.varNameEdit = null;
+            this.editedRowOldValue = null;
             this.rowInEdit = -1;
         }
 
@@ -166,7 +179,6 @@ namespace SDIFrontEnd
         private void AssignLabels_Load(object sender, EventArgs e)
         {
             FillList();
-            
 
             this.dgvVars.CellValuePushed += DgvVars_CellValuePushed;
             this.dgvVars.RowValidated += DgvVars_RowValidated;
@@ -316,8 +328,8 @@ namespace SDIFrontEnd
         {
             try
             {
-                int rowCount = 16;
-                if (source.Count < 16)
+                int rowCount = 25;
+                if (source.Count < 25)
                     rowCount = source.Count;
 
                 dgvVars.RowCount = 0;
@@ -642,6 +654,7 @@ namespace SDIFrontEnd
                 SetupWithObjects(filteredList);
             }
         }
+
         #endregion
 
         

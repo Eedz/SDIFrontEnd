@@ -62,6 +62,7 @@
             this.iSISHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pageMain = new System.Windows.Forms.TabPage();
+            this.cmdOpenVariableInfo = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.cmdPraccingForm = new System.Windows.Forms.Button();
             this.cmdOpenDraftReport = new System.Windows.Forms.Button();
@@ -87,18 +88,20 @@
             this.cmdOpenSurveyEditor4 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.cmdParallelQuestions = new System.Windows.Forms.Button();
+            this.cmdOpenPrefixList = new System.Windows.Forms.Button();
+            this.cmdOpenCommentUsage = new System.Windows.Forms.Button();
+            this.cmdOpenTCReport = new System.Windows.Forms.Button();
             this.cmdOpenVarChangesMenu = new System.Windows.Forms.Button();
             this.cmdOpenParallelVarReport = new System.Windows.Forms.Button();
             this.cmdExternalReportsMenu = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.cmdOpenCommentSearch = new System.Windows.Forms.Button();
             this.cmdOpenRespOptionSearch = new System.Windows.Forms.Button();
+            this.cmdOpenQuestionHistory = new System.Windows.Forms.Button();
             this.cmdOpenQuestionSearch = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.lblVarInfoHeading = new System.Windows.Forms.Label();
-            this.cmdOpenCommentUsage = new System.Windows.Forms.Button();
             this.cmdOpenSurveyChecks = new System.Windows.Forms.Button();
-            this.cmdOpenPrefixList = new System.Windows.Forms.Button();
             this.cmdOpenSurveyProcessing = new System.Windows.Forms.Button();
             this.cmdOpenStudyAttributes = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
@@ -106,11 +109,8 @@
             this.cmdOpenTranslationImporter = new System.Windows.Forms.Button();
             this.cmdOpenProductCrosstab = new System.Windows.Forms.Button();
             this.cmdOpenAssignLabelsJIT = new System.Windows.Forms.Button();
-            this.cmdOpenVariableInfo = new System.Windows.Forms.Button();
-            this.cmdOpenQuestionHistory = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.worker = new System.ComponentModel.BackgroundWorker();
-            this.cmdOpenTCReport = new System.Windows.Forms.Button();
             this.menuMainMenuStrip.SuspendLayout();
             this.pageMain.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -377,6 +377,7 @@
             // 
             this.pageMain.AutoScroll = true;
             this.pageMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(241)))), ((int)(((byte)(185)))));
+            this.pageMain.Controls.Add(this.cmdOpenVariableInfo);
             this.pageMain.Controls.Add(this.tableLayoutPanel2);
             this.pageMain.Controls.Add(this.panel1);
             this.pageMain.Controls.Add(this.lblBackupStatus);
@@ -386,7 +387,6 @@
             this.pageMain.Controls.Add(this.cmdOpenSurveyEditor5);
             this.pageMain.Controls.Add(this.cmdOpenSurveyEditor4);
             this.pageMain.Controls.Add(this.tableLayoutPanel1);
-            this.pageMain.Controls.Add(this.cmdOpenQuestionHistory);
             this.pageMain.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pageMain.Location = new System.Drawing.Point(4, 25);
             this.pageMain.Name = "pageMain";
@@ -394,6 +394,17 @@
             this.pageMain.Size = new System.Drawing.Size(1417, 717);
             this.pageMain.TabIndex = 0;
             this.pageMain.Text = "Main Menu";
+            // 
+            // cmdOpenVariableInfo
+            // 
+            this.cmdOpenVariableInfo.Enabled = false;
+            this.cmdOpenVariableInfo.Location = new System.Drawing.Point(1000, 288);
+            this.cmdOpenVariableInfo.Name = "cmdOpenVariableInfo";
+            this.cmdOpenVariableInfo.Size = new System.Drawing.Size(184, 29);
+            this.cmdOpenVariableInfo.TabIndex = 27;
+            this.cmdOpenVariableInfo.Text = "Variable Info";
+            this.cmdOpenVariableInfo.UseVisualStyleBackColor = true;
+            this.cmdOpenVariableInfo.Visible = false;
             // 
             // tableLayoutPanel2
             // 
@@ -692,20 +703,21 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 190F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 199F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 204F));
+            this.tableLayoutPanel1.Controls.Add(this.cmdParallelQuestions, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.cmdOpenPrefixList, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.cmdOpenCommentUsage, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.cmdOpenTCReport, 3, 5);
-            this.tableLayoutPanel1.Controls.Add(this.cmdParallelQuestions, 1, 6);
             this.tableLayoutPanel1.Controls.Add(this.cmdOpenVarChangesMenu, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.cmdOpenParallelVarReport, 3, 4);
             this.tableLayoutPanel1.Controls.Add(this.cmdExternalReportsMenu, 3, 1);
             this.tableLayoutPanel1.Controls.Add(this.label5, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.cmdOpenCommentSearch, 2, 3);
             this.tableLayoutPanel1.Controls.Add(this.cmdOpenRespOptionSearch, 2, 2);
+            this.tableLayoutPanel1.Controls.Add(this.cmdOpenQuestionHistory, 1, 6);
             this.tableLayoutPanel1.Controls.Add(this.cmdOpenQuestionSearch, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.label4, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.lblVarInfoHeading, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.cmdOpenCommentUsage, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.cmdOpenSurveyChecks, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.cmdOpenPrefixList, 1, 5);
             this.tableLayoutPanel1.Controls.Add(this.cmdOpenSurveyProcessing, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.cmdOpenStudyAttributes, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label7, 0, 0);
@@ -713,7 +725,6 @@
             this.tableLayoutPanel1.Controls.Add(this.cmdOpenTranslationImporter, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.cmdOpenProductCrosstab, 3, 3);
             this.tableLayoutPanel1.Controls.Add(this.cmdOpenAssignLabelsJIT, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.cmdOpenVariableInfo, 1, 3);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(20, 145);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 7;
@@ -724,19 +735,54 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(783, 252);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(783, 245);
             this.tableLayoutPanel1.TabIndex = 6;
             // 
             // cmdParallelQuestions
             // 
             this.cmdParallelQuestions.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cmdParallelQuestions.Location = new System.Drawing.Point(193, 213);
+            this.cmdParallelQuestions.Location = new System.Drawing.Point(193, 178);
             this.cmdParallelQuestions.Name = "cmdParallelQuestions";
-            this.cmdParallelQuestions.Size = new System.Drawing.Size(184, 36);
-            this.cmdParallelQuestions.TabIndex = 23;
+            this.cmdParallelQuestions.Size = new System.Drawing.Size(184, 29);
+            this.cmdParallelQuestions.TabIndex = 28;
             this.cmdParallelQuestions.Text = "Parallel Questions";
             this.cmdParallelQuestions.UseVisualStyleBackColor = true;
             this.cmdParallelQuestions.Click += new System.EventHandler(this.cmdParallelQuestions_Click);
+            // 
+            // cmdOpenPrefixList
+            // 
+            this.cmdOpenPrefixList.AutoSize = true;
+            this.cmdOpenPrefixList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cmdOpenPrefixList.Location = new System.Drawing.Point(193, 143);
+            this.cmdOpenPrefixList.Name = "cmdOpenPrefixList";
+            this.cmdOpenPrefixList.Size = new System.Drawing.Size(184, 29);
+            this.cmdOpenPrefixList.TabIndex = 30;
+            this.cmdOpenPrefixList.Text = "Prefix List";
+            this.cmdOpenPrefixList.UseVisualStyleBackColor = true;
+            this.cmdOpenPrefixList.Click += new System.EventHandler(this.cmdOpenPrefixList_Click);
+            // 
+            // cmdOpenCommentUsage
+            // 
+            this.cmdOpenCommentUsage.AutoSize = true;
+            this.cmdOpenCommentUsage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cmdOpenCommentUsage.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdOpenCommentUsage.Location = new System.Drawing.Point(193, 108);
+            this.cmdOpenCommentUsage.Name = "cmdOpenCommentUsage";
+            this.cmdOpenCommentUsage.Size = new System.Drawing.Size(184, 29);
+            this.cmdOpenCommentUsage.TabIndex = 28;
+            this.cmdOpenCommentUsage.Text = "Comments";
+            this.cmdOpenCommentUsage.UseVisualStyleBackColor = true;
+            this.cmdOpenCommentUsage.Click += new System.EventHandler(this.cmdOpenCommentUsage_Click);
+            // 
+            // cmdOpenTCReport
+            // 
+            this.cmdOpenTCReport.Location = new System.Drawing.Point(582, 178);
+            this.cmdOpenTCReport.Name = "cmdOpenTCReport";
+            this.cmdOpenTCReport.Size = new System.Drawing.Size(198, 29);
+            this.cmdOpenTCReport.TabIndex = 23;
+            this.cmdOpenTCReport.Text = "Topic/Content";
+            this.cmdOpenTCReport.UseVisualStyleBackColor = true;
+            this.cmdOpenTCReport.Click += new System.EventHandler(this.cmdOpenTCReport_Click);
             // 
             // cmdOpenVarChangesMenu
             // 
@@ -811,6 +857,18 @@
             this.cmdOpenRespOptionSearch.UseVisualStyleBackColor = true;
             this.cmdOpenRespOptionSearch.Click += new System.EventHandler(this.cmdOpenRespOptionSearch_Click);
             // 
+            // cmdOpenQuestionHistory
+            // 
+            this.cmdOpenQuestionHistory.AutoSize = true;
+            this.cmdOpenQuestionHistory.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cmdOpenQuestionHistory.Location = new System.Drawing.Point(193, 213);
+            this.cmdOpenQuestionHistory.Name = "cmdOpenQuestionHistory";
+            this.cmdOpenQuestionHistory.Size = new System.Drawing.Size(184, 29);
+            this.cmdOpenQuestionHistory.TabIndex = 19;
+            this.cmdOpenQuestionHistory.Text = "Question History";
+            this.cmdOpenQuestionHistory.UseVisualStyleBackColor = true;
+            this.cmdOpenQuestionHistory.Click += new System.EventHandler(this.cmdOpenQuestionHistory_Click);
+            // 
             // cmdOpenQuestionSearch
             // 
             this.cmdOpenQuestionSearch.AutoSize = true;
@@ -848,19 +906,6 @@
             this.lblVarInfoHeading.Text = "Variable Info";
             this.lblVarInfoHeading.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // cmdOpenCommentUsage
-            // 
-            this.cmdOpenCommentUsage.AutoSize = true;
-            this.cmdOpenCommentUsage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cmdOpenCommentUsage.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdOpenCommentUsage.Location = new System.Drawing.Point(193, 143);
-            this.cmdOpenCommentUsage.Name = "cmdOpenCommentUsage";
-            this.cmdOpenCommentUsage.Size = new System.Drawing.Size(184, 29);
-            this.cmdOpenCommentUsage.TabIndex = 8;
-            this.cmdOpenCommentUsage.Text = "Comments";
-            this.cmdOpenCommentUsage.UseVisualStyleBackColor = true;
-            this.cmdOpenCommentUsage.Click += new System.EventHandler(this.cmdOpenCommentUsage_Click);
-            // 
             // cmdOpenSurveyChecks
             // 
             this.cmdOpenSurveyChecks.AutoSize = true;
@@ -873,18 +918,6 @@
             this.cmdOpenSurveyChecks.Text = "Survey Checks";
             this.cmdOpenSurveyChecks.UseVisualStyleBackColor = true;
             this.cmdOpenSurveyChecks.Click += new System.EventHandler(this.cmdOpenSurveyChecks_Click);
-            // 
-            // cmdOpenPrefixList
-            // 
-            this.cmdOpenPrefixList.AutoSize = true;
-            this.cmdOpenPrefixList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cmdOpenPrefixList.Location = new System.Drawing.Point(193, 178);
-            this.cmdOpenPrefixList.Name = "cmdOpenPrefixList";
-            this.cmdOpenPrefixList.Size = new System.Drawing.Size(184, 29);
-            this.cmdOpenPrefixList.TabIndex = 29;
-            this.cmdOpenPrefixList.Text = "Prefix List";
-            this.cmdOpenPrefixList.UseVisualStyleBackColor = true;
-            this.cmdOpenPrefixList.Click += new System.EventHandler(this.cmdOpenPrefixList_Click);
             // 
             // cmdOpenSurveyProcessing
             // 
@@ -972,31 +1005,6 @@
             this.cmdOpenAssignLabelsJIT.UseVisualStyleBackColor = true;
             this.cmdOpenAssignLabelsJIT.Click += new System.EventHandler(this.cmdOpenAssignLabelsJIT_Click);
             // 
-            // cmdOpenVariableInfo
-            // 
-            this.cmdOpenVariableInfo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cmdOpenVariableInfo.Enabled = false;
-            this.cmdOpenVariableInfo.Location = new System.Drawing.Point(193, 108);
-            this.cmdOpenVariableInfo.Name = "cmdOpenVariableInfo";
-            this.cmdOpenVariableInfo.Size = new System.Drawing.Size(184, 29);
-            this.cmdOpenVariableInfo.TabIndex = 26;
-            this.cmdOpenVariableInfo.Text = "Variable Info";
-            this.cmdOpenVariableInfo.UseVisualStyleBackColor = true;
-            this.cmdOpenVariableInfo.Click += new System.EventHandler(this.cmdOpenVariableInfo_Click);
-            // 
-            // cmdOpenQuestionHistory
-            // 
-            this.cmdOpenQuestionHistory.AutoSize = true;
-            this.cmdOpenQuestionHistory.Enabled = false;
-            this.cmdOpenQuestionHistory.Location = new System.Drawing.Point(1016, 361);
-            this.cmdOpenQuestionHistory.Name = "cmdOpenQuestionHistory";
-            this.cmdOpenQuestionHistory.Size = new System.Drawing.Size(184, 36);
-            this.cmdOpenQuestionHistory.TabIndex = 19;
-            this.cmdOpenQuestionHistory.Text = "Question History";
-            this.cmdOpenQuestionHistory.UseVisualStyleBackColor = true;
-            this.cmdOpenQuestionHistory.Visible = false;
-            this.cmdOpenQuestionHistory.Click += new System.EventHandler(this.cmdOpenQuestionHistory_Click);
-            // 
             // tabControl1
             // 
             this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -1015,16 +1023,6 @@
             // worker
             // 
             this.worker.WorkerSupportsCancellation = true;
-            // 
-            // cmdOpenTCReport
-            // 
-            this.cmdOpenTCReport.Location = new System.Drawing.Point(582, 178);
-            this.cmdOpenTCReport.Name = "cmdOpenTCReport";
-            this.cmdOpenTCReport.Size = new System.Drawing.Size(198, 29);
-            this.cmdOpenTCReport.TabIndex = 23;
-            this.cmdOpenTCReport.Text = "Topic/Content";
-            this.cmdOpenTCReport.UseVisualStyleBackColor = true;
-            this.cmdOpenTCReport.Click += new System.EventHandler(this.cmdOpenTCReport_Click);
             // 
             // MainMenu
             // 
@@ -1074,7 +1072,6 @@
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem iSISHelpToolStripMenuItem;
-        private System.Windows.Forms.Button cmdOpenCommentUsage;
         private System.Windows.Forms.Button cmdOpenSurveyChecks;
         private System.Windows.Forms.Button cmdOpenSurveyEditor;
         private System.Windows.Forms.Label label2;
@@ -1100,11 +1097,9 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem alternativeSpellingsToolStripMenuItem;
-        private System.Windows.Forms.Button cmdOpenVariableInfo;
         private System.Windows.Forms.ToolStripMenuItem canonicalVarsToolStripMenuItem;
         private System.Windows.Forms.Button cmdExternalReportsMenu;
         private System.Windows.Forms.Button cmdOpenHarmonyReport;
-        private System.Windows.Forms.Button cmdOpenPrefixList;
         private System.Windows.Forms.Button cmdOpenProductCrosstab;
         private System.Windows.Forms.Button cmdOpenAssignLabelsJIT;
         private System.Windows.Forms.Label label8;
@@ -1136,8 +1131,11 @@
         private System.Windows.Forms.ToolStripMenuItem viewTempToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewOrphansToolStripMenuItem;
         private System.ComponentModel.BackgroundWorker worker;
-        private System.Windows.Forms.Button cmdParallelQuestions;
         private System.Windows.Forms.Button cmdOpenTCReport;
+        private System.Windows.Forms.Button cmdOpenVariableInfo;
+        private System.Windows.Forms.Button cmdParallelQuestions;
+        private System.Windows.Forms.Button cmdOpenPrefixList;
+        private System.Windows.Forms.Button cmdOpenCommentUsage;
     }
 }
 
