@@ -14,10 +14,6 @@ namespace SDIFrontEnd
     {
         List<Region> Records;
        
-        bool rowEdited;
-        BindingSource bs;
-        BindingSource bsCurrent;
-
         Region editedRegion;
         int regionRow = -1;
         bool rowCommit = true;
@@ -27,15 +23,7 @@ namespace SDIFrontEnd
             InitializeComponent();
             Records = list.Select(x=>x.Item).ToList();
 
-            SetupBindingSources();
-
             SetupGrid();
-        }
-
-        private void SetupBindingSources()
-        {
-            bs = new BindingSource();
-            bs.DataSource = Records;            
         }
 
         private void SetupGrid()
