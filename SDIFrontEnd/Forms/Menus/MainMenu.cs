@@ -109,6 +109,12 @@ namespace SDIFrontEnd
             }
         }
 
+        private void MainMenu_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            worker.CancelAsync();
+            Application.Exit();
+        }
+
         private void tabControl1_TabIndexChanged(object sender, EventArgs e)
         {
             TabControl t = (TabControl)sender;
@@ -276,35 +282,7 @@ namespace SDIFrontEnd
 
         private void viewOrphansToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form newfrm = new Form();
-
-            DataGridView dgv = new DataGridView();
-            newfrm.Controls.Add(dgv);
-
-            dgv.Dock = DockStyle.Fill;
-            dgv.DataSource = DBAction.GetOrphanVarNames();
-
-
-
-            for (int i = 0; i < dgv.ColumnCount; i++)
-            {
-                switch (dgv.Columns[i].Name)
-                {
-                    case "ID":
-                    case "CountryCode":
-                    case "StandardForm":
-                    case "Prefix":
-                    case "Number":
-                    case "Suffix":
-                        dgv.Columns[i].Visible = false;
-                        break;
-                }
-            }
-            newfrm.FormBorderStyle = FormBorderStyle.FixedSingle;
-            newfrm.Width = 900;
-            newfrm.Height = 600;
-
-            newfrm.Show();
+            OpenOrphanVarForm();
         }
 
         #region Tools
@@ -1063,12 +1041,70 @@ namespace SDIFrontEnd
 
         }
 
-        private void MainMenu_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            worker.CancelAsync();
-            Application.Exit();
-        }
-
         
+
+        private void OpenOrphanVarForm()
+        {
+            Form newfrm = new Form();
+            newfrm.Text = "Orphan Variables";
+
+            DataGridView dgv = new DataGridView();
+            newfrm.Controls.Add(dgv);
+
+            dgv.Dock = DockStyle.Fill;
+            dgv.RowHeadersVisible = false;
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dgv.AutoGenerateColumns = false;
+
+            DataGridViewTextBoxColumn chVarName = new DataGridViewTextBoxColumn();
+            chVarName.HeaderText = "VarName";
+            chVarName.DataPropertyName = "VarName";
+            DataGridViewTextBoxColumn chVarLabel = new DataGridViewTextBoxColumn();
+            chVarLabel.HeaderText = "VarLabel";
+            chVarLabel.DataPropertyName = "VarLabel";
+            DataGridViewTextBoxColumn chContent = new DataGridViewTextBoxColumn();
+            chContent.HeaderText = "Content";
+            chContent.DataPropertyName = "Content";
+            DataGridViewTextBoxColumn chTopic = new DataGridViewTextBoxColumn();
+            chTopic.HeaderText = "Topic";
+            chTopic.DataPropertyName = "Topic";
+            DataGridViewTextBoxColumn chDomain = new DataGridViewTextBoxColumn();
+            chDomain.HeaderText = "Domain";
+            chDomain.DataPropertyName = "Domain";
+            DataGridViewTextBoxColumn chProduct = new DataGridViewTextBoxColumn();
+            chProduct.HeaderText = "Product";
+            chProduct.DataPropertyName = "Product";
+
+            dgv.Columns.Add(chVarName);
+            dgv.Columns.Add(chVarLabel);
+            dgv.Columns.Add(chContent);
+            dgv.Columns.Add(chTopic);
+            dgv.Columns.Add(chDomain);
+            dgv.Columns.Add(chProduct);
+
+            dgv.DataSource = DBAction.GetOrphanVarNames();
+
+            for (int i = 0; i < dgv.ColumnCount; i++)
+            {
+                switch (dgv.Columns[i].Name)
+                {
+                    case "ID":
+                    case "CountryCode":
+                    case "StandardForm":
+                    case "Prefix":
+                    case "Number":
+                    case "Suffix":
+                    case "RefVarLabel":
+                    case "RefVarName":
+                        dgv.Columns[i].Visible = false;
+                        break;
+                }
+            }
+            newfrm.FormBorderStyle = FormBorderStyle.FixedSingle;
+            newfrm.Width = 900;
+            newfrm.Height = 600;
+
+            newfrm.Show();
+        }
     }
 }

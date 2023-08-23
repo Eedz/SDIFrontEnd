@@ -30,6 +30,13 @@
         {
             this.cboSurveyFilter = new System.Windows.Forms.ComboBox();
             this.dgvTempVars = new System.Windows.Forms.DataGridView();
+            this.chSurveyList = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chVarName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chVarLabel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chContent = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chTopic = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chDomain = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chProduct = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label1 = new System.Windows.Forms.Label();
             this.cmdClearFilter = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -53,14 +60,72 @@
             // 
             this.dgvTempVars.AllowUserToAddRows = false;
             this.dgvTempVars.AllowUserToDeleteRows = false;
+            this.dgvTempVars.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvTempVars.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvTempVars.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.chSurveyList,
+            this.chVarName,
+            this.chVarLabel,
+            this.chContent,
+            this.chTopic,
+            this.chDomain,
+            this.chProduct});
             this.dgvTempVars.Location = new System.Drawing.Point(13, 64);
             this.dgvTempVars.Margin = new System.Windows.Forms.Padding(4);
             this.dgvTempVars.Name = "dgvTempVars";
             this.dgvTempVars.ReadOnly = true;
-            this.dgvTempVars.Size = new System.Drawing.Size(1024, 501);
+            this.dgvTempVars.RowHeadersVisible = false;
+            this.dgvTempVars.Size = new System.Drawing.Size(1410, 565);
             this.dgvTempVars.TabIndex = 1;
-            this.dgvTempVars.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvTempVars_DataBindingComplete);
+            // 
+            // chSurveyList
+            // 
+            this.chSurveyList.HeaderText = "Surveys";
+            this.chSurveyList.Name = "chSurveyList";
+            this.chSurveyList.ReadOnly = true;
+            this.chSurveyList.Width = 85;
+            // 
+            // chVarName
+            // 
+            this.chVarName.HeaderText = "VarName";
+            this.chVarName.Name = "chVarName";
+            this.chVarName.ReadOnly = true;
+            this.chVarName.Width = 94;
+            // 
+            // chVarLabel
+            // 
+            this.chVarLabel.HeaderText = "VarLabel";
+            this.chVarLabel.Name = "chVarLabel";
+            this.chVarLabel.ReadOnly = true;
+            this.chVarLabel.Width = 88;
+            // 
+            // chContent
+            // 
+            this.chContent.HeaderText = "Content";
+            this.chContent.Name = "chContent";
+            this.chContent.ReadOnly = true;
+            this.chContent.Width = 84;
+            // 
+            // chTopic
+            // 
+            this.chTopic.HeaderText = "Topic";
+            this.chTopic.Name = "chTopic";
+            this.chTopic.ReadOnly = true;
+            this.chTopic.Width = 68;
+            // 
+            // chDomain
+            // 
+            this.chDomain.HeaderText = "Domain";
+            this.chDomain.Name = "chDomain";
+            this.chDomain.ReadOnly = true;
+            this.chDomain.Width = 82;
+            // 
+            // chProduct
+            // 
+            this.chProduct.HeaderText = "Product";
+            this.chProduct.Name = "chProduct";
+            this.chProduct.ReadOnly = true;
+            this.chProduct.Width = 82;
             // 
             // label1
             // 
@@ -88,7 +153,7 @@
             this.closeToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1067, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1436, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -103,7 +168,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1067, 623);
+            this.ClientSize = new System.Drawing.Size(1436, 642);
             this.Controls.Add(this.cmdClearFilter);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dgvTempVars);
@@ -131,5 +196,12 @@
         private System.Windows.Forms.Button cmdClearFilter;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
+        private System.Windows.Forms.DataGridViewTextBoxColumn chSurveyList;
+        private System.Windows.Forms.DataGridViewTextBoxColumn chVarName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn chVarLabel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn chContent;
+        private System.Windows.Forms.DataGridViewTextBoxColumn chTopic;
+        private System.Windows.Forms.DataGridViewTextBoxColumn chDomain;
+        private System.Windows.Forms.DataGridViewTextBoxColumn chProduct;
     }
 }

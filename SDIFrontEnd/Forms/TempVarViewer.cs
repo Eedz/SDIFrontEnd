@@ -24,8 +24,17 @@ namespace SDIFrontEnd
             cboSurveyFilter.SelectedItem = null;
             cboSurveyFilter.SelectedIndexChanged += cboSurveyFilter_SelectedIndexChanged; ;
 
+            dgvTempVars.AutoGenerateColumns = false;
+
+            chSurveyList.DataPropertyName = "SurveyList";
+            chVarName.DataPropertyName = "VarName";
+            chVarLabel.DataPropertyName = "VarLabel";
+            chContent.DataPropertyName = "Content";
+            chTopic.DataPropertyName = "Topic";
+            chDomain.DataPropertyName = "Domain";
+            chProduct.DataPropertyName = "Product";
+
             ListAllTempVars();
-            
         }
 
         #region Events 
@@ -44,26 +53,6 @@ namespace SDIFrontEnd
         {
             cboSurveyFilter.SelectedItem = null;
             ListAllTempVars();
-        }
-
-        private void dgvTempVars_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
-        {
-            DataGridView grid = (DataGridView)sender;
-            for (int i = 0; i < grid.ColumnCount; i++)
-            {
-                switch (grid.Columns[i].Name)
-                {
-                    case "ID":
-                    case "CountryCode":
-                    case "StandardForm":
-                    case "Prefix":
-                    case "Number":
-                    case "Suffix":
-                        grid.Columns[i].Visible = false;
-                        break;
-                }
-            }
-            grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
