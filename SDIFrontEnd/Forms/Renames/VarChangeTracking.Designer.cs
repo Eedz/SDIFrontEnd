@@ -370,10 +370,9 @@
             this.dgvNotifications.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvNotifications.Size = new System.Drawing.Size(246, 344);
             this.dgvNotifications.TabIndex = 9;
-            this.dgvNotifications.CellValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvNotifications_CellValidated);
-            this.dgvNotifications.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvNotifications_DataError);
-            this.dgvNotifications.RowValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvNotifications_RowValidated);
-            this.dgvNotifications.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvNotifications_UserDeletingRow);
+            this.dgvNotifications.VirtualMode = true;
+
+
             // 
             // chNotifyName
             // 
@@ -398,10 +397,7 @@
             this.dgvSurveys.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvSurveys.Size = new System.Drawing.Size(130, 344);
             this.dgvSurveys.TabIndex = 8;
-            this.dgvSurveys.CellValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSurveys_CellValidated);
-            this.dgvSurveys.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvSurveys_DataError);
-            this.dgvSurveys.RowValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSurveys_RowValidated);
-            this.dgvSurveys.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvSurveys_UserDeletingRow);
+            this.dgvSurveys.VirtualMode = true;
             // 
             // chSurvey
             // 

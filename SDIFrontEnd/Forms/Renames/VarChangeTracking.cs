@@ -18,10 +18,16 @@ namespace SDIFrontEnd
         VarNameChangeRecord CurrentRecord;
 
         BindingSource bs;
-        BindingSource bsNotify;
-        BindingSource bsSurveys;
 
         bool SaveAll = false; // indicates if all records should be saved when closing
+
+        VarNameChangeSurveyRecord editedSurvey;
+        int surveyRow = -1;
+
+        VarNameChangeNotificationRecord editedNotify;
+        int notifyRow = -1;
+
+        bool rowCommit = true;
 
         public VarChangeTracking()
         {
@@ -34,15 +40,26 @@ namespace SDIFrontEnd
             bs.DataSource = Records;
             bs.PositionChanged += Bs_PositionChanged;
             bs.ListChanged += Bs_ListChanged;
-            bsNotify = new BindingSource();
-            bsNotify.DataSource = bs;
-            bsNotify.DataMember = "Notifications";
-
-            bsSurveys = new BindingSource();
-            bsSurveys.DataSource = bs;
-            bsSurveys.DataMember = "SurveysAffected";
 
             this.MouseWheel += VarChangeTracking_MouseWheel;
+
+            dgvSurveys.CellValueNeeded += dgvSurveys_CellValueNeeded;
+            dgvSurveys.NewRowNeeded += dgvSurveys_NewRowNeeded;
+            dgvSurveys.CellValuePushed += dgvSurveys_CellValuePushed;
+            dgvSurveys.RowValidated += dgvSurveys_RowValidated;
+            dgvSurveys.RowDirtyStateNeeded += dgvSurveys_RowDirtyStateNeeded;
+            dgvSurveys.CancelRowEdit += dgvSurveys_CancelRowEdit;
+            dgvSurveys.UserDeletingRow += dgvSurveys_UserDeletingRow;
+            dgvSurveys.DataError += dgvSurveys_DataError;
+
+            dgvNotifications.CellValueNeeded += dgvNotifications_CellValueNeeded;
+            dgvNotifications.NewRowNeeded += dgvNotifications_NewRowNeeded;
+            dgvNotifications.CellValuePushed += dgvNotifications_CellValuePushed;
+            dgvNotifications.RowValidated += dgvNotifications_RowValidated;
+            dgvNotifications.RowDirtyStateNeeded += dgvNotifications_RowDirtyStateNeeded;
+            dgvNotifications.CancelRowEdit += dgvNotifications_CancelRowEdit;
+            dgvNotifications.UserDeletingRow += dgvNotifications_UserDeletingRow;
+            dgvNotifications.DataError += dgvNotifications_DataError;
 
             BindProperties();
         }
@@ -65,7 +82,7 @@ namespace SDIFrontEnd
 
         private void Bs_PositionChanged(object sender, EventArgs e)
         {
-            CurrentRecord = (VarNameChangeRecord)bs.Current;
+            RefreshCurrentRecord();
         }
 
         private void Bs_ListChanged(object sender, ListChangedEventArgs e)
@@ -83,6 +100,7 @@ namespace SDIFrontEnd
                 return;
             Survey selected = (Survey)cboSurvey.SelectedItem;
             LoadRecords(DBAction.GetVarNameChanges(selected));
+            RefreshCurrentRecord();
         }
 
         private void VarChangeTracking_MouseWheel(object sender, MouseEventArgs e)
@@ -137,41 +155,167 @@ namespace SDIFrontEnd
         }
 
         #region Surveys Affected Grid
-
-        private void dgvSurveys_CellValidated(object sender, DataGridViewCellEventArgs e)
+        
+        
+        private void dgvSurveys_NewRowNeeded(object sender, DataGridViewRowEventArgs e)
         {
             DataGridView dgv = (DataGridView)sender;
-            VarNameChangeSurveyRecord record = (VarNameChangeSurveyRecord)dgv.Rows[e.RowIndex].DataBoundItem;
-            if (dgv.IsCurrentRowDirty)
-                record.Dirty = true;
+            // Create a new object when the user edits the row for new records.
+            this.editedSurvey = new VarNameChangeSurveyRecord();
+            this.surveyRow = dgv.Rows.Count - 1;
+        }
+
+        private void dgvSurveys_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+
+            // If this is the row for new records, no values are needed.
+            if (e.RowIndex == dgv.RowCount - 1) return;
+            // If the current record has no items, no values are needed.
+            if (CurrentRecord.SurveysAffected.Count == 0) return;
+
+            VarNameChangeSurveyRecord tmp;
+
+            // Store a reference to the object for the row being painted.
+            if (e.RowIndex == surveyRow)
+            {
+                tmp = editedSurvey;
+            }
+            else
+            {
+                tmp = CurrentRecord.SurveysAffected[e.RowIndex];
+            }
+
+            if (tmp == null) return;
+
+            // Set the cell value to paint using the object retrieved.
+            switch (dgv.Columns[e.ColumnIndex].Name)
+            {
+                case "chSurvey":
+                    e.Value = tmp.SurvID;
+                    break;
+            }
+        }
+
+        private void dgvSurveys_CellValuePushed(object sender, DataGridViewCellValueEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+
+            VarNameChangeSurveyRecord tmp;
+            // Store a reference to the object for the row being edited.
+            if (e.RowIndex < CurrentRecord.SurveysAffected.Count)
+            {
+                // If the user is editing a row, create a new object.
+                if (editedSurvey == null)
+                    editedSurvey = new VarNameChangeSurveyRecord()
+                    {
+                        ID = CurrentRecord.SurveysAffected[e.RowIndex].ID,
+                        SurveyCode = CurrentRecord.SurveysAffected[e.RowIndex].SurveyCode,
+                        SurvID = CurrentRecord.SurveysAffected[e.RowIndex].SurvID,
+                        ChangeID = CurrentRecord.SurveysAffected[e.RowIndex].ChangeID
+                    };
+
+                tmp = this.editedSurvey;
+                this.surveyRow = e.RowIndex;
+            }
+            else
+            {
+                tmp = this.editedSurvey;
+            }
+
+            // Set the appropriate property to the cell value entered.
+            switch (dgv.Columns[e.ColumnIndex].Name)
+            {
+                case "chSurvey":
+                    VarNameChangeSurveyRecord newValue = new VarNameChangeSurveyRecord();
+
+                    tmp.ID = newValue.ID;
+                    tmp.ChangeID = CurrentRecord.ID;
+                    tmp.SurvID = (int)e.Value;
+                    break;
+
+            }
         }
 
         private void dgvSurveys_RowValidated(object sender, DataGridViewCellEventArgs e)
         {
             DataGridView dgv = (DataGridView)sender;
-            VarNameChangeSurveyRecord record = (VarNameChangeSurveyRecord)dgv.Rows[e.RowIndex].DataBoundItem;
-            if (record == null)
-                return;
-            if (record.NewRecord)
-            {
-                record.ChangeID = CurrentRecord.ID;
-            }
 
-            record.SurvID = (int)dgv.Rows[e.RowIndex].Cells[0].Value;
-            record.SurveyCode = (string)dgv.Rows[e.RowIndex].Cells[0].EditedFormattedValue;
-            record.SaveRecord();
+            // Save row changes if any were made and release the edited object if there is one.
+            if (editedSurvey != null && e.RowIndex >= CurrentRecord.SurveysAffected.Count && e.RowIndex != dgv.Rows.Count - 1)
+            {
+                // Add the new object to the data store.
+                CurrentRecord.SurveysAffected.Add(editedSurvey);
+                DBAction.InsertVarNameChangeSurvey(editedSurvey);
+
+                editedSurvey = null;
+                surveyRow = -1;
+            }
+            else if (editedSurvey != null && e.RowIndex < CurrentRecord.SurveysAffected.Count)
+            {
+                // ignore edits
+                editedSurvey = null;
+                surveyRow = -1;
+            }
+            else if (dgv.ContainsFocus)
+            {
+                editedSurvey = null;
+                surveyRow = -1;
+            }
+        }
+
+        private void dgvSurveys_RowDirtyStateNeeded(object sender, QuestionEventArgs e)
+        {
+            if (!rowCommit)
+            {
+                DataGridView dgv = (DataGridView)sender;
+                // In cell-level commit scope, indicate whether the value of the current cell has been modified.
+                e.Response = dgv.IsCurrentCellDirty;
+            }
+        }
+
+        private void dgvSurveys_CancelRowEdit(object sender, QuestionEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+
+            if (surveyRow == dgv.Rows.Count - 2 && surveyRow == CurrentRecord.SurveysAffected.Count)
+            {
+                // If the user has canceled the edit of a newly created row,
+                // replace the corresponding object with a new, empty one.
+                editedSurvey = new VarNameChangeSurveyRecord();
+            }
+            else
+            {
+                // If the user has canceled the edit of an existing row, release the corresponding object.
+                editedSurvey = null;
+                surveyRow = -1;
+            }
         }
 
         private void dgvSurveys_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
-            if (MessageBox.Show("Are you sure you want to delete the selected record?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (e.Row.Index < this.CurrentRecord.SurveysAffected.Count)
             {
-                VarNameChangeSurveyRecord record = (VarNameChangeSurveyRecord)e.Row.DataBoundItem;
-                DBAction.DeleteRecord(record);
+                if (MessageBox.Show("Are you sure you want to delete this record?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    VarNameChangeSurveyRecord record = CurrentRecord.SurveysAffected[e.Row.Index];
+                    // If the user has deleted an existing row, remove the
+                    // corresponding object from the data store.
+                    this.CurrentRecord.SurveysAffected.RemoveAt(e.Row.Index);
+                    DBAction.DeleteRecord(record);
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
             }
-            else
+
+            if (e.Row.Index == this.surveyRow)
             {
-                e.Cancel = true;
+                // If the user has deleted a newly created row, release
+                // the corresponding object.
+                this.surveyRow = -1;
+                this.editedSurvey = null;
             }
         }
 
@@ -179,45 +323,174 @@ namespace SDIFrontEnd
         {
 
         }
+
         #endregion
 
         #region Notifications Grid
 
-        private void dgvNotifications_CellValidated(object sender, DataGridViewCellEventArgs e)
+        private void dgvNotifications_NewRowNeeded(object sender, DataGridViewRowEventArgs e)
         {
             DataGridView dgv = (DataGridView)sender;
-            VarNameChangeNotificationRecord record = (VarNameChangeNotificationRecord)dgv.Rows[e.RowIndex].DataBoundItem;
-            if (dgv.IsCurrentRowDirty)
-                record.Dirty = true;
+            // Create a new object when the user edits the row for new records.
+            this.editedNotify = new VarNameChangeNotificationRecord();
+            this.notifyRow = dgv.Rows.Count - 1;
+        }
+
+        private void dgvNotifications_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+
+            // If this is the row for new records, no values are needed.
+            if (e.RowIndex == dgv.RowCount - 1) return;
+            // If the current record has no items, no values are needed.
+            if (CurrentRecord.Notifications.Count == 0) return;
+
+            VarNameChangeNotificationRecord tmp;
+
+            // Store a reference to the object for the row being painted.
+            if (e.RowIndex == notifyRow)
+            {
+                tmp = editedNotify;
+            }
+            else
+            {
+                tmp = CurrentRecord.Notifications[e.RowIndex];
+            }
+
+            if (tmp == null) return;
+
+            // Set the cell value to paint using the object retrieved.
+            switch (dgv.Columns[e.ColumnIndex].Name)
+            {
+                case "chNotifyName":
+                    e.Value = tmp.PersonID;
+                    break;
+                case "chNotifyType":
+                    e.Value = tmp.NotifyType;
+                    break;
+            }
+        }
+
+        private void dgvNotifications_CellValuePushed(object sender, DataGridViewCellValueEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+
+            VarNameChangeNotificationRecord tmp;
+            // Store a reference to the object for the row being edited.
+            if (e.RowIndex < CurrentRecord.Notifications.Count)
+            {
+                // If the user is editing a row, create a new object.
+                if (editedNotify == null)
+                    editedNotify = new VarNameChangeNotificationRecord()
+                    {
+                        ID = CurrentRecord.Notifications[e.RowIndex].ID,
+                        ChangeID = CurrentRecord.Notifications[e.RowIndex].ChangeID,
+                        PersonID = CurrentRecord.Notifications[e.RowIndex].PersonID,
+                        NotifyType = CurrentRecord.Notifications[e.RowIndex].NotifyType
+                    };
+
+                tmp = this.editedNotify;
+                this.notifyRow = e.RowIndex;
+            }
+            else
+            {
+                tmp = this.editedNotify;
+            }
+
+            // Set the appropriate property to the cell value entered.
+            switch (dgv.Columns[e.ColumnIndex].Name)
+            {
+                case "chNotifyName":
+                    tmp.ChangeID = CurrentRecord.ID;
+                    tmp.PersonID = (int)e.Value;
+                    break;
+
+                case "chNotifyType":
+                    tmp.ChangeID = CurrentRecord.ID;
+                    tmp.NotifyType = (string)e.Value;
+                    break;
+            }
         }
 
         private void dgvNotifications_RowValidated(object sender, DataGridViewCellEventArgs e)
         {
             DataGridView dgv = (DataGridView)sender;
-            VarNameChangeNotificationRecord record = (VarNameChangeNotificationRecord)dgv.Rows[e.RowIndex].DataBoundItem;
-            if (record == null)
-                return;
-            if (record.NewRecord)
-            {
-                record.ChangeID = CurrentRecord.ID;
-            }
 
-            record.PersonID = (int)dgv.Rows[e.RowIndex].Cells[0].Value;
-            record.Name = (string)dgv.Rows[e.RowIndex].Cells[0].EditedFormattedValue;
-            record.SaveRecord();
+            // Save row changes if any were made and release the edited object if there is one.
+            if (editedNotify != null && e.RowIndex >= CurrentRecord.Notifications.Count && e.RowIndex != dgv.Rows.Count - 1)
+            {
+                // Add the new object to the data store.
+                CurrentRecord.Notifications.Add(editedNotify);
+                DBAction.InsertVarNameChangeNotification(editedNotify);
+
+                editedNotify = null;
+                notifyRow = -1;
+            }
+            else if (editedNotify != null && e.RowIndex < CurrentRecord.Notifications.Count)
+            {
+                // ignore edits
+                editedNotify = null;
+                notifyRow = -1;
+            }
+            else if (dgv.ContainsFocus)
+            {
+                editedNotify = null;
+                notifyRow = -1;
+            }
+        }
+
+        private void dgvNotifications_RowDirtyStateNeeded(object sender, QuestionEventArgs e)
+        {
+            if (!rowCommit)
+            {
+                DataGridView dgv = (DataGridView)sender;
+                // In cell-level commit scope, indicate whether the value of the current cell has been modified.
+                e.Response = dgv.IsCurrentCellDirty;
+            }
+        }
+
+        private void dgvNotifications_CancelRowEdit(object sender, QuestionEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+
+            if (notifyRow == dgv.Rows.Count - 2 && notifyRow == CurrentRecord.Notifications.Count)
+            {
+                // If the user has canceled the edit of a newly created row,
+                // replace the corresponding object with a new, empty one.
+                editedNotify = new VarNameChangeNotificationRecord();
+            }
+            else
+            {
+                // If the user has canceled the edit of an existing row, release the corresponding object.
+                editedNotify = null;
+                notifyRow = -1;
+            }
         }
 
         private void dgvNotifications_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
-            if (MessageBox.Show("Are you sure you want to delete the selected record?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (e.Row.Index < this.CurrentRecord.Notifications.Count)
             {
-                VarNameChangeNotificationRecord record = (VarNameChangeNotificationRecord)e.Row.DataBoundItem;
-                DBAction.DeleteRecord(record);
-
+                if (MessageBox.Show("Are you sure you want to delete this record?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    VarNameChangeNotificationRecord record = CurrentRecord.Notifications[e.Row.Index];
+                    // If the user has deleted an existing row, remove the
+                    // corresponding object from the data store.
+                    this.CurrentRecord.Notifications.RemoveAt(e.Row.Index);
+                    DBAction.DeleteRecord(record);
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
             }
-            else
+
+            if (e.Row.Index == this.notifyRow)
             {
-                e.Cancel = true;
+                // If the user has deleted a newly created row, release
+                // the corresponding object.
+                this.notifyRow = -1;
+                this.editedNotify = null;
             }
         }
 
@@ -225,7 +498,6 @@ namespace SDIFrontEnd
         {
 
         }
-
         #endregion
 
         #region Binding Navigator Events
@@ -261,23 +533,27 @@ namespace SDIFrontEnd
             bs.MoveFirst();
         }
 
-
-
-
         #endregion
         #endregion
 
         #region Methods
+
+
         private void LoadRecords(List<VarNameChangeRecord> records)
         {
             Records = new BindingList<VarNameChangeRecord>( records);
             bs.DataSource = Records;
             bindingNavigator1.BindingSource = bs;
 
-            dgvNotifications.DataSource = bsNotify;
-            dgvSurveys.DataSource = bsSurveys;
-
             panelMain.Visible = true;
+        }
+
+        private void RefreshCurrentRecord()
+        {
+            CurrentRecord = (VarNameChangeRecord)bs.Current;
+
+            dgvSurveys.SetVirtualGridRows(CurrentRecord.SurveysAffected.Count()+1);
+            dgvNotifications.SetVirtualGridRows(CurrentRecord.Notifications.Count()+1);
         }
 
         private void FillBoxes()

@@ -360,6 +360,11 @@ namespace SDIFrontEnd
 
         private void toolStripTranslation_Click(object sender, EventArgs e)
         {
+            if (CurrentRecord.NewRecord)
+            {
+                MessageBox.Show("This question is new. Please Save it to the survey before adding a translation.");
+                return;
+            }
             ViewTranslation();
         }
 
@@ -371,6 +376,11 @@ namespace SDIFrontEnd
 
         private void toolStripViewComments_Click(object sender, EventArgs e)
         {
+            if (CurrentRecord.NewRecord)
+            {
+                MessageBox.Show("This question is new. Please Save it to the survey before adding comments.");
+                return;
+            }    
             ViewComments();
         }
 
