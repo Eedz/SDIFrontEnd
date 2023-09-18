@@ -497,12 +497,12 @@ namespace SDIFrontEnd
         /// <summary>
         /// For each translation in the imported list, either create or update the database record.
         /// </summary>
-        private void SaveTranslations(DocImporter importer)
+        private void SaveTranslations(List<Translation> imported)
         {
             failed.Clear();
             success.Clear();
             // insert each question into the database 
-            foreach (Translation t in importer.imported)
+            foreach (Translation t in imported)
             {
                 if (t.ID > 0)
                     if (DBAction.UpdateTranslation(t) == 1)
@@ -604,11 +604,11 @@ namespace SDIFrontEnd
             switch (TypeOfImport)
             {
                 case ImportType.Single:
-                    if (TargetSurvey.Locked)
+                    if (SurveyImporter.TargetSurvey.Locked)
                         return true;
                     break;
                 case ImportType.Multi:
-                    if (TargetWave.Surveys.Any(x => x.Locked))
+                    if (WaveImporter.TargetWave.Surveys.Any(x => x.Locked))
                         return true;
                     break;
             }
@@ -683,10 +683,10 @@ namespace SDIFrontEnd
 
             if (TypeOfImport == ImportType.Single)
             {
-                SaveTranslations(SurveyImporter);
-            }
+                SaveTranslations(SurveyImporter.imported);
+            }else
             {
-                SaveTranslations(WaveImporter);
+                SaveTranslations(WaveImporter.imported);
             }
 
             if (toLock)

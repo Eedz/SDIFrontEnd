@@ -53,6 +53,7 @@
             this.Corrected = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.QType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panelQuestion = new System.Windows.Forms.Panel();
+            this.rtbPlainFilter = new SDIFrontEnd.ExtraRichTextBox();
             this.dgvTimeFrames = new System.Windows.Forms.DataGridView();
             this.chTimeFrame = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtPstP = new System.Windows.Forms.TextBox();
@@ -139,7 +140,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.lblEdited = new System.Windows.Forms.Label();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rtbPlainFilter = new SDIFrontEnd.ExtraRichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.navQuestions)).BeginInit();
             this.navQuestions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -180,7 +180,6 @@
             this.cboGoToVar.Size = new System.Drawing.Size(95, 24);
             this.cboGoToVar.TabIndex = 24;
             this.cboGoToVar.SelectedIndexChanged += new System.EventHandler(this.cboGoToVar_SelectedIndexChanged);
-
             this.cboGoToVar.KeyUp += new System.Windows.Forms.KeyEventHandler(this.cboGoToVar_KeyUp);
             // 
             // navQuestions
@@ -405,6 +404,21 @@
             this.panelQuestion.Name = "panelQuestion";
             this.panelQuestion.Size = new System.Drawing.Size(912, 681);
             this.panelQuestion.TabIndex = 34;
+            // 
+            // rtbPlainFilter
+            // 
+            this.rtbPlainFilter.AutoScroll = true;
+            this.rtbPlainFilter.Location = new System.Drawing.Point(629, 54);
+            this.rtbPlainFilter.Margin = new System.Windows.Forms.Padding(4);
+            this.rtbPlainFilter.Name = "rtbPlainFilter";
+            this.rtbPlainFilter.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat\\deflang1033{\\fonttbl{\\f0\\fnil\\fcharset0 " +
+    "Tahoma;}}\r\n{\\*\\generator Riched20 10.0.19041}\\viewkind4\\uc1 \r\n\\pard\\f0\\fs20\\par\r" +
+    "\n}\r\n";
+            this.rtbPlainFilter.ShowFamilies = false;
+            this.rtbPlainFilter.ShowSize = false;
+            this.rtbPlainFilter.Size = new System.Drawing.Size(272, 459);
+            this.rtbPlainFilter.TabIndex = 72;
+            this.rtbPlainFilter.Validated += new System.EventHandler(this.rtbPlainFilter_Validated);
             // 
             // dgvTimeFrames
             // 
@@ -847,6 +861,7 @@
             this.cboProductLabel.Name = "cboProductLabel";
             this.cboProductLabel.Size = new System.Drawing.Size(375, 24);
             this.cboProductLabel.TabIndex = 4;
+            this.cboProductLabel.Validating += new System.ComponentModel.CancelEventHandler(this.ComboBox_Validating);
             this.cboProductLabel.Validated += new System.EventHandler(this.Label_Validated);
             // 
             // cboContentLabel
@@ -858,6 +873,7 @@
             this.cboContentLabel.Name = "cboContentLabel";
             this.cboContentLabel.Size = new System.Drawing.Size(375, 24);
             this.cboContentLabel.TabIndex = 3;
+            this.cboContentLabel.Validating += new System.ComponentModel.CancelEventHandler(this.ComboBox_Validating);
             this.cboContentLabel.Validated += new System.EventHandler(this.Label_Validated);
             // 
             // cboTopicLabel
@@ -869,6 +885,7 @@
             this.cboTopicLabel.Name = "cboTopicLabel";
             this.cboTopicLabel.Size = new System.Drawing.Size(375, 24);
             this.cboTopicLabel.TabIndex = 2;
+            this.cboTopicLabel.Validating += new System.ComponentModel.CancelEventHandler(this.ComboBox_Validating);
             this.cboTopicLabel.Validated += new System.EventHandler(this.Label_Validated);
             // 
             // cboDomainLabel
@@ -880,6 +897,7 @@
             this.cboDomainLabel.Name = "cboDomainLabel";
             this.cboDomainLabel.Size = new System.Drawing.Size(375, 24);
             this.cboDomainLabel.TabIndex = 1;
+            this.cboDomainLabel.Validating += new System.ComponentModel.CancelEventHandler(this.ComboBox_Validating);
             this.cboDomainLabel.Validated += new System.EventHandler(this.Label_Validated);
             // 
             // txtVarLabel
@@ -1343,21 +1361,6 @@
             this.dataGridViewTextBoxColumn1.HeaderText = "Time Frames";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.Width = 110;
-            // 
-            // rtbPlainFilter
-            // 
-            this.rtbPlainFilter.AutoScroll = true;
-            this.rtbPlainFilter.Location = new System.Drawing.Point(629, 54);
-            this.rtbPlainFilter.Margin = new System.Windows.Forms.Padding(4);
-            this.rtbPlainFilter.Name = "rtbPlainFilter";
-            this.rtbPlainFilter.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat\\deflang1033{\\fonttbl{\\f0\\fnil\\fcharset0 " +
-    "Tahoma;}}\r\n{\\*\\generator Riched20 10.0.19041}\\viewkind4\\uc1 \r\n\\pard\\f0\\fs20\\par\r" +
-    "\n}\r\n";
-            this.rtbPlainFilter.ShowFamilies = false;
-            this.rtbPlainFilter.ShowSize = false;
-            this.rtbPlainFilter.Size = new System.Drawing.Size(272, 459);
-            this.rtbPlainFilter.TabIndex = 72;
-            this.rtbPlainFilter.Validated += new System.EventHandler(this.rtbPlainFilter_Validated);
             // 
             // SurveyEditor
             // 

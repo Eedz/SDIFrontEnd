@@ -194,10 +194,10 @@ namespace SDIFrontEnd
 
             // labels
             txtVarLabel.DataBindings.Add(new Binding("Text", bsCurrent, "VarName.VarLabel"));
-            cboDomainLabel.DataBindings.Add("SelectedValue", bsCurrent, "VarName.Domain.ID");
-            cboTopicLabel.DataBindings.Add("SelectedValue", bsCurrent, "VarName.Topic.ID");
-            cboContentLabel.DataBindings.Add("SelectedValue", bsCurrent, "VarName.Content.ID");
-            cboProductLabel.DataBindings.Add("SelectedValue", bsCurrent, "VarName.Product.ID");
+            cboDomainLabel.DataBindings.Add("SelectedItem", bsCurrent, "VarName.Domain");
+            cboTopicLabel.DataBindings.Add("SelectedItem", bsCurrent, "VarName.Topic");
+            cboContentLabel.DataBindings.Add("SelectedItem", bsCurrent, "VarName.Content");
+            cboProductLabel.DataBindings.Add("SelectedItem", bsCurrent, "VarName.Product");
         }
 
         /// <summary>
@@ -771,7 +771,8 @@ namespace SDIFrontEnd
 
         private void SurveyEditor_RefreshDomains(object sender, EventArgs e)
         {
-            cboDomainLabel.DataSource = null;
+            cboGoToVar.Focus();
+           // cboDomainLabel.DataSource = null;
             cboDomainLabel.DataSource = new List<DomainLabel>(Globals.AllDomainLabels);
             cboDomainLabel.ValueMember = "ID";
             cboDomainLabel.DisplayMember = "LabelText";
@@ -779,7 +780,8 @@ namespace SDIFrontEnd
 
         private void SurveyEditor_RefreshTopics(object sender, EventArgs e)
         {
-            cboTopicLabel.DataSource = null;
+            cboGoToVar.Focus();
+           // cboTopicLabel.DataSource = null;
             cboTopicLabel.DataSource = new List<TopicLabel>(Globals.AllTopicLabels);
             cboTopicLabel.ValueMember = "ID";
             cboTopicLabel.DisplayMember = "LabelText";
@@ -787,15 +789,18 @@ namespace SDIFrontEnd
 
         private void SurveyEditor_RefreshContents(object sender, EventArgs e)
         {
-            cboContentLabel.DataSource = null;
+            cboGoToVar.Focus();
+            //cboContentLabel.DataSource = null;
             cboContentLabel.DataSource = new List<ContentLabel>(Globals.AllContentLabels);
             cboContentLabel.ValueMember = "ID";
             cboContentLabel.DisplayMember = "LabelText";
+            
         }
 
         private void SurveyEditor_RefreshProducts(object sender, EventArgs e)
         {
-            cboProductLabel.DataSource = null;
+            cboGoToVar.Focus();
+           // cboProductLabel.DataSource = null;
             cboProductLabel.DataSource = new List<ProductLabel>(Globals.AllProductLabels);
             cboProductLabel.ValueMember = "ID";
             cboProductLabel.DisplayMember = "LabelText";
@@ -1076,8 +1081,9 @@ namespace SDIFrontEnd
             bs.DataSource = Records;
 
             CurrentRecord = (QuestionRecord)bs.Current;
-            
-            // go to box
+
+            // fill the "Go To Var" box
+            cboGoToVar.Items.Clear();
             List<string> l = Records.Select(x => x.Item.VarName.RefVarName).OrderBy(x=>x).ToList();
             cboGoToVar.Items.AddRange (l.ToArray<object>());
             cboGoToVar.SelectedItem = string.Empty;
@@ -2451,6 +2457,15 @@ namespace SDIFrontEnd
                 }
             }
             UpdateInfo();
+        }
+
+        private void ComboBox_Validating(object sender, CancelEventArgs e)
+        {
+            ComboBox cbo = (ComboBox)sender;
+            if (cbo.SelectedItem == null)
+            {
+                cbo.SelectedIndex = 0;
+            }
         }
     }
 }

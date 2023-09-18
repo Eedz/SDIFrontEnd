@@ -66,6 +66,8 @@ namespace SDIFrontEnd
 
                 Table table = body.Elements<Table>().ElementAt(0);
 
+                GetHeaders(body);
+
                 XMLUtilities.TagBold(body);
                 XMLUtilities.TagItalics(body);
                 XMLUtilities.TagUnderline(body);
