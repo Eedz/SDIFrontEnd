@@ -16,7 +16,7 @@ namespace SDIFrontEnd
     //TODO show draft title
     public partial class DraftSearch : Form
     {
-        List<SurveyDraftRecord> DraftList;
+        List<SurveyDraft> DraftList;
         BindingSource bs;
 
         int QWidth = 240;
@@ -133,7 +133,7 @@ namespace SDIFrontEnd
 
             if (cboDateFilter.SelectedItem != null)
             {
-                SurveyDraftRecord item = (SurveyDraftRecord)cboDateFilter.SelectedItem;
+                SurveyDraft item = (SurveyDraft)cboDateFilter.SelectedItem;
                 
                 date =item.ID;
             }
@@ -293,7 +293,7 @@ namespace SDIFrontEnd
 
             if (cboDateFilter.SelectedItem != null)
             {
-                SurveyDraftRecord surveyDraftRecord = (SurveyDraftRecord) cboDateFilter.SelectedItem;
+                SurveyDraft surveyDraftRecord = (SurveyDraft) cboDateFilter.SelectedItem;
 
                 foreach (SurveyDraftExtraField ef in surveyDraftRecord.ExtraFields)
                 {

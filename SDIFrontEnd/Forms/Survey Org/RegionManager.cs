@@ -261,6 +261,10 @@ namespace SDIFrontEnd
                 if (newRec)
                     Globals.AllRegions.Add(CurrentRecord.Item);
             }
+            else
+            {
+                MessageBox.Show("Unable to save record.");
+            }
         }
 
         private void OpenListView()

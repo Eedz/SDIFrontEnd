@@ -282,6 +282,8 @@
             // 
             // dgvExtraFields
             // 
+            this.dgvExtraFields.AllowUserToAddRows = false;
+            this.dgvExtraFields.AllowUserToDeleteRows = false;
             this.dgvExtraFields.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvExtraFields.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.chFieldNum,
@@ -291,10 +293,7 @@
             this.dgvExtraFields.RowHeadersWidth = 25;
             this.dgvExtraFields.Size = new System.Drawing.Size(470, 171);
             this.dgvExtraFields.TabIndex = 16;
-            this.dgvExtraFields.CellValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvExtraFields_CellValidated);
-            this.dgvExtraFields.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvExtraFields_DataError);
-            this.dgvExtraFields.RowValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvExtraFields_RowValidated);
-            this.dgvExtraFields.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvExtraFields_UserDeletingRow);
+            this.dgvExtraFields.VirtualMode = true;
             // 
             // chFieldNum
             // 
@@ -448,6 +447,8 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "DraftManager";
             this.Text = "Draft Manager";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DraftManager_FormClosed);
+            this.Load += new System.EventHandler(this.DraftManager_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);

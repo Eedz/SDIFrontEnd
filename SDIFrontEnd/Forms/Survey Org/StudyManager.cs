@@ -325,6 +325,10 @@ namespace SDIFrontEnd
                 if (newRec)
                     Globals.AllStudies.Add(CurrentRecord.Item);
             }
+            else
+            {
+                MessageBox.Show("Unable to save record.");
+            }
         }
 
         // TODO use form manager for this? new instance?

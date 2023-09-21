@@ -35,7 +35,7 @@ namespace SDIFrontEnd
 
         List<string> Headers;
         List<string> columns = new List<string>() { "Qnum", "AltQnum", "VarName", "Question Text", "Comments", "Extra1", "Extra2", "Extra3", "Extra4", "Extra5" };
-        SurveyDraftRecord newDraft; // the new draft to be created
+        SurveyDraft newDraft; // the new draft to be created
         bool errorsExist;
         #endregion
 
@@ -59,7 +59,7 @@ namespace SDIFrontEnd
             cboSurvey.DisplayMember = "SurveyCode";
             cboSurvey.DataSource = new List<Survey>(Globals.AllSurveys);
 
-            newDraft = new SurveyDraftRecord();
+            newDraft = new SurveyDraft();
 
             cboSurvey.DataBindings.Add("SelectedValue", newDraft, "SurvID");
             txtDraftTitle.DataBindings.Add("Text", newDraft, "DraftTitle");
@@ -89,7 +89,7 @@ namespace SDIFrontEnd
             pnlColumns.Visible = false;
             cmdImport.Enabled = false;
 
-            newDraft = new SurveyDraftRecord();
+            newDraft = new SurveyDraft();
         }
 
         private void cmdImport_Click(object sender, EventArgs e)
@@ -257,16 +257,11 @@ namespace SDIFrontEnd
         {
             newDraft.Questions = new List<DraftQuestion>();
 
-            int newID = DBAction.InsertSurveyDraft(newDraft);
+            DBAction.InsertSurveyDraft(newDraft);
 
-            if (newID == -1)
+            if (newDraft.ID == -1)
             {
                 MessageBox.Show("Error creating draft. Unable to import.");
-                return;
-            }
-            else
-            {
-                newDraft.ID = newID;
             }
         }
 

@@ -17,7 +17,7 @@ namespace SDIFrontEnd
     public partial class DraftReportForm : Form
     {
         enum DraftReportSource { ByDraft, ByDate, ByInvestigator, Undefined }
-        List<SurveyDraftRecord> DraftList;
+        List<SurveyDraft> DraftList;
         DraftReportSource ReportSource;
         public DraftReportForm()
         {
@@ -102,7 +102,7 @@ namespace SDIFrontEnd
             if (singleDraft)
             {
                 SurveyDraft draft = (SurveyDraft)cboDraft.SelectedItem;
-                draft.ExtraFields.AddRange(((SurveyDraftRecord)cboDraft.SelectedItem).ExtraFields);
+                draft.ExtraFields.AddRange(((SurveyDraft)cboDraft.SelectedItem).ExtraFields);
                 report.DraftInfo = draft;
             }
 

@@ -265,6 +265,10 @@ namespace SDIFrontEnd
                 if (newRec)
                     Globals.AllWaves.Add(CurrentRecord.Item);
             }
+            else
+            {
+                MessageBox.Show("Unable to save record.");
+            }
         }
 
         private void GoToWave(int waveid)

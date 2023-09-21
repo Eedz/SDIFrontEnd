@@ -14,265 +14,142 @@ namespace SDIFrontEnd
 {
     public partial class DraftManager : Form
     {
-        List<SurveyDraftRecord> Records;
-        SurveyDraftRecord CurrentRecord;
-        BindingSource bs;
-        BindingSource bsEF;
+        List<DraftRecord> Records;
+        DraftRecord CurrentRecord;
 
-        public DraftManager()
+        BindingSource bs;
+        BindingSource bsCurrent;
+
+        SurveyDraftExtraField editedEF;
+        int efRow = -1;
+        bool rowCommit = true;
+
+        public DraftManager(List<SurveyDraft> drafts)
         {
             InitializeComponent();
 
-            Records = DBAction.ListSurveyDrafts();
+            SetupMouseWheel();
 
-            bs = new BindingSource()
-            {
-                DataSource = Records
-            };
+            FillLists(drafts);
 
-            bsEF = new BindingSource()
-            {
-                DataSource = bs,
-                DataMember = "ExtraFields"
-            };
-
-            bs.ListChanged += Bs_ListChanged;
-            bs.PositionChanged += Bs_PositionChanged;
-
-            bsEF.ListChanged += BsEF_ListChanged;
-
-            chFieldNum.DataPropertyName = "FieldNumber";
-            chLabel.DataPropertyName = "Label";
-            dgvExtraFields.AutoGenerateColumns = false;
-            dgvExtraFields.DataSource = bsEF;
-
-            navRecords.BindingSource = bs;
-
-            this.MouseWheel += DraftManager_OnMouseWheel;
-            cboSurvey.MouseWheel += ComboBox_MouseWheel;
-            cboInvestigator.MouseWheel += ComboBox_MouseWheel;
-            txtComments.MouseWheel += TextBox_MouseWheel;
-            txtTitle.MouseWheel += TextBox_MouseWheel;
+            SetupBindingSources();
 
             FillBoxes();
 
             BindProperties();
 
-
-            CurrentRecord = (SurveyDraftRecord)bs.Current;
+            SetupGrid();
         }
 
-        
-
-        private void Bs_PositionChanged(object sender, EventArgs e)
+        #region Form Setup
+        private void SetupMouseWheel()
         {
-            CurrentRecord = (SurveyDraftRecord)bs.Current;
+            this.MouseWheel += DraftManager_OnMouseWheel;
+            cboSurvey.MouseWheel += ComboBox_MouseWheel;
+            cboInvestigator.MouseWheel += ComboBox_MouseWheel;
         }
 
-        private void Bs_ListChanged(object sender, ListChangedEventArgs e)
+        private void FillLists(List<SurveyDraft> drafts)
         {
-            if (e.NewIndex < 0)
-                return;
-            ((SurveyDraftRecord)bs[e.NewIndex]).Dirty = true;
-        }
-
-        private void BsEF_ListChanged(object sender, ListChangedEventArgs e)
-        {
-            if (e.NewIndex < 0)
-                return;
-
-            if (e.NewIndex > bsEF.Count)
-                return;
-
-            ((SurveyDraftExtraFieldRecord)bsEF[e.NewIndex]).Dirty = true;
-        }
-
-        protected void DraftManager_OnMouseWheel(object sender, MouseEventArgs e)
-        {
-            if (SaveRecord() == 1)
-                return;
-            
-            if (e.Delta == -120)
-                MoveRecord(1);
-            else if (e.Delta == 120)
-                MoveRecord(-1);
-        }
-
-        
-
-        private void ComboBox_MouseWheel(object sender, MouseEventArgs e)
-        {
-            ComboBox control = (ComboBox)sender;
-
-            if (!control.DroppedDown)
-                ((HandledMouseEventArgs)e).Handled = true;
-
-            if (SaveRecord() == 1)
-                return;
-
-            if (e.Delta == -120)
-                MoveRecord(1);
-            else if (e.Delta == 120)
-                MoveRecord(-1);
-        }
-
-        private void TextBox_MouseWheel(object sender, MouseEventArgs e)
-        {
-            TextBox control = (TextBox)sender;
-
-            ((HandledMouseEventArgs)e).Handled = true;
-
-            if (SaveRecord() == 1)
-                return;
-
-            if (e.Delta == -120)
-                MoveRecord(1);
-            else if (e.Delta == 120)
-                MoveRecord(-1);
-        }
-
-        #region Menu Items
-        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (SaveRecord() == 1)
-                return;
-
-            Close();
-            FM.FormManager.Remove(this);
-        }
-
-        private void toolStripClearFilter_Click(object sender, EventArgs e)
-        {
-            if (SaveRecord() == 1)
-                return;
-
-            bs.DataSource = Records;
-            bs.Position = 0;
-        }
-
-        private void toolStripGoTo_Click(object sender, EventArgs e)
-        {
-            if (SaveRecord() == 1)
-                return;
-
-            // open a the survey draft seach to this draft
-            DraftSearch getFrm = (DraftSearch)FM.FormManager.GetForm("DraftSearch", 1);
-            if (getFrm != null)
+            Records = new List<DraftRecord>();
+            foreach (SurveyDraft d in drafts)
             {
-                getFrm.GoToDraft(CurrentRecord.SurvID, CurrentRecord.ID);                
+                Records.Add(new DraftRecord(d));
             }
-            else
-            {
-                DraftSearch frm = new DraftSearch();
-                frm.Tag = 1;
-                FM.FormManager.Add(frm);
-                frm.GoToDraft(CurrentRecord.SurvID, CurrentRecord.ID);
-            }
-            ((MainMenu)FM.FormManager.GetForm("MainMenu")).SelectTab("DraftSearch1");
         }
 
-        private void toolStripDelete_Click(object sender, EventArgs e)
+        private void SetupBindingSources()
         {
-            DeleteDraft();
-            
+            bs = new BindingSource()
+            {
+                DataSource = Records
+            };
+
+            bs.PositionChanged += Bs_PositionChanged;
+
+            bsCurrent = new BindingSource();
+            bsCurrent.DataSource = bs;
+            bsCurrent.DataMember = "Item";
+            bsCurrent.ListChanged += BsCurrent_ListChanged;
+
+            navRecords.BindingSource = bs;
         }
 
-        private void toolStripSurveyFilter_SelectedIndexChanged(object sender, EventArgs e)
+        private void SetupGrid()
         {
-            if (SaveRecord() == 1)
-                return;
+            dgvExtraFields.AutoGenerateColumns = false;
 
-            ComboBox box = (ComboBox)sender;
-
-            var results = Records.Where(x => x.SurvID == (int)box.SelectedValue);
-
-            if (results.Count()==0)
-            {
-                MessageBox.Show("No drafts found!");
-                return;
-            }
-
-            bs.DataSource = results;
-            bs.Position = 0;
-            CurrentRecord = (SurveyDraftRecord)bs.Current;
-        }
-        #endregion
-
-        #region Navigation buttons
-        private void bindingNavigatorMoveNextItem_Click(object sender, EventArgs e)
-        {
-            bs.EndEdit();
-
-            if (CurrentRecord.SaveRecord() == 1)
-            {
-                MessageBox.Show("Error saving this record.");
-                return;
-            }
-
-            MoveRecord(1);
+            dgvExtraFields.CellValueNeeded += dgvExtraFields_CellValueNeeded;
+            dgvExtraFields.CellValuePushed += dgvExtraFields_CellValuePushed;
+            dgvExtraFields.RowValidated += dgvExtraFields_RowValidated;
+            dgvExtraFields.RowDirtyStateNeeded += dgvExtraFields_RowDirtyStateNeeded;
+            dgvExtraFields.CancelRowEdit += dgvExtraFields_CancelRowEdit;
+            dgvExtraFields.DataError += dgvExtraFields_DataError;
         }
 
-        private void bindingNavigatorMoveLastItem_Click(object sender, EventArgs e)
+        private void BindProperties()
         {
-            bs.EndEdit();
-
-            if (CurrentRecord.SaveRecord() == 1)
-            {
-                MessageBox.Show("Error saving this record.");
-                return;
-            }
-
-            bs.MoveLast();
+            txtID.DataBindings.Add("Text", bsCurrent, "ID");
+            cboSurvey.DataBindings.Add("SelectedValue", bsCurrent, "SurvID");
+            dtpDate.DataBindings.Add("Value", bsCurrent, "DraftDate", true);
+            txtTitle.DataBindings.Add("Text", bsCurrent, "DraftTitle");
+            txtComments.DataBindings.Add("Text", bsCurrent, "DraftComments");
+            cboInvestigator.DataBindings.Add("SelectedValue", bsCurrent, "Investigator");
         }
 
-        private void bindingNavigatorMovePreviousItem_Click(object sender, EventArgs e)
+        private void FillBoxes()
         {
-            bs.EndEdit();
+            toolStripSurveyFilter.ComboBox.ValueMember = "SID";
+            toolStripSurveyFilter.ComboBox.DisplayMember = "SurveyCode";
+            toolStripSurveyFilter.ComboBox.DataSource = new List<Survey>(Globals.AllSurveys);
+            toolStripSurveyFilter.ComboBox.SelectedItem = null;
+            toolStripSurveyFilter.ComboBox.SelectedIndexChanged += toolStripSurveyFilter_SelectedIndexChanged;
 
-            if (CurrentRecord.SaveRecord() == 1)
-            {
-                MessageBox.Show("Error saving this record.");
-                return;
-            }
+            cboSurvey.ValueMember = "SID";
+            cboSurvey.DisplayMember = "SurveyCode";
+            cboSurvey.DataSource = new List<Survey>(Globals.AllSurveys);
 
-            MoveRecord(-1);
-        }
-
-        private void bindingNavigatorMoveFirstItem_Click(object sender, EventArgs e)
-        {
-            bs.EndEdit();
-
-            if (CurrentRecord.SaveRecord() == 1)
-            {
-                MessageBox.Show("Error saving this record.");
-                return;
-            }
-
-            bs.MoveFirst();
+            cboInvestigator.ValueMember = "ID";
+            cboInvestigator.DisplayMember = "Name";
+            cboInvestigator.DataSource = new List<Person>(Globals.AllPeople);
         }
         #endregion
 
         #region Methods 
+
+        private void UpdateCurrentRecord()
+        {
+            CurrentRecord = (DraftRecord)bs.Current;
+            // explicitly set RowCount since we are not allowing user to add rows
+            dgvExtraFields.RowCount = CurrentRecord.Item.ExtraFields.Count;
+        }
+
+        private void SaveRecord()
+        {
+            bsCurrent.EndEdit();
+
+            bool newRec = CurrentRecord.NewRecord;
+            int updated = CurrentRecord.SaveRecord();
+
+            if (updated == 0)
+            {
+                //lblStatus.Text = "";
+                CurrentRecord.Dirty = false;
+            }
+            else
+            {
+                MessageBox.Show("Unable to save record.");
+            }
+        }
+
         private void DeleteDraft()
         {
             if (MessageBox.Show("Are you sure you want to delete this draft?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                DBAction.DeleteRecord(CurrentRecord);
+                DBAction.DeleteRecord(CurrentRecord.Item);
                 bs.Remove(CurrentRecord);
-                CurrentRecord = (SurveyDraftRecord)bs.Current;
+                CurrentRecord = (DraftRecord)bs.Current;
             }
-        }
-
-        private int SaveRecord()
-        {
-            bs.EndEdit();
-
-            if (CurrentRecord.SaveRecord() == 1)
-            {
-                MessageBox.Show("Error saving this record.");
-                return 1;
-            }
-            return 0;
         }
 
         private void MoveRecord(int count)
@@ -288,77 +165,285 @@ namespace SDIFrontEnd
                     bs.MovePrevious();
                 }
         }
-
-        private void BindProperties()
-        {
-            txtID.DataBindings.Add("Text", bs, "ID");
-            cboSurvey.DataBindings.Add("SelectedValue", bs, "SurvID");
-            dtpDate.DataBindings.Add("Value", bs, "DraftDate", true);
-            txtTitle.DataBindings.Add("Text", bs, "DraftTitle");
-            txtComments.DataBindings.Add("Text", bs, "DraftComments");
-            cboInvestigator.DataBindings.Add("SelectedValue", bs, "Investigator");
-        }
-
-        private void FillBoxes()
-        {
-            toolStripSurveyFilter.ComboBox.DataSource = new List<Survey> (Globals.AllSurveys);
-            toolStripSurveyFilter.ComboBox.ValueMember = "SID";
-            toolStripSurveyFilter.ComboBox.DisplayMember = "SurveyCode";
-            toolStripSurveyFilter.ComboBox.SelectedItem = null;
-            toolStripSurveyFilter.ComboBox.SelectedIndexChanged += toolStripSurveyFilter_SelectedIndexChanged;
-
-            cboSurvey.DataSource = new List<Survey>(Globals.AllSurveys);
-            cboSurvey.ValueMember = "SID";
-            cboSurvey.DisplayMember = "SurveyCode";
-
-            cboInvestigator.DataSource = new List<Person>(Globals.AllPeople);
-            cboInvestigator.ValueMember = "ID";
-            cboInvestigator.DisplayMember = "Name";
-
-
-        }
-
-
         #endregion
 
-        private void dgvExtraFields_CellValidated(object sender, DataGridViewCellEventArgs e)
+        #region Events
+        private void DraftManager_Load(object sender, EventArgs e)
+        {
+            UpdateCurrentRecord();
+        }
+
+        private void DraftManager_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            FM.FormManager.Remove(this);
+        }
+
+        protected void DraftManager_OnMouseWheel(object sender, MouseEventArgs e)
+        {
+            SaveRecord();
+
+            if (e.Delta == -120)
+                MoveRecord(1);
+            else if (e.Delta == 120)
+                MoveRecord(-1);
+        }
+
+        private void ComboBox_MouseWheel(object sender, MouseEventArgs e)
+        {
+            ComboBox control = (ComboBox)sender;
+
+            if (!control.DroppedDown)
+                ((HandledMouseEventArgs)e).Handled = true;
+        }
+
+        private void Bs_PositionChanged(object sender, EventArgs e)
+        {
+            UpdateCurrentRecord();
+        }
+
+        private void BsCurrent_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            // item: bs[e.NewIndex]
+            // property name: e.PropertyDescriptor.Name
+            if (e.PropertyDescriptor != null)
+            {
+                // get the paper record that was modified
+                SurveyDraft modifiedSurvey = (SurveyDraft)bsCurrent[e.NewIndex];
+                DraftRecord modifiedRecord = Records.Where(x => x.Item == modifiedSurvey).FirstOrDefault();
+
+                if (modifiedRecord == null)
+                    return;
+
+                switch (e.PropertyDescriptor.Name)
+                {
+                    case "ExtraFields":
+                        break;
+                    default:
+                        modifiedRecord.Dirty = true;
+                        break;
+                }
+                //if (CurrentRecord.Dirty)
+                //lblStatus.Text = "*";
+            }
+        }
+
+        
+        #endregion
+
+        #region Menu Items
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveRecord();
+
+            Close();
+        }
+
+        private void toolStripClearFilter_Click(object sender, EventArgs e)
+        {
+            SaveRecord();       
+
+            bs.DataSource = Records;
+            bs.Position = 0;
+        }
+
+        private void toolStripGoTo_Click(object sender, EventArgs e)
+        {
+            SaveRecord();
+
+            // open a the survey draft seach to this draft
+            DraftSearch getFrm = (DraftSearch)FM.FormManager.GetForm("DraftSearch", 1);
+            if (getFrm != null)
+            {
+                getFrm.GoToDraft(CurrentRecord.Item.SurvID, CurrentRecord.Item.ID);                
+            }
+            else
+            {
+                DraftSearch frm = new DraftSearch();
+                frm.Tag = 1;
+                FM.FormManager.Add(frm);
+                frm.GoToDraft(CurrentRecord.Item.SurvID, CurrentRecord.Item.ID);
+            }
+            ((MainMenu)FM.FormManager.GetForm("MainMenu")).SelectTab("DraftSearch1");
+        }
+
+        private void toolStripDelete_Click(object sender, EventArgs e)
+        {
+            DeleteDraft();
+            
+        }
+
+        private void toolStripSurveyFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SaveRecord();
+
+            ComboBox box = (ComboBox)sender;
+
+            var results = Records.Where(x => x.Item.SurvID == (int)box.SelectedValue);
+
+            if (results.Count()==0)
+            {
+                MessageBox.Show("No drafts found!");
+                return;
+            }
+
+            bs.DataSource = results;
+            bs.Position = 0;
+            CurrentRecord = (DraftRecord)bs.Current;
+        }
+        #endregion
+
+        #region Navigation buttons
+        private void bindingNavigatorMoveNextItem_Click(object sender, EventArgs e)
+        {
+            SaveRecord();
+
+            MoveRecord(1);
+        }
+
+        private void bindingNavigatorMoveLastItem_Click(object sender, EventArgs e)
+        {
+            SaveRecord();
+
+            bs.MoveLast();
+        }
+
+        private void bindingNavigatorMovePreviousItem_Click(object sender, EventArgs e)
+        {
+            SaveRecord();
+
+            MoveRecord(-1);
+        }
+
+        private void bindingNavigatorMoveFirstItem_Click(object sender, EventArgs e)
+        {
+            SaveRecord();
+
+            bs.MoveFirst();
+        }
+        #endregion
+
+        #region DataGridView Events
+        private void dgvExtraFields_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
         {
             DataGridView dgv = (DataGridView)sender;
-            SurveyDraftExtraFieldRecord record = (SurveyDraftExtraFieldRecord)dgv.Rows[e.RowIndex].DataBoundItem;
-            if (dgv.IsCurrentRowDirty)
-                record.Dirty = true;
+
+            // If the current record has no items, no values are needed.
+            if (CurrentRecord.Item.ExtraFields.Count == 0) return;
+
+            SurveyDraftExtraField tmp;
+
+            // Store a reference to the object for the row being painted.
+            if (e.RowIndex == efRow)
+            {
+                tmp = editedEF;
+            }
+            else
+            {
+                tmp = CurrentRecord.Item.ExtraFields[e.RowIndex];
+            }
+
+            if (tmp == null) return;
+
+            // Set the cell value to paint using the object retrieved.
+            switch (dgv.Columns[e.ColumnIndex].Name)
+            {
+                case "chFieldNum":
+                    e.Value = tmp.FieldNumber;
+                    break;
+                case "chLabel":
+                    e.Value = tmp.Label;
+                    break;
+            }
+        }
+
+        private void dgvExtraFields_CellValuePushed(object sender, DataGridViewCellValueEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+
+            SurveyDraftExtraField tmp;
+            // Store a reference to the object for the row being edited.
+            if (e.RowIndex < CurrentRecord.Item.ExtraFields.Count)
+            {
+                // If the user is editing a row, create a new object.
+                if (editedEF == null)
+                    editedEF = new SurveyDraftExtraField()
+                    {
+                        ID = CurrentRecord.Item.ExtraFields[e.RowIndex].ID,
+                        DraftID = CurrentRecord.Item.ID,
+                        FieldNumber = CurrentRecord.Item.ExtraFields[e.RowIndex].FieldNumber,
+                        Label = CurrentRecord.Item.ExtraFields[e.RowIndex].Label
+                    };
+
+                tmp = this.editedEF;
+                this.efRow = e.RowIndex;
+            }
+            else
+            {
+                tmp = this.editedEF;
+            }
+
+            // Set the appropriate property to the cell value entered.
+            switch (dgv.Columns[e.ColumnIndex].Name)
+            {
+                case "chFieldNum":
+                    tmp.FieldNumber = (int)e.Value;
+                    break;
+                case "chLabel":
+                    tmp.Label = (string)e.Value;
+                    break;
+            }
         }
 
         private void dgvExtraFields_RowValidated(object sender, DataGridViewCellEventArgs e)
         {
             DataGridView dgv = (DataGridView)sender;
-            SurveyDraftExtraFieldRecord record = (SurveyDraftExtraFieldRecord)dgv.Rows[e.RowIndex].DataBoundItem;
-            if (record == null)
-                return;
-            if (record.NewRecord)
+
+            // Save row changes if any were made and release the edited object if there is one.
+            if (editedEF != null && e.RowIndex >= CurrentRecord.Item.ExtraFields.Count && e.RowIndex != dgv.Rows.Count - 1)
             {
-                record.DraftID = CurrentRecord.ID;
-                CurrentRecord.Dirty = true;
+                // ignore adds
+                editedEF = null;
+                efRow = -1;
             }
-            else
-                record.SaveRecord();
+            else if (editedEF != null && e.RowIndex < CurrentRecord.Item.ExtraFields.Count)
+            {
+                CurrentRecord.Item.ExtraFields[e.RowIndex] = editedEF;
+                CurrentRecord.EditedExtraFields.Add(editedEF);
+                editedEF = null;
+                efRow = -1;
+            }
+            else if (dgv.ContainsFocus)
+            {
+                editedEF = null;
+                efRow = -1;
+            }
         }
 
-        private void dgvExtraFields_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        private void dgvExtraFields_RowDirtyStateNeeded(object sender, QuestionEventArgs e)
         {
-            if (MessageBox.Show("Are you sure you want to delete the selected record?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (!rowCommit)
             {
-                
-                SurveyDraftExtraFieldRecord record = (SurveyDraftExtraFieldRecord)e.Row.DataBoundItem;
+                DataGridView dgv = (DataGridView)sender;
+                // In cell-level commit scope, indicate whether the value of the current cell has been modified.
+                e.Response = dgv.IsCurrentCellDirty;
+            }
+        }
 
-                    
-                DBAction.DeleteRecord(record);
-                bsEF.Remove(record);
+        private void dgvExtraFields_CancelRowEdit(object sender, QuestionEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
 
+            if (efRow == dgv.Rows.Count - 2 && efRow == CurrentRecord.Item.ExtraFields.Count)
+            {
+                // If the user has canceled the edit of a newly created row,
+                // replace the corresponding object with a new, empty one.
+                editedEF = new SurveyDraftExtraField();
             }
             else
             {
-                e.Cancel = true;
+                // If the user has canceled the edit of an existing row, release the corresponding object.
+                editedEF = null;
+                efRow = -1;
             }
         }
 
@@ -366,5 +451,7 @@ namespace SDIFrontEnd
         {
 
         }
+        #endregion
+
     }
 }

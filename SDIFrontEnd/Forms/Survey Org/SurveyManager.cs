@@ -106,7 +106,7 @@ namespace SDIFrontEnd
         /// </summary>
         private void BindProperties()
         {
-            txtID.DataBindings.Add(new Binding("Text", bsCurrent, "SID"));
+            txtID.DataBindings.Add("Text", bsCurrent, "SID");
             txtSurveyCode.DataBindings.Add("Text", bsCurrent, "SurveyCode");
             txtSurveyTitle.DataBindings.Add("Text", bsCurrent, "Title");
 
@@ -435,9 +435,7 @@ namespace SDIFrontEnd
             if (e.Delta == -120)
                 MoveRecord(1);
             else if (e.Delta == 120)
-            {
                 MoveRecord(-1);
-            }
         }
 
         private void Bs_PositionChanged(object sender, EventArgs e)
@@ -447,7 +445,6 @@ namespace SDIFrontEnd
 
         private void BsCurrent_ListChanged(object sender, ListChangedEventArgs e)
         {
-
             // item: bs[e.NewIndex]
             // property name: e.PropertyDescriptor.Name
             if (e.PropertyDescriptor != null)

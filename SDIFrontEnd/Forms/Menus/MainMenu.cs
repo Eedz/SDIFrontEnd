@@ -810,11 +810,11 @@ namespace SDIFrontEnd
         {
             if (FM.FormManager.FormOpen("DraftManager"))
             {
-                ((MainMenu)this.Parent.Parent.Parent).SelectTab("DraftManager1");
+                SelectTab("DraftManager1");
                 return;
             }
 
-            DraftManager frm = new DraftManager();
+            DraftManager frm = new DraftManager(DBAction.ListSurveyDrafts());
             frm.Tag = 1;
             FM.FormManager.Add(frm);
         }
@@ -823,7 +823,7 @@ namespace SDIFrontEnd
         {
             if (FM.FormManager.FormOpen("DraftSearch"))
             {
-                ((MainMenu)this.Parent.Parent.Parent).SelectTab("DraftSearch1");
+                SelectTab("DraftSearch1");
                 return;
             }
 
@@ -878,9 +878,9 @@ namespace SDIFrontEnd
                 tabControl1.TabPages[key].AutoScroll = true;
                 tabControl1.SelectTab(key);
             }
-            catch
+            catch (Exception e)
             {
-
+                MessageBox.Show("Error adding tab.\r\n\r\n" + e.Message);
             }
 
             
@@ -888,7 +888,14 @@ namespace SDIFrontEnd
 
         public void SelectTab (string key)
         {
-            tabControl1.SelectTab(key);
+            try
+            {
+                tabControl1.SelectTab(key);
+            }
+            catch
+            {
+                MessageBox.Show("Tab not found. " + key);
+            }
         }
 
         public TabPage GetTab(string key)
