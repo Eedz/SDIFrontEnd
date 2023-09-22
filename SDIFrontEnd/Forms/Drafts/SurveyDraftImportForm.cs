@@ -20,7 +20,11 @@ namespace SDIFrontEnd
     // TODO remove from combobox after item is selected, preventing column from being used twice
     public partial class SurveyDraftImportForm : Form
     {
-        #region Properties
+        int InitialWidth = 480;
+        int InitialHeight = 350;
+        int ExpandedWidth = 840;
+        int ExpandedHeight = 460;
+
         int QnumColumn;
         int VarNameColumn;
         int AltQnumColumn;
@@ -37,8 +41,6 @@ namespace SDIFrontEnd
         List<string> columns = new List<string>() { "Qnum", "AltQnum", "VarName", "Question Text", "Comments", "Extra1", "Extra2", "Extra3", "Extra4", "Extra5" };
         SurveyDraft newDraft; // the new draft to be created
         bool errorsExist;
-        #endregion
-
 
         public SurveyDraftImportForm()
         {
@@ -55,129 +57,31 @@ namespace SDIFrontEnd
             Extra5Column = -1;
             MarginCommentsColumn = -1;
 
+            newDraft = new SurveyDraft();
+
+            FillLists();
+
+            BindProperties();
+        }
+
+        #region Form Setup
+
+        private void FillLists()
+        {
             cboSurvey.ValueMember = "SID";
             cboSurvey.DisplayMember = "SurveyCode";
             cboSurvey.DataSource = new List<Survey>(Globals.AllSurveys);
+        }
 
-            newDraft = new SurveyDraft();
-
+        private void BindProperties()
+        {
             cboSurvey.DataBindings.Add("SelectedValue", newDraft, "SurvID");
             txtDraftTitle.DataBindings.Add("Text", newDraft, "DraftTitle");
             dtDraftDate.DataBindings.Add("Value", newDraft, "DraftDate", true);
             txtDraftComment.DataBindings.Add("Text", newDraft, "DraftComments");
         }
 
-        #region Event Handlers
-        private void SurveyDraftImportForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            FM.FormManager.RemovePopup(this);
-        }
-
-        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
-        private void clearToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            cboSurvey.SelectedIndex = -1;
-            txtDraftTitle.Text = "";
-            txtDraftComment.Text = "";
-            dtDraftDate.Value = DateTime.Today;
-            txtFileName.Text = "";
-
-            pnlColumns.Visible = false;
-            cmdImport.Enabled = false;
-
-            newDraft = new SurveyDraft();
-        }
-
-        private void cmdImport_Click(object sender, EventArgs e)
-        {
-            
-            ImportDraft();
-        }
-
-        /// <summary>
-        /// Open a Select File dialog.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        /// <remarks>If the user selects a file, check it for required components.</remarks>
-        private void cmdBrowse_Click(object sender, EventArgs e)
-        {
-            FileDialog fd = new OpenFileDialog();
-            DialogResult result = fd.ShowDialog();
-
-            if (result == DialogResult.OK)
-            {
-                txtFileName.Text = fd.FileName;
-
-                CheckDocument(fd.FileName);
-
-                if (!errorsExist)
-                    DisplayHeaders();
-            }
-            else
-            {
-                txtFileName.Text = "";
-            }
-        }
-
-        /// <summary>
-        /// Set the column to the tag of the sending object whenever that object's selected item changes.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void DestCol_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ComboBox cb = (ComboBox)sender;
-            int tag = (int)cb.Tag;
-            if (cb.SelectedItem == null)
-                return;
-
-            switch (cb.SelectedItem.ToString())
-            {
-                case "Qnum":
-                    QnumColumn = tag;
-                    break;
-                case "AltQnum":
-                    AltQnumColumn = tag;
-                    break;
-                case "VarName":
-                    VarNameColumn = tag;
-                    break;
-                case "Question Text":
-                    QuestionTextColumn = tag;
-                    break;
-                case "Comments":
-                    CommentsColumn = tag;
-                    break;
-                case "Extra1":
-                    Extra1Column = tag;
-                    break;
-                case "Extra2":
-                    Extra2Column = tag;
-                    break;
-                case "Extra3":
-                    Extra3Column = tag;
-                    break;
-                case "Extra4":
-                    Extra4Column = tag;
-                    break;
-                case "Extra5":
-                    Extra5Column = tag;
-                    break;
-            }
-
-            tag++;
-
-            if (pnlColumns.Controls["txtSource" + tag.ToString()].Text == "MarginComments")
-            {
-                MarginCommentsColumn = tag-1;
-            }
-        }
-        #endregion
+        #endregion 
 
         #region Methods
         // check file for 
@@ -205,7 +109,8 @@ namespace SDIFrontEnd
                         errors += "VarName column not found.\r\n";
 
                 }
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 errors += "Error opening the file.";
             }
@@ -275,7 +180,7 @@ namespace SDIFrontEnd
             int sourceNumber;
             if (Extra1Column >= 0)
             {
-                sourceNumber = Extra1Column+1;
+                sourceNumber = Extra1Column + 1;
                 DBAction.InsertSurveyDraftExtraInfo(newDraft.ID, 1, pnlColumns.Controls["txtSource" + sourceNumber].Text);
             }
 
@@ -304,33 +209,33 @@ namespace SDIFrontEnd
             }
         }
 
-        private void ImportDraft() { 
-
+        private int ImportDraft()
+        {
             if (!CheckSurveyDraft())
-                return;
+                return 1;
 
             CreateDraftInfo();
-            
+
             if (newDraft.ID == 0)
-                return;
+                return 1;
 
             SetExtraFieldInfo();
 
             string fileName = txtFileName.Text;
 
-            if (string.IsNullOrEmpty(fileName)) {
+            if (string.IsNullOrEmpty(fileName))
+            {
                 MessageBox.Show("Choose a file to import.");
-                return;
+                return 1;
             }
 
             using (WordprocessingDocument wdDoc = WordprocessingDocument.Open(fileName, false))
             {
-
                 Body body = wdDoc.MainDocumentPart.Document.Body;
 
                 WordprocessingCommentsPart commentsPart = wdDoc.MainDocumentPart.WordprocessingCommentsPart;
-                Comments commentPart= null;
-                if (commentsPart != null )
+                Comments commentPart = null;
+                if (commentsPart != null)
                     commentPart = wdDoc.MainDocumentPart.WordprocessingCommentsPart.Comments;
 
                 Table table = body.Elements<Table>().ElementAt(0);
@@ -386,7 +291,8 @@ namespace SDIFrontEnd
                             if (QnumColumn == MarginCommentsColumn)
                             {
                                 dq.Qnum = GetMarginComments(commentPart, row, QnumColumn);
-                            }else 
+                            }
+                            else
                                 dq.Qnum = GetContentFromCell(cells, QnumColumn, false);
                         }
 
@@ -478,6 +384,7 @@ namespace SDIFrontEnd
                         rowNum++;
                     }
                 }
+                
             }
 
             // once the rows are converted to survey draft question objects
@@ -488,7 +395,7 @@ namespace SDIFrontEnd
             ProcessEmptyVarNames();
             // check for duplicate varnames
             ProcessDuplicateVarNames();
-            
+
             // insert each question into the database 
             foreach (DraftQuestionRecord q in newDraft.Questions)
             {
@@ -498,16 +405,14 @@ namespace SDIFrontEnd
             newDraft.Questions.Clear();
 
             MessageBox.Show("Done!");
+            return 0;
         }
 
-        private string GetMarginComments (Comments commentPart, TableRow row, int index)
+        private string GetMarginComments(Comments commentPart, TableRow row, int index)
         {
-           
             string text = "";
 
-            var commentRefs= row.Descendants<CommentReference>();
-
-            
+            var commentRefs = row.Descendants<CommentReference>();
 
             foreach (CommentReference cRef in commentRefs)
             {
@@ -531,7 +436,7 @@ namespace SDIFrontEnd
         /// <param name="cells"></param>
         /// <param name="index"></param>
         /// <returns></returns>
-        private string GetContentFromCell (IEnumerable<TableCell> cells, int index, bool richText)
+        private string GetContentFromCell(IEnumerable<TableCell> cells, int index, bool richText)
         {
             string text;
             try
@@ -562,13 +467,12 @@ namespace SDIFrontEnd
             text = text.Replace("<em>", "").Replace("</em>", "");
             text = text.Replace("<u>", "").Replace("</u>", "");
             return text;
-
         }
 
         private void ProcessDuplicateVarNames()
         {
             string extra = "";
-            char letter ='a';
+            char letter = 'a';
             foreach (DraftQuestion q in newDraft.Questions)
             {
                 List<DraftQuestion> list = newDraft.Questions.Where(x => x.VarName == q.VarName).ToList();
@@ -577,7 +481,6 @@ namespace SDIFrontEnd
                 {
                     for (int i = 1; i < list.Count(); i++)
                     {
-
                         list[i].VarName += "-" + extra + letter;
 
                         if (letter == 'z')
@@ -590,7 +493,8 @@ namespace SDIFrontEnd
                                 char current = extra[0];
                                 current++;
                                 extra = current.ToString();
-                            }else
+                            }
+                            else
                             {
                                 char current = extra[extra.Length];
                                 current++;
@@ -599,7 +503,6 @@ namespace SDIFrontEnd
                         }
                         else
                             letter++;
-
                     }
                 }
                 letter = 'a';
@@ -642,7 +545,6 @@ namespace SDIFrontEnd
                     }
                     else
                         letter++;
-
                 }
                 else
                 {
@@ -650,8 +552,6 @@ namespace SDIFrontEnd
                     letter = 'a';
                     extra = "";
                 }
-                
-                
             }
         }
 
@@ -661,18 +561,18 @@ namespace SDIFrontEnd
 
             foreach (DraftQuestion q in newDraft.Questions)
             {
-                if (string.IsNullOrEmpty(q.VarName))
+                if (!string.IsNullOrEmpty(q.VarName))
+                    continue;
+
+                q.VarName = nextVar;
+                int num = Int32.Parse(nextVar.Substring(2, 3)) + 1;
+                if (num > 999)
                 {
-                    q.VarName = nextVar;
-                    int num = Int32.Parse(nextVar.Substring(2, 3)) + 1;
-                    if (num > 999)
-                    {
-                        nextVar = "N_" + num;
-                    }
-                    else
-                    {
-                        nextVar = "N_" + num.ToString("D3");
-                    }
+                    nextVar = "N_" + num;
+                }
+                else
+                {
+                    nextVar = "N_" + num.ToString("D3");
                 }
             }
         }
@@ -693,7 +593,7 @@ namespace SDIFrontEnd
             pnlColumns.Visible = true;
 
             int c = 1;
-            
+
             foreach (string s in Headers)
             {
                 Label docColHeader = new Label();
@@ -719,7 +619,7 @@ namespace SDIFrontEnd
                 destCol.Top = 30 * c;
                 destCol.Width = 100;
                 destCol.DataSource = columns.ToArray();
-                destCol.Tag = c-1;
+                destCol.Tag = c - 1;
                 destCol.SelectedIndexChanged += DestCol_SelectedIndexChanged;
 
                 pnlColumns.Controls.Add(docColHeader);
@@ -728,26 +628,20 @@ namespace SDIFrontEnd
                 pnlColumns.Controls.Add(destCol);
 
                 if (columns.Contains(s))
-                    destCol.SelectedIndex = columns.IndexOf(s); 
+                    destCol.SelectedIndex = columns.IndexOf(s);
                 else
-                   destCol.SelectedIndex = -1;
+                    destCol.SelectedIndex = -1;
 
                 c++;
             }
-
-            
-
         }
 
-       
         /// <summary>
         /// Populate the Header list with values found in the header cells.
         /// </summary>
         /// <param name="headerCells"></param>
         private void GetHeaders(Body body)
         {
-            
-
             var rows = body.Descendants<TableRow>();
 
             List<TableCell> headerCells = rows.ElementAt(0).Elements<TableCell>().ToList<TableCell>();
@@ -764,7 +658,7 @@ namespace SDIFrontEnd
             Extra5Column = -1;
             MarginCommentsColumn = -1;
 
-            for (int i = 0; i <headerCells.Count(); i ++)
+            for (int i = 0; i < headerCells.Count(); i++)
             {
                 string cellText = headerCells.ElementAt(i).GetCellText();
 
@@ -789,25 +683,144 @@ namespace SDIFrontEnd
             {
                 Headers.Add("MarginComments");
             }
-
-
         }
 
         // TODO convert the list number to plain text and add it to the text element
         private void ConvertLists(Body body)
         {
             // paragraphs with numbering
-            var paragraphs = body.Descendants<Paragraph>().Where (x=>x.Descendants<NumberingProperties>().Count()>0);
+            var paragraphs = body.Descendants<Paragraph>().Where(x => x.Descendants<NumberingProperties>().Count() > 0);
 
             foreach (Paragraph p in paragraphs)
             {
-                
+
             }
         }
 
-
-
+        private void ShowColumns()
+        {
+            this.Width = ExpandedWidth;
+            this.Height = ExpandedHeight;
+        }
         #endregion
+
+        #region Events
+        private void SurveyDraftImportForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            FM.FormManager.RemovePopup(this);
+        }
+
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void clearToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            cboSurvey.SelectedIndex = -1;
+            txtDraftTitle.Text = "";
+            txtDraftComment.Text = "";
+            dtDraftDate.Value = DateTime.Today;
+            txtFileName.Text = "";
+
+            pnlColumns.Visible = false;
+            cmdImport.Enabled = false;
+
+            newDraft = new SurveyDraft();
+
+            this.Width = InitialWidth;
+            this.Height = InitialHeight;
+        }
+
+        private void cmdImport_Click(object sender, EventArgs e)
+        {
+            if (ImportDraft() == 1) return;
+
+            ShowColumns();
+        }
+
+        /// <summary>
+        /// Open a Select File dialog.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <remarks>If the user selects a file, check it for required components.</remarks>
+        private void cmdBrowse_Click(object sender, EventArgs e)
+        {
+            FileDialog fd = new OpenFileDialog();
+            DialogResult result = fd.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                txtFileName.Text = fd.FileName;
+
+                CheckDocument(fd.FileName);
+
+                if (!errorsExist)
+                    DisplayHeaders();
+            }
+            else
+            {
+                txtFileName.Text = "";
+            }
+        }
+
+        /// <summary>
+        /// Set the column to the tag of the sending object whenever that object's selected item changes.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DestCol_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox cb = (ComboBox)sender;
+            int tag = (int)cb.Tag;
+            if (cb.SelectedItem == null)
+                return;
+
+            switch (cb.SelectedItem.ToString())
+            {
+                case "Qnum":
+                    QnumColumn = tag;
+                    break;
+                case "AltQnum":
+                    AltQnumColumn = tag;
+                    break;
+                case "VarName":
+                    VarNameColumn = tag;
+                    break;
+                case "Question Text":
+                    QuestionTextColumn = tag;
+                    break;
+                case "Comments":
+                    CommentsColumn = tag;
+                    break;
+                case "Extra1":
+                    Extra1Column = tag;
+                    break;
+                case "Extra2":
+                    Extra2Column = tag;
+                    break;
+                case "Extra3":
+                    Extra3Column = tag;
+                    break;
+                case "Extra4":
+                    Extra4Column = tag;
+                    break;
+                case "Extra5":
+                    Extra5Column = tag;
+                    break;
+            }
+
+            tag++;
+
+            if (pnlColumns.Controls["txtSource" + tag.ToString()].Text == "MarginComments")
+            {
+                MarginCommentsColumn = tag-1;
+            }
+        }
+        #endregion
+
+      
 
         
     }

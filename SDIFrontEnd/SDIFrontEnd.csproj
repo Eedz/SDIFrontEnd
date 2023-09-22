@@ -382,10 +382,10 @@
     <Compile Include="Forms\Languages.designer.cs">
       <DependentUpon>Languages.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\SurveyLanguages.cs">
+    <Compile Include="Unused\SurveyLanguages.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\SurveyLanguages.designer.cs">
+    <Compile Include="Unused\SurveyLanguages.designer.cs">
       <DependentUpon>SurveyLanguages.cs</DependentUpon>
     </Compile>
     <Compile Include="Globals\Globals.cs" />
@@ -937,7 +937,7 @@
     <EmbeddedResource Include="Forms\Languages.resx">
       <DependentUpon>Languages.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SurveyLanguages.resx">
+    <EmbeddedResource Include="Unused\SurveyLanguages.resx">
       <DependentUpon>SurveyLanguages.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PrefixListSheet.resx">

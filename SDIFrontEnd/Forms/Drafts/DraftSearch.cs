@@ -12,8 +12,6 @@ using FM = FormManager;
 
 namespace SDIFrontEnd
 {
-
-    //TODO show draft title
     public partial class DraftSearch : Form
     {
         List<SurveyDraft> DraftList;
@@ -38,46 +36,7 @@ namespace SDIFrontEnd
             FillBoxes();
         }
 
-        #region Menu Items
-        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Close();
-            FM.FormManager.Remove(this);
-        }
-
-        private void clearToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            NewSearch();
-        }
-
-        private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SearchDrafts();
-        }
-
-        #endregion
-
-        #region Events
-        private void cmdSearch_Click(object sender, EventArgs e)
-        {
-            SearchDrafts();
-        }
-
-        private void CboSurveyFilter_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // get the draft dates for this survey (or all)
-            if (cboSurveyFilter.SelectedItem == null)
-                cboDateFilter.DataSource = DraftList;
-            else
-                cboDateFilter.DataSource = DraftList.Where(x => x.SurvID == (int)cboSurveyFilter.SelectedValue).ToList();
-
-            cboDateFilter.DisplayMember = "DateAndTitle";
-            cboDateFilter.ValueMember = "ID";
-        }
-        #endregion
-
-        #region Methods
-
+        #region Form Setup
         private void FillBoxes()
         {
             cboSurveyFilter.DataSource = new List<Survey>(Globals.AllSurveys);
@@ -90,9 +49,10 @@ namespace SDIFrontEnd
             cboInvestigatorFilter.DisplayMember = "Name";
             cboInvestigatorFilter.ValueMember = "ID";
             cboInvestigatorFilter.SelectedItem = null;
-            
         }
+        #endregion
 
+        #region Methods
         private void NewSearch()
         {
             cboSurveyFilter.SelectedItem = null;
@@ -102,7 +62,7 @@ namespace SDIFrontEnd
             txtCommentFilter.Text = string.Empty;
 
             repeaterRecords.DataSource = null;
-            
+
         }
 
         public void GoToDraft(int survid, int draftid)
@@ -134,8 +94,8 @@ namespace SDIFrontEnd
             if (cboDateFilter.SelectedItem != null)
             {
                 SurveyDraft item = (SurveyDraft)cboDateFilter.SelectedItem;
-                
-                date =item.ID;
+
+                date = item.ID;
             }
 
             if (!string.IsNullOrWhiteSpace(txtRefVarFilter.Text))
@@ -165,19 +125,19 @@ namespace SDIFrontEnd
             repeaterRecords.DataSource = bs;
 
             AlignLabels();
-            
+
 
         }
 
         private void BindProperties()
         {
-            txtQnum.DataBindings.Add("Text",bs , "Qnum");
+            txtQnum.DataBindings.Add("Text", bs, "Qnum");
             txtAltQnum.DataBindings.Add("Text", bs, "AltQnum");
             txtVarName.DataBindings.Add("Text", bs, "VarName");
             chkNewRow.DataBindings.Add("Checked", bs, "Inserted");
             chkDeleted.DataBindings.Add("Checked", bs, "Deleted");
-     
-           
+
+
         }
 
         private void UnbindProperties()
@@ -189,7 +149,7 @@ namespace SDIFrontEnd
             chkDeleted.DataBindings.Clear();
 
         }
-        
+
         private void ResizeExtraFields(List<DraftQuestionRecord> records)
         {
             double availableWidth = 1500;
@@ -208,25 +168,25 @@ namespace SDIFrontEnd
             }
 
             if (records.Any(x => !string.IsNullOrWhiteSpace(x.Extra2)))
-            { 
+            {
                 extra2 = true;
                 count++;
             }
 
             if (records.Any(x => !string.IsNullOrWhiteSpace(x.Extra3)))
-            { 
+            {
                 extra3 = true;
                 count++;
             }
 
             if (records.Any(x => !string.IsNullOrWhiteSpace(x.Extra4)))
-            { 
+            {
                 extra4 = true;
                 count++;
             }
 
             if (records.Any(x => !string.IsNullOrWhiteSpace(x.Extra5)))
-            { 
+            {
                 extra5 = true;
                 count++;
             }
@@ -238,10 +198,10 @@ namespace SDIFrontEnd
                 E3Width = 0;
                 E4Width = 0;
                 E5Width = 0;
-                
+
                 QWidth = (int)(availableWidth / 2);
                 CWidth = (int)(availableWidth / 2);
-                
+
                 return;
             }
 
@@ -279,7 +239,7 @@ namespace SDIFrontEnd
                 E5Width = (int)(availableWidth / count);
             }
             else E5Width = 0;
-            
+
 
         }
 
@@ -293,7 +253,7 @@ namespace SDIFrontEnd
 
             if (cboDateFilter.SelectedItem != null)
             {
-                SurveyDraft surveyDraftRecord = (SurveyDraft) cboDateFilter.SelectedItem;
+                SurveyDraft surveyDraftRecord = (SurveyDraft)cboDateFilter.SelectedItem;
 
                 foreach (SurveyDraftExtraField ef in surveyDraftRecord.ExtraFields)
                 {
@@ -321,6 +281,47 @@ namespace SDIFrontEnd
 
         #endregion
 
+        #region Menu Items
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void clearToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NewSearch();
+        }
+
+        private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SearchDrafts();
+        }
+
+        #endregion
+
+        #region Events
+        private void DraftSearch_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            FM.FormManager.Remove(this);
+        }
+
+        private void cmdSearch_Click(object sender, EventArgs e)
+        {
+            SearchDrafts();
+        }
+
+        private void CboSurveyFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // get the draft dates for this survey (or all)
+            if (cboSurveyFilter.SelectedItem == null)
+                cboDateFilter.DataSource = DraftList;
+            else
+                cboDateFilter.DataSource = DraftList.Where(x => x.SurvID == (int)cboSurveyFilter.SelectedValue).ToList();
+
+            cboDateFilter.DisplayMember = "DateAndTitle";
+            cboDateFilter.ValueMember = "ID";
+        }
+
         private void repeaterRecords_DrawItem(object sender, Microsoft.VisualBasic.PowerPacks.DataRepeaterItemEventArgs e)
         {
             var item = (Microsoft.VisualBasic.PowerPacks.DataRepeaterItem)e.DataRepeaterItem;
@@ -331,7 +332,7 @@ namespace SDIFrontEnd
             var questionText = (RichTextBox)item.Controls.Find("rtbQuestionText", false)[0];
             questionText.Width = QWidth;
             questionText.Rtf = currentQuestion.QuestionTextRTF;
-            
+
             lblQuestionText.Left = panelResults.Left + repeaterRecords.Left + repeaterRecords.ItemHeaderSize + questionText.Left;
             lblQuestionText.Width = QWidth;
 
@@ -350,7 +351,7 @@ namespace SDIFrontEnd
 
             lblEF1.Left = panelResults.Left + repeaterRecords.Left + repeaterRecords.ItemHeaderSize + extra1Text.Left;
             lblEF1.Width = E1Width;
-            
+
 
             var extra2Text = (RichTextBox)item.Controls.Find("rtbExtra2", false)[0];
             extra2Text.Width = E2Width;
@@ -405,5 +406,12 @@ namespace SDIFrontEnd
             var datasource = (List<DraftQuestion>)((BindingSource)dataRepeater.DataSource).DataSource;
             DraftQuestion item = datasource[dataRepeaterItem.ItemIndex];
         }
+        #endregion
+
+      
+
+        
+
+        
     }
 }

@@ -299,6 +299,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "DraftReportForm";
             this.Text = "Draft Report";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DraftReportForm_FormClosed);
             this.Load += new System.EventHandler(this.DraftReport_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

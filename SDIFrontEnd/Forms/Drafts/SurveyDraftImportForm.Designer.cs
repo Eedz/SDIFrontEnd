@@ -54,7 +54,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(128, 16);
+            this.label1.Location = new System.Drawing.Point(128, 29);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(250, 31);
@@ -162,7 +162,7 @@
             this.tableLayoutPanel1.Controls.Add(this.label5, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.txtDraftComment, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.dtDraftDate, 1, 2);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(15, 59);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(15, 72);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 5;
@@ -184,7 +184,7 @@
             // 
             // cmdBrowse
             // 
-            this.cmdBrowse.Location = new System.Drawing.Point(369, 196);
+            this.cmdBrowse.Location = new System.Drawing.Point(366, 212);
             this.cmdBrowse.Margin = new System.Windows.Forms.Padding(4);
             this.cmdBrowse.Name = "cmdBrowse";
             this.cmdBrowse.Size = new System.Drawing.Size(88, 28);
@@ -196,7 +196,7 @@
             // cmdImport
             // 
             this.cmdImport.Enabled = false;
-            this.cmdImport.Location = new System.Drawing.Point(369, 296);
+            this.cmdImport.Location = new System.Drawing.Point(366, 272);
             this.cmdImport.Margin = new System.Windows.Forms.Padding(4);
             this.cmdImport.Name = "cmdImport";
             this.cmdImport.Size = new System.Drawing.Size(88, 28);
@@ -221,7 +221,7 @@
             this.clearToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(822, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(464, 24);
             this.menuStrip1.TabIndex = 17;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -243,7 +243,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(822, 423);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(228)))), ((int)(((byte)(189)))));
+            this.ClientSize = new System.Drawing.Size(464, 311);
             this.ControlBox = false;
             this.Controls.Add(this.pnlColumns);
             this.Controls.Add(this.cmdImport);

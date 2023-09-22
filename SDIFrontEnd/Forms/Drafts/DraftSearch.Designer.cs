@@ -661,6 +661,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "DraftSearch";
             this.Text = "Draft Search";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DraftSearch_FormClosed);
             this.repeaterRecords.ItemTemplate.ResumeLayout(false);
             this.repeaterRecords.ItemTemplate.PerformLayout();
             this.repeaterRecords.ResumeLayout(false);

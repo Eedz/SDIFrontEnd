@@ -25,6 +25,13 @@ namespace SDIFrontEnd
 
             DraftList = DBAction.ListSurveyDrafts();
 
+            FillLists();
+            
+        }
+
+        #region Setup
+        private void FillLists()
+        {
             cboSurvey.DataSource = new List<Survey>(Globals.AllSurveys);
             cboSurvey.DisplayMember = "SurveyCode";
             cboSurvey.ValueMember = "SID";
@@ -35,104 +42,63 @@ namespace SDIFrontEnd
             cboInvestigator.DisplayMember = "Name";
             cboInvestigator.ValueMember = "ID";
         }
-
-        
-
-        
-        #region Menu Items
-        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Close();
-            FM.FormManager.RemovePopup(this);
-        }
         #endregion
 
-        #region Events
-        private void DraftReport_Load(object sender, EventArgs e)
+        #region Methods
+        /// <summary>
+        /// Show drafts for this survey.
+        /// </summary>
+        /// <param name="survey"></param>
+        private void FilterBySurvey(Survey survey)
         {
-            rbDraft.Checked = true;
-            UpdateReportType();
-        }
-
-        private void cboSurvey_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //  get drafts for this date
-            if (cboSurvey.SelectedItem == null)
-                return;
-
-            Survey survey = (Survey)cboSurvey.SelectedItem;
-
             cboDraft.DataSource = DraftList.Where(x => x.SurvID == survey.SID).ToList();
             cboDraft.DisplayMember = "DateAndTitle";
             cboDraft.ValueMember = "ID";
             cboDraft.SelectedItem = null;
         }
-
-        private void cmdGenerate_Click(object sender, EventArgs e)
+        
+        private bool CheckQnumRange(string txt)
         {
-            if (!HasCriteria())
+            if (!int.TryParse(txt, out int lower))
             {
-                MessageBox.Show("Please select some criteria!");
-                return;
+                MessageBox.Show("Enter a number.");
+                return false;
             }
+            return true;
+        }
 
-            if (ReportSource.Equals(DraftReportSource.Undefined))
-            {
-                MessageBox.Show("Invalid report source.");
-                return;
-            }
+        private void Generate()
+        {
+            string qnumRangeLower = txtQnumLower.Text;
+            string qnumRangeUpper = txtQnumUpper.Text;
+            bool singleDraft = rbDraft.Checked;
+            Survey survey = (Survey)cboSurvey.SelectedItem;
 
             List<DraftQuestion> records = GetReportData();
 
-            if (!string.IsNullOrWhiteSpace(txtQnumLower.Text) || !string.IsNullOrWhiteSpace(txtQnumUpper.Text))
+            if (!string.IsNullOrWhiteSpace(qnumRangeLower) || !string.IsNullOrWhiteSpace(qnumRangeUpper))
                 records = FilterForQnum(records);
-            
 
             if (records.Count == 0)
             {
                 MessageBox.Show("No records found!");
                 return;
             }
-
-            bool singleDraft = rbDraft.Checked;
+            
             DraftReport report = new DraftReport();
 
-            report.SelectedSurvey = (Survey)cboSurvey.SelectedItem;
+            report.SelectedSurvey = survey;
 
             if (singleDraft)
             {
                 SurveyDraft draft = (SurveyDraft)cboDraft.SelectedItem;
-                draft.ExtraFields.AddRange(((SurveyDraft)cboDraft.SelectedItem).ExtraFields);
+                draft.ExtraFields.AddRange(draft.ExtraFields);
                 report.DraftInfo = draft;
             }
 
             report.Questions = records;
             report.CreateReport();
-            
-            
         }
-        
-
-        private void FilterType_Click(object sender, EventArgs e)
-        {
-            UpdateReportType();
-        }
-
-        private void Qnum_Validating(object sender, CancelEventArgs e)
-        {
-            TextBox txt = (TextBox)sender;
-            if (string.IsNullOrEmpty(txt.Text))
-                return;
-
-            if (!Int32.TryParse(txt.Text, out int lower))
-            {
-                MessageBox.Show("Enter a number.");
-                e.Cancel = true;
-            }
-        }
-        #endregion
-
-        #region Methods 
 
         private bool HasCriteria()
         {
@@ -152,7 +118,7 @@ namespace SDIFrontEnd
 
         private List<DraftQuestion> GetReportData()
         {
-           
+
 
             Survey survID = (Survey)cboSurvey.SelectedItem;
             List<DraftQuestion> reportRecords;
@@ -238,6 +204,68 @@ namespace SDIFrontEnd
         }
         #endregion
 
+        #region Menu Items
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+        #endregion
+
+        #region Events
+        private void DraftReport_Load(object sender, EventArgs e)
+        {
+            rbDraft.Checked = true;
+            UpdateReportType();
+        }
+
+        private void DraftReportForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            FM.FormManager.RemovePopup(this);
+        }
+
+        private void cboSurvey_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboSurvey.SelectedItem == null)
+                return;
+
+            Survey survey = (Survey)cboSurvey.SelectedItem;
+
+            FilterBySurvey(survey);
+        }
+
+        private void cmdGenerate_Click(object sender, EventArgs e)
+        {
+            if (!HasCriteria())
+            {
+                MessageBox.Show("Please select some criteria!");
+                return;
+            }
+
+            if (ReportSource.Equals(DraftReportSource.Undefined))
+            {
+                MessageBox.Show("Invalid report source.");
+                return;
+            }
+
+            Generate();
+        }
         
+
+        private void FilterType_Click(object sender, EventArgs e)
+        {
+            UpdateReportType();
+        }
+
+        private void Qnum_Validating(object sender, CancelEventArgs e)
+        {
+            TextBox txt = (TextBox)sender;
+            if (string.IsNullOrEmpty(txt.Text))
+                return;
+
+            if (!CheckQnumRange(txt.Text))
+                e.Cancel = true;
+        }
+        #endregion
+       
     }
 }
