@@ -23,7 +23,7 @@ namespace SDIFrontEnd
         public MainMenu()
         {
             InitializeComponent();
-
+            
             StartPosition = FormStartPosition.CenterScreen;
 
             // 221, 241, 185 green
@@ -43,8 +43,8 @@ namespace SDIFrontEnd
             FM.FormManager.FormAdded += FormManager_FormAdded;
             FM.FormManager.PopupAdded += FormManager_PopupAdded;
 
-            this.worker.DoWork += BackgroundWorker1_DoWork;
-            worker.RunWorkerCompleted += backgroundWorker1_RunWorkerCompleted;
+            this.worker.DoWork += worker_DoWork;
+            worker.RunWorkerCompleted += worker_RunWorkerCompleted;
         }
 
 
@@ -72,7 +72,7 @@ namespace SDIFrontEnd
            
         }
 
-        private void BackgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        private void worker_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker helperBW = sender as BackgroundWorker;
 
@@ -80,7 +80,7 @@ namespace SDIFrontEnd
             autoSurveyStatus = AutoSurveysStatus();
         }
 
-        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             
             lblBackupStatus.Text = backupStatus;
@@ -156,7 +156,7 @@ namespace SDIFrontEnd
         #region Edit
         private void LabelsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmLabelLibrary frm = new frmLabelLibrary();
+            LabelLibrary frm = new LabelLibrary();
 
             frm.ShowDialog();
         }

@@ -18,10 +18,14 @@ namespace SDIFrontEnd
             InitializeComponent();
         }
 
+        private void VarNameMenu_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            FM.FormManager.Remove(this);
+        }
+
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
-            FM.FormManager.Remove(this);
         }
 
         private void cmdOpenRenameSingle_Click(object sender, EventArgs e)
@@ -56,8 +60,6 @@ namespace SDIFrontEnd
             frm.Tag = 1;
             FM.FormManager.Add(frm);
         }
-
-        
 
         private void cmdOpenVarNameChangeReport_Click(object sender, EventArgs e)
         {

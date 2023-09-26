@@ -29,6 +29,7 @@ namespace SDIFrontEnd
         
         BindingSource bs;
         BindingSource bsCurrent;
+        BindingSource bsLabels;
         
         // references to popup forms      
         WordingEntryForm frmWordings;
@@ -149,6 +150,14 @@ namespace SDIFrontEnd
 
             bsCurrent.ListChanged += SurveyEditor_ListChanged;
 
+            bsLabels = new BindingSource()
+            {
+                DataSource= bsCurrent 
+            };
+            bsLabels.DataMember = "VarName";
+
+            bsLabels.ListChanged += SurveyEditor_LabelsChanged;
+
             navQuestions.BindingSource = bs;
         }
 
@@ -176,7 +185,7 @@ namespace SDIFrontEnd
         private void BindProperties()
         {
             // varname and qnum
-            txtVarName.DataBindings.Add(new Binding("Text", bsCurrent, "VarName.VarName"));
+            txtVarName.DataBindings.Add(new Binding("Text", bsLabels, "VarName"));
             txtQnum.DataBindings.Add(new Binding("Text", bsCurrent, "Qnum"));
             txtAltQnum.DataBindings.Add(new Binding("Text", bsCurrent, "AltQnum"));
             txtAltQnum2.DataBindings.Add(new Binding("Text", bsCurrent, "AltQnum2"));
@@ -193,11 +202,11 @@ namespace SDIFrontEnd
             txtNR.DataBindings.Add(new Binding("Text", bsCurrent, "NRName"));
 
             // labels
-            txtVarLabel.DataBindings.Add(new Binding("Text", bsCurrent, "VarName.VarLabel"));
-            cboDomainLabel.DataBindings.Add("SelectedItem", bsCurrent, "VarName.Domain");
-            cboTopicLabel.DataBindings.Add("SelectedItem", bsCurrent, "VarName.Topic");
-            cboContentLabel.DataBindings.Add("SelectedItem", bsCurrent, "VarName.Content");
-            cboProductLabel.DataBindings.Add("SelectedItem", bsCurrent, "VarName.Product");
+            txtVarLabel.DataBindings.Add(new Binding("Text", bsLabels, "VarLabel"));
+            cboDomainLabel.DataBindings.Add("SelectedItem", bsLabels, "Domain");
+            cboTopicLabel.DataBindings.Add("SelectedItem", bsLabels, "Topic");
+            cboContentLabel.DataBindings.Add("SelectedItem", bsLabels, "Content");
+            cboProductLabel.DataBindings.Add("SelectedItem", bsLabels, "Product");
         }
 
         /// <summary>
@@ -206,32 +215,32 @@ namespace SDIFrontEnd
         private void FillBoxes()
         {
             // menus
-            toolStripLanguage.ComboBox.DataSource = RefreshLanguages();
             toolStripLanguage.ComboBox.DisplayMember = "SurvLanguage";
             toolStripLanguage.ComboBox.ValueMember = "SurvLanguage";
+            toolStripLanguage.ComboBox.DataSource = RefreshLanguages();
 
             // top portion
-            cboSurvey.DataSource = new List<Survey>(Globals.AllSurveys);
             cboSurvey.DisplayMember = "SurveyCode";
             cboSurvey.ValueMember = "SID";
+            cboSurvey.DataSource = new List<Survey>(Globals.AllSurveys);
             cboSurvey.SelectedValue = CurrentSurvey.SID;
             cboSurvey.SelectedIndexChanged += cboSurvey_SelectedIndexChanged;
 
-            cboDomainLabel.DataSource = new List<DomainLabel>(Globals.AllDomainLabels);
             cboDomainLabel.ValueMember = "ID";
             cboDomainLabel.DisplayMember = "LabelText";
+            cboDomainLabel.DataSource = new List<DomainLabel>(Globals.AllDomainLabels);
 
-            cboTopicLabel.DataSource = new List<TopicLabel>(Globals.AllTopicLabels);
             cboTopicLabel.ValueMember = "ID";
             cboTopicLabel.DisplayMember = "LabelText";
+            cboTopicLabel.DataSource = new List<TopicLabel>(Globals.AllTopicLabels);
 
-            cboContentLabel.DataSource = new List<ContentLabel>(Globals.AllContentLabels);
             cboContentLabel.ValueMember = "ID";
             cboContentLabel.DisplayMember = "LabelText";
+            cboContentLabel.DataSource = new List<ContentLabel>(Globals.AllContentLabels);
 
-            cboProductLabel.DataSource = new List<ProductLabel>(Globals.AllProductLabels);
             cboProductLabel.ValueMember = "ID";
             cboProductLabel.DisplayMember = "LabelText";
+            cboProductLabel.DataSource = new List<ProductLabel>(Globals.AllProductLabels);
         }
 
         /// <summary>
@@ -583,6 +592,47 @@ namespace SDIFrontEnd
         }
 
         /// <summary>
+        /// If a wording number changes for a member of the bound list, update CurrentRecord's wording text, mark it as Dirty and refresh the question text. This assumes
+        /// that the modified member is the same as the CurrentRecord. TODO It is possible that this event is fired for other members than CurrentRecord but I have no way 
+        /// of figuring that out right now.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SurveyEditor_LabelsChanged(object sender, ListChangedEventArgs e)
+        {
+            if (e.PropertyDescriptor == null) return;
+
+            // get the question record that was modified
+            SurveyQuestion modifiedQuestion = (SurveyQuestion)bsCurrent[e.NewIndex];
+            QuestionRecord modifiedRecord = Records.Where(x => x.Item == modifiedQuestion).FirstOrDefault();
+
+            int index = bs.IndexOf(modifiedRecord);
+
+            if (modifiedRecord == null)
+                return;
+
+            switch (e.PropertyDescriptor.Name)
+            {
+                case "VarLabel":
+                case "Domain":
+                case "Topic":
+                case "Content":
+                case "Product":
+                    modifiedRecord.DirtyLabels = true;
+                    break;
+                default:
+                    return;
+            }
+
+            bs.ResetBindings(false);
+
+            LoadQuestion();
+            UpdateStatus();
+
+            ShadeListItem(index, Color.Orange);
+        }
+
+        /// <summary>
         /// Updates subforms to match the current record
         /// </summary>
         /// <param name="sender"></param>
@@ -753,6 +803,7 @@ namespace SDIFrontEnd
 
             FM.FormManager.Remove(this);
         }
+
         // TODO adderror handling
         private void cmdUnlock_Click(object sender, EventArgs e)
         {
@@ -762,48 +813,40 @@ namespace SDIFrontEnd
             CurrentSurvey.Locked = false;
         }
 
-        private void Label_Validated(object sender, EventArgs e)
-        {
-            CurrentRecord.DirtyLabels = true;
-            ShadeListItem(bs.Position, Color.Orange);
-            UpdateStatus();
-        }
-
         private void SurveyEditor_RefreshDomains(object sender, EventArgs e)
         {
-            cboGoToVar.Focus();
-           // cboDomainLabel.DataSource = null;
-            cboDomainLabel.DataSource = new List<DomainLabel>(Globals.AllDomainLabels);
+            DomainLabel label = (DomainLabel)cboDomainLabel.SelectedItem;
             cboDomainLabel.ValueMember = "ID";
             cboDomainLabel.DisplayMember = "LabelText";
+            cboDomainLabel.DataSource = new List<DomainLabel>(Globals.AllDomainLabels);
+            cboDomainLabel.SelectedItem = label;
         }
 
         private void SurveyEditor_RefreshTopics(object sender, EventArgs e)
         {
-            cboGoToVar.Focus();
-           // cboTopicLabel.DataSource = null;
-            cboTopicLabel.DataSource = new List<TopicLabel>(Globals.AllTopicLabels);
+            TopicLabel label = (TopicLabel)cboTopicLabel.SelectedItem;
             cboTopicLabel.ValueMember = "ID";
             cboTopicLabel.DisplayMember = "LabelText";
+            cboTopicLabel.DataSource = new List<TopicLabel>(Globals.AllTopicLabels);
+            cboTopicLabel.SelectedItem = label;
         }
 
         private void SurveyEditor_RefreshContents(object sender, EventArgs e)
         {
-            cboGoToVar.Focus();
-            //cboContentLabel.DataSource = null;
-            cboContentLabel.DataSource = new List<ContentLabel>(Globals.AllContentLabels);
+            ContentLabel label = (ContentLabel)cboContentLabel.SelectedItem;
             cboContentLabel.ValueMember = "ID";
             cboContentLabel.DisplayMember = "LabelText";
-            
+            cboContentLabel.DataSource = new List<ContentLabel>(Globals.AllContentLabels);
+            cboContentLabel.SelectedItem = label;
         }
 
         private void SurveyEditor_RefreshProducts(object sender, EventArgs e)
         {
-            cboGoToVar.Focus();
-           // cboProductLabel.DataSource = null;
-            cboProductLabel.DataSource = new List<ProductLabel>(Globals.AllProductLabels);
+            ProductLabel label = (ProductLabel)cboProductLabel.SelectedItem;
             cboProductLabel.ValueMember = "ID";
             cboProductLabel.DisplayMember = "LabelText";
+            cboProductLabel.DataSource = new List<ProductLabel>(Globals.AllProductLabels);
+            cboProductLabel.SelectedItem = label;
         }
 
         private void dgvTimeFrames_NewRowNeeded(object sender, DataGridViewRowEventArgs e)
@@ -2466,6 +2509,11 @@ namespace SDIFrontEnd
             {
                 cbo.SelectedIndex = 0;
             }
+        }
+
+        private void cboDomainLabel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -862,7 +862,6 @@
             this.cboProductLabel.Size = new System.Drawing.Size(375, 24);
             this.cboProductLabel.TabIndex = 4;
             this.cboProductLabel.Validating += new System.ComponentModel.CancelEventHandler(this.ComboBox_Validating);
-            this.cboProductLabel.Validated += new System.EventHandler(this.Label_Validated);
             // 
             // cboContentLabel
             // 
@@ -874,7 +873,6 @@
             this.cboContentLabel.Size = new System.Drawing.Size(375, 24);
             this.cboContentLabel.TabIndex = 3;
             this.cboContentLabel.Validating += new System.ComponentModel.CancelEventHandler(this.ComboBox_Validating);
-            this.cboContentLabel.Validated += new System.EventHandler(this.Label_Validated);
             // 
             // cboTopicLabel
             // 
@@ -886,7 +884,6 @@
             this.cboTopicLabel.Size = new System.Drawing.Size(375, 24);
             this.cboTopicLabel.TabIndex = 2;
             this.cboTopicLabel.Validating += new System.ComponentModel.CancelEventHandler(this.ComboBox_Validating);
-            this.cboTopicLabel.Validated += new System.EventHandler(this.Label_Validated);
             // 
             // cboDomainLabel
             // 
@@ -897,8 +894,8 @@
             this.cboDomainLabel.Name = "cboDomainLabel";
             this.cboDomainLabel.Size = new System.Drawing.Size(375, 24);
             this.cboDomainLabel.TabIndex = 1;
+            this.cboDomainLabel.SelectedIndexChanged += new System.EventHandler(this.cboDomainLabel_SelectedIndexChanged);
             this.cboDomainLabel.Validating += new System.ComponentModel.CancelEventHandler(this.ComboBox_Validating);
-            this.cboDomainLabel.Validated += new System.EventHandler(this.Label_Validated);
             // 
             // txtVarLabel
             // 
@@ -908,7 +905,6 @@
             this.txtVarLabel.Name = "txtVarLabel";
             this.txtVarLabel.Size = new System.Drawing.Size(375, 23);
             this.txtVarLabel.TabIndex = 0;
-            this.txtVarLabel.Validated += new System.EventHandler(this.Label_Validated);
             // 
             // rtbQuestionText
             // 

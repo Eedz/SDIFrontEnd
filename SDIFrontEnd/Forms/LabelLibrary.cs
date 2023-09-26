@@ -11,7 +11,7 @@ using ITCLib;
 
 namespace SDIFrontEnd
 {
-    public partial class frmLabelLibrary : Form
+    public partial class LabelLibrary : Form
     {
         public enum LabelType { Domain, Topic, Content, Product, Keyword }
         int gap = 25;
@@ -24,99 +24,19 @@ namespace SDIFrontEnd
 
         LabelType CurrentType;
 
-        public frmLabelLibrary()
+        public LabelLibrary()
         {
             InitializeComponent();
 
-            DomainLabels = Globals.AllDomainLabels;
-            TopicLabels = Globals.AllTopicLabels;
-            ContentLabels = Globals.AllContentLabels;
-            ProductLabels = Globals.AllProductLabels;
-            Keywords = DBAction.GetKeywords();
+            DomainLabels = new List<DomainLabel> (Globals.AllDomainLabels);
+            TopicLabels = new List<TopicLabel> (Globals.AllTopicLabels);
+            ContentLabels = new List<ContentLabel> (Globals.AllContentLabels);
+            ProductLabels = new List<ProductLabel> (Globals.AllProductLabels);
+            Keywords = new List<Keyword> (DBAction.GetKeywords());
 
             rbDomain.Checked = true;
             
         }
-
-        #region Events
-        private void Form1_ResizeEnd(object sender, EventArgs e)
-        {
-            dgvLabels.Height = this.Height - dgvLabels.Top - menuStrip1.Height - gap;
-        }
-
-        private void newToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            AddNewLabel();
-        }
-
-        private void showUsesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ShowUses();
-        }
-
-        private void LabelTypeChanged(object sender, EventArgs e)
-        {
-            RadioButton rb = (RadioButton)sender;
-
-            switch (rb.Tag)
-            {
-                case "1":
-                    showUsesToolStripMenuItem.Enabled = true;
-                    CurrentType = LabelType.Domain;
-                    break;
-                case "2":
-                    showUsesToolStripMenuItem.Enabled = true;
-                    CurrentType = LabelType.Topic;
-                    break;
-                case "3":
-                    showUsesToolStripMenuItem.Enabled = true;
-                    CurrentType = LabelType.Content;
-                    break;
-                case "4":
-                    showUsesToolStripMenuItem.Enabled = true;
-                    CurrentType = LabelType.Product;
-                    break;
-                case "5":
-                    showUsesToolStripMenuItem.Enabled = false;
-                    CurrentType = LabelType.Keyword;
-                    break;
-            }
-
-            LoadLabels(CurrentType);
-
-        }
-
-        private void dgvLabels_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            // if label is double clicked, show editing form
-            int id = Int32.Parse(dgvLabels.Rows[e.RowIndex].Cells[0].Value.ToString());
-
-            if (id == 0)
-            {
-                MessageBox.Show("Label #0 is reserved and cannot be edited.");
-                return;
-            }
-                 
-            string label = dgvLabels.Rows[e.RowIndex].Cells[1].Value.ToString();
-            InputBox frm = new InputBox("Edit Label", "Edit Label", label);
-            frm.ShowDialog();
-
-            if (frm.DialogResult == DialogResult.Cancel)
-                return;
-
-            // update in database
-            if (DBAction.UpdateLabel(GetCurrentLabelType(), frm.userInput, id) == 1)
-            {
-                MessageBox.Show("Error: could not update " + GetCurrentLabelType() + " label #" + id);
-                return;
-            }
-            // update on this form
-            UpdateLabel(CurrentType, frm.userInput, id);
-            // refresh list
-            LoadLabels(CurrentType);
-        }
-
-        #endregion
 
         #region Methods
 
@@ -217,7 +137,7 @@ namespace SDIFrontEnd
                     LoadLabels(LabelType.Keyword);
                     break;
             }
-            
+
         }
 
         private void LoadLabels(LabelType type)
@@ -243,7 +163,7 @@ namespace SDIFrontEnd
                     LoadKeywords();
                     break;
             }
-            
+
         }
 
         private void LoadDomainLabels()
@@ -256,7 +176,6 @@ namespace SDIFrontEnd
                 row.Cells["chID"].Value = d.ID;
                 row.Cells["chLabel"].Value = d.LabelText;
                 row.Cells["chCount"].Value = d.Uses;
-
             }
         }
 
@@ -270,7 +189,6 @@ namespace SDIFrontEnd
                 row.Cells["chID"].Value = d.ID;
                 row.Cells["chLabel"].Value = d.LabelText;
                 row.Cells["chCount"].Value = d.Uses;
-
             }
         }
 
@@ -284,7 +202,6 @@ namespace SDIFrontEnd
                 row.Cells["chID"].Value = d.ID;
                 row.Cells["chLabel"].Value = d.LabelText;
                 row.Cells["chCount"].Value = d.Uses;
-
             }
         }
 
@@ -298,7 +215,6 @@ namespace SDIFrontEnd
                 row.Cells["chID"].Value = d.ID;
                 row.Cells["chLabel"].Value = d.LabelText;
                 row.Cells["chCount"].Value = d.Uses;
-
             }
         }
 
@@ -312,11 +228,8 @@ namespace SDIFrontEnd
                 row.Cells["chID"].Value = d.ID;
                 row.Cells["chLabel"].Value = d.LabelText;
                 row.Cells["chCount"].Value = DBAction.CountKeywordUses(d.ID);
-
             }
         }
-
-        
 
         private string GetCurrentLabelType()
         {
@@ -333,9 +246,90 @@ namespace SDIFrontEnd
                 case LabelType.Keyword:
                     return "Keyword";
             }
-            return "";
+            return string.Empty;
+        }
+        #endregion
+
+        #region Events
+        private void LabelLibrary_ResizeEnd(object sender, EventArgs e)
+        {
+            dgvLabels.Height = this.Height - dgvLabels.Top - menuStrip1.Height - gap;
+        }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddNewLabel();
+        }
+
+        private void showUsesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowUses();
+        }
+
+        private void LabelTypeChanged(object sender, EventArgs e)
+        {
+            RadioButton rb = (RadioButton)sender;
+
+            switch (rb.Tag)
+            {
+                case "1":
+                    showUsesToolStripMenuItem.Enabled = true;
+                    CurrentType = LabelType.Domain;
+                    break;
+                case "2":
+                    showUsesToolStripMenuItem.Enabled = true;
+                    CurrentType = LabelType.Topic;
+                    break;
+                case "3":
+                    showUsesToolStripMenuItem.Enabled = true;
+                    CurrentType = LabelType.Content;
+                    break;
+                case "4":
+                    showUsesToolStripMenuItem.Enabled = true;
+                    CurrentType = LabelType.Product;
+                    break;
+                case "5":
+                    showUsesToolStripMenuItem.Enabled = false;
+                    CurrentType = LabelType.Keyword;
+                    break;
+            }
+
+            LoadLabels(CurrentType);
+
+        }
+
+        private void dgvLabels_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // if label is double clicked, show editing form
+            int id = Int32.Parse(dgvLabels.Rows[e.RowIndex].Cells[0].Value.ToString());
+
+            if (id == 0)
+            {
+                MessageBox.Show("Label #0 is reserved and cannot be edited.");
+                return;
+            }
+                 
+            string label = dgvLabels.Rows[e.RowIndex].Cells[1].Value.ToString();
+            InputBox frm = new InputBox("Edit Label", "Edit Label", label);
+            frm.ShowDialog();
+
+            if (frm.DialogResult == DialogResult.Cancel)
+                return;
+
+            // update in database
+            if (DBAction.UpdateLabel(GetCurrentLabelType(), frm.userInput, id) == 1)
+            {
+                MessageBox.Show("Error: could not update " + GetCurrentLabelType() + " label #" + id);
+                return;
+            }
+            // update on this form
+            UpdateLabel(CurrentType, frm.userInput, id);
+            // refresh list
+            LoadLabels(CurrentType);
         }
 
         #endregion
+
+       
     }
 }

@@ -238,7 +238,7 @@ namespace SDIFrontEnd
 
         private void toolStripLabelLibrary_Click(object sender, EventArgs e)
         {
-            frmLabelLibrary frm = new frmLabelLibrary();
+            LabelLibrary frm = new LabelLibrary();
             frm.ShowDialog();
         }
 

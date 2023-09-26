@@ -358,11 +358,11 @@
       <DependentUpon>DeletedSurveyQuestions.cs</DependentUpon>
     </Compile>
     <Compile Include="FormUtilities.cs" />
-    <Compile Include="Forms\frmLabelLibrary.cs">
+    <Compile Include="Forms\LabelLibrary.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmLabelLibrary.designer.cs">
-      <DependentUpon>frmLabelLibrary.cs</DependentUpon>
+    <Compile Include="Forms\LabelLibrary.designer.cs">
+      <DependentUpon>LabelLibrary.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmLabelUses.cs">
       <SubType>Form</SubType>
@@ -922,8 +922,8 @@
     <EmbeddedResource Include="Forms\Menus\MainMenu.resx">
       <DependentUpon>MainMenu.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmLabelLibrary.resx">
-      <DependentUpon>frmLabelLibrary.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\LabelLibrary.resx">
+      <DependentUpon>LabelLibrary.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmLabelUses.resx">
       <DependentUpon>frmLabelUses.cs</DependentUpon>
