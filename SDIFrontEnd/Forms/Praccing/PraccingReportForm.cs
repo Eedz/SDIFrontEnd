@@ -81,7 +81,7 @@ namespace SDIFrontEnd
                 return;
             }
 
-            frmPraccingIssuesImport frm = new frmPraccingIssuesImport();
+            ImportPraccingIssues frm = new ImportPraccingIssues();
             frm.Tag = 1;
             FM.FormManager.Add(frm);
         }

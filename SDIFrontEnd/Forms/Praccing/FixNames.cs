@@ -11,24 +11,38 @@ using ITCLib;
 
 namespace SDIFrontEnd
 {
-    public partial class frmFixNames : Form
+    public partial class FixNames : Form
     {
         List<StringPair> Names;
-        public frmFixNames(List<StringPair> toFix)
+        public FixNames(List<StringPair> toFix)
         {
             InitializeComponent();
 
             Names = toFix;
+
+            FillBoxes();
+
+            SetupGrid();
+        }
+
+        #region Form Setup
+        private void FillBoxes()
+        {
             chValid.ValueMember = "Name";
             chValid.DisplayMember = "Name";
-            chValid.DataSource = DBAction.GetPeople();
+            chValid.DataSource = new List<Person>(Globals.AllPeople);
+        }
+
+        private void SetupGrid()
+        {
             chValid.DataPropertyName = "String2";
-           
             chInvalid.DataPropertyName = "String1";
             dgvNames.AutoGenerateColumns = false;
             dgvNames.DataSource = Names;
         }
+        #endregion
 
+        #region Events
         private void cmdDone_Click(object sender, EventArgs e)
         {
             //foreach (StringPair sp in Names)
@@ -42,5 +56,12 @@ namespace SDIFrontEnd
             DialogResult = DialogResult.OK;
             Close();
         }
+
+        private void cmdCancel_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
+            Close();
+        }
+        #endregion
     }
 }

@@ -24,17 +24,34 @@ namespace SDIFrontEnd
             InitializeComponent();
 
             IssueList = list;
+
+            SetupBindingSource();
+
+            FillLists();
+
+            BindProperties();
+        }
+
+        #region Form Setup
+        private void SetupBindingSource()
+        {
             bs = new BindingSource();
             bs.DataSource = IssueList;
 
             dataRepeater1.DataSource = bs;
+        }
 
-            txtSurvey.DataBindings.Add(new Binding("Text", bs, "Survey.SurveyCode"));
+        private void FillLists()
+        {
             cboToCriteria.DisplayMember = "Name";
             cboToCriteria.ValueMember = "ID";
-            cboToCriteria.DataSource = DBAction.GetPeople();
+            cboToCriteria.DataSource = new List<Person>(Globals.AllPeople);
             cboToCriteria.SelectedItem = null;
+        }
 
+        private void BindProperties()
+        {
+            txtSurvey.DataBindings.Add(new Binding("Text", bs, "Survey.SurveyCode"));
             txtIssueNo.DataBindings.Add(new Binding("Text", bs, "IssueNo"));
             txtVarNames.DataBindings.Add(new Binding("Text", bs, "VarNames"));
             txtFrom.DataBindings.Add(new Binding("Text", bs, "IssueFrom.Name"));
@@ -43,20 +60,19 @@ namespace SDIFrontEnd
 
             rtbDescription.DataBindings.Add(new Binding("Rtf", bs, "DescriptionRTF"));
         }
+        #endregion
 
-        private void cmdCheckForIssues_Click(object sender, EventArgs e)
+        #region Methods
+        private void CheckForIssues(string varnames, Person to)
         {
-           
             IEnumerable<PraccingIssue> query = IssueList;
 
-            string varnames = txtVarNameCriteria.Text.ToLower();
-            Person to = (Person)cboToCriteria.SelectedItem;
             if (!string.IsNullOrEmpty(varnames))
                 query = query.Where(x => x.VarNames.ToLower().Contains(varnames));
-            if (cboToCriteria.SelectedItem !=null)
+            if (to != null)
                 query = query.Where(x => x.IssueTo.ID == to.ID);
 
-            if (query.Count() ==0)
+            if (query.Count() == 0)
             {
                 MessageBox.Show("No matches found!");
                 return;
@@ -64,6 +80,24 @@ namespace SDIFrontEnd
 
 
             bs.DataSource = query.ToList();
+        }
+
+        #endregion
+
+
+        #region Events
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.No;
+            Close();
+        }
+
+        private void cmdCheckForIssues_Click(object sender, EventArgs e)
+        {
+            string varnames = txtVarNameCriteria.Text.ToLower();
+            Person to = (Person)cboToCriteria.SelectedItem;
+
+            CheckForIssues(varnames, to);
         }
 
         private void cmdCreateNew_Click(object sender, EventArgs e)
@@ -78,8 +112,6 @@ namespace SDIFrontEnd
             var dataRepeaterItem = (Microsoft.VisualBasic.PowerPacks.DataRepeaterItem)btn.Parent;
             var dataRepeater = (Microsoft.VisualBasic.PowerPacks.DataRepeater)btn.Parent.Parent;
             var source = (List<PraccingIssue>)((BindingSource)dataRepeater.DataSource).DataSource;
-
-            
 
             SelectedIssueNo = source[dataRepeaterItem.ItemIndex].IssueNo;
             SelectedIssue = source[dataRepeaterItem.ItemIndex];
@@ -102,8 +134,9 @@ namespace SDIFrontEnd
 
             var toBox = (TextBox)e.DataRepeaterItem.Controls.Find("txtTo", false)[0];
             toBox.Text = datasource[e.DataRepeaterItem.ItemIndex].IssueTo.Name;
-
-
         }
+        #endregion
+
+        
     }
 }

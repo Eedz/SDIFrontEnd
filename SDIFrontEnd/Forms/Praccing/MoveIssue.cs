@@ -11,12 +11,12 @@ using ITCLib;
 
 namespace SDIFrontEnd
 {
-    public partial class frmMoveIssue : Form
+    public partial class MoveIssue : Form
     {
         List<int> IssueNums;
         public int TargetIssueNum;
 
-        public frmMoveIssue(List<int> issueNums)
+        public MoveIssue(List<int> issueNums)
         {
             InitializeComponent();
 
@@ -25,10 +25,7 @@ namespace SDIFrontEnd
             cboIssueNo.DataSource = IssueNums;
         }
 
-        private void frmMoveIssue_Load(object sender, EventArgs e)
-        {
-
-        }
+        #region Events
 
         private void cmdOK_Click(object sender, EventArgs e)
         {
@@ -42,5 +39,6 @@ namespace SDIFrontEnd
             DialogResult = DialogResult.Cancel;
             Close();
         }
+        #endregion
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace SDIFrontEnd
 {
-    partial class frmMoveIssue
+    partial class MoveIssue
     {
         /// <summary>
         /// Required designer variable.
@@ -40,25 +40,29 @@
             this.cboIssueNo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cboIssueNo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboIssueNo.FormattingEnabled = true;
-            this.cboIssueNo.Location = new System.Drawing.Point(101, 18);
+            this.cboIssueNo.Location = new System.Drawing.Point(118, 22);
+            this.cboIssueNo.Margin = new System.Windows.Forms.Padding(4);
             this.cboIssueNo.Name = "cboIssueNo";
-            this.cboIssueNo.Size = new System.Drawing.Size(46, 21);
+            this.cboIssueNo.Size = new System.Drawing.Size(53, 24);
             this.cboIssueNo.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 21);
+            this.label1.Location = new System.Drawing.Point(10, 26);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(86, 13);
+            this.label1.Size = new System.Drawing.Size(103, 16);
             this.label1.TabIndex = 1;
             this.label1.Text = "Move to issue #:";
             // 
             // cmdOK
             // 
-            this.cmdOK.Location = new System.Drawing.Point(12, 58);
+            this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cmdOK.Location = new System.Drawing.Point(14, 71);
+            this.cmdOK.Margin = new System.Windows.Forms.Padding(4);
             this.cmdOK.Name = "cmdOK";
-            this.cmdOK.Size = new System.Drawing.Size(75, 23);
+            this.cmdOK.Size = new System.Drawing.Size(88, 28);
             this.cmdOK.TabIndex = 2;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
@@ -66,9 +70,11 @@
             // 
             // cmdCancel
             // 
-            this.cmdCancel.Location = new System.Drawing.Point(101, 58);
+            this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdCancel.Location = new System.Drawing.Point(118, 71);
+            this.cmdCancel.Margin = new System.Windows.Forms.Padding(4);
             this.cmdCancel.Name = "cmdCancel";
-            this.cmdCancel.Size = new System.Drawing.Size(75, 23);
+            this.cmdCancel.Size = new System.Drawing.Size(88, 28);
             this.cmdCancel.TabIndex = 3;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
@@ -77,25 +83,28 @@
             // lblSeparator
             // 
             this.lblSeparator.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblSeparator.Location = new System.Drawing.Point(4, 50);
+            this.lblSeparator.Location = new System.Drawing.Point(5, 62);
+            this.lblSeparator.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSeparator.Name = "lblSeparator";
-            this.lblSeparator.Size = new System.Drawing.Size(175, 2);
+            this.lblSeparator.Size = new System.Drawing.Size(204, 2);
             this.lblSeparator.TabIndex = 4;
             this.lblSeparator.Text = "label2";
             // 
-            // frmMoveIssue
+            // MoveIssue
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(187, 87);
+            this.ClientSize = new System.Drawing.Size(218, 107);
+            this.ControlBox = false;
             this.Controls.Add(this.lblSeparator);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdOK);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cboIssueNo);
-            this.Name = "frmMoveIssue";
-            this.Text = "Move";
-            this.Load += new System.EventHandler(this.frmMoveIssue_Load);
+            this.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Name = "MoveIssue";
+            this.Text = "Move Issue";
             this.ResumeLayout(false);
             this.PerformLayout();
 

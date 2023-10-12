@@ -1,6 +1,6 @@
 ﻿namespace SDIFrontEnd
 {
-    partial class frmPraccingIssuesImport
+    partial class ImportPraccingIssues
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPraccingIssuesImport));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ImportPraccingIssues));
             this.cboSurvey = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -123,9 +123,10 @@
             this.cboSurvey.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboSurvey.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboSurvey.FormattingEnabled = true;
-            this.cboSurvey.Location = new System.Drawing.Point(165, 65);
+            this.cboSurvey.Location = new System.Drawing.Point(192, 80);
+            this.cboSurvey.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cboSurvey.Name = "cboSurvey";
-            this.cboSurvey.Size = new System.Drawing.Size(121, 24);
+            this.cboSurvey.Size = new System.Drawing.Size(140, 24);
             this.cboSurvey.TabIndex = 0;
             this.cboSurvey.SelectedIndexChanged += new System.EventHandler(this.cboSurvey_SelectedIndexChanged);
             // 
@@ -133,7 +134,8 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(312, 24);
+            this.label1.Location = new System.Drawing.Point(364, 30);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(305, 33);
             this.label1.TabIndex = 1;
@@ -143,7 +145,8 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(113, 68);
+            this.label2.Location = new System.Drawing.Point(132, 84);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(46, 16);
             this.label2.TabIndex = 5;
@@ -152,17 +155,19 @@
             // txtPath
             // 
             this.txtPath.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPath.Location = new System.Drawing.Point(165, 91);
+            this.txtPath.Location = new System.Drawing.Point(192, 112);
+            this.txtPath.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtPath.Multiline = true;
             this.txtPath.Name = "txtPath";
-            this.txtPath.Size = new System.Drawing.Size(290, 36);
+            this.txtPath.Size = new System.Drawing.Size(338, 43);
             this.txtPath.TabIndex = 13;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(131, 90);
+            this.label6.Location = new System.Drawing.Point(153, 111);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(27, 16);
             this.label6.TabIndex = 14;
@@ -171,9 +176,10 @@
             // cmdBrowse
             // 
             this.cmdBrowse.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdBrowse.Location = new System.Drawing.Point(461, 90);
+            this.cmdBrowse.Location = new System.Drawing.Point(538, 111);
+            this.cmdBrowse.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmdBrowse.Name = "cmdBrowse";
-            this.cmdBrowse.Size = new System.Drawing.Size(75, 36);
+            this.cmdBrowse.Size = new System.Drawing.Size(88, 44);
             this.cmdBrowse.TabIndex = 15;
             this.cmdBrowse.Text = "Browse...";
             this.cmdBrowse.UseVisualStyleBackColor = true;
@@ -182,9 +188,10 @@
             // cmdLoad
             // 
             this.cmdLoad.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdLoad.Location = new System.Drawing.Point(542, 90);
+            this.cmdLoad.Location = new System.Drawing.Point(632, 111);
+            this.cmdLoad.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmdLoad.Name = "cmdLoad";
-            this.cmdLoad.Size = new System.Drawing.Size(75, 36);
+            this.cmdLoad.Size = new System.Drawing.Size(88, 44);
             this.cmdLoad.TabIndex = 16;
             this.cmdLoad.Text = "Load";
             this.cmdLoad.UseVisualStyleBackColor = true;
@@ -194,9 +201,10 @@
             // cmdImport
             // 
             this.cmdImport.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdImport.Location = new System.Drawing.Point(623, 90);
+            this.cmdImport.Location = new System.Drawing.Point(727, 111);
+            this.cmdImport.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmdImport.Name = "cmdImport";
-            this.cmdImport.Size = new System.Drawing.Size(75, 36);
+            this.cmdImport.Size = new System.Drawing.Size(88, 44);
             this.cmdImport.TabIndex = 17;
             this.cmdImport.Text = "Import";
             this.cmdImport.UseVisualStyleBackColor = true;
@@ -231,9 +239,10 @@
             this.panelResults.Controls.Add(this.txtIssueNo);
             this.panelResults.Controls.Add(this.panelNew);
             this.panelResults.Controls.Add(this.panelExisting);
-            this.panelResults.Location = new System.Drawing.Point(12, 130);
+            this.panelResults.Location = new System.Drawing.Point(14, 160);
+            this.panelResults.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panelResults.Name = "panelResults";
-            this.panelResults.Size = new System.Drawing.Size(962, 673);
+            this.panelResults.Size = new System.Drawing.Size(1122, 828);
             this.panelResults.TabIndex = 18;
             this.panelResults.Visible = false;
             // 
@@ -243,26 +252,29 @@
             this.cboResName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboResName.Enabled = false;
             this.cboResName.FormattingEnabled = true;
-            this.cboResName.Location = new System.Drawing.Point(851, 118);
+            this.cboResName.Location = new System.Drawing.Point(993, 145);
+            this.cboResName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cboResName.Name = "cboResName";
-            this.cboResName.Size = new System.Drawing.Size(85, 21);
+            this.cboResName.Size = new System.Drawing.Size(98, 24);
             this.cboResName.TabIndex = 20;
             // 
             // dtpResDate
             // 
             this.dtpResDate.Enabled = false;
             this.dtpResDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpResDate.Location = new System.Drawing.Point(851, 95);
+            this.dtpResDate.Location = new System.Drawing.Point(993, 117);
+            this.dtpResDate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dtpResDate.Name = "dtpResDate";
-            this.dtpResDate.Size = new System.Drawing.Size(85, 20);
+            this.dtpResDate.Size = new System.Drawing.Size(98, 23);
             this.dtpResDate.TabIndex = 21;
             // 
             // cmdMoveIssue
             // 
             this.cmdMoveIssue.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdMoveIssue.Location = new System.Drawing.Point(865, 28);
+            this.cmdMoveIssue.Location = new System.Drawing.Point(1009, 34);
+            this.cmdMoveIssue.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmdMoveIssue.Name = "cmdMoveIssue";
-            this.cmdMoveIssue.Size = new System.Drawing.Size(71, 23);
+            this.cmdMoveIssue.Size = new System.Drawing.Size(83, 28);
             this.cmdMoveIssue.TabIndex = 21;
             this.cmdMoveIssue.Text = "Move";
             this.cmdMoveIssue.UseVisualStyleBackColor = true;
@@ -273,7 +285,8 @@
             this.lblIssueImages.AutoSize = true;
             this.lblIssueImages.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblIssueImages.ForeColor = System.Drawing.Color.Red;
-            this.lblIssueImages.Location = new System.Drawing.Point(332, 15);
+            this.lblIssueImages.Location = new System.Drawing.Point(387, 18);
+            this.lblIssueImages.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblIssueImages.Name = "lblIssueImages";
             this.lblIssueImages.Size = new System.Drawing.Size(166, 16);
             this.lblIssueImages.TabIndex = 20;
@@ -282,9 +295,10 @@
             // rtbDescription
             // 
             this.rtbDescription.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbDescription.Location = new System.Drawing.Point(206, 37);
+            this.rtbDescription.Location = new System.Drawing.Point(240, 46);
+            this.rtbDescription.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.rtbDescription.Name = "rtbDescription";
-            this.rtbDescription.Size = new System.Drawing.Size(639, 102);
+            this.rtbDescription.Size = new System.Drawing.Size(745, 125);
             this.rtbDescription.TabIndex = 19;
             this.rtbDescription.Text = "";
             // 
@@ -304,14 +318,14 @@
             this.bindingNavigatorMoveNextItem,
             this.bindingNavigatorMoveLastItem,
             this.bindingNavigatorSeparator2});
-            this.navIssues.Location = new System.Drawing.Point(0, 646);
+            this.navIssues.Location = new System.Drawing.Point(0, 801);
             this.navIssues.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.navIssues.MoveLastItem = this.bindingNavigatorMoveLastItem;
             this.navIssues.MoveNextItem = this.bindingNavigatorMoveNextItem;
             this.navIssues.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.navIssues.Name = "navIssues";
             this.navIssues.PositionItem = this.bindingNavigatorPositionItem;
-            this.navIssues.Size = new System.Drawing.Size(960, 25);
+            this.navIssues.Size = new System.Drawing.Size(1120, 25);
             this.navIssues.TabIndex = 18;
             this.navIssues.Text = "bindingNavigator1";
             // 
@@ -351,7 +365,7 @@
             this.bindingNavigatorPositionItem.AutoSize = false;
             this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
-            this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
+            this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(58, 23);
             this.bindingNavigatorPositionItem.Text = "0";
             this.bindingNavigatorPositionItem.ToolTipText = "Current position";
             // 
@@ -387,9 +401,10 @@
             // 
             this.chkKeepIssue.Appearance = System.Windows.Forms.Appearance.Button;
             this.chkKeepIssue.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkKeepIssue.Location = new System.Drawing.Point(865, 3);
+            this.chkKeepIssue.Location = new System.Drawing.Point(1009, 4);
+            this.chkKeepIssue.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chkKeepIssue.Name = "chkKeepIssue";
-            this.chkKeepIssue.Size = new System.Drawing.Size(71, 23);
+            this.chkKeepIssue.Size = new System.Drawing.Size(83, 28);
             this.chkKeepIssue.TabIndex = 15;
             this.chkKeepIssue.Text = "Keep?";
             this.chkKeepIssue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -400,7 +415,8 @@
             // 
             this.chkResolved.AutoSize = true;
             this.chkResolved.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkResolved.Location = new System.Drawing.Point(851, 69);
+            this.chkResolved.Location = new System.Drawing.Point(993, 85);
+            this.chkResolved.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chkResolved.Name = "chkResolved";
             this.chkResolved.Size = new System.Drawing.Size(77, 20);
             this.chkResolved.TabIndex = 14;
@@ -411,9 +427,10 @@
             // txtStatus
             // 
             this.txtStatus.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtStatus.Location = new System.Drawing.Point(754, 12);
+            this.txtStatus.Location = new System.Drawing.Point(880, 15);
+            this.txtStatus.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtStatus.Name = "txtStatus";
-            this.txtStatus.Size = new System.Drawing.Size(91, 23);
+            this.txtStatus.Size = new System.Drawing.Size(106, 23);
             this.txtStatus.TabIndex = 13;
             this.txtStatus.Visible = false;
             // 
@@ -421,7 +438,8 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(12, 121);
+            this.label11.Location = new System.Drawing.Point(14, 149);
+            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(58, 16);
             this.label11.TabIndex = 11;
@@ -431,7 +449,8 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(48, 94);
+            this.label10.Location = new System.Drawing.Point(56, 116);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(22, 16);
             this.label10.TabIndex = 10;
@@ -441,7 +460,8 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(33, 67);
+            this.label9.Location = new System.Drawing.Point(38, 82);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(37, 16);
             this.label9.TabIndex = 9;
@@ -451,7 +471,8 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(4, 41);
+            this.label8.Location = new System.Drawing.Point(5, 50);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(66, 16);
             this.label8.TabIndex = 8;
@@ -461,7 +482,8 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(14, 15);
+            this.label7.Location = new System.Drawing.Point(16, 18);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(56, 16);
             this.label7.TabIndex = 7;
@@ -471,9 +493,10 @@
             // 
             this.dtpIssueDate.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpIssueDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpIssueDate.Location = new System.Drawing.Point(206, 12);
+            this.dtpIssueDate.Location = new System.Drawing.Point(240, 15);
+            this.dtpIssueDate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dtpIssueDate.Name = "dtpIssueDate";
-            this.dtpIssueDate.Size = new System.Drawing.Size(105, 23);
+            this.dtpIssueDate.Size = new System.Drawing.Size(122, 23);
             this.dtpIssueDate.TabIndex = 6;
             // 
             // cboCategory
@@ -482,9 +505,10 @@
             this.cboCategory.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboCategory.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboCategory.FormattingEnabled = true;
-            this.cboCategory.Location = new System.Drawing.Point(73, 118);
+            this.cboCategory.Location = new System.Drawing.Point(85, 145);
+            this.cboCategory.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cboCategory.Name = "cboCategory";
-            this.cboCategory.Size = new System.Drawing.Size(121, 24);
+            this.cboCategory.Size = new System.Drawing.Size(140, 24);
             this.cboCategory.TabIndex = 5;
             // 
             // cboTo
@@ -493,9 +517,10 @@
             this.cboTo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboTo.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboTo.FormattingEnabled = true;
-            this.cboTo.Location = new System.Drawing.Point(73, 91);
+            this.cboTo.Location = new System.Drawing.Point(85, 112);
+            this.cboTo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cboTo.Name = "cboTo";
-            this.cboTo.Size = new System.Drawing.Size(121, 24);
+            this.cboTo.Size = new System.Drawing.Size(140, 24);
             this.cboTo.TabIndex = 4;
             // 
             // cboFrom
@@ -504,25 +529,28 @@
             this.cboFrom.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboFrom.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboFrom.FormattingEnabled = true;
-            this.cboFrom.Location = new System.Drawing.Point(73, 64);
+            this.cboFrom.Location = new System.Drawing.Point(85, 79);
+            this.cboFrom.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cboFrom.Name = "cboFrom";
-            this.cboFrom.Size = new System.Drawing.Size(121, 24);
+            this.cboFrom.Size = new System.Drawing.Size(140, 24);
             this.cboFrom.TabIndex = 3;
             // 
             // txtVarNames
             // 
             this.txtVarNames.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtVarNames.Location = new System.Drawing.Point(73, 38);
+            this.txtVarNames.Location = new System.Drawing.Point(85, 47);
+            this.txtVarNames.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtVarNames.Name = "txtVarNames";
-            this.txtVarNames.Size = new System.Drawing.Size(121, 23);
+            this.txtVarNames.Size = new System.Drawing.Size(140, 23);
             this.txtVarNames.TabIndex = 1;
             // 
             // txtIssueNo
             // 
             this.txtIssueNo.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtIssueNo.Location = new System.Drawing.Point(73, 12);
+            this.txtIssueNo.Location = new System.Drawing.Point(85, 15);
+            this.txtIssueNo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtIssueNo.Name = "txtIssueNo";
-            this.txtIssueNo.Size = new System.Drawing.Size(121, 23);
+            this.txtIssueNo.Size = new System.Drawing.Size(140, 23);
             this.txtIssueNo.TabIndex = 0;
             // 
             // panelNew
@@ -533,17 +561,19 @@
             this.panelNew.Controls.Add(this.cmdNewResponse);
             this.panelNew.Controls.Add(this.label18);
             this.panelNew.Controls.Add(this.drNewResponses);
-            this.panelNew.Location = new System.Drawing.Point(11, 395);
+            this.panelNew.Location = new System.Drawing.Point(13, 486);
+            this.panelNew.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panelNew.Name = "panelNew";
-            this.panelNew.Size = new System.Drawing.Size(919, 244);
+            this.panelNew.Size = new System.Drawing.Size(1072, 300);
             this.panelNew.TabIndex = 24;
             // 
             // cmdNewResponse
             // 
             this.cmdNewResponse.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdNewResponse.Location = new System.Drawing.Point(818, 2);
+            this.cmdNewResponse.Location = new System.Drawing.Point(954, 2);
+            this.cmdNewResponse.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmdNewResponse.Name = "cmdNewResponse";
-            this.cmdNewResponse.Size = new System.Drawing.Size(72, 19);
+            this.cmdNewResponse.Size = new System.Drawing.Size(84, 23);
             this.cmdNewResponse.TabIndex = 26;
             this.cmdNewResponse.Text = "+";
             this.cmdNewResponse.UseCompatibleTextRendering = true;
@@ -554,7 +584,8 @@
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(6, 5);
+            this.label18.Location = new System.Drawing.Point(7, 6);
+            this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(108, 16);
             this.label18.TabIndex = 25;
@@ -576,10 +607,13 @@
             this.drNewResponses.ItemTemplate.Controls.Add(this.cboNewTo);
             this.drNewResponses.ItemTemplate.Controls.Add(this.chkKeepResponse);
             this.drNewResponses.ItemTemplate.Controls.Add(this.dtpNewTime);
-            this.drNewResponses.ItemTemplate.Size = new System.Drawing.Size(892, 96);
-            this.drNewResponses.Location = new System.Drawing.Point(10, 24);
+            this.drNewResponses.ItemTemplate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.drNewResponses.ItemTemplate.Size = new System.Drawing.Size(1040, 118);
+            this.drNewResponses.Location = new System.Drawing.Point(12, 30);
+            this.drNewResponses.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.drNewResponses.Name = "drNewResponses";
-            this.drNewResponses.Size = new System.Drawing.Size(900, 216);
+            this.drNewResponses.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.drNewResponses.Size = new System.Drawing.Size(1050, 265);
             this.drNewResponses.TabIndex = 0;
             this.drNewResponses.Text = "dataRepeater1";
             this.drNewResponses.ItemCloned += new Microsoft.VisualBasic.PowerPacks.DataRepeaterItemEventHandler(this.drNewResponses_ItemCloned);
@@ -589,7 +623,8 @@
             // 
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(3, 9);
+            this.label19.Location = new System.Drawing.Point(4, 11);
+            this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(33, 16);
             this.label19.TabIndex = 26;
@@ -599,9 +634,10 @@
             // 
             this.cmdMoveResponse.BackColor = System.Drawing.SystemColors.ControlLight;
             this.cmdMoveResponse.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdMoveResponse.Location = new System.Drawing.Point(789, 31);
+            this.cmdMoveResponse.Location = new System.Drawing.Point(920, 38);
+            this.cmdMoveResponse.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmdMoveResponse.Name = "cmdMoveResponse";
-            this.cmdMoveResponse.Size = new System.Drawing.Size(72, 23);
+            this.cmdMoveResponse.Size = new System.Drawing.Size(84, 28);
             this.cmdMoveResponse.TabIndex = 25;
             this.cmdMoveResponse.Text = "Move";
             this.cmdMoveResponse.UseVisualStyleBackColor = false;
@@ -610,9 +646,10 @@
             // rtbNewResponse
             // 
             this.rtbNewResponse.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbNewResponse.Location = new System.Drawing.Point(237, 3);
+            this.rtbNewResponse.Location = new System.Drawing.Point(276, 4);
+            this.rtbNewResponse.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.rtbNewResponse.Name = "rtbNewResponse";
-            this.rtbNewResponse.Size = new System.Drawing.Size(546, 82);
+            this.rtbNewResponse.Size = new System.Drawing.Size(636, 100);
             this.rtbNewResponse.TabIndex = 21;
             this.rtbNewResponse.Text = "";
             this.rtbNewResponse.Validated += new System.EventHandler(this.rtbNewResponse_Validated);
@@ -622,7 +659,8 @@
             this.lblResponseImages.AutoSize = true;
             this.lblResponseImages.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblResponseImages.ForeColor = System.Drawing.Color.Red;
-            this.lblResponseImages.Location = new System.Drawing.Point(13, 72);
+            this.lblResponseImages.Location = new System.Drawing.Point(15, 89);
+            this.lblResponseImages.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblResponseImages.Name = "lblResponseImages";
             this.lblResponseImages.Size = new System.Drawing.Size(189, 16);
             this.lblResponseImages.TabIndex = 24;
@@ -633,9 +671,10 @@
             this.dtpNewDate.CustomFormat = "dd-MMM-yyyy";
             this.dtpNewDate.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpNewDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpNewDate.Location = new System.Drawing.Point(39, 3);
+            this.dtpNewDate.Location = new System.Drawing.Point(46, 4);
+            this.dtpNewDate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dtpNewDate.Name = "dtpNewDate";
-            this.dtpNewDate.Size = new System.Drawing.Size(95, 23);
+            this.dtpNewDate.Size = new System.Drawing.Size(110, 23);
             this.dtpNewDate.TabIndex = 4;
             this.dtpNewDate.Value = new System.DateTime(2021, 6, 24, 14, 21, 43, 0);
             // 
@@ -643,7 +682,8 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(13, 51);
+            this.label15.Location = new System.Drawing.Point(15, 63);
+            this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(22, 16);
             this.label15.TabIndex = 23;
@@ -655,9 +695,10 @@
             this.cboNewFrom.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboNewFrom.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboNewFrom.FormattingEnabled = true;
-            this.cboNewFrom.Location = new System.Drawing.Point(39, 26);
+            this.cboNewFrom.Location = new System.Drawing.Point(46, 32);
+            this.cboNewFrom.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cboNewFrom.Name = "cboNewFrom";
-            this.cboNewFrom.Size = new System.Drawing.Size(194, 24);
+            this.cboNewFrom.Size = new System.Drawing.Size(226, 24);
             this.cboNewFrom.TabIndex = 5;
             this.cboNewFrom.SelectedIndexChanged += new System.EventHandler(this.cboNewFrom_SelectedIndexChanged);
             // 
@@ -665,7 +706,8 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(3, 29);
+            this.label14.Location = new System.Drawing.Point(4, 36);
+            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(37, 16);
             this.label14.TabIndex = 22;
@@ -677,9 +719,10 @@
             this.cboNewTo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboNewTo.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboNewTo.FormattingEnabled = true;
-            this.cboNewTo.Location = new System.Drawing.Point(39, 48);
+            this.cboNewTo.Location = new System.Drawing.Point(46, 59);
+            this.cboNewTo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cboNewTo.Name = "cboNewTo";
-            this.cboNewTo.Size = new System.Drawing.Size(194, 24);
+            this.cboNewTo.Size = new System.Drawing.Size(226, 24);
             this.cboNewTo.TabIndex = 6;
             this.cboNewTo.SelectedIndexChanged += new System.EventHandler(this.cboNewTo_SelectedIndexChanged);
             // 
@@ -688,9 +731,10 @@
             this.chkKeepResponse.Appearance = System.Windows.Forms.Appearance.Button;
             this.chkKeepResponse.BackColor = System.Drawing.SystemColors.ControlLight;
             this.chkKeepResponse.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkKeepResponse.Location = new System.Drawing.Point(789, 4);
+            this.chkKeepResponse.Location = new System.Drawing.Point(920, 5);
+            this.chkKeepResponse.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chkKeepResponse.Name = "chkKeepResponse";
-            this.chkKeepResponse.Size = new System.Drawing.Size(72, 23);
+            this.chkKeepResponse.Size = new System.Drawing.Size(84, 28);
             this.chkKeepResponse.TabIndex = 8;
             this.chkKeepResponse.Text = "Keep?";
             this.chkKeepResponse.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -702,9 +746,10 @@
             this.dtpNewTime.CustomFormat = "HH:mm:ss tt";
             this.dtpNewTime.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpNewTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpNewTime.Location = new System.Drawing.Point(140, 3);
+            this.dtpNewTime.Location = new System.Drawing.Point(163, 4);
+            this.dtpNewTime.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dtpNewTime.Name = "dtpNewTime";
-            this.dtpNewTime.Size = new System.Drawing.Size(93, 23);
+            this.dtpNewTime.Size = new System.Drawing.Size(108, 23);
             this.dtpNewTime.TabIndex = 20;
             // 
             // panelExisting
@@ -714,9 +759,10 @@
             this.panelExisting.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelExisting.Controls.Add(this.drExisting);
             this.panelExisting.Controls.Add(this.label13);
-            this.panelExisting.Location = new System.Drawing.Point(11, 145);
+            this.panelExisting.Location = new System.Drawing.Point(13, 178);
+            this.panelExisting.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panelExisting.Name = "panelExisting";
-            this.panelExisting.Size = new System.Drawing.Size(919, 244);
+            this.panelExisting.Size = new System.Drawing.Size(1072, 300);
             this.panelExisting.TabIndex = 23;
             // 
             // drExisting
@@ -732,10 +778,13 @@
             this.drExisting.ItemTemplate.Controls.Add(this.rtbOldResponse);
             this.drExisting.ItemTemplate.Controls.Add(this.dtpOldTime);
             this.drExisting.ItemTemplate.Controls.Add(this.dtpOldDate);
-            this.drExisting.ItemTemplate.Size = new System.Drawing.Size(892, 81);
-            this.drExisting.Location = new System.Drawing.Point(10, 23);
+            this.drExisting.ItemTemplate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.drExisting.ItemTemplate.Size = new System.Drawing.Size(1040, 100);
+            this.drExisting.Location = new System.Drawing.Point(12, 28);
+            this.drExisting.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.drExisting.Name = "drExisting";
-            this.drExisting.Size = new System.Drawing.Size(900, 216);
+            this.drExisting.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.drExisting.Size = new System.Drawing.Size(1050, 265);
             this.drExisting.TabIndex = 22;
             this.drExisting.Text = "dataRepeater1";
             this.drExisting.DrawItem += new Microsoft.VisualBasic.PowerPacks.DataRepeaterItemEventHandler(this.drExisting_DrawItem);
@@ -744,7 +793,8 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(13, 51);
+            this.label4.Location = new System.Drawing.Point(15, 63);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(22, 16);
             this.label4.TabIndex = 30;
@@ -754,7 +804,8 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(2, 10);
+            this.label12.Location = new System.Drawing.Point(2, 12);
+            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(33, 16);
             this.label12.TabIndex = 31;
@@ -764,7 +815,8 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(2, 29);
+            this.label5.Location = new System.Drawing.Point(2, 36);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(37, 16);
             this.label5.TabIndex = 29;
@@ -773,25 +825,28 @@
             // txtOldTo
             // 
             this.txtOldTo.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtOldTo.Location = new System.Drawing.Point(41, 48);
+            this.txtOldTo.Location = new System.Drawing.Point(48, 59);
+            this.txtOldTo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtOldTo.Name = "txtOldTo";
-            this.txtOldTo.Size = new System.Drawing.Size(198, 23);
+            this.txtOldTo.Size = new System.Drawing.Size(230, 23);
             this.txtOldTo.TabIndex = 30;
             // 
             // txtOldFrom
             // 
             this.txtOldFrom.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtOldFrom.Location = new System.Drawing.Point(41, 26);
+            this.txtOldFrom.Location = new System.Drawing.Point(48, 32);
+            this.txtOldFrom.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtOldFrom.Name = "txtOldFrom";
-            this.txtOldFrom.Size = new System.Drawing.Size(198, 23);
+            this.txtOldFrom.Size = new System.Drawing.Size(230, 23);
             this.txtOldFrom.TabIndex = 29;
             // 
             // rtbOldResponse
             // 
             this.rtbOldResponse.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbOldResponse.Location = new System.Drawing.Point(245, 4);
+            this.rtbOldResponse.Location = new System.Drawing.Point(286, 5);
+            this.rtbOldResponse.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.rtbOldResponse.Name = "rtbOldResponse";
-            this.rtbOldResponse.Size = new System.Drawing.Size(629, 73);
+            this.rtbOldResponse.Size = new System.Drawing.Size(733, 89);
             this.rtbOldResponse.TabIndex = 28;
             this.rtbOldResponse.Text = "";
             // 
@@ -800,9 +855,10 @@
             this.dtpOldTime.CustomFormat = "HH:mm:ss tt";
             this.dtpOldTime.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpOldTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpOldTime.Location = new System.Drawing.Point(146, 3);
+            this.dtpOldTime.Location = new System.Drawing.Point(170, 4);
+            this.dtpOldTime.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dtpOldTime.Name = "dtpOldTime";
-            this.dtpOldTime.Size = new System.Drawing.Size(93, 23);
+            this.dtpOldTime.Size = new System.Drawing.Size(108, 23);
             this.dtpOldTime.TabIndex = 27;
             // 
             // dtpOldDate
@@ -810,16 +866,18 @@
             this.dtpOldDate.CustomFormat = "dd-MMM-yyyy";
             this.dtpOldDate.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpOldDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpOldDate.Location = new System.Drawing.Point(41, 3);
+            this.dtpOldDate.Location = new System.Drawing.Point(48, 4);
+            this.dtpOldDate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dtpOldDate.Name = "dtpOldDate";
-            this.dtpOldDate.Size = new System.Drawing.Size(99, 23);
+            this.dtpOldDate.Size = new System.Drawing.Size(115, 23);
             this.dtpOldDate.TabIndex = 24;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(6, 4);
+            this.label13.Location = new System.Drawing.Point(7, 5);
+            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(130, 16);
             this.label13.TabIndex = 19;
@@ -904,7 +962,8 @@
             this.clearToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(986, 24);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(1150, 24);
             this.menuStrip1.TabIndex = 19;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -922,13 +981,13 @@
             this.clearToolStripMenuItem.Text = "Clear";
             this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
             // 
-            // frmPraccingIssuesImport
+            // ImportPraccingIssues
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(222)))), ((int)(((byte)(116)))));
-            this.ClientSize = new System.Drawing.Size(986, 811);
+            this.ClientSize = new System.Drawing.Size(1150, 998);
             this.Controls.Add(this.panelResults);
             this.Controls.Add(this.cmdImport);
             this.Controls.Add(this.cmdLoad);
@@ -939,10 +998,12 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cboSurvey);
             this.Controls.Add(this.menuStrip1);
+            this.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "frmPraccingIssuesImport";
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Name = "ImportPraccingIssues";
             this.Text = "Praccing Issues - Import";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ImportPraccingIssues_FormClosed);
             this.panelResults.ResumeLayout(false);
             this.panelResults.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.navIssues)).EndInit();

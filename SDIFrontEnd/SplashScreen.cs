@@ -45,9 +45,9 @@ namespace SDIFrontEnd
                 Globals.CreateComments();
                 worker.ReportProgress(100);
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("Error reading database.");
+                MessageBox.Show("Error reading database.\r\n" + ex.Message);
                 Application.Exit();
                 e.Cancel = true;
             }

@@ -231,7 +231,6 @@
             this.lstLanguage.Name = "lstLanguage";
             this.lstLanguage.Size = new System.Drawing.Size(94, 132);
             this.lstLanguage.TabIndex = 21;
-            this.lstLanguage.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // navMainIssues
             // 
@@ -274,7 +273,6 @@
             this.bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
             this.bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMoveFirstItem.Text = "Move first";
             this.bindingNavigatorMoveFirstItem.Click += new System.EventHandler(this.bindingNavigatorMoveFirstItem_Click);
             // 
             // bindingNavigatorMovePreviousItem
@@ -284,7 +282,6 @@
             this.bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
             this.bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMovePreviousItem.Text = "Move previous";
             this.bindingNavigatorMovePreviousItem.Click += new System.EventHandler(this.bindingNavigatorMovePreviousItem_Click);
             // 
             // bindingNavigatorSeparator
@@ -314,7 +311,6 @@
             this.bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
             this.bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMoveNextItem.Text = "Move next";
             this.bindingNavigatorMoveNextItem.Click += new System.EventHandler(this.bindingNavigatorMoveNextItem_Click);
             // 
             // bindingNavigatorMoveLastItem
@@ -324,7 +320,6 @@
             this.bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
             this.bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMoveLastItem.Text = "Move last";
             this.bindingNavigatorMoveLastItem.Click += new System.EventHandler(this.bindingNavigatorMoveLastItem_Click);
             // 
             // bindingNavigatorSeparator2
@@ -580,7 +575,6 @@
             this.dtpResponseTime.Size = new System.Drawing.Size(117, 23);
             this.dtpResponseTime.TabIndex = 4;
             this.dtpResponseTime.TabStop = false;
-            this.dtpResponseTime.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // cboResponseTo
             // 
@@ -594,7 +588,6 @@
             this.cboResponseTo.Size = new System.Drawing.Size(110, 24);
             this.cboResponseTo.TabIndex = 2;
             this.cboResponseTo.SelectedIndexChanged += new System.EventHandler(this.cboResponseTo_SelectedIndexChanged);
-            this.cboResponseTo.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // cboResponseFrom
             // 
@@ -608,7 +601,6 @@
             this.cboResponseFrom.Size = new System.Drawing.Size(110, 24);
             this.cboResponseFrom.TabIndex = 1;
             this.cboResponseFrom.SelectedIndexChanged += new System.EventHandler(this.cboResponseFrom_SelectedIndexChanged);
-            this.cboResponseFrom.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // dtpResponseDate
             // 
@@ -620,7 +612,6 @@
             this.dtpResponseDate.Size = new System.Drawing.Size(116, 23);
             this.dtpResponseDate.TabIndex = 1;
             this.dtpResponseDate.TabStop = false;
-            this.dtpResponseDate.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // rtbResponse
             // 
@@ -1059,7 +1050,6 @@
             this.chkResolved.Text = "Resolved";
             this.chkResolved.UseVisualStyleBackColor = true;
             this.chkResolved.CheckedChanged += new System.EventHandler(this.chkResolved_CheckedChanged);
-            this.chkResolved.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // label24
             // 
@@ -1083,7 +1073,6 @@
             this.cboResolvedBy.Name = "cboResolvedBy";
             this.cboResolvedBy.Size = new System.Drawing.Size(138, 24);
             this.cboResolvedBy.TabIndex = 27;
-            this.cboResolvedBy.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // label25
             // 
@@ -1107,7 +1096,6 @@
             this.dtpResolvedDate.ShowCheckBox = true;
             this.dtpResolvedDate.Size = new System.Drawing.Size(138, 23);
             this.dtpResolvedDate.TabIndex = 25;
-            this.dtpResolvedDate.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // label26
             // 
@@ -1153,7 +1141,6 @@
             this.cboIssueCategory.Size = new System.Drawing.Size(156, 24);
             this.cboIssueCategory.TabIndex = 20;
             this.cboIssueCategory.Validating += new System.ComponentModel.CancelEventHandler(this.cboIssueCategory_Validating);
-            this.cboIssueCategory.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // cboIssueTo
             // 
@@ -1166,7 +1153,6 @@
             this.cboIssueTo.Name = "cboIssueTo";
             this.cboIssueTo.Size = new System.Drawing.Size(156, 24);
             this.cboIssueTo.TabIndex = 19;
-            this.cboIssueTo.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // cboIssueFrom
             // 
@@ -1179,7 +1165,6 @@
             this.cboIssueFrom.Name = "cboIssueFrom";
             this.cboIssueFrom.Size = new System.Drawing.Size(156, 24);
             this.cboIssueFrom.TabIndex = 18;
-            this.cboIssueFrom.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // dtpIssueDate
             // 
@@ -1190,7 +1175,6 @@
             this.dtpIssueDate.Name = "dtpIssueDate";
             this.dtpIssueDate.Size = new System.Drawing.Size(156, 23);
             this.dtpIssueDate.TabIndex = 17;
-            this.dtpIssueDate.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // txtVarNames
             // 
@@ -1201,7 +1185,6 @@
             this.txtVarNames.Name = "txtVarNames";
             this.txtVarNames.Size = new System.Drawing.Size(156, 48);
             this.txtVarNames.TabIndex = 16;
-            this.txtVarNames.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // txtIssueNo
             // 
@@ -1575,6 +1558,7 @@
             this.Name = "PraccingEntry";
             this.Text = "Praccing Issues - Entry";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.PraccingEntry_FormClosed);
+            this.Load += new System.EventHandler(this.PraccingEntry_Load);
             ((System.ComponentModel.ISupportInitialize)(this.navMainIssues)).EndInit();
             this.navMainIssues.ResumeLayout(false);
             this.navMainIssues.PerformLayout();

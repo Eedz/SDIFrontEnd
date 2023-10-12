@@ -62,6 +62,7 @@ namespace SDIFrontEnd
             List<ReportSurvey> list = new List<ReportSurvey>();
             foreach (Survey survey in lstSelected.Items)
             {
+                survey.Questions.Clear();
                 survey.AddQuestions(DBAction.GetSurveyQuestions(survey));
                 list.Add(new ReportSurvey(survey));
             }

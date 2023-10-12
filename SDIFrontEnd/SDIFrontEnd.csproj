@@ -102,6 +102,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataImporter.cs" />
     <Compile Include="Forms\AuditFeed.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -165,35 +166,29 @@
     <Compile Include="Forms\Praccing\BrowseIssues.Designer.cs">
       <DependentUpon>BrowseIssues.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Praccing\EditPraccResponse.cs">
+    <Compile Include="Forms\Praccing\FixDates.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Praccing\EditPraccResponse.Designer.cs">
-      <DependentUpon>EditPraccResponse.cs</DependentUpon>
+    <Compile Include="Forms\Praccing\FixDates.Designer.cs">
+      <DependentUpon>FixDates.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Praccing\frmFixDates.cs">
+    <Compile Include="Forms\Praccing\FixNames.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Praccing\frmFixDates.Designer.cs">
-      <DependentUpon>frmFixDates.cs</DependentUpon>
+    <Compile Include="Forms\Praccing\FixNames.Designer.cs">
+      <DependentUpon>FixNames.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Praccing\frmFixNames.cs">
+    <Compile Include="Forms\Praccing\MoveIssue.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Praccing\frmFixNames.Designer.cs">
-      <DependentUpon>frmFixNames.cs</DependentUpon>
+    <Compile Include="Forms\Praccing\MoveIssue.Designer.cs">
+      <DependentUpon>MoveIssue.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Praccing\frmMoveIssue.cs">
+    <Compile Include="Forms\Praccing\ImportPraccingIssues.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Praccing\frmMoveIssue.Designer.cs">
-      <DependentUpon>frmMoveIssue.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Praccing\frmPraccingIssuesImport.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Praccing\frmPraccingIssuesImport.Designer.cs">
-      <DependentUpon>frmPraccingIssuesImport.cs</DependentUpon>
+    <Compile Include="Forms\Praccing\ImportPraccingIssues.Designer.cs">
+      <DependentUpon>ImportPraccingIssues.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Praccing\PraccingEntry.cs">
       <SubType>Form</SubType>
@@ -382,6 +377,7 @@
     <Compile Include="Forms\Languages.designer.cs">
       <DependentUpon>Languages.cs</DependentUpon>
     </Compile>
+    <Compile Include="PraccingIssueImporter.cs" />
     <Compile Include="Unused\SurveyLanguages.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -743,20 +739,17 @@
     <EmbeddedResource Include="Forms\Praccing\BrowseIssues.resx">
       <DependentUpon>BrowseIssues.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Praccing\EditPraccResponse.resx">
-      <DependentUpon>EditPraccResponse.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Praccing\FixDates.resx">
+      <DependentUpon>FixDates.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Praccing\frmFixDates.resx">
-      <DependentUpon>frmFixDates.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Praccing\FixNames.resx">
+      <DependentUpon>FixNames.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Praccing\frmFixNames.resx">
-      <DependentUpon>frmFixNames.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Praccing\MoveIssue.resx">
+      <DependentUpon>MoveIssue.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Praccing\frmMoveIssue.resx">
-      <DependentUpon>frmMoveIssue.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Praccing\frmPraccingIssuesImport.resx">
-      <DependentUpon>frmPraccingIssuesImport.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Praccing\ImportPraccingIssues.resx">
+      <DependentUpon>ImportPraccingIssues.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Praccing\PraccingEntry.resx">
       <DependentUpon>PraccingEntry.cs</DependentUpon>

@@ -12,10 +12,10 @@ using ITCLib;
 
 namespace SDIFrontEnd
 {
-    public partial class frmFixDates : Form
+    public partial class FixDates : Form
     {
         List<StringPair> Dates;
-        public frmFixDates(List<StringPair> toFix)
+        public FixDates(List<StringPair> toFix)
         {
             InitializeComponent();
 
@@ -24,6 +24,7 @@ namespace SDIFrontEnd
             dgvDates.DataSource = Dates;
         }
 
+        #region Events
         private void cmdDone_Click(object sender, EventArgs e)
         {
             foreach(StringPair sp in Dates)
@@ -37,5 +38,14 @@ namespace SDIFrontEnd
             DialogResult = DialogResult.OK;
             Close();
         }
+
+        private void cmdCancel_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
+            Close();
+        }
+        #endregion
+
+
     }
 }
