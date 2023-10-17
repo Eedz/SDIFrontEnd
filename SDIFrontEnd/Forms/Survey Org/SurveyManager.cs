@@ -461,6 +461,7 @@ namespace SDIFrontEnd
                     case "LanguageList":
                     case "ScreenedProducts":
                     case "UserStates":
+                    case "Locked":
                         break;
                     default:
                         modifiedRecord.Dirty = true;

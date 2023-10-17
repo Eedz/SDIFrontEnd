@@ -26,35 +26,19 @@ namespace SDIFrontEnd
         {
             InitializeComponent();
 
+            FillLists();
+        }
+
+        #region Form Setup
+        private void FillLists()
+        {
             cboSurvey.DisplayMember = "SurveyCode";
             cboSurvey.ValueMember = "SID";
             cboSurvey.DataSource = new List<Survey>(Globals.AllSurveys);
         }
+        #endregion
 
-        private void cmdOK_Click(object sender, EventArgs e)
-        {
-            Survey Selected;
-            if (cboSurvey.SelectedItem == null)
-                Selected = null;
-            else
-                Selected = (Survey)cboSurvey.SelectedItem;
-
-            if (rbWord.Checked)
-            {
-                CreatePraccingSheetWRD(Selected);
-            }
-            else if (rbExcel.Checked)
-            {
-                CreatePraccingSheetXLS(Selected);
-            }
-            Close();
-        }
-
-        private void cmdCancel_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
+        #region Methods
         private void CreatePraccingSheetWRD(Survey survey)
         {
             List<SurveyQuestion> questionList = DBAction.GetSurveyQuestions(survey).ToList();
@@ -101,7 +85,7 @@ namespace SDIFrontEnd
                     TableRow row = new TableRow();
 
                     TableCell qnum = new TableCell();
-                   
+
                     ParagraphProperties pPr = new ParagraphProperties(new SpacingBetweenLines() { Before = "0", After = "0", Line = "240", LineRule = LineSpacingRuleValues.Auto, AfterAutoSpacing = false, BeforeAutoSpacing = false });
                     qnum.Append(new Paragraph(pPr, new Run(new Text(q.Qnum))));
                     row.Append(qnum);
@@ -236,7 +220,34 @@ namespace SDIFrontEnd
                 appExcel.Quit();
             }
         }
+        #endregion
 
-        
+        #region Events
+
+        private void cmdOK_Click(object sender, EventArgs e)
+        {
+            Survey Selected;
+            if (cboSurvey.SelectedItem == null)
+                Selected = null;
+            else
+                Selected = (Survey)cboSurvey.SelectedItem;
+
+            if (rbWord.Checked)
+            {
+                CreatePraccingSheetWRD(Selected);
+            }
+            else if (rbExcel.Checked)
+            {
+                CreatePraccingSheetXLS(Selected);
+            }
+            Close();
+        }
+
+        private void cmdCancel_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        #endregion
     }
 }

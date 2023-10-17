@@ -15,7 +15,6 @@ namespace SDIFrontEnd
 {
     public partial class PraccingReportForm : Form
     {
-        List<Survey> SurveyList;
         List<PraccingIssue> IssuesList;
         List<PraccingIssue> FilteredIssuesList;
 
@@ -25,12 +24,7 @@ namespace SDIFrontEnd
         {
             InitializeComponent();
 
-            SurveyList = new List<Survey>(Globals.AllSurveys);
-
-
-            cboSurvey.DisplayMember = "SurveyCode";
-            cboSurvey.ValueMember = "SID";
-            cboSurvey.DataSource = SurveyList;
+            FillLists();
 
             cboSurvey.SelectedIndexChanged += cboSurvey_SelectedIndexChanged;
             cboSurvey.MouseWheel += ComboBox_MouseWheel;
@@ -39,172 +33,16 @@ namespace SDIFrontEnd
             FilteredIssuesList = new List<PraccingIssue>();
         }
 
-        #region Menu Events
-
-        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        #region Form Setup
+        private void FillLists()
         {
-            Close();
-        }
-
-        private void clearToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            cboSurvey.SelectedItem = null;
-            panel1.Visible = false;
-            panel2.Visible = false;
-            panel3.Visible = false;
-        }
-
-        private void entryToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (FM.FormManager.FormOpen("PraccingEntry", 1))
-            {
-                ((MainMenu)FM.FormManager.GetForm("MainMenu")).SelectTab("PraccingEntry1");
-                return;
-            }
-
-            var state = Globals.CurrentUser.FormStates.Where(x => x.FormName.Equals("frmIssuesTracking") && x.FormNum == 1).First();
-            int survID = 899;
-            if (state != null)
-                survID = state.FilterID;
-
-            PraccingEntry frm = new PraccingEntry(survID);
-
-            frm.Tag = 1;
-            FM.FormManager.Add(frm);
-        }
-
-        private void importToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (FM.FormManager.FormOpen("frmPraccingIssuesImport", 1))
-            {
-                ((MainMenu)FM.FormManager.GetForm("MainMenu")).SelectTab("frmPraccingIssuesImport1");
-                return;
-            }
-
-            ImportPraccingIssues frm = new ImportPraccingIssues();
-            frm.Tag = 1;
-            FM.FormManager.Add(frm);
+            cboSurvey.DisplayMember = "SurveyCode";
+            cboSurvey.ValueMember = "SID";
+            cboSurvey.DataSource = new List<Survey>(Globals.AllSurveys);
         }
         #endregion
 
-
-        #region Control Events
-
-        void ComboBox_MouseWheel(object sender, MouseEventArgs e)
-        {
-            ComboBox control = (ComboBox)sender;
-
-            if (!control.DroppedDown)
-                ((HandledMouseEventArgs)e).Handled = true;
-        }
-
-        private void cboSurvey_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cboSurvey.SelectedItem == null)
-                return;
-
-            SelectedSurvey = (Survey)cboSurvey.SelectedItem;
-            FillBoxes();
-            panel1.Visible = true;
-            panel2.Visible = true;
-            panel3.Visible = true;
-        }
-
-        private void ListBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ListBox lst = (ListBox)sender;
-
-            // only the <All> option is in the box
-            if (lst.Items.Count == 1)
-                return;
-
-            lst.SelectedIndexChanged -= ListBox_SelectedIndexChanged;
-
-            if (lst.SelectedItems.Count == 0)
-            {
-                lst.SetSelected(0, true);
-                lst.Tag = true;
-            }
-
-            int count = lst.SelectedItems.Count;
-
-            if (count > 1 && (bool)lst.Tag)
-            {
-                lst.SelectedItems.Remove(lst.Items[0]);
-                lst.Tag = false;
-            }
-            else if (count > 1 && lst.SelectedIndices.Contains(0))
-            {
-                lst.SelectedItems.Clear();
-                lst.SelectedItems.Add(lst.Items[0]);
-                lst.Tag = true;
-            }
-
-            lst.SelectedIndexChanged += ListBox_SelectedIndexChanged;
-        }
-
-        private void cmdOpenFolder_Click(object sender, EventArgs e)
-        {
-            System.Diagnostics.Process.Start(@"\\psychfile\psych$\psych-lab-gfong\SMG\SDI\Reports\Praccing");
-        }
-
-        private void cmdGenerate_Click(object sender, EventArgs e)
-        {
-            IssuesList = DBAction.GetPraccingIssues(SelectedSurvey.SID); // get all the issues again in case any were added since opening the form
-
-            // get the filtered list
-            FilteredIssuesList = GetIssueList();
-
-            if (FilteredIssuesList.Count == 0)
-            {
-                MessageBox.Show("No praccing issues found!");
-                return;
-            }
-
-            PraccingReport report = new PraccingReport();
-
-            if (chkIncludeQnums.Checked)
-            {
-                report.VarQnums = GetQnumDictionary();
-            }
-
-            if (chkIncludePrevNames.Checked)
-            {
-                report.PrevNames = GetPrevNamesDictionary();
-            }
-
-            
-            report.SelectedSurvey = SelectedSurvey;
-            report.AddBlankLine = chkEmptyRow.Checked;
-            report.IncludeToPracc = chkPraccInstructions.Checked;
-            report.IncludePraccInstructions = chkPraccInstructions.Checked;
-            report.IncludeQnums = chkIncludeQnums.Checked;
-            report.IncludePrevNames = chkIncludePrevNames.Checked;
-            report.Recipients = GetRecipients();
-            report.Issues = FilteredIssuesList;
-
-            report.CreateReport();
-         
-        }
-
-        private void cmdClose_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
-        private void PraccingReportForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            FM.FormManager.Remove(this);
-        }
-
-        private void PraccingReportForm_Resize(object sender, EventArgs e)
-        {
-            cmdClose.Left = this.Width - cmdClose.Width;
-        }
-
-        
-        #endregion
-
+        #region Methods
         private Dictionary<string, string> GetQnumDictionary()
         {
             Dictionary<string, string> VarQnums = new Dictionary<string, string>();
@@ -243,7 +81,7 @@ namespace SDIFrontEnd
                 foreach (string s in varnames)
                 {
                     SurveyQuestion q = qs.Where(x => x.VarName.RefVarName.Equals(s)).FirstOrDefault();
-                    
+
                     if (q == null)
                         continue;
 
@@ -401,7 +239,7 @@ namespace SDIFrontEnd
             cboLanguage.DataSource = GetLanguages();
             cboStatus.DataSource = new string[] { "<All>", "Unresolved", "Resolved" };
             cboStatus.SelectedItem = "Unresolved";
-            
+
         }
 
         List<string> GetDates()
@@ -415,7 +253,7 @@ namespace SDIFrontEnd
             {
                 dateList.Add(d.PraccingIssue.ToString("d"));
             }
-            
+
             return dateList;
         }
 
@@ -426,7 +264,7 @@ namespace SDIFrontEnd
             fromList.Add(new Person("<All>", -1));
             foreach (var f in froms)
             {
-                if (f.Name.ID!=0)
+                if (f.Name.ID != 0)
                     fromList.Add(f.Name);
             }
 
@@ -484,7 +322,7 @@ namespace SDIFrontEnd
             var sortedDates = rawDates.GroupBy(x => x).Select(group => new { Dates = group.Key, Items = group.ToList() }).OrderByDescending(group => group.Dates).ToList();
 
             finalDates.Add("<All>");
-            foreach(var d in sortedDates)
+            foreach (var d in sortedDates)
             {
                 finalDates.Add(d.Dates.ToString("d"));
             }
@@ -510,15 +348,15 @@ namespace SDIFrontEnd
             var sortedNames = rawNames.GroupBy(x => x).Select(group => new { Names = group.Key, Items = group.ToList() }).ToList();
 
             finalNames.Add(new Person("<All>", -1));
-            foreach(var d in sortedNames)
+            foreach (var d in sortedNames)
             {
-                if (d.Names.ID!=0)
+                if (d.Names.ID != 0)
                     finalNames.Add(d.Names);
             }
 
-            return finalNames.OrderBy(x=>x.Name).ToList();
+            return finalNames.OrderBy(x => x.Name).ToList();
 
-     
+
         }
 
         List<Person> GetLastUpdateTos()
@@ -541,7 +379,7 @@ namespace SDIFrontEnd
             finalNames.Add(new Person("<All>", -1));
             foreach (var d in sortedNames)
             {
-                if (d.Names.ID!=0)
+                if (d.Names.ID != 0)
                     finalNames.Add(d.Names);
             }
 
@@ -566,7 +404,7 @@ namespace SDIFrontEnd
         List<string> GetRecipients()
         {
             List<string> finalList = new List<string>();
-            if (lstTo.SelectedItems.Count>0 && ((Person)lstTo.SelectedItems[0]).ID != -1)
+            if (lstTo.SelectedItems.Count > 0 && ((Person)lstTo.SelectedItems[0]).ID != -1)
             {
                 foreach (Person s in lstTo.SelectedItems)
                     finalList.Add(s.Name);
@@ -580,6 +418,167 @@ namespace SDIFrontEnd
 
             return finalList;
         }
+        #endregion
+
+        #region Events
+
+        #region Menu Events
+
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void clearToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            cboSurvey.SelectedItem = null;
+            panel1.Visible = false;
+            panel2.Visible = false;
+            panel3.Visible = false;
+        }
+
+        private void entryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (FM.FormManager.FormOpen("PraccingEntry", 1))
+            {
+                ((MainMenu)FM.FormManager.GetForm("MainMenu")).SelectTab("PraccingEntry1");
+                return;
+            }
+
+            var state = Globals.CurrentUser.FormStates.Where(x => x.FormName.Equals("frmIssuesTracking") && x.FormNum == 1).First();
+            int survID = 899;
+            if (state != null)
+                survID = state.FilterID;
+
+            PraccingEntry frm = new PraccingEntry(survID);
+
+            frm.Tag = 1;
+            FM.FormManager.Add(frm);
+        }
+
+        private void importToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (FM.FormManager.FormOpen("frmPraccingIssuesImport", 1))
+            {
+                ((MainMenu)FM.FormManager.GetForm("MainMenu")).SelectTab("frmPraccingIssuesImport1");
+                return;
+            }
+
+            ImportPraccingIssues frm = new ImportPraccingIssues();
+            frm.Tag = 1;
+            FM.FormManager.Add(frm);
+        }
+        #endregion
+
+        #region Control Events
+
+        void ComboBox_MouseWheel(object sender, MouseEventArgs e)
+        {
+            ComboBox control = (ComboBox)sender;
+
+            if (!control.DroppedDown)
+                ((HandledMouseEventArgs)e).Handled = true;
+        }
+
+        private void cboSurvey_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboSurvey.SelectedItem == null)
+                return;
+
+            SelectedSurvey = (Survey)cboSurvey.SelectedItem;
+            FillBoxes();
+            panel1.Visible = true;
+            panel2.Visible = true;
+            panel3.Visible = true;
+        }
+
+        private void ListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListBox lst = (ListBox)sender;
+
+            // only the <All> option is in the box
+            if (lst.Items.Count == 1)
+                return;
+
+            lst.SelectedIndexChanged -= ListBox_SelectedIndexChanged;
+
+            if (lst.SelectedItems.Count == 0)
+            {
+                lst.SetSelected(0, true);
+                lst.Tag = true;
+            }
+
+            int count = lst.SelectedItems.Count;
+
+            if (count > 1 && (bool)lst.Tag)
+            {
+                lst.SelectedItems.Remove(lst.Items[0]);
+                lst.Tag = false;
+            }
+            else if (count > 1 && lst.SelectedIndices.Contains(0))
+            {
+                lst.SelectedItems.Clear();
+                lst.SelectedItems.Add(lst.Items[0]);
+                lst.Tag = true;
+            }
+
+            lst.SelectedIndexChanged += ListBox_SelectedIndexChanged;
+        }
+
+        private void cmdOpenFolder_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(@"\\psychfile\psych$\psych-lab-gfong\SMG\SDI\Reports\Praccing");
+        }
+
+        private void cmdGenerate_Click(object sender, EventArgs e)
+        {
+            IssuesList = DBAction.GetPraccingIssues(SelectedSurvey.SID); // get all the issues again in case any were added since opening the form
+
+            // get the filtered list
+            FilteredIssuesList = GetIssueList();
+
+            if (FilteredIssuesList.Count == 0)
+            {
+                MessageBox.Show("No praccing issues found!");
+                return;
+            }
+
+            PraccingReport report = new PraccingReport();
+
+            if (chkIncludeQnums.Checked)
+            {
+                report.VarQnums = GetQnumDictionary();
+            }
+
+            if (chkIncludePrevNames.Checked)
+            {
+                report.PrevNames = GetPrevNamesDictionary();
+            }
+
+            
+            report.SelectedSurvey = SelectedSurvey;
+            report.AddBlankLine = chkEmptyRow.Checked;
+            report.IncludeToPracc = chkPraccInstructions.Checked;
+            report.IncludePraccInstructions = chkPraccInstructions.Checked;
+            report.IncludeQnums = chkIncludeQnums.Checked;
+            report.IncludePrevNames = chkIncludePrevNames.Checked;
+            report.Recipients = GetRecipients();
+            report.Issues = FilteredIssuesList;
+
+            report.CreateReport();
+         
+        }
+
+        private void PraccingReportForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            FM.FormManager.Remove(this);
+        }
+
+        #endregion
+
+        #endregion
+
+        
 
         
     }

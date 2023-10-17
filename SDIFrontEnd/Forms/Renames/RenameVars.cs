@@ -44,7 +44,7 @@ namespace SDIFrontEnd
 
             Changes = new List<VarNameChange>();
         }
-
+        
         public RenameVars(VariableName var) : this()
         {
             cboSource.SelectedItem = var;
@@ -55,123 +55,15 @@ namespace SDIFrontEnd
             cboSource.SelectedItem = refvar;
         }
 
-        #region Menu Bar
-        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Close();
-            FM.FormManager.RemovePopup(this);
-        }
-
-        private void clearToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Reset();
-        }
-        #endregion
-
-        #region Events
-
-        void ComboBox_MouseWheel(object sender, MouseEventArgs e)
-        {
-            ComboBox control = (ComboBox)sender;
-
-            if (!control.DroppedDown)
-                ((HandledMouseEventArgs)e).Handled = true;
-        }
-
-        private void Scope_Click(object sender, EventArgs e)
-        {
-            lstSurveyList.DataSource = null;
-            UpdateVarList();
-            UpdateStatus();
-        }
-
-        private void cboSource_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            FillSurveyList((RefVariableName)cboSource.SelectedItem);
-            UpdateStatus();
-        }
-
-        private void cboDest_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            UpdateStatus();
-        }
-
-        private void cboDest_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Return)
-            {
-                lstSurveyList.Focus();
-            }
-        }
-
-        /// <summary>
-        /// If a user entered a custom varname, add it to the list and select it.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void cboDest_Leave(object sender, EventArgs e)
-        {
-            if (cboDest.Text == null)
-                return;
-
-            string enteredValue = cboDest.Text;
-            RefVariableName newVar = new RefVariableName(enteredValue);
-            if (!cboDest.Items.Contains(newVar))
-                cboDest.Items.Add(newVar);
-
-            cboDest.SelectedItem = newVar;
-        }
-
-        private void lstSurveyList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            UpdateStatus();
-        }
-
-        private void cmdRename_Click(object sender, EventArgs e)
-        {
-            
-            RefVariableName source = (RefVariableName)cboSource.SelectedItem;
-            RefVariableName dest = (RefVariableName)cboDest.SelectedItem;
-            List<Survey> surveyList = lstSurveyList.SelectedItems.Cast<Survey>().ToList();
-            VarRenamer renamer = new VarRenamer(source, dest, surveyList);
-            
-            renamer.PerformRefRename();
-
-            if (renamer.FailedRenames.Count > 0)
-            {
-                MessageBox.Show("Some renames were not performed: " + string.Join(", ", renamer.FailedRenames));
-            }
-
-            // if no documentation, we are done
-            if (chkDoNotDocument.Checked)
-                return;
-
-            // document rename, fill in 'changed by' name and notifications
-            foreach (VarNameChangeRecord change in renamer.Changes)
-            {
-                change.PreFWChange = chkPreFWS.Checked;
-                change.ChangedBy = Globals.AllPeople.Where(x => x.ID == Globals.CurrentUser.userid).First(); 
-                foreach (Person autoNotify in Globals.AllPeople.Where(x => x.VarNameChangeNotify && x.Active).ToList())
-                {
-                    change.Notifications.Add(new VarNameChangeNotificationRecord() { PersonID = autoNotify.ID, Name = autoNotify.Name, NotifyType = "Auto-email" });
-                }
-            }
-
-            VarChangeTracking frm = new VarChangeTracking(renamer.Changes, true);
-            frm.ShowDialog();            
-        }
-
-        #endregion
-
         #region Methods
 
-      
+
 
         private void Reset()
         {
             cboSource.SelectedItem = null;
             cboDest.SelectedItem = null;
-            
+
         }
 
         private void FillSurveyList(RefVariableName refvar)
@@ -186,7 +78,7 @@ namespace SDIFrontEnd
             lstSurveyList.DisplayMember = "SurveyCode";
             lstSurveyList.ValueMember = "SID";
             lstSurveyList.DataSource = Globals.AllSurveys.Where(x => surveyNames.Contains(x.SurveyCode)).ToList();
-            
+
         }
 
         private void UpdateStatus()
@@ -224,7 +116,7 @@ namespace SDIFrontEnd
 
                 infoMessages = GetInfo(source, dest);
             }
-            
+
 
 
             txtStatus.Text = infoMessages;
@@ -251,7 +143,7 @@ namespace SDIFrontEnd
                 foreach (RefVariableName refVar in RefVarNameList)
                     cboDest.Items.Add(refVar);
 
-                
+
             }
             else if (optVarName.Checked)
             {
@@ -264,7 +156,7 @@ namespace SDIFrontEnd
                 foreach (VariableName refVar in VarNameList)
                     cboDest.Items.Add(refVar);
 
-                
+
             }
 
             cboSource.SelectedItem = null;
@@ -411,8 +303,8 @@ namespace SDIFrontEnd
         {
             foreach (Survey s in lstSurveyList.SelectedItems)
             {
-                
-                if (DBAction.GetQuestionIDRef(s.SurveyCode, dest)!=0)
+
+                if (DBAction.GetQuestionIDRef(s.SurveyCode, dest) != 0)
                 {
                     return true;
                 }
@@ -431,9 +323,119 @@ namespace SDIFrontEnd
             return Globals.AllVarNames.Contains(var);
         }
 
-        
+
 
         #endregion
+
+        #region Menu Bar
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+            FM.FormManager.RemovePopup(this);
+        }
+
+        private void clearToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Reset();
+        }
+        #endregion
+
+        #region Events
+
+        void ComboBox_MouseWheel(object sender, MouseEventArgs e)
+        {
+            ComboBox control = (ComboBox)sender;
+
+            if (!control.DroppedDown)
+                ((HandledMouseEventArgs)e).Handled = true;
+        }
+
+        private void Scope_Click(object sender, EventArgs e)
+        {
+            lstSurveyList.DataSource = null;
+            UpdateVarList();
+            UpdateStatus();
+        }
+
+        private void cboSource_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FillSurveyList((RefVariableName)cboSource.SelectedItem);
+            UpdateStatus();
+        }
+
+        private void cboDest_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateStatus();
+        }
+
+        private void cboDest_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Return)
+            {
+                lstSurveyList.Focus();
+            }
+        }
+
+        /// <summary>
+        /// If a user entered a custom varname, add it to the list and select it.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cboDest_Leave(object sender, EventArgs e)
+        {
+            if (cboDest.Text == null)
+                return;
+
+            string enteredValue = cboDest.Text;
+            RefVariableName newVar = new RefVariableName(enteredValue);
+            if (!cboDest.Items.Contains(newVar))
+                cboDest.Items.Add(newVar);
+
+            cboDest.SelectedItem = newVar;
+        }
+
+        private void lstSurveyList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateStatus();
+        }
+
+        private void cmdRename_Click(object sender, EventArgs e)
+        {
+            
+            RefVariableName source = (RefVariableName)cboSource.SelectedItem;
+            RefVariableName dest = (RefVariableName)cboDest.SelectedItem;
+            List<Survey> surveyList = lstSurveyList.SelectedItems.Cast<Survey>().ToList();
+            VarRenamer renamer = new VarRenamer(source, dest, surveyList);
+            
+            renamer.PerformRefRename();
+
+            if (renamer.FailedRenames.Count > 0)
+            {
+                MessageBox.Show("Some renames were not performed: " + string.Join(", ", renamer.FailedRenames));
+            }
+
+            // if no documentation, we are done
+            if (chkDoNotDocument.Checked)
+                return;
+
+            // document rename, fill in 'changed by' name and notifications
+            foreach (VarNameChange change in renamer.Changes)
+            {
+                change.PreFWChange = chkPreFWS.Checked;
+                change.ChangedBy = Globals.AllPeople.Where(x => x.ID == Globals.CurrentUser.userid).First(); 
+                foreach (Person autoNotify in Globals.AllPeople.Where(x => x.VarNameChangeNotify && x.Active).ToList())
+                {
+                    change.Notifications.Add(new VarNameChangeNotification() { Name = autoNotify, NotifyType = "Auto-email" });
+                }
+            }
+
+            VarChangeTracking frm = new VarChangeTracking(renamer.Changes, true);
+            frm.ShowDialog();            
+        }
+
+        #endregion
+
+       
 
         
     }

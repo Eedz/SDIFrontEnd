@@ -67,7 +67,6 @@
             this.chkIncludeQnums = new System.Windows.Forms.CheckBox();
             this.chkEmptyRow = new System.Windows.Forms.CheckBox();
             this.chkPraccInstructions = new System.Windows.Forms.CheckBox();
-            this.cmdClose = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -93,7 +92,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(891, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(851, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -527,26 +526,14 @@
             this.chkPraccInstructions.Text = "Include Pracc Instructions";
             this.chkPraccInstructions.UseVisualStyleBackColor = true;
             // 
-            // cmdClose
-            // 
-            this.cmdClose.Location = new System.Drawing.Point(861, 0);
-            this.cmdClose.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cmdClose.Name = "cmdClose";
-            this.cmdClose.Size = new System.Drawing.Size(30, 28);
-            this.cmdClose.TabIndex = 7;
-            this.cmdClose.Text = "X";
-            this.cmdClose.UseVisualStyleBackColor = true;
-            this.cmdClose.Visible = false;
-            this.cmdClose.Click += new System.EventHandler(this.cmdClose_Click);
-            // 
             // PraccingReportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(222)))), ((int)(((byte)(116)))));
-            this.ClientSize = new System.Drawing.Size(891, 717);
-            this.Controls.Add(this.cmdClose);
+            this.ClientSize = new System.Drawing.Size(851, 657);
+            this.ControlBox = false;
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -555,12 +542,12 @@
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "PraccingReportForm";
             this.Text = "Praccing Report";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.PraccingReportForm_FormClosed);
-            this.Resize += new System.EventHandler(this.PraccingReportForm_Resize);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -610,7 +597,6 @@
         private System.Windows.Forms.CheckBox chkEmptyRow;
         private System.Windows.Forms.CheckBox chkPraccInstructions;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Button cmdClose;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
         private System.Windows.Forms.Label label11;

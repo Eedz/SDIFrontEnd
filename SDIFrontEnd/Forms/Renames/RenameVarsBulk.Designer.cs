@@ -33,7 +33,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblTitle = new System.Windows.Forms.Label();
             this.groupScope = new System.Windows.Forms.GroupBox();
             this.optRefVarName = new System.Windows.Forms.RadioButton();
             this.optVarName = new System.Windows.Forms.RadioButton();
@@ -66,6 +66,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.panelDetails = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.cmdUnlockRename = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -76,6 +78,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvRenames)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvNotifications)).BeginInit();
             this.panelDetails.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -104,16 +107,16 @@
             this.clearToolStripMenuItem.Text = "Clear";
             this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
             // 
-            // label1
+            // lblTitle
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(95, 34);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(273, 33);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Bulk Variable Rename";
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.Location = new System.Drawing.Point(95, 34);
+            this.lblTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(227, 33);
+            this.lblTitle.TabIndex = 1;
+            this.lblTitle.Text = "Rename Variables";
             // 
             // groupScope
             // 
@@ -185,7 +188,7 @@
             // 
             // txtPath
             // 
-            this.txtPath.Location = new System.Drawing.Point(11, 161);
+            this.txtPath.Location = new System.Drawing.Point(421, 83);
             this.txtPath.Multiline = true;
             this.txtPath.Name = "txtPath";
             this.txtPath.Size = new System.Drawing.Size(215, 36);
@@ -193,7 +196,7 @@
             // 
             // cmdBrowse
             // 
-            this.cmdBrowse.Location = new System.Drawing.Point(232, 161);
+            this.cmdBrowse.Location = new System.Drawing.Point(642, 83);
             this.cmdBrowse.Name = "cmdBrowse";
             this.cmdBrowse.Size = new System.Drawing.Size(87, 36);
             this.cmdBrowse.TabIndex = 5;
@@ -203,7 +206,7 @@
             // 
             // cmdImport
             // 
-            this.cmdImport.Location = new System.Drawing.Point(232, 203);
+            this.cmdImport.Location = new System.Drawing.Point(642, 125);
             this.cmdImport.Name = "cmdImport";
             this.cmdImport.Size = new System.Drawing.Size(87, 31);
             this.cmdImport.TabIndex = 6;
@@ -282,21 +285,21 @@
             this.cboChangedBy.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cboChangedBy.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboChangedBy.FormattingEnabled = true;
-            this.cboChangedBy.Location = new System.Drawing.Point(6, 433);
+            this.cboChangedBy.Location = new System.Drawing.Point(3, 27);
             this.cboChangedBy.Name = "cboChangedBy";
             this.cboChangedBy.Size = new System.Drawing.Size(121, 24);
             this.cboChangedBy.TabIndex = 8;
             // 
             // txtAuthorization
             // 
-            this.txtAuthorization.Location = new System.Drawing.Point(133, 434);
+            this.txtAuthorization.Location = new System.Drawing.Point(130, 28);
             this.txtAuthorization.Name = "txtAuthorization";
             this.txtAuthorization.Size = new System.Drawing.Size(691, 23);
             this.txtAuthorization.TabIndex = 9;
             // 
             // txtRationale
             // 
-            this.txtRationale.Location = new System.Drawing.Point(6, 479);
+            this.txtRationale.Location = new System.Drawing.Point(3, 73);
             this.txtRationale.Multiline = true;
             this.txtRationale.Name = "txtRationale";
             this.txtRationale.Size = new System.Drawing.Size(818, 63);
@@ -304,7 +307,7 @@
             // 
             // txtSource
             // 
-            this.txtSource.Location = new System.Drawing.Point(6, 561);
+            this.txtSource.Location = new System.Drawing.Point(3, 155);
             this.txtSource.Multiline = true;
             this.txtSource.Name = "txtSource";
             this.txtSource.Size = new System.Drawing.Size(818, 45);
@@ -316,11 +319,12 @@
             this.dgvNotifications.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.chName,
             this.chType});
-            this.dgvNotifications.Location = new System.Drawing.Point(847, 433);
+            this.dgvNotifications.Location = new System.Drawing.Point(844, 27);
             this.dgvNotifications.Name = "dgvNotifications";
             this.dgvNotifications.RowHeadersWidth = 25;
-            this.dgvNotifications.Size = new System.Drawing.Size(227, 254);
+            this.dgvNotifications.Size = new System.Drawing.Size(249, 254);
             this.dgvNotifications.TabIndex = 12;
+            this.dgvNotifications.VirtualMode = true;
             // 
             // chName
             // 
@@ -336,7 +340,7 @@
             // 
             this.chkHidden.AutoSize = true;
             this.chkHidden.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkHidden.Location = new System.Drawing.Point(138, 616);
+            this.chkHidden.Location = new System.Drawing.Point(135, 210);
             this.chkHidden.Name = "chkHidden";
             this.chkHidden.Size = new System.Drawing.Size(122, 20);
             this.chkHidden.TabIndex = 13;
@@ -347,7 +351,7 @@
             // 
             this.chkPreFW.AutoSize = true;
             this.chkPreFW.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkPreFW.Location = new System.Drawing.Point(6, 616);
+            this.chkPreFW.Location = new System.Drawing.Point(3, 210);
             this.chkPreFW.Name = "chkPreFW";
             this.chkPreFW.Size = new System.Drawing.Size(125, 20);
             this.chkPreFW.TabIndex = 14;
@@ -358,7 +362,7 @@
             // 
             this.chkDoNotDoc.AutoSize = true;
             this.chkDoNotDoc.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkDoNotDoc.Location = new System.Drawing.Point(1115, 454);
+            this.chkDoNotDoc.Location = new System.Drawing.Point(1112, 48);
             this.chkDoNotDoc.Name = "chkDoNotDoc";
             this.chkDoNotDoc.Size = new System.Drawing.Size(138, 20);
             this.chkDoNotDoc.TabIndex = 15;
@@ -367,7 +371,7 @@
             // 
             // cmdRename
             // 
-            this.cmdRename.Location = new System.Drawing.Point(1115, 480);
+            this.cmdRename.Location = new System.Drawing.Point(1112, 74);
             this.cmdRename.Name = "cmdRename";
             this.cmdRename.Size = new System.Drawing.Size(126, 40);
             this.cmdRename.TabIndex = 16;
@@ -379,7 +383,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(14, 142);
+            this.label2.Location = new System.Drawing.Point(424, 64);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(76, 16);
             this.label2.TabIndex = 17;
@@ -388,7 +392,7 @@
             // lblFileInstructions
             // 
             this.lblFileInstructions.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFileInstructions.Location = new System.Drawing.Point(326, 163);
+            this.lblFileInstructions.Location = new System.Drawing.Point(736, 85);
             this.lblFileInstructions.Name = "lblFileInstructions";
             this.lblFileInstructions.Size = new System.Drawing.Size(468, 71);
             this.lblFileInstructions.TabIndex = 18;
@@ -408,7 +412,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(844, 414);
+            this.label5.Location = new System.Drawing.Point(841, 8);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(87, 16);
             this.label5.TabIndex = 20;
@@ -416,33 +420,52 @@
             // 
             // panelDetails
             // 
-            this.panelDetails.Controls.Add(this.label9);
-            this.panelDetails.Controls.Add(this.label8);
-            this.panelDetails.Controls.Add(this.label7);
-            this.panelDetails.Controls.Add(this.label6);
-            this.panelDetails.Controls.Add(this.label5);
+            this.panelDetails.Controls.Add(this.panel1);
             this.panelDetails.Controls.Add(this.label4);
-            this.panelDetails.Controls.Add(this.cmdRename);
-            this.panelDetails.Controls.Add(this.chkDoNotDoc);
-            this.panelDetails.Controls.Add(this.chkPreFW);
-            this.panelDetails.Controls.Add(this.chkHidden);
-            this.panelDetails.Controls.Add(this.dgvNotifications);
-            this.panelDetails.Controls.Add(this.txtSource);
-            this.panelDetails.Controls.Add(this.txtRationale);
-            this.panelDetails.Controls.Add(this.txtAuthorization);
-            this.panelDetails.Controls.Add(this.cboChangedBy);
             this.panelDetails.Controls.Add(this.dgvRenames);
-            this.panelDetails.Location = new System.Drawing.Point(12, 240);
+            this.panelDetails.Location = new System.Drawing.Point(17, 162);
             this.panelDetails.Name = "panelDetails";
-            this.panelDetails.Size = new System.Drawing.Size(1275, 690);
+            this.panelDetails.Size = new System.Drawing.Size(1268, 698);
             this.panelDetails.TabIndex = 21;
             this.panelDetails.Visible = false;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.cmdUnlockRename);
+            this.panel1.Controls.Add(this.label9);
+            this.panel1.Controls.Add(this.label8);
+            this.panel1.Controls.Add(this.label7);
+            this.panel1.Controls.Add(this.label6);
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.cmdRename);
+            this.panel1.Controls.Add(this.chkDoNotDoc);
+            this.panel1.Controls.Add(this.chkPreFW);
+            this.panel1.Controls.Add(this.chkHidden);
+            this.panel1.Controls.Add(this.dgvNotifications);
+            this.panel1.Controls.Add(this.txtSource);
+            this.panel1.Controls.Add(this.txtRationale);
+            this.panel1.Controls.Add(this.txtAuthorization);
+            this.panel1.Controls.Add(this.cboChangedBy);
+            this.panel1.Location = new System.Drawing.Point(4, 411);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1259, 283);
+            this.panel1.TabIndex = 25;
+            // 
+            // cmdUnlockRename
+            // 
+            this.cmdUnlockRename.Location = new System.Drawing.Point(1112, 120);
+            this.cmdUnlockRename.Name = "cmdUnlockRename";
+            this.cmdUnlockRename.Size = new System.Drawing.Size(126, 35);
+            this.cmdUnlockRename.TabIndex = 25;
+            this.cmdUnlockRename.Text = "Unlock Surveys";
+            this.cmdUnlockRename.UseVisualStyleBackColor = true;
+            this.cmdUnlockRename.Click += new System.EventHandler(this.cmdUnlockRename_Click);
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(15, 545);
+            this.label9.Location = new System.Drawing.Point(12, 139);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(52, 16);
             this.label9.TabIndex = 24;
@@ -452,7 +475,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(14, 458);
+            this.label8.Location = new System.Drawing.Point(11, 52);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(68, 16);
             this.label8.TabIndex = 23;
@@ -462,7 +485,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(144, 415);
+            this.label7.Location = new System.Drawing.Point(141, 9);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(96, 16);
             this.label7.TabIndex = 22;
@@ -472,7 +495,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(10, 414);
+            this.label6.Location = new System.Drawing.Point(7, 8);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(83, 16);
             this.label6.TabIndex = 21;
@@ -484,7 +507,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(177)))), ((int)(((byte)(77)))));
-            this.ClientSize = new System.Drawing.Size(1363, 942);
+            this.ClientSize = new System.Drawing.Size(1363, 893);
             this.Controls.Add(this.panelDetails);
             this.Controls.Add(this.lblFileInstructions);
             this.Controls.Add(this.label2);
@@ -493,13 +516,14 @@
             this.Controls.Add(this.txtPath);
             this.Controls.Add(this.groupSource);
             this.Controls.Add(this.groupScope);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "RenameVarsBulk";
-            this.Text = "Bulk Rename";
+            this.Text = "Rename Variables";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.RenameVarsBulk_FormClosed);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.groupScope.ResumeLayout(false);
@@ -510,6 +534,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvNotifications)).EndInit();
             this.panelDetails.ResumeLayout(false);
             this.panelDetails.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -520,7 +546,7 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.GroupBox groupScope;
         private System.Windows.Forms.RadioButton optRefVarName;
         private System.Windows.Forms.RadioButton optVarName;
@@ -557,5 +583,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn chSurveysAffected;
         private System.Windows.Forms.DataGridViewTextBoxColumn chBoth;
         private System.Windows.Forms.DataGridViewTextBoxColumn chLocked;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button cmdUnlockRename;
     }
 }

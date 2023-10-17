@@ -27,6 +27,14 @@ namespace SDIFrontEnd
 
             Questions = questions;
 
+            SetupBindingSources();
+
+            BindProperties();
+        }
+
+        #region Form Setup
+        private void SetupBindingSources()
+        {
             bsQuestions = new BindingSource();
             bsQuestions.DataSource = Questions;
 
@@ -38,53 +46,28 @@ namespace SDIFrontEnd
             bsComments.DataSource = Questions;
             bsComments.DataMember = "Comments";
 
-
-
-
             drQuestion.DataSource = bsQuestions;
             drTranslations.DataSource = bsTranslations;
             drComments.DataSource = bsComments;
-            
+        }
 
-           
-
-            //rtbQuestion.DataBindings.Add(new Binding("Rtf", Questions, "Question"))
-
+        private void BindProperties()
+        {
             // questions
             txtSurvey.DataBindings.Add(new Binding("Text", bsQuestions, "SurveyCode"));
-            
             txtQnum.DataBindings.Add(new Binding("Text", bsQuestions, "Qnum"));
-
-           
-
-
-            // translations
-
-            //txtLanguage.DataBindings.Add(new Binding("Text", bsTranslations, "Language"));
-           // rtbTranslation.DataBindings.Add(new Binding("Rtf", bsTranslations, "TranslationRTF"));
 
             // comments
             txtNoteType.DataBindings.Add(new Binding("Text", bsComments, "NoteType"));
-            //dtpNoteDate.DataBindings.Add(new Binding("Value", bsComments, "NoteDate", true));
-            //txtComment.DataBindings.Add(new Binding("Text", bsComments, "Notes.NoteText"));
-
-
-
         }
+        #endregion 
 
-        #region DataRepeater Bullshit
 
-        private void dataRepeater1_ItemCloned(object sender, Microsoft.VisualBasic.PowerPacks.DataRepeaterItemEventArgs e)
+        #region Events
+
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //var varBox = (ComboBox)e.DataRepeaterItem.Controls.Find("txtVarName", false)[0];
-            ////Set the data source
-           
-
-            //var combo2 = (ComboBox)e.DataRepeaterItem.Controls.Find("cboResponseTo", false)[0];
-            ////Set the data source
-            //combo2.DisplayMember = "Name";
-            //combo2.ValueMember = "ID";
-            //combo2.DataSource = new List<Person>(PeopleList);
+            Close();
         }
 
         /// <summary>
@@ -117,16 +100,7 @@ namespace SDIFrontEnd
 
             var questionBox = (RichTextBox)e.DataRepeaterItem.Controls.Find("rtbQuestion", false)[0];
             questionBox.Rtf = datasource[e.DataRepeaterItem.ItemIndex].GetQuestionTextRich();
-
-            
-
-
-            
         }
-
-
-
-        #endregion
 
         private void drTranslations_DrawItem(object sender, Microsoft.VisualBasic.PowerPacks.DataRepeaterItemEventArgs e)
         {
@@ -174,5 +148,9 @@ namespace SDIFrontEnd
             var noteSourceName = (TextBox)e.DataRepeaterItem.Controls.Find("txtNoteSourceName", false)[0];
             noteSourceName.Text = currentQuestion.SourceName;
         }
+
+        #endregion
+
+        
     }
 }

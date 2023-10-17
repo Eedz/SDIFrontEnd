@@ -45,20 +45,6 @@ namespace SDIFrontEnd
 
         bool loaded;
 
-        double minuteOffset;
-        // these 2 keep new issues and responses unique by assigning incremental IDs
-        int issueIDOffset;
-        int responseIDOffset;
-        string lastIssueNo;
-
-        int IssueNoColumn;
-        int VarNamesColumn;
-        int DescriptionColumn;
-        int DateColumn;
-        int FromColumn;
-        int ToColumn;
-        int CategoryColumn;
-
         // form layout values
         int doubleResponseHeight;
         int singleResponseHeight;

@@ -70,27 +70,28 @@
             // 
             // cmdOpenRenameSingle
             // 
-            this.cmdOpenRenameSingle.Location = new System.Drawing.Point(74, 92);
+            this.cmdOpenRenameSingle.Location = new System.Drawing.Point(404, 88);
             this.cmdOpenRenameSingle.Name = "cmdOpenRenameSingle";
             this.cmdOpenRenameSingle.Size = new System.Drawing.Size(185, 30);
             this.cmdOpenRenameSingle.TabIndex = 2;
             this.cmdOpenRenameSingle.Text = "Rename Variable";
             this.cmdOpenRenameSingle.UseVisualStyleBackColor = true;
+            this.cmdOpenRenameSingle.Visible = false;
             this.cmdOpenRenameSingle.Click += new System.EventHandler(this.cmdOpenRenameSingle_Click);
             // 
             // cmdOpenRenameBulk
             // 
-            this.cmdOpenRenameBulk.Location = new System.Drawing.Point(74, 128);
+            this.cmdOpenRenameBulk.Location = new System.Drawing.Point(74, 87);
             this.cmdOpenRenameBulk.Name = "cmdOpenRenameBulk";
             this.cmdOpenRenameBulk.Size = new System.Drawing.Size(185, 30);
             this.cmdOpenRenameBulk.TabIndex = 3;
-            this.cmdOpenRenameBulk.Text = "Bulk Variable Rename";
+            this.cmdOpenRenameBulk.Text = "Rename Variables";
             this.cmdOpenRenameBulk.UseVisualStyleBackColor = true;
             this.cmdOpenRenameBulk.Click += new System.EventHandler(this.cmdOpenRenameBulk_Click);
             // 
             // cmdOpenVarChangeTracking
             // 
-            this.cmdOpenVarChangeTracking.Location = new System.Drawing.Point(74, 164);
+            this.cmdOpenVarChangeTracking.Location = new System.Drawing.Point(74, 123);
             this.cmdOpenVarChangeTracking.Name = "cmdOpenVarChangeTracking";
             this.cmdOpenVarChangeTracking.Size = new System.Drawing.Size(185, 30);
             this.cmdOpenVarChangeTracking.TabIndex = 4;
@@ -100,7 +101,7 @@
             // 
             // cmdOpenVarNameChangeReport
             // 
-            this.cmdOpenVarNameChangeReport.Location = new System.Drawing.Point(74, 200);
+            this.cmdOpenVarNameChangeReport.Location = new System.Drawing.Point(74, 159);
             this.cmdOpenVarNameChangeReport.Name = "cmdOpenVarNameChangeReport";
             this.cmdOpenVarNameChangeReport.Size = new System.Drawing.Size(185, 30);
             this.cmdOpenVarNameChangeReport.TabIndex = 5;
@@ -110,7 +111,7 @@
             // 
             // cmdOpenVarUsageReport
             // 
-            this.cmdOpenVarUsageReport.Location = new System.Drawing.Point(74, 272);
+            this.cmdOpenVarUsageReport.Location = new System.Drawing.Point(74, 231);
             this.cmdOpenVarUsageReport.Name = "cmdOpenVarUsageReport";
             this.cmdOpenVarUsageReport.Size = new System.Drawing.Size(185, 30);
             this.cmdOpenVarUsageReport.TabIndex = 6;
@@ -120,7 +121,7 @@
             // 
             // cmdOpenVarUsage
             // 
-            this.cmdOpenVarUsage.Location = new System.Drawing.Point(74, 236);
+            this.cmdOpenVarUsage.Location = new System.Drawing.Point(74, 195);
             this.cmdOpenVarUsage.Name = "cmdOpenVarUsage";
             this.cmdOpenVarUsage.Size = new System.Drawing.Size(185, 30);
             this.cmdOpenVarUsage.TabIndex = 7;
@@ -133,6 +134,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(201)))), ((int)(((byte)(216)))), ((int)(((byte)(235)))));
             this.ClientSize = new System.Drawing.Size(933, 554);
             this.Controls.Add(this.cmdOpenVarUsage);
             this.Controls.Add(this.cmdOpenVarUsageReport);
