@@ -320,13 +320,15 @@ namespace SDIFrontEnd
         private void AddMouseWheelEvents()
         {
             this.MouseWheel += SurveyEditor_OnMouseWheel;
+            rtbQuestionText.MouseWheel += SurveyEditor_OnMouseWheel;
+
+            cboMoveTo.MouseWheel += ComboBox_MouseWheel;
             cboSurvey.MouseWheel += ComboBox_MouseWheel;
             cboGoToVar.MouseWheel += ComboBox_MouseWheel;
             cboDomainLabel.MouseWheel += ComboBox_MouseWheel;
             cboTopicLabel.MouseWheel += ComboBox_MouseWheel;
             cboContentLabel.MouseWheel += ComboBox_MouseWheel;
-            cboProductLabel.MouseWheel += ComboBox_MouseWheel;
-            rtbQuestionText.MouseWheel += SurveyEditor_OnMouseWheel;
+            cboProductLabel.MouseWheel += ComboBox_MouseWheel;            
         }
         #endregion
 
@@ -717,11 +719,7 @@ namespace SDIFrontEnd
 
         private void cmdSaveSurvey_Click(object sender, EventArgs e)
         {
-            if (CurrentSurvey.Locked)
-            {
-                MessageBox.Show("This survey needs to be unlocked before saving.");
-                return;
-            }
+            
             SaveChanges();
             FillList();
             UpdateStatus();
@@ -776,8 +774,18 @@ namespace SDIFrontEnd
         {
             if (Records.Any(x => x.IsEdited()))
             {
-                if (MessageBox.Show("This survey has unsaved changes. Are you sure you want to close this survey and lose those changes?", "Confirm close.", MessageBoxButtons.YesNo) == DialogResult.No)
-                    e.Cancel = true;
+                DialogResult answer = MessageBox.Show("This survey has unsaved changes. Do you want to save the changes before closing?", "Confirm close.", MessageBoxButtons.YesNoCancel);
+                switch (answer)
+                {
+                    case DialogResult.Yes: // save before closing
+                        SaveChanges();
+                        break;
+                    case DialogResult.No: // close without saving
+                        break;
+                    case DialogResult.Cancel: // don't close
+                        e.Cancel = true;
+                        break;
+                }
             }
         }
 
@@ -1130,6 +1138,11 @@ namespace SDIFrontEnd
             List<string> l = Records.Select(x => x.Item.VarName.RefVarName).OrderBy(x=>x).ToList();
             cboGoToVar.Items.AddRange (l.ToArray<object>());
             cboGoToVar.SelectedItem = string.Empty;
+
+
+            cboMoveTo.ValueMember = "refVarName";
+            cboMoveTo.DisplayMember = "refVarName";
+            cboMoveTo.DataSource = Records.Select(x => x.Item.VarName).OrderBy(x => x.RefVarName).ToList();
 
             toolStripLanguage.ComboBox.DataSource = RefreshLanguages();
             toolStripLanguage.ComboBox.DisplayMember = "SurvLanguage";
@@ -1993,6 +2006,12 @@ namespace SDIFrontEnd
         /// </summary>
         private void SaveChanges()
         {
+            if (CurrentSurvey.Locked)
+            {
+                MessageBox.Show("This survey needs to be unlocked before saving.");
+                return;
+            }
+
             List<QuestionRecord> modifyFails = new List<QuestionRecord>();
             List<QuestionRecord> newFails = new List<QuestionRecord>();
             List<QuestionRecord> deleteFails = new List<QuestionRecord>();
@@ -2358,9 +2377,10 @@ namespace SDIFrontEnd
         private void lstQuestionList_DragDrop(object sender, DragEventArgs e)
         {
             if (lstQuestionList.SelectedItems.Count == 0)
-            {
                 return;
-            }
+
+            if (CurrentSurvey.Locked)
+                return;
 
             int count = lstQuestionList.SelectedItems.Count;
 
@@ -2511,9 +2531,87 @@ namespace SDIFrontEnd
             }
         }
 
-        private void cboDomainLabel_SelectedIndexChanged(object sender, EventArgs e)
+        private void cboMoveTo_SelectedIndexChanged(object sender, EventArgs e)
         {
+            
 
+            
         }
+
+        private void cboMoveTo_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            if (cboMoveTo.SelectedItem == null)
+                return;
+
+            if (CurrentSurvey.Locked)
+                return;
+
+            MoveSelection((VariableName)cboMoveTo.SelectedItem);
+        }
+
+        private void MoveSelection(VariableName targetVar)
+        {
+            ArrayList insertItems = new ArrayList(lstQuestionList.SelectedItems.Count);
+            List<QuestionRecord> questions = new List<QuestionRecord>();
+
+            foreach (ListViewItem item in lstQuestionList.SelectedItems)
+            {
+                insertItems.Add(item.Clone());
+                questions.Add((QuestionRecord)item.Tag);
+            }
+
+            int targetIndex = 0;
+            for (int i = 0; i < Records.Count; i++)
+            {
+                if (Records[i].Item.VarName.RefVarName.Equals(targetVar.RefVarName))
+                {
+                    targetIndex = i;
+                    break;
+                }
+            }
+            
+
+            // insert the items in the list starting from the last one
+            for (int i = insertItems.Count - 1; i >= 0; i--)
+            {
+                ListViewItem insertItem = (ListViewItem)insertItems[i];
+                lstQuestionList.Items.Insert(targetIndex, insertItem);
+            }
+
+            // remove items from their old locations in the list and the underlying question list
+            foreach (ListViewItem removeItem in lstQuestionList.SelectedItems)
+            {
+                lstQuestionList.Items.Remove(removeItem);
+                Records.Remove((QuestionRecord)removeItem.Tag);
+            }
+
+            MoveQuestions(questions, targetIndex);
+
+            ReNumberSurvey();
+
+            UpdateStatus();
+        }
+
+        private void MoveQuestions(List<QuestionRecord> questions, int newLocation)
+        {
+           
+            // remove items from their old locations in question list
+            foreach (QuestionRecord removeItem in questions)
+            {
+                Records.Remove(removeItem);
+            }
+
+            // if dropped at the end of the list, reset the drop index to account for the removals
+            if (newLocation > Records.Count)
+                newLocation = newLocation - questions.Count;
+
+            // now insert the questions back into the question list at their new location
+            for (int i = questions.Count - 1; i >= 0; i--)
+            {
+                Records.Insert(newLocation, questions[i]);
+            }
+        }
+
+        
     }
 }

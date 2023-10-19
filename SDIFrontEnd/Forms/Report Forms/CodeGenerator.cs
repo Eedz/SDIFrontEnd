@@ -13,33 +13,33 @@ using FM = FormManager;
 
 namespace SDIFrontEnd
 {
-    public partial class frmCodeGenerator : Form
+    public partial class CodeGenerator : Form
     {
-        public frmCodeGenerator()
+        public CodeGenerator()
         {
             InitializeComponent();
 
-            List<Survey> surveyList = new List<Survey>(Globals.AllSurveys);
-
-            lstSurveys.DisplayMember = "SurveyCode";
-            lstSurveys.ValueMember = "SID";
-            lstSurveys.DataSource = surveyList;
-
-            cboJump.DisplayMember = "SurveyCode";
-            cboJump.ValueMember = "SID";
-            cboJump.DataSource = surveyList;
+            FillBoxes();
 
             txtSavePath.Text = @"\\psychfile\psych$\psych-lab-gfong\SMG\SDI\Data Templates\";
         }
 
-        private void cmdGenerate_Click(object sender, EventArgs e)
+        #region Form Setup
+        private void FillBoxes()
         {
-            if (lstSurveys.SelectedItem == null)
-            {
-                MessageBox.Show("Select a survey.");
-                return;
-            }
+            lstSurveys.DisplayMember = "SurveyCode";
+            lstSurveys.ValueMember = "SID";
+            lstSurveys.DataSource = new List<Survey>(Globals.AllSurveys);
 
+            cboJump.DisplayMember = "SurveyCode";
+            cboJump.ValueMember = "SID";
+            cboJump.DataSource = new List<Survey>(Globals.AllSurveys);
+        }
+        #endregion
+
+        #region Methods
+        private void Generate()
+        {
             SyntaxReport code = new SyntaxReport();
             code.OutputPath = txtSavePath.Text;
 
@@ -59,7 +59,7 @@ namespace SDIFrontEnd
 
             ReportSurvey rs = new ReportSurvey((Survey)lstSurveys.SelectedItem);
 
-            rs.AddQuestions(new BindingList<SurveyQuestion>(DBAction.GetSurveyQuestions(rs)));
+            rs.AddQuestions(new List<SurveyQuestion>(DBAction.GetSurveyQuestions(rs)));
 
             try
             {
@@ -70,6 +70,19 @@ namespace SDIFrontEnd
             {
                 MessageBox.Show("Error!");
             }
+        }
+        #endregion
+
+        #region Events
+        private void cmdGenerate_Click(object sender, EventArgs e)
+        {
+            if (lstSurveys.SelectedItem == null)
+            {
+                MessageBox.Show("Select a survey.");
+                return;
+            }
+
+            Generate();
         }
 
         private void cmdOpenFolder_Click(object sender, EventArgs e)
@@ -87,12 +100,14 @@ namespace SDIFrontEnd
             if (cboJump.SelectedItem == null)
                 return;
 
-            lstSurveys.SelectedItem= cboJump.SelectedItem;
+            lstSurveys.SelectedItem = cboJump.SelectedItem;
         }
 
         private void frmCodeGenerator_FormClosed(object sender, FormClosedEventArgs e)
         {
             FM.FormManager.Remove(this);
         }
+        #endregion
+
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace SDIFrontEnd
 {
-    partial class frmCodeGenerator
+    partial class CodeGenerator
     {
         /// <summary>
         /// Required designer variable.

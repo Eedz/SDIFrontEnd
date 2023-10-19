@@ -656,6 +656,7 @@
             this.gridQuesComments.Size = new System.Drawing.Size(799, 119);
             this.gridQuesComments.TabIndex = 0;
             this.gridQuesComments.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.gridQuesComments_DataError);
+      
             // 
             // chQSurvey
             // 

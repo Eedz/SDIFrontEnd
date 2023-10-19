@@ -256,6 +256,7 @@ namespace SDIFrontEnd
                 txtNoteSource.Text = frm.SelectedSource;
             }
         }
+
         #endregion
 
 
@@ -1504,6 +1505,7 @@ namespace SDIFrontEnd
                 }
             }
         }
+
 
         #endregion
 

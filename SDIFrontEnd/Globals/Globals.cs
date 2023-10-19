@@ -23,9 +23,6 @@ namespace SDIFrontEnd
         public static List<StudyWave> AllWaves;
         public static List<Survey> AllSurveys;
 
-        //public static List<Survey> RenumberedSurveys;
-        public static List<KeyValuePair<int, string>> RenumberedSurveys;
-
         // varnames
         public static List<VariablePrefix> AllPrefixes;
         public static List<VariableName> AllVarNames;
@@ -84,8 +81,6 @@ namespace SDIFrontEnd
             AllStudies = DBAction.GetStudyInfo();
             AllWaves = DBAction.GetWaveInfo();
             AllSurveys = DBAction.GetAllSurveysInfo();
-
-            RenumberedSurveys = DBAction.GetRenumberedSurveys();
 
             foreach (Region region in AllRegions)
             {

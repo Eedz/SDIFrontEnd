@@ -31,10 +31,14 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cmdRemove = new System.Windows.Forms.Button();
+            this.cmdAdd = new System.Windows.Forms.Button();
+            this.lstSelected = new System.Windows.Forms.ListBox();
             this.cboSurveyOrWave = new System.Windows.Forms.ComboBox();
             this.rbWave = new System.Windows.Forms.RadioButton();
             this.rbSurvey = new System.Windows.Forms.RadioButton();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.chkIncludeAllSurveys = new System.Windows.Forms.CheckBox();
             this.chkExcludePreFW = new System.Windows.Forms.CheckBox();
             this.chkExcludeHidden = new System.Windows.Forms.CheckBox();
             this.chkExcludeHeadings = new System.Windows.Forms.CheckBox();
@@ -51,10 +55,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cmdGenerate = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
-            this.lstSelected = new System.Windows.Forms.ListBox();
-            this.cmdAdd = new System.Windows.Forms.Button();
-            this.cmdRemove = new System.Windows.Forms.Button();
-            this.chkIncludeAllSurveys = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -96,6 +96,38 @@
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Report scope";
+            // 
+            // cmdRemove
+            // 
+            this.cmdRemove.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdRemove.Location = new System.Drawing.Point(218, 59);
+            this.cmdRemove.Name = "cmdRemove";
+            this.cmdRemove.Size = new System.Drawing.Size(40, 28);
+            this.cmdRemove.TabIndex = 7;
+            this.cmdRemove.Text = "<-";
+            this.cmdRemove.UseVisualStyleBackColor = true;
+            this.cmdRemove.Click += new System.EventHandler(this.cmdRemove_Click);
+            // 
+            // cmdAdd
+            // 
+            this.cmdAdd.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdAdd.Location = new System.Drawing.Point(218, 25);
+            this.cmdAdd.Name = "cmdAdd";
+            this.cmdAdd.Size = new System.Drawing.Size(40, 28);
+            this.cmdAdd.TabIndex = 6;
+            this.cmdAdd.Text = "->";
+            this.cmdAdd.UseVisualStyleBackColor = true;
+            this.cmdAdd.Click += new System.EventHandler(this.cmdAdd_Click);
+            // 
+            // lstSelected
+            // 
+            this.lstSelected.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstSelected.FormattingEnabled = true;
+            this.lstSelected.ItemHeight = 16;
+            this.lstSelected.Location = new System.Drawing.Point(264, 25);
+            this.lstSelected.Name = "lstSelected";
+            this.lstSelected.Size = new System.Drawing.Size(123, 100);
+            this.lstSelected.TabIndex = 5;
             // 
             // cboSurveyOrWave
             // 
@@ -156,6 +188,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(390, 269);
             this.panel1.TabIndex = 2;
+            // 
+            // chkIncludeAllSurveys
+            // 
+            this.chkIncludeAllSurveys.AutoSize = true;
+            this.chkIncludeAllSurveys.Location = new System.Drawing.Point(181, 183);
+            this.chkIncludeAllSurveys.Name = "chkIncludeAllSurveys";
+            this.chkIncludeAllSurveys.Size = new System.Drawing.Size(134, 20);
+            this.chkIncludeAllSurveys.TabIndex = 11;
+            this.chkIncludeAllSurveys.Text = "Include All Surveys";
+            this.chkIncludeAllSurveys.UseVisualStyleBackColor = true;
             // 
             // chkExcludePreFW
             // 
@@ -326,48 +368,6 @@
             this.label4.TabIndex = 4;
             this.label4.Text = "VarName Changes Report";
             // 
-            // lstSelected
-            // 
-            this.lstSelected.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lstSelected.FormattingEnabled = true;
-            this.lstSelected.ItemHeight = 16;
-            this.lstSelected.Location = new System.Drawing.Point(264, 25);
-            this.lstSelected.Name = "lstSelected";
-            this.lstSelected.Size = new System.Drawing.Size(123, 100);
-            this.lstSelected.TabIndex = 5;
-            // 
-            // cmdAdd
-            // 
-            this.cmdAdd.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdAdd.Location = new System.Drawing.Point(218, 25);
-            this.cmdAdd.Name = "cmdAdd";
-            this.cmdAdd.Size = new System.Drawing.Size(40, 28);
-            this.cmdAdd.TabIndex = 6;
-            this.cmdAdd.Text = "->";
-            this.cmdAdd.UseVisualStyleBackColor = true;
-            this.cmdAdd.Click += new System.EventHandler(this.cmdAdd_Click);
-            // 
-            // cmdRemove
-            // 
-            this.cmdRemove.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdRemove.Location = new System.Drawing.Point(218, 59);
-            this.cmdRemove.Name = "cmdRemove";
-            this.cmdRemove.Size = new System.Drawing.Size(40, 28);
-            this.cmdRemove.TabIndex = 7;
-            this.cmdRemove.Text = "<-";
-            this.cmdRemove.UseVisualStyleBackColor = true;
-            this.cmdRemove.Click += new System.EventHandler(this.cmdRemove_Click);
-            // 
-            // chkIncludeAllSurveys
-            // 
-            this.chkIncludeAllSurveys.AutoSize = true;
-            this.chkIncludeAllSurveys.Location = new System.Drawing.Point(181, 183);
-            this.chkIncludeAllSurveys.Name = "chkIncludeAllSurveys";
-            this.chkIncludeAllSurveys.Size = new System.Drawing.Size(134, 20);
-            this.chkIncludeAllSurveys.TabIndex = 11;
-            this.chkIncludeAllSurveys.Text = "Include All Surveys";
-            this.chkIncludeAllSurveys.UseVisualStyleBackColor = true;
-            // 
             // VarNameChangeReportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -386,6 +386,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "VarNameChangeReportForm";
             this.Text = "VarName Changes Report";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.VarNameChangeReportForm_FormClosed);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);

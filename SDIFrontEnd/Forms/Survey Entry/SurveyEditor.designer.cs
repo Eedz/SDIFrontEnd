@@ -53,7 +53,6 @@
             this.Corrected = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.QType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panelQuestion = new System.Windows.Forms.Panel();
-            this.rtbPlainFilter = new SDIFrontEnd.ExtraRichTextBox();
             this.dgvTimeFrames = new System.Windows.Forms.DataGridView();
             this.chTimeFrame = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtPstP = new System.Windows.Forms.TextBox();
@@ -140,6 +139,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.lblEdited = new System.Windows.Forms.Label();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cboMoveTo = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.rtbPlainFilter = new SDIFrontEnd.ExtraRichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.navQuestions)).BeginInit();
             this.navQuestions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -404,21 +406,6 @@
             this.panelQuestion.Name = "panelQuestion";
             this.panelQuestion.Size = new System.Drawing.Size(912, 681);
             this.panelQuestion.TabIndex = 34;
-            // 
-            // rtbPlainFilter
-            // 
-            this.rtbPlainFilter.AutoScroll = true;
-            this.rtbPlainFilter.Location = new System.Drawing.Point(629, 54);
-            this.rtbPlainFilter.Margin = new System.Windows.Forms.Padding(4);
-            this.rtbPlainFilter.Name = "rtbPlainFilter";
-            this.rtbPlainFilter.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat\\deflang1033{\\fonttbl{\\f0\\fnil\\fcharset0 " +
-    "Tahoma;}}\r\n{\\*\\generator Riched20 10.0.19041}\\viewkind4\\uc1 \r\n\\pard\\f0\\fs20\\par\r" +
-    "\n}\r\n";
-            this.rtbPlainFilter.ShowFamilies = false;
-            this.rtbPlainFilter.ShowSize = false;
-            this.rtbPlainFilter.Size = new System.Drawing.Size(272, 459);
-            this.rtbPlainFilter.TabIndex = 72;
-            this.rtbPlainFilter.Validated += new System.EventHandler(this.rtbPlainFilter_Validated);
             // 
             // dgvTimeFrames
             // 
@@ -894,7 +881,6 @@
             this.cboDomainLabel.Name = "cboDomainLabel";
             this.cboDomainLabel.Size = new System.Drawing.Size(375, 24);
             this.cboDomainLabel.TabIndex = 1;
-            this.cboDomainLabel.SelectedIndexChanged += new System.EventHandler(this.cboDomainLabel_SelectedIndexChanged);
             this.cboDomainLabel.Validating += new System.ComponentModel.CancelEventHandler(this.ComboBox_Validating);
             // 
             // txtVarLabel
@@ -1358,6 +1344,42 @@
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.Width = 110;
             // 
+            // cboMoveTo
+            // 
+            this.cboMoveTo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboMoveTo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cboMoveTo.FormattingEnabled = true;
+            this.cboMoveTo.Location = new System.Drawing.Point(242, 170);
+            this.cboMoveTo.Name = "cboMoveTo";
+            this.cboMoveTo.Size = new System.Drawing.Size(80, 24);
+            this.cboMoveTo.TabIndex = 55;
+            this.cboMoveTo.SelectedIndexChanged += new System.EventHandler(this.cboMoveTo_SelectedIndexChanged);
+            this.cboMoveTo.SelectionChangeCommitted += new System.EventHandler(this.cboMoveTo_SelectionChangeCommitted);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(179, 173);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(57, 16);
+            this.label4.TabIndex = 56;
+            this.label4.Text = "Move to:";
+            // 
+            // rtbPlainFilter
+            // 
+            this.rtbPlainFilter.AutoScroll = true;
+            this.rtbPlainFilter.Location = new System.Drawing.Point(629, 54);
+            this.rtbPlainFilter.Margin = new System.Windows.Forms.Padding(4);
+            this.rtbPlainFilter.Name = "rtbPlainFilter";
+            this.rtbPlainFilter.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat\\deflang1033{\\fonttbl{\\f0\\fnil\\fcharset0 " +
+    "Tahoma;}}\r\n{\\*\\generator Riched20 10.0.19041}\\viewkind4\\uc1 \r\n\\pard\\f0\\fs20\\par\r" +
+    "\n}\r\n";
+            this.rtbPlainFilter.ShowFamilies = false;
+            this.rtbPlainFilter.ShowSize = false;
+            this.rtbPlainFilter.Size = new System.Drawing.Size(272, 459);
+            this.rtbPlainFilter.TabIndex = 72;
+            this.rtbPlainFilter.Validated += new System.EventHandler(this.rtbPlainFilter_Validated);
+            // 
             // SurveyEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -1365,6 +1387,8 @@
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(196)))), ((int)(((byte)(153)))));
             this.ClientSize = new System.Drawing.Size(1457, 907);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.cboMoveTo);
             this.Controls.Add(this.lblEdited);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -1536,5 +1560,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private ExtraRichTextBox rtbPlainFilter;
         private System.Windows.Forms.ToolStripButton toolStripAddTranslation;
+        private System.Windows.Forms.ComboBox cboMoveTo;
+        private System.Windows.Forms.Label label4;
     }
 }

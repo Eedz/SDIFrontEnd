@@ -24,77 +24,12 @@ namespace SDIFrontEnd
             InitializeComponent();
         }
 
-        #region Events
-        private void rbSurvey_Click(object sender, EventArgs e)
-        {
-            cboSurveyOrWave.DataSource = null;
-            cboSurveyOrWave.DisplayMember = "SurveyCode";
-            cboSurveyOrWave.ValueMember = "SID";
-            cboSurveyOrWave.DataSource = new List<Survey>(Globals.AllSurveys);
-            cboSurveyOrWave.SelectedItem = null;
-            lstSelected.Items.Clear();
-            Scope = ReportScope.Survey;
-        }
-
-        private void rbWave_Click(object sender, EventArgs e)
-        {
-            cboSurveyOrWave.DataSource = null;
-            cboSurveyOrWave.DisplayMember = "WaveCode";
-            cboSurveyOrWave.ValueMember = "ID";
-            cboSurveyOrWave.DataSource = new List<StudyWave>(Globals.AllWaves);
-            cboSurveyOrWave.SelectedItem = null;
-            chkIncludeWordings.Enabled = false;
-            chkIncludeWordings.Checked = false;
-            lstSelected.Items.Clear();
-            Scope = ReportScope.Wave;
-        }
-
-        private void cmdAdd_Click(object sender, EventArgs e)
-        {
-            if (cboSurveyOrWave.SelectedItem == null)
-                return;
-
-            if (!lstSelected.Items.Contains(cboSurveyOrWave.SelectedItem))
-                lstSelected.Items.Add(cboSurveyOrWave.SelectedItem);
-
-            chkIncludeWordings.Enabled = lstSelected.Items.Count == 1 && Scope == ReportScope.Survey;
-            chkIncludeWordings.Checked = false;
-        }
-
-        private void cmdRemove_Click(object sender, EventArgs e)
-        {
-            lstSelected.Items.Remove(lstSelected.SelectedItem);
-
-            chkIncludeWordings.Enabled = lstSelected.Items.Count == 1 && Scope == ReportScope.Survey;
-            chkIncludeWordings.Checked = false;
-        }
-
-        private void cmdGenerate_Click(object sender, EventArgs e)
-        {
-            if (lstSelected.Items.Count == 0) return;
-
-            GetReportDetails(out List<VarNameChangeRecord> changes, out string title);
-            
-
-            DataTable data = CreateReportSource(changes);
-
-            DataTableReport rpt = new DataTableReport(data, title);
-            rpt.CreateReport();
-        }
-
-        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Close();
-            FM.FormManager.Remove(this);
-        }
-        #endregion
-
         #region Methods
 
-        private void GetReportDetails (out List<VarNameChangeRecord> changes, out string title)
+        private void GetReportDetails(out List<VarNameChange> changes, out string title)
         {
             title = string.Empty;
-            changes = new List<VarNameChangeRecord>();
+            changes = new List<VarNameChange>();
             if (Scope == ReportScope.Survey)
             {
                 foreach (Survey survey in lstSelected.Items)
@@ -115,7 +50,7 @@ namespace SDIFrontEnd
             changes = changes.OrderBy(x => x.ChangeDate).ToList();
         }
 
-        private DataTable CreateReportSource(List<VarNameChangeRecord> changes)
+        private DataTable CreateReportSource(List<VarNameChange> changes)
         {
             DataTable data = CreateReportTable();
             FillReportTable(data, changes);
@@ -123,7 +58,7 @@ namespace SDIFrontEnd
             return data;
         }
 
-        private void FillReportTable(DataTable data, List<VarNameChangeRecord> changes)
+        private void FillReportTable(DataTable data, List<VarNameChange> changes)
         {
             // get wordings if needed
             List<SurveyQuestion> referenceQs = new List<SurveyQuestion>();
@@ -146,7 +81,7 @@ namespace SDIFrontEnd
             else
                 upperBound = null;
 
-            foreach (VarNameChangeRecord change in changes)
+            foreach (VarNameChange change in changes)
             {
                 // skip headings
                 if (chkExcludeHeadings.Checked && (change.OldName.StartsWith("Z") || change.NewName.StartsWith("Z")))
@@ -186,8 +121,8 @@ namespace SDIFrontEnd
                 newrow["Rationale"] = change.Rationale;
 
                 if (chkIncludeAllSurveys.Checked)
-                    newrow["Surveys"] = change.GetSurveysAffected();
-                else 
+                    newrow["Surveys"] = change.GetSurveys();
+                else
                 {
                     newrow["Surveys"] = GetAffectedSurveysList(change);
                 }
@@ -195,7 +130,7 @@ namespace SDIFrontEnd
             }
         }
 
-        private string GetAffectedSurveysList(VarNameChangeRecord change)
+        private string GetAffectedSurveysList(VarNameChange change)
         {
             if (Scope == ReportScope.Survey)
             {
@@ -249,6 +184,80 @@ namespace SDIFrontEnd
             data.Columns.Add(new DataColumn("Surveys", Type.GetType("System.String")));
             return data;
         }
-        #endregion       
+        #endregion
+
+        #region Events
+
+        private void VarNameChangeReportForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            FM.FormManager.Remove(this);
+        }
+
+        private void rbSurvey_Click(object sender, EventArgs e)
+        {
+            cboSurveyOrWave.DataSource = null;
+            cboSurveyOrWave.DisplayMember = "SurveyCode";
+            cboSurveyOrWave.ValueMember = "SID";
+            cboSurveyOrWave.DataSource = new List<Survey>(Globals.AllSurveys);
+            cboSurveyOrWave.SelectedItem = null;
+            lstSelected.Items.Clear();
+            Scope = ReportScope.Survey;
+        }
+
+        private void rbWave_Click(object sender, EventArgs e)
+        {
+            cboSurveyOrWave.DataSource = null;
+            cboSurveyOrWave.DisplayMember = "WaveCode";
+            cboSurveyOrWave.ValueMember = "ID";
+            cboSurveyOrWave.DataSource = new List<StudyWave>(Globals.AllWaves);
+            cboSurveyOrWave.SelectedItem = null;
+            chkIncludeWordings.Enabled = false;
+            chkIncludeWordings.Checked = false;
+            lstSelected.Items.Clear();
+            Scope = ReportScope.Wave;
+        }
+
+        private void cmdAdd_Click(object sender, EventArgs e)
+        {
+            if (cboSurveyOrWave.SelectedItem == null)
+                return;
+
+            if (!lstSelected.Items.Contains(cboSurveyOrWave.SelectedItem))
+                lstSelected.Items.Add(cboSurveyOrWave.SelectedItem);
+
+            chkIncludeWordings.Enabled = lstSelected.Items.Count == 1 && Scope == ReportScope.Survey;
+            chkIncludeWordings.Checked = false;
+        }
+
+        private void cmdRemove_Click(object sender, EventArgs e)
+        {
+            lstSelected.Items.Remove(lstSelected.SelectedItem);
+
+            chkIncludeWordings.Enabled = lstSelected.Items.Count == 1 && Scope == ReportScope.Survey;
+            chkIncludeWordings.Checked = false;
+        }
+
+        private void cmdGenerate_Click(object sender, EventArgs e)
+        {
+            if (lstSelected.Items.Count == 0) return;
+
+            GetReportDetails(out List<VarNameChange> changes, out string title);
+            
+
+            DataTable data = CreateReportSource(changes);
+
+            DataTableReport rpt = new DataTableReport(data, title);
+            rpt.CreateReport();
+        }
+
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+        #endregion
+
+    
+
+        
     }
 }

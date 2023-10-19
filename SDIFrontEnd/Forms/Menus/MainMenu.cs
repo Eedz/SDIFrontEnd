@@ -43,8 +43,6 @@ namespace SDIFrontEnd
             FM.FormManager.FormAdded += FormManager_FormAdded;
             FM.FormManager.PopupAdded += FormManager_PopupAdded;
 
-            this.worker.DoWork += worker_DoWork;
-            worker.RunWorkerCompleted += worker_RunWorkerCompleted;
         }
 
 
@@ -72,46 +70,18 @@ namespace SDIFrontEnd
            
         }
 
-        private void worker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            BackgroundWorker helperBW = sender as BackgroundWorker;
-
-            backupStatus = BackupStatus();
-            autoSurveyStatus = AutoSurveysStatus();
-        }
-
-        private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            
-            lblBackupStatus.Text = backupStatus;
-            lblBackupStatus.Visible = !string.IsNullOrEmpty(lblBackupStatus.Text);
-            lblAutoSurveys.Text = autoSurveyStatus;
-            lblAutoSurveys.Visible = !string.IsNullOrEmpty(lblAutoSurveys.Text);
-        }
-
         private void MainMenu_Load(object sender, EventArgs e)
         {
-            worker.RunWorkerAsync();
+            RunTasks();
 
             this.WindowState = FormWindowState.Maximized;
             this.FormBorderStyle = FormBorderStyle.Sizable;
 
             LabelSurveyEditorButtons();
-
-            // check for renumbered surveys
-            if (Globals.RenumberedSurveys.Count > 0)
-            {
-                ShowRenumberSurveys frm = new ShowRenumberSurveys(Globals.RenumberedSurveys);
-                frm.BringToFront();
-                frm.TopLevel = true;
-                frm.Owner = this;
-                frm.Show();
-            }
         }
 
         private void MainMenu_FormClosed(object sender, FormClosedEventArgs e)
         {
-            worker.CancelAsync();
             Application.Exit();
         }
 
@@ -643,19 +613,6 @@ namespace SDIFrontEnd
             FM.FormManager.Add(frm);
         }
 
-        private void cmdParallelQuestions_Click(object sender, EventArgs e)
-        {
-            if (FM.FormManager.FormOpen("ParallelQuestions"))
-            {
-                tabControl1.SelectTab("ParallelQuestions1");
-                return;
-            }
-
-            ParallelQuestions frm = new ParallelQuestions();
-            frm.Tag = 1;
-            FM.FormManager.Add(frm);
-        }
-
         private void cmdOpenQuestionHistory_Click(object sender, EventArgs e)
         {
             if (FM.FormManager.FormOpen("QuestionHistory"))
@@ -946,6 +903,19 @@ namespace SDIFrontEnd
             return surveyCode;
         }
 
+        /// <summary>
+        /// Check the backup status and auto surveys asynchronously and display a message if necessary;
+        /// </summary>
+        private async void RunTasks()
+        {
+            backupStatus = await Task.Run(() => BackupStatus());
+            autoSurveyStatus = await Task.Run(() => AutoSurveysStatus());
+
+            lblBackupStatus.Text = backupStatus;
+            lblBackupStatus.Visible = !string.IsNullOrEmpty(lblBackupStatus.Text);
+            lblAutoSurveys.Text = autoSurveyStatus;
+            lblAutoSurveys.Visible = !string.IsNullOrEmpty(lblAutoSurveys.Text);
+        }
 
         private void CheckBackup()
         {

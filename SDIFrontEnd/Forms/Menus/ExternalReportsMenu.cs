@@ -61,7 +61,7 @@ namespace SDIFrontEnd
                 return;
             }
 
-            frmCodeGenerator frm = new frmCodeGenerator();
+            CodeGenerator frm = new CodeGenerator();
             frm.Tag = 1;
             FM.FormManager.AddPopup(frm);
         }
