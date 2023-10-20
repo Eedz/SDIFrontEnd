@@ -2076,11 +2076,7 @@ namespace SDIFrontEnd
                 sb.AppendLine(deleteFails.Count + " deleted questions failed to delete properly.");
 
             if (sb.Length>0)
-                MessageBox.Show(sb.ToString());
-            else
-            {
-                DBAction.DeleteRenumberedSurvey(CurrentSurvey);
-            }
+                MessageBox.Show(sb.ToString());           
         }
 
         private void TogglePopups(bool show)
