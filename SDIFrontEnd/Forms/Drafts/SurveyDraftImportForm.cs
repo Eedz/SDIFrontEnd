@@ -158,16 +158,18 @@ namespace SDIFrontEnd
         /// <summary>
         /// Attempt to create survey draft record and set the draft object DraftID field.
         /// </summary>
-        private void CreateDraftInfo()
+        private int CreateDraftInfo()
         {
             newDraft.Questions = new List<DraftQuestion>();
 
             DBAction.InsertSurveyDraft(newDraft);
 
             if (newDraft.ID == -1)
-            {
-                MessageBox.Show("Error creating draft. Unable to import.");
+            {   
+                return 1;
             }
+
+            return 0;
         }
 
         /// <summary>
@@ -214,10 +216,11 @@ namespace SDIFrontEnd
             if (!CheckSurveyDraft())
                 return 1;
 
-            CreateDraftInfo();
-
-            if (newDraft.ID == 0)
+            if (CreateDraftInfo() == 1)
+            {
+                MessageBox.Show("Error creating draft. Unable to import.");
                 return 1;
+            }
 
             SetExtraFieldInfo();
 
