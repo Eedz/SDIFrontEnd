@@ -20,12 +20,13 @@ namespace SDIFrontEnd
     /// </summary>
     public partial class CommentEntry : Form
     {
-        #region Properties
-        List<NoteRecord> Notes;
+        List<NoteRecord> Records;
         List<NoteRecord> FilteredNotes;
 
-        NoteRecord CurrentNote;
+        NoteRecord CurrentRecord;
         BindingSource bs;
+        BindingSource bsCurrent;
+
         BindingSource bsStored;
 
         BindingSource bsQues;
@@ -51,43 +52,20 @@ namespace SDIFrontEnd
 
         public event EventHandler<QuestionCommentCreated> CreatedComment;
 
-        #endregion
-
-        #region Constructors
-
-        public CommentEntry()
+        public CommentEntry(List<Note> notes)
         {
             InitializeComponent();
-
-
-            Notes = Globals.AllNotes;
-            FilteredNotes = new List<NoteRecord>();
-            newComments = new List<dynamic>();
             this.MouseWheel += CommentEntry_MouseWheel;
             txtNoteText.MouseWheel += CommentEntry_MouseWheel;
 
-            bs = new BindingSource
-            {
-                DataSource = Notes
-            };
+            GetRecords(notes);
 
-            bs.PositionChanged += BindingSource_PositionChanged;
-            bs.ListChanged += Bs_ListChanged;
+            SetupBindingSources();
 
-            CurrentNote = (NoteRecord)bs.Current;
+            FilteredNotes = new List<NoteRecord>();
+            newComments = new List<dynamic>();
 
-            bsStored = new BindingSource();
-            bsStored.DataSource = new List<Comment>(Globals.CurrentUser.SavedComments);
-
-            repeaterStored.DataSource = bsStored;
-
-            navNotes.BindingSource = bs;
-
-            gridQuesComments.AutoGenerateColumns = false;
-            gridSurvComments.AutoGenerateColumns = false;
-            gridWaveComments.AutoGenerateColumns = false;
-            gridRefVarComments.AutoGenerateColumns = false;
-            gridDeletedComments.AutoGenerateColumns = false;
+            SetupGrids();
 
             FillBoxes();
 
@@ -99,12 +77,7 @@ namespace SDIFrontEnd
             chkNewDetails.Checked = true;
         }
 
-        public CommentEntry(int cid) :this()
-        {
-            GoToComment(cid);           
-        }
-
-        public CommentEntry(SurveyQuestion question) : this()
+        public CommentEntry(SurveyQuestion question) : this (question.Comments.Select(x => x.Notes).ToList())
         {
             FillTargetQuestion(question);
             UpdateCreationCount();
@@ -112,54 +85,169 @@ namespace SDIFrontEnd
             if (question.Comments.Count == 0)
                 return;
 
-            foreach (Comment c in question.Comments)
-            {
-                NoteRecord n = new NoteRecord() { ID = c.Notes.ID, NoteText = c.Notes.NoteText };
-                FilteredNotes.Add(n);
-            }
-            bs.DataSource = FilteredNotes;
-            bs.Position = 0;
+            
+
+            //foreach (Comment c in question.Comments)
+            //{
+            //    NoteRecord n = new NoteRecord() { ID = c.Notes.ID, NoteText = c.Notes.NoteText };
+            //    FilteredNotes.Add(n);
+            //}
+            //bs.DataSource = FilteredNotes;
+            //bs.Position = 0;
+
+            
         }
 
-        public CommentEntry(NoteScope scope, List<SurveyQuestion> questions) : this()
+        public CommentEntry(NoteScope scope, List<SurveyQuestion> questions) : this(questions.SelectMany(x=>x.Comments.Select(y=>y.Notes)).ToList())
         {
             Scope = scope;
-            
+
             FillTargetSurveyList();
             ToggleTargetVarNameList();
             UpdateCreationCount();
             foreach (SurveyQuestion q in questions)
-                FillTargetQuestion(q);            
+                FillTargetQuestion(q);
+
+        }
+
+        #region Form Setup
+        private void GetRecords(List<Note> notes)
+        {
+            Records = new List<NoteRecord>();
+            foreach (Note note in notes)
+            {
+                Records.Add(new NoteRecord(note));
+            }
+        }
+
+        private void SetupBindingSources()
+        {
             
+
+            bs = new BindingSource
+            {
+                DataSource = Records
+            };
+
+            bs.PositionChanged += BindingSource_PositionChanged;
+
+            bsCurrent = new BindingSource()
+            {
+                DataSource = bs,
+                DataMember = "Item"
+            };
+            bsCurrent.ListChanged += BsCurrent_ListChanged;
+
+            CurrentRecord = (NoteRecord)bs.Current;
+
+            bsStored = new BindingSource();
+            bsStored.DataSource = new List<Comment>(Globals.CurrentUser.SavedComments);
+
+            repeaterStored.DataSource = bsStored;
+
+            navNotes.BindingSource = bs;
+        }
+
+        private void FillBoxes()
+        {
+
+            // entry section
+            var scopes = new List<KeyValuePair<int, string>>();
+            foreach (NoteScope s in Enum.GetValues(typeof(NoteScope)))
+                scopes.Add(new KeyValuePair<int, string>((int)s, s.ToString()));
+
+            cboCommentScope.DisplayMember = "Value";
+            cboCommentScope.ValueMember = "Key";
+            cboCommentScope.DataSource = scopes;
+
+            cboNoteType.DisplayMember = "TypeName";
+            cboNoteType.ValueMember = "TypeName";
+            cboNoteType.DataSource = new List<CommentType>(Globals.AllCommentTypes);
+
+            cboNoteAuthor.DisplayMember = "Name";
+            cboNoteAuthor.ValueMember = "ID";
+            cboNoteAuthor.DataSource = new List<Person>(Globals.AllPeople);
+
+            cboNoteAuthority.ValueMember = "ID";
+            cboNoteAuthority.DisplayMember = "Name";
+            cboNoteAuthority.DataSource = new List<Person>(Globals.AllPeople);
+            
+            lstTargetSurvWave.DisplayMember = "SurveyCode";
+
+            cboVarNameList.DisplayMember = "RefVarName";
+            cboVarNameList.DataSource = new List<RefVariableName>(Globals.AllRefVarNames);
+            
+            lstTargetVar.DisplayMember = "RefVarName";
+
+            FillTargetSurveyList();
+        }
+
+        private void SetupGrids()
+        {
+            gridQuesComments.AutoGenerateColumns = false;
+            gridSurvComments.AutoGenerateColumns = false;
+            gridWaveComments.AutoGenerateColumns = false;
+            gridRefVarComments.AutoGenerateColumns = false;
+            gridDeletedComments.AutoGenerateColumns = false;
+
+            chQName.DataSource = new List<Person>(Globals.AllPeople);
+            chQName.ValueMember = "ID";
+            chQName.DisplayMember = "Name";
+            chQName.DataPropertyName = "Author";
+
+            chQType.DataSource = new List<CommentType>(Globals.AllCommentTypes);
+            chQType.ValueMember = "TypeName";
+            chQType.DisplayMember = "TypeName";
+            chQType.DataPropertyName = "NoteType";
+
+            chSName.DataSource = new List<Person>(Globals.AllPeople);
+            chSName.ValueMember = "ID";
+            chSName.DisplayMember = "Name";
+            chSName.DataPropertyName = "Author";
+
+            chSType.DataSource = new List<CommentType>(Globals.AllCommentTypes);
+            chSType.ValueMember = "TypeName";
+            chSType.DisplayMember = "TypeName";
+            chSType.DataPropertyName = "NoteType";
+
+            chWName.DataSource = new List<Person>(Globals.AllPeople);
+            chWName.ValueMember = "ID";
+            chWName.DisplayMember = "Name";
+            chWName.DataPropertyName = "Author";
+
+            chWType.DataSource = new List<CommentType>(Globals.AllCommentTypes);
+            chWType.ValueMember = "TypeName";
+            chWType.DisplayMember = "TypeName";
+            chWType.DataPropertyName = "NoteType";
+
+            chRName.DataSource = new List<Person>(Globals.AllPeople);
+            chRName.ValueMember = "ID";
+            chRName.DisplayMember = "Name";
+            chRName.DataPropertyName = "Author";
+
+            chRType.DataSource = new List<CommentType>(Globals.AllCommentTypes);
+            chRType.ValueMember = "TypeName";
+            chRType.DisplayMember = "TypeName";
+            chRType.DataPropertyName = "NoteType";
+
+            chDName.DataSource = new List<Person>(Globals.AllPeople);
+            chDName.ValueMember = "ID";
+            chDName.DisplayMember = "Name";
+            chDName.DataPropertyName = "Author";
+
+            chDType.DataSource = new List<CommentType>(Globals.AllCommentTypes);
+            chDType.ValueMember = "TypeName";
+            chDType.DisplayMember = "TypeName";
+            chDType.DataPropertyName = "NoteType";
         }
         #endregion
 
         #region Event Handlers
         private void CommentEntry_Load(object sender, EventArgs e)
         {
-            CurrentNote = (NoteRecord)bs.Current;
-
-            
+            CurrentRecord = (NoteRecord)bs.Current;
 
             ExpandForm();
-        }
-
-        private void BindingSource_PositionChanged(object sender, EventArgs e)
-        {
-            CurrentNote = (NoteRecord)bs.Current;
-
-            lblNewID.Visible = !(CurrentNote.ID > 0);
-            
-            LoadComments();
-        }
-
-        private void Bs_ListChanged(object sender, ListChangedEventArgs e)
-        {
-            if (e.NewIndex == -1) return;
-            if (e.NewIndex >= bs.Count) return;
-            if (e.ListChangedType == ListChangedType.ItemDeleted) return;
-
-            ((NoteRecord)bs[e.NewIndex]).Dirty = true;
         }
 
         private void CommentEntry_MouseWheel(object sender, MouseEventArgs e)
@@ -175,6 +263,44 @@ namespace SDIFrontEnd
             {
                 bs.MovePrevious();
             }
+        }
+
+        private void BindingSource_PositionChanged(object sender, EventArgs e)
+        {
+            CurrentRecord = (NoteRecord)bs.Current;
+
+            if (CurrentRecord == null)
+                return;
+
+            lblNewID.Visible = !(CurrentRecord.Item.ID > 0);
+
+            LoadComments();
+        }
+
+        private void BsCurrent_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            // item: bs[e.NewIndex]
+            // property name: e.PropertyDescriptor.Name
+            if (e.PropertyDescriptor != null)
+            {
+                // get the paper record that was modified
+                Note modifiedNote = (Note)bsCurrent[e.NewIndex];
+                NoteRecord modifiedRecord = Records.Where(x => x.Item == modifiedNote).FirstOrDefault();
+
+                if (modifiedRecord == null)
+                    return;
+
+                switch (e.PropertyDescriptor.Name)
+                {
+                    default:
+                        modifiedRecord.Dirty = true;
+                        break;
+                }
+                //if (CurrentRecord.Dirty)
+                //lblStatus.Text = "*";
+            }
+
+           
         }
 
         private void cmdAdd_Click(object sender, EventArgs e)
@@ -209,7 +335,6 @@ namespace SDIFrontEnd
         private void chkSurvWave_CheckedChanged(object sender, EventArgs e)
         {
             FillTargetSurveyList();
-
         }
 
         private void  cmdAddSurvWave_Click(object sender, EventArgs e)
@@ -265,8 +390,8 @@ namespace SDIFrontEnd
 
         private void BindProperties()
         {
-            txtID.DataBindings.Add("Text", bs, "ID");
-            txtNoteText.DataBindings.Add("Text", bs, "NoteText");
+            txtID.DataBindings.Add("Text", bsCurrent, "ID");
+            txtNoteText.DataBindings.Add("Text", bsCurrent, "NoteText");
 
             dtpStoredDate.DataBindings.Add("Value", bsStored, "NoteDate", true);
 
@@ -317,113 +442,33 @@ namespace SDIFrontEnd
 
         private void LoadComments()
         {
-            QuestionComments = DBAction.GetQuesCommentsByCID(CurrentNote.ID);
+            if (CurrentRecord == null)
+                return;
+
+            QuestionComments = DBAction.GetQuesCommentsByCID(CurrentRecord.Item.ID);
             gridQuesComments.DataSource = QuestionComments;
             pageQuestion.Text = "Variable (" + QuestionComments.Count + ")";
 
-            SurveyComments = DBAction.GetSurvCommentsByCID(CurrentNote.ID);
+            SurveyComments = DBAction.GetSurvCommentsByCID(CurrentRecord.Item.ID);
             gridSurvComments.DataSource = SurveyComments;
             pageSurvey.Text = "Survey (" + SurveyComments.Count + ")";
 
-            WaveComments = DBAction.GetWaveCommentsByCID(CurrentNote.ID);
+            WaveComments = DBAction.GetWaveCommentsByCID(CurrentRecord.Item.ID);
             gridWaveComments.DataSource = WaveComments;
             pageWave.Text = "Wave (" + WaveComments.Count + ")";
 
-            RefVarComments = DBAction.GetRefVarCommentsByCID(CurrentNote.ID);
+            RefVarComments = DBAction.GetRefVarCommentsByCID(CurrentRecord.Item.ID);
             gridRefVarComments.DataSource = RefVarComments;
             pageRefVar.Text = "RefVar (" + RefVarComments.Count + ")";
 
-            DeletedComments = DBAction.GetDeletedCommentsByCID(CurrentNote.ID);
+            DeletedComments = DBAction.GetDeletedCommentsByCID(CurrentRecord.Item.ID);
             gridDeletedComments.DataSource = DeletedComments;
             pageDeleted.Text = "Deleted Vars (" + DeletedComments.Count + ")";
 
            
         }
 
-        private void FillBoxes()
-        {
-
-            // entry section
-            var scopes = new List<KeyValuePair<int, string>>();
-            foreach (NoteScope s in Enum.GetValues(typeof(NoteScope)))
-                scopes.Add(new KeyValuePair<int, string>((int)s, s.ToString()));
-
-            cboCommentScope.DataSource = scopes;
-            cboCommentScope.DisplayMember = "Value";
-            cboCommentScope.ValueMember = "Key";
-
-            cboNoteType.DataSource = new List<CommentType>(Globals.AllCommentTypes);
-            cboNoteType.DisplayMember = "TypeName";
-            cboNoteType.ValueMember = "TypeName";
-
-            cboNoteAuthor.DataSource = new List<Person>(Globals.AllPeople);
-            cboNoteAuthor.DisplayMember = "Name";
-            cboNoteAuthor.ValueMember = "ID";
-
-            cboNoteAuthority.DataSource = new List<Person>(Globals.AllPeople);
-            cboNoteAuthority.ValueMember = "ID";
-            cboNoteAuthority.DisplayMember = "Name";
-
-            lstTargetSurvWave.DisplayMember = "SurveyCode";
-            cboVarNameList.DataSource = new List<RefVariableName>(Globals.AllRefVarNames);
-            cboVarNameList.DisplayMember = "RefVarName";
-
-            lstTargetVar.DisplayMember = "RefVarName";
-
-            FillTargetSurveyList();
-
-            // grid views
-
-            chQName.DataSource = new List<Person>(Globals.AllPeople);
-            chQName.ValueMember = "ID";
-            chQName.DisplayMember = "Name";
-            chQName.DataPropertyName = "Author";
-
-            chQType.DataSource = new List<CommentType>(Globals.AllCommentTypes);
-            chQType.ValueMember = "TypeName";
-            chQType.DisplayMember = "TypeName";
-            chQType.DataPropertyName = "NoteType";
-
-            chSName.DataSource = new List<Person>(Globals.AllPeople);
-            chSName.ValueMember = "ID";
-            chSName.DisplayMember = "Name";
-            chSName.DataPropertyName = "Author";
-
-            chSType.DataSource = new List<CommentType>(Globals.AllCommentTypes);
-            chSType.ValueMember = "TypeName";
-            chSType.DisplayMember = "TypeName";
-            chSType.DataPropertyName = "NoteType";
-
-            chWName.DataSource = new List<Person>(Globals.AllPeople);
-            chWName.ValueMember = "ID";
-            chWName.DisplayMember = "Name";
-            chWName.DataPropertyName = "Author";
-
-            chWType.DataSource = new List<CommentType>(Globals.AllCommentTypes);
-            chWType.ValueMember = "TypeName";
-            chWType.DisplayMember = "TypeName";
-            chWType.DataPropertyName = "NoteType";
-
-            chRName.DataSource = new List<Person>(Globals.AllPeople);
-            chRName.ValueMember = "ID";
-            chRName.DisplayMember = "Name";
-            chRName.DataPropertyName = "Author";
-
-            chRType.DataSource = new List<CommentType>(Globals.AllCommentTypes);
-            chRType.ValueMember = "TypeName";
-            chRType.DisplayMember = "TypeName";
-            chRType.DataPropertyName = "NoteType";
-
-            chDName.DataSource = new List<Person>(Globals.AllPeople);
-            chDName.ValueMember = "ID";
-            chDName.DisplayMember = "Name";
-            chDName.DataPropertyName = "Author";
-
-            chDType.DataSource = new List<CommentType>(Globals.AllCommentTypes);
-            chDType.ValueMember = "TypeName";
-            chDType.DisplayMember = "TypeName";
-            chDType.DataPropertyName = "NoteType";
-        }
+     
 
         private void FillTargetSurveyList()
         {
@@ -486,9 +531,9 @@ namespace SDIFrontEnd
             lblNewID.Top = txtID.Top;
             lblNewID.Visible = true;
 
-            bs.DataSource = Notes;
-            CurrentNote = (NoteRecord)bs.AddNew();
-            CurrentNote.NewRecord = true;
+            bs.DataSource = Records;
+            CurrentRecord = (NoteRecord)bs.AddNew();
+            CurrentRecord.NewRecord = true;
         }
 
         private void DeleteNote()
@@ -498,13 +543,13 @@ namespace SDIFrontEnd
             if (MessageBox.Show("Are you sure you want to delete this comment and all of its uses?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.No)
                 return;
 
-            if (DBAction.DeleteRecord(CurrentNote) == 1)
+            if (DBAction.DeleteRecord(CurrentRecord.Item) == 1)
             {
                 MessageBox.Show("Error deleting note.");
             }
             else
             {
-                Globals.AllNotes.Remove(CurrentNote);
+                Globals.AllNotes.Remove(CurrentRecord.Item);
                 bs.RemoveCurrent();
                 LoadComments();
             }
@@ -529,7 +574,7 @@ namespace SDIFrontEnd
 
         private void FilterForNote(string searchCriteria)
         {
-            var foundNotes = Notes.Where (x => x.NoteText.Contains(searchCriteria)).ToList();
+            var foundNotes = Records.Where (x => x.Item.NoteText.Contains(searchCriteria)).ToList();
 
             if (foundNotes.Count==0)
             {
@@ -545,7 +590,7 @@ namespace SDIFrontEnd
 
         private bool IsEmptyRecord(NoteRecord n)
         {
-            if (string.IsNullOrEmpty(n.NoteText) && n.NewRecord)
+            if (string.IsNullOrEmpty(n.Item.NoteText) && n.NewRecord)
                 return true;
             else
                 return false;
@@ -612,16 +657,16 @@ namespace SDIFrontEnd
 
         private int SaveNote()
         {
-            if (CurrentNote.ID == 0 && string.IsNullOrEmpty(CurrentNote.NoteText))
+            bsCurrent.EndEdit();
+
+            if (CurrentRecord.Item.ID == 0 && string.IsNullOrEmpty(CurrentRecord.Item.NoteText))
             {
                 bs.RemoveCurrent();
                 return 0;
             }
              
-
-                if (CurrentNote.SaveRecord() == 1)
+            if (CurrentRecord.SaveRecord() == 1)
             {
-                
                 MessageBox.Show("Unable to save note.");
                 return 1;
             }
@@ -687,7 +732,7 @@ namespace SDIFrontEnd
                     SurveyQuestion sq = new SurveyQuestion();
                     sq.SurveyCode = surveys[i].SurveyCode;
                     sq.VarName.VarName = fullVar;
-                    if (DBAction.GetQuestionID(sq.SurveyCode, sq.VarName.VarName) != 0 && !DBAction.QuestionCommentExists(sq, CurrentNote.ID))
+                    if (DBAction.GetQuestionID(sq.SurveyCode, sq.VarName.VarName) != 0 && !DBAction.QuestionCommentExists(sq, CurrentRecord.Item.ID))
                     {
                         QuestionCommentRecord c = new QuestionCommentRecord();
 
@@ -705,7 +750,7 @@ namespace SDIFrontEnd
                             c.SourceName = "";
 
                         c.Source = txtNoteSource.Text;
-                        c.Notes = CurrentNote;
+                        c.Notes = CurrentRecord.Item;
 
                         newComments.Add(c);
                         count++;
@@ -721,7 +766,7 @@ namespace SDIFrontEnd
             int count = 0;
             newComments.Clear();
             foreach (Survey s in lstTargetSurvWave.Items)
-                if (!DBAction.SurveyCommentExists(s, CurrentNote.ID))
+                if (!DBAction.SurveyCommentExists(s, CurrentRecord.Item.ID))
                 {
                     SurveyCommentRecord c = new SurveyCommentRecord();
 
@@ -735,7 +780,7 @@ namespace SDIFrontEnd
                         c.SourceName = "";
                     c.Authority = (Person)cboNoteAuthority.SelectedItem;
                     c.Source = txtNoteSource.Text;
-                    c.Notes = CurrentNote;
+                    c.Notes = CurrentRecord.Item;
 
                     newComments.Add(c);
 
@@ -749,7 +794,7 @@ namespace SDIFrontEnd
             int count = 0;
             newComments.Clear();
             foreach (StudyWave w in lstTargetSurvWave.Items)
-                if (!DBAction.WaveCommentExists(w, CurrentNote.ID))
+                if (!DBAction.WaveCommentExists(w, CurrentRecord.Item.ID))
                 {
                     WaveCommentRecord c = new WaveCommentRecord();
 
@@ -763,7 +808,7 @@ namespace SDIFrontEnd
                         c.SourceName = "";
                     c.Authority = (Person)cboNoteAuthority.SelectedItem;
                     c.Source = txtNoteSource.Text;
-                    c.Notes = CurrentNote;
+                    c.Notes = CurrentRecord.Item;
 
                     newComments.Add(c);
 
@@ -787,7 +832,7 @@ namespace SDIFrontEnd
                     DeletedQuestion sq = new DeletedQuestion();
                     sq.SurveyCode = surveys[i].SurveyCode;
                     sq.VarName = fullVar;
-                    if (!DBAction.DeletedCommentExists(sq, CurrentNote.ID))
+                    if (!DBAction.DeletedCommentExists(sq, CurrentRecord.Item.ID))
                     {
                         DeletedCommentRecord c = new DeletedCommentRecord();
 
@@ -802,7 +847,7 @@ namespace SDIFrontEnd
                             c.SourceName = "";
                         c.Authority = (Person)cboNoteAuthority.SelectedItem;
                         c.Source = txtNoteSource.Text;
-                        c.Notes = CurrentNote;
+                        c.Notes = CurrentRecord.Item;
 
                         newComments.Add(c);
                         count++;
@@ -819,7 +864,7 @@ namespace SDIFrontEnd
             List<RefVariableName> varnames = lstTargetVar.Items.Cast<RefVariableName>().ToList();
             for (int j = 0; j < varnames.Count; j++)
             {
-                if (!DBAction.RefVarCommentExists(varnames[j].RefVarName, CurrentNote.ID))
+                if (!DBAction.RefVarCommentExists(varnames[j].RefVarName, CurrentRecord.Item.ID))
                 {
                     RefVarCommentRecord c = new RefVarCommentRecord();
 
@@ -833,7 +878,7 @@ namespace SDIFrontEnd
                         c.SourceName = "";
                     c.Authority = (Person)cboNoteAuthority.SelectedItem;
                     c.Source = txtNoteSource.Text;
-                    c.Notes = CurrentNote;
+                    c.Notes = CurrentRecord.Item;
 
                     newComments.Add(c);
                     count++;
@@ -983,8 +1028,8 @@ namespace SDIFrontEnd
         private void cmdStoreComment_Click(object sender, EventArgs e)
         {
             Comment newStored = new Comment();
-            //newStored.CID = CurrentNote.ID;
-            newStored.Notes = CurrentNote;
+  
+            newStored.Notes = CurrentRecord.Item;
             newStored.NoteDate = dtpNoteDate.Value;
             newStored.NoteType = (CommentType)cboNoteType.SelectedItem;
             newStored.Author = (Person)cboNoteAuthor.SelectedItem;
@@ -1171,16 +1216,17 @@ namespace SDIFrontEnd
                 lblNewID.Visible = false;
             }
 
-            FilteredNotes.Clear();
-            foreach (Comment c in question.Comments)
-            {
-                NoteRecord n = new NoteRecord() { ID = c.Notes.ID, NoteText = c.Notes.NoteText };
-                FilteredNotes.Add(n);
-            }
-            bs.DataSource = FilteredNotes;
+            //FilteredNotes.Clear();
+            //foreach (Comment c in question.Comments)
+            //{
+            //    NoteRecord n = new NoteRecord() { ID = c.Notes.ID, NoteText = c.Notes.NoteText };
+            //    FilteredNotes.Add(n);
+            //}
+            var commentIDs = question.Comments.Select(x => x.Notes.ID);
+            bs.DataSource = Records.Where(x => commentIDs.Contains(x.Item.ID)).ToList();
 
             GoToComment(question.Comments[0].Notes.ID);
-            CurrentNote = (NoteRecord)bs.Current;
+            CurrentRecord = (NoteRecord)bs.Current;
             LoadComments();
 
         }
@@ -1188,12 +1234,12 @@ namespace SDIFrontEnd
         private void GoToComment(int cid)
         {
             int index = -1;
-            if (Notes.Any(x => x.ID == cid))
+            if (Records.Any(x => x.Item.ID == cid))
             {
-                foreach (Note n in Notes)
+                foreach (NoteRecord n in Records)
                 {
                     index++;
-                    if (n.ID == cid)
+                    if (n.Item.ID == cid)
                         break;
                 }
             }
@@ -1359,7 +1405,7 @@ namespace SDIFrontEnd
         private void UseStoredComment(Comment comment)
         {
             FilterForNote(comment.Notes.NoteText);
-            CurrentNote = (NoteRecord)bs.Current;
+            CurrentRecord = (NoteRecord)bs.Current;
             LoadComments();
 
             if (comment.NoteDate == null)
@@ -1427,7 +1473,7 @@ namespace SDIFrontEnd
                         c.SourceName = "";
 
                     c.Source = txtNoteSource.Text;
-                    c.Notes = CurrentNote;
+                    c.Notes = CurrentRecord.Item;
 
                     newComments.Add(c);
                 }
@@ -1451,7 +1497,7 @@ namespace SDIFrontEnd
                     c.SourceName = "";
 
                 c.Source = txtNoteSource.Text;
-                c.Notes = CurrentNote;
+                c.Notes = CurrentRecord.Item;
 
                 newComments.Add(c);
             }
@@ -1473,7 +1519,7 @@ namespace SDIFrontEnd
                 if (c.SourceName == null)
                     c.SourceName = "";
                 c.Source = txtNoteSource.Text;
-                c.Notes = CurrentNote;
+                c.Notes = CurrentRecord.Item;
 
                 newComments.Add(c);
             }
@@ -1499,7 +1545,7 @@ namespace SDIFrontEnd
                     if (c.SourceName == null)
                         c.SourceName = "";
                     c.Source = txtNoteSource.Text;
-                    c.Notes = CurrentNote;
+                    c.Notes = CurrentRecord.Item;
 
                     newComments.Add(c);
                 }

@@ -146,7 +146,7 @@ namespace SDIFrontEnd
             {
                 var datasource = ((BindingSource)dataRepeater1.DataSource);
                 int index = dataRepeater1.CurrentItemIndex;
-                CommentEntry frm = new CommentEntry(((QuestionComment)datasource[index]).Notes.ID);
+                CommentEntry frm = new CommentEntry(new List<Note>() { ((QuestionComment)datasource[index]).Notes });
                 frm.ShowDialog();
             }
             

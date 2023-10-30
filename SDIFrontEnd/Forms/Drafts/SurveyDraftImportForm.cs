@@ -25,6 +25,8 @@ namespace SDIFrontEnd
         int ExpandedWidth = 840;
         int ExpandedHeight = 460;
 
+        List<KeyValuePair<string, int>> columnMap;
+
         int QnumColumn;
         int VarNameColumn;
         int AltQnumColumn;
@@ -45,6 +47,21 @@ namespace SDIFrontEnd
         public SurveyDraftImportForm()
         {
             InitializeComponent();
+
+            columnMap = new List<KeyValuePair<string, int>>
+            {
+                new KeyValuePair<string, int>("Qnum", -1),
+                new KeyValuePair<string, int>("VarName", -1),
+                new KeyValuePair<string, int>("QuestionText", -1),
+                new KeyValuePair<string, int>("Comments", -1),
+                new KeyValuePair<string, int>("Extra1", -1),
+                new KeyValuePair<string, int>("Extra2", -1),
+                new KeyValuePair<string, int>("Extra3", -1),
+                new KeyValuePair<string, int>("Extra4", -1),
+                new KeyValuePair<string, int>("Extra5", -1),
+                new KeyValuePair<string, int>("MarginComments", -1),
+            };
+
 
             QnumColumn = -1;
             VarNameColumn = -1;
@@ -213,16 +230,7 @@ namespace SDIFrontEnd
 
         private int ImportDraft()
         {
-            if (!CheckSurveyDraft())
-                return 1;
-
-            if (CreateDraftInfo() == 1)
-            {
-                MessageBox.Show("Error creating draft. Unable to import.");
-                return 1;
-            }
-
-            SetExtraFieldInfo();
+            
 
             string fileName = txtFileName.Text;
 
@@ -737,9 +745,24 @@ namespace SDIFrontEnd
 
         private void cmdImport_Click(object sender, EventArgs e)
         {
-            if (ImportDraft() == 1) return;
+            if (!CheckSurveyDraft())
+                return;
 
-            ShowColumns();
+            if (string.IsNullOrEmpty(txtFileName.Text))
+            {
+                MessageBox.Show("Choose a file to import.");
+                return;
+            }
+
+            if (CreateDraftInfo() == 1)
+            {
+                MessageBox.Show("Error creating draft. Unable to import.");
+                return;
+            }
+
+            SetExtraFieldInfo();
+
+            if (ImportDraft() == 1) return;
         }
 
         /// <summary>
@@ -760,7 +783,10 @@ namespace SDIFrontEnd
                 CheckDocument(fd.FileName);
 
                 if (!errorsExist)
+                {
                     DisplayHeaders();
+                    ShowColumns();
+                }
             }
             else
             {
@@ -822,9 +848,5 @@ namespace SDIFrontEnd
             }
         }
         #endregion
-
-      
-
-        
     }
 }

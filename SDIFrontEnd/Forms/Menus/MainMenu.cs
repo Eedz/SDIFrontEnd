@@ -588,14 +588,12 @@ namespace SDIFrontEnd
 
         private void cmdOpenCommentUsage_Click(object sender, EventArgs e)
         {
-
             if (FM.FormManager.FormOpen("CommentEntry"))
             {
-
                 return;
             }
 
-            CommentEntry frm = new CommentEntry();
+            CommentEntry frm = new CommentEntry(Globals.AllNotes);
             frm.Tag = 1;
             FM.FormManager.AddPopup(frm);
         }

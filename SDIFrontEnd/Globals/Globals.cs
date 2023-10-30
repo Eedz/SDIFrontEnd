@@ -52,7 +52,7 @@ namespace SDIFrontEnd
 
         // comments
         public static List<CommentType> AllCommentTypes;
-        public static List<NoteRecord> AllNotes;
+        public static List<Note> AllNotes;
 
         public static void CreateWorld()
         {
