@@ -2390,12 +2390,6 @@ namespace SDIFrontEnd
 
             int dropIndex = dragToItem.Index;
 
-            // ensure the drop location is where we dropped it
-            if (dropIndex > lstQuestionList.SelectedItems[0].Index)
-            {
-                dropIndex++;
-            }
-
             ArrayList insertItems = new ArrayList(lstQuestionList.SelectedItems.Count);
             ArrayList insertQuestions = new ArrayList(lstQuestionList.SelectedItems.Count);
 
@@ -2527,13 +2521,6 @@ namespace SDIFrontEnd
             }
         }
 
-        private void cboMoveTo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            
-
-            
-        }
-
         private void cboMoveTo_SelectionChangeCommitted(object sender, EventArgs e)
         {
             if (cboMoveTo.SelectedItem == null)
@@ -2581,7 +2568,7 @@ namespace SDIFrontEnd
                 Records.Remove((QuestionRecord)removeItem.Tag);
             }
 
-            MoveQuestions(questions, targetIndex);
+            MoveQuestions(questions, targetIndex-1);
 
             ReNumberSurvey();
 

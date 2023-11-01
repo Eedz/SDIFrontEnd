@@ -1353,7 +1353,7 @@
             this.cboMoveTo.Name = "cboMoveTo";
             this.cboMoveTo.Size = new System.Drawing.Size(80, 24);
             this.cboMoveTo.TabIndex = 55;
-            this.cboMoveTo.SelectedIndexChanged += new System.EventHandler(this.cboMoveTo_SelectedIndexChanged);
+
             this.cboMoveTo.SelectionChangeCommitted += new System.EventHandler(this.cboMoveTo_SelectionChangeCommitted);
             // 
             // label4

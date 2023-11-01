@@ -118,6 +118,8 @@ namespace SDIFrontEnd
             {
                 Records.Add(new NoteRecord(note));
             }
+            if (Records.Count == 0)
+                Records.Add(new NoteRecord());
         }
 
         private void SetupBindingSources()
