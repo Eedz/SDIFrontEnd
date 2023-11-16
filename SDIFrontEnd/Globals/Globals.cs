@@ -154,7 +154,11 @@ namespace SDIFrontEnd
 
         public static string GetTempVarPrefix (Survey survey)
         {
-            return AllRegions.FirstOrDefault(r => r.Studies.Any(s => s.Waves.Any(w => w.Surveys.Any(su => su.SID.Equals(survey.SID))))).TempVarPrefix;
+            var region = AllRegions.FirstOrDefault(r => r.Studies.Any(s => s.Waves.Any(w => w.Surveys.Any(su => su.SID.Equals(survey.SID)))));
+            if (region == null)
+                return "unknown";
+            else
+                return region.TempVarPrefix;
         }
 
         public static EventHandler RefreshPeople;

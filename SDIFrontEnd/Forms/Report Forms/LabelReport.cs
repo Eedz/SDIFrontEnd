@@ -182,17 +182,17 @@ namespace SDIFrontEnd
                     rs.SurveyNotes = DBAction.GetSurvComments(rs);
 
                 // comments
-                if (rs.CommentFields.Count > 0)
+                if (rs.ContentOptions.CommentOptions.CommentFields.Count > 0)
                 {
                     DBAction.FillCommentsBySurvey(rs);
                 }
 
                 // translations
                 if (rs.Backend.Date != DateTime.Today)
-                    DBAction.FillBackupTranslation(rs, rs.Backend.Date, rs.TransFields);
+                    DBAction.FillBackupTranslation(rs, rs.Backend.Date, rs.ContentOptions.TranslationOptions.TransFields);
                 else
                 {
-                    foreach (string language in rs.TransFields)
+                    foreach (string language in rs.ContentOptions.TranslationOptions.TransFields)
                     {
                         var translations = DBAction.GetSurveyTranslation(rs.SurveyCode, language);
 

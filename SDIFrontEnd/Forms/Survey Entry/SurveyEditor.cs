@@ -2400,6 +2400,8 @@ namespace SDIFrontEnd
                 insertQuestions.Add(item.Tag);
             }
 
+            bool movingDown = ((ListViewItem)lstQuestionList.SelectedItems[0]).Index < dropIndex;
+
             // insert the items in the list starting from the last one
             for (int i = insertItems.Count - 1; i >= 0; i--)
             {
@@ -2421,7 +2423,10 @@ namespace SDIFrontEnd
             // now insert the questions back into the question list at their new location
             for (int i = insertQuestions.Count - 1; i >= 0; i--)
             {
-                Records.Insert(dropIndex, (QuestionRecord)insertQuestions[i]);
+                if (movingDown)
+                    Records.Insert(dropIndex-1, (QuestionRecord)insertQuestions[i]);
+                else 
+                    Records.Insert(dropIndex, (QuestionRecord)insertQuestions[i]);
             }
 
             ReNumberSurvey();
