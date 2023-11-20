@@ -2424,7 +2424,7 @@ namespace SDIFrontEnd
             for (int i = insertQuestions.Count - 1; i >= 0; i--)
             {
                 if (movingDown)
-                    Records.Insert(dropIndex-1, (QuestionRecord)insertQuestions[i]);
+                    Records.Insert(dropIndex-insertQuestions.Count, (QuestionRecord)insertQuestions[i]);
                 else 
                     Records.Insert(dropIndex, (QuestionRecord)insertQuestions[i]);
             }
@@ -2572,8 +2572,12 @@ namespace SDIFrontEnd
                 lstQuestionList.Items.Remove(removeItem);
                 Records.Remove((QuestionRecord)removeItem.Tag);
             }
-
-            MoveQuestions(questions, targetIndex-1);
+            
+            if (((ListViewItem)insertItems[0]).Index < targetIndex) {
+                MoveQuestions(questions, targetIndex - questions.Count);
+            }
+            else
+                MoveQuestions(questions, targetIndex ); 
 
             ReNumberSurvey();
 
