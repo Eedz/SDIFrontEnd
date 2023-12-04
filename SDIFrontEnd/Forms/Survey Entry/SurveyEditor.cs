@@ -172,11 +172,31 @@ namespace SDIFrontEnd
             Records = new List<QuestionRecord>();
             foreach (SurveyQuestion sq in DBAction.GetCompleteSurvey(CurrentSurvey))
                 Records.Add(new QuestionRecord(sq));
-            
+
             foreach (QuestionRecord q in Records)
             {
                 q.Item.Filters = string.Join("\r\n", q.Item.GetFilterVars());
             }
+
+            GetImages();
+        }
+
+        private async void GetImages()
+        {
+            await Task.Run(() =>
+            {
+                var images = DBAction.GetSurveyImagesFromFolder(CurrentSurvey);
+
+                if (images.Count > 0)
+                {
+                    foreach (QuestionRecord q in Records)
+                    {
+                        q.Item.Images = images.Where(x => x.VarName.Equals(q.Item.VarName.RefVarName)).ToList();
+                    }
+                }
+            });
+
+            LoadImages();
         }
 
         /// <summary>
@@ -200,6 +220,8 @@ namespace SDIFrontEnd
             txtPstP.DataBindings.Add(new Binding("Text", bsCurrent, "PstPNum"));
             txtRO.DataBindings.Add(new Binding("Text", bsCurrent, "RespName"));
             txtNR.DataBindings.Add(new Binding("Text", bsCurrent, "NRName"));
+
+            
 
             // labels
             txtVarLabel.DataBindings.Add(new Binding("Text", bsLabels, "VarLabel"));
@@ -1188,7 +1210,16 @@ namespace SDIFrontEnd
 
             rtbPlainFilter.Rtf = null;
             rtbPlainFilter.Rtf = CurrentRecord.Item.FilterDescriptionRTF;
+
+            LoadImages();
+            
         }
+
+        private void LoadImages()
+        {
+            txtImageFileNames.Text = string.Join("\r\n", CurrentRecord.Item.Images.Select(x => x.ImageName));
+        }
+
 
         /// <summary>
         /// Copies the wording numbers and labels from the previous record to the current record. 
@@ -2604,6 +2635,9 @@ namespace SDIFrontEnd
             }
         }
 
-        
+        private void cmdRefreshImages_Click(object sender, EventArgs e)
+        {
+            GetImages();
+        }
     }
 }

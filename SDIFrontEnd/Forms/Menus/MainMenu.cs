@@ -279,7 +279,11 @@ namespace SDIFrontEnd
 
         private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("SDI FrontEnd Ver 4.0");
+            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            System.Diagnostics.FileVersionInfo fvi = System.Diagnostics.FileVersionInfo.GetVersionInfo(assembly.Location);
+            string version = fvi.FileVersion;
+
+            MessageBox.Show("SDI FrontEnd Ver." + version);
         }
         #endregion
 

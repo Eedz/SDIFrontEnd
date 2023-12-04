@@ -53,6 +53,9 @@
             this.Corrected = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.QType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panelQuestion = new System.Windows.Forms.Panel();
+            this.cmdRefreshImages = new System.Windows.Forms.Button();
+            this.txtImageFileNames = new System.Windows.Forms.TextBox();
+            this.rtbPlainFilter = new SDIFrontEnd.ExtraRichTextBox();
             this.dgvTimeFrames = new System.Windows.Forms.DataGridView();
             this.chTimeFrame = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtPstP = new System.Windows.Forms.TextBox();
@@ -141,7 +144,6 @@
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cboMoveTo = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.rtbPlainFilter = new SDIFrontEnd.ExtraRichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.navQuestions)).BeginInit();
             this.navQuestions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -207,7 +209,7 @@
             this.navQuestions.MovePreviousItem = null;
             this.navQuestions.Name = "navQuestions";
             this.navQuestions.PositionItem = this.bindingNavigatorPositionItem;
-            this.navQuestions.Size = new System.Drawing.Size(1457, 25);
+            this.navQuestions.Size = new System.Drawing.Size(1653, 25);
             this.navQuestions.TabIndex = 34;
             this.navQuestions.Text = "bindingNavigator1";
             // 
@@ -301,8 +303,8 @@
             // 
             this.splitContainer1.Panel2.AutoScroll = true;
             this.splitContainer1.Panel2.Controls.Add(this.panelQuestion);
-            this.splitContainer1.Size = new System.Drawing.Size(1447, 685);
-            this.splitContainer1.SplitterDistance = 526;
+            this.splitContainer1.Size = new System.Drawing.Size(1481, 685);
+            this.splitContainer1.SplitterDistance = 537;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 37;
             this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
@@ -325,7 +327,7 @@
             this.lstQuestionList.Location = new System.Drawing.Point(0, 0);
             this.lstQuestionList.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.lstQuestionList.Name = "lstQuestionList";
-            this.lstQuestionList.Size = new System.Drawing.Size(522, 681);
+            this.lstQuestionList.Size = new System.Drawing.Size(533, 681);
             this.lstQuestionList.TabIndex = 36;
             this.lstQuestionList.UseCompatibleStateImageBehavior = false;
             this.lstQuestionList.View = System.Windows.Forms.View.Details;
@@ -377,6 +379,8 @@
             // panelQuestion
             // 
             this.panelQuestion.AutoScroll = true;
+            this.panelQuestion.Controls.Add(this.cmdRefreshImages);
+            this.panelQuestion.Controls.Add(this.txtImageFileNames);
             this.panelQuestion.Controls.Add(this.rtbPlainFilter);
             this.panelQuestion.Controls.Add(this.dgvTimeFrames);
             this.panelQuestion.Controls.Add(this.txtPstP);
@@ -404,8 +408,42 @@
             this.panelQuestion.Location = new System.Drawing.Point(0, 0);
             this.panelQuestion.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panelQuestion.Name = "panelQuestion";
-            this.panelQuestion.Size = new System.Drawing.Size(912, 681);
+            this.panelQuestion.Size = new System.Drawing.Size(935, 681);
             this.panelQuestion.TabIndex = 34;
+            // 
+            // cmdRefreshImages
+            // 
+            this.cmdRefreshImages.Image = global::SDIFrontEnd.Properties.Resources.Refresh;
+            this.cmdRefreshImages.Location = new System.Drawing.Point(903, 514);
+            this.cmdRefreshImages.Name = "cmdRefreshImages";
+            this.cmdRefreshImages.Size = new System.Drawing.Size(28, 23);
+            this.cmdRefreshImages.TabIndex = 74;
+            this.cmdRefreshImages.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.cmdRefreshImages.UseVisualStyleBackColor = true;
+            this.cmdRefreshImages.Click += new System.EventHandler(this.cmdRefreshImages_Click);
+            // 
+            // txtImageFileNames
+            // 
+            this.txtImageFileNames.Location = new System.Drawing.Point(629, 517);
+            this.txtImageFileNames.Multiline = true;
+            this.txtImageFileNames.Name = "txtImageFileNames";
+            this.txtImageFileNames.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtImageFileNames.Size = new System.Drawing.Size(272, 140);
+            this.txtImageFileNames.TabIndex = 73;
+            // 
+            // rtbPlainFilter
+            // 
+            this.rtbPlainFilter.Location = new System.Drawing.Point(629, 54);
+            this.rtbPlainFilter.Margin = new System.Windows.Forms.Padding(4);
+            this.rtbPlainFilter.Name = "rtbPlainFilter";
+            this.rtbPlainFilter.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat\\deflang1033{\\fonttbl{\\f0\\fnil\\fcharset0 " +
+    "Tahoma;}}\r\n{\\*\\generator Riched20 10.0.19041}\\viewkind4\\uc1 \r\n\\pard\\f0\\fs20\\par\r" +
+    "\n}\r\n";
+            this.rtbPlainFilter.ShowFamilies = false;
+            this.rtbPlainFilter.ShowSize = false;
+            this.rtbPlainFilter.Size = new System.Drawing.Size(297, 459);
+            this.rtbPlainFilter.TabIndex = 72;
+            this.rtbPlainFilter.Validated += new System.EventHandler(this.rtbPlainFilter_Validated);
             // 
             // dgvTimeFrames
             // 
@@ -932,7 +970,7 @@
             this.menuMain.Location = new System.Drawing.Point(0, 0);
             this.menuMain.Name = "menuMain";
             this.menuMain.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
-            this.menuMain.Size = new System.Drawing.Size(1457, 24);
+            this.menuMain.Size = new System.Drawing.Size(1653, 24);
             this.menuMain.TabIndex = 41;
             this.menuMain.Text = "menuStrip1";
             // 
@@ -1353,7 +1391,6 @@
             this.cboMoveTo.Name = "cboMoveTo";
             this.cboMoveTo.Size = new System.Drawing.Size(80, 24);
             this.cboMoveTo.TabIndex = 55;
-
             this.cboMoveTo.SelectionChangeCommitted += new System.EventHandler(this.cboMoveTo_SelectionChangeCommitted);
             // 
             // label4
@@ -1365,28 +1402,13 @@
             this.label4.TabIndex = 56;
             this.label4.Text = "Move to:";
             // 
-            // rtbPlainFilter
-            // 
-            this.rtbPlainFilter.AutoScroll = true;
-            this.rtbPlainFilter.Location = new System.Drawing.Point(629, 54);
-            this.rtbPlainFilter.Margin = new System.Windows.Forms.Padding(4);
-            this.rtbPlainFilter.Name = "rtbPlainFilter";
-            this.rtbPlainFilter.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat\\deflang1033{\\fonttbl{\\f0\\fnil\\fcharset0 " +
-    "Tahoma;}}\r\n{\\*\\generator Riched20 10.0.19041}\\viewkind4\\uc1 \r\n\\pard\\f0\\fs20\\par\r" +
-    "\n}\r\n";
-            this.rtbPlainFilter.ShowFamilies = false;
-            this.rtbPlainFilter.ShowSize = false;
-            this.rtbPlainFilter.Size = new System.Drawing.Size(272, 459);
-            this.rtbPlainFilter.TabIndex = 72;
-            this.rtbPlainFilter.Validated += new System.EventHandler(this.rtbPlainFilter_Validated);
-            // 
             // SurveyEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(196)))), ((int)(((byte)(153)))));
-            this.ClientSize = new System.Drawing.Size(1457, 907);
+            this.ClientSize = new System.Drawing.Size(1653, 907);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.cboMoveTo);
             this.Controls.Add(this.lblEdited);
@@ -1562,5 +1584,7 @@
         private System.Windows.Forms.ToolStripButton toolStripAddTranslation;
         private System.Windows.Forms.ComboBox cboMoveTo;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtImageFileNames;
+        private System.Windows.Forms.Button cmdRefreshImages;
     }
 }

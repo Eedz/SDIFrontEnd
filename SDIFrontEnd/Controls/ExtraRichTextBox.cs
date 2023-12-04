@@ -432,7 +432,7 @@ namespace SDIFrontEnd
 
         private void ExtraRichTextBox_Load(object sender, EventArgs e)
         {
-            txtFunctionality.Width = this.Width - 10;
+
         }
     }
 }

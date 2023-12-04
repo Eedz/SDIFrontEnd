@@ -433,7 +433,7 @@ namespace SDIFrontEnd
         {
             foreach (Survey survey in surveys)
             {
-                survey.Questions.AddRange(DBAction.GetSurveyQuestionRecords(survey));
+                survey.Questions.AddRange(DBAction.GetSurveyQuestions(survey));
                 var records = DBAction.GetParallelQuestions(survey.SurveyCode);
                 Records.AddRange(records);
                 foreach (ParallelQuestion pq in records)

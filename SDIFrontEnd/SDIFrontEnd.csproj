@@ -1132,6 +1132,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
+    <None Include="Resources\Refresh.png" />
     <None Include="Resources\FolderOpened.png" />
     <None Include="Resources\logo.JPG" />
     <None Include="Resources\icon.ico" />

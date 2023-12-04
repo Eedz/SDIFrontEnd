@@ -243,8 +243,8 @@ namespace SDIFrontEnd
             }
             else
             {
-                extraRichTextBox1.Top = rtbPreP.Top + rtbPreP.Height;
-                extraRichTextBox1.Height += rtbPreP.Height + rtbPreP.Height;
+                extraRichTextBox1.Top = rtbPreP.Top;
+                extraRichTextBox1.Height += rtbPreP.Height + rtbPstP.Height;
             }
         }
 

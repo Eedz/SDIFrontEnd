@@ -58,12 +58,13 @@
             // 
             // txtFunctionality
             // 
-            this.txtFunctionality.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtFunctionality.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFunctionality.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFunctionality.Location = new System.Drawing.Point(0, 32);
+            this.txtFunctionality.Location = new System.Drawing.Point(3, 32);
             this.txtFunctionality.Name = "txtFunctionality";
-            this.txtFunctionality.Size = new System.Drawing.Size(291, 297);
+            this.txtFunctionality.Size = new System.Drawing.Size(286, 312);
             this.txtFunctionality.TabIndex = 5;
             this.txtFunctionality.Text = "";
             this.txtFunctionality.SelectionChanged += new System.EventHandler(this.txtFunctionality_SelectionChanged);
@@ -111,8 +112,8 @@
             // 
             // ExtraRichTextBox
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
             this.Controls.Add(this.txtFunctionality);
             this.Controls.Add(this.ckbUnderline);
@@ -121,7 +122,7 @@
             this.Controls.Add(this.cmbFontSize);
             this.Controls.Add(this.cmbFontFamily);
             this.Name = "ExtraRichTextBox";
-            this.Size = new System.Drawing.Size(294, 332);
+            this.Size = new System.Drawing.Size(293, 347);
             this.Load += new System.EventHandler(this.ExtraRichTextBox_Load);
             this.ResumeLayout(false);
 

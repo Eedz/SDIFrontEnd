@@ -331,7 +331,7 @@ namespace SDIFrontEnd
         {
             if (s == null) return;
 
-            List<SurveyQuestion> questions = DBAction.GetSurveyQuestionRecords(s).ToList();
+            List<SurveyQuestion> questions = DBAction.GetSurveyQuestions(s).ToList();
 
             cboVarName.DisplayMember = "VarName";
             cboVarName.ValueMember = "VarName";
