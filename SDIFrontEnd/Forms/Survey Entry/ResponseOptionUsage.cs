@@ -40,8 +40,8 @@ namespace SDIFrontEnd
             BindProperties();
 
             navWordings.BindingSource = bs;
-            this.MouseWheel += WordingUsage_MouseWheel;
-            txtWordingR.MouseWheel += WordingUsage_MouseWheel;
+          //  this.MouseWheel += WordingUsage_MouseWheel;
+            //txtWordingR.MouseWheel += WordingUsage_MouseWheel;
 
             AddGridColumns();
         }
@@ -64,8 +64,8 @@ namespace SDIFrontEnd
             BindProperties();
 
             navWordings.BindingSource = bs;
-            this.MouseWheel += WordingUsage_MouseWheel;
-            txtWordingR.MouseWheel += WordingUsage_MouseWheel;
+          //  this.MouseWheel += WordingUsage_MouseWheel;
+          //  txtWordingR.MouseWheel += WordingUsage_MouseWheel;
 
             AddGridColumns();
             GoToWording(respset);
