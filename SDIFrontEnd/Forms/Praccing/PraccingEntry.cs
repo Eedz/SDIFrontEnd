@@ -220,7 +220,6 @@ namespace SDIFrontEnd
             if (CurrentRecord == null)
             {
                 CurrentResponse = null;
-               // bsResponses.DataSource = null;
                 RefreshCurrentResponse();
                 return;
             }
@@ -233,21 +232,9 @@ namespace SDIFrontEnd
             else
                 lblEnteredBy.Visible = false;
 
-            if (!CurrentRecord.Item.Resolved)
-            {
-                dtpResolvedDate.Value = DateTime.Today;
-                dtpResolvedDate.Checked = false;
-            }
-
             CurrentRecord.Item.Responses.Sort((x, y) => x.ResponseDate.Value.CompareTo(y.ResponseDate));
 
             rtbDescription.Rtf = CurrentRecord.Item.DescriptionRTF;
-
-         //   bsImages.DataSource = CurrentRecord.Item.Images;
-
-          //  bsResponses.DataSource = CurrentRecord.Item.Responses;
-
-           // dataRepeater1.DataSource = bsResponses;
 
             RefreshCurrentResponse();
         }
@@ -260,11 +247,9 @@ namespace SDIFrontEnd
             {
                 picResponse.ImageLocation = "";
                 picResponse.DataBindings.Clear();
-               // bsResponseImages.DataSource = null;
                 return;
             }
 
-           // bsResponseImages.DataSource = CurrentResponse.Images;
             BindControl(picResponse, "ImageLocation", bsResponseImages, "Path");
         }
 
@@ -364,20 +349,14 @@ namespace SDIFrontEnd
             BindControl(cboIssueCategory, "SelectedValue", bsCurrent, "Category.ID");
 
             Binding languageBinding = new Binding("SelectedItem", bsCurrent, "Language", true);
-            languageBinding.NullValue = "English";
+            //languageBinding.NullValue = "English";
             lstLanguage.DataBindings.Add(languageBinding);
 
             BindControl(chkResolved, "Checked", bsCurrent, "Resolved");
             BindControl(cboResolvedBy, "SelectedValue", bsCurrent, "ResolvedBy.ID");
-
-            Binding b = new Binding("Value", bsCurrent, "ResolvedDate", true, DataSourceUpdateMode.OnPropertyChanged);
-            dtpResolvedDate.DataBindings.Add(b);
-            b.Format += new ConvertEventHandler(dtp_Format);
-            b.Parse += new ConvertEventHandler(dtp_Parse);
+            BindControl(dtpResolvedDate, "Value", bsCurrent, "ResolvedDate", true);
 
             BindControl(picMain, "ImageLocation", bsImages, "Path");
-
-            //BindControl(lblEnteredBy, "Text", bsMainIssues, "EnteredBy.Name");
 
             // responses
             BindControl(dtpResponseDate, "Value", bsResponses, "ResponseDate");
@@ -878,17 +857,21 @@ namespace SDIFrontEnd
             
             if (e.Value == null)
             {
-                dtp.ShowCheckBox = true;
-                dtp.Checked = false;
                 // have to set e.Value to SOMETHING, since it’s coming in as NULL 
                 // if i set to DateTime.Today, and that’s DIFFERENT than the control’s current  
                 // value, then it triggers a CHANGE to the value, which CHECKS the box (not ok) 
                 // the trick – set e.Value to whatever value the control currently has.   
                 // This does NOT cause a CHANGE, and the checkbox stays OFF. 
                 e.Value = dtp.Value;
+
+                dtp.Format = DateTimePickerFormat.Custom;
+                dtp.CustomFormat = " ";
+                dtp.ShowCheckBox = true;
+                dtp.Checked = false;
             }
             else
             {
+                dtp.Format = DateTimePickerFormat.Short;
                 dtp.ShowCheckBox = true;
                 dtp.Checked = true;
                 // leave e.Value unchanged – it’s not null, so the DTP is fine with it. 
@@ -918,6 +901,7 @@ namespace SDIFrontEnd
             else
             {
                 DateTime val = Convert.ToDateTime(e.Value);
+                dtp.Format = DateTimePickerFormat.Short;
                 e.Value = new Nullable<DateTime>(val);
             }
         }
@@ -1214,10 +1198,10 @@ namespace SDIFrontEnd
 
             bsRecords.MoveFirst();
         }
-        #endregion
 
         #endregion
 
-        
+        #endregion
+
     }
 }

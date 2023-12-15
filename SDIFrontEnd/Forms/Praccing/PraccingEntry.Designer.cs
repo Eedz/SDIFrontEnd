@@ -112,7 +112,6 @@
             this.label24 = new System.Windows.Forms.Label();
             this.cboResolvedBy = new System.Windows.Forms.ComboBox();
             this.label25 = new System.Windows.Forms.Label();
-            this.dtpResolvedDate = new System.Windows.Forms.DateTimePicker();
             this.label26 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
             this.cmdDeleteIssue = new System.Windows.Forms.Button();
@@ -155,6 +154,7 @@
             this.bindingNavigatorDeleteItem1 = new System.Windows.Forms.ToolStripButton();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.dtpResolvedDate = new NullableBindingDateTimePicker.NullableBindingDateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.navMainIssues)).BeginInit();
             this.navMainIssues.SuspendLayout();
             this.panelImages.SuspendLayout();
@@ -519,6 +519,7 @@
             this.dataRepeater1.Text = "dataRepeater1";
             this.dataRepeater1.ItemCloned += new Microsoft.VisualBasic.PowerPacks.DataRepeaterItemEventHandler(this.dataRepeater1_ItemCloned);
             this.dataRepeater1.DrawItem += new Microsoft.VisualBasic.PowerPacks.DataRepeaterItemEventHandler(this.dataRepeater1_DrawItem);
+
             // 
             // lblImageCount
             // 
@@ -900,6 +901,7 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.dtpResolvedDate);
             this.panel1.Controls.Add(this.lblEnteredBy);
             this.panel1.Controls.Add(this.cmdSave);
             this.panel1.Controls.Add(this.label4);
@@ -914,7 +916,6 @@
             this.panel1.Controls.Add(this.label24);
             this.panel1.Controls.Add(this.cboResolvedBy);
             this.panel1.Controls.Add(this.label25);
-            this.panel1.Controls.Add(this.dtpResolvedDate);
             this.panel1.Controls.Add(this.label26);
             this.panel1.Controls.Add(this.label27);
             this.panel1.Controls.Add(this.cmdDeleteIssue);
@@ -1084,18 +1085,6 @@
             this.label25.Size = new System.Drawing.Size(21, 16);
             this.label25.TabIndex = 26;
             this.label25.Text = "on";
-            // 
-            // dtpResolvedDate
-            // 
-            this.dtpResolvedDate.Checked = false;
-            this.dtpResolvedDate.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpResolvedDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpResolvedDate.Location = new System.Drawing.Point(951, 101);
-            this.dtpResolvedDate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.dtpResolvedDate.Name = "dtpResolvedDate";
-            this.dtpResolvedDate.ShowCheckBox = true;
-            this.dtpResolvedDate.Size = new System.Drawing.Size(138, 23);
-            this.dtpResolvedDate.TabIndex = 25;
             // 
             // label26
             // 
@@ -1532,6 +1521,16 @@
             this.label6.TabIndex = 57;
             this.label6.Text = "Response Images";
             // 
+            // dtpResolvedDate
+            // 
+            this.dtpResolvedDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpResolvedDate.Location = new System.Drawing.Point(951, 104);
+            this.dtpResolvedDate.Name = "dtpResolvedDate";
+            this.dtpResolvedDate.ShowCheckBox = true;
+            this.dtpResolvedDate.Size = new System.Drawing.Size(138, 23);
+            this.dtpResolvedDate.TabIndex = 42;
+            this.dtpResolvedDate.Value = new System.DateTime(2023, 12, 15, 9, 26, 50, 161);
+            // 
             // PraccingEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -1649,7 +1648,6 @@
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.ComboBox cboResolvedBy;
         private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.DateTimePicker dtpResolvedDate;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Button cmdDeleteIssue;
@@ -1720,5 +1718,6 @@
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem1;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripButton toolStripButton2;
+        private NullableBindingDateTimePicker.NullableBindingDateTimePicker dtpResolvedDate;
     }
 }

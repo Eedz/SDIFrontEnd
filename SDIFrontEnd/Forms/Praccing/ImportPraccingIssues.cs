@@ -428,10 +428,13 @@ namespace SDIFrontEnd
                     foreach (PraccingImage img in pi.Images)
                     {
                         if (!File.Exists(DBImageRepo + @"\" + img.Path))
-                            File.Copy(AppImageRepo + @"\" + img.Path, DBImageRepo + @"\" + img.Path);
+                            File.Copy(img.Path, DBImageRepo + @"\" + img.Path);
+
+                        if (!img.Path.StartsWith(DBImageRepo))
+                            img.Path = DBImageRepo + @"\" + img.Path;
                     }
 
-
+                    
                     DBAction.InsertPraccingImage(pi.ID, pi.Images);
 
                     issueCount++;
