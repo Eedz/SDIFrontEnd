@@ -53,9 +53,6 @@ namespace SDIFrontEnd
 
             LoadSurveyIssues(survID);
 
-            bsRecords.PositionChanged += BsMainIssues_PositionChanged;
-            bsResponses.PositionChanged += BsResponses_PositionChanged;
-
             FillBoxes();
            
             BindProperties();
@@ -68,13 +65,13 @@ namespace SDIFrontEnd
 
         private void AddMouseWheelEvents()
         {
-            this.MouseWheel += PraccingEntry_OnMouseWheel;
+            //this.MouseWheel += PraccingEntry_OnMouseWheel;
             cboGoToSurvey.MouseWheel += ComboBox_MouseWheel;
             cboGoToIssueNo.MouseWheel += ComboBox_MouseWheel;
             cboIssueFrom.MouseWheel += ComboBox_MouseWheel;
             cboIssueTo.MouseWheel += ComboBox_MouseWheel;
             cboIssueCategory.MouseWheel += ComboBox_MouseWheel;
-            rtbDescription.MouseWheel += PraccingEntry_OnMouseWheel;
+            //rtbDescription.MouseWheel += PraccingEntry_OnMouseWheel;
             cboResolvedBy.MouseWheel += ComboBox_MouseWheel;
             cboResponseFrom.MouseWheel += ComboBox_MouseWheel;
             cboResponseTo.MouseWheel += ComboBox_MouseWheel;
@@ -86,6 +83,8 @@ namespace SDIFrontEnd
             {
                 DataSource = Records
             };
+            bsRecords.PositionChanged += BsMainIssues_PositionChanged;
+
             bsCurrent = new BindingSource
             {
                 DataSource = bsRecords,
@@ -104,6 +103,8 @@ namespace SDIFrontEnd
                 DataSource = bsCurrent,
                 DataMember = "Responses"
             };
+            bsResponses.PositionChanged += BsResponses_PositionChanged;
+            bsResponses.ListChanged += BsResponses_ListChanged;
 
             bsResponseImages = new BindingSource
             {
@@ -223,6 +224,9 @@ namespace SDIFrontEnd
                 RefreshCurrentResponse();
                 return;
             }
+
+            if (!CurrentRecord.NewRecord)
+                cmdDeleteIssue.Text = "Delete";
 
             if (CurrentRecord.Item.EnteredBy.ID != 0)
             {
@@ -344,16 +348,16 @@ namespace SDIFrontEnd
             BindControl(txtIssueNo, "Text", bsCurrent, "IssueNo");
             BindControl(txtVarNames, "Text", bsCurrent, "VarNames");
             BindControl(dtpIssueDate, "Value", bsCurrent, "IssueDate", true);
-            BindControl(cboIssueFrom, "SelectedValue", bsCurrent, "IssueFrom.ID");
-            BindControl(cboIssueTo, "SelectedValue", bsCurrent, "IssueTo.ID");
-            BindControl(cboIssueCategory, "SelectedValue", bsCurrent, "Category.ID");
+            BindControl(cboIssueFrom, "SelectedItem", bsCurrent, "IssueFrom");
+            BindControl(cboIssueTo, "SelectedItem", bsCurrent, "IssueTo");
+            BindControl(cboIssueCategory, "SelectedItem", bsCurrent, "Category");
 
             Binding languageBinding = new Binding("SelectedItem", bsCurrent, "Language", true);
             //languageBinding.NullValue = "English";
             lstLanguage.DataBindings.Add(languageBinding);
 
             BindControl(chkResolved, "Checked", bsCurrent, "Resolved");
-            BindControl(cboResolvedBy, "SelectedValue", bsCurrent, "ResolvedBy.ID");
+            BindControl(cboResolvedBy, "SelectedItem", bsCurrent, "ResolvedBy");
             BindControl(dtpResolvedDate, "Value", bsCurrent, "ResolvedDate", true);
 
             BindControl(picMain, "ImageLocation", bsImages, "Path");
@@ -654,6 +658,29 @@ namespace SDIFrontEnd
                     modifiedRecord.Dirty = true;
                     return;
             }          
+        }
+
+        private void BsResponses_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            if (e.PropertyDescriptor == null) return;
+
+            // get the question record that was modified
+            PraccingResponse modifiedResponse = (PraccingResponse)bsResponses[e.NewIndex];
+            PraccingIssueRecord modifiedRecord = Records.Where(x => x.Item.Responses.Contains(modifiedResponse)).FirstOrDefault();
+
+            int index = bsRecords.IndexOf(modifiedRecord);
+
+            if (modifiedRecord == null)
+                return;
+
+            switch (e.PropertyDescriptor.Name)
+            {
+                case "Images":
+                    break;
+                default:
+                    modifiedRecord.EditedResponses.Add(modifiedResponse);
+                    return;
+            }
         }
 
         void picMain_MouseDown(object sender, MouseEventArgs e)
@@ -1140,7 +1167,7 @@ namespace SDIFrontEnd
 
             var source = (List<PraccingResponse>)((BindingSource)dataRepeater.DataSource).List;
             source[dataRepeaterItem.ItemIndex].ResponseFrom = (Person)combo.SelectedItem;
-            CurrentRecord.EditedResponses.Add(source[dataRepeaterItem.ItemIndex]);
+    
         }
 
         private void cboResponseTo_SelectedIndexChanged(object sender, EventArgs e)
@@ -1151,7 +1178,7 @@ namespace SDIFrontEnd
 
             var source = (List<PraccingResponse>)((BindingSource)dataRepeater.DataSource).List;
             source[dataRepeaterItem.ItemIndex].ResponseTo = (Person)combo.SelectedItem;
-            CurrentRecord.EditedResponses.Add(source[dataRepeaterItem.ItemIndex]);
+            
         }
 
         private void dataRepeater1_ItemTemplate_Enter(object sender, EventArgs e)
@@ -1162,6 +1189,18 @@ namespace SDIFrontEnd
             var source = (List<PraccingResponse>)((BindingSource)dataRepeater.DataSource).List;
 
             CurrentResponse = source[dataRepeaterItem.ItemIndex];
+        }
+
+        private void cboResponseFrom_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            if (!CurrentRecord.EditedResponses.Contains(CurrentResponse))
+                CurrentRecord.EditedResponses.Add(CurrentResponse);
+        }
+
+        private void cboResponseTo_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            if (!CurrentRecord.EditedResponses.Contains(CurrentResponse))
+                CurrentRecord.EditedResponses.Add(CurrentResponse);
         }
 
         #endregion
@@ -1203,5 +1242,6 @@ namespace SDIFrontEnd
 
         #endregion
 
+        
     }
 }

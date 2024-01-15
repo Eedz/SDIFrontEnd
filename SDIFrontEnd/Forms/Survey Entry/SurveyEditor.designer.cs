@@ -433,6 +433,7 @@
             // 
             // rtbPlainFilter
             // 
+            this.rtbPlainFilter.AutoScroll = true;
             this.rtbPlainFilter.Location = new System.Drawing.Point(629, 54);
             this.rtbPlainFilter.Margin = new System.Windows.Forms.Padding(4);
             this.rtbPlainFilter.Name = "rtbPlainFilter";

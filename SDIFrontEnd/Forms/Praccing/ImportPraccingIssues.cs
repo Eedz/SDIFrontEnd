@@ -268,6 +268,8 @@ namespace SDIFrontEnd
                         var matchingResponse = existingIssue.Responses.FirstOrDefault(x => Utilities.PrepareTextCompare(x.Response).Equals(Utilities.PrepareTextCompare(response.Response)));
                         if (matchingResponse != null)
                             response.ID = matchingResponse.ID;
+
+                        response.IssueID = existingIssue.ID;
                     }
                 }
             }
@@ -493,13 +495,13 @@ namespace SDIFrontEnd
             BindControl(txtVarNames, "Text", bsIssues, "VarNames");
 
 
-            BindControl(cboFrom, "SelectedValue", bsIssues, "IssueFrom.ID");
-            BindControl(cboTo, "SelectedValue", bsIssues, "IssueTo.ID");
-            BindControl(cboCategory, "SelectedValue", bsIssues, "Category.ID");
+            BindControl(cboFrom, "SelectedItem", bsIssues, "IssueFrom");
+            BindControl(cboTo, "SelectedItem", bsIssues, "IssueTo");
+            BindControl(cboCategory, "SelectedItem", bsIssues, "Category");
             BindControl(dtpIssueDate, "Value", bsIssues, "IssueDate", true);
             BindControl(chkResolved, "Checked", bsIssues, "Resolved");
             BindControl(dtpResDate, "Value", bsIssues, "ResolvedDate", true);
-            BindControl(cboResName, "SelectedValue", bsIssues, "ResolvedBy.ID");
+            BindControl(cboResName, "SelectedItem", bsIssues, "ResolvedBy");
 
             BindControl(dtpOldTime, "Value", bsExistingResponses, "ResponseDate", true);
             BindControl(dtpOldDate, "Value", bsExistingResponses, "ResponseDate", true);
@@ -688,6 +690,8 @@ namespace SDIFrontEnd
             {
                 Survey survey = (Survey)cboSurvey.SelectedItem;
                 PraccingIssueImporter importer = new PraccingIssueImporter(survey, txtPath.Text);
+                importer.PeopleList = Globals.AllPeople;
+                importer.CategoryList = DBAction.GetPraccingCategories();
                 importer.ImportData();
 
                 images = importer.Images; // save the reference to all the images gathered from the document

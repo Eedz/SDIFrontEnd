@@ -88,7 +88,7 @@ namespace SDIFrontEnd
         #region Events
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DialogResult = DialogResult.No;
+            DialogResult = DialogResult.Cancel;
             Close();
         }
 

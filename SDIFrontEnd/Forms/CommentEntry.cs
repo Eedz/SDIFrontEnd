@@ -82,6 +82,8 @@ namespace SDIFrontEnd
             FillTargetQuestion(question);
             UpdateCreationCount();
 
+            cboVarNameList.SelectedItem = question.VarName;
+
             if (question.Comments.Count == 0)
                 return;
 
@@ -108,6 +110,7 @@ namespace SDIFrontEnd
             foreach (SurveyQuestion q in questions)
                 FillTargetQuestion(q);
 
+            cboVarNameList.SelectedItem = questions[0].VarName;
         }
 
         #region Form Setup

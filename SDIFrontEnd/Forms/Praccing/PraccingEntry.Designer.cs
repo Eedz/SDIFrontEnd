@@ -98,6 +98,7 @@
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.dtpResolvedDate = new NullableBindingDateTimePicker.NullableBindingDateTimePicker();
             this.lblEnteredBy = new System.Windows.Forms.Label();
             this.cmdSave = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
@@ -154,7 +155,6 @@
             this.bindingNavigatorDeleteItem1 = new System.Windows.Forms.ToolStripButton();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.dtpResolvedDate = new NullableBindingDateTimePicker.NullableBindingDateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.navMainIssues)).BeginInit();
             this.navMainIssues.SuspendLayout();
             this.panelImages.SuspendLayout();
@@ -519,7 +519,6 @@
             this.dataRepeater1.Text = "dataRepeater1";
             this.dataRepeater1.ItemCloned += new Microsoft.VisualBasic.PowerPacks.DataRepeaterItemEventHandler(this.dataRepeater1_ItemCloned);
             this.dataRepeater1.DrawItem += new Microsoft.VisualBasic.PowerPacks.DataRepeaterItemEventHandler(this.dataRepeater1_DrawItem);
-
             // 
             // lblImageCount
             // 
@@ -589,6 +588,7 @@
             this.cboResponseTo.Size = new System.Drawing.Size(110, 24);
             this.cboResponseTo.TabIndex = 2;
             this.cboResponseTo.SelectedIndexChanged += new System.EventHandler(this.cboResponseTo_SelectedIndexChanged);
+            this.cboResponseTo.SelectionChangeCommitted += new System.EventHandler(this.cboResponseTo_SelectionChangeCommitted);
             // 
             // cboResponseFrom
             // 
@@ -602,6 +602,7 @@
             this.cboResponseFrom.Size = new System.Drawing.Size(110, 24);
             this.cboResponseFrom.TabIndex = 1;
             this.cboResponseFrom.SelectedIndexChanged += new System.EventHandler(this.cboResponseFrom_SelectedIndexChanged);
+            this.cboResponseFrom.SelectionChangeCommitted += new System.EventHandler(this.cboResponseFrom_SelectionChangeCommitted);
             // 
             // dtpResponseDate
             // 
@@ -933,6 +934,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1115, 286);
             this.panel1.TabIndex = 13;
+            // 
+            // dtpResolvedDate
+            // 
+            this.dtpResolvedDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpResolvedDate.Location = new System.Drawing.Point(951, 104);
+            this.dtpResolvedDate.Name = "dtpResolvedDate";
+            this.dtpResolvedDate.ShowCheckBox = true;
+            this.dtpResolvedDate.Size = new System.Drawing.Size(138, 23);
+            this.dtpResolvedDate.TabIndex = 42;
+            this.dtpResolvedDate.Value = new System.DateTime(2023, 12, 15, 9, 26, 50, 161);
             // 
             // lblEnteredBy
             // 
@@ -1520,16 +1531,6 @@
             this.label6.Size = new System.Drawing.Size(121, 16);
             this.label6.TabIndex = 57;
             this.label6.Text = "Response Images";
-            // 
-            // dtpResolvedDate
-            // 
-            this.dtpResolvedDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpResolvedDate.Location = new System.Drawing.Point(951, 104);
-            this.dtpResolvedDate.Name = "dtpResolvedDate";
-            this.dtpResolvedDate.ShowCheckBox = true;
-            this.dtpResolvedDate.Size = new System.Drawing.Size(138, 23);
-            this.dtpResolvedDate.TabIndex = 42;
-            this.dtpResolvedDate.Value = new System.DateTime(2023, 12, 15, 9, 26, 50, 161);
             // 
             // PraccingEntry
             // 

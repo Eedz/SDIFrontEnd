@@ -33,6 +33,9 @@ namespace SDIFrontEnd
 
         Dictionary<string, int> Headings; // heading name, column index
 
+        public List<PersonRecord> PeopleList;
+        public List<PraccingCategory> CategoryList;
+
         public List<PraccingIssue> ImportedIssues;
 
         public List<StringPair> DatesToFix;
@@ -338,20 +341,16 @@ namespace SDIFrontEnd
 
             from = Utilities.RemoveTags(cells.ElementAt(Headings["From"]).GetCellText());
             from = Utilities.TrimString(from, "\r\n");
-            Person issueFrom = new Person(from, 0);
-            //Person issueFrom = GetName(from);
+            Person issueFrom = PeopleList.FirstOrDefault(x => x.Name.Equals(from)) ?? new Person(from, 0); ;
+            
 
             to = Utilities.RemoveTags(cells.ElementAt(Headings["To"]).GetCellText());
             to = Utilities.TrimString(to, "\r\n");
-            Person issueTo = new Person(to, 0);
-            //Person issueTo = GetName(to);
+            Person issueTo = PeopleList.FirstOrDefault(x => x.Name.Equals(to)) ?? new Person(to, 0);
 
             category = Utilities.RemoveTags(cells.ElementAt(Headings["Category"]).GetCellText());
             category = Utilities.TrimString(category, "\r\n");
-            PraccingCategory issueCategory = new PraccingCategory(0, category);
-            //PraccingCategory issueCategory = categoryList.FirstOrDefault(x => x.Category.Equals(category));
-            //if (issueCategory == null)
-             //   issueCategory = new PraccingCategory();
+            PraccingCategory issueCategory = CategoryList.FirstOrDefault(x => x.Category.Equals(category)) ?? new PraccingCategory();
 
             // images
             List<PraccingImage> issueImages = new List<PraccingImage>();
@@ -458,14 +457,11 @@ namespace SDIFrontEnd
 
             from = cells.ElementAt(Headings["From"]).GetCellText();
             from = Utilities.TrimString(from, "\r\n");
-            Person issueFrom = new Person(from, 0);
-            //Person issueFrom = GetName(from);
+            Person issueFrom = PeopleList.FirstOrDefault(x => x.Name.Equals(from)) ?? new Person(from, 0); ;
 
             to = cells.ElementAt(Headings["To"]).GetCellText();
             to = Utilities.TrimString(to, "\r\n");
-            Person issueTo = new Person(to, 0);
-            //Person issueTo = GetName(to);
-
+            Person issueTo = PeopleList.FirstOrDefault(x => x.Name.Equals(to)) ?? new Person(to, 0); ;
 
             // images
             List<PraccingImage> issueImages = new List<PraccingImage>();
