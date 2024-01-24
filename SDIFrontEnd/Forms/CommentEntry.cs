@@ -12,8 +12,6 @@ using FM = FormManager;
 
 namespace SDIFrontEnd
 {
-    // TODO editing existing comments
-    // TODO test adding all comment types
     // TODO add series comment
     /// <summary>
     /// Entry point for comments. 
@@ -29,15 +27,11 @@ namespace SDIFrontEnd
 
         BindingSource bsStored;
 
-        BindingSource bsQues;
+        // lists to hold all the comment usages
         List<QuestionCommentRecord> QuestionComments;
-        BindingSource bsSurv;
         List<SurveyCommentRecord> SurveyComments;
-        BindingSource bsWave;
         List<WaveCommentRecord> WaveComments;
-        BindingSource bsDel;
         List<DeletedCommentRecord> DeletedComments;
-        BindingSource bsRef;
         List<RefVarCommentRecord> RefVarComments;
 
         NoteScope Scope;
@@ -52,13 +46,28 @@ namespace SDIFrontEnd
 
         public event EventHandler<QuestionCommentCreated> CreatedComment;
 
-        public CommentEntry(List<Note> notes)
+        QuestionComment editedQuestionComment;
+        int questionCommentRow = -1;
+
+        SurveyComment editedSurveyComment;
+        int surveyCommentRow = -1;
+
+        WaveComment editedWaveComment;
+        int waveCommentRow = -1;
+
+        RefVarComment editedRefVarComment;
+        int refVarCommentRow = -1;
+
+        DeletedComment editedDeletedComment;
+        int deletedCommentRow = -1;
+
+        bool rowCommit = true;
+
+        public CommentEntry()
         {
             InitializeComponent();
-            this.MouseWheel += CommentEntry_MouseWheel;
-            txtNoteText.MouseWheel += CommentEntry_MouseWheel;
 
-            GetRecords(notes);
+            GetRecords();
 
             SetupBindingSources();
 
@@ -77,7 +86,7 @@ namespace SDIFrontEnd
             chkNewDetails.Checked = true;
         }
 
-        public CommentEntry(SurveyQuestion question) : this (question.Comments.Select(x => x.Notes).ToList())
+        public CommentEntry(SurveyQuestion question) : this ()
         {
             FillTargetQuestion(question);
             UpdateCreationCount();
@@ -85,22 +94,10 @@ namespace SDIFrontEnd
             cboVarNameList.SelectedItem = question.VarName;
 
             if (question.Comments.Count == 0)
-                return;
-
-            
-
-            //foreach (Comment c in question.Comments)
-            //{
-            //    NoteRecord n = new NoteRecord() { ID = c.Notes.ID, NoteText = c.Notes.NoteText };
-            //    FilteredNotes.Add(n);
-            //}
-            //bs.DataSource = FilteredNotes;
-            //bs.Position = 0;
-
-            
+                return;            
         }
 
-        public CommentEntry(NoteScope scope, List<SurveyQuestion> questions) : this(questions.SelectMany(x=>x.Comments.Select(y=>y.Notes)).ToList())
+        public CommentEntry(NoteScope scope, List<SurveyQuestion> questions) : this()
         {
             Scope = scope;
 
@@ -114,10 +111,15 @@ namespace SDIFrontEnd
         }
 
         #region Form Setup
-        private void GetRecords(List<Note> notes)
+
+        /// <summary>
+        /// Create records using the provided list of objects.
+        /// </summary>
+        /// <param name="notes"></param>
+        private void GetRecords()
         {
             Records = new List<NoteRecord>();
-            foreach (Note note in notes)
+            foreach (Note note in Globals.AllNotes)
             {
                 Records.Add(new NoteRecord(note));
             }
@@ -125,10 +127,11 @@ namespace SDIFrontEnd
                 Records.Add(new NoteRecord());
         }
 
+        /// <summary>
+        /// Create and populate binding sources and attached events.
+        /// </summary>
         private void SetupBindingSources()
         {
-            
-
             bs = new BindingSource
             {
                 DataSource = Records
@@ -153,10 +156,11 @@ namespace SDIFrontEnd
             navNotes.BindingSource = bs;
         }
 
+        /// <summary>
+        /// Populate drop downs in the comment entry section.
+        /// </summary>
         private void FillBoxes()
         {
-
-            // entry section
             var scopes = new List<KeyValuePair<int, string>>();
             foreach (NoteScope s in Enum.GetValues(typeof(NoteScope)))
                 scopes.Add(new KeyValuePair<int, string>((int)s, s.ToString()));
@@ -187,63 +191,331 @@ namespace SDIFrontEnd
             FillTargetSurveyList();
         }
 
+        /// <summary>
+        /// Setup the comment usage grids.
+        /// </summary>
         private void SetupGrids()
         {
+            SetupQuestionCommentGrid();
+            SetupSurveyCommentGrid();
+            SetupWaveCommentGrid();
+            SetupRefVarCommentGrid();
+            SetupDeletedCommentGrid();
+        }
+        /// <summary>
+        /// Setup Question Comment usage grid.
+        /// </summary>
+        private void SetupQuestionCommentGrid()
+        {
             gridQuesComments.AutoGenerateColumns = false;
-            gridSurvComments.AutoGenerateColumns = false;
-            gridWaveComments.AutoGenerateColumns = false;
-            gridRefVarComments.AutoGenerateColumns = false;
-            gridDeletedComments.AutoGenerateColumns = false;
 
-            chQName.DataSource = new List<Person>(Globals.AllPeople);
+            DataGridViewTextBoxColumn chQSurvey = new DataGridViewTextBoxColumn();
+            chQSurvey.Name = "chQSurvey";
+            chQSurvey.Width = 100;
+            chQSurvey.HeaderText = "Survey";
+            chQSurvey.ReadOnly = true;
+            gridQuesComments.Columns.Add(chQSurvey);
+
+            DataGridViewTextBoxColumn chQVarName = new DataGridViewTextBoxColumn();
+            chQVarName.Name = "chQVarName";
+            chQVarName.Width = 100;
+            chQVarName.HeaderText = "VarName";
+            chQVarName.ReadOnly = true;
+            gridQuesComments.Columns.Add(chQVarName);
+
+            CalendarColumn chQDate = new CalendarColumn();
+            chQDate.Name = "chQDate";
+            chQDate.HeaderText = "Date";
+            chQDate.Width = 100;
+            gridQuesComments.Columns.Add(chQDate);
+
+            DataGridViewComboBoxColumn chQName = new DataGridViewComboBoxColumn();
+            chQName.Name = "chQName";
+            chQName.HeaderText = "Author";
+            chQName.Width = 100;
             chQName.ValueMember = "ID";
             chQName.DisplayMember = "Name";
-            chQName.DataPropertyName = "Author";
+            chQName.DataSource = new List<Person>(Globals.AllPeople);
+            gridQuesComments.Columns.Add(chQName);
 
-            chQType.DataSource = new List<CommentType>(Globals.AllCommentTypes);
-            chQType.ValueMember = "TypeName";
+            DataGridViewComboBoxColumn chQType = new DataGridViewComboBoxColumn();
+            chQType.Name = "chQType";
+            chQType.HeaderText = "Type";
+            chQType.Width = 100;
+            chQType.ValueMember = "ID";
             chQType.DisplayMember = "TypeName";
-            chQType.DataPropertyName = "NoteType";
+            chQType.DataSource = new List<CommentType>(Globals.AllCommentTypes);
+            gridQuesComments.Columns.Add(chQType);
 
-            chSName.DataSource = new List<Person>(Globals.AllPeople);
-            chSName.ValueMember = "ID";
-            chSName.DisplayMember = "Name";
-            chSName.DataPropertyName = "Author";
+            DataGridViewTextBoxColumn chQSource = new DataGridViewTextBoxColumn();
+            chQSource.Name = "chQSource";
+            chQSource.HeaderText = "Source";
+            chQSource.Width = 200;
+            gridQuesComments.Columns.Add(chQSource);
 
-            chSType.DataSource = new List<CommentType>(Globals.AllCommentTypes);
-            chSType.ValueMember = "TypeName";
-            chSType.DisplayMember = "TypeName";
-            chSType.DataPropertyName = "NoteType";
+            DataGridViewTextBoxColumn chQAuthority = new DataGridViewTextBoxColumn();
+            chQAuthority.Name = "chQAuthority";
+            chQAuthority.HeaderText = "Authority";
+            gridQuesComments.Columns.Add(chQAuthority);
 
-            chWName.DataSource = new List<Person>(Globals.AllPeople);
-            chWName.ValueMember = "ID";
-            chWName.DisplayMember = "Name";
-            chWName.DataPropertyName = "Author";
+            gridQuesComments.CellValueNeeded += gridQuesComments_CellValueNeeded;
+            gridQuesComments.NewRowNeeded += gridQuesComments_NewRowNeeded;
+            gridQuesComments.CellValuePushed += gridQuesComments_CellValuePushed;
+            gridQuesComments.RowValidated += gridQuesComments_RowValidated;
+            gridQuesComments.RowDirtyStateNeeded += gridQuesComments_RowDirtyStateNeeded;
+            gridQuesComments.CancelRowEdit += gridQuesComments_CancelRowEdit;
+            gridQuesComments.UserDeletingRow += gridQuesComments_UserDeletingRow;
+            gridQuesComments.DataError += gridQuesComments_DataError;
+        }
+        /// <summary>
+        /// Setup Survey Comment usage grid.
+        /// </summary>
+        private void SetupSurveyCommentGrid()
+        {
+            gridSurvComments.AutoGenerateColumns = false;
 
-            chWType.DataSource = new List<CommentType>(Globals.AllCommentTypes);
-            chWType.ValueMember = "TypeName";
-            chWType.DisplayMember = "TypeName";
-            chWType.DataPropertyName = "NoteType";
+            DataGridViewTextBoxColumn chSurvey = new DataGridViewTextBoxColumn();
+            chSurvey.Name = "chSSurvey";
+            chSurvey.Width = 100;
+            chSurvey.HeaderText = "Survey";
+            chSurvey.ReadOnly = true;
+            gridSurvComments.Columns.Add(chSurvey);
 
-            chRName.DataSource = new List<Person>(Globals.AllPeople);
-            chRName.ValueMember = "ID";
-            chRName.DisplayMember = "Name";
-            chRName.DataPropertyName = "Author";
+            CalendarColumn chDate = new CalendarColumn();
+            chDate.Name = "chSDate";
+            chDate.HeaderText = "Date";
+            chDate.Width = 100;
+            gridSurvComments.Columns.Add(chDate);
 
-            chRType.DataSource = new List<CommentType>(Globals.AllCommentTypes);
-            chRType.ValueMember = "TypeName";
-            chRType.DisplayMember = "TypeName";
-            chRType.DataPropertyName = "NoteType";
+            DataGridViewComboBoxColumn chName = new DataGridViewComboBoxColumn();
+            chName.Name = "chSName";
+            chName.HeaderText = "Author";
+            chName.Width = 100;
+            chName.ValueMember = "ID";
+            chName.DisplayMember = "Name";
+            chName.DataSource = new List<Person>(Globals.AllPeople);
+            gridSurvComments.Columns.Add(chName);
 
-            chDName.DataSource = new List<Person>(Globals.AllPeople);
-            chDName.ValueMember = "ID";
-            chDName.DisplayMember = "Name";
-            chDName.DataPropertyName = "Author";
+            DataGridViewComboBoxColumn chType = new DataGridViewComboBoxColumn();
+            chType.Name = "chSType";
+            chType.HeaderText = "Type";
+            chType.Width = 100;
+            chType.ValueMember = "ID";
+            chType.DisplayMember = "TypeName";
+            chType.DataSource = new List<CommentType>(Globals.AllCommentTypes);
+            gridSurvComments.Columns.Add(chType);
 
-            chDType.DataSource = new List<CommentType>(Globals.AllCommentTypes);
-            chDType.ValueMember = "TypeName";
-            chDType.DisplayMember = "TypeName";
-            chDType.DataPropertyName = "NoteType";
+            DataGridViewTextBoxColumn chSource = new DataGridViewTextBoxColumn();
+            chSource.Name = "chSSource";
+            chSource.HeaderText = "Source";
+            chSource.Width = 200;
+            gridSurvComments.Columns.Add(chSource);
+
+            DataGridViewTextBoxColumn chAuthority = new DataGridViewTextBoxColumn();
+            chAuthority.Name = "chSAuthority";
+            chAuthority.HeaderText = "Authority";
+            gridSurvComments.Columns.Add(chAuthority);
+
+            gridSurvComments.CellValueNeeded += gridSurvComments_CellValueNeeded;
+            gridSurvComments.NewRowNeeded += gridSurvComments_NewRowNeeded;
+            gridSurvComments.CellValuePushed += gridSurvComments_CellValuePushed;
+            gridSurvComments.RowValidated += gridSurvComments_RowValidated;
+            gridSurvComments.RowDirtyStateNeeded += gridSurvComments_RowDirtyStateNeeded;
+            gridSurvComments.CancelRowEdit += gridSurvComments_CancelRowEdit;
+            gridSurvComments.UserDeletingRow += gridSurvComments_UserDeletingRow;
+            gridSurvComments.DataError += gridSurvComments_DataError;
+        }
+        /// <summary>
+        /// Setup Wave Comment usage grid.
+        /// </summary>
+        private void SetupWaveCommentGrid()
+        {
+            gridWaveComments.AutoGenerateColumns = false;
+
+            DataGridViewTextBoxColumn chWave = new DataGridViewTextBoxColumn();
+            chWave.Name = "chWave";
+            chWave.Width = 100;
+            chWave.HeaderText = "Wave";
+            chWave.ReadOnly = true;
+            gridWaveComments.Columns.Add(chWave);
+
+            CalendarColumn chDate = new CalendarColumn();
+            chDate.Name = "chWDate";
+            chDate.HeaderText = "Date";
+            chDate.Width = 100;
+            gridWaveComments.Columns.Add(chDate);
+
+            DataGridViewComboBoxColumn chName = new DataGridViewComboBoxColumn();
+            chName.Name = "chWName";
+            chName.HeaderText = "Author";
+            chName.Width = 100;
+            chName.ValueMember = "ID";
+            chName.DisplayMember = "Name";
+            chName.DataSource = new List<Person>(Globals.AllPeople);
+            gridWaveComments.Columns.Add(chName);
+
+            DataGridViewComboBoxColumn chType = new DataGridViewComboBoxColumn();
+            chType.Name = "chWType";
+            chType.HeaderText = "Type";
+            chType.Width = 100;
+            chType.ValueMember = "ID";
+            chType.DisplayMember = "TypeName";
+            chType.DataSource = new List<CommentType>(Globals.AllCommentTypes);
+            gridWaveComments.Columns.Add(chType);
+
+            DataGridViewTextBoxColumn chSource = new DataGridViewTextBoxColumn();
+            chSource.Name = "chWSource";
+            chSource.HeaderText = "Source";
+            chSource.Width = 200;
+            gridWaveComments.Columns.Add(chSource);
+
+            DataGridViewTextBoxColumn chAuthority = new DataGridViewTextBoxColumn();
+            chAuthority.Name = "chWAuthority";
+            chAuthority.HeaderText = "Authority";
+            gridWaveComments.Columns.Add(chAuthority);
+
+            gridWaveComments.CellValueNeeded += gridWaveComments_CellValueNeeded;
+            gridWaveComments.NewRowNeeded += gridWaveComments_NewRowNeeded;
+            gridWaveComments.CellValuePushed += gridWaveComments_CellValuePushed;
+            gridWaveComments.RowValidated += gridWaveComments_RowValidated;
+            gridWaveComments.RowDirtyStateNeeded += gridWaveComments_RowDirtyStateNeeded;
+            gridWaveComments.CancelRowEdit += gridWaveComments_CancelRowEdit;
+            gridWaveComments.UserDeletingRow += gridWaveComments_UserDeletingRow;
+            gridWaveComments.DataError += gridWaveComments_DataError;
+        }
+        /// <summary>
+        /// Setup RefVarName Comment usage grid.
+        /// </summary>
+        private void SetupRefVarCommentGrid()
+        {
+            gridRefVarComments.AutoGenerateColumns = false;
+
+            DataGridViewTextBoxColumn chRefVar = new DataGridViewTextBoxColumn();
+            chRefVar.Name = "chRefVar";
+            chRefVar.Width = 100;
+            chRefVar.HeaderText = "RefVarName";
+            chRefVar.ReadOnly = true;
+            gridRefVarComments.Columns.Add(chRefVar);
+
+            CalendarColumn chDate = new CalendarColumn();
+            chDate.Name = "chRDate";
+            chDate.HeaderText = "Date";
+            chDate.Width = 100;
+            gridRefVarComments.Columns.Add(chDate);
+
+            DataGridViewComboBoxColumn chName = new DataGridViewComboBoxColumn();
+            chName.Name = "chRName";
+            chName.HeaderText = "Author";
+            chName.Width = 100;
+            chName.ValueMember = "ID";
+            chName.DisplayMember = "Name";
+            chName.DataSource = new List<Person>(Globals.AllPeople);
+            gridRefVarComments.Columns.Add(chName);
+
+            DataGridViewComboBoxColumn chType = new DataGridViewComboBoxColumn();
+            chType.Name = "chRType";
+            chType.HeaderText = "Type";
+            chType.Width = 100;
+            chType.ValueMember = "ID";
+            chType.DisplayMember = "TypeName";
+            chType.DataSource = new List<CommentType>(Globals.AllCommentTypes);
+            gridRefVarComments.Columns.Add(chType);
+
+            DataGridViewTextBoxColumn chSource = new DataGridViewTextBoxColumn();
+            chSource.Name = "chRSource";
+            chSource.HeaderText = "Source";
+            chSource.Width = 200;
+            gridRefVarComments.Columns.Add(chSource);
+
+            DataGridViewTextBoxColumn chAuthority = new DataGridViewTextBoxColumn();
+            chAuthority.Name = "chRAuthority";
+            chAuthority.HeaderText = "Authority";
+            gridRefVarComments.Columns.Add(chAuthority);
+
+            gridRefVarComments.CellValueNeeded += gridRefVarComments_CellValueNeeded;
+            gridRefVarComments.NewRowNeeded += gridRefVarComments_NewRowNeeded;
+            gridRefVarComments.CellValuePushed += gridRefVarComments_CellValuePushed;
+            gridRefVarComments.RowValidated += gridRefVarComments_RowValidated;
+            gridRefVarComments.RowDirtyStateNeeded += gridRefVarComments_RowDirtyStateNeeded;
+            gridRefVarComments.CancelRowEdit += gridRefVarComments_CancelRowEdit;
+            gridRefVarComments.UserDeletingRow += gridRefVarComments_UserDeletingRow;
+            gridRefVarComments.DataError += gridRefVarComments_DataError;
+        }
+        /// <summary>
+        /// Setup Deleted Question Comment usage grid.
+        /// </summary>
+        private void SetupDeletedCommentGrid()
+        {
+            gridDeletedComments.AutoGenerateColumns = false;
+
+            DataGridViewTextBoxColumn chSurvey = new DataGridViewTextBoxColumn();
+            chSurvey.Name = "chDSurvey";
+            chSurvey.Width = 100;
+            chSurvey.HeaderText = "Survey";
+            chSurvey.ReadOnly = true;
+            gridDeletedComments.Columns.Add(chSurvey);
+
+            DataGridViewTextBoxColumn chVarName = new DataGridViewTextBoxColumn();
+            chVarName.Name = "chDVarName";
+            chVarName.Width = 100;
+            chVarName.HeaderText = "VarName";
+            chVarName.ReadOnly = true;
+            gridDeletedComments.Columns.Add(chVarName);
+
+            CalendarColumn chDate = new CalendarColumn();
+            chDate.Name = "chDDate";
+            chDate.HeaderText = "Date";
+            chDate.Width = 100;
+            gridDeletedComments.Columns.Add(chDate);
+
+            DataGridViewComboBoxColumn chName = new DataGridViewComboBoxColumn();
+            chName.Name = "chDName";
+            chName.HeaderText = "Author";
+            chName.Width = 100;
+            chName.ValueMember = "ID";
+            chName.DisplayMember = "Name";
+            chName.DataSource = new List<Person>(Globals.AllPeople);
+            gridDeletedComments.Columns.Add(chName);
+
+            DataGridViewComboBoxColumn chType = new DataGridViewComboBoxColumn();
+            chType.Name = "chDType";
+            chType.HeaderText = "Type";
+            chType.Width = 100;
+            chType.ValueMember = "ID";
+            chType.DisplayMember = "TypeName";
+            chType.DataSource = new List<CommentType>(Globals.AllCommentTypes);
+            gridDeletedComments.Columns.Add(chType);
+
+            DataGridViewTextBoxColumn chSource = new DataGridViewTextBoxColumn();
+            chSource.Name = "chDSource";
+            chSource.HeaderText = "Source";
+            chSource.Width = 200;
+            gridDeletedComments.Columns.Add(chSource);
+
+            DataGridViewTextBoxColumn chAuthority = new DataGridViewTextBoxColumn();
+            chAuthority.Name = "chDAuthority";
+            chAuthority.HeaderText = "Authority";
+            gridDeletedComments.Columns.Add(chAuthority);
+
+            gridDeletedComments.CellValueNeeded += gridDeletedComments_CellValueNeeded;
+            gridDeletedComments.NewRowNeeded += gridDeletedComments_NewRowNeeded;
+            gridDeletedComments.CellValuePushed += gridDeletedComments_CellValuePushed;
+            gridDeletedComments.RowValidated += gridDeletedComments_RowValidated;
+            gridDeletedComments.RowDirtyStateNeeded += gridDeletedComments_RowDirtyStateNeeded;
+            gridDeletedComments.CancelRowEdit += gridDeletedComments_CancelRowEdit;
+            gridDeletedComments.UserDeletingRow += gridDeletedComments_UserDeletingRow;
+            gridDeletedComments.DataError += gridDeletedComments_DataError;
+        }
+        /// <summary>
+        /// Bind properties to controls.
+        /// </summary>
+        private void BindProperties()
+        {
+            txtID.DataBindings.Add("Text", bsCurrent, "ID");
+            txtNoteText.DataBindings.Add("Text", bsCurrent, "NoteText");
+
+            dtpStoredDate.DataBindings.Add("Value", bsStored, "NoteDate", true);
+            txtStoredSource.DataBindings.Add("Text", bsStored, "Source");
         }
         #endregion
 
@@ -268,6 +540,12 @@ namespace SDIFrontEnd
             {
                 bs.MovePrevious();
             }
+        }
+
+        private void CommentEntry_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (!Modal)
+                FM.FormManager.Remove(this);
         }
 
         private void BindingSource_PositionChanged(object sender, EventArgs e)
@@ -301,11 +579,27 @@ namespace SDIFrontEnd
                         modifiedRecord.Dirty = true;
                         break;
                 }
-                //if (CurrentRecord.Dirty)
-                //lblStatus.Text = "*";
+            }           
+        }
+
+        private void cmdExport_Click(object sender, EventArgs e)
+        {
+            if (SaveNote() == 1)
+            {
+                return;
             }
 
-           
+            UpdateCreationCount();
+
+            if (!InfoEntered())
+            {
+                MessageBox.Show("One or more required fields missing.");
+                return;
+            }
+
+            SaveComments();
+
+            LoadComments();
         }
 
         private void cmdAdd_Click(object sender, EventArgs e)
@@ -352,7 +646,6 @@ namespace SDIFrontEnd
                 AddWave((StudyWave)selection);
 
             UpdateCreationCount();
-            UpdateVars();
         }
 
         private void cmdRemoveSurvWave_Click(object sender, EventArgs e)
@@ -387,93 +680,164 @@ namespace SDIFrontEnd
             }
         }
 
+        private void chkAssignedDetails_CheckedChanged(object sender, EventArgs e)
+        {
+            AssignedDetails(GetTopComment());
+            ToggleAutoDetails(1);
+            ExpandForm();
+        }
+
+        private void AutoDetails2_CheckedChanged(object sender, EventArgs e)
+        {
+            LastUsedComment(Globals.CurrentUser.LastUsedComment);
+            ToggleAutoDetails(2);
+            ExpandForm();
+        }
+
+        private void AutoDetails3_CheckedChanged(object sender, EventArgs e)
+        {
+            NewComment();
+            ToggleAutoDetails(3);
+            ExpandForm();
+        }
+
+        private void chkStoredComments_CheckedChanged(object sender, EventArgs e)
+        {
+            ExpandForm();
+        }
+
+        private void cmdStoreComment_Click(object sender, EventArgs e)
+        {
+            Comment newStored = new Comment();
+
+            newStored.Notes = CurrentRecord.Item;
+            newStored.NoteDate = dtpNoteDate.Value;
+            newStored.NoteType = (CommentType)cboNoteType.SelectedItem;
+            newStored.Author = (Person)cboNoteAuthor.SelectedItem;
+            newStored.Authority = (Person)cboNoteAuthority.SelectedItem;
+            newStored.Source = txtNoteSource.Text;
+
+            SaveStored(newStored, 1);
+            bsStored.ResetBindings(false);
+        }
+
+        #region Navigation Bar
+        private void bindingNavigatorMovePreviousItem_Click(object sender, EventArgs e)
+        {
+            if (SaveNote() == 1)
+                return;
+
+            MoveRecord(-1);
+        }
+
+        private void bindingNavigatorMoveNextItem_Click(object sender, EventArgs e)
+        {
+            if (SaveNote() == 1)
+                return;
+
+            MoveRecord(1);
+        }
+
+        private void bindingNavigatorMoveFirstItem_Click(object sender, EventArgs e)
+        {
+            if (SaveNote() == 1)
+                return;
+
+            bs.MoveFirst();
+        }
+
+        private void bindingNavigatorMoveLastItem_Click(object sender, EventArgs e)
+        {
+            if (SaveNote() == 1)
+                return;
+
+            bs.MoveLast();
+        }
         #endregion
 
-
+        #endregion
 
         #region Methods
-
-        private void BindProperties()
-        {
-            txtID.DataBindings.Add("Text", bsCurrent, "ID");
-            txtNoteText.DataBindings.Add("Text", bsCurrent, "NoteText");
-
-            dtpStoredDate.DataBindings.Add("Value", bsStored, "NoteDate", true);
-
-            txtStoredSource.DataBindings.Add("Text", bsStored, "Source");
-
-            // question comment grid
-            bsQues = new BindingSource();
-            bsQues.DataSource = QuestionComments;
-            chQVarName.DataPropertyName = "VarName";
-            chQSurvey.DataPropertyName = "Survey";
-            chQDate.DataPropertyName = "NoteDate";
-            chQSource.DataPropertyName = "Source";
-            chQAuthority.DataPropertyName = "SourceName";
-
-            // survey comment grid
-            bsSurv = new BindingSource();
-            bsSurv.DataSource = SurveyComments;
-            chSSurvey.DataPropertyName = "Survey";
-            chSDate.DataPropertyName = "NoteDate";
-            chSSource.DataPropertyName = "Source";
-            chSAuthority.DataPropertyName = "SourceName";
-
-            // wave comment grid
-            bsWave = new BindingSource();
-            bsWave.DataSource = WaveComments;
-            chWWave.DataPropertyName = "StudyWave";
-            chWDate.DataPropertyName = "NoteDate";
-            chWSource.DataPropertyName = "Source";
-            chWAuthority.DataPropertyName = "SourceName";
-
-            // refvar comment grid
-            bsRef = new BindingSource();
-            bsRef.DataSource = RefVarComments;
-            chRVarName.DataPropertyName = "RefVarName";
-            chRDate.DataPropertyName = "NoteDate";
-            chRSource.DataPropertyName = "Source";
-            chRAuthority.DataPropertyName = "SourceName";
-
-            // deleted comment grid
-            bsDel = new BindingSource();
-            bsDel.DataSource = DeletedComments;
-            chDVarName.DataPropertyName = "VarName";
-            chDSurvey.DataPropertyName = "Survey";
-            chDDate.DataPropertyName = "NoteDate";
-            chDSource.DataPropertyName = "Source";
-            chDAuthority.DataPropertyName = "SourceName";
-        }
 
         private void LoadComments()
         {
             if (CurrentRecord == null)
                 return;
 
-            QuestionComments = DBAction.GetQuesCommentsByCID(CurrentRecord.Item.ID);
-            gridQuesComments.DataSource = QuestionComments;
-            pageQuestion.Text = "Variable (" + QuestionComments.Count + ")";
+            LoadQuestionComments();
 
-            SurveyComments = DBAction.GetSurvCommentsByCID(CurrentRecord.Item.ID);
-            gridSurvComments.DataSource = SurveyComments;
-            pageSurvey.Text = "Survey (" + SurveyComments.Count + ")";
+            LoadSurveyComments();
 
-            WaveComments = DBAction.GetWaveCommentsByCID(CurrentRecord.Item.ID);
-            gridWaveComments.DataSource = WaveComments;
-            pageWave.Text = "Wave (" + WaveComments.Count + ")";
+            LoadWaveComments();
 
-            RefVarComments = DBAction.GetRefVarCommentsByCID(CurrentRecord.Item.ID);
-            gridRefVarComments.DataSource = RefVarComments;
-            pageRefVar.Text = "RefVar (" + RefVarComments.Count + ")";
+            LoadRefVarComments();
 
-            DeletedComments = DBAction.GetDeletedCommentsByCID(CurrentRecord.Item.ID);
-            gridDeletedComments.DataSource = DeletedComments;
-            pageDeleted.Text = "Deleted Vars (" + DeletedComments.Count + ")";
-
-           
+            LoadDeletedComments();
         }
 
-     
+        private void LoadQuestionComments()
+        {
+            QuestionComments = new List<QuestionCommentRecord>();
+            var comments = DBAction.GetQuesCommentsByCID(CurrentRecord.Item.ID);
+            foreach (QuestionComment c in comments)
+            {
+                QuestionComments.Add(new QuestionCommentRecord(c));
+            }
+            gridQuesComments.RowCount =  QuestionComments.Count;
+            pageQuestion.Text = "Variable (" + QuestionComments.Count + ")";
+        }
+
+        private void LoadSurveyComments()
+        {
+            SurveyComments = new List<SurveyCommentRecord>();
+            var comments = DBAction.GetSurvCommentsByCID(CurrentRecord.Item.ID);
+            foreach (SurveyComment c in comments)
+            {
+                SurveyComments.Add(new SurveyCommentRecord(c));
+            }
+            
+            gridSurvComments.RowCount = SurveyComments.Count;
+            pageSurvey.Text = "Survey (" + SurveyComments.Count + ")";
+        }
+
+        private void LoadWaveComments()
+        {
+            WaveComments = new List<WaveCommentRecord>();
+            var comments = DBAction.GetWaveCommentsByCID(CurrentRecord.Item.ID);
+            foreach (WaveComment c in comments)
+            {
+                WaveComments.Add(new WaveCommentRecord(c));
+            }
+
+            gridWaveComments.RowCount = WaveComments.Count;
+            pageWave.Text = "Wave (" + WaveComments.Count + ")";
+        }
+
+        private void LoadDeletedComments()
+        {
+            DeletedComments = new List<DeletedCommentRecord>();
+            var comments = DBAction.GetDeletedCommentsByCID(CurrentRecord.Item.ID);
+            foreach (DeletedComment c in comments)
+            {
+                DeletedComments.Add(new DeletedCommentRecord(c));
+            }
+
+            gridDeletedComments.RowCount = DeletedComments.Count;
+            pageDeleted.Text = "Deleted Vars (" + DeletedComments.Count + ")";
+        }
+
+        private void LoadRefVarComments()
+        {
+            RefVarComments = new List<RefVarCommentRecord>();
+            var comments = DBAction.GetRefVarCommentsByCID(CurrentRecord.Item.ID);
+            foreach (RefVarComment c in comments)
+            {
+                RefVarComments.Add(new RefVarCommentRecord(c));
+            }
+
+            gridRefVarComments.RowCount = RefVarComments.Count;
+            pageRefVar.Text = "RefVar (" + RefVarComments.Count + ")";
+        }
 
         private void FillTargetSurveyList()
         {
@@ -517,7 +881,6 @@ namespace SDIFrontEnd
 
         private void MoveRecord(int count)
         {
-
             if (count > 0)
                 for (int i = 0; i < count; i++)
                 {
@@ -532,13 +895,22 @@ namespace SDIFrontEnd
 
         private void AddNote()
         {
+            if (CurrentRecord.NewRecord)
+                return;
+
             lblNewID.Left = txtID.Left;
             lblNewID.Top = txtID.Top;
             lblNewID.Visible = true;
 
             bs.DataSource = Records;
-            CurrentRecord = (NoteRecord)bs.AddNew();
-            CurrentRecord.NewRecord = true;
+
+            if (Records.Last().NewRecord)
+                bs.MoveLast();
+            else
+            {
+                CurrentRecord = (NoteRecord)bs.AddNew();
+                CurrentRecord.NewRecord = true;
+            }
         }
 
         private void DeleteNote()
@@ -592,72 +964,12 @@ namespace SDIFrontEnd
             navNotes.BindingSource = bs;
         }
 
-
         private bool IsEmptyRecord(NoteRecord n)
         {
             if (string.IsNullOrEmpty(n.Item.NoteText) && n.NewRecord)
                 return true;
             else
                 return false;
-        }
-        #endregion
-
-        #region Navigation Bar
-        private void bindingNavigatorMovePreviousItem_Click(object sender, EventArgs e)
-        {
-            bs.EndEdit();
-            if (SaveNote() == 1)
-                return;
-
-            MoveRecord(-1);
-        }
-
-        private void bindingNavigatorMoveNextItem_Click(object sender, EventArgs e)
-        {
-            bs.EndEdit();
-            if (SaveNote() == 1)
-                return;
-
-            MoveRecord(1);
-        }
-
-        private void bindingNavigatorMoveFirstItem_Click(object sender, EventArgs e)
-        {
-            bs.EndEdit();
-            if (SaveNote() == 1)
-                return;
-
-            bs.MoveFirst();
-        }
-
-        private void bindingNavigatorMoveLastItem_Click(object sender, EventArgs e)
-        {
-            bs.EndEdit();
-            if (SaveNote() == 1)
-                return;
-
-            bs.MoveLast();
-        }
-        #endregion
-
-        private void cmdExport_Click(object sender, EventArgs e)
-        {
-            if (SaveNote() == 1)
-            {
-                return;
-            }
-
-            UpdateCreationCount();
-
-            if (!InfoEntered())
-            {
-                MessageBox.Show("One or more required fields missing.");
-                return;
-            }
-
-            SaveComments();
-
-            LoadComments();
         }
 
         private int SaveNote()
@@ -669,7 +981,7 @@ namespace SDIFrontEnd
                 bs.RemoveCurrent();
                 return 0;
             }
-             
+
             if (CurrentRecord.SaveRecord() == 1)
             {
                 MessageBox.Show("Unable to save note.");
@@ -692,15 +1004,12 @@ namespace SDIFrontEnd
             return true;
         }
 
-        
-
         private void UpdateCreationCount()
         {
             int count = 0;
-            
+
             switch (Scope)
             {
-
                 case NoteScope.Variable:
                     count = CountVariableComments();
                     break;
@@ -720,7 +1029,7 @@ namespace SDIFrontEnd
 
             lblNumberCreated.Text = count + " comment(s) will be created.";
         }
-        
+
         private int CountVariableComments()
         {
             int count = 0;
@@ -733,7 +1042,7 @@ namespace SDIFrontEnd
             {
                 for (int j = 0; j < varnames.Count; j++)
                 {
-                    string fullVar = Utilities.ChangeCC(varnames[j].RefVarName, surveys[i].CountryCode); 
+                    string fullVar = Utilities.ChangeCC(varnames[j].RefVarName, surveys[i].CountryCode);
                     SurveyQuestion sq = new SurveyQuestion();
                     sq.SurveyCode = surveys[i].SurveyCode;
                     sq.VarName.VarName = fullVar;
@@ -742,20 +1051,20 @@ namespace SDIFrontEnd
                         QuestionCommentRecord c = new QuestionCommentRecord();
 
                         c.NewRecord = true;
-                        c.Survey = surveys[i].SurveyCode;
-                        c.VarName = fullVar;
-                        c.Author = (Person)cboNoteAuthor.SelectedItem;
-                        
-                        c.NoteType = (CommentType)cboNoteType.SelectedItem;
+                        c.Item.Survey = surveys[i].SurveyCode;
+                        c.Item.VarName = fullVar;
+                        c.Item.Author = (Person)cboNoteAuthor.SelectedItem;
 
-                        c.NoteDate = dtpNoteDate.Value;
-                        c.SourceName = ((Person)cboNoteAuthority.SelectedItem).Name;
-                        c.Authority = (Person)cboNoteAuthority.SelectedItem;
-                        if (c.SourceName == null)
-                            c.SourceName = "";
+                        c.Item.NoteType = (CommentType)cboNoteType.SelectedItem;
 
-                        c.Source = txtNoteSource.Text;
-                        c.Notes = CurrentRecord.Item;
+                        c.Item.NoteDate = dtpNoteDate.Value;
+                        c.Item.SourceName = ((Person)cboNoteAuthority.SelectedItem).Name;
+                        c.Item.Authority = (Person)cboNoteAuthority.SelectedItem;
+                        if (c.Item.SourceName == null)
+                            c.Item.SourceName = "";
+
+                        c.Item.Source = txtNoteSource.Text;
+                        c.Item.Notes = CurrentRecord.Item;
 
                         newComments.Add(c);
                         count++;
@@ -776,16 +1085,16 @@ namespace SDIFrontEnd
                     SurveyCommentRecord c = new SurveyCommentRecord();
 
                     c.NewRecord = true;
-                    c.Survey = s.SurveyCode;
-                    c.Author = (Person)cboNoteAuthor.SelectedItem;
-                    c.NoteType = (CommentType)cboNoteType.SelectedItem;
-                    c.NoteDate = dtpNoteDate.Value;
-                    c.SourceName = ((Person)cboNoteAuthority.SelectedItem).Name;
-                    if (c.SourceName == null)
-                        c.SourceName = "";
-                    c.Authority = (Person)cboNoteAuthority.SelectedItem;
-                    c.Source = txtNoteSource.Text;
-                    c.Notes = CurrentRecord.Item;
+                    c.Item.Survey = s.SurveyCode;
+                    c.Item.Author = (Person)cboNoteAuthor.SelectedItem;
+                    c.Item.NoteType = (CommentType)cboNoteType.SelectedItem;
+                    c.Item.NoteDate = dtpNoteDate.Value;
+                    c.Item.SourceName = ((Person)cboNoteAuthority.SelectedItem).Name;
+                    if (c.Item.SourceName == null)
+                        c.Item.SourceName = "";
+                    c.Item.Authority = (Person)cboNoteAuthority.SelectedItem;
+                    c.Item.Source = txtNoteSource.Text;
+                    c.Item.Notes = CurrentRecord.Item;
 
                     newComments.Add(c);
 
@@ -804,16 +1113,16 @@ namespace SDIFrontEnd
                     WaveCommentRecord c = new WaveCommentRecord();
 
                     c.NewRecord = true;
-                    c.StudyWave = w.WaveCode;
-                    c.Author = (Person)cboNoteAuthor.SelectedItem;
-                    c.NoteType = (CommentType)cboNoteType.SelectedItem;
-                    c.NoteDate = dtpNoteDate.Value;
-                    c.SourceName = ((Person)cboNoteAuthority.SelectedItem).Name;
-                    if (c.SourceName == null)
-                        c.SourceName = "";
-                    c.Authority = (Person)cboNoteAuthority.SelectedItem;
-                    c.Source = txtNoteSource.Text;
-                    c.Notes = CurrentRecord.Item;
+                    c.Item.StudyWave = w.WaveCode;
+                    c.Item.Author = (Person)cboNoteAuthor.SelectedItem;
+                    c.Item.NoteType = (CommentType)cboNoteType.SelectedItem;
+                    c.Item.NoteDate = dtpNoteDate.Value;
+                    c.Item.SourceName = ((Person)cboNoteAuthority.SelectedItem).Name;
+                    if (c.Item.SourceName == null)
+                        c.Item.SourceName = "";
+                    c.Item.Authority = (Person)cboNoteAuthority.SelectedItem;
+                    c.Item.Source = txtNoteSource.Text;
+                    c.Item.Notes = CurrentRecord.Item;
 
                     newComments.Add(c);
 
@@ -833,7 +1142,7 @@ namespace SDIFrontEnd
             {
                 for (int j = 0; j < varnames.Count; j++)
                 {
-                    string fullVar = Utilities.ChangeCC(varnames[j].RefVarName, surveys[i].CountryCode); 
+                    string fullVar = Utilities.ChangeCC(varnames[j].RefVarName, surveys[i].CountryCode);
                     DeletedQuestion sq = new DeletedQuestion();
                     sq.SurveyCode = surveys[i].SurveyCode;
                     sq.VarName = fullVar;
@@ -842,17 +1151,17 @@ namespace SDIFrontEnd
                         DeletedCommentRecord c = new DeletedCommentRecord();
 
                         c.NewRecord = true;
-                        c.Survey = surveys[i].SurveyCode;
-                        c.VarName = fullVar;
-                        c.Author = (Person)cboNoteAuthor.SelectedItem;
-                        c.NoteType = (CommentType)cboNoteType.SelectedItem;
-                        c.NoteDate = dtpNoteDate.Value;
-                        c.SourceName = ((Person)cboNoteAuthority.SelectedItem).Name;
-                        if (c.SourceName == null)
-                            c.SourceName = "";
-                        c.Authority = (Person)cboNoteAuthority.SelectedItem;
-                        c.Source = txtNoteSource.Text;
-                        c.Notes = CurrentRecord.Item;
+                        c.Item.Survey = surveys[i].SurveyCode;
+                        c.Item.VarName = fullVar;
+                        c.Item.Author = (Person)cboNoteAuthor.SelectedItem;
+                        c.Item.NoteType = (CommentType)cboNoteType.SelectedItem;
+                        c.Item.NoteDate = dtpNoteDate.Value;
+                        c.Item.SourceName = ((Person)cboNoteAuthority.SelectedItem).Name;
+                        if (c.Item.SourceName == null)
+                            c.Item.SourceName = "";
+                        c.Item.Authority = (Person)cboNoteAuthority.SelectedItem;
+                        c.Item.Source = txtNoteSource.Text;
+                        c.Item.Notes = CurrentRecord.Item;
 
                         newComments.Add(c);
                         count++;
@@ -874,42 +1183,42 @@ namespace SDIFrontEnd
                     RefVarCommentRecord c = new RefVarCommentRecord();
 
                     c.NewRecord = true;
-                    c.RefVarName = varnames[j].RefVarName;
-                    c.Author = (Person)cboNoteAuthor.SelectedItem;
-                    c.NoteType = (CommentType)cboNoteType.SelectedItem;
-                    c.NoteDate = dtpNoteDate.Value;
-                    c.SourceName = ((Person)cboNoteAuthority.SelectedItem).Name;
-                    if (c.SourceName == null)
-                        c.SourceName = "";
-                    c.Authority = (Person)cboNoteAuthority.SelectedItem;
-                    c.Source = txtNoteSource.Text;
-                    c.Notes = CurrentRecord.Item;
+                    c.Item.RefVarName = varnames[j].RefVarName;
+                    c.Item.Author = (Person)cboNoteAuthor.SelectedItem;
+                    c.Item.NoteType = (CommentType)cboNoteType.SelectedItem;
+                    c.Item.NoteDate = dtpNoteDate.Value;
+                    c.Item.SourceName = ((Person)cboNoteAuthority.SelectedItem).Name;
+                    if (c.Item.SourceName == null)
+                        c.Item.SourceName = "";
+                    c.Item.Authority = (Person)cboNoteAuthority.SelectedItem;
+                    c.Item.Source = txtNoteSource.Text;
+                    c.Item.Notes = CurrentRecord.Item;
 
                     newComments.Add(c);
                     count++;
                 }
-                    
+
             }
             return count;
         }
 
         private void SaveComments()
         {
-            switch(Scope)
+            switch (Scope)
             {
                 case NoteScope.Variable:
                     {
                         List<QuestionCommentRecord> created = new List<QuestionCommentRecord>();
                         foreach (QuestionCommentRecord qc in newComments)
                         {
-                            if (DBAction.InsertQuestionComment(qc) == 1)
+                            if (DBAction.InsertQuestionComment(qc.Item) == 1)
                                 continue;
 
                             created.Add(qc);
 
                             QuestionComments.Add(qc);
-                            gridQuesComments.DataSource = null;
-                            gridQuesComments.DataSource = QuestionComments;
+                            
+                            gridQuesComments.RowCount = QuestionComments.Count;
                             pageQuestion.Text = "Variable (" + QuestionComments.Count + ")";
                         }
                         CreatedComment?.Invoke(null, new QuestionCommentCreated() { comments = created });
@@ -920,12 +1229,12 @@ namespace SDIFrontEnd
                     {
                         foreach (SurveyCommentRecord sc in newComments)
                         {
-                            if (DBAction.InsertSurveyComment(sc) == 1)
+                            if (DBAction.InsertSurveyComment(sc.Item) == 1)
                                 continue;
 
                             SurveyComments.Add(sc);
-                            gridSurvComments.DataSource = null;
-                            gridSurvComments.DataSource = SurveyComments;
+                            
+                            gridSurvComments.RowCount = SurveyComments.Count;
                             pageSurvey.Text = "Survey (" + SurveyComments.Count + ")";
                         }
                         break;
@@ -934,12 +1243,12 @@ namespace SDIFrontEnd
                     {
                         foreach (WaveCommentRecord wc in newComments)
                         {
-                            if (DBAction.InsertWaveComment(wc) == 1)
+                            if (DBAction.InsertWaveComment(wc.Item) == 1)
                                 continue;
 
                             WaveComments.Add(wc);
-                            gridWaveComments.DataSource = null;
-                            gridWaveComments.DataSource = WaveComments;
+                           
+                            gridWaveComments.RowCount = WaveComments.Count;
                             pageWave.Text = "Wave (" + WaveComments.Count + ")";
                         }
                         break;
@@ -948,12 +1257,12 @@ namespace SDIFrontEnd
                     {
                         foreach (DeletedCommentRecord dc in newComments)
                         {
-                            if (DBAction.InsertDeletedComment(dc) == 1)
+                            if (DBAction.InsertDeletedComment(dc.Item) == 1)
                                 continue;
 
                             DeletedComments.Add(dc);
-                            gridDeletedComments.DataSource = null;
-                            gridDeletedComments.DataSource = DeletedComments;
+                            
+                            gridDeletedComments.RowCount = DeletedComments.Count;
                             pageDeleted.Text = "Deleted Vars (" + DeletedComments.Count + ")";
                         }
                         break;
@@ -962,12 +1271,12 @@ namespace SDIFrontEnd
                     {
                         foreach (RefVarCommentRecord rc in newComments)
                         {
-                            if (DBAction.InsertRefVarComment(rc) == 1)
+                            if (DBAction.InsertRefVarComment(rc.Item) == 1)
                                 continue;
 
                             RefVarComments.Add(rc);
-                            gridRefVarComments.DataSource = null;
-                            gridRefVarComments.DataSource = RefVarComments;
+                            
+                            gridRefVarComments.RowCount = RefVarComments.Count;
                             pageRefVar.Text = "RefVar (" + RefVarComments.Count + ")";
                         }
                         break;
@@ -977,111 +1286,43 @@ namespace SDIFrontEnd
             UpdateCreationCount();
         }
 
-        #region Grid View formatting
-        private void gridQuesComments_DataError(object sender, DataGridViewDataErrorEventArgs e)
-        {
-
-        }
-
-        private void gridSurvComments_DataError(object sender, DataGridViewDataErrorEventArgs e)
-        {
-
-        }
-
-        private void gridWaveComments_DataError(object sender, DataGridViewDataErrorEventArgs e)
-        {
-
-        }
-
-        private void gridRefVarComments_DataError(object sender, DataGridViewDataErrorEventArgs e)
-        {
-
-        }
-
-        private void gridDeletedComments_DataError(object sender, DataGridViewDataErrorEventArgs e)
-        {
-
-        }
-        #endregion
-
-        private void chkAssignedDetails_CheckedChanged(object sender, EventArgs e)
-        {
-            AssignedDetails(GetTopComment());
-            ToggleAutoDetails(1);
-            ExpandForm();
-        }
-
-        private void AutoDetails2_CheckedChanged(object sender, EventArgs e)
-        {
-            LastUsedComment(Globals.CurrentUser.LastUsedComment);
-            ToggleAutoDetails(2);
-            ExpandForm();
-        }
-
-        private void AutoDetails3_CheckedChanged(object sender, EventArgs e)
-        {
-            NewComment();
-            ToggleAutoDetails(3);
-            ExpandForm();
-        }
-
-        private void chkStoredComments_CheckedChanged(object sender, EventArgs e)
-        {
-            ExpandForm();
-        }
-
-        private void cmdStoreComment_Click(object sender, EventArgs e)
-        {
-            Comment newStored = new Comment();
-  
-            newStored.Notes = CurrentRecord.Item;
-            newStored.NoteDate = dtpNoteDate.Value;
-            newStored.NoteType = (CommentType)cboNoteType.SelectedItem;
-            newStored.Author = (Person)cboNoteAuthor.SelectedItem;
-            newStored.Authority = (Person)cboNoteAuthority.SelectedItem;
-            newStored.Source = txtNoteSource.Text;
-
-            SaveStored(newStored, 1);
-            bsStored.ResetBindings(false);
-        }
-
         private Comment GetTopComment()
         {
             Comment c = new Comment();
-            if (QuestionComments.Count>0)
-            {                
-                c.NoteType = QuestionComments[0].NoteType;
-                c.Author = QuestionComments[0].Author;
-                c.Source = QuestionComments[0].Source;
-                c.SourceName = QuestionComments[0].SourceName;
+            if (QuestionComments.Count > 0)
+            {
+                c.NoteType = QuestionComments[0].Item.NoteType;
+                c.Author = QuestionComments[0].Item.Author;
+                c.Source = QuestionComments[0].Item.Source;
+                c.SourceName = QuestionComments[0].Item.SourceName;
             }
             else if (SurveyComments.Count > 0)
             {
-                c.NoteType = SurveyComments[0].NoteType;
-                c.Author = SurveyComments[0].Author;
-                c.Source = SurveyComments[0].Source;
-                c.SourceName = SurveyComments[0].SourceName;
+                c.NoteType = SurveyComments[0].Item.NoteType;
+                c.Author = SurveyComments[0].Item.Author;
+                c.Source = SurveyComments[0].Item.Source;
+                c.SourceName = SurveyComments[0].Item.SourceName;
             }
             else if (WaveComments.Count > 0)
             {
-                c.NoteType = WaveComments[0].NoteType;
-                c.Author = WaveComments[0].Author;
-                c.Source = WaveComments[0].Source;
-                c.SourceName = WaveComments[0].SourceName;
+                c.NoteType = WaveComments[0].Item.NoteType;
+                c.Author = WaveComments[0].Item.Author;
+                c.Source = WaveComments[0].Item.Source;
+                c.SourceName = WaveComments[0].Item.SourceName;
             }
             else if (RefVarComments.Count > 0)
             {
-                c.NoteType = RefVarComments[0].NoteType;
-                c.Author = RefVarComments[0].Author;
-                c.Source = RefVarComments[0].Source;
-                c.SourceName = RefVarComments[0].SourceName;
+                c.NoteType = RefVarComments[0].Item.NoteType;
+                c.Author = RefVarComments[0].Item.Author;
+                c.Source = RefVarComments[0].Item.Source;
+                c.SourceName = RefVarComments[0].Item.SourceName;
             }
             else if (DeletedComments.Count > 0)
             {
-                c.NoteType = DeletedComments[0].NoteType;
-                c.Author = DeletedComments[0].Author;
-                c.Source = DeletedComments[0].Source;
-                c.SourceName = DeletedComments[0].SourceName;
+                c.NoteType = DeletedComments[0].Item.NoteType;
+                c.Author = DeletedComments[0].Item.Author;
+                c.Source = DeletedComments[0].Item.Source;
+                c.SourceName = DeletedComments[0].Item.SourceName;
             }
             return c;
         }
@@ -1187,7 +1428,7 @@ namespace SDIFrontEnd
             {
                 panelDetails.Top = firstPanelTop;
                 panelUses.Top = secondPanelTop;
-                
+
                 this.Height = secondPanelTop + 185 + navNotes.Height + 50;
 
             }
@@ -1213,6 +1454,8 @@ namespace SDIFrontEnd
             FillTargetQuestion(question);
             if (question.Comments.Count == 0)
             {
+
+
                 AddNote();
                 return;
             }
@@ -1221,12 +1464,6 @@ namespace SDIFrontEnd
                 lblNewID.Visible = false;
             }
 
-            //FilteredNotes.Clear();
-            //foreach (Comment c in question.Comments)
-            //{
-            //    NoteRecord n = new NoteRecord() { ID = c.Notes.ID, NoteText = c.Notes.NoteText };
-            //    FilteredNotes.Add(n);
-            //}
             var commentIDs = question.Comments.Select(x => x.Notes.ID);
             bs.DataSource = Records.Where(x => commentIDs.Contains(x.Item.ID)).ToList();
 
@@ -1258,7 +1495,6 @@ namespace SDIFrontEnd
             AddVar(question.VarName);
         }
 
-
         private void AddSurvey(Survey survey)
         {
             if (survey == null)
@@ -1286,12 +1522,7 @@ namespace SDIFrontEnd
                 lstTargetVar.Items.Add(variable);
         }
 
-        private void UpdateVars()
-        { 
-
-        }
-
-        
+        #endregion
 
         #region Stored Comments
         private void repeaterStored_ItemCloned(object sender, Microsoft.VisualBasic.PowerPacks.DataRepeaterItemEventArgs e)
@@ -1449,119 +1680,968 @@ namespace SDIFrontEnd
         }
         #endregion
 
-        private void CommentEntry_FormClosed(object sender, FormClosedEventArgs e)
+        #region DataGridView events
+        private void gridQuesComments_NewRowNeeded(object sender, DataGridViewRowEventArgs e)
         {
-            if (!Modal)
-                FM.FormManager.Remove(this);
+            // Create a new object when the user edits the row for new records.
+            this.editedQuestionComment = new QuestionComment();
+            this.questionCommentRow = this.gridQuesComments.Rows.Count - 1;
         }
 
-
-        #region Unused
-        private void CreateQuestionComments()
+        private void gridQuesComments_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
         {
-            List<Survey> surveys = lstTargetSurvWave.Items.Cast<Survey>().ToList();
-            List<string> varnames = lstTargetVar.Items.Cast<VariableName>().Select(x => x.VarName).ToList();
+            DataGridView dgv = (DataGridView)sender;
 
-            for (int i = 0; i < surveys.Count; i++)
+            // If the there are no items, no values are needed.
+            if (QuestionComments.Count == 0) return;
+
+            QuestionComment tmp = null;
+
+            // Store a reference to the object for the row being painted.
+            if (e.RowIndex == questionCommentRow)
             {
-                for (int j = 0; j < varnames.Count; j++)
+                tmp = editedQuestionComment;
+            }
+            else
+            {
+                tmp = QuestionComments[e.RowIndex].Item;
+            }
+
+            if (tmp == null) return;
+
+            // Set the cell value to paint using the object retrieved.
+            switch (dgv.Columns[e.ColumnIndex].Name)
+            {
+                case "chQSurvey":
+                    e.Value = tmp.Survey;
+                    break;
+                case "chQVarName":
+                    e.Value = tmp.VarName;
+                    break;
+                case "chQDate":
+                    e.Value = tmp.NoteDate;
+                    break;
+                case "chQName":
+                    e.Value = tmp.Author.ID;
+                    break;
+                case "chQType":
+                    e.Value = tmp.NoteType.ID;
+                    break;
+                case "chQSource":
+                    e.Value = tmp.Source;
+                    break;
+                case "chQAuthority":
+                    e.Value = tmp.SourceName;
+                    break;
+            }
+        }
+
+        private void gridQuesComments_CellValuePushed(object sender, DataGridViewCellValueEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+
+            QuestionComment tmp = null;
+            // Store a reference to the object for the row being edited.
+            if (e.RowIndex < QuestionComments.Count)
+            {
+                // If the user is editing a new row, create a new object.
+                if (editedQuestionComment == null)
+                    editedQuestionComment = new QuestionComment()
+                    {
+                        ID = QuestionComments[e.RowIndex].Item.ID,
+                        QID = QuestionComments[e.RowIndex].Item.QID,
+                        Survey = QuestionComments[e.RowIndex].Item.Survey,
+                        VarName = QuestionComments[e.RowIndex].Item.VarName,
+                        NoteDate = QuestionComments[e.RowIndex].Item.NoteDate,
+                        Author = QuestionComments[e.RowIndex].Item.Author,
+                        NoteType = QuestionComments[e.RowIndex].Item.NoteType,
+                        Notes = QuestionComments[e.RowIndex].Item.Notes,
+                        Source = QuestionComments[e.RowIndex].Item.Source,
+                        SourceName = QuestionComments[e.RowIndex].Item.SourceName
+                    };
+
+                tmp = this.editedQuestionComment;
+                this.questionCommentRow = e.RowIndex;
+            }
+            else
+            {
+                tmp = this.editedQuestionComment;
+            }
+
+            // Set the appropriate property to the cell value entered.
+            switch (dgv.Columns[e.ColumnIndex].Name)
+            {
+                case "chQSurvey":
+                case "chQVarName":
+                    break;
+                case "chQDate":
+                    tmp.NoteDate = (DateTime)e.Value;
+                    break;
+                case "chQName":
+                    // DataGridViewComboBoxCell nameCell = (DataGridViewComboBoxCell) dgv.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                    tmp.Author.ID = (int)e.Value;
+                    // tmp.Author.Name = (string)nameCell.EditedFormattedValue;
+                    break;
+                case "chQType":
+                    tmp.NoteType.ID = (int)e.Value;
+                    break;
+                case "chQSource":
+                    tmp.Source = (string)e.Value;
+                    break;
+                case "chQAuthority":
+                    tmp.SourceName = (string)e.Value;
+                    break;
+            }
+        }
+
+        private void gridQuesComments_RowValidated(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+
+            // Save row changes if any were made and release the edited object if there is one.
+            if (editedQuestionComment != null && e.RowIndex >= QuestionComments.Count && e.RowIndex != dgv.Rows.Count - 1)
+            {
+                // Add the new object to the data store.
+                QuestionComments.Add(new QuestionCommentRecord(editedQuestionComment) { NewRecord = true });
+
+                editedQuestionComment = null;
+                questionCommentRow = -1;
+            }
+            else if (editedQuestionComment != null && e.RowIndex < QuestionComments.Count)
+            {
+                DBAction.UpdateQuestionComment(editedQuestionComment);
+            }
+            else if (dgv.ContainsFocus)
+            {
+                editedQuestionComment = null;
+                questionCommentRow = -1;
+            }
+        }
+
+        private void gridQuesComments_RowDirtyStateNeeded(object sender, QuestionEventArgs e)
+        {
+            if (!rowCommit)
+            {
+                DataGridView dgv = (DataGridView)sender;
+                // In cell-level commit scope, indicate whether the value of the current cell has been modified.
+                e.Response = dgv.IsCurrentCellDirty;
+            }
+        }
+
+        private void gridQuesComments_CancelRowEdit(object sender, QuestionEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+
+            if (questionCommentRow == dgv.Rows.Count - 2 && questionCommentRow == QuestionComments.Count)
+            {
+                // If the user has canceled the edit of a newly created row,
+                // replace the corresponding object with a new, empty one.
+                editedQuestionComment = new QuestionComment();
+            }
+            else
+            {
+                // If the user has canceled the edit of an existing row, release the corresponding object.
+                editedQuestionComment = null;
+                questionCommentRow = -1;
+            }
+        }
+
+        private void gridQuesComments_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            if (e.Row.Index < this.QuestionComments.Count)
+            {
+                if (MessageBox.Show("Are you sure you want to delete this question comment?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    QuestionComment c = new QuestionComment();
-
-                    c.Survey = surveys[i].SurveyCode;
-                    c.VarName = Utilities.ChangeCC(varnames[j], surveys[i].CountryCode);
-                    c.Author = (Person)cboNoteAuthor.SelectedItem;
-                    c.NoteType = (CommentType)cboNoteType.SelectedItem;
-                    c.NoteDate = dtpNoteDate.Value;
-                    c.SourceName = ((Person)cboNoteAuthority.SelectedItem).Name;
-                    if (c.SourceName == null)
-                        c.SourceName = "";
-
-                    c.Source = txtNoteSource.Text;
-                    c.Notes = CurrentRecord.Item;
-
-                    newComments.Add(c);
+                    QuestionComment record = QuestionComments[e.Row.Index].Item;
+                    // If the user has deleted an existing row, remove the corresponding object from the data store.
+                    this.QuestionComments.RemoveAt(e.Row.Index);
+                    DBAction.DeleteRecord(record);
+                }
+                else
+                {
+                    e.Cancel = true;
                 }
             }
-        }
 
-        private void CreateSurveyComments()
-        {
-            List<string> surveys = lstTargetSurvWave.Items.Cast<Survey>().Select(x => x.SurveyCode).ToList();
-
-            for (int i = 0; i < surveys.Count; i++)
+            if (e.Row.Index == this.questionCommentRow)
             {
-                SurveyComment c = new SurveyComment();
-
-                c.Survey = surveys[i];
-                c.Author = (Person)cboNoteAuthor.SelectedItem;
-                c.NoteType = (CommentType)cboNoteType.SelectedItem;
-                c.NoteDate = dtpNoteDate.Value;
-                c.SourceName = ((Person)cboNoteAuthority.SelectedItem).Name;
-                if (c.SourceName == null)
-                    c.SourceName = "";
-
-                c.Source = txtNoteSource.Text;
-                c.Notes = CurrentRecord.Item;
-
-                newComments.Add(c);
+                // If the user has deleted a newly created row, release the corresponding object.
+                this.questionCommentRow = -1;
+                this.editedQuestionComment = null;
             }
         }
 
-        private void CreateWaveComments()
+        private void gridQuesComments_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
-            List<string> waves = lstTargetSurvWave.Items.Cast<StudyWave>().Select(x => x.WaveCode).ToList();
 
-            for (int i = 0; i < waves.Count; i++)
+        }
+
+
+        private void gridSurvComments_NewRowNeeded(object sender, DataGridViewRowEventArgs e)
+        {
+            // Create a new object when the user edits the row for new records.
+            this.editedSurveyComment = new SurveyComment();
+            this.surveyCommentRow = this.gridSurvComments.Rows.Count - 1;
+        }
+
+        private void gridSurvComments_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+
+            // If the there are no items, no values are needed.
+            if (SurveyComments.Count == 0) return;
+
+            SurveyComment tmp = null;
+
+            // Store a reference to the object for the row being painted.
+            if (e.RowIndex == surveyCommentRow)
             {
-                WaveComment c = new WaveComment();
+                tmp = editedSurveyComment;
+            }
+            else
+            {
+                tmp = SurveyComments[e.RowIndex].Item;
+            }
 
-                c.StudyWave = waves[i];
-                c.Author = (Person)cboNoteAuthor.SelectedItem;
-                c.NoteType = (CommentType)cboNoteType.SelectedItem;
-                c.NoteDate = dtpNoteDate.Value;
-                c.SourceName = ((Person)cboNoteAuthority.SelectedItem).Name;
-                if (c.SourceName == null)
-                    c.SourceName = "";
-                c.Source = txtNoteSource.Text;
-                c.Notes = CurrentRecord.Item;
+            if (tmp == null) return;
 
-                newComments.Add(c);
+            // Set the cell value to paint using the object retrieved.
+            switch (dgv.Columns[e.ColumnIndex].Name)
+            {
+                case "chSSurvey":
+                    e.Value = tmp.Survey;
+                    break;
+                case "chSDate":
+                    e.Value = tmp.NoteDate;
+                    break;
+                case "chSName":
+                    e.Value = tmp.Author.ID;
+                    break;
+                case "chSType":
+                    e.Value = tmp.NoteType.ID;
+                    break;
+                case "chSSource":
+                    e.Value = tmp.Source;
+                    break;
+                case "chSAuthority":
+                    e.Value = tmp.SourceName;
+                    break;
             }
         }
 
-        private void CreateDeletedComments()
+        private void gridSurvComments_CellValuePushed(object sender, DataGridViewCellValueEventArgs e)
         {
-            List<string> surveys = lstTargetSurvWave.Items.Cast<Survey>().Select(x => x.SurveyCode).ToList();
-            List<string> varnames = lstTargetVar.Items.Cast<VariableName>().Select(x => x.VarName).ToList();
+            DataGridView dgv = (DataGridView)sender;
 
-            for (int i = 0; i < surveys.Count; i++)
+            SurveyComment tmp = null;
+            // Store a reference to the object for the row being edited.
+            if (e.RowIndex < SurveyComments.Count)
             {
-                for (int j = 0; j < varnames.Count; j++)
+                // If the user is editing a new row, create a new object.
+                if (editedSurveyComment == null)
+                    editedSurveyComment = new SurveyComment()
+                    {
+                        ID = SurveyComments[e.RowIndex].Item.ID,
+                        SurvID = SurveyComments[e.RowIndex].Item.SurvID,
+                        Survey = SurveyComments[e.RowIndex].Item.Survey,
+                        NoteDate = SurveyComments[e.RowIndex].Item.NoteDate,
+                        Author = SurveyComments[e.RowIndex].Item.Author,
+                        NoteType = SurveyComments[e.RowIndex].Item.NoteType,
+                        Notes = SurveyComments[e.RowIndex].Item.Notes,
+                        Source = SurveyComments[e.RowIndex].Item.Source,
+                        SourceName = SurveyComments[e.RowIndex].Item.SourceName
+                    };
+
+                tmp = this.editedSurveyComment;
+                this.surveyCommentRow = e.RowIndex;
+            }
+            else
+            {
+                tmp = this.editedSurveyComment;
+            }
+
+            // Set the appropriate property to the cell value entered.
+            switch (dgv.Columns[e.ColumnIndex].Name)
+            {
+                case "chSSurvey":
+                    break;
+                case "chSDate":
+                    tmp.NoteDate = (DateTime)e.Value;
+                    break;
+                case "chSName":
+                    // DataGridViewComboBoxCell nameCell = (DataGridViewComboBoxCell) dgv.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                    tmp.Author.ID = (int)e.Value;
+                    // tmp.Author.Name = (string)nameCell.EditedFormattedValue;
+                    break;
+                case "chSType":
+                    tmp.NoteType.ID = (int)e.Value;
+                    break;
+                case "chSSource":
+                    tmp.Source = (string)e.Value;
+                    break;
+                case "chSAuthority":
+                    tmp.SourceName = (string)e.Value;
+                    break;
+            }
+        }
+
+        private void gridSurvComments_RowValidated(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+
+            // Save row changes if any were made and release the edited object if there is one.
+            if (editedSurveyComment != null && e.RowIndex >= SurveyComments.Count && e.RowIndex != dgv.Rows.Count - 1)
+            {
+                // Add the new object to the data store.
+                SurveyComments.Add(new SurveyCommentRecord(editedSurveyComment) { NewRecord = true });
+
+                editedSurveyComment = null;
+                surveyCommentRow = -1;
+            }
+            else if (editedSurveyComment != null && e.RowIndex < SurveyComments.Count)
+            {
+                DBAction.UpdateSurveyComment(editedSurveyComment);
+            }
+            else if (dgv.ContainsFocus)
+            {
+                editedSurveyComment = null;
+                surveyCommentRow = -1;
+            }
+        }
+
+        private void gridSurvComments_RowDirtyStateNeeded(object sender, QuestionEventArgs e)
+        {
+            if (!rowCommit)
+            {
+                DataGridView dgv = (DataGridView)sender;
+                // In cell-level commit scope, indicate whether the value of the current cell has been modified.
+                e.Response = dgv.IsCurrentCellDirty;
+            }
+        }
+
+        private void gridSurvComments_CancelRowEdit(object sender, QuestionEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+
+            if (surveyCommentRow == dgv.Rows.Count - 2 && surveyCommentRow == SurveyComments.Count)
+            {
+                // If the user has canceled the edit of a newly created row,
+                // replace the corresponding object with a new, empty one.
+                editedSurveyComment = new SurveyComment();
+            }
+            else
+            {
+                // If the user has canceled the edit of an existing row, release the corresponding object.
+                editedSurveyComment = null;
+                surveyCommentRow = -1;
+            }
+        }
+
+        private void gridSurvComments_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            if (e.Row.Index < this.SurveyComments.Count)
+            {
+                if (MessageBox.Show("Are you sure you want to delete this survey comment?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    DeletedComment c = new DeletedComment();
-
-                    c.Survey = surveys[i];
-                    c.VarName = varnames[j];
-                    c.Author = (Person)cboNoteAuthor.SelectedItem;
-                    c.NoteType = (CommentType)cboNoteType.SelectedItem;
-                    c.NoteDate = dtpNoteDate.Value;
-                    c.SourceName = ((Person)cboNoteAuthority.SelectedItem).Name;
-                    if (c.SourceName == null)
-                        c.SourceName = "";
-                    c.Source = txtNoteSource.Text;
-                    c.Notes = CurrentRecord.Item;
-
-                    newComments.Add(c);
+                    SurveyComment record = SurveyComments[e.Row.Index].Item;
+                    // If the user has deleted an existing row, remove the corresponding object from the data store.
+                    this.SurveyComments.RemoveAt(e.Row.Index);
+                    DBAction.DeleteRecord(record);
+                }
+                else
+                {
+                    e.Cancel = true;
                 }
             }
+
+            if (e.Row.Index == this.surveyCommentRow)
+            {
+                // If the user has deleted a newly created row, release the corresponding object.
+                this.surveyCommentRow = -1;
+                this.editedSurveyComment = null;
+            }
+        }
+
+        private void gridSurvComments_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+
         }
 
 
-        #endregion
+        private void gridWaveComments_NewRowNeeded(object sender, DataGridViewRowEventArgs e)
+        {
+            // Create a new object when the user edits the row for new records.
+            this.editedWaveComment = new WaveComment();
+            this.waveCommentRow = this.gridWaveComments.Rows.Count - 1;
+        }
 
-        
+        private void gridWaveComments_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+
+            // If the there are no items, no values are needed.
+            if (WaveComments.Count == 0) return;
+
+            WaveComment tmp = null;
+
+            // Store a reference to the object for the row being painted.
+            if (e.RowIndex == waveCommentRow)
+            {
+                tmp = editedWaveComment;
+            }
+            else
+            {
+                tmp = WaveComments[e.RowIndex].Item;
+            }
+
+            if (tmp == null) return;
+
+            // Set the cell value to paint using the object retrieved.
+            switch (dgv.Columns[e.ColumnIndex].Name)
+            {
+                case "chWave":
+                    e.Value = tmp.StudyWave;
+                    break;
+                case "chWDate":
+                    e.Value = tmp.NoteDate;
+                    break;
+                case "chWName":
+                    e.Value = tmp.Author.ID;
+                    break;
+                case "chWType":
+                    e.Value = tmp.NoteType.ID;
+                    break;
+                case "chWSource":
+                    e.Value = tmp.Source;
+                    break;
+                case "chWAuthority":
+                    e.Value = tmp.SourceName;
+                    break;
+            }
+        }
+
+        private void gridWaveComments_CellValuePushed(object sender, DataGridViewCellValueEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+
+            WaveComment tmp = null;
+            // Store a reference to the object for the row being edited.
+            if (e.RowIndex < WaveComments.Count)
+            {
+                // If the user is editing a new row, create a new object.
+                if (editedWaveComment == null)
+                    editedWaveComment = new WaveComment()
+                    {
+                        ID = WaveComments[e.RowIndex].Item.ID,
+                        WaveID = WaveComments[e.RowIndex].Item.WaveID,
+                        StudyWave = WaveComments[e.RowIndex].Item.StudyWave,
+                        NoteDate = WaveComments[e.RowIndex].Item.NoteDate,
+                        Author = WaveComments[e.RowIndex].Item.Author,
+                        NoteType = WaveComments[e.RowIndex].Item.NoteType,
+                        Notes = WaveComments[e.RowIndex].Item.Notes,
+                        Source = WaveComments[e.RowIndex].Item.Source,
+                        SourceName = WaveComments[e.RowIndex].Item.SourceName
+                    };
+
+                tmp = this.editedWaveComment;
+                this.waveCommentRow = e.RowIndex;
+            }
+            else
+            {
+                tmp = this.editedWaveComment;
+            }
+
+            // Set the appropriate property to the cell value entered.
+            switch (dgv.Columns[e.ColumnIndex].Name)
+            {
+                case "chWave":
+                    break;
+                case "cWDate":
+                    tmp.NoteDate = (DateTime)e.Value;
+                    break;
+                case "chWName":
+                    // DataGridViewComboBoxCell nameCell = (DataGridViewComboBoxCell) dgv.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                    tmp.Author.ID = (int)e.Value;
+                    // tmp.Author.Name = (string)nameCell.EditedFormattedValue;
+                    break;
+                case "chWType":
+                    tmp.NoteType.ID = (int)e.Value;
+                    break;
+                case "chWSource":
+                    tmp.Source = (string)e.Value;
+                    break;
+                case "chWAuthority":
+                    tmp.SourceName = (string)e.Value;
+                    break;
+            }
+        }
+
+        private void gridWaveComments_RowValidated(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+
+            // Save row changes if any were made and release the edited object if there is one.
+            if (editedWaveComment != null && e.RowIndex >= WaveComments.Count && e.RowIndex != dgv.Rows.Count - 1)
+            {
+                // Add the new object to the data store.
+                WaveComments.Add(new WaveCommentRecord(editedWaveComment) { NewRecord = true });
+
+                editedWaveComment = null;
+                waveCommentRow = -1;
+            }
+            else if (editedWaveComment != null && e.RowIndex < WaveComments.Count)
+            {
+                DBAction.UpdateWaveComment(editedWaveComment);
+            }
+            else if (dgv.ContainsFocus)
+            {
+                editedWaveComment = null;
+                waveCommentRow = -1;
+            }
+        }
+
+        private void gridWaveComments_RowDirtyStateNeeded(object sender, QuestionEventArgs e)
+        {
+            if (!rowCommit)
+            {
+                DataGridView dgv = (DataGridView)sender;
+                // In cell-level commit scope, indicate whether the value of the current cell has been modified.
+                e.Response = dgv.IsCurrentCellDirty;
+            }
+        }
+
+        private void gridWaveComments_CancelRowEdit(object sender, QuestionEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+
+            if (waveCommentRow == dgv.Rows.Count - 2 && waveCommentRow == WaveComments.Count)
+            {
+                // If the user has canceled the edit of a newly created row,
+                // replace the corresponding object with a new, empty one.
+                editedWaveComment = new WaveComment();
+            }
+            else
+            {
+                // If the user has canceled the edit of an existing row, release the corresponding object.
+                editedWaveComment = null;
+                waveCommentRow = -1;
+            }
+        }
+
+        private void gridWaveComments_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            if (e.Row.Index < this.WaveComments.Count)
+            {
+                if (MessageBox.Show("Are you sure you want to delete this wave comment?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    WaveComment record = WaveComments[e.Row.Index].Item;
+                    // If the user has deleted an existing row, remove the corresponding object from the data store.
+                    this.WaveComments.RemoveAt(e.Row.Index);
+                    DBAction.DeleteRecord(record);
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
+            }
+
+            if (e.Row.Index == this.waveCommentRow)
+            {
+                // If the user has deleted a newly created row, release the corresponding object.
+                this.waveCommentRow = -1;
+                this.editedWaveComment = null;
+            }
+        }
+
+        private void gridWaveComments_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+
+        }
+
+
+        private void gridRefVarComments_NewRowNeeded(object sender, DataGridViewRowEventArgs e)
+        {
+            // Create a new object when the user edits the row for new records.
+            this.editedRefVarComment = new RefVarComment();
+            this.refVarCommentRow = this.gridRefVarComments.Rows.Count - 1;
+        }
+
+        private void gridRefVarComments_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+
+            // If the there are no items, no values are needed.
+            if (RefVarComments.Count == 0) return;
+
+            RefVarComment tmp = null;
+
+            // Store a reference to the object for the row being painted.
+            if (e.RowIndex == refVarCommentRow)
+            {
+                tmp = editedRefVarComment;
+            }
+            else
+            {
+                tmp = RefVarComments[e.RowIndex].Item;
+            }
+
+            if (tmp == null) return;
+
+            // Set the cell value to paint using the object retrieved.
+            switch (dgv.Columns[e.ColumnIndex].Name)
+            {
+                case "chRefVar":
+                    e.Value = tmp.RefVarName;
+                    break;
+                case "chRDate":
+                    e.Value = tmp.NoteDate;
+                    break;
+                case "chRName":
+                    e.Value = tmp.Author.ID;
+                    break;
+                case "chRType":
+                    e.Value = tmp.NoteType.ID;
+                    break;
+                case "chRSource":
+                    e.Value = tmp.Source;
+                    break;
+                case "chRAuthority":
+                    e.Value = tmp.SourceName;
+                    break;
+            }
+        }
+
+        private void gridRefVarComments_CellValuePushed(object sender, DataGridViewCellValueEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+
+            RefVarComment tmp = null;
+            // Store a reference to the object for the row being edited.
+            if (e.RowIndex < RefVarComments.Count)
+            {
+                // If the user is editing a new row, create a new object.
+                if (editedRefVarComment == null)
+                    editedRefVarComment = new RefVarComment()
+                    {
+                        ID = RefVarComments[e.RowIndex].Item.ID,
+                        RefVarName = RefVarComments[e.RowIndex].Item.RefVarName,
+                        NoteDate = RefVarComments[e.RowIndex].Item.NoteDate,
+                        Author = RefVarComments[e.RowIndex].Item.Author,
+                        NoteType = RefVarComments[e.RowIndex].Item.NoteType,
+                        Notes = RefVarComments[e.RowIndex].Item.Notes,
+                        Source = RefVarComments[e.RowIndex].Item.Source,
+                        SourceName = RefVarComments[e.RowIndex].Item.SourceName
+                    };
+
+                tmp = this.editedRefVarComment;
+                this.refVarCommentRow = e.RowIndex;
+            }
+            else
+            {
+                tmp = this.editedRefVarComment;
+            }
+
+            // Set the appropriate property to the cell value entered.
+            switch (dgv.Columns[e.ColumnIndex].Name)
+            {
+                case "chRefVar":
+                    break;
+                case "cRDate":
+                    tmp.NoteDate = (DateTime)e.Value;
+                    break;
+                case "chRName":
+                    // DataGridViewComboBoxCell nameCell = (DataGridViewComboBoxCell) dgv.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                    tmp.Author.ID = (int)e.Value;
+                    // tmp.Author.Name = (string)nameCell.EditedFormattedValue;
+                    break;
+                case "chRType":
+                    tmp.NoteType.ID = (int)e.Value;
+                    break;
+                case "chRSource":
+                    tmp.Source = (string)e.Value;
+                    break;
+                case "chRAuthority":
+                    tmp.SourceName = (string)e.Value;
+                    break;
+            }
+        }
+
+        private void gridRefVarComments_RowValidated(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+
+            // Save row changes if any were made and release the edited object if there is one.
+            if (editedRefVarComment != null && e.RowIndex >= RefVarComments.Count && e.RowIndex != dgv.Rows.Count - 1)
+            {
+                // Add the new object to the data store.
+                RefVarComments.Add(new RefVarCommentRecord(editedRefVarComment) { NewRecord = true });
+
+                editedRefVarComment = null;
+                refVarCommentRow = -1;
+            }
+            else if (editedRefVarComment != null && e.RowIndex < RefVarComments.Count)
+            {
+                DBAction.UpdateRefVarComment(editedRefVarComment);
+            }
+            else if (dgv.ContainsFocus)
+            {
+                editedRefVarComment = null;
+                refVarCommentRow = -1;
+            }
+        }
+
+        private void gridRefVarComments_RowDirtyStateNeeded(object sender, QuestionEventArgs e)
+        {
+            if (!rowCommit)
+            {
+                DataGridView dgv = (DataGridView)sender;
+                // In cell-level commit scope, indicate whether the value of the current cell has been modified.
+                e.Response = dgv.IsCurrentCellDirty;
+            }
+        }
+
+        private void gridRefVarComments_CancelRowEdit(object sender, QuestionEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+
+            if (refVarCommentRow == dgv.Rows.Count - 2 && refVarCommentRow == RefVarComments.Count)
+            {
+                // If the user has canceled the edit of a newly created row,
+                // replace the corresponding object with a new, empty one.
+                editedRefVarComment = new RefVarComment();
+            }
+            else
+            {
+                // If the user has canceled the edit of an existing row, release the corresponding object.
+                editedRefVarComment = null;
+                refVarCommentRow = -1;
+            }
+        }
+
+        private void gridRefVarComments_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            if (e.Row.Index < this.RefVarComments.Count)
+            {
+                if (MessageBox.Show("Are you sure you want to delete this refVarName comment?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    RefVarComment record = RefVarComments[e.Row.Index].Item;
+                    // If the user has deleted an existing row, remove the corresponding object from the data store.
+                    this.RefVarComments.RemoveAt(e.Row.Index);
+                    DBAction.DeleteRecord(record);
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
+            }
+
+            if (e.Row.Index == this.refVarCommentRow)
+            {
+                // If the user has deleted a newly created row, release the corresponding object.
+                this.refVarCommentRow = -1;
+                this.editedRefVarComment = null;
+            }
+        }
+
+        private void gridRefVarComments_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+
+        }
+
+
+        private void gridDeletedComments_NewRowNeeded(object sender, DataGridViewRowEventArgs e)
+        {
+            // Create a new object when the user edits the row for new records.
+            this.editedDeletedComment = new DeletedComment();
+            this.deletedCommentRow = this.gridDeletedComments.Rows.Count - 1;
+        }
+
+        private void gridDeletedComments_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+
+            // If the there are no items, no values are needed.
+            if (DeletedComments.Count == 0) return;
+
+            DeletedComment tmp = null;
+
+            // Store a reference to the object for the row being painted.
+            if (e.RowIndex == deletedCommentRow)
+            {
+                tmp = editedDeletedComment;
+            }
+            else
+            {
+                tmp = DeletedComments[e.RowIndex].Item;
+            }
+
+            if (tmp == null) return;
+
+            // Set the cell value to paint using the object retrieved.
+            switch (dgv.Columns[e.ColumnIndex].Name)
+            {
+                case "chDSurvey":
+                    e.Value = tmp.Survey;
+                    break;
+                case "chDVarName":
+                    e.Value = tmp.VarName;
+                    break;
+                case "chDDate":
+                    e.Value = tmp.NoteDate;
+                    break;
+                case "chDName":
+                    e.Value = tmp.Author.ID;
+                    break;
+                case "chDType":
+                    e.Value = tmp.NoteType.ID;
+                    break;
+                case "chDSource":
+                    e.Value = tmp.Source;
+                    break;
+                case "chDAuthority":
+                    e.Value = tmp.SourceName;
+                    break;
+            }
+        }
+
+        private void gridDeletedComments_CellValuePushed(object sender, DataGridViewCellValueEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+
+            DeletedComment tmp = null;
+            // Store a reference to the object for the row being edited.
+            if (e.RowIndex < DeletedComments.Count)
+            {
+                // If the user is editing a new row, create a new object.
+                if (editedDeletedComment == null)
+                    editedDeletedComment = new DeletedComment()
+                    {
+                        ID = DeletedComments[e.RowIndex].Item.ID,
+                        Survey = DeletedComments[e.RowIndex].Item.Survey,
+                        VarName = DeletedComments[e.RowIndex].Item.VarName,
+                        NoteDate = DeletedComments[e.RowIndex].Item.NoteDate,
+                        Author = DeletedComments[e.RowIndex].Item.Author,
+                        NoteType = DeletedComments[e.RowIndex].Item.NoteType,
+                        Notes = DeletedComments[e.RowIndex].Item.Notes,
+                        Source = DeletedComments[e.RowIndex].Item.Source,
+                        SourceName = DeletedComments[e.RowIndex].Item.SourceName
+                    };
+
+                tmp = this.editedDeletedComment;
+                this.deletedCommentRow = e.RowIndex;
+            }
+            else
+            {
+                tmp = this.editedDeletedComment;
+            }
+
+            // Set the appropriate property to the cell value entered.
+            switch (dgv.Columns[e.ColumnIndex].Name)
+            {
+                case "chSurvey":
+                case "chVarName":
+                    break;
+                case "cDDate":
+                    tmp.NoteDate = (DateTime)e.Value;
+                    break;
+                case "chDName":
+                    // DataGridViewComboBoxCell nameCell = (DataGridViewComboBoxCell) dgv.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                    tmp.Author.ID = (int)e.Value;
+                    // tmp.Author.Name = (string)nameCell.EditedFormattedValue;
+                    break;
+                case "chDType":
+                    tmp.NoteType.ID = (int)e.Value;
+                    break;
+                case "chDSource":
+                    tmp.Source = (string)e.Value;
+                    break;
+                case "chDAuthority":
+                    tmp.SourceName = (string)e.Value;
+                    break;
+            }
+        }
+
+        private void gridDeletedComments_RowValidated(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+
+            // Save row changes if any were made and release the edited object if there is one.
+            if (editedDeletedComment != null && e.RowIndex >= DeletedComments.Count && e.RowIndex != dgv.Rows.Count - 1)
+            {
+                // Add the new object to the data store.
+                DeletedComments.Add(new DeletedCommentRecord(editedDeletedComment) { NewRecord = true });
+
+                editedDeletedComment = null;
+                deletedCommentRow = -1;
+            }
+            else if (editedDeletedComment != null && e.RowIndex < DeletedComments.Count)
+            {
+                DBAction.UpdateDeletedQuestionComment(editedDeletedComment);
+            }
+            else if (dgv.ContainsFocus)
+            {
+                editedDeletedComment = null;
+                deletedCommentRow = -1;
+            }
+        }
+
+        private void gridDeletedComments_RowDirtyStateNeeded(object sender, QuestionEventArgs e)
+        {
+            if (!rowCommit)
+            {
+                DataGridView dgv = (DataGridView)sender;
+                // In cell-level commit scope, indicate whether the value of the current cell has been modified.
+                e.Response = dgv.IsCurrentCellDirty;
+            }
+        }
+
+        private void gridDeletedComments_CancelRowEdit(object sender, QuestionEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+
+            if (deletedCommentRow == dgv.Rows.Count - 2 && deletedCommentRow == RefVarComments.Count)
+            {
+                // If the user has canceled the edit of a newly created row,
+                // replace the corresponding object with a new, empty one.
+                editedDeletedComment = new DeletedComment();
+            }
+            else
+            {
+                // If the user has canceled the edit of an existing row, release the corresponding object.
+                editedDeletedComment = null;
+                deletedCommentRow = -1;
+            }
+        }
+
+        private void gridDeletedComments_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            if (e.Row.Index < this.DeletedComments.Count)
+            {
+                if (MessageBox.Show("Are you sure you want to delete this deleted question comment?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    DeletedComment record = DeletedComments[e.Row.Index].Item;
+                    // If the user has deleted an existing row, remove the corresponding object from the data store.
+                    this.DeletedComments.RemoveAt(e.Row.Index);
+                    DBAction.DeleteRecord(record);
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
+            }
+
+            if (e.Row.Index == this.deletedCommentRow)
+            {
+                // If the user has deleted a newly created row, release the corresponding object.
+                this.deletedCommentRow = -1;
+                this.editedDeletedComment = null;
+            }
+        }
+
+        private void gridDeletedComments_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+
+        }
+        #endregion     
     }
-
-    
 }

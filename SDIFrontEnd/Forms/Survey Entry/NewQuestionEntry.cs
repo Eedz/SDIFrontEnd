@@ -20,13 +20,13 @@ namespace SDIFrontEnd
         public Survey DestinationSurvey;
         public string DestinationQnum;
         public List<SurveyQuestion> QuestionsToAdd;
-        List<VariableName> RelatedQuestions;
+        List<VariableNameSurveys> RelatedQuestions;
 
 
         int copyWidth = 1200;
         int copyHeight = 500;
 
-        int newWidth = 820;
+        int newWidth = 1000;
         int newHeight = 500;
 
         public NewQuestionEntry(Survey destinationSurvey, string destinationQnum)
@@ -35,7 +35,7 @@ namespace SDIFrontEnd
 
             DestinationSurvey = destinationSurvey;
             DestinationQnum = destinationQnum;
-            RelatedQuestions = new List<VariableName>();
+            RelatedQuestions = new List<VariableNameSurveys>();
             string tempPrefix = Globals.GetTempVarPrefix(DestinationSurvey);
 
             cboSurveySource.DataSource = new List<Survey>(Globals.AllSurveys);
@@ -108,8 +108,12 @@ namespace SDIFrontEnd
         {
             foreach (DataGridViewColumn c in dgvRelatedVars.Columns)
             {
+                
                 switch (c.Name)
                 {
+                    case "SurveyList":
+                        c.DisplayIndex = 6;
+                        break;
                     case "RefVarName":
                         c.DisplayIndex = 0;
                         break;
@@ -295,14 +299,14 @@ namespace SDIFrontEnd
         /// Get a list of VarNames that begin with the provided filter.
         /// </summary>
         /// <param name="filter">Filter pattern.</param>
-        private void UpdateRelatedQuestions(string filter)
+        private async void UpdateRelatedQuestions(string filter)
         {
             string newVar = txtFilter.Text;
 
             if (string.IsNullOrEmpty(filter))
                 RelatedQuestions.Clear();
             else
-                RelatedQuestions = Globals.AllVarNames.Where(x => x.RefVarName.StartsWith(filter)).ToList();
+                RelatedQuestions = await DBAction.GetVarNameUsageAsync(filter); // Globals.AllVarNames.Where(x => x.RefVarName.StartsWith(filter)).ToList();
 
             dgvRelatedVars.DataSource = RelatedQuestions;
 

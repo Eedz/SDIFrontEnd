@@ -11,7 +11,6 @@ using ITCLib;
 using ITCReportLib;
 using FM = FormManager;
 
-// TODO test moving, then moving back
 namespace SDIFrontEnd
 {
     public enum OperationType { Undefined, Add, Move, Delete }

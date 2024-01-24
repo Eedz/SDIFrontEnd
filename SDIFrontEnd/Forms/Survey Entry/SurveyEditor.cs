@@ -1287,11 +1287,10 @@ namespace SDIFrontEnd
 
         /// <summary>
         /// TODO multi deletes
-        /// TODO hilarious use of string
         /// </summary>
         private void PerformDelete()
         {
-            string deletions = "";
+            string deletions;
             if (lstQuestionList.SelectedIndices.Count == 1)
             {
                 deletions = ((QuestionRecord)lstQuestionList.SelectedItems[0].Tag).Item.VarName.RefVarName;
@@ -1306,7 +1305,6 @@ namespace SDIFrontEnd
             if (MessageBox.Show(deletions + " will be deleted from " + CurrentSurvey.SurveyCode + ". \r\nDo you want to proceed?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.No)
                  return;
             
-
             // get list of selected items
             foreach (ListViewItem item in lstQuestionList.SelectedItems)
             { 
@@ -1314,7 +1312,6 @@ namespace SDIFrontEnd
 
                 ShadeListItem(item.Index, Color.Red);
                 PendingDeletes.Add(toDelete);
-                
             }
             ReNumberSurvey();
             UpdateStatus();
@@ -2540,9 +2537,9 @@ namespace SDIFrontEnd
         {
             foreach (QuestionCommentRecord qc in e.comments)
             {
-                if (qc.Survey.Equals(CurrentSurvey.SurveyCode))
+                if (qc.Item.Survey.Equals(CurrentSurvey.SurveyCode))
                 {
-                    Records.First(x=>x.Item.VarName.VarName.Equals(qc.VarName)).Item.Comments.Add(qc);
+                    Records.First(x=>x.Item.VarName.VarName.Equals(qc.Item.VarName)).Item.Comments.Add(qc.Item);
                 }
             }
             UpdateInfo();

@@ -142,7 +142,6 @@ namespace SDIFrontEnd
             {
                 case 1:
                     MessageBox.Show("One or more surveys contain no records.");
-                    // TODO if a backup was chosen, show a form for selecting a different survey code from that date
                     break;
                 default:
                     break;

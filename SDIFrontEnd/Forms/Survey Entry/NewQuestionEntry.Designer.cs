@@ -45,12 +45,6 @@
             this.chRespName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chCorr = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.dgvRelatedVars = new System.Windows.Forms.DataGridView();
-            this.chRefVarname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chRelatedVarLabel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chRelatedContent = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chRelatedTopic = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chRelatedDomain = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chRelatedProduct = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label1 = new System.Windows.Forms.Label();
             this.txtNewVarName = new System.Windows.Forms.TextBox();
             this.optCopy = new System.Windows.Forms.RadioButton();
@@ -80,6 +74,13 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.lblDestination = new System.Windows.Forms.Label();
+            this.chRefVarname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chRelatedVarLabel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chRelatedContent = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chRelatedTopic = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chRelatedDomain = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chRelatedProduct = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chSurveyList = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRelatedVars)).BeginInit();
             this.panelNew.SuspendLayout();
             this.panelCopy.SuspendLayout();
@@ -227,6 +228,8 @@
             this.dgvRelatedVars.AllowUserToAddRows = false;
             this.dgvRelatedVars.AllowUserToDeleteRows = false;
             this.dgvRelatedVars.AllowUserToResizeRows = false;
+            this.dgvRelatedVars.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvRelatedVars.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dgvRelatedVars.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvRelatedVars.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -235,7 +238,8 @@
             this.chRelatedContent,
             this.chRelatedTopic,
             this.chRelatedDomain,
-            this.chRelatedProduct});
+            this.chRelatedProduct,
+            this.chSurveyList});
             this.dgvRelatedVars.Location = new System.Drawing.Point(3, 223);
             this.dgvRelatedVars.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dgvRelatedVars.Name = "dgvRelatedVars";
@@ -243,53 +247,11 @@
             this.dgvRelatedVars.RowHeadersVisible = false;
             this.dgvRelatedVars.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgvRelatedVars.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvRelatedVars.Size = new System.Drawing.Size(807, 236);
+            this.dgvRelatedVars.Size = new System.Drawing.Size(850, 236);
             this.dgvRelatedVars.TabIndex = 2;
             this.dgvRelatedVars.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvRelatedVars_CellMouseDoubleClick);
             this.dgvRelatedVars.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvRelatedVars_DataBindingComplete);
             this.dgvRelatedVars.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvRelatedVars_DataError);
-            // 
-            // chRefVarname
-            // 
-            this.chRefVarname.HeaderText = "refVarName";
-            this.chRefVarname.Name = "chRefVarname";
-            this.chRefVarname.ReadOnly = true;
-            this.chRefVarname.Width = 101;
-            // 
-            // chRelatedVarLabel
-            // 
-            this.chRelatedVarLabel.HeaderText = "VarLabel";
-            this.chRelatedVarLabel.Name = "chRelatedVarLabel";
-            this.chRelatedVarLabel.ReadOnly = true;
-            this.chRelatedVarLabel.Width = 82;
-            // 
-            // chRelatedContent
-            // 
-            this.chRelatedContent.HeaderText = "Content";
-            this.chRelatedContent.Name = "chRelatedContent";
-            this.chRelatedContent.ReadOnly = true;
-            this.chRelatedContent.Width = 76;
-            // 
-            // chRelatedTopic
-            // 
-            this.chRelatedTopic.HeaderText = "Topic";
-            this.chRelatedTopic.Name = "chRelatedTopic";
-            this.chRelatedTopic.ReadOnly = true;
-            this.chRelatedTopic.Width = 63;
-            // 
-            // chRelatedDomain
-            // 
-            this.chRelatedDomain.HeaderText = "Domain";
-            this.chRelatedDomain.Name = "chRelatedDomain";
-            this.chRelatedDomain.ReadOnly = true;
-            this.chRelatedDomain.Width = 75;
-            // 
-            // chRelatedProduct
-            // 
-            this.chRelatedProduct.HeaderText = "Product";
-            this.chRelatedProduct.Name = "chRelatedProduct";
-            this.chRelatedProduct.ReadOnly = true;
-            this.chRelatedProduct.Width = 75;
             // 
             // label1
             // 
@@ -618,6 +580,55 @@
             this.lblDestination.TabIndex = 19;
             this.lblDestination.Text = "Adding to [Survey] at [Qnum]";
             // 
+            // chRefVarname
+            // 
+            this.chRefVarname.HeaderText = "refVarName";
+            this.chRefVarname.Name = "chRefVarname";
+            this.chRefVarname.ReadOnly = true;
+            this.chRefVarname.Width = 101;
+            // 
+            // chRelatedVarLabel
+            // 
+            this.chRelatedVarLabel.HeaderText = "VarLabel";
+            this.chRelatedVarLabel.Name = "chRelatedVarLabel";
+            this.chRelatedVarLabel.ReadOnly = true;
+            this.chRelatedVarLabel.Width = 82;
+            // 
+            // chRelatedContent
+            // 
+            this.chRelatedContent.HeaderText = "Content";
+            this.chRelatedContent.Name = "chRelatedContent";
+            this.chRelatedContent.ReadOnly = true;
+            this.chRelatedContent.Width = 76;
+            // 
+            // chRelatedTopic
+            // 
+            this.chRelatedTopic.HeaderText = "Topic";
+            this.chRelatedTopic.Name = "chRelatedTopic";
+            this.chRelatedTopic.ReadOnly = true;
+            this.chRelatedTopic.Width = 63;
+            // 
+            // chRelatedDomain
+            // 
+            this.chRelatedDomain.HeaderText = "Domain";
+            this.chRelatedDomain.Name = "chRelatedDomain";
+            this.chRelatedDomain.ReadOnly = true;
+            this.chRelatedDomain.Width = 75;
+            // 
+            // chRelatedProduct
+            // 
+            this.chRelatedProduct.HeaderText = "Product";
+            this.chRelatedProduct.Name = "chRelatedProduct";
+            this.chRelatedProduct.ReadOnly = true;
+            this.chRelatedProduct.Width = 75;
+            // 
+            // chSurveyList
+            // 
+            this.chSurveyList.HeaderText = "Surveys";
+            this.chSurveyList.Name = "chSurveyList";
+            this.chSurveyList.ReadOnly = true;
+            this.chSurveyList.Width = 77;
+            // 
             // NewQuestionEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -693,13 +704,14 @@
         private System.Windows.Forms.Label lblDestination;
         private System.Windows.Forms.Label lblTempPrefix;
         private System.Windows.Forms.Label lblCopyToNewInfo;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.ComboBox cboVarName;
         private System.Windows.Forms.DataGridViewTextBoxColumn chRefVarname;
         private System.Windows.Forms.DataGridViewTextBoxColumn chRelatedVarLabel;
         private System.Windows.Forms.DataGridViewTextBoxColumn chRelatedContent;
         private System.Windows.Forms.DataGridViewTextBoxColumn chRelatedTopic;
         private System.Windows.Forms.DataGridViewTextBoxColumn chRelatedDomain;
         private System.Windows.Forms.DataGridViewTextBoxColumn chRelatedProduct;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.ComboBox cboVarName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn chSurveyList;
     }
 }

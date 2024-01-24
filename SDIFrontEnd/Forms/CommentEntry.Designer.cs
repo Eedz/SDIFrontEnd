@@ -76,46 +76,14 @@
             this.tabCommentUses = new System.Windows.Forms.TabControl();
             this.pageQuestion = new System.Windows.Forms.TabPage();
             this.gridQuesComments = new System.Windows.Forms.DataGridView();
-            this.chQSurvey = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chQVarName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chQDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chQName = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.chQType = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.chQSource = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chQAuthority = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pageSurvey = new System.Windows.Forms.TabPage();
             this.gridSurvComments = new System.Windows.Forms.DataGridView();
-            this.chSSurvey = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chSDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chSName = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.chSType = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.chSSource = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chSAuthority = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pageWave = new System.Windows.Forms.TabPage();
             this.gridWaveComments = new System.Windows.Forms.DataGridView();
-            this.chWWave = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chWDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chWName = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.chWType = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.chWSource = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chWAuthority = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pageRefVar = new System.Windows.Forms.TabPage();
             this.gridRefVarComments = new System.Windows.Forms.DataGridView();
-            this.chRVarName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chRDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chRName = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.chRType = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.chRSource = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chRAuthority = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pageDeleted = new System.Windows.Forms.TabPage();
             this.gridDeletedComments = new System.Windows.Forms.DataGridView();
-            this.chDSurvey = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chDVarName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chDDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chDName = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.chDType = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.chDSource = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chDAuthority = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label12 = new System.Windows.Forms.Label();
             this.panelStored = new System.Windows.Forms.Panel();
             this.label16 = new System.Windows.Forms.Label();
@@ -228,6 +196,7 @@
             this.txtNoteText.Location = new System.Drawing.Point(8, 109);
             this.txtNoteText.Multiline = true;
             this.txtNoteText.Name = "txtNoteText";
+            this.txtNoteText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtNoteText.Size = new System.Drawing.Size(721, 104);
             this.txtNoteText.TabIndex = 6;
             // 
@@ -412,6 +381,7 @@
             this.chkSeriesComment.TabIndex = 23;
             this.chkSeriesComment.Text = "Series Comment";
             this.chkSeriesComment.UseVisualStyleBackColor = true;
+            this.chkSeriesComment.Visible = false;
             // 
             // lstTargetVar
             // 
@@ -641,58 +611,16 @@
             this.gridQuesComments.AllowUserToAddRows = false;
             this.gridQuesComments.AllowUserToResizeRows = false;
             this.gridQuesComments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridQuesComments.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.chQSurvey,
-            this.chQVarName,
-            this.chQDate,
-            this.chQName,
-            this.chQType,
-            this.chQSource,
-            this.chQAuthority});
             this.gridQuesComments.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gridQuesComments.Location = new System.Drawing.Point(3, 3);
             this.gridQuesComments.Name = "gridQuesComments";
             this.gridQuesComments.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.gridQuesComments.Size = new System.Drawing.Size(799, 119);
             this.gridQuesComments.TabIndex = 0;
+            this.gridQuesComments.VirtualMode = true;
             this.gridQuesComments.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.gridQuesComments_DataError);
-      
-            // 
-            // chQSurvey
-            // 
-            this.chQSurvey.HeaderText = "Survey";
-            this.chQSurvey.Name = "chQSurvey";
-            // 
-            // chQVarName
-            // 
-            this.chQVarName.HeaderText = "VarName";
-            this.chQVarName.Name = "chQVarName";
-            // 
-            // chQDate
-            // 
-            this.chQDate.HeaderText = "Date";
-            this.chQDate.Name = "chQDate";
-            // 
-            // chQName
-            // 
-            this.chQName.HeaderText = "Author";
-            this.chQName.Name = "chQName";
-            // 
-            // chQType
-            // 
-            this.chQType.HeaderText = "Type";
-            this.chQType.Name = "chQType";
-            this.chQType.Width = 160;
-            // 
-            // chQSource
-            // 
-            this.chQSource.HeaderText = "Source";
-            this.chQSource.Name = "chQSource";
-            // 
-            // chQAuthority
-            // 
-            this.chQAuthority.HeaderText = "Authority";
-            this.chQAuthority.Name = "chQAuthority";
+            this.gridQuesComments.RowValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridQuesComments_RowValidated);
+            this.gridQuesComments.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.gridQuesComments_UserDeletingRow);
             // 
             // pageSurvey
             // 
@@ -709,50 +637,13 @@
             // 
             this.gridSurvComments.AllowUserToAddRows = false;
             this.gridSurvComments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridSurvComments.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.chSSurvey,
-            this.chSDate,
-            this.chSName,
-            this.chSType,
-            this.chSSource,
-            this.chSAuthority});
             this.gridSurvComments.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gridSurvComments.Location = new System.Drawing.Point(3, 3);
             this.gridSurvComments.Name = "gridSurvComments";
             this.gridSurvComments.Size = new System.Drawing.Size(799, 119);
             this.gridSurvComments.TabIndex = 0;
+            this.gridSurvComments.VirtualMode = true;
             this.gridSurvComments.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.gridSurvComments_DataError);
-            // 
-            // chSSurvey
-            // 
-            this.chSSurvey.HeaderText = "Survey";
-            this.chSSurvey.Name = "chSSurvey";
-            // 
-            // chSDate
-            // 
-            this.chSDate.HeaderText = "Date";
-            this.chSDate.Name = "chSDate";
-            // 
-            // chSName
-            // 
-            this.chSName.HeaderText = "Author";
-            this.chSName.Name = "chSName";
-            // 
-            // chSType
-            // 
-            this.chSType.HeaderText = "Type";
-            this.chSType.Name = "chSType";
-            this.chSType.Width = 160;
-            // 
-            // chSSource
-            // 
-            this.chSSource.HeaderText = "Source";
-            this.chSSource.Name = "chSSource";
-            // 
-            // chSAuthority
-            // 
-            this.chSAuthority.HeaderText = "Authority";
-            this.chSAuthority.Name = "chSAuthority";
             // 
             // pageWave
             // 
@@ -769,50 +660,13 @@
             // 
             this.gridWaveComments.AllowUserToAddRows = false;
             this.gridWaveComments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridWaveComments.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.chWWave,
-            this.chWDate,
-            this.chWName,
-            this.chWType,
-            this.chWSource,
-            this.chWAuthority});
             this.gridWaveComments.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gridWaveComments.Location = new System.Drawing.Point(3, 3);
             this.gridWaveComments.Name = "gridWaveComments";
             this.gridWaveComments.Size = new System.Drawing.Size(799, 119);
             this.gridWaveComments.TabIndex = 0;
+            this.gridWaveComments.VirtualMode = true;
             this.gridWaveComments.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.gridWaveComments_DataError);
-            // 
-            // chWWave
-            // 
-            this.chWWave.HeaderText = "Wave";
-            this.chWWave.Name = "chWWave";
-            // 
-            // chWDate
-            // 
-            this.chWDate.HeaderText = "Date";
-            this.chWDate.Name = "chWDate";
-            // 
-            // chWName
-            // 
-            this.chWName.HeaderText = "Author";
-            this.chWName.Name = "chWName";
-            // 
-            // chWType
-            // 
-            this.chWType.HeaderText = "Type";
-            this.chWType.Name = "chWType";
-            this.chWType.Width = 160;
-            // 
-            // chWSource
-            // 
-            this.chWSource.HeaderText = "Source";
-            this.chWSource.Name = "chWSource";
-            // 
-            // chWAuthority
-            // 
-            this.chWAuthority.HeaderText = "Authority";
-            this.chWAuthority.Name = "chWAuthority";
             // 
             // pageRefVar
             // 
@@ -829,50 +683,13 @@
             // 
             this.gridRefVarComments.AllowUserToAddRows = false;
             this.gridRefVarComments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridRefVarComments.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.chRVarName,
-            this.chRDate,
-            this.chRName,
-            this.chRType,
-            this.chRSource,
-            this.chRAuthority});
             this.gridRefVarComments.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gridRefVarComments.Location = new System.Drawing.Point(3, 3);
             this.gridRefVarComments.Name = "gridRefVarComments";
             this.gridRefVarComments.Size = new System.Drawing.Size(799, 119);
             this.gridRefVarComments.TabIndex = 0;
+            this.gridRefVarComments.VirtualMode = true;
             this.gridRefVarComments.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.gridRefVarComments_DataError);
-            // 
-            // chRVarName
-            // 
-            this.chRVarName.HeaderText = "RefVarName";
-            this.chRVarName.Name = "chRVarName";
-            // 
-            // chRDate
-            // 
-            this.chRDate.HeaderText = "Date";
-            this.chRDate.Name = "chRDate";
-            // 
-            // chRName
-            // 
-            this.chRName.HeaderText = "Author";
-            this.chRName.Name = "chRName";
-            // 
-            // chRType
-            // 
-            this.chRType.HeaderText = "Type";
-            this.chRType.Name = "chRType";
-            this.chRType.Width = 160;
-            // 
-            // chRSource
-            // 
-            this.chRSource.HeaderText = "Source";
-            this.chRSource.Name = "chRSource";
-            // 
-            // chRAuthority
-            // 
-            this.chRAuthority.HeaderText = "Authority";
-            this.chRAuthority.Name = "chRAuthority";
             // 
             // pageDeleted
             // 
@@ -889,56 +706,13 @@
             // 
             this.gridDeletedComments.AllowUserToAddRows = false;
             this.gridDeletedComments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridDeletedComments.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.chDSurvey,
-            this.chDVarName,
-            this.chDDate,
-            this.chDName,
-            this.chDType,
-            this.chDSource,
-            this.chDAuthority});
             this.gridDeletedComments.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gridDeletedComments.Location = new System.Drawing.Point(3, 3);
             this.gridDeletedComments.Name = "gridDeletedComments";
             this.gridDeletedComments.Size = new System.Drawing.Size(799, 119);
             this.gridDeletedComments.TabIndex = 0;
+            this.gridDeletedComments.VirtualMode = true;
             this.gridDeletedComments.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.gridDeletedComments_DataError);
-            // 
-            // chDSurvey
-            // 
-            this.chDSurvey.HeaderText = "Survey";
-            this.chDSurvey.Name = "chDSurvey";
-            // 
-            // chDVarName
-            // 
-            this.chDVarName.HeaderText = "VarName";
-            this.chDVarName.Name = "chDVarName";
-            // 
-            // chDDate
-            // 
-            this.chDDate.HeaderText = "Date";
-            this.chDDate.Name = "chDDate";
-            // 
-            // chDName
-            // 
-            this.chDName.HeaderText = "Author";
-            this.chDName.Name = "chDName";
-            // 
-            // chDType
-            // 
-            this.chDType.HeaderText = "Type";
-            this.chDType.Name = "chDType";
-            this.chDType.Width = 160;
-            // 
-            // chDSource
-            // 
-            this.chDSource.HeaderText = "Source";
-            this.chDSource.Name = "chDSource";
-            // 
-            // chDAuthority
-            // 
-            this.chDAuthority.HeaderText = "Authority";
-            this.chDAuthority.Name = "chDAuthority";
             // 
             // label12
             // 
@@ -1392,38 +1166,6 @@
         private System.Windows.Forms.ComboBox cboStoredType;
         private System.Windows.Forms.ComboBox cboStoredName;
         private System.Windows.Forms.ComboBox cboStoredAuthority;
-        private System.Windows.Forms.DataGridViewTextBoxColumn chQSurvey;
-        private System.Windows.Forms.DataGridViewTextBoxColumn chQVarName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn chQDate;
-        private System.Windows.Forms.DataGridViewComboBoxColumn chQName;
-        private System.Windows.Forms.DataGridViewComboBoxColumn chQType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn chQSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn chQAuthority;
-        private System.Windows.Forms.DataGridViewTextBoxColumn chSSurvey;
-        private System.Windows.Forms.DataGridViewTextBoxColumn chSDate;
-        private System.Windows.Forms.DataGridViewComboBoxColumn chSName;
-        private System.Windows.Forms.DataGridViewComboBoxColumn chSType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn chSSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn chSAuthority;
-        private System.Windows.Forms.DataGridViewTextBoxColumn chWWave;
-        private System.Windows.Forms.DataGridViewTextBoxColumn chWDate;
-        private System.Windows.Forms.DataGridViewComboBoxColumn chWName;
-        private System.Windows.Forms.DataGridViewComboBoxColumn chWType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn chWSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn chWAuthority;
-        private System.Windows.Forms.DataGridViewTextBoxColumn chRVarName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn chRDate;
-        private System.Windows.Forms.DataGridViewComboBoxColumn chRName;
-        private System.Windows.Forms.DataGridViewComboBoxColumn chRType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn chRSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn chRAuthority;
-        private System.Windows.Forms.DataGridViewTextBoxColumn chDSurvey;
-        private System.Windows.Forms.DataGridViewTextBoxColumn chDVarName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn chDDate;
-        private System.Windows.Forms.DataGridViewComboBoxColumn chDName;
-        private System.Windows.Forms.DataGridViewComboBoxColumn chDType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn chDSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn chDAuthority;
         private System.Windows.Forms.Label lblNewID;
     }
 }

@@ -161,6 +161,13 @@ namespace SDIFrontEnd
                 return region.TempVarPrefix;
         }
 
+        public static int GetQuestionID(string survey, string varname)
+        {
+            int qid = DBAction.GetQuestionID(survey, varname);
+            
+            return qid;
+        }
+
         public static EventHandler RefreshPeople;
         public static EventHandler RefreshDomains;
         public static EventHandler RefreshTopics;

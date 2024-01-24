@@ -597,7 +597,7 @@ namespace SDIFrontEnd
                 return;
             }
 
-            CommentEntry frm = new CommentEntry(Globals.AllNotes);
+            CommentEntry frm = new CommentEntry();
             frm.Tag = 1;
             FM.FormManager.AddPopup(frm);
         }
