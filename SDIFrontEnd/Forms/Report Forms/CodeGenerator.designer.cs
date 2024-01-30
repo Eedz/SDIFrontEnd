@@ -248,6 +248,7 @@
             this.cmdBrowse.TabIndex = 12;
             this.cmdBrowse.Text = "Browse...";
             this.cmdBrowse.UseVisualStyleBackColor = true;
+            this.cmdBrowse.Click += new System.EventHandler(this.cmdBrowse_Click);
             // 
             // label1
             // 
@@ -269,7 +270,7 @@
             this.cmdOpenFolder.UseVisualStyleBackColor = true;
             this.cmdOpenFolder.Click += new System.EventHandler(this.cmdOpenFolder_Click);
             // 
-            // frmCodeGenerator
+            // CodeGenerator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -292,7 +293,7 @@
             this.Controls.Add(this.lstSurveys);
             this.Controls.Add(this.lblTitle);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Name = "frmCodeGenerator";
+            this.Name = "CodeGenerator";
             this.Text = "Syntax Generator";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmCodeGenerator_FormClosed);
             this.groupBox1.ResumeLayout(false);

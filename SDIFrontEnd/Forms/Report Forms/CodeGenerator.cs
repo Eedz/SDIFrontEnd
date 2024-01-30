@@ -15,13 +15,15 @@ namespace SDIFrontEnd
 {
     public partial class CodeGenerator : Form
     {
+        string rootFolder = @"\\psychfile\psych$\psych-lab-gfong\SMG\SDI\Data Templates\";
+
         public CodeGenerator()
         {
             InitializeComponent();
 
             FillBoxes();
 
-            txtSavePath.Text = @"\\psychfile\psych$\psych-lab-gfong\SMG\SDI\Data Templates\";
+            txtSavePath.Text = rootFolder;
         }
 
         #region Form Setup
@@ -87,7 +89,18 @@ namespace SDIFrontEnd
 
         private void cmdOpenFolder_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(@"\\psychfile\psych$\psych-lab-gfong\SMG\SDI\Data Templates");
+            System.Diagnostics.Process.Start(rootFolder);
+        }
+
+        private void cmdBrowse_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            dialog.RootFolder = Environment.SpecialFolder.Desktop;
+            dialog.SelectedPath = rootFolder;
+            dialog.ShowDialog();
+
+
+            txtSavePath.Text = dialog.SelectedPath;
         }
 
         private void cmdClose_Click(object sender, EventArgs e)
@@ -108,6 +121,5 @@ namespace SDIFrontEnd
             FM.FormManager.Remove(this);
         }
         #endregion
-
     }
 }

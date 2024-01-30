@@ -1046,11 +1046,13 @@ namespace SDIFrontEnd
                     SurveyQuestion sq = new SurveyQuestion();
                     sq.SurveyCode = surveys[i].SurveyCode;
                     sq.VarName.VarName = fullVar;
-                    if (DBAction.GetQuestionID(sq.SurveyCode, sq.VarName.VarName) != 0 && !DBAction.QuestionCommentExists(sq, CurrentRecord.Item.ID))
+                    int qid = DBAction.GetQuestionID(sq.SurveyCode, sq.VarName.VarName);
+                    if (qid != 0 && !DBAction.QuestionCommentExists(sq, CurrentRecord.Item.ID))
                     {
                         QuestionCommentRecord c = new QuestionCommentRecord();
-
+                        
                         c.NewRecord = true;
+                        c.Item.QID = qid;
                         c.Item.Survey = surveys[i].SurveyCode;
                         c.Item.VarName = fullVar;
                         c.Item.Author = (Person)cboNoteAuthor.SelectedItem;
@@ -1283,6 +1285,12 @@ namespace SDIFrontEnd
                     }
             }
 
+            if (newComments.Count > 0)
+            {
+                DBAction.InsertLastUsedComment(Globals.CurrentUser, (Comment)newComments.First().Item);
+                Globals.CurrentUser.LastUsedComment = newComments.First().Item;
+            }
+
             UpdateCreationCount();
         }
 
@@ -1338,10 +1346,7 @@ namespace SDIFrontEnd
             cboNoteType.SelectedItem = comment.NoteType;
             txtNoteSource.Text = comment.Source;
 
-            if (cboNoteAuthority.Items.Contains(comment.SourceName))
-                cboNoteAuthority.SelectedItem = comment.SourceName;
-            else
-                cboNoteAuthority.SelectedValue = 0;
+            cboNoteAuthority.SelectedIndex = cboNoteAuthority.FindString(comment.SourceName);
         }
 
         public void AssignedDetails(Comment comment)
@@ -1454,8 +1459,6 @@ namespace SDIFrontEnd
             FillTargetQuestion(question);
             if (question.Comments.Count == 0)
             {
-
-
                 AddNote();
                 return;
             }

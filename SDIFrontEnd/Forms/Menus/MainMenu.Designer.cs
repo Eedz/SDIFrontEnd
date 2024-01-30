@@ -96,7 +96,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.cmdOpenCommentSearch = new System.Windows.Forms.Button();
             this.cmdOpenRespOptionSearch = new System.Windows.Forms.Button();
-            this.cmdOpenQuestionHistory = new System.Windows.Forms.Button();
             this.cmdOpenQuestionSearch = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.lblVarInfoHeading = new System.Windows.Forms.Label();
@@ -108,8 +107,8 @@
             this.cmdOpenTranslationImporter = new System.Windows.Forms.Button();
             this.cmdOpenProductCrosstab = new System.Windows.Forms.Button();
             this.cmdOpenAssignLabelsJIT = new System.Windows.Forms.Button();
+            this.cmdOpenQuestionHistory = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.worker = new System.ComponentModel.BackgroundWorker();
             this.menuMainMenuStrip.SuspendLayout();
             this.pageMain.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -409,7 +408,7 @@
             // 
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 201F));
             this.tableLayoutPanel2.Controls.Add(this.cmdPraccingForm, 0, 5);
             this.tableLayoutPanel2.Controls.Add(this.cmdOpenDraftReport, 1, 3);
             this.tableLayoutPanel2.Controls.Add(this.cmdPraccingSheet, 0, 4);
@@ -701,7 +700,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 204F));
             this.tableLayoutPanel1.Controls.Add(this.cmdOpenPrefixList, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.cmdOpenCommentUsage, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.cmdOpenTCReport, 3, 5);
@@ -844,18 +843,6 @@
             this.cmdOpenRespOptionSearch.UseVisualStyleBackColor = true;
             this.cmdOpenRespOptionSearch.Click += new System.EventHandler(this.cmdOpenRespOptionSearch_Click);
             // 
-            // cmdOpenQuestionHistory
-            // 
-            this.cmdOpenQuestionHistory.AutoSize = true;
-            this.cmdOpenQuestionHistory.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cmdOpenQuestionHistory.Location = new System.Drawing.Point(203, 178);
-            this.cmdOpenQuestionHistory.Name = "cmdOpenQuestionHistory";
-            this.cmdOpenQuestionHistory.Size = new System.Drawing.Size(194, 30);
-            this.cmdOpenQuestionHistory.TabIndex = 19;
-            this.cmdOpenQuestionHistory.Text = "Question History";
-            this.cmdOpenQuestionHistory.UseVisualStyleBackColor = true;
-            this.cmdOpenQuestionHistory.Click += new System.EventHandler(this.cmdOpenQuestionHistory_Click);
-            // 
             // cmdOpenQuestionSearch
             // 
             this.cmdOpenQuestionSearch.AutoSize = true;
@@ -992,6 +979,18 @@
             this.cmdOpenAssignLabelsJIT.UseVisualStyleBackColor = true;
             this.cmdOpenAssignLabelsJIT.Click += new System.EventHandler(this.cmdOpenAssignLabelsJIT_Click);
             // 
+            // cmdOpenQuestionHistory
+            // 
+            this.cmdOpenQuestionHistory.AutoSize = true;
+            this.cmdOpenQuestionHistory.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cmdOpenQuestionHistory.Location = new System.Drawing.Point(203, 178);
+            this.cmdOpenQuestionHistory.Name = "cmdOpenQuestionHistory";
+            this.cmdOpenQuestionHistory.Size = new System.Drawing.Size(194, 30);
+            this.cmdOpenQuestionHistory.TabIndex = 19;
+            this.cmdOpenQuestionHistory.Text = "Question History";
+            this.cmdOpenQuestionHistory.UseVisualStyleBackColor = true;
+            this.cmdOpenQuestionHistory.Click += new System.EventHandler(this.cmdOpenQuestionHistory_Click);
+            // 
             // tabControl1
             // 
             this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -1006,10 +1005,6 @@
             this.tabControl1.TabIndex = 7;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_TabIndexChanged);
             this.tabControl1.TabIndexChanged += new System.EventHandler(this.tabControl1_TabIndexChanged);
-            // 
-            // worker
-            // 
-            this.worker.WorkerSupportsCancellation = true;
             // 
             // MainMenu
             // 
@@ -1117,7 +1112,6 @@
         private System.Windows.Forms.ToolStripMenuItem varNamesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewTempToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewOrphansToolStripMenuItem;
-        private System.ComponentModel.BackgroundWorker worker;
         private System.Windows.Forms.Button cmdOpenTCReport;
         private System.Windows.Forms.Button cmdOpenVariableInfo;
         private System.Windows.Forms.Button cmdOpenPrefixList;

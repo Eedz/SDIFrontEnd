@@ -934,6 +934,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Menus\MainMenu.resx">
       <DependentUpon>MainMenu.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LabelLibrary.resx">
       <DependentUpon>LabelLibrary.cs</DependentUpon>

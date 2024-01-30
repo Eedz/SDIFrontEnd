@@ -210,6 +210,8 @@ namespace SDIFrontEnd
             else
                 bs.DataSource = Records;
 
+
+            extraRichTextBox1.Rtf = MainQuestion.Translations.First().TranslationRTF;
             rtbPreP.Rtf = MainQuestion.PrepRTF;
             rtbPstP.Rtf = MainQuestion.PstpRTF;
 
