@@ -61,7 +61,7 @@ namespace SDIFrontEnd
             txtNoteDate.DataBindings.Add("Text", bsComments, "NoteDate");
             txtNoteAuthor.DataBindings.Add("Text", bsComments, "Author.Name");
             txtNoteType.DataBindings.Add("Text", bsComments, "NoteType.TypeName");
-            txtAuthority.DataBindings.Add("Text", bsComments, "SourceName");
+            txtAuthority.DataBindings.Add("Text", bsComments, "Authority.Name");
             txtNoteSource.DataBindings.Add("Text", bsComments, "Source");
             txtNote.DataBindings.Add("Text", bsComments, "Notes.NoteText");
         }

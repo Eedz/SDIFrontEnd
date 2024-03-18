@@ -253,9 +253,13 @@ namespace SDIFrontEnd
             chQSource.Width = 200;
             gridQuesComments.Columns.Add(chQSource);
 
-            DataGridViewTextBoxColumn chQAuthority = new DataGridViewTextBoxColumn();
+            DataGridViewComboBoxColumn chQAuthority = new DataGridViewComboBoxColumn();
             chQAuthority.Name = "chQAuthority";
             chQAuthority.HeaderText = "Authority";
+            chQAuthority.Width = 100;
+            chQAuthority.ValueMember = "ID";
+            chQAuthority.DisplayMember = "Name";
+            chQAuthority.DataSource = new List<Person>(Globals.AllPeople);
             gridQuesComments.Columns.Add(chQAuthority);
 
             gridQuesComments.CellValueNeeded += gridQuesComments_CellValueNeeded;
@@ -311,9 +315,13 @@ namespace SDIFrontEnd
             chSource.Width = 200;
             gridSurvComments.Columns.Add(chSource);
 
-            DataGridViewTextBoxColumn chAuthority = new DataGridViewTextBoxColumn();
+            DataGridViewComboBoxColumn chAuthority = new DataGridViewComboBoxColumn();
             chAuthority.Name = "chSAuthority";
             chAuthority.HeaderText = "Authority";
+            chAuthority.Width = 100;
+            chAuthority.ValueMember = "ID";
+            chAuthority.DisplayMember = "Name";
+            chAuthority.DataSource = new List<Person>(Globals.AllPeople);
             gridSurvComments.Columns.Add(chAuthority);
 
             gridSurvComments.CellValueNeeded += gridSurvComments_CellValueNeeded;
@@ -369,9 +377,13 @@ namespace SDIFrontEnd
             chSource.Width = 200;
             gridWaveComments.Columns.Add(chSource);
 
-            DataGridViewTextBoxColumn chAuthority = new DataGridViewTextBoxColumn();
+            DataGridViewComboBoxColumn chAuthority = new DataGridViewComboBoxColumn();
             chAuthority.Name = "chWAuthority";
             chAuthority.HeaderText = "Authority";
+            chAuthority.Width = 100;
+            chAuthority.ValueMember = "ID";
+            chAuthority.DisplayMember = "Name";
+            chAuthority.DataSource = new List<Person>(Globals.AllPeople);
             gridWaveComments.Columns.Add(chAuthority);
 
             gridWaveComments.CellValueNeeded += gridWaveComments_CellValueNeeded;
@@ -427,9 +439,13 @@ namespace SDIFrontEnd
             chSource.Width = 200;
             gridRefVarComments.Columns.Add(chSource);
 
-            DataGridViewTextBoxColumn chAuthority = new DataGridViewTextBoxColumn();
+            DataGridViewComboBoxColumn chAuthority = new DataGridViewComboBoxColumn();
             chAuthority.Name = "chRAuthority";
             chAuthority.HeaderText = "Authority";
+            chAuthority.Width = 100;
+            chAuthority.ValueMember = "ID";
+            chAuthority.DisplayMember = "Name";
+            chAuthority.DataSource = new List<Person>(Globals.AllPeople);
             gridRefVarComments.Columns.Add(chAuthority);
 
             gridRefVarComments.CellValueNeeded += gridRefVarComments_CellValueNeeded;
@@ -492,9 +508,13 @@ namespace SDIFrontEnd
             chSource.Width = 200;
             gridDeletedComments.Columns.Add(chSource);
 
-            DataGridViewTextBoxColumn chAuthority = new DataGridViewTextBoxColumn();
+            DataGridViewComboBoxColumn chAuthority = new DataGridViewComboBoxColumn();
             chAuthority.Name = "chDAuthority";
             chAuthority.HeaderText = "Authority";
+            chAuthority.Width = 100;
+            chAuthority.ValueMember = "ID";
+            chAuthority.DisplayMember = "Name";
+            chAuthority.DataSource = new List<Person>(Globals.AllPeople);
             gridDeletedComments.Columns.Add(chAuthority);
 
             gridDeletedComments.CellValueNeeded += gridDeletedComments_CellValueNeeded;
@@ -1050,27 +1070,20 @@ namespace SDIFrontEnd
                     if (qid != 0 && !DBAction.QuestionCommentExists(sq, CurrentRecord.Item.ID))
                     {
                         QuestionCommentRecord c = new QuestionCommentRecord();
-                        
+
                         c.NewRecord = true;
                         c.Item.QID = qid;
                         c.Item.Survey = surveys[i].SurveyCode;
                         c.Item.VarName = fullVar;
                         c.Item.Author = (Person)cboNoteAuthor.SelectedItem;
-
                         c.Item.NoteType = (CommentType)cboNoteType.SelectedItem;
-
                         c.Item.NoteDate = dtpNoteDate.Value;
-                        c.Item.SourceName = ((Person)cboNoteAuthority.SelectedItem).Name;
                         c.Item.Authority = (Person)cboNoteAuthority.SelectedItem;
-                        if (c.Item.SourceName == null)
-                            c.Item.SourceName = "";
-
                         c.Item.Source = txtNoteSource.Text;
                         c.Item.Notes = CurrentRecord.Item;
 
                         newComments.Add(c);
                         count++;
-
                     }
                 }
             }
@@ -1091,9 +1104,6 @@ namespace SDIFrontEnd
                     c.Item.Author = (Person)cboNoteAuthor.SelectedItem;
                     c.Item.NoteType = (CommentType)cboNoteType.SelectedItem;
                     c.Item.NoteDate = dtpNoteDate.Value;
-                    c.Item.SourceName = ((Person)cboNoteAuthority.SelectedItem).Name;
-                    if (c.Item.SourceName == null)
-                        c.Item.SourceName = "";
                     c.Item.Authority = (Person)cboNoteAuthority.SelectedItem;
                     c.Item.Source = txtNoteSource.Text;
                     c.Item.Notes = CurrentRecord.Item;
@@ -1119,9 +1129,6 @@ namespace SDIFrontEnd
                     c.Item.Author = (Person)cboNoteAuthor.SelectedItem;
                     c.Item.NoteType = (CommentType)cboNoteType.SelectedItem;
                     c.Item.NoteDate = dtpNoteDate.Value;
-                    c.Item.SourceName = ((Person)cboNoteAuthority.SelectedItem).Name;
-                    if (c.Item.SourceName == null)
-                        c.Item.SourceName = "";
                     c.Item.Authority = (Person)cboNoteAuthority.SelectedItem;
                     c.Item.Source = txtNoteSource.Text;
                     c.Item.Notes = CurrentRecord.Item;
@@ -1158,9 +1165,6 @@ namespace SDIFrontEnd
                         c.Item.Author = (Person)cboNoteAuthor.SelectedItem;
                         c.Item.NoteType = (CommentType)cboNoteType.SelectedItem;
                         c.Item.NoteDate = dtpNoteDate.Value;
-                        c.Item.SourceName = ((Person)cboNoteAuthority.SelectedItem).Name;
-                        if (c.Item.SourceName == null)
-                            c.Item.SourceName = "";
                         c.Item.Authority = (Person)cboNoteAuthority.SelectedItem;
                         c.Item.Source = txtNoteSource.Text;
                         c.Item.Notes = CurrentRecord.Item;
@@ -1189,9 +1193,6 @@ namespace SDIFrontEnd
                     c.Item.Author = (Person)cboNoteAuthor.SelectedItem;
                     c.Item.NoteType = (CommentType)cboNoteType.SelectedItem;
                     c.Item.NoteDate = dtpNoteDate.Value;
-                    c.Item.SourceName = ((Person)cboNoteAuthority.SelectedItem).Name;
-                    if (c.Item.SourceName == null)
-                        c.Item.SourceName = "";
                     c.Item.Authority = (Person)cboNoteAuthority.SelectedItem;
                     c.Item.Source = txtNoteSource.Text;
                     c.Item.Notes = CurrentRecord.Item;
@@ -1734,7 +1735,7 @@ namespace SDIFrontEnd
                     e.Value = tmp.Source;
                     break;
                 case "chQAuthority":
-                    e.Value = tmp.SourceName;
+                    e.Value = tmp.Authority.ID;
                     break;
             }
         }
@@ -1760,7 +1761,7 @@ namespace SDIFrontEnd
                         NoteType = QuestionComments[e.RowIndex].Item.NoteType,
                         Notes = QuestionComments[e.RowIndex].Item.Notes,
                         Source = QuestionComments[e.RowIndex].Item.Source,
-                        SourceName = QuestionComments[e.RowIndex].Item.SourceName
+                        Authority = QuestionComments[e.RowIndex].Item.Authority
                     };
 
                 tmp = this.editedQuestionComment;
@@ -1792,7 +1793,7 @@ namespace SDIFrontEnd
                     tmp.Source = (string)e.Value;
                     break;
                 case "chQAuthority":
-                    tmp.SourceName = (string)e.Value;
+                    tmp.Authority.ID = (int)e.Value;
                     break;
             }
         }
@@ -1927,7 +1928,7 @@ namespace SDIFrontEnd
                     e.Value = tmp.Source;
                     break;
                 case "chSAuthority":
-                    e.Value = tmp.SourceName;
+                    e.Value = tmp.Authority.ID;
                     break;
             }
         }
@@ -1952,7 +1953,7 @@ namespace SDIFrontEnd
                         NoteType = SurveyComments[e.RowIndex].Item.NoteType,
                         Notes = SurveyComments[e.RowIndex].Item.Notes,
                         Source = SurveyComments[e.RowIndex].Item.Source,
-                        SourceName = SurveyComments[e.RowIndex].Item.SourceName
+                        Authority = SurveyComments[e.RowIndex].Item.Authority
                     };
 
                 tmp = this.editedSurveyComment;
@@ -1983,7 +1984,7 @@ namespace SDIFrontEnd
                     tmp.Source = (string)e.Value;
                     break;
                 case "chSAuthority":
-                    tmp.SourceName = (string)e.Value;
+                    tmp.Authority.ID = (int)e.Value;
                     break;
             }
         }
@@ -2118,7 +2119,7 @@ namespace SDIFrontEnd
                     e.Value = tmp.Source;
                     break;
                 case "chWAuthority":
-                    e.Value = tmp.SourceName;
+                    e.Value = tmp.Authority.ID;
                     break;
             }
         }
@@ -2143,7 +2144,7 @@ namespace SDIFrontEnd
                         NoteType = WaveComments[e.RowIndex].Item.NoteType,
                         Notes = WaveComments[e.RowIndex].Item.Notes,
                         Source = WaveComments[e.RowIndex].Item.Source,
-                        SourceName = WaveComments[e.RowIndex].Item.SourceName
+                        Authority = WaveComments[e.RowIndex].Item.Authority
                     };
 
                 tmp = this.editedWaveComment;
@@ -2174,7 +2175,7 @@ namespace SDIFrontEnd
                     tmp.Source = (string)e.Value;
                     break;
                 case "chWAuthority":
-                    tmp.SourceName = (string)e.Value;
+                    tmp.Authority.ID = (int)e.Value;
                     break;
             }
         }
@@ -2309,7 +2310,7 @@ namespace SDIFrontEnd
                     e.Value = tmp.Source;
                     break;
                 case "chRAuthority":
-                    e.Value = tmp.SourceName;
+                    e.Value = tmp.Authority.ID;
                     break;
             }
         }
@@ -2333,7 +2334,7 @@ namespace SDIFrontEnd
                         NoteType = RefVarComments[e.RowIndex].Item.NoteType,
                         Notes = RefVarComments[e.RowIndex].Item.Notes,
                         Source = RefVarComments[e.RowIndex].Item.Source,
-                        SourceName = RefVarComments[e.RowIndex].Item.SourceName
+                        Authority = RefVarComments[e.RowIndex].Item.Authority
                     };
 
                 tmp = this.editedRefVarComment;
@@ -2364,7 +2365,7 @@ namespace SDIFrontEnd
                     tmp.Source = (string)e.Value;
                     break;
                 case "chRAuthority":
-                    tmp.SourceName = (string)e.Value;
+                    tmp.Authority.ID = (int)e.Value;
                     break;
             }
         }
@@ -2502,7 +2503,7 @@ namespace SDIFrontEnd
                     e.Value = tmp.Source;
                     break;
                 case "chDAuthority":
-                    e.Value = tmp.SourceName;
+                    e.Value = tmp.Authority.ID;
                     break;
             }
         }
@@ -2527,7 +2528,7 @@ namespace SDIFrontEnd
                         NoteType = DeletedComments[e.RowIndex].Item.NoteType,
                         Notes = DeletedComments[e.RowIndex].Item.Notes,
                         Source = DeletedComments[e.RowIndex].Item.Source,
-                        SourceName = DeletedComments[e.RowIndex].Item.SourceName
+                        Authority = DeletedComments[e.RowIndex].Item.Authority
                     };
 
                 tmp = this.editedDeletedComment;
@@ -2559,7 +2560,7 @@ namespace SDIFrontEnd
                     tmp.Source = (string)e.Value;
                     break;
                 case "chDAuthority":
-                    tmp.SourceName = (string)e.Value;
+                    tmp.Authority.ID = (int)e.Value;
                     break;
             }
         }

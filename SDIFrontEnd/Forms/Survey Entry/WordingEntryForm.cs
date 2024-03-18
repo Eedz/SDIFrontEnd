@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 using ITCLib;
 
 namespace SDIFrontEnd
@@ -298,8 +299,11 @@ namespace SDIFrontEnd
 
         private void UpdatePlainText()
         {
-            // change RTF tags to HTML tags
             txtWordingR.Rtf = Utilities.FormatRTF(txtWordingR.Rtf);
+
+            // change RTF tags to HTML tags
+            //string html = Utilities.ConvertRTFtoHTML(txtWordingR.Rtf);
+            //txtWordingR.Rtf = html;
 
             // now get plain text which includes the HTML tags we've inserted
             string plain = txtWordingR.Text;

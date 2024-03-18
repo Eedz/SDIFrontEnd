@@ -140,7 +140,7 @@
             this.lblUses.AutoSize = true;
             this.lblUses.Location = new System.Drawing.Point(296, 304);
             this.lblUses.Name = "lblUses";
-            this.lblUses.Size = new System.Drawing.Size(267, 16);
+            this.lblUses.Size = new System.Drawing.Size(266, 16);
             this.lblUses.TabIndex = 10;
             this.lblUses.Text = "This wording appears in the following places.";
             // 
@@ -167,7 +167,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(3, 60);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 16);
+            this.label3.Size = new System.Drawing.Size(34, 16);
             this.label3.TabIndex = 14;
             this.label3.Text = "Field";
             // 
@@ -176,7 +176,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(126, 63);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(29, 16);
+            this.label4.Size = new System.Drawing.Size(28, 16);
             this.label4.TabIndex = 15;
             this.label4.Text = "W#";
             // 
@@ -191,7 +191,6 @@
             this.txtWordingR.Size = new System.Drawing.Size(688, 168);
             this.txtWordingR.TabIndex = 16;
             this.txtWordingR.Text = "";
-  
             // 
             // navWordings
             // 
@@ -216,7 +215,7 @@
             this.navWordings.MovePreviousItem = null;
             this.navWordings.Name = "navWordings";
             this.navWordings.PositionItem = this.bindingNavigatorPositionItem;
-            this.navWordings.Size = new System.Drawing.Size(804, 25);
+            this.navWordings.Size = new System.Drawing.Size(812, 25);
             this.navWordings.TabIndex = 17;
             this.navWordings.Text = "bindingNavigator1";
             // 
@@ -256,6 +255,7 @@
             // 
             this.bindingNavigatorPositionItem.AccessibleName = "Position";
             this.bindingNavigatorPositionItem.AutoSize = false;
+            this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
             this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
             this.bindingNavigatorPositionItem.Text = "0";
@@ -356,7 +356,7 @@
             this.chkEdit.AutoSize = true;
             this.chkEdit.Location = new System.Drawing.Point(656, 97);
             this.chkEdit.Name = "chkEdit";
-            this.chkEdit.Size = new System.Drawing.Size(39, 26);
+            this.chkEdit.Size = new System.Drawing.Size(38, 26);
             this.chkEdit.TabIndex = 28;
             this.chkEdit.Text = "Edit";
             this.chkEdit.UseVisualStyleBackColor = true;
@@ -375,12 +375,12 @@
             this.cmdUnderline.UseVisualStyleBackColor = true;
             this.cmdUnderline.Click += new System.EventHandler(this.cmdUnderline_Click);
             // 
-            // WordingUsage
+            // WordingEntryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(113)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
-            this.ClientSize = new System.Drawing.Size(804, 552);
+            this.ClientSize = new System.Drawing.Size(812, 552);
             this.Controls.Add(this.cmdUnderline);
             this.Controls.Add(this.chkEdit);
             this.Controls.Add(this.cmdItalic);
@@ -406,7 +406,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "WordingUsage";
+            this.Name = "WordingEntryForm";
             this.Text = "Wording Usage";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.WordingUsage_FormClosing);
             this.Load += new System.EventHandler(this.WordingUsage_Load);

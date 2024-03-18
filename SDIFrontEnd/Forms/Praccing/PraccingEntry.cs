@@ -1163,7 +1163,7 @@ namespace SDIFrontEnd
         {
             var combo = (ComboBox)sender;
             var dataRepeaterItem = (Microsoft.VisualBasic.PowerPacks.DataRepeaterItem)combo.Parent;
-            var dataRepeater = (Microsoft.VisualBasic.PowerPacks.DataRepeater)combo.Parent.Parent;
+            var dataRepeater = (Microsoft.VisualBasic.PowerPacks.DataRepeater)dataRepeaterItem.Parent;
 
             var source = (List<PraccingResponse>)((BindingSource)dataRepeater.DataSource).List;
             source[dataRepeaterItem.ItemIndex].ResponseFrom = (Person)combo.SelectedItem;
@@ -1174,7 +1174,7 @@ namespace SDIFrontEnd
         {
             var combo = (ComboBox)sender;
             var dataRepeaterItem = (Microsoft.VisualBasic.PowerPacks.DataRepeaterItem)combo.Parent;
-            var dataRepeater = (Microsoft.VisualBasic.PowerPacks.DataRepeater)combo.Parent.Parent;
+            var dataRepeater = (Microsoft.VisualBasic.PowerPacks.DataRepeater)dataRepeaterItem.Parent;
 
             var source = (List<PraccingResponse>)((BindingSource)dataRepeater.DataSource).List;
             source[dataRepeaterItem.ItemIndex].ResponseTo = (Person)combo.SelectedItem;
