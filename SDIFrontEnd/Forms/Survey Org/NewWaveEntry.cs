@@ -22,7 +22,7 @@ namespace SDIFrontEnd
         {
             InitializeComponent();
 
-            StudyList = Globals.AllStudies;
+            StudyList = new List<Study>(Globals.AllStudies);
 
             NewWave = new StudyWaveRecord();
 

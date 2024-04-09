@@ -45,6 +45,8 @@ namespace SDIFrontEnd
 
             SetupBindingSource();
 
+            FillBoxes();
+
             BindProperties();
             
             UpdateRefVarName(MainQuestion.Item.VarName.RefVarName);
@@ -84,24 +86,60 @@ namespace SDIFrontEnd
             navTranslations.BindingSource = bsTranslations;
         }
 
+        private void FillBoxes()
+        {
+            cboPreP.DisplayMember = "WordID";
+            cboPreP.ValueMember = "WordID";
+            cboPreP.DataSource = Globals.AllPreP;
+
+            cboPreI.DisplayMember = "WordID";
+            cboPreI.ValueMember = "WordID";
+            cboPreI.DataSource = Globals.AllPreI;
+
+            cboPreA.DisplayMember = "WordID";
+            cboPreA.ValueMember = "WordID";
+            cboPreA.DataSource = Globals.AllPreA;
+
+            cboLitQ.DisplayMember = "WordID";
+            cboLitQ.ValueMember = "WordID";
+            cboLitQ.DataSource = Globals.AllLitQ;
+
+            cboPstI.DisplayMember = "WordID";
+            cboPstI.ValueMember = "WordID";
+            cboPstI.DataSource = Globals.AllPstI;
+
+            cboPstP.DisplayMember = "WordID";
+            cboPstP.ValueMember = "WordID";
+            cboPstP.DataSource = Globals.AllPstP;
+
+            cboRO.DisplayMember = "RespSetName";
+            cboRO.ValueMember = "RespSetName";
+            cboRO.DataSource = Globals.AllRespOptions;
+
+            cboNR.DisplayMember = "RespSetName";
+            cboNR.ValueMember = "RespSetName";
+            cboNR.DataSource = Globals.AllNRCodes;
+        }
+
         private void BindProperties()
         {
             txtVarName.DataBindings.Add("Text", bsCurrent, "VarName.VarName");
             txtSurvey.DataBindings.Add("Text", bsCurrent, "SurveyCode");
             txtQnum.DataBindings.Add("Text", bsCurrent, "Qnum");
             txtVarLabel.DataBindings.Add("Text", bsCurrent, "VarName.VarLabel");
-            txtPrePNum.DataBindings.Add("Text", bsCurrent, "PrePNum");
-            txtPreINum.DataBindings.Add("Text", bsCurrent, "PreINum");
-            txtPreANum.DataBindings.Add("Text", bsCurrent, "PreANum");
-            txtLitQNum.DataBindings.Add("Text", bsCurrent, "LitQNum");
-            txtPstINum.DataBindings.Add("Text", bsCurrent, "PstINum");
-            txtPstPNum.DataBindings.Add("Text", bsCurrent, "PstPNum");
-            txtRespName.DataBindings.Add("Text", bsCurrent, "RespName");
-            txtNRName.DataBindings.Add("Text", bsCurrent, "NRName");
+           
+            cboPreP.DataBindings.Add(new Binding("SelectedItem", bsCurrent, "PrePW"));
+            cboPreI.DataBindings.Add(new Binding("SelectedItem", bsCurrent, "PreIW"));
+            cboPreA.DataBindings.Add(new Binding("SelectedItem", bsCurrent, "PreAW"));
+            cboLitQ.DataBindings.Add(new Binding("SelectedItem", bsCurrent, "LitQW"));
+            cboPstI.DataBindings.Add(new Binding("SelectedItem", bsCurrent, "PstIW"));
+            cboPstP.DataBindings.Add(new Binding("SelectedItem", bsCurrent, "PstPW"));
+            cboRO.DataBindings.Add(new Binding("SelectedItem", bsCurrent, "RespOptionsS"));
+            cboNR.DataBindings.Add(new Binding("SelectedItem", bsCurrent, "NRCodesS"));
 
             // translation panel
-            txtTranslationPreP.DataBindings.Add("Text", bsCurrent, "PreP");
-            txtTranslationPstP.DataBindings.Add("Text", bsCurrent, "PstP");
+            txtTranslationPreP.DataBindings.Add("Text", bsCurrent, "PrePW.WordingText");
+            txtTranslationPstP.DataBindings.Add("Text", bsCurrent, "PstPW.WordingText");
         }
 
         private void SetupFilter()
@@ -137,6 +175,9 @@ namespace SDIFrontEnd
             UpdateQuestion();
             UpdateTranslation();
 
+            if (CurrentQuestion == null)
+                return;
+
             bool locked = Globals.AllSurveys.First(x => x.SurveyCode.Equals(CurrentQuestion.Item.SurveyCode)).Locked;
             LockForm(locked);
         }
@@ -164,33 +205,6 @@ namespace SDIFrontEnd
             if (modifiedRecord == null)
                 return;
 
-            switch (e.PropertyDescriptor.Name)
-            {
-                case "PrePNum":
-                    CurrentQuestion.Item.PreP = DBAction.GetWordingText("PreP", CurrentQuestion.Item.PrePNum);
-                    break;
-                case "PreINum":
-                    CurrentQuestion.Item.PreI = DBAction.GetWordingText("PreI", CurrentQuestion.Item.PreINum);
-                    break;
-                case "PreANum":
-                    CurrentQuestion.Item.PreA = DBAction.GetWordingText("PreA", CurrentQuestion.Item.PreANum);
-                    break;
-                case "LitQNum":
-                    CurrentQuestion.Item.LitQ = DBAction.GetWordingText("LitQ", CurrentQuestion.Item.LitQNum);
-                    break;
-                case "PstINum":
-                    CurrentQuestion.Item.PstI = DBAction.GetWordingText("PstI", CurrentQuestion.Item.PstINum);
-                    break;
-                case "PstPNum":
-                    CurrentQuestion.Item.PstP = DBAction.GetWordingText("PstP", CurrentQuestion.Item.PstPNum);
-                    break;
-                case "RespName":
-                    CurrentQuestion.Item.RespOptions = DBAction.GetResponseText(CurrentQuestion.Item.RespName);
-                    break;
-                case "NRName":
-                    CurrentQuestion.Item.NRCodes = DBAction.GetNonResponseText(CurrentQuestion.Item.NRName);
-                    break;
-            }
             bs.ResetBindings(false);
             UpdateQuestion();
 
@@ -372,7 +386,8 @@ namespace SDIFrontEnd
             if (CurrentQuestion.Item.Translations.Count == 0)
                 return false;
 
-            string prep = CurrentQuestion.Item.PreP;
+            //string prep = CurrentQuestion.Item.PreP;
+            string prep = CurrentQuestion.Item.PrePW.WordingText;
             string translation = CurrentQuestion.Item.Translations[0].TranslationText;
 
             return !translation.StartsWith(prep);
@@ -411,7 +426,7 @@ namespace SDIFrontEnd
             rtbQuestionText.Rtf = "";
 
             if (CurrentQuestion != null)
-                rtbQuestionText.Rtf = CurrentQuestion.Item.GetQuestionTextRich(true);
+                rtbQuestionText.Rtf = RTFUtilities.QuestionToRTF(CurrentQuestion.Item); //.GetQuestionTextRich(true);
         }
 
         /// <summary>
@@ -434,31 +449,31 @@ namespace SDIFrontEnd
         }
 
         /// <summary>
-        /// Updates MainQuestion's field to wnum.
+        /// Updates MainQuestion's field to wording.
         /// </summary>
         /// <param name="field"></param>
         /// <param name="wnum"></param>
-        public void ExportWording(string field, int wnum)
+        public void ExportWording(Wording wording)
         {
-            switch (field)
+            switch (wording.Type)
             {
-                case "PreP":
-                    MainQuestion.Item.PrePNum = wnum;
+                case WordingType.PreP:
+                    MainQuestion.Item.PrePW = new Wording(wording.WordID, WordingType.PreP, wording.WordingText);
                     break;
-                case "PreI":
-                    MainQuestion.Item.PreINum = wnum;
+                case WordingType.PreI:
+                    MainQuestion.Item.PreIW = new Wording(wording.WordID, WordingType.PreI, wording.WordingText); ;
                     break;
-                case "PreA":
-                    MainQuestion.Item.PreANum = wnum;
+                case WordingType.PreA:
+                    MainQuestion.Item.PreAW = new Wording(wording.WordID, WordingType.PreA, wording.WordingText); ;
                     break;
-                case "LitQ":
-                    MainQuestion.Item.LitQNum = wnum;
+                case WordingType.LitQ:
+                    MainQuestion.Item.LitQW = new Wording(wording.WordID, WordingType.LitQ, wording.WordingText); ;
                     break;
-                case "PstI":
-                    MainQuestion.Item.PstINum = wnum;
+                case WordingType.PstI:
+                    MainQuestion.Item.PstIW = new Wording(wording.WordID, WordingType.PstI, wording.WordingText); ;
                     break;
-                case "PstP":
-                    MainQuestion.Item.PstPNum = wnum;
+                case WordingType.PstP:
+                    MainQuestion.Item.PstPW = new Wording(wording.WordID, WordingType.PstP, wording.WordingText); ;
                     break;
             }
         }
@@ -468,64 +483,53 @@ namespace SDIFrontEnd
         /// </summary>
         /// <param name="field"></param>
         /// <param name="respname"></param>
-        public void ExportWording(string field, string respname)
+        public void ExportWording(ResponseSet respset)
         {
-            switch (field)
+            switch (respset.Type)
             {
-                case "RespOptions":
-                    MainQuestion.Item.RespName = respname;
+                case ResponseType.RespOptions:
+                    MainQuestion.Item.RespOptionsS = new ResponseSet(respset.RespSetName, ResponseType.RespOptions, respset.RespList);
                     break;
-                case "NRCodes":
-                    MainQuestion.Item.NRName = respname;
+                case ResponseType.NRCodes:
+                    MainQuestion.Item.NRCodesS = new ResponseSet(respset.RespSetName, ResponseType.NRCodes, respset.RespList); ;
                     break;
             }
         }
 
-        /// <summary>
-        /// Updates the CurrentQuestion's field to wnum.
-        /// </summary>
-        /// <param name="field"></param>
-        /// <param name="wnum"></param>
-        public void ImportWording(string field, int wnum)
+        public void ImportWording(Wording wording)
         {
-            switch (field)
+            switch (wording.Type)
             {
-                case "PreP":
-                    CurrentQuestion.Item.PrePNum = wnum;
+                case WordingType.PreP:
+                    CurrentQuestion.Item.PrePW= new Wording(wording.WordID, WordingType.PreP, wording.WordingText);
                     break;
-                case "PreI":
-                    CurrentQuestion.Item.PreINum = wnum;
+                case WordingType.PreI:
+                    CurrentQuestion.Item.PreIW = new Wording(wording.WordID, WordingType.PreI, wording.WordingText);
                     break;
-                case "PreA":
-                    CurrentQuestion.Item.PreANum = wnum;
+                case WordingType.PreA:
+                    CurrentQuestion.Item.PreAW = new Wording(wording.WordID, WordingType.PreA, wording.WordingText);
                     break;
-                case "LitQ":
-                    CurrentQuestion.Item.LitQNum = wnum;
+                case WordingType.LitQ:
+                    CurrentQuestion.Item.LitQW = new Wording(wording.WordID, WordingType.LitQ, wording.WordingText);
                     break;
-
-                case "PstI":
-                    CurrentQuestion.Item.PstINum = wnum;
+                case WordingType.PstI:
+                    CurrentQuestion.Item.PstIW = new Wording(wording.WordID, WordingType.PstI, wording.WordingText);
                     break;
-                case "PstP":
-                    CurrentQuestion.Item.PstPNum = wnum;
+                case WordingType.PstP:
+                    CurrentQuestion.Item.PstPW = new Wording(wording.WordID, WordingType.PstP, wording.WordingText);
                     break;
             }
         }
 
-        /// <summary>
-        /// Updates the CurrentQuestion's field to respname.
-        /// </summary>
-        /// <param name="field"></param>
-        /// <param name="respname"></param>
-        public void ImportWording(string field, string respname)
+        public void ImportWording(ResponseSet respset)
         {
-            switch (field)
+            switch (respset.Type)
             {
-                case "RespOptions":
-                    CurrentQuestion.Item.RespName = respname;
+                case ResponseType.RespOptions:
+                    CurrentQuestion.Item.RespOptionsS = new ResponseSet(respset.RespSetName, ResponseType.RespOptions, respset.RespList);
                     break;
-                case "NRCodes":
-                    CurrentQuestion.Item.NRName = respname;
+                case ResponseType.NRCodes:
+                    CurrentQuestion.Item.NRCodesS = new ResponseSet(respset.RespSetName, ResponseType.NRCodes, respset.RespList);
                     break;
             }
         }
@@ -538,14 +542,14 @@ namespace SDIFrontEnd
         {
             if (question == null) return;
 
-            ImportWording("PreP", question.PrePNum);
-            ImportWording("PreI", question.PreINum);
-            ImportWording("PreA", question.PreANum);
-            ImportWording("LitQ", question.LitQNum);
-            ImportWording("PstI", question.PstINum);
-            ImportWording("PstP", question.PstPNum);
-            ImportWording("RespOptions", question.RespName);
-            ImportWording("NRCodes", question.NRName);
+            ImportWording(question.PrePW);
+            ImportWording(question.PreIW);
+            ImportWording(question.PreAW);
+            ImportWording(question.LitQW);
+            ImportWording(question.PstIW);
+            ImportWording(question.PstPW);
+            ImportWording(question.RespOptionsS);
+            ImportWording(question.NRCodesS);
         }
 
         /// <summary>
@@ -556,14 +560,14 @@ namespace SDIFrontEnd
         {
             if (question == null) return;
 
-            ExportWording("PreP", question.PrePNum);
-            ExportWording("PreI", question.PreINum);
-            ExportWording("PreA", question.PreANum);
-            ExportWording("LitQ", question.LitQNum);
-            ExportWording("PstI", question.PstINum);
-            ExportWording("PstP", question.PstPNum);
-            ExportWording("RespOptions", question.RespName);
-            ExportWording("NRCodes", question.NRName);
+            ExportWording(question.PrePW);
+            ExportWording(question.PreIW);
+            ExportWording(question.PreAW);
+            ExportWording(question.LitQW);
+            ExportWording(question.PstIW);
+            ExportWording(question.PstPW);
+            ExportWording(question.RespOptionsS);
+            ExportWording(question.NRCodesS);
         }
 
         private void MoveRecord(int count)
@@ -638,14 +642,14 @@ namespace SDIFrontEnd
 
         private void LockForm(bool locked)
         {
-            txtPrePNum.ReadOnly = locked;
-            txtPreINum.ReadOnly = locked;
-            txtPreANum.ReadOnly = locked;
-            txtLitQNum.ReadOnly = locked;
-            txtRespName.ReadOnly = locked;
-            txtNRName.ReadOnly = locked;
-            txtPstINum.ReadOnly = locked;
-            txtPstPNum.ReadOnly = locked;
+            cboPreP.Enabled = locked;
+            cboPreI.Enabled = locked;
+            cboPreA.Enabled = locked;
+            cboLitQ.Enabled = locked;
+            cboPstI.Enabled = locked;
+            cboPstP.Enabled = locked;
+            cboRO.Enabled = locked;
+            cboNR.Enabled = locked;
         }
         #endregion
 

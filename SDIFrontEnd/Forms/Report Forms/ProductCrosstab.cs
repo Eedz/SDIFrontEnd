@@ -298,13 +298,8 @@ namespace SDIFrontEnd
                     topics.Add(grp[0]);
                 }
 
-                
                 foreach (SurveyQuestion s in topics)
                     lstTopic.Items.Add(s.VarName.Topic.LabelText);
-
-                    //foreach (SurveyQuestion s in topics)
-                    //    if (!lstTopic.Items.Contains(s.Topic.LabelText)) lstTopic.Items.Add(s.Topic.LabelText);
-
             }
             lstTopic.Tag = true;
             lstTopic.SetSelected(0, true);
@@ -346,13 +341,8 @@ namespace SDIFrontEnd
                     contents.Add(grp[0]);
                 }
 
-
-
                 foreach (SurveyQuestion s in contents)
                     lstContent.Items.Add(s.VarName.Content.LabelText);
-
-                //foreach (VariableName s in contents)
-                //    if (!lstContent.Items.Contains(s.Content.LabelText)) lstContent.Items.Add(s.Content.LabelText);
 
             }
             lstContent.Tag = true;
@@ -404,9 +394,6 @@ namespace SDIFrontEnd
 
             foreach (SurveyQuestion s in products)
                 lstProduct.Items.Add(s.VarName.Product.LabelText);
-
-            //foreach (VariableName s in products)
-            //    if (!lstProduct.Items.Contains(s.Product.LabelText)) lstProduct.Items.Add(s.Product.LabelText);
             
             lstProduct.Tag = true;
             lstProduct.SetSelected(0, true);

@@ -545,14 +545,10 @@ namespace SDIFrontEnd
                 int id = DBAction.GetQuestionID(survey.SurveyCode, Utilities.ChangeCC(v, survey.CountryCode));
                 if (id > 0)
                 {
-
                     SurveyQuestion toAdd = DBAction.GetSurveyQuestion(id);
-                    toAdd = DBAction.GetSurveyQuestion(id);
 
                     toAdd.Filters = string.Join("\r\n", toAdd.GetFilterVars());
-
                     toAdd.Translations = DBAction.GetQuestionTranslations(id);
-
                     toAdd.Comments = DBAction.GetQuesComments(toAdd);
                     questions.Add(toAdd);
                 }

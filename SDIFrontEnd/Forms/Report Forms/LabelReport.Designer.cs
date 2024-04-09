@@ -43,8 +43,14 @@
             this.cmdOpenReportFolder = new System.Windows.Forms.Button();
             this.cmdGenerate = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.lstProducts = new System.Windows.Forms.ListBox();
+            this.lstWordingFields = new System.Windows.Forms.ListBox();
+            this.lblProductList = new System.Windows.Forms.Label();
+            this.lblFieldList = new System.Windows.Forms.Label();
+            this.panelOptions = new System.Windows.Forms.Panel();
             this.grpLabels.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.panelOptions.SuspendLayout();
             this.SuspendLayout();
             // 
             // cboSurveys
@@ -92,6 +98,7 @@
             this.optTCP.TabStop = true;
             this.optTCP.Text = "Topic/Content/Product";
             this.optTCP.UseVisualStyleBackColor = true;
+            this.optTCP.CheckedChanged += new System.EventHandler(this.optTCP_CheckedChanged);
             // 
             // optTC
             // 
@@ -155,7 +162,7 @@
             this.closeToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(573, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(567, 24);
             this.menuStrip1.TabIndex = 8;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -200,12 +207,64 @@
             this.label2.TabIndex = 11;
             this.label2.Text = "Select survey(s)";
             // 
+            // lstProducts
+            // 
+            this.lstProducts.Enabled = false;
+            this.lstProducts.FormattingEnabled = true;
+            this.lstProducts.ItemHeight = 16;
+            this.lstProducts.Location = new System.Drawing.Point(6, 35);
+            this.lstProducts.Name = "lstProducts";
+            this.lstProducts.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.lstProducts.Size = new System.Drawing.Size(120, 180);
+            this.lstProducts.TabIndex = 12;
+            this.lstProducts.SelectedIndexChanged += new System.EventHandler(this.lstProducts_SelectedIndexChanged);
+            // 
+            // lstWordingFields
+            // 
+            this.lstWordingFields.FormattingEnabled = true;
+            this.lstWordingFields.ItemHeight = 16;
+            this.lstWordingFields.Location = new System.Drawing.Point(182, 35);
+            this.lstWordingFields.Name = "lstWordingFields";
+            this.lstWordingFields.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.lstWordingFields.Size = new System.Drawing.Size(120, 180);
+            this.lstWordingFields.TabIndex = 13;
+            // 
+            // lblProductList
+            // 
+            this.lblProductList.AutoSize = true;
+            this.lblProductList.Location = new System.Drawing.Point(7, 10);
+            this.lblProductList.Name = "lblProductList";
+            this.lblProductList.Size = new System.Drawing.Size(169, 16);
+            this.lblProductList.TabIndex = 14;
+            this.lblProductList.Text = "Select Products (T/C/P only)";
+            // 
+            // lblFieldList
+            // 
+            this.lblFieldList.AutoSize = true;
+            this.lblFieldList.Location = new System.Drawing.Point(179, 10);
+            this.lblFieldList.Name = "lblFieldList";
+            this.lblFieldList.Size = new System.Drawing.Size(76, 16);
+            this.lblFieldList.TabIndex = 15;
+            this.lblFieldList.Text = "Show Fields";
+            // 
+            // panelOptions
+            // 
+            this.panelOptions.Controls.Add(this.lblFieldList);
+            this.panelOptions.Controls.Add(this.lblProductList);
+            this.panelOptions.Controls.Add(this.lstWordingFields);
+            this.panelOptions.Controls.Add(this.lstProducts);
+            this.panelOptions.Location = new System.Drawing.Point(5, 222);
+            this.panelOptions.Name = "panelOptions";
+            this.panelOptions.Size = new System.Drawing.Size(315, 223);
+            this.panelOptions.TabIndex = 16;
+            // 
             // LabelReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(573, 274);
+            this.ClientSize = new System.Drawing.Size(567, 447);
             this.ControlBox = false;
+            this.Controls.Add(this.panelOptions);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cmdGenerate);
             this.Controls.Add(this.cmdOpenReportFolder);
@@ -227,6 +286,8 @@
             this.grpLabels.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.panelOptions.ResumeLayout(false);
+            this.panelOptions.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -249,5 +310,10 @@
         private System.Windows.Forms.Button cmdOpenReportFolder;
         private System.Windows.Forms.Button cmdGenerate;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ListBox lstProducts;
+        private System.Windows.Forms.ListBox lstWordingFields;
+        private System.Windows.Forms.Label lblProductList;
+        private System.Windows.Forms.Label lblFieldList;
+        private System.Windows.Forms.Panel panelOptions;
     }
 }

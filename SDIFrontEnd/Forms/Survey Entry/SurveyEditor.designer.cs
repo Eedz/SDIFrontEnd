@@ -53,19 +53,18 @@
             this.Corrected = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.QType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panelQuestion = new System.Windows.Forms.Panel();
+            this.cboPreA = new System.Windows.Forms.ComboBox();
+            this.cboPstP = new System.Windows.Forms.ComboBox();
+            this.cboPreI = new System.Windows.Forms.ComboBox();
+            this.cboPstI = new System.Windows.Forms.ComboBox();
+            this.cboNRCodes = new System.Windows.Forms.ComboBox();
+            this.cboRespOptions = new System.Windows.Forms.ComboBox();
+            this.cboLitQ = new System.Windows.Forms.ComboBox();
+            this.cboPreP = new System.Windows.Forms.ComboBox();
             this.cmdRefreshImages = new System.Windows.Forms.Button();
             this.txtImageFileNames = new System.Windows.Forms.TextBox();
-            this.rtbPlainFilter = new SDIFrontEnd.ExtraRichTextBox();
             this.dgvTimeFrames = new System.Windows.Forms.DataGridView();
             this.chTimeFrame = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.txtPstP = new System.Windows.Forms.TextBox();
-            this.txtPstI = new System.Windows.Forms.TextBox();
-            this.txtNR = new System.Windows.Forms.TextBox();
-            this.txtRO = new System.Windows.Forms.TextBox();
-            this.txtLitQ = new System.Windows.Forms.TextBox();
-            this.txtPreA = new System.Windows.Forms.TextBox();
-            this.txtPreI = new System.Windows.Forms.TextBox();
-            this.txtPreP = new System.Windows.Forms.TextBox();
             this.cmdOpenPstP = new System.Windows.Forms.Button();
             this.cmdOpenPstI = new System.Windows.Forms.Button();
             this.cmdOpenNonResp = new System.Windows.Forms.Button();
@@ -144,6 +143,7 @@
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cboMoveTo = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.rtbPlainFilter = new SDIFrontEnd.ExtraRichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.navQuestions)).BeginInit();
             this.navQuestions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -303,8 +303,8 @@
             // 
             this.splitContainer1.Panel2.AutoScroll = true;
             this.splitContainer1.Panel2.Controls.Add(this.panelQuestion);
-            this.splitContainer1.Size = new System.Drawing.Size(1481, 685);
-            this.splitContainer1.SplitterDistance = 537;
+            this.splitContainer1.Size = new System.Drawing.Size(1500, 685);
+            this.splitContainer1.SplitterDistance = 543;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 37;
             this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
@@ -327,7 +327,7 @@
             this.lstQuestionList.Location = new System.Drawing.Point(0, 0);
             this.lstQuestionList.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.lstQuestionList.Name = "lstQuestionList";
-            this.lstQuestionList.Size = new System.Drawing.Size(533, 681);
+            this.lstQuestionList.Size = new System.Drawing.Size(539, 681);
             this.lstQuestionList.TabIndex = 36;
             this.lstQuestionList.UseCompatibleStateImageBehavior = false;
             this.lstQuestionList.View = System.Windows.Forms.View.Details;
@@ -379,18 +379,18 @@
             // panelQuestion
             // 
             this.panelQuestion.AutoScroll = true;
+            this.panelQuestion.Controls.Add(this.cboPreA);
+            this.panelQuestion.Controls.Add(this.cboPstP);
+            this.panelQuestion.Controls.Add(this.cboPreI);
+            this.panelQuestion.Controls.Add(this.cboPstI);
+            this.panelQuestion.Controls.Add(this.cboNRCodes);
+            this.panelQuestion.Controls.Add(this.cboRespOptions);
+            this.panelQuestion.Controls.Add(this.cboLitQ);
+            this.panelQuestion.Controls.Add(this.cboPreP);
             this.panelQuestion.Controls.Add(this.cmdRefreshImages);
             this.panelQuestion.Controls.Add(this.txtImageFileNames);
             this.panelQuestion.Controls.Add(this.rtbPlainFilter);
             this.panelQuestion.Controls.Add(this.dgvTimeFrames);
-            this.panelQuestion.Controls.Add(this.txtPstP);
-            this.panelQuestion.Controls.Add(this.txtPstI);
-            this.panelQuestion.Controls.Add(this.txtNR);
-            this.panelQuestion.Controls.Add(this.txtRO);
-            this.panelQuestion.Controls.Add(this.txtLitQ);
-            this.panelQuestion.Controls.Add(this.txtPreA);
-            this.panelQuestion.Controls.Add(this.txtPreI);
-            this.panelQuestion.Controls.Add(this.txtPreP);
             this.panelQuestion.Controls.Add(this.cmdOpenPstP);
             this.panelQuestion.Controls.Add(this.cmdOpenPstI);
             this.panelQuestion.Controls.Add(this.cmdOpenNonResp);
@@ -408,13 +408,93 @@
             this.panelQuestion.Location = new System.Drawing.Point(0, 0);
             this.panelQuestion.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panelQuestion.Name = "panelQuestion";
-            this.panelQuestion.Size = new System.Drawing.Size(935, 681);
+            this.panelQuestion.Size = new System.Drawing.Size(948, 681);
             this.panelQuestion.TabIndex = 34;
+            // 
+            // cboPreA
+            // 
+            this.cboPreA.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboPreA.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cboPreA.FormattingEnabled = true;
+            this.cboPreA.Location = new System.Drawing.Point(89, 124);
+            this.cboPreA.Name = "cboPreA";
+            this.cboPreA.Size = new System.Drawing.Size(74, 24);
+            this.cboPreA.TabIndex = 82;
+            // 
+            // cboPstP
+            // 
+            this.cboPstP.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboPstP.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cboPstP.FormattingEnabled = true;
+            this.cboPstP.Location = new System.Drawing.Point(89, 293);
+            this.cboPstP.Name = "cboPstP";
+            this.cboPstP.Size = new System.Drawing.Size(74, 24);
+            this.cboPstP.TabIndex = 81;
+            // 
+            // cboPreI
+            // 
+            this.cboPreI.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboPreI.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cboPreI.FormattingEnabled = true;
+            this.cboPreI.Location = new System.Drawing.Point(89, 90);
+            this.cboPreI.Name = "cboPreI";
+            this.cboPreI.Size = new System.Drawing.Size(74, 24);
+            this.cboPreI.TabIndex = 80;
+            // 
+            // cboPstI
+            // 
+            this.cboPstI.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboPstI.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cboPstI.FormattingEnabled = true;
+            this.cboPstI.Location = new System.Drawing.Point(89, 258);
+            this.cboPstI.Name = "cboPstI";
+            this.cboPstI.Size = new System.Drawing.Size(74, 24);
+            this.cboPstI.TabIndex = 79;
+            // 
+            // cboNRCodes
+            // 
+            this.cboNRCodes.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboNRCodes.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cboNRCodes.FormattingEnabled = true;
+            this.cboNRCodes.Location = new System.Drawing.Point(89, 224);
+            this.cboNRCodes.Name = "cboNRCodes";
+            this.cboNRCodes.Size = new System.Drawing.Size(74, 24);
+            this.cboNRCodes.TabIndex = 78;
+            // 
+            // cboRespOptions
+            // 
+            this.cboRespOptions.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboRespOptions.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cboRespOptions.FormattingEnabled = true;
+            this.cboRespOptions.Location = new System.Drawing.Point(89, 192);
+            this.cboRespOptions.Name = "cboRespOptions";
+            this.cboRespOptions.Size = new System.Drawing.Size(74, 24);
+            this.cboRespOptions.TabIndex = 77;
+            // 
+            // cboLitQ
+            // 
+            this.cboLitQ.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboLitQ.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cboLitQ.FormattingEnabled = true;
+            this.cboLitQ.Location = new System.Drawing.Point(89, 158);
+            this.cboLitQ.Name = "cboLitQ";
+            this.cboLitQ.Size = new System.Drawing.Size(74, 24);
+            this.cboLitQ.TabIndex = 76;
+            // 
+            // cboPreP
+            // 
+            this.cboPreP.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboPreP.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cboPreP.FormattingEnabled = true;
+            this.cboPreP.Location = new System.Drawing.Point(89, 56);
+            this.cboPreP.Name = "cboPreP";
+            this.cboPreP.Size = new System.Drawing.Size(74, 24);
+            this.cboPreP.TabIndex = 75;
             // 
             // cmdRefreshImages
             // 
             this.cmdRefreshImages.Image = global::SDIFrontEnd.Properties.Resources.Refresh;
-            this.cmdRefreshImages.Location = new System.Drawing.Point(903, 514);
+            this.cmdRefreshImages.Location = new System.Drawing.Point(916, 517);
             this.cmdRefreshImages.Name = "cmdRefreshImages";
             this.cmdRefreshImages.Size = new System.Drawing.Size(28, 23);
             this.cmdRefreshImages.TabIndex = 74;
@@ -424,27 +504,12 @@
             // 
             // txtImageFileNames
             // 
-            this.txtImageFileNames.Location = new System.Drawing.Point(629, 517);
+            this.txtImageFileNames.Location = new System.Drawing.Point(638, 517);
             this.txtImageFileNames.Multiline = true;
             this.txtImageFileNames.Name = "txtImageFileNames";
             this.txtImageFileNames.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtImageFileNames.Size = new System.Drawing.Size(272, 140);
             this.txtImageFileNames.TabIndex = 73;
-            // 
-            // rtbPlainFilter
-            // 
-            this.rtbPlainFilter.AutoScroll = true;
-            this.rtbPlainFilter.Location = new System.Drawing.Point(629, 54);
-            this.rtbPlainFilter.Margin = new System.Windows.Forms.Padding(4);
-            this.rtbPlainFilter.Name = "rtbPlainFilter";
-            this.rtbPlainFilter.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat\\deflang1033{\\fonttbl{\\f0\\fnil\\fcharset0 " +
-    "Tahoma;}}\r\n{\\*\\generator Riched20 10.0.19041}\\viewkind4\\uc1 \r\n\\pard\\f0\\fs20\\par\r" +
-    "\n}\r\n";
-            this.rtbPlainFilter.ShowFamilies = false;
-            this.rtbPlainFilter.ShowSize = false;
-            this.rtbPlainFilter.Size = new System.Drawing.Size(297, 459);
-            this.rtbPlainFilter.TabIndex = 72;
-            this.rtbPlainFilter.Validated += new System.EventHandler(this.rtbPlainFilter_Validated);
             // 
             // dgvTimeFrames
             // 
@@ -454,7 +519,7 @@
             this.dgvTimeFrames.Location = new System.Drawing.Point(3, 517);
             this.dgvTimeFrames.Name = "dgvTimeFrames";
             this.dgvTimeFrames.RowHeadersWidth = 30;
-            this.dgvTimeFrames.Size = new System.Drawing.Size(145, 140);
+            this.dgvTimeFrames.Size = new System.Drawing.Size(160, 140);
             this.dgvTimeFrames.TabIndex = 70;
             this.dgvTimeFrames.VirtualMode = true;
             this.dgvTimeFrames.CancelRowEdit += new System.Windows.Forms.QuestionEventHandler(this.dgvTimeFrames_CancelRowEdit);
@@ -471,78 +536,6 @@
             this.chTimeFrame.HeaderText = "Time Frames";
             this.chTimeFrame.Name = "chTimeFrame";
             this.chTimeFrame.Width = 110;
-            // 
-            // txtPstP
-            // 
-            this.txtPstP.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPstP.Location = new System.Drawing.Point(93, 289);
-            this.txtPstP.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtPstP.Name = "txtPstP";
-            this.txtPstP.Size = new System.Drawing.Size(55, 22);
-            this.txtPstP.TabIndex = 68;
-            // 
-            // txtPstI
-            // 
-            this.txtPstI.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPstI.Location = new System.Drawing.Point(93, 255);
-            this.txtPstI.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtPstI.Name = "txtPstI";
-            this.txtPstI.Size = new System.Drawing.Size(55, 22);
-            this.txtPstI.TabIndex = 67;
-            // 
-            // txtNR
-            // 
-            this.txtNR.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNR.Location = new System.Drawing.Point(93, 220);
-            this.txtNR.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtNR.Name = "txtNR";
-            this.txtNR.Size = new System.Drawing.Size(55, 22);
-            this.txtNR.TabIndex = 66;
-            // 
-            // txtRO
-            // 
-            this.txtRO.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRO.Location = new System.Drawing.Point(93, 188);
-            this.txtRO.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtRO.Name = "txtRO";
-            this.txtRO.Size = new System.Drawing.Size(55, 22);
-            this.txtRO.TabIndex = 65;
-            // 
-            // txtLitQ
-            // 
-            this.txtLitQ.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtLitQ.Location = new System.Drawing.Point(93, 155);
-            this.txtLitQ.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtLitQ.Name = "txtLitQ";
-            this.txtLitQ.Size = new System.Drawing.Size(55, 22);
-            this.txtLitQ.TabIndex = 64;
-            // 
-            // txtPreA
-            // 
-            this.txtPreA.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPreA.Location = new System.Drawing.Point(93, 121);
-            this.txtPreA.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtPreA.Name = "txtPreA";
-            this.txtPreA.Size = new System.Drawing.Size(55, 22);
-            this.txtPreA.TabIndex = 63;
-            // 
-            // txtPreI
-            // 
-            this.txtPreI.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPreI.Location = new System.Drawing.Point(93, 86);
-            this.txtPreI.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtPreI.Name = "txtPreI";
-            this.txtPreI.Size = new System.Drawing.Size(55, 22);
-            this.txtPreI.TabIndex = 62;
-            // 
-            // txtPreP
-            // 
-            this.txtPreP.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPreP.Location = new System.Drawing.Point(93, 53);
-            this.txtPreP.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtPreP.Name = "txtPreP";
-            this.txtPreP.Size = new System.Drawing.Size(55, 22);
-            this.txtPreP.TabIndex = 61;
             // 
             // cmdOpenPstP
             // 
@@ -682,7 +675,7 @@
             this.panelRelated.Location = new System.Drawing.Point(3, 325);
             this.panelRelated.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panelRelated.Name = "panelRelated";
-            this.panelRelated.Size = new System.Drawing.Size(145, 73);
+            this.panelRelated.Size = new System.Drawing.Size(160, 73);
             this.panelRelated.TabIndex = 32;
             // 
             // lblTranslationCount
@@ -729,7 +722,7 @@
             this.panelQnum.Location = new System.Drawing.Point(3, 402);
             this.panelQnum.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panelQnum.Name = "panelQnum";
-            this.panelQnum.Size = new System.Drawing.Size(145, 111);
+            this.panelQnum.Size = new System.Drawing.Size(160, 111);
             this.panelQnum.TabIndex = 29;
             // 
             // lblAltQnum3
@@ -822,7 +815,7 @@
             this.panelLabels.Controls.Add(this.cboTopicLabel);
             this.panelLabels.Controls.Add(this.cboDomainLabel);
             this.panelLabels.Controls.Add(this.txtVarLabel);
-            this.panelLabels.Location = new System.Drawing.Point(160, 517);
+            this.panelLabels.Location = new System.Drawing.Point(168, 517);
             this.panelLabels.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panelLabels.Name = "panelLabels";
             this.panelLabels.Size = new System.Drawing.Size(467, 140);
@@ -934,7 +927,7 @@
             // rtbQuestionText
             // 
             this.rtbQuestionText.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbQuestionText.Location = new System.Drawing.Point(160, 53);
+            this.rtbQuestionText.Location = new System.Drawing.Point(169, 53);
             this.rtbQuestionText.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.rtbQuestionText.Name = "rtbQuestionText";
             this.rtbQuestionText.ReadOnly = true;
@@ -945,7 +938,7 @@
             // txtVarName
             // 
             this.txtVarName.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtVarName.Location = new System.Drawing.Point(160, 21);
+            this.txtVarName.Location = new System.Drawing.Point(169, 21);
             this.txtVarName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtVarName.Name = "txtVarName";
             this.txtVarName.Size = new System.Drawing.Size(467, 23);
@@ -1403,6 +1396,21 @@
             this.label4.TabIndex = 56;
             this.label4.Text = "Move to:";
             // 
+            // rtbPlainFilter
+            // 
+            this.rtbPlainFilter.AutoScroll = true;
+            this.rtbPlainFilter.Location = new System.Drawing.Point(638, 54);
+            this.rtbPlainFilter.Margin = new System.Windows.Forms.Padding(4);
+            this.rtbPlainFilter.Name = "rtbPlainFilter";
+            this.rtbPlainFilter.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat\\deflang1033{\\fonttbl{\\f0\\fnil\\fcharset0 " +
+    "Tahoma;}}\r\n{\\*\\generator Riched20 10.0.19041}\\viewkind4\\uc1 \r\n\\pard\\f0\\fs20\\par\r" +
+    "\n}\r\n";
+            this.rtbPlainFilter.ShowFamilies = false;
+            this.rtbPlainFilter.ShowSize = false;
+            this.rtbPlainFilter.Size = new System.Drawing.Size(297, 459);
+            this.rtbPlainFilter.TabIndex = 72;
+            this.rtbPlainFilter.Validated += new System.EventHandler(this.rtbPlainFilter_Validated);
+            // 
             // SurveyEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -1526,14 +1534,6 @@
         private System.Windows.Forms.ToolStripMenuItem moveToolStripMenuItem;
         private System.Windows.Forms.ComboBox cboSurvey;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtPstP;
-        private System.Windows.Forms.TextBox txtPstI;
-        private System.Windows.Forms.TextBox txtNR;
-        private System.Windows.Forms.TextBox txtRO;
-        private System.Windows.Forms.TextBox txtLitQ;
-        private System.Windows.Forms.TextBox txtPreA;
-        private System.Windows.Forms.TextBox txtPreI;
-        private System.Windows.Forms.TextBox txtPreP;
         private System.Windows.Forms.Button cmdOpenPstP;
         private System.Windows.Forms.Button cmdOpenPstI;
         private System.Windows.Forms.Button cmdOpenNonResp;
@@ -1587,5 +1587,13 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtImageFileNames;
         private System.Windows.Forms.Button cmdRefreshImages;
+        private System.Windows.Forms.ComboBox cboPreP;
+        private System.Windows.Forms.ComboBox cboPreA;
+        private System.Windows.Forms.ComboBox cboPstP;
+        private System.Windows.Forms.ComboBox cboPreI;
+        private System.Windows.Forms.ComboBox cboPstI;
+        private System.Windows.Forms.ComboBox cboNRCodes;
+        private System.Windows.Forms.ComboBox cboRespOptions;
+        private System.Windows.Forms.ComboBox cboLitQ;
     }
 }

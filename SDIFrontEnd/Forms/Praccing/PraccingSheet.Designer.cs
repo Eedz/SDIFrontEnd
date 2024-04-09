@@ -35,12 +35,13 @@
             this.cboSurvey = new System.Windows.Forms.ComboBox();
             this.rbWord = new System.Windows.Forms.RadioButton();
             this.rbExcel = new System.Windows.Forms.RadioButton();
+            this.chkIncludeLegend = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // cmdCancel
             // 
             this.cmdCancel.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdCancel.Location = new System.Drawing.Point(131, 107);
+            this.cmdCancel.Location = new System.Drawing.Point(125, 135);
             this.cmdCancel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(87, 28);
@@ -52,7 +53,7 @@
             // cmdOK
             // 
             this.cmdOK.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdOK.Location = new System.Drawing.Point(38, 107);
+            this.cmdOK.Location = new System.Drawing.Point(32, 135);
             this.cmdOK.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(87, 28);
@@ -65,7 +66,7 @@
             // 
             this.lblSeparator.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblSeparator.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSeparator.Location = new System.Drawing.Point(21, 97);
+            this.lblSeparator.Location = new System.Drawing.Point(15, 125);
             this.lblSeparator.Name = "lblSeparator";
             this.lblSeparator.Size = new System.Drawing.Size(204, 2);
             this.lblSeparator.TabIndex = 7;
@@ -97,7 +98,7 @@
             // 
             this.rbWord.AutoSize = true;
             this.rbWord.Checked = true;
-            this.rbWord.Location = new System.Drawing.Point(77, 46);
+            this.rbWord.Location = new System.Drawing.Point(71, 74);
             this.rbWord.Name = "rbWord";
             this.rbWord.Size = new System.Drawing.Size(56, 20);
             this.rbWord.TabIndex = 10;
@@ -108,20 +109,31 @@
             // rbExcel
             // 
             this.rbExcel.AutoSize = true;
-            this.rbExcel.Location = new System.Drawing.Point(77, 72);
+            this.rbExcel.Location = new System.Drawing.Point(71, 100);
             this.rbExcel.Name = "rbExcel";
             this.rbExcel.Size = new System.Drawing.Size(54, 20);
             this.rbExcel.TabIndex = 11;
             this.rbExcel.Text = "Excel";
             this.rbExcel.UseVisualStyleBackColor = true;
             // 
+            // chkIncludeLegend
+            // 
+            this.chkIncludeLegend.AutoSize = true;
+            this.chkIncludeLegend.Location = new System.Drawing.Point(71, 48);
+            this.chkIncludeLegend.Name = "chkIncludeLegend";
+            this.chkIncludeLegend.Size = new System.Drawing.Size(112, 20);
+            this.chkIncludeLegend.TabIndex = 12;
+            this.chkIncludeLegend.Text = "Include Legend";
+            this.chkIncludeLegend.UseVisualStyleBackColor = true;
+            // 
             // PraccingSheet
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(222)))), ((int)(((byte)(116)))));
-            this.ClientSize = new System.Drawing.Size(238, 150);
+            this.ClientSize = new System.Drawing.Size(232, 181);
             this.ControlBox = false;
+            this.Controls.Add(this.chkIncludeLegend);
             this.Controls.Add(this.rbExcel);
             this.Controls.Add(this.rbWord);
             this.Controls.Add(this.cmdCancel);
@@ -148,5 +160,6 @@
         private System.Windows.Forms.ComboBox cboSurvey;
         private System.Windows.Forms.RadioButton rbWord;
         private System.Windows.Forms.RadioButton rbExcel;
+        private System.Windows.Forms.CheckBox chkIncludeLegend;
     }
 }

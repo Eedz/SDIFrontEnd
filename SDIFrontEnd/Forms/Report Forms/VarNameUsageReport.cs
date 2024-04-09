@@ -124,7 +124,8 @@ namespace SDIFrontEnd
                 else
                 {
                     // group the matched varnames by the wordings to get each unique wording
-                    var groups = actual.GroupBy(x => new { x.PrePNum, x.PreINum, x.PreANum, x.LitQNum, x.PstINum, x.PstPNum, x.RespNameLower, x.NRNameLower })
+                    var groups = actual.GroupBy(x => new { PrePNum = x.PrePW.WordID, PreINum = x.PreIW.WordID, PreANum = x.PreAW.WordID, 
+                                                        LitQNum = x.LitQW.WordID, PstINum=x.PstIW.WordID, PstPNum = x.PstPW.WordID, RespName = x.RespOptionsS.RespSetName.ToLower(), NRName = x.NRCodesS.RespSetName.ToLower() })
                         .Select(group => new { SurveyQuestion = group.Key, Items = group.ToList() });
 
                     foreach (var group in groups)

@@ -352,7 +352,7 @@ namespace SDIFrontEnd
                 else
                     corr = "No";
 
-                ListViewItem li = new ListViewItem(new string[] { sq.Qnum, sq.VarName.VarName, sq.VarName.VarLabel, sq.RespName, corr });
+                ListViewItem li = new ListViewItem(new string[] { sq.Qnum, sq.VarName.VarName, sq.VarName.VarLabel, sq.RespOptionsS.RespSetName, corr });
                 li.Tag = sq;
                 lstQuestionSource.Items.Add(li);
                 FormUtilities.FormatListItem(li, Utilities.GetQuestionType(sq));

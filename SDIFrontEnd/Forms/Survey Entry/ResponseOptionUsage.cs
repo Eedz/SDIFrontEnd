@@ -26,7 +26,7 @@ namespace SDIFrontEnd
         {
             InitializeComponent();
 
-            ResponseSets = DBAction.GetResponseSets(fieldname);
+            GetResponseSets(fieldname); 
             Usages = new List<ResponseUsage>();
 
             bs = new BindingSource
@@ -34,14 +34,11 @@ namespace SDIFrontEnd
                 DataSource = ResponseSets
             };
             bs.CurrentChanged += Bs_CurrentChanged;
-            //bs.PositionChanged += Bs_PositionChanged;
             bs.ListChanged += Bs_ListChanged;
 
             BindProperties();
 
             navWordings.BindingSource = bs;
-          //  this.MouseWheel += WordingUsage_MouseWheel;
-            //txtWordingR.MouseWheel += WordingUsage_MouseWheel;
 
             AddGridColumns();
         }
@@ -50,7 +47,7 @@ namespace SDIFrontEnd
         {
             InitializeComponent();
 
-            ResponseSets = DBAction.GetResponseSets(respset.FieldName);
+            GetResponseSets(respset.FieldType); 
             Usages = new List<ResponseUsage>();
 
             bs = new BindingSource
@@ -58,21 +55,15 @@ namespace SDIFrontEnd
                 DataSource = ResponseSets
             };
             bs.CurrentChanged += Bs_CurrentChanged;
-            //bs.PositionChanged += Bs_PositionChanged;
             bs.ListChanged += Bs_ListChanged;
 
             BindProperties();
 
             navWordings.BindingSource = bs;
-          //  this.MouseWheel += WordingUsage_MouseWheel;
-          //  txtWordingR.MouseWheel += WordingUsage_MouseWheel;
 
             AddGridColumns();
             GoToWording(respset);
-        }
-
-        
-
+        }     
         #region Events
 
         private void ResponseOptionUsage_Load(object sender, EventArgs e)
@@ -269,6 +260,19 @@ namespace SDIFrontEnd
 
         #region Methods
 
+        private void GetResponseSets(string fieldname)
+        {
+            switch (fieldname)
+            {
+                case "RespOptions":
+                    ResponseSets = Globals.AllRespOptions;
+                    break;
+                case "NRCodes":
+                    ResponseSets = Globals.AllNRCodes;
+                    break;
+            }
+        }
+
         /// <summary>
         /// Navigate to a particular wording.
         /// </summary>
@@ -307,12 +311,12 @@ namespace SDIFrontEnd
 
         private void AddWording()
         {
-            string field = txtFieldName.Text;
+            ResponseType field = CurrentSet.Type;
             NewRecord = true;
            
             bs.DataSource = ResponseSets;
             CurrentSet = (ResponseSet)bs.AddNew();
-            CurrentSet.FieldName = field;
+            CurrentSet.Type = field;
             CurrentSet.RespSetName = "(New)";
             OpenEditor(CurrentSet);
         }
@@ -323,7 +327,7 @@ namespace SDIFrontEnd
            
             bs.DataSource = ResponseSets;
             CurrentSet = (ResponseSet)bs.AddNew();
-            CurrentSet.FieldName = template.FieldName;
+            CurrentSet.Type = template.Type;
             CurrentSet.RespList = template.RespList;
             CurrentSet.RespSetName = "(New)";
             OpenEditor(CurrentSet);
@@ -394,7 +398,7 @@ namespace SDIFrontEnd
 
         private void BindProperties()
         {
-            txtFieldName.DataBindings.Add("Text", bs, "FieldName");
+            txtFieldName.DataBindings.Add("Text", bs, "FieldType");
             txtWordID.DataBindings.Add("Text", bs, "RespSetName");
             txtWordingR.DataBindings.Add("RTF", bs, "RespListR");
         }
@@ -492,7 +496,7 @@ namespace SDIFrontEnd
             }
             else
             {
-                if (MessageBox.Show("This will delete " + CurrentSet.FieldName + " " + CurrentSet.RespSetName + ".\r\nDo you want to proceed?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MessageBox.Show("This will delete " + CurrentSet.FieldType + " " + CurrentSet.RespSetName + ".\r\nDo you want to proceed?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     if (DBAction.DeleteRecord(CurrentSet) == 1)
                     {
@@ -517,7 +521,7 @@ namespace SDIFrontEnd
         {
             CurrentSet = (ResponseSet)bs.Current;
 
-            LoadUsageList(CurrentSet.FieldName, CurrentSet.RespSetName);
+            LoadUsageList(CurrentSet.FieldType, CurrentSet.RespSetName);
             Locked = Usages.Any(x => x.Locked) || (CurrentSet.RespSetName.Equals("0") && !NewRecord);
 
             if (CurrentSet.RespSetName == "0" && !NewRecord) // 0 wording, reserved

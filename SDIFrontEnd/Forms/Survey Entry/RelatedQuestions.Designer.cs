@@ -30,14 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RelatedQuestions));
-            this.txtPrePNum = new System.Windows.Forms.TextBox();
-            this.txtPreINum = new System.Windows.Forms.TextBox();
-            this.txtPreANum = new System.Windows.Forms.TextBox();
-            this.txtLitQNum = new System.Windows.Forms.TextBox();
-            this.txtPstINum = new System.Windows.Forms.TextBox();
-            this.txtPstPNum = new System.Windows.Forms.TextBox();
-            this.txtRespName = new System.Windows.Forms.TextBox();
-            this.txtNRName = new System.Windows.Forms.TextBox();
             this.txtVarName = new System.Windows.Forms.TextBox();
             this.txtSurvey = new System.Windows.Forms.TextBox();
             this.txtVarLabel = new System.Windows.Forms.TextBox();
@@ -88,6 +80,14 @@
             this.cboSurveyFilter = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
+            this.cboPreP = new System.Windows.Forms.ComboBox();
+            this.cboPreI = new System.Windows.Forms.ComboBox();
+            this.cboPreA = new System.Windows.Forms.ComboBox();
+            this.cboLitQ = new System.Windows.Forms.ComboBox();
+            this.cboRO = new System.Windows.Forms.ComboBox();
+            this.cboNR = new System.Windows.Forms.ComboBox();
+            this.cboPstI = new System.Windows.Forms.ComboBox();
+            this.cboPstP = new System.Windows.Forms.ComboBox();
             this.translationPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.navTranslations)).BeginInit();
             this.navTranslations.SuspendLayout();
@@ -99,68 +99,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvDS)).BeginInit();
             this.SuspendLayout();
             // 
-            // txtPrePNum
-            // 
-            this.txtPrePNum.Location = new System.Drawing.Point(7, 38);
-            this.txtPrePNum.Name = "txtPrePNum";
-            this.txtPrePNum.Size = new System.Drawing.Size(55, 22);
-            this.txtPrePNum.TabIndex = 8;
-            // 
-            // txtPreINum
-            // 
-            this.txtPreINum.Location = new System.Drawing.Point(7, 66);
-            this.txtPreINum.Name = "txtPreINum";
-            this.txtPreINum.Size = new System.Drawing.Size(55, 22);
-            this.txtPreINum.TabIndex = 9;
-            // 
-            // txtPreANum
-            // 
-            this.txtPreANum.Location = new System.Drawing.Point(7, 94);
-            this.txtPreANum.Name = "txtPreANum";
-            this.txtPreANum.Size = new System.Drawing.Size(55, 22);
-            this.txtPreANum.TabIndex = 10;
-            // 
-            // txtLitQNum
-            // 
-            this.txtLitQNum.Location = new System.Drawing.Point(7, 122);
-            this.txtLitQNum.Name = "txtLitQNum";
-            this.txtLitQNum.Size = new System.Drawing.Size(55, 22);
-            this.txtLitQNum.TabIndex = 11;
-            // 
-            // txtPstINum
-            // 
-            this.txtPstINum.Location = new System.Drawing.Point(7, 206);
-            this.txtPstINum.Name = "txtPstINum";
-            this.txtPstINum.Size = new System.Drawing.Size(55, 22);
-            this.txtPstINum.TabIndex = 12;
-            // 
-            // txtPstPNum
-            // 
-            this.txtPstPNum.Location = new System.Drawing.Point(7, 234);
-            this.txtPstPNum.Name = "txtPstPNum";
-            this.txtPstPNum.Size = new System.Drawing.Size(55, 22);
-            this.txtPstPNum.TabIndex = 13;
-            // 
-            // txtRespName
-            // 
-            this.txtRespName.Location = new System.Drawing.Point(7, 150);
-            this.txtRespName.Name = "txtRespName";
-            this.txtRespName.Size = new System.Drawing.Size(55, 22);
-            this.txtRespName.TabIndex = 14;
-            // 
-            // txtNRName
-            // 
-            this.txtNRName.Location = new System.Drawing.Point(7, 178);
-            this.txtNRName.Name = "txtNRName";
-            this.txtNRName.Size = new System.Drawing.Size(55, 22);
-            this.txtNRName.TabIndex = 15;
-            // 
             // txtVarName
             // 
-            this.txtVarName.Location = new System.Drawing.Point(7, 10);
+            this.txtVarName.Location = new System.Drawing.Point(3, 10);
             this.txtVarName.Name = "txtVarName";
             this.txtVarName.ReadOnly = true;
-            this.txtVarName.Size = new System.Drawing.Size(76, 22);
+            this.txtVarName.Size = new System.Drawing.Size(82, 22);
             this.txtVarName.TabIndex = 16;
             // 
             // txtSurvey
@@ -460,7 +404,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(69, 41);
+            this.label2.Location = new System.Drawing.Point(77, 41);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(32, 14);
             this.label2.TabIndex = 26;
@@ -469,7 +413,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(69, 69);
+            this.label3.Location = new System.Drawing.Point(77, 69);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(29, 14);
             this.label3.TabIndex = 27;
@@ -478,7 +422,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(69, 97);
+            this.label4.Location = new System.Drawing.Point(77, 97);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(33, 14);
             this.label4.TabIndex = 28;
@@ -487,7 +431,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(69, 125);
+            this.label5.Location = new System.Drawing.Point(77, 125);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(29, 14);
             this.label5.TabIndex = 29;
@@ -496,7 +440,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(69, 209);
+            this.label6.Location = new System.Drawing.Point(77, 209);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(28, 14);
             this.label6.TabIndex = 30;
@@ -505,7 +449,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(69, 237);
+            this.label7.Location = new System.Drawing.Point(77, 237);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(31, 14);
             this.label7.TabIndex = 31;
@@ -514,7 +458,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(69, 153);
+            this.label8.Location = new System.Drawing.Point(77, 153);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(28, 14);
             this.label8.TabIndex = 32;
@@ -523,7 +467,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(69, 181);
+            this.label9.Location = new System.Drawing.Point(77, 181);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(27, 14);
             this.label9.TabIndex = 33;
@@ -551,22 +495,22 @@
             // tabpageForm
             // 
             this.tabpageForm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(205)))), ((int)(((byte)(173)))));
+            this.tabpageForm.Controls.Add(this.cboPstP);
             this.tabpageForm.Controls.Add(this.rtbQuestionText);
-            this.tabpageForm.Controls.Add(this.txtPrePNum);
+            this.tabpageForm.Controls.Add(this.cboPstI);
             this.tabpageForm.Controls.Add(this.label9);
-            this.tabpageForm.Controls.Add(this.txtPreINum);
+            this.tabpageForm.Controls.Add(this.cboNR);
+            this.tabpageForm.Controls.Add(this.cboPreP);
+            this.tabpageForm.Controls.Add(this.cboRO);
             this.tabpageForm.Controls.Add(this.label8);
-            this.tabpageForm.Controls.Add(this.txtPreANum);
             this.tabpageForm.Controls.Add(this.label7);
-            this.tabpageForm.Controls.Add(this.txtLitQNum);
+            this.tabpageForm.Controls.Add(this.cboLitQ);
+            this.tabpageForm.Controls.Add(this.cboPreI);
+            this.tabpageForm.Controls.Add(this.cboPreA);
             this.tabpageForm.Controls.Add(this.label6);
-            this.tabpageForm.Controls.Add(this.txtPstINum);
             this.tabpageForm.Controls.Add(this.label5);
-            this.tabpageForm.Controls.Add(this.txtPstPNum);
             this.tabpageForm.Controls.Add(this.label4);
-            this.tabpageForm.Controls.Add(this.txtRespName);
             this.tabpageForm.Controls.Add(this.label3);
-            this.tabpageForm.Controls.Add(this.txtNRName);
             this.tabpageForm.Controls.Add(this.label2);
             this.tabpageForm.Controls.Add(this.txtVarName);
             this.tabpageForm.Controls.Add(this.navQuestions);
@@ -668,12 +612,76 @@
             this.label11.TabIndex = 40;
             this.label11.Text = "Transfer wordings";
             // 
+            // cboPreP
+            // 
+            this.cboPreP.FormattingEnabled = true;
+            this.cboPreP.Location = new System.Drawing.Point(4, 38);
+            this.cboPreP.Name = "cboPreP";
+            this.cboPreP.Size = new System.Drawing.Size(73, 22);
+            this.cboPreP.TabIndex = 41;
+            // 
+            // cboPreI
+            // 
+            this.cboPreI.FormattingEnabled = true;
+            this.cboPreI.Location = new System.Drawing.Point(4, 66);
+            this.cboPreI.Name = "cboPreI";
+            this.cboPreI.Size = new System.Drawing.Size(73, 22);
+            this.cboPreI.TabIndex = 42;
+            // 
+            // cboPreA
+            // 
+            this.cboPreA.FormattingEnabled = true;
+            this.cboPreA.Location = new System.Drawing.Point(4, 94);
+            this.cboPreA.Name = "cboPreA";
+            this.cboPreA.Size = new System.Drawing.Size(73, 22);
+            this.cboPreA.TabIndex = 43;
+            // 
+            // cboLitQ
+            // 
+            this.cboLitQ.FormattingEnabled = true;
+            this.cboLitQ.Location = new System.Drawing.Point(3, 122);
+            this.cboLitQ.Name = "cboLitQ";
+            this.cboLitQ.Size = new System.Drawing.Size(74, 22);
+            this.cboLitQ.TabIndex = 44;
+            // 
+            // cboRO
+            // 
+            this.cboRO.FormattingEnabled = true;
+            this.cboRO.Location = new System.Drawing.Point(3, 150);
+            this.cboRO.Name = "cboRO";
+            this.cboRO.Size = new System.Drawing.Size(74, 22);
+            this.cboRO.TabIndex = 45;
+            // 
+            // cboNR
+            // 
+            this.cboNR.FormattingEnabled = true;
+            this.cboNR.Location = new System.Drawing.Point(3, 178);
+            this.cboNR.Name = "cboNR";
+            this.cboNR.Size = new System.Drawing.Size(74, 22);
+            this.cboNR.TabIndex = 46;
+            // 
+            // cboPstI
+            // 
+            this.cboPstI.FormattingEnabled = true;
+            this.cboPstI.Location = new System.Drawing.Point(3, 206);
+            this.cboPstI.Name = "cboPstI";
+            this.cboPstI.Size = new System.Drawing.Size(74, 22);
+            this.cboPstI.TabIndex = 47;
+            // 
+            // cboPstP
+            // 
+            this.cboPstP.FormattingEnabled = true;
+            this.cboPstP.Location = new System.Drawing.Point(3, 234);
+            this.cboPstP.Name = "cboPstP";
+            this.cboPstP.Size = new System.Drawing.Size(74, 22);
+            this.cboPstP.TabIndex = 48;
+            // 
             // RelatedQuestions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(184)))), ((int)(((byte)(137)))));
-            this.ClientSize = new System.Drawing.Size(678, 691);
+            this.ClientSize = new System.Drawing.Size(685, 691);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.cboSurveyFilter);
@@ -710,14 +718,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.TextBox txtPrePNum;
-        private System.Windows.Forms.TextBox txtPreINum;
-        private System.Windows.Forms.TextBox txtPreANum;
-        private System.Windows.Forms.TextBox txtLitQNum;
-        private System.Windows.Forms.TextBox txtPstINum;
-        private System.Windows.Forms.TextBox txtPstPNum;
-        private System.Windows.Forms.TextBox txtRespName;
-        private System.Windows.Forms.TextBox txtNRName;
         private System.Windows.Forms.TextBox txtVarName;
         private System.Windows.Forms.TextBox txtSurvey;
         private System.Windows.Forms.TextBox txtVarLabel;
@@ -768,5 +768,13 @@
         private System.Windows.Forms.ComboBox cboSurveyFilter;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.ComboBox cboPstP;
+        private System.Windows.Forms.ComboBox cboPstI;
+        private System.Windows.Forms.ComboBox cboNR;
+        private System.Windows.Forms.ComboBox cboPreP;
+        private System.Windows.Forms.ComboBox cboRO;
+        private System.Windows.Forms.ComboBox cboLitQ;
+        private System.Windows.Forms.ComboBox cboPreI;
+        private System.Windows.Forms.ComboBox cboPreA;
     }
 }

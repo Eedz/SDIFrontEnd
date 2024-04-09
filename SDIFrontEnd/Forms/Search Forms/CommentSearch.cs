@@ -383,34 +383,34 @@ namespace SDIFrontEnd
             txtQVarName.DataBindings.Add("Text", bsQuestionComments, "VarName");
             txtQNoteDate.DataBindings.Add("Text", bsQuestionComments, "NoteDate");
             txtQNoteType.DataBindings.Add("Text", bsQuestionComments, "NoteType");
-            txtQAuthor.DataBindings.Add("Text", bsQuestionComments, "Name");
+            txtQAuthor.DataBindings.Add("Text", bsQuestionComments, "Author.Name");
             txtQSource.DataBindings.Add("Text", bsQuestionComments, "Source");
-            txtQSourceName.DataBindings.Add("Text", bsQuestionComments, "SourceName");
+            txtQSourceName.DataBindings.Add("Text", bsQuestionComments, "Authority.Name");
             txtQComment.DataBindings.Add("Text", bsQuestionComments, "Notes");
 
             txtSSurvey.DataBindings.Add("Text", bsSurveyComments, "Survey");
             txtSNoteDate.DataBindings.Add("Text", bsSurveyComments, "NoteDate");
-            txtSAuthor.DataBindings.Add("Text", bsSurveyComments, "Name");
+            txtSAuthor.DataBindings.Add("Text", bsSurveyComments, "Author.Name");
             txtSNoteType.DataBindings.Add("Text", bsSurveyComments, "NoteType");
             txtSSource.DataBindings.Add("Text", bsSurveyComments, "Source");
-            txtSSourceName.DataBindings.Add("Text", bsSurveyComments, "SourceName");
+            txtSSourceName.DataBindings.Add("Text", bsSurveyComments, "Authority.Name");
             txtSComment.DataBindings.Add("Text", bsSurveyComments, "Notes");
 
             txtWave.DataBindings.Add("Text", bsWaveComments, "StudyWave");
             txtWNoteDate.DataBindings.Add("Text", bsWaveComments, "NoteDate");
-            txtWAuthor.DataBindings.Add("Text", bsWaveComments, "Name");
+            txtWAuthor.DataBindings.Add("Text", bsWaveComments, "Author.Name");
             txtWNoteType.DataBindings.Add("Text", bsWaveComments, "NoteType");
             txtWSource.DataBindings.Add("Text", bsWaveComments, "Source");
-            txtWSourceName.DataBindings.Add("Text", bsWaveComments, "SourceName");
+            txtWSourceName.DataBindings.Add("Text", bsWaveComments, "Authority.Name");
             txtWComment.DataBindings.Add("Text", bsWaveComments, "Notes");
 
             txtDSurvey.DataBindings.Add("Text", bsDeletedComments, "Survey");
             txtDVarName.DataBindings.Add("Text", bsDeletedComments, "VarName");
             txtDNoteDate.DataBindings.Add("Text", bsDeletedComments, "NoteDate");
             txtDNoteType.DataBindings.Add("Text", bsDeletedComments, "NoteType");
-            txtDAuthor.DataBindings.Add("Text", bsDeletedComments, "Name");
+            txtDAuthor.DataBindings.Add("Text", bsDeletedComments, "Author.Name");
             txtDSource.DataBindings.Add("Text", bsDeletedComments, "Source");
-            txtDSourceName.DataBindings.Add("Text", bsDeletedComments, "SourceName");
+            txtDSourceName.DataBindings.Add("Text", bsDeletedComments, "Authority.Name");
             txtDComment.DataBindings.Add("Text", bsDeletedComments, "Notes");
 
             txtPSurvey.DataBindings.Add("Text", bsPraccingComments, "Survey");

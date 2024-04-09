@@ -186,8 +186,8 @@ namespace SDIFrontEnd
             if (CurrentQuestion == null)
                 return;
 
-            
-            rtbQuestion.Rtf = CurrentQuestion.GetQuestionTextRich();
+
+            rtbQuestion.Rtf = RTFUtilities.QuestionToRTF(CurrentQuestion); 
         }
 
         #endregion
@@ -222,7 +222,7 @@ namespace SDIFrontEnd
 
             var question = (RichTextBox)panel.Controls.Find("rtbQuestion", false)[0];
             question.Rtf = "";
-            question.Rtf = currentQuestion.GetQuestionTextRich(true);
+            question.Rtf = RTFUtilities.QuestionToRTF(currentQuestion, true); //.GetQuestionTextRich(true);
 
             if (currentQuestion.Translations.Count > 0)
             {

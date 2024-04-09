@@ -39,7 +39,8 @@ namespace SDIFrontEnd
             vText.Text = item.VarName.RefVarName;
 
             var qText = (RichTextBox)e.DataRepeaterItem.Controls.Find("rtbQuestionText", false)[0];
-            qText.Rtf = item.GetQuestionTextRich();
+            qText.Rtf = null;
+            qText.Rtf = RTFUtilities.QuestionToRTF(item);
 
         }
     }

@@ -180,8 +180,8 @@ namespace SDIFrontEnd
             txtVarName.DataBindings.Add(new Binding("Text", bsCurrent, "VarName"));
             txtLanguage.DataBindings.Add(new Binding("Text", bsCurrent, "LanguageName.LanguageName"));
 
-            rtbPreP.Rtf = MainQuestion.PrepRTF;
-            rtbPstP.Rtf = MainQuestion.PstpRTF;
+            rtbPreP.Rtf = MainQuestion.PrePW.WordingTextR;
+            rtbPstP.Rtf = MainQuestion.PstPW.WordingTextR;
 
             extraRichTextBox1.DataBindings.Add(new Binding("Rtf", bsCurrent, "TranslationRTF"));
         }
@@ -212,8 +212,8 @@ namespace SDIFrontEnd
 
 
             extraRichTextBox1.Rtf = MainQuestion.Translations.First().TranslationRTF;
-            rtbPreP.Rtf = MainQuestion.PrepRTF;
-            rtbPstP.Rtf = MainQuestion.PstpRTF;
+            rtbPreP.Rtf = MainQuestion.PrePW.WordingTextR;
+            rtbPstP.Rtf = MainQuestion.PstPW.WordingTextR;
 
             CurrentRecord = (TranslationRecord)bs.Current;
             AdjustRouting();

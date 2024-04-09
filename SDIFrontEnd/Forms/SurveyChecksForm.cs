@@ -153,58 +153,59 @@ namespace SDIFrontEnd
             lblSeriesError.Text = selected.VarName.RefVarName + "/" + selected.Qnum;
             SurveyQuestion starter = surveyChecker.QuestionList.Where(x => x.Qnum.Equals(selected.Qnum.Substring(0, 3) + "a")).FirstOrDefault();
             lblSeriesStarter.Text = starter.VarName.RefVarName + "/" + starter.Qnum;
-            rtbSeriesErrorPreP.Rtf = selected.PrepRTF;
-            if (selected.PreP.Equals(starter.PreP))
+
+            rtbSeriesErrorPreP.Rtf = selected.PrePW.WordingTextR;
+            if (selected.PrePW.Equals(starter.PrePW))
                 rtbSeriesErrorPreP.BackColor = Color.LightGreen;
             else
                 rtbSeriesErrorPreP.BackColor = Color.Red;
 
-            rtbSeriesErrorPreI.Rtf = selected.PreiRTF;
-            if (selected.PreI.Equals(starter.PreI))
+            rtbSeriesErrorPreI.Rtf = selected.PreIW.WordingTextR;
+            if (selected.PreIW.Equals(starter.PreIW))
                 rtbSeriesErrorPreI.BackColor = Color.LightGreen;
             else
                 rtbSeriesErrorPreI.BackColor = Color.Red;
 
-            rtbSeriesErrorPreA.Rtf = selected.PreaRTF;
-            if (selected.PreA.Equals(starter.PreA))
+            rtbSeriesErrorPreA.Rtf = selected.PreAW.WordingTextR;
+            if (selected.PreAW.Equals(starter.PreAW))
                 rtbSeriesErrorPreA.BackColor = Color.LightGreen;
             else
                 rtbSeriesErrorPreA.BackColor = Color.Red;
 
-            rtbSeriesErrorLitQ.Rtf = selected.LitqRTF;
+            rtbSeriesErrorLitQ.Rtf = selected.LitQW.WordingTextR;
 
-            txtSeriesErrorRO.Text = selected.RespOptions;
-            if (selected.RespOptions.Equals(starter.RespOptions))
+            txtSeriesErrorRO.Text = selected.RespOptionsS.RespList.Replace("<br>", "\r\n");
+            if (selected.RespOptionsS.Equals(starter.RespOptionsS))
                 txtSeriesErrorRO.BackColor = Color.LightGreen;
             else
                 txtSeriesErrorRO.BackColor = Color.Red;
 
-            txtSeriesErrorNR.Text = selected.NRCodes;
-            if (selected.NRCodes.Equals(starter.NRCodes))
+            txtSeriesErrorNR.Text = selected.NRCodesS.RespList.Replace("<br>", "\r\n");
+            if (selected.NRCodesS.Equals(starter.NRCodesS))
                 txtSeriesErrorNR.BackColor = Color.LightGreen;
             else
                 txtSeriesErrorNR.BackColor = Color.Red;
 
-            rtbSeriesErrorPstI.Rtf = selected.PstiRTF;
-            if (selected.PstI.Equals(starter.PstI))
+            rtbSeriesErrorPstI.Rtf = selected.PstIW.WordingTextR;
+            if (selected.PstIW.Equals(starter.PstIW))
                 rtbSeriesErrorPstI.BackColor = Color.LightGreen;
             else
                 rtbSeriesErrorPstI.BackColor = Color.Red;
 
-            rtbSeriesErrorPstP.Rtf = selected.PstpRTF;
-            if (selected.PstP.Equals(starter.PstP))
+            rtbSeriesErrorPstP.Rtf = selected.PstPW.WordingTextR;
+            if (selected.PstPW.Equals(starter.PstPW))
                 rtbSeriesErrorPstP.BackColor = Color.LightGreen;
             else
                 rtbSeriesErrorPstP.BackColor = Color.Red;
 
-            rtbSeriesStarterPreP.Text = starter.PreP;
-            rtbSeriesStarterPreI.Text = starter.PreI;
-            rtbSeriesStarterPreA.Rtf = starter.PreaRTF;
-            rtbSeriesStarterLitQ.Rtf = starter.LitqRTF;
-            txtSeriesStarterRO.Text = starter.RespOptions;
-            txtSeriesStarterNR.Text = starter.NRCodes;
-            rtbSeriesStarterPstI.Text = starter.PstI;
-            rtbSeriesStarterPstP.Text = starter.PstP;
+            rtbSeriesStarterPreP.Text = starter.PrePW.WordingText;
+            rtbSeriesStarterPreI.Text = starter.PreIW.WordingText;
+            rtbSeriesStarterPreA.Rtf = starter.PreAW.WordingTextR;
+            rtbSeriesStarterLitQ.Rtf = starter.LitQW.WordingTextR;
+            txtSeriesStarterRO.Text = starter.RespOptionsS.RespList.Replace("<br>", "\r\n");
+            txtSeriesStarterNR.Text = starter.NRCodesS.RespList.Replace("<br>", "\r\n");
+            rtbSeriesStarterPstI.Text = starter.PstIW.WordingText;
+            rtbSeriesStarterPstP.Text = starter.PstPW.WordingText;
 
         }
 
@@ -219,7 +220,8 @@ namespace SDIFrontEnd
             lstLatePreP.DataSource = ((RoutingCheckQuestion)bsRouting.Current).LatePrePVars;
             lstEarlyPstP.DataSource = ((RoutingCheckQuestion)bsRouting.Current).EarlyPstPVars;
 
-            rtbRoutingQuestion.Rtf = ((RoutingCheckQuestion)bsRouting.Current).GetQuestionTextRich();
+            rtbRoutingQuestion.Rtf = null;
+            rtbRoutingQuestion.Rtf = RTFUtilities.QuestionToRTF(((RoutingCheckQuestion)bsRouting.Current));
 
         }
 

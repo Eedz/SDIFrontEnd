@@ -63,11 +63,11 @@ namespace SDIFrontEnd
             AddGridColumns();
         }
 
-        public WordingEntryForm(Wording wording)
+        public WordingEntryForm(Wording wording) 
         {
             InitializeComponent();
 
-            GetWordings(wording.FieldName);
+            GetWordings(wording.Type);
             Usages = new List<ITCLib.WordingUsage>();
 
             bs = new BindingSource
@@ -339,6 +339,31 @@ namespace SDIFrontEnd
             }
         }
 
+        private void GetWordings(WordingType fieldname)
+        {
+            switch (fieldname)
+            {
+                case WordingType.PreP:
+                    Wordings = Globals.AllPreP;
+                    break;
+                case WordingType.PreI:
+                    Wordings = Globals.AllPreI;
+                    break;
+                case WordingType.PreA:
+                    Wordings = Globals.AllPreA;
+                    break;
+                case WordingType.LitQ:
+                    Wordings = Globals.AllLitQ;
+                    break;
+                case WordingType.PstI:
+                    Wordings = Globals.AllPstI;
+                    break;
+                case WordingType.PstP:
+                    Wordings = Globals.AllPstP;
+                    break;
+            }
+        }
+
         /// <summary>
         /// Navigate to a particular wording.
         /// </summary>
@@ -372,27 +397,26 @@ namespace SDIFrontEnd
 
         private void AddWording()
         {
-            string field = txtFieldName.Text;
+            WordingType field = CurrentWording.Type;
             NewRecord = true;
             lblNewID.Left = txtWordID.Left;
             lblNewID.Top = txtWordID.Top;
             lblNewID.Visible = true;
             bs.DataSource = Wordings;
             CurrentWording = (Wording)bs.AddNew();
-            CurrentWording.FieldName = field;
+            CurrentWording.Type = field;
             OpenEditor(CurrentWording);
         }
 
         private void AddWording(Wording template)
         {
-            
             NewRecord = true;
             lblNewID.Left = txtWordID.Left;
             lblNewID.Top = txtWordID.Top;
             lblNewID.Visible = true;
             bs.DataSource = Wordings;
             CurrentWording = (Wording)bs.AddNew();
-            CurrentWording.FieldName = template.FieldName;
+            CurrentWording.Type = template.Type;
             CurrentWording.WordingText = template.WordingText;
             OpenEditor(CurrentWording);
         }
@@ -453,9 +477,8 @@ namespace SDIFrontEnd
 
         private void BindProperties()
         {
-            txtFieldName.DataBindings.Add("Text", bs, "FieldName");
+            txtFieldName.DataBindings.Add("Text", bs, "FieldType");
             txtWordID.DataBindings.Add("Text", bs, "WordID");
-            //txtWordingR.DataBindings.Add("RTF", bs, "WordingTextR");
         }
 
         private void LoadUsageList(string field, int wordID)
@@ -550,9 +573,9 @@ namespace SDIFrontEnd
             }
             else
             {
-                if (MessageBox.Show("This will delete " + CurrentWording.FieldName + "#" + CurrentWording.WordID + ".\r\nDo you want to proceed?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MessageBox.Show("This will delete " + CurrentWording.Type.ToString() + "#" + CurrentWording.WordID + ".\r\nDo you want to proceed?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    if (DBAction.DeleteWording(CurrentWording.FieldName, CurrentWording.WordID) == 1)
+                    if (DBAction.DeleteWording(CurrentWording.FieldType, CurrentWording.WordID) == 1)
                     {
                         MessageBox.Show("Error deleting wording.");
                     }
@@ -573,7 +596,7 @@ namespace SDIFrontEnd
             txtWordingR.Rtf = null;
             txtWordingR.Rtf = CurrentWording.WordingTextR;
 
-            LoadUsageList(CurrentWording.FieldName, CurrentWording.WordID);
+            LoadUsageList(CurrentWording.FieldType, CurrentWording.WordID);
             Locked = Usages.Any(x => x.Locked) || (CurrentWording.WordID == 0 && !NewRecord);
 
             lblNewID.Visible = NewRecord;

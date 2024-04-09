@@ -12,10 +12,7 @@ using FM = FormManager;
 
 namespace SDIFrontEnd
 {
-    // TODO check if advanced search is needed
-
     // TODO OR within fields
-
     public partial class QuestionSearch : Form
     {
         enum SearchType { QuickSearch, GlobalSearch }

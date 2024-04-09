@@ -37,6 +37,8 @@ namespace SDIFrontEnd
         public static List<Wording> AllLitQ;
         public static List<Wording> AllPstI;
         public static List<Wording> AllPstP;
+        public static List<ResponseSet> AllRespOptions;
+        public static List<ResponseSet> AllNRCodes;
 
         // labels and lists
         public static List<PersonRecord> AllPeople;
@@ -115,6 +117,8 @@ namespace SDIFrontEnd
             AllLitQ = DBAction.GetWordings("LitQ");
             AllPstI = DBAction.GetWordings("PstI");
             AllPstP = DBAction.GetWordings("PstP");
+            AllRespOptions = DBAction.GetResponseSets("RespOptions");
+            AllNRCodes = DBAction.GetResponseSets("NRCodes");
         }
 
         public static void CreateOtherLists()

@@ -298,6 +298,7 @@ namespace SDIFrontEnd
         // 
         private void cmdOpenSurveyEditor_Click(object sender, EventArgs e)
         {
+            Globals.CreateWordings();
             int survID = CurrentUser.GetFilterID("frmSurveyEntry", 1);
             // check if a tab exists for this Survey
             foreach (Form se in FM.FormManager.List)
@@ -322,6 +323,7 @@ namespace SDIFrontEnd
 
         private void cmdOpenSurveyEditor2_Click(object sender, EventArgs e)
         {
+            Globals.CreateWordings();
             int survID = CurrentUser.GetFilterID("frmSurveyEntry", 2);
             // check if a tab exists for this Survey
             foreach (Form se in FM.FormManager.List)
@@ -346,6 +348,7 @@ namespace SDIFrontEnd
 
         private void cmdOpenSurveyEditor3_Click(object sender, EventArgs e)
         {
+            Globals.CreateWordings();
             int survID = CurrentUser.GetFilterID("frmSurveyEntry", 3);
             // check if a tab exists for this Survey
             foreach (Form se in FM.FormManager.List)
@@ -370,6 +373,7 @@ namespace SDIFrontEnd
 
         private void cmdOpenSurveyEditor4_Click(object sender, EventArgs e)
         {
+            Globals.CreateWordings();
             int survID = CurrentUser.GetFilterID("frmSurveyEntry", 4);
             // check if a tab exists for this Survey
             foreach (Form se in FM.FormManager.List)
@@ -394,6 +398,7 @@ namespace SDIFrontEnd
 
         private void cmdOpenSurveyEditor5_Click(object sender, EventArgs e)
         {
+            Globals.CreateWordings();
             int survID = CurrentUser.GetFilterID("frmSurveyEntry", 5);
             // check if a tab exists for this Survey
             foreach (Form se in FM.FormManager.List)
@@ -418,6 +423,7 @@ namespace SDIFrontEnd
 
         private void cmdOpenSurveyEditor6_Click(object sender, EventArgs e)
         {
+            Globals.CreateWordings();
             int survID = CurrentUser.GetFilterID("frmSurveyEntry", 6);
             // check if a tab exists for this Survey
             foreach (Form se in FM.FormManager.List)

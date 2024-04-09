@@ -99,7 +99,7 @@ namespace SDIFrontEnd
             productBox.Text = datasource[e.DataRepeaterItem.ItemIndex].VarName.Product.LabelText;
 
             var questionBox = (RichTextBox)e.DataRepeaterItem.Controls.Find("rtbQuestion", false)[0];
-            questionBox.Rtf = datasource[e.DataRepeaterItem.ItemIndex].GetQuestionTextRich();
+            questionBox.Rtf = RTFUtilities.QuestionToRTF(datasource[e.DataRepeaterItem.ItemIndex]);
         }
 
         private void drTranslations_DrawItem(object sender, Microsoft.VisualBasic.PowerPacks.DataRepeaterItemEventArgs e)
@@ -117,10 +117,10 @@ namespace SDIFrontEnd
             langBox.Text = currentQuestion.Language;
 
             var prepBox = (TextBox)e.DataRepeaterItem.Controls.Find("txtPreP", false)[0];
-            prepBox.Text = ((SurveyQuestion)questionDataSource.Current).PreP;
+            prepBox.Text = ((SurveyQuestion)questionDataSource.Current).PrePW.WordingText;
 
             var pstpBox = (TextBox)e.DataRepeaterItem.Controls.Find("txtPstP", false)[0];
-            pstpBox.Text = ((SurveyQuestion)questionDataSource.Current).PstP;
+            pstpBox.Text = ((SurveyQuestion)questionDataSource.Current).PstPW.WordingText;
         }
 
         private void drComments_DrawItem(object sender, Microsoft.VisualBasic.PowerPacks.DataRepeaterItemEventArgs e)

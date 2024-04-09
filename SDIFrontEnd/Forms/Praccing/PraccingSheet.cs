@@ -24,6 +24,8 @@ namespace SDIFrontEnd
 {
     public partial class PraccingSheet : Form
     {
+        public bool IncludeLegend { get; set; }
+
         public PraccingSheet()
         {
             InitializeComponent();
@@ -74,7 +76,8 @@ namespace SDIFrontEnd
                 body.Append(XMLUtilities.NewParagraph(survey.SurveyCode + " Praccing Sheet", JustificationValues.Center, "32", "Verdana"));
                 body.Append(XMLUtilities.NewParagraph("", JustificationValues.Center, "32", "Verdana"));
 
-                CreateLegend(body);
+                if (IncludeLegend)
+                    CreateLegend(body);
 
                 Table table = XMLUtilities.NewTable(12);
 
@@ -117,7 +120,8 @@ namespace SDIFrontEnd
                         row.Append(new TableCell(new Paragraph(pPr3, new Run(new Text()))));
                     }
 
-                    if (!string.IsNullOrEmpty(q.PreP))
+                    //if (!string.IsNullOrEmpty(q.PreP))
+                    if (IncludeLegend && !string.IsNullOrEmpty(q.PrePW.WordingText))
                         ShadeCells(row, q);
 
                     table.Append(row);
@@ -159,10 +163,10 @@ namespace SDIFrontEnd
             foreach (LinkedQuestion q in Questions)
             {
                 string prep = "";
-                if (q.PreP.Contains("."))
-                    prep = q.PreP.Substring(0, q.PreP.IndexOf("."));
+                if (q.PrePW.WordingText.Contains("."))
+                    prep = q.PrePW.WordingText.Substring(0, q.PrePW.WordingText.IndexOf("."));
                 else
-                    prep = q.PreP;
+                    prep = q.PrePW.WordingText;
 
                 // get the list of filter instructions for this question (both standard and non-standard VarNames)
                 var filters = q.GetFilterInstructions();
@@ -402,6 +406,8 @@ namespace SDIFrontEnd
                 Selected = null;
             else
                 Selected = (Survey)cboSurvey.SelectedItem;
+
+            IncludeLegend = chkIncludeLegend.Checked;
 
             if (rbWord.Checked)
             {

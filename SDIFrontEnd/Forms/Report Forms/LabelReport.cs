@@ -18,6 +18,8 @@ namespace SDIFrontEnd
     public partial class LabelReport : Form
     {
         TopicContentReport Report;
+        List<ProductLabel> SelectedProducts;
+        List<string> SelectedFields;
 
         public LabelReport()
         {
@@ -39,6 +41,26 @@ namespace SDIFrontEnd
             optTC.Checked = true;
             optTCP.DataBindings.Add("Checked", Report, "ProductCrosstab", true, DataSourceUpdateMode.OnPropertyChanged);
             chkIncludePlainFilters.DataBindings.Add("Checked", Report, "PlainFilters", true, DataSourceUpdateMode.OnPropertyChanged);
+            
+            SelectedFields = new List<string>();
+
+            lstWordingFields.Items.Add("PreP");
+            lstWordingFields.Items.Add("PreI");
+            lstWordingFields.Items.Add("PreA");
+            lstWordingFields.Items.Add("LitQ");
+            lstWordingFields.Items.Add("PstI");
+            lstWordingFields.Items.Add("PstP");
+            lstWordingFields.Items.Add("RespOptions");
+            lstWordingFields.Items.Add("NRCodes");
+            for (int i = 0; i < lstWordingFields.Items.Count; i++)
+                lstWordingFields.SetSelected(i, true);
+
+            var products = DBAction.ListProductLabels();
+            products.Remove(products[0]);
+            products.Insert(0, new ProductLabel(-1, "<All>"));
+            lstProducts.DataSource = products;
+
+            lstProducts.Tag = true;
         }
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -78,6 +100,7 @@ namespace SDIFrontEnd
 
         private void cmdGenerate_Click(object sender, EventArgs e)
         {
+            if (Report.Surveys.Count==0) return;
             RunReport();
         }
 
@@ -130,6 +153,13 @@ namespace SDIFrontEnd
         {
             int result;
 
+            if (!lstProducts.GetSelected(0))
+                SelectedProducts = lstProducts.SelectedItems.Cast<ProductLabel>().ToList();
+            else
+                SelectedProducts = new List<ProductLabel>();
+
+            SelectedFields = lstWordingFields.SelectedItems.Cast<string>().ToList();
+
             // get the survey data for all chosen surveys
             PopulateSurveys();
             Report.LayoutOptions.PaperSize = PaperSizes.Legal;
@@ -165,10 +195,17 @@ namespace SDIFrontEnd
                 rs.VarChanges.Clear();
 
                 // questions
-                if (rs.Backend.Date != DateTime.Today)
-                    rs.AddQuestions(new BindingList<SurveyQuestion>(DBAction.GetBackupQuestions(rs, rs.Backend)));
-                else
-                    rs.AddQuestions(new BindingList<SurveyQuestion>(DBAction.GetSurveyQuestions(rs)));
+                var questions = DBAction.GetSurveyQuestions(rs);
+
+                rs.StdFieldsChosen = SelectedFields;
+
+                if (Report.ProductCrosstab && SelectedProducts.Count > 0)
+                {
+                    rs.Questions.AddRange(questions.Where(x => SelectedProducts.Contains(x.VarName.Product)).ToList());
+                }else
+                {
+                    rs.Questions.AddRange(questions);
+                }
 
                 List<QuestionTimeFrame> timeframes = DBAction.GetTimeFrames(rs.SurveyCode);
                 foreach (SurveyQuestion question in rs.Questions)
@@ -176,42 +213,55 @@ namespace SDIFrontEnd
                     question.TimeFrames = timeframes.Where(x => x.QID == question.ID).ToList();
                 }
 
-                // survey notes
-                if (Report.SurvNotes)
-                    rs.SurveyNotes = DBAction.GetSurvComments(rs);
-
                 // comments
                 if (rs.ContentOptions.CommentOptions.CommentFields.Count > 0)
                 {
                     DBAction.FillCommentsBySurvey(rs);
                 }
 
-                // translations
-                if (rs.Backend.Date != DateTime.Today)
-                    DBAction.FillBackupTranslation(rs, rs.Backend.Date, rs.ContentOptions.TranslationOptions.TransFields);
-                else
-                {
-                    foreach (string language in rs.ContentOptions.TranslationOptions.TransFields)
-                    {
-                        var translations = DBAction.GetSurveyTranslation(rs.SurveyCode, language);
-
-                        foreach (Translation t in translations)
-                            rs.QuestionByID(t.QID).Translations.Add(t);
-                    }
-                }
-
                 // filters
                 if (rs.FilterCol)
                     rs.MakeFilterList();
 
-                // varchanges (for appendix)
-                if (Report.VarChangesApp)
-                    rs.VarChanges = new List<VarNameChange>(DBAction.GetVarNameChanges(rs).Where(x => x.PreFWChange != Report.ExcludeTempChanges));
-
-
             }
         }
 
-        
+        private void optTCP_CheckedChanged(object sender, EventArgs e)
+        {
+            lstProducts.Enabled = optTCP.Checked;            
+        }
+
+        private void lstProducts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListBox lst = (ListBox)sender;
+
+            // only the <All> option is in the box
+            if (lst.Items.Count == 1)
+                return;
+
+            lst.SelectedIndexChanged -= lstProducts_SelectedIndexChanged;
+
+            if (lst.SelectedItems.Count == 0)
+            {
+                lst.SetSelected(0, true);
+                lst.Tag = true;
+            }
+
+            int count = lst.SelectedItems.Count;
+
+            if (count > 1 && (bool)lst.Tag)
+            {
+                lst.SelectedItems.Remove(lst.Items[0]);
+                lst.Tag = false;
+            }
+            else if (count > 1 && lst.SelectedIndices.Contains(0))
+            {
+                lst.SelectedItems.Clear();
+                lst.SelectedItems.Add(lst.Items[0]);
+                lst.Tag = true;
+            }
+
+            lst.SelectedIndexChanged += lstProducts_SelectedIndexChanged;
+        }
     }
 }
