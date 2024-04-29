@@ -118,8 +118,6 @@ namespace SDIFrontEnd
 
         private List<DraftQuestion> GetReportData()
         {
-
-
             Survey survID = (Survey)cboSurvey.SelectedItem;
             List<DraftQuestion> reportRecords;
             switch (ReportSource)

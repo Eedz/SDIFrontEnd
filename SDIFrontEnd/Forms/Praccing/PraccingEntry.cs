@@ -46,7 +46,7 @@ namespace SDIFrontEnd
             AddMouseWheelEvents();
 
             Records = new List<PraccingIssueRecord>();
-            PeopleList = new List<PersonRecord>(Globals.AllPeople);
+            PeopleList = Globals.AllPeople;
             CategoryList = DBAction.GetPraccingCategories();
 
             SetupBindingSources();

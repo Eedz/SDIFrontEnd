@@ -137,7 +137,7 @@ namespace SDIFrontEnd
                             surveyList += item.SurveyCode + ", ";
                         }
                         newrow["RefVarName"] = group.Items[0].VarName.RefVarName;
-                        newrow["Question"] = group.Items[0].GetQuestionText();
+                        newrow["Question"] = group.Items[0].GetQuestionTextHTML();
                         newrow["Surveys"] = surveyList;
                         data.Rows.Add(newrow);
                     }

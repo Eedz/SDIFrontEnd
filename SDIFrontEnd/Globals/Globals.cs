@@ -172,10 +172,36 @@ namespace SDIFrontEnd
             return qid;
         }
 
+        public static void AddWording(Wording wording)
+        {
+            switch (wording.Type)
+            {
+                case WordingType.PreP:
+                    AllPreP.Add(wording);
+                    break;
+                case WordingType.PreI:
+                    AllPreI.Add(wording);
+                    break;
+                case WordingType.PreA:
+                    AllPreA.Add(wording);
+                    break;
+                case WordingType.LitQ:
+                    AllLitQ.Add(wording);
+                    break;
+                case WordingType.PstI:
+                    AllPstI.Add(wording);
+                    break;
+                case WordingType.PstP:
+                    AllPstP.Add(wording);
+                    break;
+            }
+        }
+
         public static EventHandler RefreshPeople;
         public static EventHandler RefreshDomains;
         public static EventHandler RefreshTopics;
         public static EventHandler RefreshContents;
         public static EventHandler RefreshProducts;
+        public static EventHandler RefreshWordings;
     }
 }

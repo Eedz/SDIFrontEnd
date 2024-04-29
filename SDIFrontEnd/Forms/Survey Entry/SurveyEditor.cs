@@ -44,6 +44,7 @@ namespace SDIFrontEnd
         int searchStart = 0;
 
         public event EventHandler LabelAdded;
+        public event EventHandler WordingAdded;
 
         QuestionTimeFrame editedTimeFrame;
         int timeFrameRow = -1;
@@ -83,7 +84,7 @@ namespace SDIFrontEnd
             Globals.RefreshTopics += SurveyEditor_RefreshTopics;
             Globals.RefreshContents += SurveyEditor_RefreshContents;
             Globals.RefreshProducts += SurveyEditor_RefreshProducts;
-
+            Globals.RefreshWordings += SurveyEditor_RefreshWordings;
             CurrentRecord = (QuestionRecord)bs.Current;
         }
 
@@ -236,38 +237,7 @@ namespace SDIFrontEnd
             toolStripLanguage.ComboBox.ValueMember = "SurvLanguage";
             toolStripLanguage.ComboBox.DataSource = RefreshLanguages();
 
-            // wordings
-            cboPreP.DisplayMember = "WordID";
-            cboPreP.ValueMember = "WordID";
-            cboPreP.DataSource = Globals.AllPreP;
-
-            cboPreI.DisplayMember = "WordID";
-            cboPreI.ValueMember = "WordID";
-            cboPreI.DataSource = Globals.AllPreI;
-
-            cboPreA.DisplayMember = "WordID";
-            cboPreA.ValueMember = "WordID";
-            cboPreA.DataSource = Globals.AllPreA;
-
-            cboLitQ.DisplayMember = "WordID";
-            cboLitQ.ValueMember = "WordID";
-            cboLitQ.DataSource = Globals.AllLitQ;
-
-            cboPstI.DisplayMember = "WordID";
-            cboPstI.ValueMember = "WordID";
-            cboPstI.DataSource = Globals.AllPstI;
-
-            cboPstP.DisplayMember = "WordID";
-            cboPstP.ValueMember = "WordID";
-            cboPstP.DataSource = Globals.AllPstP;
-
-            cboRespOptions.DisplayMember = "RespSetName";
-            cboRespOptions.ValueMember = "RespSetName";
-            cboRespOptions.DataSource = Globals.AllRespOptions;
-
-            cboNRCodes.DisplayMember = "RespSetName";
-            cboNRCodes.ValueMember = "RespSetName";
-            cboNRCodes.DataSource = Globals.AllNRCodes;
+            FillWordings();
 
             // top portion
             cboSurvey.DisplayMember = "SurveyCode";
@@ -291,6 +261,52 @@ namespace SDIFrontEnd
             cboProductLabel.ValueMember = "ID";
             cboProductLabel.DisplayMember = "LabelText";
             cboProductLabel.DataSource = Globals.AllProductLabels;
+        }
+
+        /// <summary>
+        /// Set the DataSource of each wording drop down to the global list.
+        /// </summary>
+        private void FillWordings()
+        {
+            cboPreP.DataSource = null;
+            cboPreP.DisplayMember = "WordID";
+            cboPreP.ValueMember = "WordID";
+            cboPreP.DataSource = Globals.AllPreP;
+
+            cboPreI.DataSource = null;
+            cboPreI.DisplayMember = "WordID";
+            cboPreI.ValueMember = "WordID";
+            cboPreI.DataSource = Globals.AllPreI;
+
+            cboPreA.DataSource = null;
+            cboPreA.DisplayMember = "WordID";
+            cboPreA.ValueMember = "WordID";
+            cboPreA.DataSource = Globals.AllPreA;
+
+            cboLitQ.DataSource = null;
+            cboLitQ.DisplayMember = "WordID";
+            cboLitQ.ValueMember = "WordID";
+            cboLitQ.DataSource = Globals.AllLitQ;
+
+            cboPstI.DataSource = null;
+            cboPstI.DisplayMember = "WordID";
+            cboPstI.ValueMember = "WordID";
+            cboPstI.DataSource = Globals.AllPstI;
+
+            cboPstP.DataSource = null;
+            cboPstP.DisplayMember = "WordID";
+            cboPstP.ValueMember = "WordID";
+            cboPstP.DataSource = Globals.AllPstP;
+
+            cboRespOptions.DataSource = null;
+            cboRespOptions.DisplayMember = "RespSetName";
+            cboRespOptions.ValueMember = "RespSetName";
+            cboRespOptions.DataSource = Globals.AllRespOptions;
+
+            cboNRCodes.DataSource = null;
+            cboNRCodes.DisplayMember = "RespSetName";
+            cboNRCodes.ValueMember = "RespSetName";
+            cboNRCodes.DataSource = Globals.AllNRCodes;
         }
 
         /// <summary>
@@ -385,11 +401,23 @@ namespace SDIFrontEnd
             cboMoveTo.MouseWheel += ComboBox_MouseWheel;
             cboSurvey.MouseWheel += ComboBox_MouseWheel;
             cboGoToVar.MouseWheel += ComboBox_MouseWheel;
+
+            cboPreP.MouseWheel += ComboBox_MouseWheel;
+            cboPreI.MouseWheel += ComboBox_MouseWheel;
+            cboPreA.MouseWheel += ComboBox_MouseWheel;
+            cboLitQ.MouseWheel += ComboBox_MouseWheel;
+            cboPstI.MouseWheel += ComboBox_MouseWheel;
+            cboPstP.MouseWheel += ComboBox_MouseWheel;
+            cboRespOptions.MouseWheel += ComboBox_MouseWheel;
+            cboNRCodes.MouseWheel += ComboBox_MouseWheel;
+
             cboDomainLabel.MouseWheel += ComboBox_MouseWheel;
             cboTopicLabel.MouseWheel += ComboBox_MouseWheel;
             cboContentLabel.MouseWheel += ComboBox_MouseWheel;
-            cboProductLabel.MouseWheel += ComboBox_MouseWheel;            
+            cboProductLabel.MouseWheel += ComboBox_MouseWheel;    
         }
+
+
         #endregion
 
         #region Menu/Toolstrip Items
@@ -896,6 +924,11 @@ namespace SDIFrontEnd
             cboProductLabel.SelectedItem = label;
         }
 
+        private void SurveyEditor_RefreshWordings(object sender, EventArgs e)
+        {
+            FillWordings();
+        }
+
         private void dgvTimeFrames_NewRowNeeded(object sender, DataGridViewRowEventArgs e)
         {
             // Create a new QuestionTimeFrame object when the user edits the row for new records.
@@ -1072,7 +1105,7 @@ namespace SDIFrontEnd
             plain = Utilities.TrimString(plain, "<br>");
             CurrentRecord.Item.FilterDescription = plain;
             rtbPlainFilter.Rtf = null;
-            rtbPlainFilter.Rtf = CurrentRecord.Item.FilterDescriptionRTF;
+            rtbPlainFilter.Rtf = RTFUtilities.FormatText(CurrentRecord.Item.FilterDescription);
         }
         #endregion
 
@@ -1210,11 +1243,11 @@ namespace SDIFrontEnd
 
             string rich = RTFUtilities.QuestionToRTF(CurrentRecord.Item, true);
 
-            rtbQuestionText.Rtf = "";
+            rtbQuestionText.Rtf = null;
             rtbQuestionText.Rtf = rich;
 
             rtbPlainFilter.Rtf = null;
-            rtbPlainFilter.Rtf = CurrentRecord.Item.FilterDescriptionRTF;
+            rtbPlainFilter.Rtf = RTFUtilities.FormatRTF_FromText(CurrentRecord.Item.FilterDescription);
 
             LoadImages();
             
@@ -1421,7 +1454,7 @@ namespace SDIFrontEnd
                     CurrentRecord.Item.PrePW = wording;
                     break;
                 case "PreI":
-                      CurrentRecord.Item.PreIW = wording;
+                    CurrentRecord.Item.PreIW = wording;
                     break;
                 case "PreA":
                     CurrentRecord.Item.PreAW = wording;
@@ -1779,6 +1812,7 @@ namespace SDIFrontEnd
                 GoToQuestion(frm.QuestionsToAdd[0].VarName.RefVarName);
                 
                 UpdateStatus();
+                bs.ResetBindings(false);
             }
         }
 

@@ -45,7 +45,7 @@ namespace SDIFrontEnd
             {
                 lstStandardFields.SetSelected(i, true);
             }
-            txtBaseQuestion.Rtf = Utilities.FormatText(CurrentQuestion.GetQuestionText(StandardFields, false, "<br>"), true);
+            txtBaseQuestion.Rtf = RTFUtilities.QuestionToRTF(CurrentQuestion);
             LoadQuestion();
         }
 
@@ -61,7 +61,7 @@ namespace SDIFrontEnd
             
 
             txtFormattedQuestion.Clear();
-            txtFormattedQuestion.Rtf = Utilities.FormatText(CurrentQuestion.GetQuestionText(StandardFields, false, "<br>"), true);
+            txtFormattedQuestion.Rtf = RTFUtilities.QuestionToRTF(CurrentQuestion);
         }
 
         private void lstStandardFields_SelectedIndexChanged(object sender, EventArgs e)

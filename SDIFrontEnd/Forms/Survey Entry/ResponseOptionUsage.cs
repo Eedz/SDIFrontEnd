@@ -385,6 +385,7 @@ namespace SDIFrontEnd
                 DBAction.InsertResponseSet(CurrentSet);
                 Dirty = false;
                 NewRecord = false;
+                Globals.RefreshWordings?.Invoke(this, new EventArgs());
             }
             else if (Dirty) // existing set edited
             {
@@ -398,7 +399,7 @@ namespace SDIFrontEnd
 
         private void BindProperties()
         {
-            txtFieldName.DataBindings.Add("Text", bs, "FieldType");
+            txtFieldName.DataBindings.Add("Text", bs, "Type");
             txtWordID.DataBindings.Add("Text", bs, "RespSetName");
             txtWordingR.DataBindings.Add("RTF", bs, "RespListR");
         }
@@ -505,14 +506,11 @@ namespace SDIFrontEnd
                     else
                     {
                         bs.RemoveCurrent();
+                        Globals.RefreshWordings?.Invoke(this, new EventArgs());
                     }
                 }
             }
         }
-
-        
-
-
 
         /// <summary>
         /// Refresh the form with the current wording. Locking controls as needed.

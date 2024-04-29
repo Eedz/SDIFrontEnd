@@ -35,6 +35,8 @@ namespace SDIFrontEnd
         {
             InitializeComponent();
 
+            AddMouseWheelEvents();
+
             MainQuestion = mainQuestion;
             FormNumber = formNumber;
 
@@ -59,6 +61,19 @@ namespace SDIFrontEnd
         }
 
         #region Form Setup
+
+        private void AddMouseWheelEvents()
+        {
+            cboSurveyFilter.MouseWheel += ComboBox_MouseWheel;
+            cboPreP.MouseWheel += ComboBox_MouseWheel;
+            cboPreI.MouseWheel += ComboBox_MouseWheel;
+            cboPreA.MouseWheel += ComboBox_MouseWheel;
+            cboLitQ.MouseWheel += ComboBox_MouseWheel;
+            cboPstI.MouseWheel += ComboBox_MouseWheel;
+            cboPstP.MouseWheel += ComboBox_MouseWheel;
+            cboRO.MouseWheel += ComboBox_MouseWheel;
+            cboNR.MouseWheel += ComboBox_MouseWheel;          
+        }
 
         private void SetupBindingSource()
         {
@@ -163,6 +178,22 @@ namespace SDIFrontEnd
         {
             UpdateQuestion();
             UpdateTranslation();
+        }
+
+        protected void RelatedQuestions_OnMouseWheel(object sender, MouseEventArgs e)
+        {
+            if (e.Delta == -120)
+                MoveRecord(1);
+            else if (e.Delta == 120)
+                MoveRecord(-1);
+        }
+
+        private void ComboBox_MouseWheel(object sender, MouseEventArgs e)
+        {
+            ComboBox control = (ComboBox)sender;
+
+            if (!control.DroppedDown)
+                ((HandledMouseEventArgs)e).Handled = true;
         }
 
         /// <summary>
@@ -372,6 +403,9 @@ namespace SDIFrontEnd
                 rtbTranslation.Top = txtTranslationPreP.Top;
                 rtbTranslation.Height = 160;
             }
+
+            bool locked = Globals.AllSurveys.First(x => x.SurveyCode.Equals(CurrentQuestion.Item.SurveyCode)).Locked;
+            LockForm(locked);
         }
 
         /// <summary>

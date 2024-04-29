@@ -55,6 +55,7 @@ namespace SDIFrontEnd
             };
             bs.CurrentChanged += Bs_CurrentChanged;
             bs.ListChanged += Bs_ListChanged;
+            bs.AddingNew += Bs_AddingNew;
 
             BindProperties();
 
@@ -76,6 +77,7 @@ namespace SDIFrontEnd
             };
             bs.CurrentChanged += Bs_CurrentChanged;
             bs.ListChanged += Bs_ListChanged;
+            bs.AddingNew += Bs_AddingNew;
 
             BindProperties();
 
@@ -101,6 +103,11 @@ namespace SDIFrontEnd
         {
             if (e.PropertyDescriptor == null) return;
             Dirty = true;
+        }
+
+        private void Bs_AddingNew(object sender, AddingNewEventArgs e)
+        {
+            e.NewObject = new Wording(CurrentWording.Type);
         }
 
         /// <summary>
@@ -167,7 +174,6 @@ namespace SDIFrontEnd
         {
             if (!chkEdit.Checked)
             {
-                
                 SaveRecord();
                 chkEdit.Text = "Edit";
                 cmdBold.Enabled = false;
@@ -299,10 +305,13 @@ namespace SDIFrontEnd
 
         private void UpdatePlainText()
         {
+            // change RTF tags to HTML tags
+            string html = RTFUtilities.ConvertRTFtoHTML(txtWordingR.Rtf);
+
             txtWordingR.Rtf = Utilities.FormatRTF(txtWordingR.Rtf);
 
-            // change RTF tags to HTML tags
-            //string html = Utilities.ConvertRTFtoHTML(txtWordingR.Rtf);
+            
+            
             //txtWordingR.Rtf = html;
 
             // now get plain text which includes the HTML tags we've inserted
@@ -405,7 +414,10 @@ namespace SDIFrontEnd
             bs.DataSource = Wordings;
             CurrentWording = (Wording)bs.AddNew();
             CurrentWording.Type = field;
-            OpenEditor(CurrentWording);
+
+            chkEdit.Text = "Save";
+           
+            //OpenEditor(CurrentWording);
         }
 
         private void AddWording(Wording template)
@@ -457,12 +469,18 @@ namespace SDIFrontEnd
         {
             UpdatePlainText();
 
+            if (CurrentWording.WordID!=0 && CurrentWording.IsBlank())
+            {
+                return 0;
+            }
+
             if (NewRecord) // new wording created by this form
             {
                 // insert into table
                 DBAction.InsertWording(CurrentWording);
                 Dirty = false;
                 NewRecord = false;
+                Globals.RefreshWordings?.Invoke(this, new EventArgs());
             }
             else if (Dirty) // existing wording edited
             {
@@ -477,7 +495,7 @@ namespace SDIFrontEnd
 
         private void BindProperties()
         {
-            txtFieldName.DataBindings.Add("Text", bs, "FieldType");
+            txtFieldName.DataBindings.Add("Text", bs, "Type");
             txtWordID.DataBindings.Add("Text", bs, "WordID");
         }
 
@@ -582,6 +600,7 @@ namespace SDIFrontEnd
                     else
                     {
                         bs.RemoveCurrent();
+                        Globals.RefreshWordings?.Invoke(this, new EventArgs());
                     }
                 }
             }
@@ -603,17 +622,28 @@ namespace SDIFrontEnd
             if (CurrentWording.WordID == 0 && !NewRecord) // 0 wording, reserved
             {
                 chkEdit.Enabled = false;
+                txtWordingR.ReadOnly = true;
+            }
+            else if (NewRecord)
+            {
+                chkEdit.Enabled = true;
+                chkEdit.Checked = true;
+                txtWordingR.ReadOnly = false;
+                txtWordingR.BackColor = SystemColors.Window;
+                cmdBold.Enabled = true;
+                cmdItalic.Enabled = true;
             }
             else
             {
                 chkEdit.Enabled = true;
+                chkEdit.Checked = false;
+                txtWordingR.ReadOnly = true;
+                txtWordingR.BackColor = SystemColors.Control;
+                cmdBold.Enabled = false;
+                cmdItalic.Enabled = false;
             }
 
-            chkEdit.Checked = false;
-            txtWordingR.ReadOnly = true;
-            txtWordingR.BackColor = SystemColors.Control;
-            cmdBold.Enabled = false;
-            cmdItalic.Enabled = false;
+            
         }
         #endregion
 

@@ -114,7 +114,7 @@ namespace SDIFrontEnd
                 {
                     SurveyQuestion matchingQ = referenceQs.FirstOrDefault(x => x.VarName.VarName.Equals(change.NewName) && x.SurveyCode.Equals(s.SurveyCode));
                     if (matchingQ != null)
-                        newrow["Wording (" + s.SurveyCode + ")"] = matchingQ.GetQuestionText();
+                        newrow["Wording (" + s.SurveyCode + ")"] = matchingQ.GetQuestionTextHTML();
                 }
 
                 newrow["Change Date"] = change.ChangeDate.ToString("dd-MMM-yyyy");
@@ -242,7 +242,6 @@ namespace SDIFrontEnd
             if (lstSelected.Items.Count == 0) return;
 
             GetReportDetails(out List<VarNameChange> changes, out string title);
-            
 
             DataTable data = CreateReportSource(changes);
 

@@ -63,6 +63,7 @@
             this.cboPreP = new System.Windows.Forms.ComboBox();
             this.cmdRefreshImages = new System.Windows.Forms.Button();
             this.txtImageFileNames = new System.Windows.Forms.TextBox();
+            this.rtbPlainFilter = new SDIFrontEnd.ExtraRichTextBox();
             this.dgvTimeFrames = new System.Windows.Forms.DataGridView();
             this.chTimeFrame = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmdOpenPstP = new System.Windows.Forms.Button();
@@ -143,7 +144,6 @@
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cboMoveTo = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.rtbPlainFilter = new SDIFrontEnd.ExtraRichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.navQuestions)).BeginInit();
             this.navQuestions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -510,6 +510,21 @@
             this.txtImageFileNames.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtImageFileNames.Size = new System.Drawing.Size(272, 140);
             this.txtImageFileNames.TabIndex = 73;
+            // 
+            // rtbPlainFilter
+            // 
+            this.rtbPlainFilter.AutoScroll = true;
+            this.rtbPlainFilter.Location = new System.Drawing.Point(638, 54);
+            this.rtbPlainFilter.Margin = new System.Windows.Forms.Padding(4);
+            this.rtbPlainFilter.Name = "rtbPlainFilter";
+            this.rtbPlainFilter.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat\\deflang1033{\\fonttbl{\\f0\\fnil\\fcharset0 " +
+    "Tahoma;}}\r\n{\\*\\generator Riched20 10.0.19041}\\viewkind4\\uc1 \r\n\\pard\\f0\\fs20\\par\r" +
+    "\n}\r\n";
+            this.rtbPlainFilter.ShowFamilies = false;
+            this.rtbPlainFilter.ShowSize = false;
+            this.rtbPlainFilter.Size = new System.Drawing.Size(297, 459);
+            this.rtbPlainFilter.TabIndex = 72;
+            this.rtbPlainFilter.Validated += new System.EventHandler(this.rtbPlainFilter_Validated);
             // 
             // dgvTimeFrames
             // 
@@ -1395,21 +1410,6 @@
             this.label4.Size = new System.Drawing.Size(57, 16);
             this.label4.TabIndex = 56;
             this.label4.Text = "Move to:";
-            // 
-            // rtbPlainFilter
-            // 
-            this.rtbPlainFilter.AutoScroll = true;
-            this.rtbPlainFilter.Location = new System.Drawing.Point(638, 54);
-            this.rtbPlainFilter.Margin = new System.Windows.Forms.Padding(4);
-            this.rtbPlainFilter.Name = "rtbPlainFilter";
-            this.rtbPlainFilter.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat\\deflang1033{\\fonttbl{\\f0\\fnil\\fcharset0 " +
-    "Tahoma;}}\r\n{\\*\\generator Riched20 10.0.19041}\\viewkind4\\uc1 \r\n\\pard\\f0\\fs20\\par\r" +
-    "\n}\r\n";
-            this.rtbPlainFilter.ShowFamilies = false;
-            this.rtbPlainFilter.ShowSize = false;
-            this.rtbPlainFilter.Size = new System.Drawing.Size(297, 459);
-            this.rtbPlainFilter.TabIndex = 72;
-            this.rtbPlainFilter.Validated += new System.EventHandler(this.rtbPlainFilter_Validated);
             // 
             // SurveyEditor
             // 
