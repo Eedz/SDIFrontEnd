@@ -371,8 +371,6 @@
             this.dgvNotifications.Size = new System.Drawing.Size(246, 344);
             this.dgvNotifications.TabIndex = 9;
             this.dgvNotifications.VirtualMode = true;
-
-
             // 
             // chNotifyName
             // 
@@ -623,6 +621,7 @@
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(177)))), ((int)(((byte)(226)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(1169, 542);
+            this.ControlBox = false;
             this.Controls.Add(this.chkToggleHistory);
             this.Controls.Add(this.dataRepeater1);
             this.Controls.Add(this.toolStrip1);

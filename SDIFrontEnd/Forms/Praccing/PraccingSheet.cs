@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 using OpenXMLHelper;
 using DocumentFormat.OpenXml;
@@ -29,6 +30,27 @@ namespace SDIFrontEnd
         public PraccingSheet()
         {
             InitializeComponent();
+
+            dgvHighlightingRanges.AllowUserToAddRows = true;
+            dgvHighlightingRanges.Rows.Add();
+            dgvHighlightingRanges.Rows.Add();
+            dgvHighlightingRanges.Rows.Add();
+
+            dgvHighlightingRanges.Rows[0].Cells[2].Style.BackColor = System.Drawing.ColorTranslator.FromHtml("#833C0B");
+            dgvHighlightingRanges.Rows[0].Cells[2].Style.ForeColor = System.Drawing.Color.White;
+            dgvHighlightingRanges.Rows[0].Cells[3].Style.BackColor = System.Drawing.ColorTranslator.FromHtml("#F4B083");
+            dgvHighlightingRanges.Rows[0].Cells[4].Style.BackColor = System.Drawing.ColorTranslator.FromHtml("#FBE4D5");
+
+            dgvHighlightingRanges.Rows[1].Cells[2].Style.BackColor = System.Drawing.ColorTranslator.FromHtml("#1F4E79");
+            dgvHighlightingRanges.Rows[1].Cells[2].Style.ForeColor = System.Drawing.Color.White;
+            dgvHighlightingRanges.Rows[1].Cells[3].Style.BackColor = System.Drawing.ColorTranslator.FromHtml("#9CC2E5");
+            dgvHighlightingRanges.Rows[1].Cells[4].Style.BackColor = System.Drawing.ColorTranslator.FromHtml("#DEEAF6");
+
+            dgvHighlightingRanges.Rows[2].Cells[2].Style.BackColor = System.Drawing.ColorTranslator.FromHtml("#385623");
+            dgvHighlightingRanges.Rows[2].Cells[2].Style.ForeColor = System.Drawing.Color.White;
+            dgvHighlightingRanges.Rows[2].Cells[3].Style.BackColor = System.Drawing.ColorTranslator.FromHtml("#A8D08D");
+            dgvHighlightingRanges.Rows[2].Cells[4].Style.BackColor = System.Drawing.ColorTranslator.FromHtml("#E2EFD9");
+            dgvHighlightingRanges.AllowUserToAddRows = false;
 
             FillLists();
         }
@@ -192,17 +214,42 @@ namespace SDIFrontEnd
 
         
 
+        private LegendEntry GetRow(int index)
+        {
+            LegendEntry entry = new LegendEntry();
+
+            if (index > dgvHighlightingRanges.Rows.Count)
+                return entry;
+
+            var row = dgvHighlightingRanges.Rows[index-1];
+
+            entry.label = row.Cells[0].Value.ToString();
+            entry.varname = row.Cells[1].Value.ToString();
+            entry.range1 = row.Cells[2].Value.ToString();
+            entry.range2 = row.Cells[3].Value.ToString();
+            entry.range3 = row.Cells[4].Value.ToString();
+
+            return entry;
+        }
+
         private void CreateLegend(Body body)
         {
             Table legendTable = XMLUtilities.NewTable(4, TableLayoutValues.Autofit);
 
+            // first row of data
+            LegendEntry row1Info = GetRow(1);
+
             TableRow row1 = new TableRow();
-            TableCell cell1 = new TableCell(new Paragraph(new Run(new Text("Cigarettes"))));
-            TableCell cell2 = new TableCell(new Paragraph(new Run(new Text("FR309v=1-3"))));
+            //TableCell cell1 = new TableCell(new Paragraph(new Run(new Text("Cigarettes"))));
+            TableCell cell1 = new TableCell(new Paragraph(new Run(new Text(row1Info.label))));
+            //TableCell cell2 = new TableCell(new Paragraph(new Run(new Text("FR309v=1-3"))));
+            TableCell cell2 = new TableCell(new Paragraph(new Run(new Text(row1Info.GetRange(1)))));
             XMLUtilities.ShadeCell(cell2, new Shading() { Val = ShadingPatternValues.Clear, Color = "auto", Fill = "833C0B" });
-            TableCell cell3 = new TableCell(new Paragraph(new Run(new Text("FR309v=1-5"))));
+            //TableCell cell3 = new TableCell(new Paragraph(new Run(new Text("FR309v=1-5"))));
+            TableCell cell3 = new TableCell(new Paragraph(new Run(new Text(row1Info.GetRange(2)))));
             XMLUtilities.ShadeCell(cell3, new Shading() { Val = ShadingPatternValues.Clear, Color = "auto", Fill = "F4B083" });
-            TableCell cell4 = new TableCell(new Paragraph(new Run(new Text("FR309v=1-7"))));
+            //TableCell cell4 = new TableCell(new Paragraph(new Run(new Text("FR309v=1-7"))));
+            TableCell cell4 = new TableCell(new Paragraph(new Run(new Text(row1Info.GetRange(3)))));
             XMLUtilities.ShadeCell(cell4, new Shading() { Val = ShadingPatternValues.Clear, Color = "auto", Fill = "FBE4D5" });
 
             row1.Append(cell1);
@@ -212,13 +259,20 @@ namespace SDIFrontEnd
 
             legendTable.Append(row1);
 
+            // second row of data
+            LegendEntry row2Info = GetRow(2);
+
             TableRow row2 = new TableRow();
-            TableCell cell5 = new TableCell(new Paragraph(new Run(new Text("E-cigarettes"))));
-            TableCell cell6 = new TableCell(new Paragraph(new Run(new Text("EC309v=1-3"))));
+            //TableCell cell5 = new TableCell(new Paragraph(new Run(new Text("E-cigarettes"))));
+            TableCell cell5 = new TableCell(new Paragraph(new Run(new Text(row2Info.label))));
+            //TableCell cell6 = new TableCell(new Paragraph(new Run(new Text("EC309v=1-3"))));
+            TableCell cell6 = new TableCell(new Paragraph(new Run(new Text(row2Info.GetRange(1)))));
             XMLUtilities.ShadeCell(cell6, new Shading() { Val = ShadingPatternValues.Clear, Color = "auto", Fill = "1F4E79" });
-            TableCell cell7 = new TableCell(new Paragraph(new Run(new Text("EC309v=1-5 (NC302=1)"))));
+            //TableCell cell7 = new TableCell(new Paragraph(new Run(new Text("EC309v=1-5 (NC302=1)"))));
+            TableCell cell7 = new TableCell(new Paragraph(new Run(new Text(row2Info.GetRange(2)))));
             XMLUtilities.ShadeCell(cell7, new Shading() { Val = ShadingPatternValues.Clear, Color = "auto", Fill = "9CC2E5" });
-            TableCell cell8 = new TableCell(new Paragraph(new Run(new Text("EC309v=1-6 (NC302=1 or 2)"))));
+            //TableCell cell8 = new TableCell(new Paragraph(new Run(new Text("EC309v=1-6 (NC302=1 or 2)"))));
+            TableCell cell8 = new TableCell(new Paragraph(new Run(new Text(row2Info.GetRange(3)))));
             XMLUtilities.ShadeCell(cell8, new Shading() { Val = ShadingPatternValues.Clear, Color = "auto", Fill = "DEEAF6" });
 
             row2.Append(cell5);
@@ -228,13 +282,20 @@ namespace SDIFrontEnd
 
             legendTable.Append(row2);
 
+            // third row of data
+            LegendEntry row3Info = GetRow(3);
+
             TableRow row3 = new TableRow();
-            TableCell cell9 = new TableCell(new Paragraph(new Run(new Text("HTPs"))));
-            TableCell cell10 = new TableCell(new Paragraph(new Run(new Text("HN309v=10-32"))));
+            //TableCell cell9 = new TableCell(new Paragraph(new Run(new Text("HTPs"))));
+            TableCell cell9 = new TableCell(new Paragraph(new Run(new Text(row3Info.label))));
+            //TableCell cell10 = new TableCell(new Paragraph(new Run(new Text("HN309v=10-32"))));
+            TableCell cell10 = new TableCell(new Paragraph(new Run(new Text(row3Info.GetRange(1)))));
             XMLUtilities.ShadeCell(cell10, new Shading() { Val = ShadingPatternValues.Clear, Color = "auto", Fill = "385623" });
-            TableCell cell11 = new TableCell(new Paragraph(new Run(new Text("HN309v=10-60 (HN106=1)"))));
+            //TableCell cell11 = new TableCell(new Paragraph(new Run(new Text("HN309v=10-60 (HN106=1)"))));
+            TableCell cell11 = new TableCell(new Paragraph(new Run(new Text(row3Info.GetRange(2)))));
             XMLUtilities.ShadeCell(cell11, new Shading() { Val = ShadingPatternValues.Clear, Color = "auto", Fill = "A8D08D" });
-            TableCell cell12 = new TableCell(new Paragraph(new Run(new Text("HN309v=31-70"))));
+            //TableCell cell12 = new TableCell(new Paragraph(new Run(new Text("HN309v=31-70"))));
+            TableCell cell12 = new TableCell(new Paragraph(new Run(new Text(row3Info.GetRange(3)))));
             XMLUtilities.ShadeCell(cell12, new Shading() { Val = ShadingPatternValues.Clear, Color = "auto", Fill = "E2EFD9" });
 
             row3.Append(cell9);
@@ -248,7 +309,7 @@ namespace SDIFrontEnd
             body.Append(XMLUtilities.NewParagraph(string.Empty, JustificationValues.Center));
         }
 
-        private bool IsFilteredOn (LinkedQuestion question, string varname, List<int> values)
+        private bool IsFilteredOn (LinkedQuestion question, string varname, IEnumerable<int> values)
         {
             var filters = question.GetFilterInstructions();
 
@@ -267,43 +328,48 @@ namespace SDIFrontEnd
             TableCell cell2 = row.Elements<TableCell>().Skip(1).First();
             TableCell cell3 = row.Elements<TableCell>().Skip(2).First();
 
-            if (IsFilteredOn(question, "FR309v", Enumerable.Range(1, 3).ToList()))
+            LegendEntry entry1 = GetRow(1);
+            LegendEntry entry2 = GetRow(2);
+            LegendEntry entry3 = GetRow(3);
+
+            // first product
+            if (IsFilteredOn(question, entry1.varname, entry1.GetRangeNumbers(1)))
             {
                 XMLUtilities.ShadeCell(cell1, new Shading() { Val = ShadingPatternValues.Clear, Color = "auto", Fill = "833C0B" });
             }
-            else if (IsFilteredOn(question, "FR309v", Enumerable.Range(1, 5).ToList()))
+            else if (IsFilteredOn(question, entry1.varname, entry1.GetRangeNumbers(2).ToList()))
             {
                 XMLUtilities.ShadeCell(cell1, new Shading() { Val = ShadingPatternValues.Clear, Color = "auto", Fill = "F4B083" });
             }
-            else if (IsFilteredOn(question, "FR309v", Enumerable.Range(1, 7).ToList()))
+            else if (IsFilteredOn(question, entry1.varname, entry1.GetRangeNumbers(3).ToList()))
             {
                 XMLUtilities.ShadeCell(cell1, new Shading() { Val = ShadingPatternValues.Clear, Color = "auto", Fill = "FBE4D5" });
             }
 
-            // EC309v
-            if (IsFilteredOn(question, "EC309v", Enumerable.Range(1,3).ToList()))
+            // second product
+            if (IsFilteredOn(question, entry2.varname, entry2.GetRangeNumbers(1)))
             {
                 XMLUtilities.ShadeCell(cell2, new Shading() { Val = ShadingPatternValues.Clear, Color = "auto", Fill = "1F4E79" });
             }
-            else if (IsFilteredOn(question, "EC309v", Enumerable.Range(1, 5).ToList()) || IsFilteredOn(question, "NC302", new List<int> { 1 }))
+            else if (IsFilteredOn(question, entry2.varname, entry2.GetRangeNumbers(2)))
             {
                 XMLUtilities.ShadeCell(cell2, new Shading() { Val = ShadingPatternValues.Clear, Color = "auto", Fill = "9CC2E5" });
             }
-            else if (IsFilteredOn(question, "EC309v", Enumerable.Range(1, 6).ToList()) || IsFilteredOn(question, "NC302", new List<int> { 1, 2 }))
+            else if (IsFilteredOn(question, entry2.varname, entry2.GetRangeNumbers(3)))
             {
                 XMLUtilities.ShadeCell(cell2, new Shading() { Val = ShadingPatternValues.Clear, Color = "auto", Fill = "DEEAF6" });
             }
 
-            // HN309v
-            if (IsFilteredOn(question, "HN309v", Enumerable.Range(10, 23).ToList()))
+            // third product
+            if (IsFilteredOn(question, entry3.varname, entry3.GetRangeNumbers(1)))
             {
                 XMLUtilities.ShadeCell(cell3, new Shading() { Val = ShadingPatternValues.Clear, Color = "auto", Fill = "385623" });
             }
-            else if (IsFilteredOn(question, "HN309v", Enumerable.Range(10, 51).ToList()) || IsFilteredOn(question, "HN106", new List<int> { 1 })) // new List<int> { 10, 20, 31, 32, 40, 50, 60 }) 
+            else if (IsFilteredOn(question, entry3.varname, entry3.GetRangeNumbers(2))) 
             {
                 XMLUtilities.ShadeCell(cell3, new Shading() { Val = ShadingPatternValues.Clear, Color = "auto", Fill = "A8D08D" });
             }
-            else if (IsFilteredOn(question, "HN309v", Enumerable.Range(31, 39).ToList())) 
+            else if (IsFilteredOn(question, entry3.varname, entry3.GetRangeNumbers(3)))
             {
                 XMLUtilities.ShadeCell(cell3, new Shading() { Val = ShadingPatternValues.Clear, Color = "auto", Fill = "E2EFD9" });
             }
@@ -417,14 +483,90 @@ namespace SDIFrontEnd
             {
                 CreatePraccingSheetXLS(Selected);
             }
-            Close();
         }
 
-        private void cmdCancel_Click(object sender, EventArgs e)
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
         }
 
         #endregion
+
+        private void chkIncludeLegend_CheckedChanged(object sender, EventArgs e)
+        {
+            dgvHighlightingRanges.Enabled = chkIncludeLegend.Checked;
+        }
+
+        private void dgvHighlightingRanges_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            if (e.ColumnIndex < 2)
+                return;
+
+            if (string.IsNullOrEmpty((string)e.FormattedValue))
+                return;
+            if (!Regex.IsMatch((string)e.FormattedValue, @"^\d+-\d+$"))
+            {
+                MessageBox.Show("Enter ranges in the format: #-#");
+                e.Cancel = true;
+            }
+        }
+
+        struct LegendEntry
+        {
+            public string label;
+            public string varname;
+            public string range1;
+            public string range2;
+            public string range3;
+
+            public string GetRange(int index)
+            {
+                switch (index)
+                {
+                    case 1:
+                        return varname + "=" + range1;
+                    case 2:
+                        return varname + "=" + range2;
+                    case 3:
+                        return varname + "=" + range3;
+                    default:
+                        return varname;
+                }
+            }
+
+            public IEnumerable<int> GetRangeNumbers(int index)
+            {
+                switch (index)
+                {
+                    case 1:
+                        return GetRangeFromString(range1);
+                    case 2:
+                        return GetRangeFromString(range2);
+                    case 3:
+                        return GetRangeFromString(range3);
+                    default:
+                        return null;
+                }
+            }
+
+            private IEnumerable<int> GetRangeFromString(string input)
+            {
+                // Split the input string by '-'
+                string[] parts = input.Split('-');
+
+                // Check if the input has correct format and contains two parts
+                if (parts.Length != 2 || !int.TryParse(parts[0], out int start) || !int.TryParse(parts[1], out int end))
+                {
+                    throw new ArgumentException("Invalid input format. Input should be in the format #-#.");
+                }
+
+                // Generate and return the range of integers between start and end
+                for (int i = start; i <= end; i++)
+                {
+                    yield return i;
+                }
+            }
+
+        }
     }
 }

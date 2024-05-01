@@ -72,6 +72,14 @@
             this.rtbQuestionText = new System.Windows.Forms.RichTextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabpageForm = new System.Windows.Forms.TabPage();
+            this.cboPstP = new System.Windows.Forms.ComboBox();
+            this.cboPstI = new System.Windows.Forms.ComboBox();
+            this.cboNR = new System.Windows.Forms.ComboBox();
+            this.cboPreP = new System.Windows.Forms.ComboBox();
+            this.cboRO = new System.Windows.Forms.ComboBox();
+            this.cboLitQ = new System.Windows.Forms.ComboBox();
+            this.cboPreI = new System.Windows.Forms.ComboBox();
+            this.cboPreA = new System.Windows.Forms.ComboBox();
             this.txtQnum = new System.Windows.Forms.TextBox();
             this.tabpageDS = new System.Windows.Forms.TabPage();
             this.dgvDS = new System.Windows.Forms.DataGridView();
@@ -80,14 +88,6 @@
             this.cboSurveyFilter = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.cboPreP = new System.Windows.Forms.ComboBox();
-            this.cboPreI = new System.Windows.Forms.ComboBox();
-            this.cboPreA = new System.Windows.Forms.ComboBox();
-            this.cboLitQ = new System.Windows.Forms.ComboBox();
-            this.cboRO = new System.Windows.Forms.ComboBox();
-            this.cboNR = new System.Windows.Forms.ComboBox();
-            this.cboPstI = new System.Windows.Forms.ComboBox();
-            this.cboPstP = new System.Windows.Forms.ComboBox();
             this.translationPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.navTranslations)).BeginInit();
             this.navTranslations.SuspendLayout();
@@ -525,6 +525,70 @@
             this.tabpageForm.TabIndex = 0;
             this.tabpageForm.Text = "Form View";
             // 
+            // cboPstP
+            // 
+            this.cboPstP.FormattingEnabled = true;
+            this.cboPstP.Location = new System.Drawing.Point(3, 234);
+            this.cboPstP.Name = "cboPstP";
+            this.cboPstP.Size = new System.Drawing.Size(74, 22);
+            this.cboPstP.TabIndex = 48;
+            // 
+            // cboPstI
+            // 
+            this.cboPstI.FormattingEnabled = true;
+            this.cboPstI.Location = new System.Drawing.Point(3, 206);
+            this.cboPstI.Name = "cboPstI";
+            this.cboPstI.Size = new System.Drawing.Size(74, 22);
+            this.cboPstI.TabIndex = 47;
+            // 
+            // cboNR
+            // 
+            this.cboNR.FormattingEnabled = true;
+            this.cboNR.Location = new System.Drawing.Point(3, 178);
+            this.cboNR.Name = "cboNR";
+            this.cboNR.Size = new System.Drawing.Size(74, 22);
+            this.cboNR.TabIndex = 46;
+            // 
+            // cboPreP
+            // 
+            this.cboPreP.FormattingEnabled = true;
+            this.cboPreP.Location = new System.Drawing.Point(4, 38);
+            this.cboPreP.Name = "cboPreP";
+            this.cboPreP.Size = new System.Drawing.Size(73, 22);
+            this.cboPreP.TabIndex = 41;
+            // 
+            // cboRO
+            // 
+            this.cboRO.FormattingEnabled = true;
+            this.cboRO.Location = new System.Drawing.Point(3, 150);
+            this.cboRO.Name = "cboRO";
+            this.cboRO.Size = new System.Drawing.Size(74, 22);
+            this.cboRO.TabIndex = 45;
+            // 
+            // cboLitQ
+            // 
+            this.cboLitQ.FormattingEnabled = true;
+            this.cboLitQ.Location = new System.Drawing.Point(3, 122);
+            this.cboLitQ.Name = "cboLitQ";
+            this.cboLitQ.Size = new System.Drawing.Size(74, 22);
+            this.cboLitQ.TabIndex = 44;
+            // 
+            // cboPreI
+            // 
+            this.cboPreI.FormattingEnabled = true;
+            this.cboPreI.Location = new System.Drawing.Point(4, 66);
+            this.cboPreI.Name = "cboPreI";
+            this.cboPreI.Size = new System.Drawing.Size(73, 22);
+            this.cboPreI.TabIndex = 42;
+            // 
+            // cboPreA
+            // 
+            this.cboPreA.FormattingEnabled = true;
+            this.cboPreA.Location = new System.Drawing.Point(4, 94);
+            this.cboPreA.Name = "cboPreA";
+            this.cboPreA.Size = new System.Drawing.Size(73, 22);
+            this.cboPreA.TabIndex = 43;
+            // 
             // txtQnum
             // 
             this.txtQnum.Location = new System.Drawing.Point(215, 10);
@@ -611,70 +675,6 @@
             this.label11.Size = new System.Drawing.Size(112, 16);
             this.label11.TabIndex = 40;
             this.label11.Text = "Transfer wordings";
-            // 
-            // cboPreP
-            // 
-            this.cboPreP.FormattingEnabled = true;
-            this.cboPreP.Location = new System.Drawing.Point(4, 38);
-            this.cboPreP.Name = "cboPreP";
-            this.cboPreP.Size = new System.Drawing.Size(73, 22);
-            this.cboPreP.TabIndex = 41;
-            // 
-            // cboPreI
-            // 
-            this.cboPreI.FormattingEnabled = true;
-            this.cboPreI.Location = new System.Drawing.Point(4, 66);
-            this.cboPreI.Name = "cboPreI";
-            this.cboPreI.Size = new System.Drawing.Size(73, 22);
-            this.cboPreI.TabIndex = 42;
-            // 
-            // cboPreA
-            // 
-            this.cboPreA.FormattingEnabled = true;
-            this.cboPreA.Location = new System.Drawing.Point(4, 94);
-            this.cboPreA.Name = "cboPreA";
-            this.cboPreA.Size = new System.Drawing.Size(73, 22);
-            this.cboPreA.TabIndex = 43;
-            // 
-            // cboLitQ
-            // 
-            this.cboLitQ.FormattingEnabled = true;
-            this.cboLitQ.Location = new System.Drawing.Point(3, 122);
-            this.cboLitQ.Name = "cboLitQ";
-            this.cboLitQ.Size = new System.Drawing.Size(74, 22);
-            this.cboLitQ.TabIndex = 44;
-            // 
-            // cboRO
-            // 
-            this.cboRO.FormattingEnabled = true;
-            this.cboRO.Location = new System.Drawing.Point(3, 150);
-            this.cboRO.Name = "cboRO";
-            this.cboRO.Size = new System.Drawing.Size(74, 22);
-            this.cboRO.TabIndex = 45;
-            // 
-            // cboNR
-            // 
-            this.cboNR.FormattingEnabled = true;
-            this.cboNR.Location = new System.Drawing.Point(3, 178);
-            this.cboNR.Name = "cboNR";
-            this.cboNR.Size = new System.Drawing.Size(74, 22);
-            this.cboNR.TabIndex = 46;
-            // 
-            // cboPstI
-            // 
-            this.cboPstI.FormattingEnabled = true;
-            this.cboPstI.Location = new System.Drawing.Point(3, 206);
-            this.cboPstI.Name = "cboPstI";
-            this.cboPstI.Size = new System.Drawing.Size(74, 22);
-            this.cboPstI.TabIndex = 47;
-            // 
-            // cboPstP
-            // 
-            this.cboPstP.FormattingEnabled = true;
-            this.cboPstP.Location = new System.Drawing.Point(3, 234);
-            this.cboPstP.Name = "cboPstP";
-            this.cboPstP.Size = new System.Drawing.Size(74, 22);
-            this.cboPstP.TabIndex = 48;
             // 
             // RelatedQuestions
             // 

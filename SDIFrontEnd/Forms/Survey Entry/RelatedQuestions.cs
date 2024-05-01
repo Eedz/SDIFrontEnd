@@ -50,7 +50,7 @@ namespace SDIFrontEnd
             FillBoxes();
 
             BindProperties();
-            
+
             UpdateRefVarName(MainQuestion.Item.VarName.RefVarName);
 
             SetupFilter();
@@ -105,7 +105,7 @@ namespace SDIFrontEnd
         {
             cboPreP.DisplayMember = "WordID";
             cboPreP.ValueMember = "WordID";
-            cboPreP.DataSource = Globals.AllPreP;
+            cboPreP.DataSource = Globals.AllPreP;          
 
             cboPreI.DisplayMember = "WordID";
             cboPreI.ValueMember = "WordID";
@@ -268,26 +268,30 @@ namespace SDIFrontEnd
                         break;
                     case "VarName":
                     case "Qnum":
-                    case "RespName":
-                    case "NRName":
                         break;
-                    case "PrePNum":
-                        dgvDS.Columns[i].HeaderText = "PreP#";
+                    case "PrePW":
+                        dgvDS.Columns[i].HeaderText = "PreP";
                         break;
-                    case "PreINum":
-                        dgvDS.Columns[i].HeaderText = "PreI#";
+                    case "PreIW":
+                        dgvDS.Columns[i].HeaderText = "PreI";
                         break;
-                    case "PreANum":
-                        dgvDS.Columns[i].HeaderText = "PreA#";
+                    case "PreAW":
+                        dgvDS.Columns[i].HeaderText = "PreA";
                         break;
-                    case "LitQNum":
-                        dgvDS.Columns[i].HeaderText = "LitQ#";
+                    case "LitQW":
+                        dgvDS.Columns[i].HeaderText = "LitQ";
                         break;
-                    case "PstINum":
-                        dgvDS.Columns[i].HeaderText = "PstI#";
+                    case "PstIW":
+                        dgvDS.Columns[i].HeaderText = "PstI";
                         break;
-                    case "PstPNum":
-                        dgvDS.Columns[i].HeaderText = "PstP#";
+                    case "PstPW":
+                        dgvDS.Columns[i].HeaderText = "PstP";
+                        break;
+                    case "RespOptionsS":
+                        dgvDS.Columns[i].HeaderText = "RespOptions";
+                        break;
+                    case "NRCodesS":
+                        dgvDS.Columns[i].HeaderText = "NRCodes";
                         break;
                     default:
                         dgvDS.Columns[i].Visible = false;
@@ -676,14 +680,14 @@ namespace SDIFrontEnd
 
         private void LockForm(bool locked)
         {
-            cboPreP.Enabled = locked;
-            cboPreI.Enabled = locked;
-            cboPreA.Enabled = locked;
-            cboLitQ.Enabled = locked;
-            cboPstI.Enabled = locked;
-            cboPstP.Enabled = locked;
-            cboRO.Enabled = locked;
-            cboNR.Enabled = locked;
+            cboPreP.Enabled = !locked;
+            cboPreI.Enabled = !locked;
+            cboPreA.Enabled = !locked;
+            cboLitQ.Enabled = !locked;
+            cboPstI.Enabled = !locked;
+            cboPstP.Enabled = !locked;
+            cboRO.Enabled = !locked;
+            cboNR.Enabled = !locked;
         }
         #endregion
 

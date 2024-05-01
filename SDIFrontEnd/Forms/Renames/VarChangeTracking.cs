@@ -150,7 +150,17 @@ namespace SDIFrontEnd
             Records = new List<VarNameChangeRecord>();
             foreach (VarNameChange change  in records)
             {
-                Records.Add(new VarNameChangeRecord(change));
+                if (change.ID == 0) 
+                {
+                    Records.Add(new VarNameChangeRecord(change)
+                    {
+                        NewRecord = true
+                    });
+                }
+                else
+                {
+                    Records.Add(new VarNameChangeRecord(change));
+                }                
             }
             
             bs.DataSource = Records;
