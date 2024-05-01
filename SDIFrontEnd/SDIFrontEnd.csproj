@@ -127,7 +127,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataImporter.cs" />
+    <Compile Include="Helper Classes\DataImporter.cs" />
     <Compile Include="Forms\AuditFeed.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -144,7 +144,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\ControlExtensions.cs" />
-    <Compile Include="CustomEvents.cs" />
+    <Compile Include="Helper Classes\CustomEvents.cs" />
     <Compile Include="Controls\ExtraRichTextBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -154,7 +154,7 @@
     <Compile Include="Controls\CustomPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DocImporter.cs" />
+    <Compile Include="Helper Classes\DocImporter.cs" />
     <Compile Include="Forms\Drafts\DraftReportForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -377,7 +377,7 @@
     <Compile Include="Forms\Survey Entry\DeletedSurveyQuestions.Designer.cs">
       <DependentUpon>DeletedSurveyQuestions.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormUtilities.cs" />
+    <Compile Include="Helper Classes\FormUtilities.cs" />
     <Compile Include="Forms\LabelLibrary.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -402,7 +402,7 @@
     <Compile Include="Forms\Languages.designer.cs">
       <DependentUpon>Languages.cs</DependentUpon>
     </Compile>
-    <Compile Include="PraccingIssueImporter.cs" />
+    <Compile Include="Helper Classes\PraccingIssueImporter.cs" />
     <Compile Include="Unused\SurveyLanguages.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -711,14 +711,14 @@
     <Compile Include="SplashScreen.Designer.cs">
       <DependentUpon>SplashScreen.cs</DependentUpon>
     </Compile>
-    <Compile Include="SurveyTranslationImporter.cs" />
+    <Compile Include="Helper Classes\SurveyTranslationImporter.cs" />
     <Compile Include="TranslatorTemplateForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="TranslatorTemplateForm.Designer.cs">
       <DependentUpon>TranslatorTemplateForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="WaveTranslationImporter.cs" />
+    <Compile Include="Helper Classes\WaveTranslationImporter.cs" />
     <Compile Include="Forms\WordingHistory.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1147,13 +1147,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\0155e32a-c8d0-49d3-9ef3-38e5dcc27e41_medium_thumb.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Pin-small.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="icon.ico" />
     <None Include="Resources\Refresh.png" />
     <None Include="Resources\FolderOpened.png" />
     <None Include="Resources\logo.JPG" />

@@ -754,13 +754,11 @@ namespace SDIFrontEnd
         {
             PraccingSheet frm = new PraccingSheet();
             frm.ShowDialog();
-           
         }
 
         private void cmdPraccingForm_Click(object sender, EventArgs e)
         {
             PraccingReportBlank report = new PraccingReportBlank();
-
             report.CreateReport();
         }
 
