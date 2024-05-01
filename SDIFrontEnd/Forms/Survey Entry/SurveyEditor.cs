@@ -71,7 +71,22 @@ namespace SDIFrontEnd
 
             AddMouseWheelEvents();
 
-            
+            SetupBindingSources();
+
+            FillBoxes();
+            BindProperties();
+
+            ChangeSurvey(CurrentSurvey.SurveyCode);
+
+            LockForm();
+            UpdateStatus();
+            Globals.RefreshDomains += SurveyEditor_RefreshDomains;
+            Globals.RefreshTopics += SurveyEditor_RefreshTopics;
+            Globals.RefreshContents += SurveyEditor_RefreshContents;
+            Globals.RefreshProducts += SurveyEditor_RefreshProducts;
+            Globals.RefreshWordings += SurveyEditor_RefreshWordings;
+
+            CurrentRecord = (QuestionRecord)bs.Current;
         }
 
         public SurveyEditor(string surveyCode, string varname)
@@ -551,23 +566,6 @@ namespace SDIFrontEnd
         #region Events
         private void SurveyEditor_Load(object sender, EventArgs e)
         {
-
-            SetupBindingSources();
-
-            FillBoxes();
-            BindProperties();
-
-            ChangeSurvey(CurrentSurvey.SurveyCode);
-
-            LockForm();
-            UpdateStatus();
-            Globals.RefreshDomains += SurveyEditor_RefreshDomains;
-            Globals.RefreshTopics += SurveyEditor_RefreshTopics;
-            Globals.RefreshContents += SurveyEditor_RefreshContents;
-            Globals.RefreshProducts += SurveyEditor_RefreshProducts;
-            Globals.RefreshWordings += SurveyEditor_RefreshWordings;
-            CurrentRecord = (QuestionRecord)bs.Current;
-
             if (Tag != null)
             {
                 var state = Globals.CurrentUser.GetFormState("frmSurveyEntry", (int)Tag);

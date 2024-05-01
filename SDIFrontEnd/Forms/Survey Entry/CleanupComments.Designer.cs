@@ -84,6 +84,7 @@
             this.dataRepeater1.Size = new System.Drawing.Size(515, 436);
             this.dataRepeater1.TabIndex = 0;
             this.dataRepeater1.Text = "dataRepeater1";
+            this.dataRepeater1.DrawItem += new Microsoft.VisualBasic.PowerPacks.DataRepeaterItemEventHandler(this.dataRepeater1_DrawItem);
             // 
             // cmdDelete
             // 
@@ -100,7 +101,7 @@
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(6, 113);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(63, 16);
+            this.label10.Size = new System.Drawing.Size(62, 16);
             this.label10.TabIndex = 15;
             this.label10.Text = "Comment";
             // 
@@ -109,7 +110,7 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(21, 88);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(48, 16);
+            this.label9.Size = new System.Drawing.Size(47, 16);
             this.label9.TabIndex = 14;
             this.label9.Text = "Source";
             // 
@@ -118,7 +119,7 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(223, 65);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(59, 16);
+            this.label8.Size = new System.Drawing.Size(58, 16);
             this.label8.TabIndex = 13;
             this.label8.Text = "Authority";
             // 
@@ -127,7 +128,7 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(33, 64);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(36, 16);
+            this.label7.Size = new System.Drawing.Size(35, 16);
             this.label7.TabIndex = 12;
             this.label7.Text = "Type";
             // 
@@ -136,7 +137,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(235, 38);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(46, 16);
+            this.label6.Size = new System.Drawing.Size(45, 16);
             this.label6.TabIndex = 11;
             this.label6.Text = "Author";
             // 
@@ -145,7 +146,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(33, 38);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(34, 16);
+            this.label5.Size = new System.Drawing.Size(33, 16);
             this.label5.TabIndex = 10;
             this.label5.Text = "Date";
             // 
@@ -154,7 +155,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(220, 11);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(61, 16);
+            this.label4.Size = new System.Drawing.Size(60, 16);
             this.label4.TabIndex = 9;
             this.label4.Text = "VarName";
             // 
@@ -163,7 +164,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(20, 14);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(47, 16);
+            this.label3.Size = new System.Drawing.Size(46, 16);
             this.label3.TabIndex = 8;
             this.label3.Text = "Survey";
             // 

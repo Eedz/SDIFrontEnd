@@ -100,7 +100,7 @@ namespace SDIFrontEnd
         public CommentEntry(NoteScope scope, List<SurveyQuestion> questions) : this()
         {
             Scope = scope;
-
+            
             FillTargetSurveyList();
             ToggleTargetVarNameList();
             UpdateCreationCount();
@@ -1006,6 +1006,10 @@ namespace SDIFrontEnd
             {
                 MessageBox.Show("Unable to save note.");
                 return 1;
+            }
+            else
+            {
+                Globals.AllNotes.Add(CurrentRecord.Item);
             }
 
             lblNewID.Visible = false;
