@@ -355,7 +355,7 @@ namespace SDIFrontEnd
                 ListViewItem li = new ListViewItem(new string[] { sq.Qnum, sq.VarName.VarName, sq.VarName.VarLabel, sq.RespOptionsS.RespSetName, corr });
                 li.Tag = sq;
                 lstQuestionSource.Items.Add(li);
-                FormUtilities.FormatListItem(li, Utilities.GetQuestionType(sq));
+                FormUtilities.FormatListItem(li, sq.QuestionType);
             }
         }
 

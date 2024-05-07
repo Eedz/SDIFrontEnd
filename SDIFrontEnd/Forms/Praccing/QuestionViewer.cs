@@ -111,7 +111,7 @@ namespace SDIFrontEnd
             var currentQuestion = ((Translation)datasource[e.DataRepeaterItem.ItemIndex]);
 
             var translationBox = (RichTextBox)e.DataRepeaterItem.Controls.Find("rtbTranslation", false)[0];
-            translationBox.Rtf = currentQuestion.TranslationRTF;
+            translationBox.Rtf = RTFUtilities.FormatRTF_FromText(currentQuestion.TranslationText);
 
             var langBox = (TextBox)e.DataRepeaterItem.Controls.Find("txtLanguage", false)[0];
             langBox.Text = currentQuestion.Language;

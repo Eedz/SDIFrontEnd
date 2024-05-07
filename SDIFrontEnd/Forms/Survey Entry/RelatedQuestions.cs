@@ -637,7 +637,7 @@ namespace SDIFrontEnd
         {
             Translation CurrentTranslation = (Translation)bsTranslations.Current;
             if (CurrentTranslation != null)
-                rtbTranslation.Rtf = CurrentTranslation.TranslationRTF;
+                rtbTranslation.Rtf = RTFUtilities.FormatRTF_FromText(CurrentTranslation.TranslationText);
         }
 
         private void ToggleTranslation()

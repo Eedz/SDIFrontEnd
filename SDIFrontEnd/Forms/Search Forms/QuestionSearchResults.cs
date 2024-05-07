@@ -74,7 +74,7 @@ namespace SDIFrontEnd
 
             var translation = (RichTextBox)translationPanel.Controls.Find("rtbTranslation", false)[0];
             translation.Rtf = "";
-            translation.Rtf = currentTranslation.TranslationRTF;
+            translation.Rtf = RTFUtilities.FormatRTF_FromText(currentTranslation.TranslationText);
 
             
             navigator.PositionItem.Text = (bindingsource.Position + 1).ToString();
@@ -233,7 +233,7 @@ namespace SDIFrontEnd
 
                 var translation = (RichTextBox)translationPanel.Controls.Find("rtbTranslation", false)[0];
                 translation.Rtf = "";
-                translation.Rtf = currentQuestion.Translations[0].TranslationRTF;
+                translation.Rtf = RTFUtilities.FormatRTF_FromText(currentQuestion.Translations[0].TranslationText);
             }
 
         }

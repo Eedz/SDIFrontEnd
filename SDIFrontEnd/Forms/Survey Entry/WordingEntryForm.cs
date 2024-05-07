@@ -430,7 +430,10 @@ namespace SDIFrontEnd
             CurrentWording = (Wording)bs.AddNew();
             CurrentWording.Type = template.Type;
             CurrentWording.WordingText = template.WordingText;
-            OpenEditor(CurrentWording);
+
+            chkEdit.Text = "Save";
+
+            //OpenEditor(CurrentWording);
         }
 
         public int FilterWordings(string criteria)

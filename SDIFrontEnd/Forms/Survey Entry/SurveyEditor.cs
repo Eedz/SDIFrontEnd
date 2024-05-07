@@ -100,7 +100,7 @@ namespace SDIFrontEnd
                 MessageBox.Show("Error loading " + surveyCode + ". Ensure that this survey exists.");
                 Close();
                 return;
-            }
+            } 
 
             Records = new List<QuestionRecord>();
 
@@ -379,7 +379,7 @@ namespace SDIFrontEnd
                 else
                     corr = "No";
 
-                QuestionType type = Utilities.GetQuestionType(qr.Item);
+                QuestionType type = qr.Item.QuestionType;
                 ListViewItem li = new ListViewItem(
                     new string[] { qr.Item.Qnum, qr.Item.Qnum, qr.Item.AltQnum, qr.Item.VarName.VarName, qr.Item.VarName.VarLabel, qr.Item.RespOptionsS.RespSetName, corr, ((int)type).ToString() });
                 li.Tag = qr;
@@ -2431,7 +2431,7 @@ namespace SDIFrontEnd
             bool newQ = !items[0].Font.Bold;
             foreach (ListViewItem item in items)
             {
-                QuestionType qt = Utilities.GetQuestionType(((QuestionRecord)item.Tag).Item);
+                QuestionType qt = ((QuestionRecord)item.Tag).Item.QuestionType;
                 if (qt == QuestionType.Heading || qt == QuestionType.Subheading)
                     continue;
 

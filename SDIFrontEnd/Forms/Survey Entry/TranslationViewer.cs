@@ -55,13 +55,14 @@ namespace SDIFrontEnd
                 if (!r.Item.LanguageName.LanguageName.Equals(lang))
                     bs.MoveNext();
             }
+            UpdateForm(survey, question);
         }
 
         #region Events
         private void TranslationViewer_Load(object sender, EventArgs e)
         {
             CurrentRecord = (TranslationRecord)bs.Current;
-
+            bs.ResetCurrentItem();
         }
 
         private void Bs_PositionChanged(object sender, EventArgs e)
@@ -92,7 +93,6 @@ namespace SDIFrontEnd
 
         private void cmdSave_Click(object sender, EventArgs e)
         {
-            UpdatePlainText();
             if (SaveRecord() == 1)
                 return;
         }
@@ -179,11 +179,6 @@ namespace SDIFrontEnd
             txtSurvey.DataBindings.Add(new Binding("Text", bsCurrent, "Survey"));
             txtVarName.DataBindings.Add(new Binding("Text", bsCurrent, "VarName"));
             txtLanguage.DataBindings.Add(new Binding("Text", bsCurrent, "LanguageName.LanguageName"));
-
-            rtbPreP.Rtf = MainQuestion.PrePW.WordingTextR;
-            rtbPstP.Rtf = MainQuestion.PstPW.WordingTextR;
-
-            extraRichTextBox1.DataBindings.Add(new Binding("Rtf", bsCurrent, "TranslationRTF"));
         }
 
         public void UpdateForm(Survey survey, QuestionRecord question, SurveyLanguage language = null)
@@ -210,12 +205,13 @@ namespace SDIFrontEnd
             else
                 bs.DataSource = Records;
 
+            CurrentRecord = (TranslationRecord)bs.Current;
+            bs.ResetCurrentItem();
 
-            extraRichTextBox1.Rtf = MainQuestion.Translations.First().TranslationRTF;
+            extraRichTextBox1.Rtf = RTFUtilities.FormatRTF_FromText(CurrentRecord.Item.TranslationText);
             rtbPreP.Rtf = MainQuestion.PrePW.WordingTextR;
             rtbPstP.Rtf = MainQuestion.PstPW.WordingTextR;
-
-            CurrentRecord = (TranslationRecord)bs.Current;
+            
             AdjustRouting();
             SetReadingDirection();
         }
@@ -285,8 +281,7 @@ namespace SDIFrontEnd
             string plain = extraRichTextBox1.Text;
             plain = Utilities.TrimString(plain, "<br>");
             CurrentRecord.Item.TranslationText = plain;
-            
-            bs.ResetCurrentItem();
+            extraRichTextBox1.Rtf = RTFUtilities.FormatRTF_FromText(CurrentRecord.Item.TranslationText);
         }
     }
 }

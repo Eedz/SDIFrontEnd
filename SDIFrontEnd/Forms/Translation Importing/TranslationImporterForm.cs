@@ -490,7 +490,7 @@ namespace SDIFrontEnd
             rtb.Rtf = "";
             if (t != null)
             {
-                rtb.Rtf = t.TranslationRTF;
+                rtb.Rtf = RTFUtilities.FormatRTF_FromText(t.TranslationText);
             }
         }
 
@@ -888,7 +888,7 @@ namespace SDIFrontEnd
 
             rtbSuccess.Rtf = "";
             if (t != null)
-                rtbSuccess.Rtf = Utilities.GetRtfUnicodeEscapedString(t.TranslationRTF); ;
+                rtbSuccess.Rtf = RTFUtilities.FormatRTF_FromText(t.TranslationText); ;
         }
 
         /// <summary>
@@ -902,7 +902,7 @@ namespace SDIFrontEnd
 
             rtbFailed.Rtf = "";
             if (t != null)
-                rtbFailed.Rtf = Utilities.GetRtfUnicodeEscapedString(t.TranslationRTF); ;
+                rtbFailed.Rtf = RTFUtilities.FormatRTF_FromText(t.TranslationText); ;
         }
 
         /// <summary>
