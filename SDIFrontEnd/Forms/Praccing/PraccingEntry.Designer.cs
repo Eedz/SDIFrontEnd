@@ -1562,6 +1562,7 @@
             this.txtResponsePIN.Name = "txtResponsePIN";
             this.txtResponsePIN.Size = new System.Drawing.Size(110, 23);
             this.txtResponsePIN.TabIndex = 9;
+            this.txtResponsePIN.Validated += new System.EventHandler(this.txtResponsePIN_Validated);
             // 
             // label8
             // 

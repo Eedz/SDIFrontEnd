@@ -1201,6 +1201,12 @@ namespace SDIFrontEnd
                 CurrentRecord.EditedResponses.Add(CurrentResponse);
         }
 
+        private void txtResponsePIN_Validated(object sender, EventArgs e)
+        {
+            if (!CurrentRecord.EditedResponses.Contains(CurrentResponse))
+                CurrentRecord.EditedResponses.Add(CurrentResponse);
+        }
+
         #endregion
 
         #region Navigation Bar events
@@ -1235,7 +1241,6 @@ namespace SDIFrontEnd
 
             bsRecords.MoveFirst();
         }
-
         #endregion
 
         #endregion
