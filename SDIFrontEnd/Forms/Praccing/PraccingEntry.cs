@@ -351,6 +351,7 @@ namespace SDIFrontEnd
             BindControl(cboIssueFrom, "SelectedItem", bsCurrent, "IssueFrom");
             BindControl(cboIssueTo, "SelectedItem", bsCurrent, "IssueTo");
             BindControl(cboIssueCategory, "SelectedItem", bsCurrent, "Category");
+            BindControl(txtPIN, "Text", bsCurrent, "PinNo");
 
             Binding languageBinding = new Binding("SelectedItem", bsCurrent, "Language", true);
             //languageBinding.NullValue = "English";
@@ -365,6 +366,7 @@ namespace SDIFrontEnd
             // responses
             BindControl(dtpResponseDate, "Value", bsResponses, "ResponseDate");
             BindControl(dtpResponseTime, "Value", bsResponses, "ResponseDate");
+            BindControl(txtResponsePIN, "Text", bsResponses, "PinNo");
         }
 
         /// <summary>
@@ -824,7 +826,7 @@ namespace SDIFrontEnd
             if (frmEditor.DialogResult == DialogResult.OK)
             {
                 rtb.Rtf = Utilities.FormatRTF(frmEditor.EditedText);
-                source[dataRepeaterItem.ItemIndex].Response = Utilities.TrimString(rtb.Text, "<br>");
+                source[dataRepeaterItem.ItemIndex].Response = rtb.Text.Trim("<br>".ToCharArray());
                 rtb.Rtf = source[dataRepeaterItem.ItemIndex].ResponseRTF;
                 CurrentRecord.EditedResponses.Add(source[dataRepeaterItem.ItemIndex]);
                 CurrentRecord.Dirty = true;
@@ -937,7 +939,7 @@ namespace SDIFrontEnd
             if (frmEditor.DialogResult == DialogResult.OK)
             {
                 rtbDescription.Rtf = Utilities.FormatRTF(frmEditor.EditedText);
-                CurrentRecord.Item.Description = Utilities.TrimString(rtbDescription.Text, "<br>"); ;
+                CurrentRecord.Item.Description = rtbDescription.Text.Trim("<br>".ToCharArray()); ;
                 rtbDescription.Rtf = CurrentRecord.Item.DescriptionRTF;
 
                 CurrentRecord.Dirty = true;

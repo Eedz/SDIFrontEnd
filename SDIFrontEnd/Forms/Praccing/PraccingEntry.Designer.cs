@@ -155,6 +155,10 @@
             this.bindingNavigatorDeleteItem1 = new System.Windows.Forms.ToolStripButton();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.txtPIN = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtResponsePIN = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.navMainIssues)).BeginInit();
             this.navMainIssues.SuspendLayout();
             this.panelImages.SuspendLayout();
@@ -498,6 +502,8 @@
             // 
             // dataRepeater1.ItemTemplate
             // 
+            this.dataRepeater1.ItemTemplate.Controls.Add(this.label8);
+            this.dataRepeater1.ItemTemplate.Controls.Add(this.txtResponsePIN);
             this.dataRepeater1.ItemTemplate.Controls.Add(this.lblImageCount);
             this.dataRepeater1.ItemTemplate.Controls.Add(this.cmdDeleteResponse);
             this.dataRepeater1.ItemTemplate.Controls.Add(this.label14);
@@ -549,7 +555,7 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(805, 39);
+            this.label14.Location = new System.Drawing.Point(805, 28);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(19, 13);
             this.label14.TabIndex = 6;
@@ -559,7 +565,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(793, 7);
+            this.label13.Location = new System.Drawing.Point(793, 3);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(31, 13);
             this.label13.TabIndex = 5;
@@ -569,7 +575,7 @@
             // 
             this.dtpResponseTime.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpResponseTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dtpResponseTime.Location = new System.Drawing.Point(3, 33);
+            this.dtpResponseTime.Location = new System.Drawing.Point(2, 25);
             this.dtpResponseTime.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dtpResponseTime.Name = "dtpResponseTime";
             this.dtpResponseTime.Size = new System.Drawing.Size(117, 23);
@@ -582,7 +588,7 @@
             this.cboResponseTo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboResponseTo.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboResponseTo.FormattingEnabled = true;
-            this.cboResponseTo.Location = new System.Drawing.Point(832, 36);
+            this.cboResponseTo.Location = new System.Drawing.Point(832, 25);
             this.cboResponseTo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cboResponseTo.Name = "cboResponseTo";
             this.cboResponseTo.Size = new System.Drawing.Size(110, 24);
@@ -596,7 +602,7 @@
             this.cboResponseFrom.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboResponseFrom.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboResponseFrom.FormattingEnabled = true;
-            this.cboResponseFrom.Location = new System.Drawing.Point(832, 4);
+            this.cboResponseFrom.Location = new System.Drawing.Point(832, 0);
             this.cboResponseFrom.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cboResponseFrom.Name = "cboResponseFrom";
             this.cboResponseFrom.Size = new System.Drawing.Size(110, 24);
@@ -902,6 +908,8 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.label7);
+            this.panel1.Controls.Add(this.txtPIN);
             this.panel1.Controls.Add(this.dtpResolvedDate);
             this.panel1.Controls.Add(this.lblEnteredBy);
             this.panel1.Controls.Add(this.cmdSave);
@@ -1532,6 +1540,38 @@
             this.label6.TabIndex = 57;
             this.label6.Text = "Response Images";
             // 
+            // txtPIN
+            // 
+            this.txtPIN.Location = new System.Drawing.Point(255, 220);
+            this.txtPIN.Name = "txtPIN";
+            this.txtPIN.Size = new System.Drawing.Size(94, 23);
+            this.txtPIN.TabIndex = 43;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(287, 198);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(26, 16);
+            this.label7.TabIndex = 44;
+            this.label7.Text = "PIN";
+            // 
+            // txtResponsePIN
+            // 
+            this.txtResponsePIN.Location = new System.Drawing.Point(832, 50);
+            this.txtResponsePIN.Name = "txtResponsePIN";
+            this.txtResponsePIN.Size = new System.Drawing.Size(110, 23);
+            this.txtResponsePIN.TabIndex = 9;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(801, 53);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(26, 16);
+            this.label8.TabIndex = 10;
+            this.label8.Text = "PIN";
+            // 
             // PraccingEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -1720,5 +1760,9 @@
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripButton toolStripButton2;
         private NullableBindingDateTimePicker.NullableBindingDateTimePicker dtpResolvedDate;
+        private System.Windows.Forms.TextBox txtPIN;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox txtResponsePIN;
     }
 }

@@ -330,26 +330,25 @@ namespace SDIFrontEnd
 
             varNames = Utilities.RemoveTags(cells.ElementAt(Headings["VarNames"]).GetCellText());
             description = cells.ElementAt(Headings["Description"]).GetCellText().Trim();
-            //description = Utilities.TrimString(description, " ");
-            description = Utilities.TrimString(description, "<br>");
+            description = description.Trim("<br>".ToCharArray());
             descriptionRTF = description;
 
             // check date and names for valid entries
             date = Utilities.RemoveTags(cells.ElementAt(Headings["Date"]).GetCellText());
-            date = Utilities.TrimString(date, "\r\n");
+            date = date.Trim(new char[] { '\r', '\n' });
             DateTime issueDate = GetIssueDate(date);
 
             from = Utilities.RemoveTags(cells.ElementAt(Headings["From"]).GetCellText());
-            from = Utilities.TrimString(from, "\r\n");
+            from = from.Trim(new char[] { '\r', '\n' });
             Person issueFrom = PeopleList.FirstOrDefault(x => x.Name.Equals(from)) ?? new Person(from, 0); ;
             
 
             to = Utilities.RemoveTags(cells.ElementAt(Headings["To"]).GetCellText());
-            to = Utilities.TrimString(to, "\r\n");
+            to = to.Trim(new char[] { '\r', '\n' });
             Person issueTo = PeopleList.FirstOrDefault(x => x.Name.Equals(to)) ?? new Person(to, 0);
 
             category = Utilities.RemoveTags(cells.ElementAt(Headings["Category"]).GetCellText());
-            category = Utilities.TrimString(category, "\r\n");
+            category = category.Trim(new char[] { '\r', '\n' });
             PraccingCategory issueCategory = CategoryList.FirstOrDefault(x => x.Category.Equals(category)) ?? new PraccingCategory();
 
             // images
@@ -414,8 +413,8 @@ namespace SDIFrontEnd
             issueNo = Int32.Parse(issueNumber.Substring(0, issueNumber.IndexOf("-", 1)));
 
             description = cells.ElementAt(Headings["Description"]).GetCellText();
-            description = Utilities.TrimString(description, " ");
-            description = Utilities.TrimString(description, "<br>");
+            description = description.Trim(new char[] { ' ' });
+            description = description.Trim("<br>".ToCharArray());
 
             string forcompare = Utilities.PrepareTextCompare(description);
 
@@ -451,16 +450,16 @@ namespace SDIFrontEnd
             }
 
             date = cells.ElementAt(Headings["Date"]).GetCellText();
-            date = Utilities.TrimString(date, "\r\n");
+            date = date.Trim(new char[] { '\r', '\n' });
             DateTime issueDate = GetResponseDate(date);
 
 
             from = cells.ElementAt(Headings["From"]).GetCellText();
-            from = Utilities.TrimString(from, "\r\n");
+            from = from.Trim(new char[] { '\r', '\n' });
             Person issueFrom = PeopleList.FirstOrDefault(x => x.Name.Equals(from)) ?? new Person(from, 0); ;
 
             to = cells.ElementAt(Headings["To"]).GetCellText();
-            to = Utilities.TrimString(to, "\r\n");
+            to = to.Trim(new char[] { '\r', '\n' });
             Person issueTo = PeopleList.FirstOrDefault(x => x.Name.Equals(to)) ?? new Person(to, 0); ;
 
             // images

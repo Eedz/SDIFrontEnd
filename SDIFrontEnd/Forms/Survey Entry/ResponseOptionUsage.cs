@@ -159,7 +159,7 @@ namespace SDIFrontEnd
             ResponseSet current = (ResponseSet)bs.Current;
             string plain = txtWordingR.Text;
             plain = Utilities.RemoveHighlightTags(plain);
-            plain = Utilities.TrimString(plain, "<br>");
+            plain = plain.Trim("<br>".ToCharArray());
             plain = plain.Replace("<br>", "\r\n");
             current.RespList = plain;
             Dirty = true;
@@ -299,7 +299,7 @@ namespace SDIFrontEnd
                 txtWordingR.Rtf = Utilities.FormatRTF(frmEditor.EditedText);
                 string plain = txtWordingR.Text;
                 plain = Utilities.RemoveHighlightTags(plain);
-                plain = Utilities.TrimString(plain, "<br>"); 
+                plain = plain.Trim("<br>".ToCharArray());
 
                 set.RespList = plain;
 

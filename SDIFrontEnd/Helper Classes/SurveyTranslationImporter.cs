@@ -307,7 +307,7 @@ namespace SDIFrontEnd
             {
                 string before = rest.Substring(0, m[0].Index);
                 string after = rest.Substring(m[0].Index);
-                before = Utilities.TrimString(before, "\r\n");
+                before = before.Trim(new char[] { '\r', '\n' });
 
                 completeQuestion = before + "\r\n" + litq + "\r\n" + after;
             }

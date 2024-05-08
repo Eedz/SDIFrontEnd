@@ -316,7 +316,7 @@ namespace SDIFrontEnd
 
             // now get plain text which includes the HTML tags we've inserted
             string plain = txtWordingR.Text;
-            plain = Utilities.TrimString(plain, "<br>");
+            plain = plain.Trim("<br>".ToCharArray());
             CurrentWording.WordingText = plain;
 
             Dirty = true;

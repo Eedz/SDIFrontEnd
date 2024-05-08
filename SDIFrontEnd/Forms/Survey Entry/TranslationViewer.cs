@@ -279,7 +279,7 @@ namespace SDIFrontEnd
             extraRichTextBox1.Rtf = Utilities.FormatRTF(extraRichTextBox1.Rtf);
             // now get plain text which includes the HTML tags we've inserted
             string plain = extraRichTextBox1.Text;
-            plain = Utilities.TrimString(plain, "<br>");
+            plain = plain.Trim("<br>".ToCharArray());
             CurrentRecord.Item.TranslationText = plain;
             extraRichTextBox1.Rtf = RTFUtilities.FormatRTF_FromText(CurrentRecord.Item.TranslationText);
         }
