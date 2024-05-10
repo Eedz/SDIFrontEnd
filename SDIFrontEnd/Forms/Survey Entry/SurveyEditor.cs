@@ -1153,7 +1153,7 @@ namespace SDIFrontEnd
             }
             else
             {
-                //UpdateWording("RespOptions");
+                UpdateResponseSetText(frm.CurrentSet);
             }
             LoadQuestion();
         }
@@ -1170,7 +1170,7 @@ namespace SDIFrontEnd
             }
             else
             {
-                //UpdateWording("NRCodes");
+                UpdateResponseSetText(frm.CurrentSet);
             }
             LoadQuestion();
         }
@@ -1444,6 +1444,10 @@ namespace SDIFrontEnd
             {
                 UpdateWording(frmWordings.CurrentWording);
             }
+            else
+            {
+                UpdateWordingText(frmWordings.CurrentWording);
+            }
             LoadQuestion();
         }
 
@@ -1472,6 +1476,31 @@ namespace SDIFrontEnd
             }
         }
 
+        private void UpdateWordingText(Wording wording)
+        {
+            switch (wording.FieldType)
+            {
+                case "PreP":
+                    CurrentRecord.Item.PrePW.WordingText = wording.WordingText;
+                    break;
+                case "PreI":
+                    CurrentRecord.Item.PreIW.WordingText = wording.WordingText;
+                    break;
+                case "PreA":
+                    CurrentRecord.Item.PreAW.WordingText = wording.WordingText;
+                    break;
+                case "LitQ":
+                    CurrentRecord.Item.LitQW.WordingText = wording.WordingText;
+                    break;
+                case "PstI":
+                    CurrentRecord.Item.PstIW.WordingText = wording.WordingText;
+                    break;
+                case "PstP":
+                    CurrentRecord.Item.PstPW.WordingText = wording.WordingText;
+                    break;
+            }
+        }
+
         private void UpdateResponseSet(ResponseSet response)
         {
             switch (response.FieldType)
@@ -1481,6 +1510,19 @@ namespace SDIFrontEnd
                     break;
                 case "NRCodes":
                     CurrentRecord.Item.NRCodesS = response;
+                    break;
+            }
+        }
+
+        private void UpdateResponseSetText(ResponseSet response)
+        {
+            switch (response.FieldType)
+            {
+                case "RespOptions":
+                    CurrentRecord.Item.RespOptionsS.RespList = response.RespList;
+                    break;
+                case "NRCodes":
+                    CurrentRecord.Item.NRCodesS.RespList = response.RespList;
                     break;
             }
         }

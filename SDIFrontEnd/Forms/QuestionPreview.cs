@@ -23,7 +23,7 @@ namespace SDIFrontEnd
             InitializeComponent();
 
             CurrentQuestion = sq;
-            FormattedQuestion = sq.Copy();
+            FormattedQuestion = sq.DeepCopyWordings();
 
             bs = new BindingSource
             {
