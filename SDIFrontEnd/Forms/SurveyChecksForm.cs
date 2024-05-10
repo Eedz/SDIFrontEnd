@@ -154,25 +154,25 @@ namespace SDIFrontEnd
             SurveyQuestion starter = surveyChecker.QuestionList.Where(x => x.Qnum.Equals(selected.Qnum.Substring(0, 3) + "a")).FirstOrDefault();
             lblSeriesStarter.Text = starter.VarName.RefVarName + "/" + starter.Qnum;
 
-            rtbSeriesErrorPreP.Rtf = selected.PrePW.WordingTextR;
+            rtbSeriesErrorPreP.Rtf = RTFUtilities.FormatRTF_FromText(selected.PrePW.WordingText);
             if (selected.PrePW.Equals(starter.PrePW))
                 rtbSeriesErrorPreP.BackColor = Color.LightGreen;
             else
                 rtbSeriesErrorPreP.BackColor = Color.Red;
 
-            rtbSeriesErrorPreI.Rtf = selected.PreIW.WordingTextR;
+            rtbSeriesErrorPreI.Rtf = RTFUtilities.FormatRTF_FromText(selected.PreIW.WordingText);
             if (selected.PreIW.Equals(starter.PreIW))
                 rtbSeriesErrorPreI.BackColor = Color.LightGreen;
             else
                 rtbSeriesErrorPreI.BackColor = Color.Red;
 
-            rtbSeriesErrorPreA.Rtf = selected.PreAW.WordingTextR;
+            rtbSeriesErrorPreA.Rtf = RTFUtilities.FormatRTF_FromText(selected.PreAW.WordingText);
             if (selected.PreAW.Equals(starter.PreAW))
                 rtbSeriesErrorPreA.BackColor = Color.LightGreen;
             else
                 rtbSeriesErrorPreA.BackColor = Color.Red;
 
-            rtbSeriesErrorLitQ.Rtf = selected.LitQW.WordingTextR;
+            rtbSeriesErrorLitQ.Rtf = RTFUtilities.FormatRTF_FromText(selected.LitQW.WordingText);
 
             txtSeriesErrorRO.Text = selected.RespOptionsS.RespList.Replace("<br>", "\r\n");
             if (selected.RespOptionsS.Equals(starter.RespOptionsS))
@@ -186,13 +186,13 @@ namespace SDIFrontEnd
             else
                 txtSeriesErrorNR.BackColor = Color.Red;
 
-            rtbSeriesErrorPstI.Rtf = selected.PstIW.WordingTextR;
+            rtbSeriesErrorPstI.Rtf = RTFUtilities.FormatRTF_FromText(selected.PstIW.WordingText);
             if (selected.PstIW.Equals(starter.PstIW))
                 rtbSeriesErrorPstI.BackColor = Color.LightGreen;
             else
                 rtbSeriesErrorPstI.BackColor = Color.Red;
 
-            rtbSeriesErrorPstP.Rtf = selected.PstPW.WordingTextR;
+            rtbSeriesErrorPstP.Rtf = RTFUtilities.FormatRTF_FromText(selected.PstPW.WordingText);
             if (selected.PstPW.Equals(starter.PstPW))
                 rtbSeriesErrorPstP.BackColor = Color.LightGreen;
             else
@@ -200,8 +200,8 @@ namespace SDIFrontEnd
 
             rtbSeriesStarterPreP.Text = starter.PrePW.WordingText;
             rtbSeriesStarterPreI.Text = starter.PreIW.WordingText;
-            rtbSeriesStarterPreA.Rtf = starter.PreAW.WordingTextR;
-            rtbSeriesStarterLitQ.Rtf = starter.LitQW.WordingTextR;
+            rtbSeriesStarterPreA.Rtf = RTFUtilities.FormatRTF_FromText(starter.PreAW.WordingText);
+            rtbSeriesStarterLitQ.Rtf = RTFUtilities.FormatRTF_FromText(starter.LitQW.WordingText);
             txtSeriesStarterRO.Text = starter.RespOptionsS.RespList.Replace("<br>", "\r\n");
             txtSeriesStarterNR.Text = starter.NRCodesS.RespList.Replace("<br>", "\r\n");
             rtbSeriesStarterPstI.Text = starter.PstIW.WordingText;

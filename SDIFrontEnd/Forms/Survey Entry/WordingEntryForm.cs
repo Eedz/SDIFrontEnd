@@ -307,17 +307,15 @@ namespace SDIFrontEnd
         {
             // change RTF tags to HTML tags
             string html = RTFUtilities.ConvertRTFtoHTML(txtWordingR.Rtf);
+            // now remove the extraneous tags
+            html = HTMLUtilities.RemoveHtmlTag(html, "div");
+            html = HTMLUtilities.RemoveEmptyParagraphsWithBr(html);
+            html = HTMLUtilities.RemoveStyleAttribute(html, "p");
+            html = html.Replace("<p>", "<br>");
+            html = html.Replace("</p>", "");
+            html = html.TrimAndRemoveAll("<br>");
 
-            txtWordingR.Rtf = Utilities.FormatRTF(txtWordingR.Rtf);
-
-            
-            
-            //txtWordingR.Rtf = html;
-
-            // now get plain text which includes the HTML tags we've inserted
-            string plain = txtWordingR.Text;
-            plain = plain.Trim("<br>".ToCharArray());
-            CurrentWording.WordingText = plain;
+            CurrentWording.WordingText = html;
 
             Dirty = true;
             bs.ResetCurrentItem();
@@ -390,20 +388,6 @@ namespace SDIFrontEnd
                 bs.Position = index;
         }
 
-        private void OpenEditor(Wording wording)
-        {
-            RichTextEditor frmEditor = new RichTextEditor(wording.WordingTextR);
-            frmEditor.ShowDialog();
-            if (frmEditor.DialogResult == DialogResult.OK)
-            {
-                txtWordingR.Rtf = Utilities.FormatRTF(frmEditor.EditedText);
-
-                wording.WordingText = Utilities.RemoveHighlightTags(txtWordingR.Text);
-
-                Dirty = true;
-            }
-        }
-
         private void AddWording()
         {
             WordingType field = CurrentWording.Type;
@@ -416,8 +400,6 @@ namespace SDIFrontEnd
             CurrentWording.Type = field;
 
             chkEdit.Text = "Save";
-           
-            //OpenEditor(CurrentWording);
         }
 
         private void AddWording(Wording template)
@@ -432,8 +414,6 @@ namespace SDIFrontEnd
             CurrentWording.WordingText = template.WordingText;
 
             chkEdit.Text = "Save";
-
-            //OpenEditor(CurrentWording);
         }
 
         public int FilterWordings(string criteria)
@@ -616,7 +596,7 @@ namespace SDIFrontEnd
         {
             CurrentWording = (Wording)bs.Current;
             txtWordingR.Rtf = null;
-            txtWordingR.Rtf = CurrentWording.WordingTextR;
+            txtWordingR.Rtf = RTFUtilities.FormatRTF_FromText(CurrentWording.WordingText);
 
             LoadUsageList(CurrentWording.FieldType, CurrentWording.WordID);
             Locked = Usages.Any(x => x.Locked) || (CurrentWording.WordID == 0 && !NewRecord);

@@ -41,7 +41,6 @@
             this.txtWordID = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.txtWordingR = new System.Windows.Forms.RichTextBox();
             this.navWordings = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
@@ -54,7 +53,11 @@
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.cmdTextSearch = new System.Windows.Forms.Button();
             this.cmdCopyToNew = new System.Windows.Forms.Button();
-            this.cmdEdit = new System.Windows.Forms.Button();
+            this.txtWordingR = new System.Windows.Forms.RichTextBox();
+            this.cmdUnderline = new System.Windows.Forms.Button();
+            this.cmdItalic = new System.Windows.Forms.Button();
+            this.cmdBold = new System.Windows.Forms.Button();
+            this.chkEdit = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvWordingUsage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.navWordings)).BeginInit();
             this.navWordings.SuspendLayout();
@@ -141,7 +144,7 @@
             // 
             // txtFieldName
             // 
-            this.txtFieldName.Location = new System.Drawing.Point(51, 65);
+            this.txtFieldName.Location = new System.Drawing.Point(51, 64);
             this.txtFieldName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtFieldName.Name = "txtFieldName";
             this.txtFieldName.ReadOnly = true;
@@ -150,7 +153,7 @@
             // 
             // txtWordID
             // 
-            this.txtWordID.Location = new System.Drawing.Point(169, 63);
+            this.txtWordID.Location = new System.Drawing.Point(177, 64);
             this.txtWordID.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtWordID.Name = "txtWordID";
             this.txtWordID.Size = new System.Drawing.Size(69, 23);
@@ -168,24 +171,11 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(133, 69);
+            this.label4.Location = new System.Drawing.Point(131, 67);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(28, 16);
+            this.label4.Size = new System.Drawing.Size(40, 16);
             this.label4.TabIndex = 15;
-            this.label4.Text = "W#";
-            // 
-            // txtWordingR
-            // 
-            this.txtWordingR.BackColor = System.Drawing.SystemColors.Window;
-            this.txtWordingR.Location = new System.Drawing.Point(11, 129);
-            this.txtWordingR.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtWordingR.Name = "txtWordingR";
-            this.txtWordingR.ReadOnly = true;
-            this.txtWordingR.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.txtWordingR.Size = new System.Drawing.Size(688, 168);
-            this.txtWordingR.TabIndex = 16;
-            this.txtWordingR.Text = "";
-            this.txtWordingR.Validated += new System.EventHandler(this.txtWordingR_Validated);
+            this.label4.Text = "Name";
             // 
             // navWordings
             // 
@@ -306,16 +296,69 @@
             this.cmdCopyToNew.UseVisualStyleBackColor = true;
             this.cmdCopyToNew.Click += new System.EventHandler(this.cmdCopyToNew_Click);
             // 
-            // cmdEdit
+            // txtWordingR
             // 
-            this.cmdEdit.Location = new System.Drawing.Point(652, 95);
-            this.cmdEdit.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cmdEdit.Name = "cmdEdit";
-            this.cmdEdit.Size = new System.Drawing.Size(47, 28);
-            this.cmdEdit.TabIndex = 23;
-            this.cmdEdit.Text = "Edit";
-            this.cmdEdit.UseVisualStyleBackColor = true;
-            this.cmdEdit.Click += new System.EventHandler(this.cmdEdit_Click);
+            this.txtWordingR.BackColor = System.Drawing.SystemColors.Window;
+            this.txtWordingR.Location = new System.Drawing.Point(11, 129);
+            this.txtWordingR.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtWordingR.Name = "txtWordingR";
+            this.txtWordingR.ReadOnly = true;
+            this.txtWordingR.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.txtWordingR.Size = new System.Drawing.Size(688, 168);
+            this.txtWordingR.TabIndex = 16;
+            this.txtWordingR.Text = "";
+            this.txtWordingR.Validated += new System.EventHandler(this.txtWordingR_Validated);
+            // 
+            // cmdUnderline
+            // 
+            this.cmdUnderline.Enabled = false;
+            this.cmdUnderline.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdUnderline.Location = new System.Drawing.Point(66, 100);
+            this.cmdUnderline.Name = "cmdUnderline";
+            this.cmdUnderline.Size = new System.Drawing.Size(27, 23);
+            this.cmdUnderline.TabIndex = 32;
+            this.cmdUnderline.Text = "U";
+            this.cmdUnderline.UseCompatibleTextRendering = true;
+            this.cmdUnderline.UseVisualStyleBackColor = true;
+            this.cmdUnderline.Click += new System.EventHandler(this.cmdUnderline_Click);
+            // 
+            // cmdItalic
+            // 
+            this.cmdItalic.Enabled = false;
+            this.cmdItalic.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdItalic.Location = new System.Drawing.Point(38, 100);
+            this.cmdItalic.Name = "cmdItalic";
+            this.cmdItalic.Size = new System.Drawing.Size(27, 23);
+            this.cmdItalic.TabIndex = 31;
+            this.cmdItalic.Text = "I";
+            this.cmdItalic.UseCompatibleTextRendering = true;
+            this.cmdItalic.UseVisualStyleBackColor = true;
+            this.cmdItalic.Click += new System.EventHandler(this.cmdItalic_Click);
+            // 
+            // cmdBold
+            // 
+            this.cmdBold.Enabled = false;
+            this.cmdBold.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdBold.Location = new System.Drawing.Point(11, 100);
+            this.cmdBold.Name = "cmdBold";
+            this.cmdBold.Size = new System.Drawing.Size(27, 23);
+            this.cmdBold.TabIndex = 30;
+            this.cmdBold.Text = "B";
+            this.cmdBold.UseCompatibleTextRendering = true;
+            this.cmdBold.UseVisualStyleBackColor = true;
+            this.cmdBold.Click += new System.EventHandler(this.cmdBold_Click);
+            // 
+            // chkEdit
+            // 
+            this.chkEdit.Appearance = System.Windows.Forms.Appearance.Button;
+            this.chkEdit.AutoSize = true;
+            this.chkEdit.Location = new System.Drawing.Point(661, 98);
+            this.chkEdit.Name = "chkEdit";
+            this.chkEdit.Size = new System.Drawing.Size(38, 26);
+            this.chkEdit.TabIndex = 33;
+            this.chkEdit.Text = "Edit";
+            this.chkEdit.UseVisualStyleBackColor = true;
+            this.chkEdit.Click += new System.EventHandler(this.chkEdit_Click);
             // 
             // ResponseOptionUsage
             // 
@@ -323,7 +366,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(217)))), ((int)(((byte)(155)))));
             this.ClientSize = new System.Drawing.Size(812, 539);
-            this.Controls.Add(this.cmdEdit);
+            this.Controls.Add(this.chkEdit);
+            this.Controls.Add(this.cmdUnderline);
+            this.Controls.Add(this.cmdItalic);
+            this.Controls.Add(this.cmdBold);
             this.Controls.Add(this.cmdCopyToNew);
             this.Controls.Add(this.cmdTextSearch);
             this.Controls.Add(this.navWordings);
@@ -370,7 +416,6 @@
         private System.Windows.Forms.TextBox txtWordID;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.RichTextBox txtWordingR;
         private System.Windows.Forms.BindingNavigator navWordings;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveFirstItem;
@@ -383,6 +428,10 @@
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.Button cmdTextSearch;
         private System.Windows.Forms.Button cmdCopyToNew;
-        private System.Windows.Forms.Button cmdEdit;
+        private System.Windows.Forms.RichTextBox txtWordingR;
+        private System.Windows.Forms.Button cmdUnderline;
+        private System.Windows.Forms.Button cmdItalic;
+        private System.Windows.Forms.Button cmdBold;
+        private System.Windows.Forms.CheckBox chkEdit;
     }
 }

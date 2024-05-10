@@ -712,7 +712,7 @@ namespace SDIFrontEnd
             if (CurrentRecord == null)
                 return;
 
-            bs.ResetBindings(false);
+            //bs.ResetBindings(false);
 
             dgvTimeFrames.Rows.Clear();
             dgvTimeFrames.RowCount = CurrentRecord.Item.TimeFrames.Count + 1;

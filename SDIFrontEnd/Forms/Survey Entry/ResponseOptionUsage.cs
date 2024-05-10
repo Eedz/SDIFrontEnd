@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
@@ -153,54 +154,88 @@ namespace SDIFrontEnd
                 
         }
 
-        private void txtWordingR_Validated(object sender, EventArgs e)
+        private void chkEdit_Click(object sender, EventArgs e)
         {
-            txtWordingR.Rtf = Utilities.FormatRTF(txtWordingR.Rtf);
-            ResponseSet current = (ResponseSet)bs.Current;
-            string plain = txtWordingR.Text;
-            plain = Utilities.RemoveHighlightTags(plain);
-            plain = plain.Trim("<br>".ToCharArray());
-            plain = plain.Replace("<br>", "\r\n");
-            current.RespList = plain;
-            Dirty = true;
-            bs.ResetCurrentItem();
-        }
-
-        private void cmdEdit_Click(object sender, EventArgs e)
-        {
-            if (CurrentSet.RespSetName.Equals("0") && !NewRecord) // 0 wording, reserved
+            if (!chkEdit.Checked)
             {
-                MessageBox.Show("Response Set #0 is reserved and cannot be edited.");
-                return;
-
+                SaveRecord();
+                chkEdit.Text = "Edit";
+                cmdBold.Enabled = false;
+                cmdItalic.Enabled = false;
+                cmdUnderline.Enabled = false;
+                txtWordingR.BackColor = SystemColors.Control;
             }
-            else if (Locked)
+            else
             {
-                if (MessageBox.Show("This response set is used in a locked survey and cannot be modified. Would you like to unlock the surveys that use this response set?", "Unlock?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (CurrentSet.RespSetName == "0" && !NewRecord) // 0 wording, reserved
                 {
-                    string[] surveys = Usages.Where(x => x.Locked).Select(x => x.SurveyCode).ToArray();
-                      
-                    for (int i = 0; i < surveys.Length; i++)
-                    {
-                        DBAction.UnlockSurvey(surveys[i], 60);
-                    }
-
-                }
-                else
-                {
+                    MessageBox.Show("Set '0' is reserved and cannot be edited.");
                     return;
                 }
-            }
-            else if (Usages.Count > 1) // existing survey used in more than 1 survey
-            {
-                MessageBox.Show("You are about to edit a response set used in multiple survey questions.");
-            }
-            else // existing wording used in 0 or 1 surveys OR a new wording
-            {
+                else if (Locked)
+                {
+                    if (MessageBox.Show("This set is used in a locked survey and cannot be modified. Would you like to unlock the surveys that use this set?", "Unlock?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        string[] surveys = Usages.Where(x => x.Locked).Select(x => x.SurveyCode).ToArray();
+                        for (int i = 0; i < surveys.Length; i++)
+                            DBAction.UnlockSurvey(surveys[i], 60);
+                    }
+                    else
+                        return;
+                }
+                else if (Usages.Count > 1) // existing survey used in more than 1 survey
+                    MessageBox.Show("You are about to edit a response set used in multiple survey questions.");
+
+                // otherwise, existing wording used in 0 or 1 surveys OR a new wording
+                // unlock wording field for editing
+
+                chkEdit.Text = "Save";
+                txtWordingR.BackColor = Color.White;
+                txtWordingR.ReadOnly = false;
+                cmdBold.Enabled = true;
+                cmdItalic.Enabled = true;
+                cmdUnderline.Enabled = true;
             }
 
-            // open editor
-            OpenEditor(CurrentSet);
+        }
+
+        private void cmdBold_Click(object sender, EventArgs e)
+        {
+            Font oldFont = txtWordingR.SelectionFont;
+            Font newFont;
+
+            if (oldFont.Bold)
+                newFont = new Font(oldFont, oldFont.Style & ~FontStyle.Bold);
+            else
+                newFont = new Font(oldFont, oldFont.Style | FontStyle.Bold);
+
+            txtWordingR.SelectionFont = newFont;
+        }
+
+        private void cmdItalic_Click(object sender, EventArgs e)
+        {
+            Font oldFont = txtWordingR.SelectionFont;
+            Font newFont;
+
+            if (oldFont.Italic)
+                newFont = new Font(oldFont, oldFont.Style & ~FontStyle.Italic);
+            else
+                newFont = new Font(oldFont, oldFont.Style | FontStyle.Italic);
+
+            txtWordingR.SelectionFont = newFont;
+        }
+
+        private void cmdUnderline_Click(object sender, EventArgs e)
+        {
+            Font oldFont = txtWordingR.SelectionFont;
+            Font newFont;
+
+            if (oldFont.Underline)
+                newFont = new Font(oldFont, oldFont.Style & ~FontStyle.Underline);
+            else
+                newFont = new Font(oldFont, oldFont.Style | FontStyle.Underline);
+
+            txtWordingR.SelectionFont = newFont;
         }
 
         #endregion
@@ -260,6 +295,24 @@ namespace SDIFrontEnd
 
         #region Methods
 
+        private void UpdatePlainText()
+        {
+            // change RTF tags to HTML tags
+            string html = RTFUtilities.ConvertRTFtoHTML(txtWordingR.Rtf);
+            // now remove the extraneous tags
+            html = HTMLUtilities.RemoveHtmlTag(html, "div");
+            html = HTMLUtilities.RemoveEmptyParagraphsWithBr(html);
+            html = HTMLUtilities.RemoveStyleAttribute(html, "p");
+            html = html.Replace("<p>", "<br>");
+            html = html.Replace("</p>", "");
+            html = html.TrimAndRemoveAll("<br>");
+
+            CurrentSet.RespList = html;
+
+            Dirty = true;
+            bs.ResetCurrentItem();
+        }
+
         private void GetResponseSets(string fieldname)
         {
             switch (fieldname)
@@ -290,25 +343,6 @@ namespace SDIFrontEnd
                 bs.Position = index;
         }
 
-        private void OpenEditor(ResponseSet set)
-        {
-            RichTextEditor frmEditor = new RichTextEditor(set.RespListR);
-            frmEditor.ShowDialog();
-            if (frmEditor.DialogResult == DialogResult.OK)
-            {
-                txtWordingR.Rtf = Utilities.FormatRTF(frmEditor.EditedText);
-                string plain = txtWordingR.Text;
-                plain = Utilities.RemoveHighlightTags(plain);
-                plain = plain.Trim("<br>".ToCharArray());
-
-                set.RespList = plain;
-
-                Dirty = true;
-                bs.ResetCurrentItem();
-            }
-
-        }
-
         private void AddWording()
         {
             ResponseType field = CurrentSet.Type;
@@ -318,7 +352,8 @@ namespace SDIFrontEnd
             CurrentSet = (ResponseSet)bs.AddNew();
             CurrentSet.Type = field;
             CurrentSet.RespSetName = "(New)";
-            OpenEditor(CurrentSet);
+
+            chkEdit.Text = "Save";
         }
 
         private void AddWording(ResponseSet template)
@@ -330,7 +365,8 @@ namespace SDIFrontEnd
             CurrentSet.Type = template.Type;
             CurrentSet.RespList = template.RespList;
             CurrentSet.RespSetName = "(New)";
-            OpenEditor(CurrentSet);
+
+            chkEdit.Text = "Save";
         }
 
         public int FilterWordings(string criteria)
@@ -367,6 +403,8 @@ namespace SDIFrontEnd
 
         private int SaveRecord()
         {
+            UpdatePlainText();
+
             if (CurrentSet.RespSetName.Equals("(New)"))
             {
                 MessageBox.Show("This appears to be a new response set. Please assign a name before saving.");
@@ -401,7 +439,6 @@ namespace SDIFrontEnd
         {
             txtFieldName.DataBindings.Add("Text", bs, "Type");
             txtWordID.DataBindings.Add("Text", bs, "RespSetName");
-            txtWordingR.DataBindings.Add("RTF", bs, "RespListR");
         }
 
         private void LoadUsageList(string field, string respName)
@@ -518,19 +555,34 @@ namespace SDIFrontEnd
         private void UpdateCurrentWording()
         {
             CurrentSet = (ResponseSet)bs.Current;
+            txtWordingR.Rtf = null;
+            txtWordingR.Rtf = RTFUtilities.FormatRTF_FromText(CurrentSet.RespList);
 
             LoadUsageList(CurrentSet.FieldType, CurrentSet.RespSetName);
             Locked = Usages.Any(x => x.Locked) || (CurrentSet.RespSetName.Equals("0") && !NewRecord);
 
             if (CurrentSet.RespSetName == "0" && !NewRecord) // 0 wording, reserved
             {
-                cmdEdit.Enabled = false;
+                chkEdit.Enabled = false;
                 txtWordID.ReadOnly = true;
+            }
+            else if (NewRecord)
+            {
+                chkEdit.Enabled = true;
+                chkEdit.Checked = true;
+                txtWordingR.ReadOnly = false;
+                txtWordingR.BackColor = SystemColors.Window;
+                cmdBold.Enabled = true;
+                cmdItalic.Enabled = true;
             }
             else
             {
-                cmdEdit.Enabled = true;
-                txtWordID.ReadOnly = false;
+                chkEdit.Enabled = true;
+                chkEdit.Checked = false;
+                txtWordingR.ReadOnly = true;
+                txtWordingR.BackColor = SystemColors.Control;
+                cmdBold.Enabled = false;
+                cmdItalic.Enabled = false;
             }
         }
 

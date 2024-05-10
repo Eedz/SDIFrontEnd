@@ -209,8 +209,8 @@ namespace SDIFrontEnd
             bs.ResetCurrentItem();
 
             extraRichTextBox1.Rtf = RTFUtilities.FormatRTF_FromText(CurrentRecord.Item.TranslationText);
-            rtbPreP.Rtf = MainQuestion.PrePW.WordingTextR;
-            rtbPstP.Rtf = MainQuestion.PstPW.WordingTextR;
+            rtbPreP.Rtf = RTFUtilities.FormatRTF_FromText(MainQuestion.PrePW.WordingText);
+            rtbPstP.Rtf = RTFUtilities.FormatRTF_FromText(MainQuestion.PstPW.WordingText);
             
             AdjustRouting();
             SetReadingDirection();
