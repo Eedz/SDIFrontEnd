@@ -330,7 +330,7 @@ namespace SDIFrontEnd
 
             varNames = Utilities.RemoveTags(cells.ElementAt(Headings["VarNames"]).GetCellText());
             description = cells.ElementAt(Headings["Description"]).GetCellText().Trim();
-            description = description.Trim("<br>".ToCharArray());
+            description = description.TrimAndRemoveAll("<br>");
             descriptionRTF = description;
 
             // check date and names for valid entries
@@ -414,7 +414,7 @@ namespace SDIFrontEnd
 
             description = cells.ElementAt(Headings["Description"]).GetCellText();
             description = description.Trim(new char[] { ' ' });
-            description = description.Trim("<br>".ToCharArray());
+            description = description.TrimAndRemoveAll("<br>");
 
             string forcompare = Utilities.PrepareTextCompare(description);
 

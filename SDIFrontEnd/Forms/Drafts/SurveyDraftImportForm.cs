@@ -436,7 +436,7 @@ namespace SDIFrontEnd
                 }
             }
 
-            text = text.Trim("<br>".ToCharArray());
+            text = text.TrimAndRemoveAll("<br>");
 
             return text;
         }

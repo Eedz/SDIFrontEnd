@@ -826,7 +826,7 @@ namespace SDIFrontEnd
             if (frmEditor.DialogResult == DialogResult.OK)
             {
                 rtb.Rtf = Utilities.FormatRTF(frmEditor.EditedText);
-                source[dataRepeaterItem.ItemIndex].Response = rtb.Text.Trim("<br>".ToCharArray());
+                source[dataRepeaterItem.ItemIndex].Response = rtb.Text.TrimAndRemoveAll("<br>");
                 rtb.Rtf = source[dataRepeaterItem.ItemIndex].ResponseRTF;
                 CurrentRecord.EditedResponses.Add(source[dataRepeaterItem.ItemIndex]);
                 CurrentRecord.Dirty = true;
@@ -939,7 +939,7 @@ namespace SDIFrontEnd
             if (frmEditor.DialogResult == DialogResult.OK)
             {
                 rtbDescription.Rtf = Utilities.FormatRTF(frmEditor.EditedText);
-                CurrentRecord.Item.Description = rtbDescription.Text.Trim("<br>".ToCharArray()); ;
+                CurrentRecord.Item.Description = rtbDescription.Text.TrimAndRemoveAll("<br>"); ;
                 rtbDescription.Rtf = CurrentRecord.Item.DescriptionRTF;
 
                 CurrentRecord.Dirty = true;

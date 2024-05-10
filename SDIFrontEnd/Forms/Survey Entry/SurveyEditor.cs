@@ -1103,7 +1103,7 @@ namespace SDIFrontEnd
 
             // now get plain text which includes the HTML tags we've inserted
             string plain = rtbPlainFilter.Text;
-            plain = plain.Trim("<br>".ToCharArray());
+            plain = plain.TrimAndRemoveAll("<br>");
             CurrentRecord.Item.FilterDescription = plain;
             rtbPlainFilter.Rtf = null;
             rtbPlainFilter.Rtf = RTFUtilities.FormatText(CurrentRecord.Item.FilterDescription);
