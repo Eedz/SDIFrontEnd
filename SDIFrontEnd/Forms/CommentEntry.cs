@@ -562,6 +562,11 @@ namespace SDIFrontEnd
             }
         }
 
+        private void CommentEntry_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SaveNote();
+        }
+
         private void CommentEntry_FormClosed(object sender, FormClosedEventArgs e)
         {
             if (!Modal)
@@ -1002,6 +1007,8 @@ namespace SDIFrontEnd
                 return 0;
             }
 
+            bool newRec = CurrentRecord.NewRecord;
+
             if (CurrentRecord.SaveRecord() == 1)
             {
                 MessageBox.Show("Unable to save note.");
@@ -1009,7 +1016,8 @@ namespace SDIFrontEnd
             }
             else
             {
-                Globals.AllNotes.Add(CurrentRecord.Item);
+                if (newRec)
+                    Globals.AllNotes.Add(CurrentRecord.Item);
             }
 
             lblNewID.Visible = false;
@@ -2650,6 +2658,6 @@ namespace SDIFrontEnd
         {
 
         }
-        #endregion     
+        #endregion
     }
 }

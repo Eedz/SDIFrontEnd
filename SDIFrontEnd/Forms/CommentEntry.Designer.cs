@@ -1052,6 +1052,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "CommentEntry";
             this.Text = "Comment Entry";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CommentEntry_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CommentEntry_FormClosed);
             this.Load += new System.EventHandler(this.CommentEntry_Load);
             this.panelDetails.ResumeLayout(false);

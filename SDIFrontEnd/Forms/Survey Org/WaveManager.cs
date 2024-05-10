@@ -60,7 +60,7 @@ namespace SDIFrontEnd
             UpdateCurrentRecord();
         }
 
-        private void Bs_ListChanged(object sender, ListChangedEventArgs e)
+        private void bsCurrent_ListChanged(object sender, ListChangedEventArgs e)
         {
             // item: bs[e.NewIndex]
             // property name: e.PropertyDescriptor.Name
@@ -201,6 +201,7 @@ namespace SDIFrontEnd
             bsCurrent = new BindingSource();
             bsCurrent.DataSource = bs;
             bsCurrent.DataMember = "Item";
+            bsCurrent.ListChanged += bsCurrent_ListChanged;
 
             bindingNavigator1.BindingSource = bs;
         }
