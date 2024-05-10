@@ -307,7 +307,7 @@
             this.txtWordingR.Size = new System.Drawing.Size(688, 168);
             this.txtWordingR.TabIndex = 16;
             this.txtWordingR.Text = "";
-            this.txtWordingR.Validated += new System.EventHandler(this.txtWordingR_Validated);
+
             // 
             // cmdUnderline
             // 
