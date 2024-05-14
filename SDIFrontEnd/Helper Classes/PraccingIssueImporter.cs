@@ -172,6 +172,9 @@ namespace SDIFrontEnd
                     case "Category":
                         Headings.Add("Category", i);
                         break;
+                    case "PIN":
+                        Headings.Add("PIN", i);
+                        break;
                 }
             }
         }
@@ -312,6 +315,7 @@ namespace SDIFrontEnd
             string to;
             string category;
             string issueNumber = cells.ElementAt(Headings["IssueNo"]).GetCellText();
+            string pin;
             int issueNo = 0;
 
             if (string.IsNullOrEmpty(issueNumber) || issueNumber.ToLower().Contains("new"))
@@ -346,6 +350,9 @@ namespace SDIFrontEnd
             to = Utilities.RemoveTags(cells.ElementAt(Headings["To"]).GetCellText());
             to = to.Trim(new char[] { '\r', '\n' });
             Person issueTo = PeopleList.FirstOrDefault(x => x.Name.Equals(to)) ?? new Person(to, 0);
+
+            pin = Utilities.RemoveTags(cells.ElementAt(Headings["PIN"]).GetCellText());
+            pin = pin.Trim(new char[] { '\r', '\n' });
 
             category = Utilities.RemoveTags(cells.ElementAt(Headings["Category"]).GetCellText());
             category = category.Trim(new char[] { '\r', '\n' });
@@ -389,6 +396,7 @@ namespace SDIFrontEnd
             mainIssue.IssueFrom = issueFrom;
             mainIssue.IssueTo = issueTo;
             mainIssue.Category = issueCategory;
+            mainIssue.PinNo = pin;
             mainIssue.Images = issueImages;
 
             ImportedIssues.Add(mainIssue);
@@ -403,6 +411,7 @@ namespace SDIFrontEnd
             string from;
             string to;
             string issueNumber;
+            string pin;
 
             if (string.IsNullOrEmpty(lastIssueNo))
                 issueNumber = cells.ElementAt(Headings["IssueNo"]).GetCellText();
@@ -462,6 +471,9 @@ namespace SDIFrontEnd
             to = to.Trim(new char[] { '\r', '\n' });
             Person issueTo = PeopleList.FirstOrDefault(x => x.Name.Equals(to)) ?? new Person(to, 0); ;
 
+            pin = cells.ElementAt(Headings["PIN"]).GetCellText();
+            pin = pin.Trim(new char[] { '\r', '\n' });
+
             // images
             List<PraccingImage> issueImages = new List<PraccingImage>();
             var imageRuns = cells.ElementAt(Headings["Description"]).Descendants<Run>();
@@ -499,6 +511,7 @@ namespace SDIFrontEnd
             response.ResponseDate = issueDate;
             response.ResponseFrom = issueFrom;
             response.ResponseTo = issueTo;
+            response.PinNo = pin;
             response.Images = issueImages;
 
             // find which main issue this response belongs to

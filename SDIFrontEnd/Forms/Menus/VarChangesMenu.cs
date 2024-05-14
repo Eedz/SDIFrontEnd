@@ -41,6 +41,12 @@ namespace SDIFrontEnd
 
         private void cmdOpenRenameBulk_Click(object sender, EventArgs e)
         {
+            if (FM.FormManager.AnyOpen("SurveyEditor"))
+            {
+                MessageBox.Show("Please close all instances of Survey Editor before renaming VarNames.");
+                return;
+            }
+
             if (FM.FormManager.FormOpen("RenameVarsBulk"))
             {
                 return;

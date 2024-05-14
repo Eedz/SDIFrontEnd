@@ -256,6 +256,11 @@ namespace SDIFrontEnd
 
                 rename.PerformRefRename();
 
+                foreach (Wording prep in rename.WordingChanges)
+                {
+                    Globals.UpdateWordings(rename.WordingChanges);
+                }
+
                 if (rename.FailedRenames.Count > 0)
                 {
                     VarNameChange failure = new VarNameChange();

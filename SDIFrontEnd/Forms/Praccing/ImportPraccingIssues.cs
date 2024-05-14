@@ -502,6 +502,7 @@ namespace SDIFrontEnd
             BindControl(chkResolved, "Checked", bsIssues, "Resolved");
             BindControl(dtpResDate, "Value", bsIssues, "ResolvedDate", true);
             BindControl(cboResName, "SelectedItem", bsIssues, "ResolvedBy");
+            BindControl(txtPinNo, "Text", bsIssues, "PinNo");
 
             BindControl(dtpOldTime, "Value", bsExistingResponses, "ResponseDate", true);
             BindControl(dtpOldDate, "Value", bsExistingResponses, "ResponseDate", true);
@@ -525,6 +526,8 @@ namespace SDIFrontEnd
             chkResolved.DataBindings.Clear();
             cboResName.DataBindings.Clear();
             dtpResDate.DataBindings.Clear();
+            txtPinNo.DataBindings.Clear();
+
 
             dtpOldTime.DataBindings.Clear();
             dtpOldDate.DataBindings.Clear();
@@ -707,7 +710,7 @@ namespace SDIFrontEnd
             catch (IOException)
             {
                 MessageBox.Show("Unable to access the file. Make sure it is not open in the background and try again.");
-             }
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
@@ -813,6 +816,9 @@ namespace SDIFrontEnd
 
             var oldTo = (TextBox)e.DataRepeaterItem.Controls.Find("txtOldTo", false)[0];
             oldTo.Text = datasource[e.DataRepeaterItem.ItemIndex].ResponseTo.Name;
+
+            var oldPin = (TextBox)e.DataRepeaterItem.Controls.Find("txtOldPinNo", false)[0];
+            oldPin.Text = datasource[e.DataRepeaterItem.ItemIndex].PinNo;
 
             var rtb = (RichTextBox)e.DataRepeaterItem.Controls.Find("rtbOldResponse", false)[0];
             rtb.Rtf = datasource[e.DataRepeaterItem.ItemIndex].ResponseRTF;

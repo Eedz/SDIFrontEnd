@@ -554,6 +554,12 @@ namespace SDIFrontEnd
 
         private void renameVarToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (Records.Any(x => x.IsEdited()))
+            {
+                MessageBox.Show("This survey has unsaved changes. Please save them before renaming any VarNames.");
+                return;
+            }
+
             RenameVarsBulk frm = (RenameVarsBulk)FM.FormManager.GetForm("RenameVarsBulk");
             if (frm == null)
             {

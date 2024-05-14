@@ -197,6 +197,44 @@ namespace SDIFrontEnd
             }
         }
 
+        public static void UpdateWordings(List<Wording> wordings)
+        {
+            foreach (Wording wording in wordings)
+            {
+                switch (wording.Type)
+                {
+                    case WordingType.PreP:
+                        UpsertWordingList(AllPreP, wording);
+                        break;
+                    case WordingType.PreI:
+                        UpsertWordingList(AllPreI, wording);
+                        break;
+                    case WordingType.PreA:
+                        UpsertWordingList(AllPreA, wording);
+                        break;
+                    case WordingType.LitQ:
+                        UpsertWordingList(AllLitQ, wording);
+                        break;
+                    case WordingType.PstI:
+                        UpsertWordingList(AllPstI, wording);
+                        break;
+                    case WordingType.PstP:
+                        UpsertWordingList(AllPstP, wording);
+                        break;
+                }
+            }
+            RefreshWordings.Invoke(null, new EventArgs());
+        }
+
+        private static void UpsertWordingList(List<Wording> list,  Wording wording)
+        {
+            Wording w = list.FirstOrDefault(x => x.Equals(wording));
+            if (w != null)
+                w.WordingText = wording.WordingText;
+            else
+                list.Add(wording);
+        }
+
         public static EventHandler RefreshPeople;
         public static EventHandler RefreshDomains;
         public static EventHandler RefreshTopics;

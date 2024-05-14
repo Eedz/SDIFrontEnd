@@ -1004,7 +1004,7 @@
             // moveToolStripMenuItem
             // 
             this.moveToolStripMenuItem.Name = "moveToolStripMenuItem";
-            this.moveToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.moveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.moveToolStripMenuItem.Text = "Move...";
             // 
             // goToToolStripMenuItem
@@ -1022,36 +1022,37 @@
             // assignLabelsToolStripMenuItem
             // 
             this.assignLabelsToolStripMenuItem.Name = "assignLabelsToolStripMenuItem";
-            this.assignLabelsToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.assignLabelsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.assignLabelsToolStripMenuItem.Text = "Labels";
             this.assignLabelsToolStripMenuItem.Click += new System.EventHandler(this.assignLabelsToolStripMenuItem_Click);
             // 
             // harmonyToolStripMenuItem
             // 
             this.harmonyToolStripMenuItem.Name = "harmonyToolStripMenuItem";
-            this.harmonyToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.harmonyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.harmonyToolStripMenuItem.Text = "Harmony";
             this.harmonyToolStripMenuItem.Click += new System.EventHandler(this.harmonyToolStripMenuItem_Click);
             // 
             // prefixListToolStripMenuItem
             // 
             this.prefixListToolStripMenuItem.Name = "prefixListToolStripMenuItem";
-            this.prefixListToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.prefixListToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.prefixListToolStripMenuItem.Text = "Prefix List";
             this.prefixListToolStripMenuItem.Click += new System.EventHandler(this.prefixListToolStripMenuItem_Click);
             // 
             // unusedVarsToolStripMenuItem
             // 
             this.unusedVarsToolStripMenuItem.Name = "unusedVarsToolStripMenuItem";
-            this.unusedVarsToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.unusedVarsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.unusedVarsToolStripMenuItem.Text = "Unused Vars";
             this.unusedVarsToolStripMenuItem.Click += new System.EventHandler(this.unusedVarsToolStripMenuItem_Click);
             // 
             // renameVarToolStripMenuItem
             // 
             this.renameVarToolStripMenuItem.Name = "renameVarToolStripMenuItem";
-            this.renameVarToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.renameVarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.renameVarToolStripMenuItem.Text = "Rename Var";
+            this.renameVarToolStripMenuItem.Visible = false;
             this.renameVarToolStripMenuItem.Click += new System.EventHandler(this.renameVarToolStripMenuItem_Click);
             // 
             // cboSurvey
