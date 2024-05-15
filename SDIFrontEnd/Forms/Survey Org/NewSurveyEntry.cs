@@ -73,7 +73,7 @@ namespace SDIFrontEnd
 
             cboSurveyType.DisplayMember = "Cohort";
             cboSurveyType.ValueMember = "ID";
-            cboSurveyType.DataSource = new List<SurveyCohortRecord>(Globals.AllCohorts);
+            cboSurveyType.DataSource = new List<SurveyCohort>(Globals.AllCohorts);
             
             cboCopyQuestions.ValueMember = "SID";
             cboCopyQuestions.DisplayMember = "SurveyCode";

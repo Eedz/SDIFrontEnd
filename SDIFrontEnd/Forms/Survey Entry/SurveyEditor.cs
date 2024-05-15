@@ -938,7 +938,7 @@ namespace SDIFrontEnd
 
         private void dgvTimeFrames_NewRowNeeded(object sender, DataGridViewRowEventArgs e)
         {
-            // Create a new QuestionTimeFrame object when the user edits the row for new records.
+            // Create a new object when the user edits the row for new records.
             this.editedTimeFrame = new QuestionTimeFrame();
             this.timeFrameRow = this.dgvTimeFrames.Rows.Count - 1;
         }
@@ -949,12 +949,12 @@ namespace SDIFrontEnd
 
             // If this is the row for new records, no values are needed.
             if (e.RowIndex == dgv.RowCount - 1) return;
-            // If the current record has no TimeFrames, no values are needed.
+            // If the current record has no items, no values are needed.
             if (CurrentRecord.Item.TimeFrames.Count == 0) return;
 
             QuestionTimeFrame tmp = null;
 
-            // Store a reference to the CoAuthor object for the row being painted.
+            // Store a reference to the object for the row being painted.
             if (e.RowIndex == timeFrameRow)
             {
                 tmp = editedTimeFrame;
@@ -966,7 +966,7 @@ namespace SDIFrontEnd
 
             if (tmp == null) return;
 
-            // Set the cell value to paint using the CoAuthor object retrieved.
+            // Set the cell value to paint using the object retrieved.
             switch (dgv.Columns[e.ColumnIndex].Name)
             {
                 case "chTimeFrame":
@@ -980,10 +980,10 @@ namespace SDIFrontEnd
             DataGridView dgv = (DataGridView)sender;
 
             QuestionTimeFrame tmp = null;
-            // Store a reference to the QuestionTimeFrame object for the row being edited.
+            // Store a reference to the object for the row being edited.
             if (e.RowIndex < CurrentRecord.Item.TimeFrames.Count)
             {
-                // If the user is editing a new row, create a new QuestionTimeFrame object.
+                // If the user is editing a new row, create a new object.
                 if (editedTimeFrame == null)
                     editedTimeFrame = new QuestionTimeFrame()
                     {
@@ -1017,11 +1017,10 @@ namespace SDIFrontEnd
         {
             DataGridView dgv = (DataGridView)sender;
 
-            // Save row changes if any were made and release the edited
-            // QuestionTimeFrame object if there is one.
+            // Save row changes if any were made and release the edited object if there is one.
             if (editedTimeFrame != null && e.RowIndex >= CurrentRecord.Item.TimeFrames.Count && e.RowIndex != dgv.Rows.Count - 1)
             {
-                // Add the new QuestionTimeFrame object to the data store.
+                // Add the new object to the data store.
                 CurrentRecord.Item.TimeFrames.Add(editedTimeFrame);
                 CurrentRecord.AddTimeFrames.Add(editedTimeFrame);
                 UpdateStatus();
@@ -1030,7 +1029,7 @@ namespace SDIFrontEnd
             }
             else if (editedTimeFrame != null && e.RowIndex < CurrentRecord.Item.TimeFrames.Count)
             {
-                // ignore edits to time frames
+                // ignore edits 
                 editedTimeFrame = null;
                 timeFrameRow = -1;
             }
@@ -1058,12 +1057,12 @@ namespace SDIFrontEnd
             if (timeFrameRow == dgv.Rows.Count - 2 && timeFrameRow == CurrentRecord.Item.TimeFrames.Count)
             {
                 // If the user has canceled the edit of a newly created row,
-                // replace the corresponding QuestionTimeFrame object with a new, empty one.
+                // replace the corresponding object with a new, empty one.
                 editedTimeFrame = new QuestionTimeFrame();
             }
             else
             {
-                // If the user has canceled the edit of an existing row, release the corresponding QuestionTimeFrame object.
+                // If the user has canceled the edit of an existing row, release the corresponding object.
                 editedTimeFrame = null;
                 timeFrameRow = -1;
             }
@@ -1077,7 +1076,7 @@ namespace SDIFrontEnd
                 {
                     QuestionTimeFrame record = CurrentRecord.Item.TimeFrames[e.Row.Index];
                     // If the user has deleted an existing row, remove the
-                    // corresponding QuestionTimeFrame object from the data store.
+                    // corresponding object from the data store.
                     this.CurrentRecord.Item.TimeFrames.RemoveAt(e.Row.Index);
                     CurrentRecord.DeleteTimeFrames.Add(record);
                     UpdateStatus();

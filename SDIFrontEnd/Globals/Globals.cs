@@ -46,7 +46,7 @@ namespace SDIFrontEnd
         public static List<TopicLabel> AllTopicLabels;
         public static List<DomainLabel> AllDomainLabels;
         public static List<ProductLabel> AllProductLabels;
-        public static List<SurveyCohortRecord> AllCohorts;
+        public static List<SurveyCohort> AllCohorts;
         public static List<UserStateRecord> AllUserStates;
         public static List<SimilarWordsRecord> AllSimilarWords;
         public static List<SurveyMode> AllModes;
@@ -223,7 +223,7 @@ namespace SDIFrontEnd
                         break;
                 }
             }
-            RefreshWordings.Invoke(null, new EventArgs());
+            RefreshWordings?.Invoke(null, new EventArgs());
         }
 
         private static void UpsertWordingList(List<Wording> list,  Wording wording)

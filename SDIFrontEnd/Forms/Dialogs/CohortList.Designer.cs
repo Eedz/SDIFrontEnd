@@ -31,8 +31,11 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CohortList));
             this.cmdClose = new System.Windows.Forms.Button();
             this.dgvCohort = new System.Windows.Forms.DataGridView();
+            this.chID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chCohort = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chWebName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label5 = new System.Windows.Forms.Label();
-            this.cmdSave = new System.Windows.Forms.Button();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripAdd = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCohort)).BeginInit();
@@ -45,7 +48,7 @@
             this.cmdClose.Name = "cmdClose";
             this.cmdClose.Size = new System.Drawing.Size(60, 34);
             this.cmdClose.TabIndex = 10;
-            this.cmdClose.Text = "Cancel";
+            this.cmdClose.Text = "Close";
             this.cmdClose.UseVisualStyleBackColor = true;
             this.cmdClose.Click += new System.EventHandler(this.cmdClose_Click);
             // 
@@ -53,13 +56,48 @@
             // 
             this.dgvCohort.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvCohort.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCohort.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.chID,
+            this.chCohort,
+            this.chCode,
+            this.chWebName});
             this.dgvCohort.Location = new System.Drawing.Point(0, 28);
             this.dgvCohort.Name = "dgvCohort";
             this.dgvCohort.Size = new System.Drawing.Size(407, 282);
             this.dgvCohort.TabIndex = 11;
-            this.dgvCohort.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvCohort_DataBindingComplete);
-            this.dgvCohort.RowLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCohort_RowLeave);
+            this.dgvCohort.VirtualMode = true;
+            this.dgvCohort.CancelRowEdit += new System.Windows.Forms.QuestionEventHandler(this.dgvCohort_CancelRowEdit);
+            this.dgvCohort.CellValueNeeded += new System.Windows.Forms.DataGridViewCellValueEventHandler(this.dgvCohort_CellValueNeeded);
+            this.dgvCohort.CellValuePushed += new System.Windows.Forms.DataGridViewCellValueEventHandler(this.dgvCohort_CellValuePushed);
+            this.dgvCohort.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvCohort_DataError);
+            this.dgvCohort.NewRowNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvCohort_NewRowNeeded);
+            this.dgvCohort.RowDirtyStateNeeded += new System.Windows.Forms.QuestionEventHandler(this.dgvCohort_RowDirtyStateNeeded);
+            this.dgvCohort.RowValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCohort_RowValidated);
             this.dgvCohort.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvCohort_UserDeletingRow);
+            // 
+            // chID
+            // 
+            this.chID.HeaderText = "ID";
+            this.chID.Name = "chID";
+            this.chID.Width = 43;
+            // 
+            // chCohort
+            // 
+            this.chCohort.HeaderText = "Cohort";
+            this.chCohort.Name = "chCohort";
+            this.chCohort.Width = 63;
+            // 
+            // chCode
+            // 
+            this.chCode.HeaderText = "Code";
+            this.chCode.Name = "chCode";
+            this.chCode.Width = 57;
+            // 
+            // chWebName
+            // 
+            this.chWebName.HeaderText = "Web Name";
+            this.chWebName.Name = "chWebName";
+            this.chWebName.Width = 86;
             // 
             // label5
             // 
@@ -69,16 +107,6 @@
             this.label5.Size = new System.Drawing.Size(395, 2);
             this.label5.TabIndex = 12;
             this.label5.Text = "label5";
-            // 
-            // cmdSave
-            // 
-            this.cmdSave.Location = new System.Drawing.Point(269, 322);
-            this.cmdSave.Name = "cmdSave";
-            this.cmdSave.Size = new System.Drawing.Size(60, 34);
-            this.cmdSave.TabIndex = 13;
-            this.cmdSave.Text = "OK";
-            this.cmdSave.UseVisualStyleBackColor = true;
-            this.cmdSave.Click += new System.EventHandler(this.cmdSave_Click);
             // 
             // toolStrip1
             // 
@@ -107,7 +135,6 @@
             this.ClientSize = new System.Drawing.Size(407, 368);
             this.ControlBox = false;
             this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.cmdSave);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.dgvCohort);
             this.Controls.Add(this.cmdClose);
@@ -127,8 +154,11 @@
         private System.Windows.Forms.Button cmdClose;
         private System.Windows.Forms.DataGridView dgvCohort;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button cmdSave;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton toolStripAdd;
+        private System.Windows.Forms.DataGridViewTextBoxColumn chID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn chCohort;
+        private System.Windows.Forms.DataGridViewTextBoxColumn chCode;
+        private System.Windows.Forms.DataGridViewTextBoxColumn chWebName;
     }
 }
