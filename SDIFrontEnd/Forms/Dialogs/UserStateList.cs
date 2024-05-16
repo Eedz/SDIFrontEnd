@@ -13,26 +13,29 @@ namespace SDIFrontEnd
 {
     public partial class UserStateList : Form
     {
-        private List<UserStateRecord> records;
-        private BindingSource bs;
+        private List<UserStateRecord> Records;
+
+        UserState editedState;
+        int stateRow = -1;
+        bool rowCommit = true;
 
         public UserStateList()
         {
             InitializeComponent();
 
-            records = Globals.AllUserStates;
-            
-            bs = new BindingSource
+            Records = new List<UserStateRecord>();
+
+            foreach (UserState cohort in Globals.AllUserStates)
             {
-                DataSource = records
-            };
-            
-            dgvUserStates.DataSource = bs;
+                Records.Add(new UserStateRecord(cohort));
+            }
+
+            dgvUserStates.RowCount = Records.Count + 1;
         }
 
         private void toolStripAdd_Click(object sender, EventArgs e)
         {
-            bs.AddNew();
+            dgvUserStates.FirstDisplayedScrollingRowIndex = dgvUserStates.Rows.Count - 1;
         }
 
         private void cmdClose_Click(object sender, EventArgs e)
@@ -40,69 +43,184 @@ namespace SDIFrontEnd
             Close();
         }
 
-        private void cmdSave_Click(object sender, EventArgs e)
-        {
-            if (records.Any(x => (string.IsNullOrEmpty(x.UserStateName) && (x.NewRecord || x.Dirty))))
-                if (MessageBox.Show("One or more edited User States is blank. Do you want to go fill them in?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                    return;
-
-            foreach (UserStateRecord record in records)
-            {
-                record.SaveRecord();
-            }
-            Close();
-        }
-
         #region Grid events
 
-        private void dgvUserStates_RowLeave(object sender, DataGridViewCellEventArgs e)
+        private void dgvUserStates_NewRowNeeded(object sender, DataGridViewRowEventArgs e)
+        {
+            // Create a new object when the user edits the row for new records.
+            this.editedState = new UserState();
+            this.stateRow = this.dgvUserStates.Rows.Count - 1;
+        }
+
+        private void dgvUserStates_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
         {
             DataGridView dgv = (DataGridView)sender;
-            UserStateRecord newState = (UserStateRecord)dgv.Rows[e.RowIndex].DataBoundItem;
 
-            if (newState == null)
-                return;
+            // If this is the row for new records, no values are needed.
+            if (e.RowIndex == dgv.RowCount - 1) return;
+            // If there are not records, no values are needed.
+            if (Records.Count == 0) return;
 
-            if (e.RowIndex+1 == records.Count())
-                newState.NewRecord = true;
-            else if (dgv.IsCurrentRowDirty)
-                newState.Dirty = true;
+            UserState tmp = null;
 
+            // Store a reference to the object for the row being painted.
+            if (e.RowIndex == stateRow)
+            {
+                tmp = editedState;
+            }
+            else
+            {
+                tmp = Records[e.RowIndex].Item;
+            }
+
+            if (tmp == null) return;
+
+            // Set the cell value to paint using the object retrieved.
+            switch (dgv.Columns[e.ColumnIndex].Name)
+            {
+                case "chID":
+                    e.Value = tmp.ID;
+                    break;
+                case "chUserState":
+                    e.Value = tmp.UserStateName;
+                    break;
+            }
+        }
+
+        private void dgvUserStates_CellValuePushed(object sender, DataGridViewCellValueEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+
+            UserState tmp = null;
+            // Store a reference to the object for the row being edited.
+            if (e.RowIndex < Records.Count)
+            {
+                // If the user is editing a new row, create a new object.
+                if (editedState == null)
+                    editedState = new UserState()
+                    {
+                        ID = Records[e.RowIndex].Item.ID,
+                        UserStateName = Records[e.RowIndex].Item.UserStateName,
+                    };
+
+                tmp = this.editedState;
+                this.stateRow = e.RowIndex;
+            }
+            else
+            {
+                tmp = this.editedState;
+            }
+
+            // Set the appropriate property to the cell value entered.
+            switch (dgv.Columns[e.ColumnIndex].Name)
+            {
+                case "chID":
+                    break;
+                case "chUserState":
+                    tmp.UserStateName = (string)e.Value;
+                    break;
+            }
+        }
+
+        private void dgvUserStates_RowValidated(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+
+            // Save row changes if any were made and release the edited object if there is one.
+            if (editedState != null && e.RowIndex >= Records.Count && e.RowIndex != dgv.Rows.Count - 1)
+            {
+                // Add the new object to the data store.
+                UserStateRecord newRecord = new UserStateRecord(editedState);
+                newRecord.NewRecord = true;
+                newRecord.SaveRecord();
+                Records.Add(newRecord);
+                Globals.AllUserStates.Add(editedState);
+                dgv.Refresh();
+
+                editedState = null;
+                stateRow = -1;
+            }
+            else if (editedState != null && e.RowIndex < Records.Count)
+            {
+                // update object in the data store
+                Records[e.RowIndex].Item = editedState;
+                Records[e.RowIndex].Dirty = true;
+                Records[e.RowIndex].SaveRecord();
+
+                editedState = null;
+                stateRow = -1;
+            }
+            else if (dgv.ContainsFocus)
+            {
+                editedState = null;
+                stateRow = -1;
+            }
+        }
+
+        private void dgvUserStates_RowDirtyStateNeeded(object sender, QuestionEventArgs e)
+        {
+            if (!rowCommit)
+            {
+                DataGridView dgv = (DataGridView)sender;
+                // In cell-level commit scope, indicate whether the value of the current cell has been modified.
+                e.Response = dgv.IsCurrentCellDirty;
+            }
+        }
+
+        private void dgvUserStates_CancelRowEdit(object sender, QuestionEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+
+            if (stateRow == dgv.Rows.Count - 2 && stateRow == Records.Count)
+            {
+                // If the user has canceled the edit of a newly created row,
+                // replace the corresponding object with a new, empty one.
+                editedState = new UserState();
+            }
+            else
+            {
+                // If the user has canceled the edit of an existing row, release the corresponding object.
+                editedState = null;
+                stateRow = -1;
+            }
         }
 
         private void dgvUserStates_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
-            if (MessageBox.Show("Are you sure you want to delete the selected record?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (e.Row.Index < this.Records.Count)
             {
-                UserStateRecord userstate = (UserStateRecord)e.Row.DataBoundItem;
-                DBAction.DeleteRecord(userstate);
+                if (MessageBox.Show("Are you sure you want to delete this user state?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    UserState record = Records[e.Row.Index].Item;
+                    // If the user has deleted an existing row, remove thecorresponding object from the data store.
+                    DBAction.DeleteRecord(record);
+                    Globals.AllUserStates.Remove(record);
+                    this.Records.RemoveAt(e.Row.Index);
+
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
             }
-            else
+
+            if (e.Row.Index == this.stateRow)
             {
-                e.Cancel = true;
+                // If the user has deleted a newly created row, release the corresponding object.
+                this.stateRow = -1;
+                this.editedState = null;
             }
         }
 
-        private void dgvUserStates_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        private void dgvUserStates_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
-            DataGridView grid = (DataGridView)sender;
-            for (int i = 0; i < grid.ColumnCount; i++)
-            {
-                switch (grid.Columns[i].Name)
-                {
-                    case "NewRecord":
-                    case "Dirty":
-                        grid.Columns[i].Visible = false;
-                        break;
-                }
-            }
-            grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+
         }
 
         #endregion
 
-        
 
-        
+
+
     }
 }

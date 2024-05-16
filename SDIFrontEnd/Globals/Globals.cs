@@ -47,7 +47,7 @@ namespace SDIFrontEnd
         public static List<DomainLabel> AllDomainLabels;
         public static List<ProductLabel> AllProductLabels;
         public static List<SurveyCohort> AllCohorts;
-        public static List<UserStateRecord> AllUserStates;
+        public static List<UserState> AllUserStates;
         public static List<SimilarWordsRecord> AllSimilarWords;
         public static List<SurveyMode> AllModes;
         public static List<Language> AllLanguages;

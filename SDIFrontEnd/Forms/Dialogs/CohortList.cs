@@ -47,7 +47,7 @@ namespace SDIFrontEnd
 
         private void dgvCohort_NewRowNeeded(object sender, DataGridViewRowEventArgs e)
         {
-            // Create a new QuestionTimeFrame object when the user edits the row for new records.
+            // Create a new object when the user edits the row for new records.
             this.editedCohort = new SurveyCohort();
             this.cohortRow = this.dgvCohort.Rows.Count - 1;
         }

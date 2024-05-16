@@ -20,7 +20,7 @@ namespace SDIFrontEnd
         SurveyRecord CurrentRecord;
 
         List<Language> LanguageList;
-        List<UserStateRecord> UserStateList;
+        List<UserState> UserStateList;
         List<ScreenedProduct> ScreenedProductList;
 
         BindingSource bs;
@@ -79,7 +79,7 @@ namespace SDIFrontEnd
 
             WaveList = new List<StudyWave>(Globals.AllWaves);
             LockedSurveys = DBAction.GetLockedSurveys();
-            UserStateList = new List<UserStateRecord>(Globals.AllUserStates);
+            UserStateList = new List<UserState>(Globals.AllUserStates);
             ScreenedProductList = DBAction.GetScreenProducts();
             LanguageList = new List<Language>(Globals.AllLanguages);
         }
