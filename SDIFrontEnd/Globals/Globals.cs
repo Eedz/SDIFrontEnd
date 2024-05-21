@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
-
+using System.Timers;
 using ITCLib;
 
 namespace SDIFrontEnd
@@ -22,12 +22,13 @@ namespace SDIFrontEnd
         public static List<Study> AllStudies;
         public static List<StudyWave> AllWaves;
         public static List<Survey> AllSurveys;
+        public static List<LockedSurvey> AllLockedSurveys;
 
         // varnames
         public static List<VariablePrefix> AllPrefixes;
         public static List<VariableName> AllVarNames;
         public static List<RefVariableName> AllRefVarNames;
-        public static List<CanonicalVariableRecord> AllCanonVars;
+        public static List<CanonicalRefVarName> AllCanonVars;
         public static List<string> AllTempPrefixes;
 
         // wordings
@@ -48,13 +49,14 @@ namespace SDIFrontEnd
         public static List<ProductLabel> AllProductLabels;
         public static List<SurveyCohort> AllCohorts;
         public static List<UserState> AllUserStates;
-        public static List<SimilarWordsRecord> AllSimilarWords;
+        public static List<SimilarWords> AllSimilarWords;
         public static List<SurveyMode> AllModes;
         public static List<Language> AllLanguages;
 
         // comments
         public static List<CommentType> AllCommentTypes;
         public static List<Note> AllNotes;
+        public static Timer timer;
 
         public static void CreateWorld()
         {
@@ -69,7 +71,17 @@ namespace SDIFrontEnd
             CreateOtherLists();
 
             CreateComments();
+        }
 
+        private static void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            AllLockedSurveys = DBAction.GetUserLockedSurveys();
+            var locked = AllLockedSurveys.Where(x => x.UnlockedForMin <= 0);
+            foreach (LockedSurvey survey in locked)
+            {
+                DBAction.LockSurvey(survey);
+                Globals.AllSurveys.First(x => x.SID.Equals(survey.SID)).Locked = true;
+            }
         }
 
         public static void CreateUser()
@@ -98,6 +110,13 @@ namespace SDIFrontEnd
             {
                 wave.Surveys = new List<Survey>(AllSurveys.Where(x => x.WaveID == wave.ID).ToList());
             }
+
+            timer = new Timer();
+
+            timer.Interval = (60 * 5000); // 5 min
+            timer.Elapsed += Timer_Elapsed;
+            timer.AutoReset = true;
+            timer.Start();
         }
 
         public static void CreateVarNames()
@@ -147,13 +166,11 @@ namespace SDIFrontEnd
 
         public static void UpdateUserFormState(FormState newState)
         {
-
             FormStateRecord state = CurrentUser.FormStates.Where(x => x.FormName.Equals(newState.FormName) && x.FormNum == newState.FormNum).FirstOrDefault();
             state.FilterID = newState.FilterID;
             state.RecordPosition = newState.RecordPosition;
             state.Dirty = true;
-            state.SaveRecord();
-            
+            state.SaveRecord();            
         }
 
         public static string GetTempVarPrefix (Survey survey)

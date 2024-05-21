@@ -15,68 +15,44 @@ namespace SDIFrontEnd
     // TODO unlock surveys for editing
     public partial class WordingEntryForm : Form
     {
-        public Wording CurrentWording;
+        List<WordingRecord> Records;
+        public WordingRecord CurrentRecord;
 
         BindingSource bs;
-        List<Wording> Wordings;
+        BindingSource bsCurrent;
+
         List<ITCLib.WordingUsage> Usages;
         ObjectCache<ITCLib.WordingUsage> memoryCache;
 
-        private bool Locked { get; set; }
-        private bool NewRecord { get; set; }
-
-        private bool _dirty;
-        private bool Dirty
-        {
-            get
-            {
-                return _dirty;
-            }
-            set
-            {
-                _dirty = value;
-                if (_dirty)
-                    lblTitle.Text = "Wording Usage*";
-                else
-                    lblTitle.Text = "Wording Usage";
-            }
-        }
-
-        public WordingEntryForm()
-        {
-            InitializeComponent();
-
-            Wordings = DBAction.GetWordings();
-            Usages = new List<ITCLib.WordingUsage>();
-
-            bs = new BindingSource
-            {
-                DataSource = Wordings
-            };
-            bs.CurrentChanged += Bs_CurrentChanged;
-            bs.ListChanged += Bs_ListChanged;
-            bs.AddingNew += Bs_AddingNew;
-
-            BindProperties();
-
-            navWordings.BindingSource = bs;
-
-            AddGridColumns();
-        }
+        bool Locked;
 
         public WordingEntryForm(Wording wording) 
         {
             InitializeComponent();
 
-            GetWordings(wording.Type);
+            var wordings = GetWordings(wording.Type);
             Usages = new List<ITCLib.WordingUsage>();
+
+            Records = new List<WordingRecord>();
+            foreach (Wording w in wordings)
+            {
+                Records.Add(new WordingRecord(w));
+            }
 
             bs = new BindingSource
             {
-                DataSource = Wordings
+                DataSource = Records 
             };
+
+            bsCurrent = new BindingSource
+            {
+                DataSource = bs,
+                DataMember = "Item"
+            };
+
             bs.CurrentChanged += Bs_CurrentChanged;
-            bs.ListChanged += Bs_ListChanged;
+            bsCurrent.ListChanged += Bs_ListChanged;
+            bs.AllowNew = true;
             bs.AddingNew += Bs_AddingNew;
 
             BindProperties();
@@ -102,12 +78,13 @@ namespace SDIFrontEnd
         private void Bs_ListChanged(object sender, ListChangedEventArgs e)
         {
             if (e.PropertyDescriptor == null) return;
-            Dirty = true;
+
+            CurrentRecord.Dirty = true;
         }
 
         private void Bs_AddingNew(object sender, AddingNewEventArgs e)
         {
-            e.NewObject = new Wording(CurrentWording.Type);
+            e.NewObject = new WordingRecord(new Wording(CurrentRecord.Item.Type));
         }
 
         /// <summary>
@@ -150,7 +127,7 @@ namespace SDIFrontEnd
 
         private void cmdCopyToNew_Click(object sender, EventArgs e)
         {
-            AddWording(CurrentWording);
+            AddWording(CurrentRecord.Item);
             UpdateCurrentWording();
         }
 
@@ -174,6 +151,7 @@ namespace SDIFrontEnd
         {
             if (!chkEdit.Checked)
             {
+                UpdatePlainText();
                 SaveRecord();
                 chkEdit.Text = "Edit";
                 cmdBold.Enabled = false;
@@ -183,7 +161,7 @@ namespace SDIFrontEnd
             }
             else
             {
-                if (CurrentWording.WordID == 0 && !NewRecord) // 0 wording, reserved
+                if (CurrentRecord.Item.WordID == 0 && !CurrentRecord.NewRecord) // 0 wording, reserved
                 {
                     MessageBox.Show("Wording #0 is reserved and cannot be edited.");
                     return;
@@ -212,7 +190,6 @@ namespace SDIFrontEnd
                 cmdItalic.Enabled = true;
                 cmdUnderline.Enabled = true;
             }
-            
         }
 
         private void cmdBold_Click(object sender, EventArgs e)
@@ -315,59 +292,50 @@ namespace SDIFrontEnd
             html = html.Replace("</p>", "");
             html = html.TrimAndRemoveAll("<br>");
 
-            CurrentWording.WordingText = html;
+            CurrentRecord.Item.WordingText = html;
 
-            Dirty = true;
             bs.ResetCurrentItem();
         }
 
-        private void GetWordings(string fieldname)
+        private List<Wording> GetWordings(string fieldname)
         {
             switch (fieldname)
             {
                 case "PreP":
-                    Wordings = Globals.AllPreP;
-                    break;
+                    return Globals.AllPreP;
                 case "PreI":
-                    Wordings = Globals.AllPreI;
-                    break;
+                    return Globals.AllPreI;
                 case "PreA":
-                    Wordings = Globals.AllPreA;
-                    break;
+                    return Globals.AllPreA;
                 case "LitQ":
-                    Wordings = Globals.AllLitQ;
-                    break;
+                    return Globals.AllLitQ;
                 case "PstI":
-                    Wordings = Globals.AllPstI;
-                    break;
+                    return Globals.AllPstI;
                 case "PstP":
-                    Wordings = Globals.AllPstP;
-                    break;
+                    return Globals.AllPstP;
+                default:
+                    return null;
             }
         }
 
-        private void GetWordings(WordingType fieldname)
+        private List<Wording> GetWordings(WordingType fieldname)
         {
             switch (fieldname)
             {
                 case WordingType.PreP:
-                    Wordings = Globals.AllPreP;
-                    break;
+                    return Globals.AllPreP;
                 case WordingType.PreI:
-                    Wordings = Globals.AllPreI;
-                    break;
+                   return Globals.AllPreI;
                 case WordingType.PreA:
-                    Wordings = Globals.AllPreA;
-                    break;
+                    return Globals.AllPreA;
                 case WordingType.LitQ:
-                    Wordings = Globals.AllLitQ;
-                    break;
+                    return Globals.AllLitQ;
                 case WordingType.PstI:
-                    Wordings = Globals.AllPstI;
-                    break;
+                    return Globals.AllPstI;
                 case WordingType.PstP:
-                    Wordings = Globals.AllPstP;
-                    break;
+                    return Globals.AllPstP;
+                default:
+                    return null;
             }
         }
 
@@ -378,10 +346,10 @@ namespace SDIFrontEnd
         private void GoToWording(Wording wording)
         {
             int index = -1;
-            foreach (Wording w in Wordings)
+            foreach (WordingRecord w in Records)
             {
                 index++;
-                if (w.WordID == wording.WordID)
+                if (w.Item.WordID == wording.WordID)
                     break;
             }
             if (index >= 0)
@@ -390,35 +358,35 @@ namespace SDIFrontEnd
 
         private void AddWording()
         {
-            WordingType field = CurrentWording.Type;
-            NewRecord = true;
+            WordingType field = CurrentRecord.Item.Type;
+            
             lblNewID.Left = txtWordID.Left;
             lblNewID.Top = txtWordID.Top;
             lblNewID.Visible = true;
-            bs.DataSource = Wordings;
-            CurrentWording = (Wording)bs.AddNew();
-            CurrentWording.Type = field;
+            
+            CurrentRecord = (WordingRecord)bs.AddNew();
+            CurrentRecord.NewRecord = true;
+            CurrentRecord.Item.Type = field;
 
             chkEdit.Text = "Save";
         }
 
         private void AddWording(Wording template)
         {
-            NewRecord = true;
             lblNewID.Left = txtWordID.Left;
             lblNewID.Top = txtWordID.Top;
             lblNewID.Visible = true;
-            bs.DataSource = Wordings;
-            CurrentWording = (Wording)bs.AddNew();
-            CurrentWording.Type = template.Type;
-            CurrentWording.WordingText = template.WordingText;
+            CurrentRecord = (WordingRecord)bs.AddNew();
+            CurrentRecord.NewRecord = true;
+            CurrentRecord.Item.Type = template.Type;
+            CurrentRecord.Item.WordingText = template.WordingText;
 
             chkEdit.Text = "Save";
         }
 
         public int FilterWordings(string criteria)
         {
-            var results = Wordings.Where(x => x.WordingText.ToLower().Contains(criteria.ToLower())).ToList();
+            var results = Records.Where(x => x.Item.WordingText.ToLower().Contains(criteria.ToLower())).ToList();
 
             if (results.Count() > 0)
             {
@@ -450,26 +418,19 @@ namespace SDIFrontEnd
 
         private int SaveRecord()
         {
-            UpdatePlainText();
+            bs.EndEdit();
 
-            if (CurrentWording.WordID!=0 && CurrentWording.IsBlank())
+            if (CurrentRecord.Item.WordID!=0 && CurrentRecord.Item.IsBlank())
             {
                 return 0;
             }
 
-            if (NewRecord) // new wording created by this form
-            {
-                // insert into table
-                DBAction.InsertWording(CurrentWording);
-                Dirty = false;
-                NewRecord = false;
+            bool newRec = CurrentRecord.NewRecord;
+            int result = CurrentRecord.SaveRecord();
+
+            if (newRec)
                 Globals.RefreshWordings?.Invoke(this, new EventArgs());
-            }
-            else if (Dirty) // existing wording edited
-            {
-                DBAction.UpdateWording(CurrentWording);
-                Dirty = false;
-            }
+
             bs.ResetBindings(false);
             lblNewID.Visible = false;
 
@@ -478,8 +439,8 @@ namespace SDIFrontEnd
 
         private void BindProperties()
         {
-            txtFieldName.DataBindings.Add("Text", bs, "Type");
-            txtWordID.DataBindings.Add("Text", bs, "WordID");
+            txtFieldName.DataBindings.Add("Text", bsCurrent, "Type");
+            txtWordID.DataBindings.Add("Text", bsCurrent, "WordID");
         }
 
         private void LoadUsageList(string field, int wordID)
@@ -568,15 +529,15 @@ namespace SDIFrontEnd
 
         private void DeleteWording()
         {
-            if (Usages.Count > 0 || (CurrentWording.WordID == 0 && !NewRecord))
+            if (Usages.Count > 0 || (CurrentRecord.Item.WordID == 0 && !CurrentRecord.NewRecord))
             {
                 MessageBox.Show("This wording is used by " + Usages.Count + " survey question(s) and cannot be deleted.");
             }
             else
             {
-                if (MessageBox.Show("This will delete " + CurrentWording.Type.ToString() + "#" + CurrentWording.WordID + ".\r\nDo you want to proceed?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MessageBox.Show("This will delete " + CurrentRecord.Item.FieldType + "#" + CurrentRecord.Item.WordID + ".\r\nDo you want to proceed?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    if (DBAction.DeleteWording(CurrentWording.FieldType, CurrentWording.WordID) == 1)
+                    if (DBAction.DeleteWording(CurrentRecord.Item.FieldType, CurrentRecord.Item.WordID) == 1)
                     {
                         MessageBox.Show("Error deleting wording.");
                     }
@@ -594,20 +555,20 @@ namespace SDIFrontEnd
         /// </summary>
         private void UpdateCurrentWording()
         {
-            CurrentWording = (Wording)bs.Current;
+            CurrentRecord = (WordingRecord)bs.Current;
             txtWordingR.Rtf = null;
-            txtWordingR.Rtf = RTFUtilities.FormatRTF_FromText(CurrentWording.WordingText);
+            txtWordingR.Rtf = RTFUtilities.FormatRTF_FromText(CurrentRecord.Item.WordingText);
 
-            LoadUsageList(CurrentWording.FieldType, CurrentWording.WordID);
-            Locked = Usages.Any(x => x.Locked) || (CurrentWording.WordID == 0 && !NewRecord);
+            LoadUsageList(CurrentRecord.Item.FieldType, CurrentRecord.Item.WordID);
+            Locked = Usages.Any(x => x.Locked) || (CurrentRecord.Item.WordID == 0 && !CurrentRecord.NewRecord);
 
-            lblNewID.Visible = NewRecord;
-            if (CurrentWording.WordID == 0 && !NewRecord) // 0 wording, reserved
+            lblNewID.Visible = CurrentRecord.NewRecord;
+            if (CurrentRecord.Item.WordID == 0 && !CurrentRecord.NewRecord) // 0 wording, reserved
             {
                 chkEdit.Enabled = false;
                 txtWordingR.ReadOnly = true;
             }
-            else if (NewRecord)
+            else if (CurrentRecord.NewRecord)
             {
                 chkEdit.Enabled = true;
                 chkEdit.Checked = true;
@@ -665,8 +626,8 @@ namespace SDIFrontEnd
 
 
 
+
         #endregion
 
-        
     }
 }

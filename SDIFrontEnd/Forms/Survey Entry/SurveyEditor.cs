@@ -37,7 +37,6 @@ namespace SDIFrontEnd
         QuestionViewer frmQuestionViewer;
         public SurveyEditorSearch frmSearch;
 
-        List<ModifiedQuestion> PendingChanges;
         List<QuestionRecord> PendingDeletes;
         List<QuestionRecord> PendingAdds;
 
@@ -65,7 +64,6 @@ namespace SDIFrontEnd
 
             Records = new List<QuestionRecord>();
 
-            PendingChanges = new List<ModifiedQuestion>();
             PendingDeletes = new List<QuestionRecord>();
             PendingAdds = new List<QuestionRecord>();
 
@@ -104,7 +102,6 @@ namespace SDIFrontEnd
 
             Records = new List<QuestionRecord>();
 
-            PendingChanges = new List<ModifiedQuestion>();
             PendingDeletes = new List<QuestionRecord>();
             PendingAdds = new List<QuestionRecord>();
 
@@ -315,7 +312,6 @@ namespace SDIFrontEnd
         /// </summary>
         private void LockForm()
         {
-
             cboPreP.Enabled = !CurrentSurvey.Locked;
             cboPreI.Enabled = !CurrentSurvey.Locked;
             cboPreA.Enabled = !CurrentSurvey.Locked;
@@ -324,39 +320,6 @@ namespace SDIFrontEnd
             cboPstP.Enabled = !CurrentSurvey.Locked;
             cboRespOptions.Enabled = !CurrentSurvey.Locked;
             cboNRCodes.Enabled = !CurrentSurvey.Locked;
-
-            //if (cboPreP.DataBindings["ReadOnly"] != null)
-            //    cboPreP.DataBindings.Remove(cboPreP.DataBindings["ReadOnly"]);
-
-            //cboPreP.DataBindings.Add("ReadOnly", CurrentSurvey, "Locked");
-
-            //if (cboPreI.DataBindings["ReadOnly"] != null)
-            //    cboPreI.DataBindings.Remove(cboPreI.DataBindings["ReadOnly"]);
-            //cboPreI.DataBindings.Add("ReadOnly", CurrentSurvey, "Locked");
-
-            //if (cboPreA.DataBindings["ReadOnly"] != null)
-            //    cboPreA.DataBindings.Remove(cboPreA.DataBindings["ReadOnly"]);
-            //cboPreA.DataBindings.Add("ReadOnly", CurrentSurvey, "Locked");
-
-            //if (cboLitQ.DataBindings["ReadOnly"] != null)
-            //    cboLitQ.DataBindings.Remove(cboLitQ.DataBindings["ReadOnly"]);
-            //cboLitQ.DataBindings.Add("ReadOnly", CurrentSurvey, "Locked");
-
-            //if (cboPstI.DataBindings["ReadOnly"] != null)
-            //    cboPstI.DataBindings.Remove(cboPstI.DataBindings["ReadOnly"]);
-            //cboPstI.DataBindings.Add("ReadOnly", CurrentSurvey, "Locked");
-
-            //if (cboPstP.DataBindings["ReadOnly"] != null)
-            //    cboPstP.DataBindings.Remove(cboPstP.DataBindings["ReadOnly"]);
-            //cboPstP.DataBindings.Add("ReadOnly", CurrentSurvey, "Locked");
-
-            //if (cboRespOptions.DataBindings["ReadOnly"] != null)
-            //    cboRespOptions.DataBindings.Remove(cboRespOptions.DataBindings["ReadOnly"]);
-            //cboRespOptions.DataBindings.Add("ReadOnly", CurrentSurvey, "Locked");
-
-            //if (cboNRCodes.DataBindings["ReadOnly"] != null)
-            //    cboNRCodes.DataBindings.Remove(cboNRCodes.DataBindings["ReadOnly"]);
-            //cboNRCodes.DataBindings.Add("ReadOnly", CurrentSurvey, "Locked");
 
             cmdUnlock.Enabled = CurrentSurvey.Locked;
         }
@@ -1152,14 +1115,11 @@ namespace SDIFrontEnd
 
             frm.ShowDialog();
 
-            if (frm.DialogResult == DialogResult.OK) // export button
-            {
-                UpdateResponseSet(frm.CurrentSet);
-            }
+            if (frm.DialogResult == DialogResult.OK)
+                UpdateResponseSet(frm.CurrentRecord.Item);
             else
-            {
-                UpdateResponseSetText(frm.CurrentSet);
-            }
+                UpdateResponseSetText(frm.CurrentRecord.Item);
+
             LoadQuestion();
         }
 
@@ -1169,14 +1129,11 @@ namespace SDIFrontEnd
 
             frm.ShowDialog();
 
-            if (frm.DialogResult == DialogResult.OK) // export button
-            {
-                UpdateResponseSet(frm.CurrentSet);
-            }
+            if (frm.DialogResult == DialogResult.OK)
+                UpdateResponseSet(frm.CurrentRecord.Item);
             else
-            {
-                UpdateResponseSetText(frm.CurrentSet);
-            }
+                UpdateResponseSetText(frm.CurrentRecord.Item);
+
             LoadQuestion();
         }
 
@@ -1299,39 +1256,7 @@ namespace SDIFrontEnd
         }
 
         /// <summary>
-        /// Open the WordingUsage form and filter for records matching the clipboard text
-        /// </summary>
-        private void SearchWordings()
-        {
-            string searchTerm = Clipboard.GetText();
-            if (frmWordings == null)
-                frmWordings = new WordingEntryForm();
-
-            if (frmWordings.FilterWordings(Clipboard.GetText()) > 0)
-            {
-                frmWordings.Visible = true;
-                return;
-            }
-
-            ResponseOptionUsage frmRespOptions = new ResponseOptionUsage("RespOptions");
-
-            if (frmRespOptions.FilterWordings(Clipboard.GetText()) > 0)
-            {
-                frmRespOptions.Visible = true;
-                return;
-            }
-
-            ResponseOptionUsage frmNonRespOptions = new ResponseOptionUsage("NRCodes");
-
-            if (frmNonRespOptions.FilterWordings(Clipboard.GetText()) > 0)
-            {
-                frmNonRespOptions.Visible = true;
-                return;
-            }
-        }
-
-        /// <summary>
-        /// TODO multi deletes
+        /// 
         /// </summary>
         private void PerformDelete()
         {
@@ -1445,14 +1370,11 @@ namespace SDIFrontEnd
             frmWordings = new WordingEntryForm(wording);
             frmWordings.ShowDialog();
 
-            if (frmWordings.DialogResult == DialogResult.OK) // export button
-            {
-                UpdateWording(frmWordings.CurrentWording);
-            }
+            if (frmWordings.DialogResult == DialogResult.OK)
+                UpdateWording(frmWordings.CurrentRecord.Item);
             else
-            {
-                UpdateWordingText(frmWordings.CurrentWording);
-            }
+                UpdateWordingText(frmWordings.CurrentRecord.Item);
+
             LoadQuestion();
         }
 
@@ -1461,22 +1383,46 @@ namespace SDIFrontEnd
             switch (wording.FieldType)
             {
                 case "PreP":
-                    CurrentRecord.Item.PrePW = wording;
+                    if (wording.Equals(CurrentRecord.Item.PrePW))
+                        CurrentRecord.Item.PrePW.WordingText = wording.WordingText;
+                    else
+                        CurrentRecord.Item.PrePW = wording;
+
                     break;
                 case "PreI":
-                    CurrentRecord.Item.PreIW = wording;
+                    if (wording.Equals(CurrentRecord.Item.PreIW))
+                        CurrentRecord.Item.PreIW.WordingText = wording.WordingText;
+                    else
+                        CurrentRecord.Item.PreIW = wording;
+
                     break;
                 case "PreA":
-                    CurrentRecord.Item.PreAW = wording;
+                    if (wording.Equals(CurrentRecord.Item.PreAW))
+                        CurrentRecord.Item.PreAW.WordingText = wording.WordingText;
+                    else
+                        CurrentRecord.Item.PreAW = wording;
+                    
                     break;
                 case "LitQ":
-                    CurrentRecord.Item.LitQW = wording;
+                    if (wording.Equals(CurrentRecord.Item.LitQW))
+                        CurrentRecord.Item.LitQW.WordingText = wording.WordingText;
+                    else
+                        CurrentRecord.Item.LitQW = wording;
+
                     break;
                 case "PstI":
-                    CurrentRecord.Item.PstIW = wording;
+                    if (wording.Equals(CurrentRecord.Item.PstIW))
+                        CurrentRecord.Item.PstIW.WordingText = wording.WordingText;
+                    else
+                        CurrentRecord.Item.PstIW = wording;
+
                     break;
                 case "PstP":
-                    CurrentRecord.Item.PstPW = wording;
+                    if (wording.Equals(CurrentRecord.Item.PstPW))
+                        CurrentRecord.Item.PstPW.WordingText = wording.WordingText;
+                    else
+                        CurrentRecord.Item.PstPW = wording;
+
                     break;
             }
         }
@@ -1486,22 +1432,39 @@ namespace SDIFrontEnd
             switch (wording.FieldType)
             {
                 case "PreP":
-                    CurrentRecord.Item.PrePW.WordingText = wording.WordingText;
+                    var prep = Globals.AllPreP.FirstOrDefault(x => x.WordID == CurrentRecord.Item.PrePW.WordID);
+                    if (prep!= null)
+                        CurrentRecord.Item.PrePW.WordingText = prep.WordingText;
                     break;
                 case "PreI":
-                    CurrentRecord.Item.PreIW.WordingText = wording.WordingText;
+                    var prei = Globals.AllPreI.FirstOrDefault(x => x.WordID == CurrentRecord.Item.PreIW.WordID);
+                    if (prei != null)
+                        CurrentRecord.Item.PreIW.WordingText = prei.WordingText;
+
                     break;
                 case "PreA":
-                    CurrentRecord.Item.PreAW.WordingText = wording.WordingText;
+                    var prea = Globals.AllPreA.FirstOrDefault(x => x.WordID == CurrentRecord.Item.PreAW.WordID);
+                    if (prea != null)
+                        CurrentRecord.Item.PreAW.WordingText = prea.WordingText;
+
                     break;
                 case "LitQ":
-                    CurrentRecord.Item.LitQW.WordingText = wording.WordingText;
+                    var litq = Globals.AllLitQ.FirstOrDefault(x => x.WordID == CurrentRecord.Item.LitQW.WordID);
+                    if (litq != null)
+                        CurrentRecord.Item.LitQW.WordingText = litq.WordingText;
+
                     break;
                 case "PstI":
-                    CurrentRecord.Item.PstIW.WordingText = wording.WordingText;
+                    var psti = Globals.AllPstI.FirstOrDefault(x => x.WordID == CurrentRecord.Item.PstIW.WordID);
+                    if (psti != null)
+                        CurrentRecord.Item.PstIW.WordingText = psti.WordingText;
+
                     break;
                 case "PstP":
-                    CurrentRecord.Item.PstPW.WordingText = wording.WordingText;
+                    var pstp = Globals.AllPstP.FirstOrDefault(x => x.WordID == CurrentRecord.Item.PstPW.WordID);
+                    if (pstp != null)
+                        CurrentRecord.Item.PstPW.WordingText = pstp.WordingText;
+
                     break;
             }
         }
@@ -1511,10 +1474,17 @@ namespace SDIFrontEnd
             switch (response.FieldType)
             {
                 case "RespOptions":
-                    CurrentRecord.Item.RespOptionsS = response;
+                    if (response.Equals(CurrentRecord.Item.RespOptionsS))
+                        CurrentRecord.Item.RespOptionsS.RespList = response.RespList;
+                    else
+                        CurrentRecord.Item.RespOptionsS = response;
+
                     break;
                 case "NRCodes":
-                    CurrentRecord.Item.NRCodesS = response;
+                    if (response.Equals(CurrentRecord.Item.NRCodesS))
+                        CurrentRecord.Item.NRCodesS.RespList = response.RespList;
+                    else
+                        CurrentRecord.Item.NRCodesS = response;
                     break;
             }
         }
@@ -1524,10 +1494,16 @@ namespace SDIFrontEnd
             switch (response.FieldType)
             {
                 case "RespOptions":
-                    CurrentRecord.Item.RespOptionsS.RespList = response.RespList;
+                    var ro = Globals.AllRespOptions.FirstOrDefault(x => x.RespSetName.Equals(CurrentRecord.Item.RespOptionsS.RespSetName));
+                    if (ro != null)
+                        CurrentRecord.Item.RespOptionsS.RespList = ro.RespList;
+
                     break;
                 case "NRCodes":
-                    CurrentRecord.Item.NRCodesS.RespList = response.RespList;
+                    var nr = Globals.AllNRCodes.FirstOrDefault(x => x.RespSetName.Equals(CurrentRecord.Item.NRCodesS.RespSetName));
+                    if (nr != null)
+                        CurrentRecord.Item.NRCodesS.RespList = nr.RespList;
+
                     break;
             }
         }

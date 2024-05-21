@@ -39,14 +39,14 @@
             this.rb4Hours = new System.Windows.Forms.RadioButton();
             this.rb1Hour = new System.Windows.Forms.RadioButton();
             this.dgvLockedSurveys = new System.Windows.Forms.DataGridView();
+            this.chSurvey = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmdUnlock = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.rbWave = new System.Windows.Forms.RadioButton();
             this.rbSurvey = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
-            this.chSurvey = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             this.grpTimeInterval.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLockedSurveys)).BeginInit();
@@ -120,7 +120,7 @@
             this.grpTimeInterval.Controls.Add(this.rb8Hours);
             this.grpTimeInterval.Controls.Add(this.rb4Hours);
             this.grpTimeInterval.Controls.Add(this.rb1Hour);
-            this.grpTimeInterval.Location = new System.Drawing.Point(353, 95);
+            this.grpTimeInterval.Location = new System.Drawing.Point(353, 62);
             this.grpTimeInterval.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.grpTimeInterval.Name = "grpTimeInterval";
             this.grpTimeInterval.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -135,7 +135,7 @@
             this.rb8Hours.Location = new System.Drawing.Point(6, 62);
             this.rb8Hours.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.rb8Hours.Name = "rb8Hours";
-            this.rb8Hours.Size = new System.Drawing.Size(69, 20);
+            this.rb8Hours.Size = new System.Drawing.Size(68, 20);
             this.rb8Hours.TabIndex = 2;
             this.rb8Hours.TabStop = true;
             this.rb8Hours.Text = "8 hours";
@@ -147,7 +147,7 @@
             this.rb4Hours.Location = new System.Drawing.Point(6, 43);
             this.rb4Hours.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.rb4Hours.Name = "rb4Hours";
-            this.rb4Hours.Size = new System.Drawing.Size(69, 20);
+            this.rb4Hours.Size = new System.Drawing.Size(68, 20);
             this.rb4Hours.TabIndex = 1;
             this.rb4Hours.TabStop = true;
             this.rb4Hours.Text = "4 hours";
@@ -159,7 +159,7 @@
             this.rb1Hour.Location = new System.Drawing.Point(6, 24);
             this.rb1Hour.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.rb1Hour.Name = "rb1Hour";
-            this.rb1Hour.Size = new System.Drawing.Size(63, 20);
+            this.rb1Hour.Size = new System.Drawing.Size(62, 20);
             this.rb1Hour.TabIndex = 0;
             this.rb1Hour.TabStop = true;
             this.rb1Hour.Text = "1 hour";
@@ -174,75 +174,13 @@
             this.chSurvey,
             this.chTime,
             this.chName});
-            this.dgvLockedSurveys.Location = new System.Drawing.Point(452, 95);
+            this.dgvLockedSurveys.Location = new System.Drawing.Point(452, 62);
             this.dgvLockedSurveys.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dgvLockedSurveys.Name = "dgvLockedSurveys";
             this.dgvLockedSurveys.ReadOnly = true;
             this.dgvLockedSurveys.RowHeadersVisible = false;
             this.dgvLockedSurveys.Size = new System.Drawing.Size(335, 314);
             this.dgvLockedSurveys.TabIndex = 7;
-            // 
-            // cmdUnlock
-            // 
-            this.cmdUnlock.Location = new System.Drawing.Point(353, 264);
-            this.cmdUnlock.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cmdUnlock.Name = "cmdUnlock";
-            this.cmdUnlock.Size = new System.Drawing.Size(87, 28);
-            this.cmdUnlock.TabIndex = 8;
-            this.cmdUnlock.Text = "Unlock";
-            this.cmdUnlock.UseVisualStyleBackColor = true;
-            this.cmdUnlock.Click += new System.EventHandler(this.cmdUnlock_Click);
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.rbWave);
-            this.panel1.Controls.Add(this.rbSurvey);
-            this.panel1.Controls.Add(this.cmdRemove);
-            this.panel1.Controls.Add(this.cmdAdd);
-            this.panel1.Controls.Add(this.lstSelected);
-            this.panel1.Controls.Add(this.lstAllSurveys);
-            this.panel1.Location = new System.Drawing.Point(12, 95);
-            this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(333, 321);
-            this.panel1.TabIndex = 9;
-            // 
-            // rbWave
-            // 
-            this.rbWave.AutoSize = true;
-            this.rbWave.Location = new System.Drawing.Point(14, 42);
-            this.rbWave.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.rbWave.Name = "rbWave";
-            this.rbWave.Size = new System.Drawing.Size(101, 20);
-            this.rbWave.TabIndex = 7;
-            this.rbWave.TabStop = true;
-            this.rbWave.Text = "Add by Wave";
-            this.rbWave.UseVisualStyleBackColor = true;
-            this.rbWave.Click += new System.EventHandler(this.rbWave_Click);
-            // 
-            // rbSurvey
-            // 
-            this.rbSurvey.AutoSize = true;
-            this.rbSurvey.Checked = true;
-            this.rbSurvey.Location = new System.Drawing.Point(14, 14);
-            this.rbSurvey.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.rbSurvey.Name = "rbSurvey";
-            this.rbSurvey.Size = new System.Drawing.Size(108, 20);
-            this.rbSurvey.TabIndex = 6;
-            this.rbSurvey.TabStop = true;
-            this.rbSurvey.Text = "Add by Survey";
-            this.rbSurvey.UseVisualStyleBackColor = true;
-            this.rbSurvey.Click += new System.EventHandler(this.rbSurvey_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(117, 38);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(194, 33);
-            this.label1.TabIndex = 10;
-            this.label1.Text = "Unlock Surveys";
             // 
             // chSurvey
             // 
@@ -265,11 +203,74 @@
             this.chName.ReadOnly = true;
             this.chName.Width = 80;
             // 
+            // cmdUnlock
+            // 
+            this.cmdUnlock.Location = new System.Drawing.Point(353, 231);
+            this.cmdUnlock.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cmdUnlock.Name = "cmdUnlock";
+            this.cmdUnlock.Size = new System.Drawing.Size(87, 28);
+            this.cmdUnlock.TabIndex = 8;
+            this.cmdUnlock.Text = "Unlock";
+            this.cmdUnlock.UseVisualStyleBackColor = true;
+            this.cmdUnlock.Click += new System.EventHandler(this.cmdUnlock_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.rbWave);
+            this.panel1.Controls.Add(this.rbSurvey);
+            this.panel1.Controls.Add(this.cmdRemove);
+            this.panel1.Controls.Add(this.cmdAdd);
+            this.panel1.Controls.Add(this.lstSelected);
+            this.panel1.Controls.Add(this.lstAllSurveys);
+            this.panel1.Location = new System.Drawing.Point(12, 62);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(333, 321);
+            this.panel1.TabIndex = 9;
+            // 
+            // rbWave
+            // 
+            this.rbWave.AutoSize = true;
+            this.rbWave.Location = new System.Drawing.Point(14, 42);
+            this.rbWave.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.rbWave.Name = "rbWave";
+            this.rbWave.Size = new System.Drawing.Size(100, 20);
+            this.rbWave.TabIndex = 7;
+            this.rbWave.TabStop = true;
+            this.rbWave.Text = "Add by Wave";
+            this.rbWave.UseVisualStyleBackColor = true;
+            this.rbWave.Click += new System.EventHandler(this.rbWave_Click);
+            // 
+            // rbSurvey
+            // 
+            this.rbSurvey.AutoSize = true;
+            this.rbSurvey.Checked = true;
+            this.rbSurvey.Location = new System.Drawing.Point(14, 14);
+            this.rbSurvey.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.rbSurvey.Name = "rbSurvey";
+            this.rbSurvey.Size = new System.Drawing.Size(107, 20);
+            this.rbSurvey.TabIndex = 6;
+            this.rbSurvey.TabStop = true;
+            this.rbSurvey.Text = "Add by Survey";
+            this.rbSurvey.UseVisualStyleBackColor = true;
+            this.rbSurvey.Click += new System.EventHandler(this.rbSurvey_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(83, 24);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(194, 33);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Unlock Surveys";
+            // 
             // UnlockSurvey
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(805, 429);
+            this.ClientSize = new System.Drawing.Size(805, 390);
+            this.ControlBox = false;
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.cmdUnlock);

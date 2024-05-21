@@ -127,6 +127,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomRichTextBoxControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomRichTextBoxControl.Designer.cs">
+      <DependentUpon>CustomRichTextBoxControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helper Classes\DataImporter.cs" />
     <Compile Include="Forms\AuditFeed.cs">
       <SubType>Form</SubType>
@@ -719,6 +725,9 @@
     <Compile Include="Forms\WordingHistory.designer.cs">
       <DependentUpon>WordingHistory.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="CustomRichTextBoxControl.resx">
+      <DependentUpon>CustomRichTextBoxControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AuditFeed.resx">
       <DependentUpon>AuditFeed.cs</DependentUpon>
     </EmbeddedResource>

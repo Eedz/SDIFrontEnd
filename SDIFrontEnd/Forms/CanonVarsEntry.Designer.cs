@@ -110,13 +110,14 @@
             this.repeaterRecords.Size = new System.Drawing.Size(699, 601);
             this.repeaterRecords.TabIndex = 3;
             this.repeaterRecords.Text = "dataRepeater1";
+            this.repeaterRecords.DrawItem += new Microsoft.VisualBasic.PowerPacks.DataRepeaterItemEventHandler(this.repeaterRecords_DrawItem);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(6, 58);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(40, 16);
+            this.label3.Size = new System.Drawing.Size(39, 16);
             this.label3.TabIndex = 20;
             this.label3.Text = "Notes";
             // 
@@ -125,7 +126,7 @@
             this.lblAnySuffixDesc.AutoSize = true;
             this.lblAnySuffixDesc.Location = new System.Drawing.Point(105, 30);
             this.lblAnySuffixDesc.Name = "lblAnySuffixDesc";
-            this.lblAnySuffixDesc.Size = new System.Drawing.Size(539, 16);
+            this.lblAnySuffixDesc.Size = new System.Drawing.Size(538, 16);
             this.lblAnySuffixDesc.TabIndex = 19;
             this.lblAnySuffixDesc.Text = "This ensures that any suffixed version of this refVarName will appear in the cano" +
     "nical report.";
@@ -145,10 +146,11 @@
             this.chkAnySuffix.Location = new System.Drawing.Point(5, 29);
             this.chkAnySuffix.Name = "chkAnySuffix";
             this.chkAnySuffix.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.chkAnySuffix.Size = new System.Drawing.Size(98, 20);
+            this.chkAnySuffix.Size = new System.Drawing.Size(97, 20);
             this.chkAnySuffix.TabIndex = 17;
             this.chkAnySuffix.Text = "  ?Any Suffix";
             this.chkAnySuffix.UseVisualStyleBackColor = true;
+            this.chkAnySuffix.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // chkActive
             // 
@@ -156,17 +158,18 @@
             this.chkActive.Location = new System.Drawing.Point(195, 3);
             this.chkActive.Name = "chkActive";
             this.chkActive.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.chkActive.Size = new System.Drawing.Size(61, 20);
+            this.chkActive.Size = new System.Drawing.Size(60, 20);
             this.chkActive.TabIndex = 16;
             this.chkActive.Text = "Active";
             this.chkActive.UseVisualStyleBackColor = true;
+            this.chkActive.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(6, 4);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(77, 16);
+            this.label1.Size = new System.Drawing.Size(76, 16);
             this.label1.TabIndex = 15;
             this.label1.Text = "refVarName";
             // 

@@ -12,51 +12,45 @@ namespace SDIFrontEnd
     // TODO open locked surveys form with list of surveys   
     public partial class ResponseOptionUsage : Form
     {
-        List<ResponseSet> ResponseSets;
-        public ResponseSet CurrentSet;
+        List<ResponseSetRecord> Records;
+        public ResponseSetRecord CurrentRecord;
+
         BindingSource bs;
+        BindingSource bsCurrent;
 
         List<ResponseUsage> Usages;
         ObjectCache<ResponseUsage> memoryCache;
 
         private bool Locked { get; set; }
-        private bool NewRecord { get; set; }
-        private bool Dirty { get; set; }
-
-        public ResponseOptionUsage(string fieldname)
-        {
-            InitializeComponent();
-
-            GetResponseSets(fieldname); 
-            Usages = new List<ResponseUsage>();
-
-            bs = new BindingSource
-            {
-                DataSource = ResponseSets
-            };
-            bs.CurrentChanged += Bs_CurrentChanged;
-            bs.ListChanged += Bs_ListChanged;
-
-            BindProperties();
-
-            navWordings.BindingSource = bs;
-
-            AddGridColumns();
-        }
 
         public ResponseOptionUsage(ResponseSet respset)
         {
             InitializeComponent();
 
-            GetResponseSets(respset.FieldType); 
+            var wordings = GetResponseSets(respset.FieldType); 
             Usages = new List<ResponseUsage>();
+
+            Records = new List<ResponseSetRecord>();
+            foreach (ResponseSet w in wordings)
+            {
+                Records.Add(new ResponseSetRecord(w));
+            }
 
             bs = new BindingSource
             {
-                DataSource = ResponseSets
+                DataSource = Records
             };
+
+            bsCurrent = new BindingSource
+            {
+                DataSource = bs,
+                DataMember = "Item"
+            };
+
             bs.CurrentChanged += Bs_CurrentChanged;
-            bs.ListChanged += Bs_ListChanged;
+            bsCurrent.ListChanged += Bs_ListChanged;
+            bs.AllowNew = true;
+            bs.AddingNew += Bs_AddingNew;
 
             BindProperties();
 
@@ -64,7 +58,9 @@ namespace SDIFrontEnd
 
             AddGridColumns();
             GoToWording(respset);
-        }     
+        }
+
+        
         #region Events
 
         private void ResponseOptionUsage_Load(object sender, EventArgs e)
@@ -80,7 +76,13 @@ namespace SDIFrontEnd
         private void Bs_ListChanged(object sender, ListChangedEventArgs e)
         {
             if (e.PropertyDescriptor == null) return;
-            Dirty = true;
+
+            CurrentRecord.Dirty = true;
+        }
+
+        private void Bs_AddingNew(object sender, AddingNewEventArgs e)
+        {
+            e.NewObject = new ResponseSetRecord(new ResponseSet(CurrentRecord.Item.Type));
         }
 
         /// <summary>
@@ -90,9 +92,7 @@ namespace SDIFrontEnd
         /// <param name="e"></param>
         private void WordingUsage_MouseWheel(object sender, MouseEventArgs e)
         {
-            if (SaveRecord() == 1)
-                return;
-
+            SaveRecord();
             if (e.Delta == -120)
                 MoveRecord(1);
             else if (e.Delta == 120)
@@ -101,9 +101,7 @@ namespace SDIFrontEnd
 
         private void cmdExport_Click(object sender, EventArgs e)
         {
-            if (SaveRecord() == 1)
-                return;
-
+            SaveRecord();
             DialogResult = DialogResult.OK;
             Close();
         }
@@ -127,7 +125,7 @@ namespace SDIFrontEnd
 
         private void cmdCopyToNew_Click(object sender, EventArgs e)
         {
-            AddWording(CurrentSet);
+            AddWording(CurrentRecord.Item);
             UpdateCurrentWording();
         }
 
@@ -158,6 +156,7 @@ namespace SDIFrontEnd
         {
             if (!chkEdit.Checked)
             {
+                UpdatePlainText();
                 SaveRecord();
                 chkEdit.Text = "Edit";
                 cmdBold.Enabled = false;
@@ -167,7 +166,7 @@ namespace SDIFrontEnd
             }
             else
             {
-                if (CurrentSet.RespSetName == "0" && !NewRecord) // 0 wording, reserved
+                if (CurrentRecord.Item.RespSetName == "0" && !CurrentRecord.NewRecord) // 0 wording, reserved
                 {
                     MessageBox.Show("Set '0' is reserved and cannot be edited.");
                     return;
@@ -307,22 +306,21 @@ namespace SDIFrontEnd
             html = html.Replace("</p>", "");
             html = html.TrimAndRemoveAll("<br>");
 
-            CurrentSet.RespList = html;
+            CurrentRecord.Item.RespList = html;
 
-            Dirty = true;
             bs.ResetCurrentItem();
         }
 
-        private void GetResponseSets(string fieldname)
+        private List<ResponseSet> GetResponseSets(string fieldname)
         {
             switch (fieldname)
             {
                 case "RespOptions":
-                    ResponseSets = Globals.AllRespOptions;
-                    break;
+                    return Globals.AllRespOptions;
                 case "NRCodes":
-                    ResponseSets = Globals.AllNRCodes;
-                    break;
+                   return Globals.AllNRCodes;
+                default:
+                    return null;
             }
         }
 
@@ -333,10 +331,10 @@ namespace SDIFrontEnd
         private void GoToWording(ResponseSet response)
         {
             int index = -1;
-            foreach (ResponseSet r in ResponseSets)
+            foreach (ResponseSetRecord r in Records)
             {
                 index++;
-                if (r.RespSetName.ToLower().Equals(response.RespSetName.ToLower()))
+                if (r.Item.RespSetName.ToLower().Equals(response.RespSetName.ToLower()))
                     break;
             }
             if (index >= 0)
@@ -345,33 +343,30 @@ namespace SDIFrontEnd
 
         private void AddWording()
         {
-            ResponseType field = CurrentSet.Type;
-            NewRecord = true;
+            ResponseType field = CurrentRecord.Item.Type;
            
-            bs.DataSource = ResponseSets;
-            CurrentSet = (ResponseSet)bs.AddNew();
-            CurrentSet.Type = field;
-            CurrentSet.RespSetName = "(New)";
+            CurrentRecord = (ResponseSetRecord)bs.AddNew();
+            CurrentRecord.NewRecord = true;
+            CurrentRecord.Item.Type = field;
+            CurrentRecord.Item.RespSetName = "(New)";
 
             chkEdit.Text = "Save";
         }
 
         private void AddWording(ResponseSet template)
         {
-            NewRecord = true;
-           
-            bs.DataSource = ResponseSets;
-            CurrentSet = (ResponseSet)bs.AddNew();
-            CurrentSet.Type = template.Type;
-            CurrentSet.RespList = template.RespList;
-            CurrentSet.RespSetName = "(New)";
+            CurrentRecord = (ResponseSetRecord)bs.AddNew();
+            CurrentRecord.NewRecord = true;
+            CurrentRecord.Item.Type = template.Type;
+            CurrentRecord.Item.RespList = template.RespList;
+            CurrentRecord.Item.RespSetName = "(New)";
 
             chkEdit.Text = "Save";
         }
 
         public int FilterWordings(string criteria)
         {
-            List<ResponseSet> results = ResponseSets.Where(x => x.RespList.ToLower().Contains(criteria.ToLower())).ToList();
+            var results = Records.Where(x => x.Item.RespList.ToLower().Contains(criteria.ToLower())).ToList();
 
             if (results.Count == 0)
             {
@@ -403,33 +398,26 @@ namespace SDIFrontEnd
 
         private int SaveRecord()
         {
-            UpdatePlainText();
-
-            if (CurrentSet.RespSetName.Equals("(New)"))
+            bs.EndEdit();
+            
+            if (CurrentRecord.Item.RespSetName.Equals("(New)"))
             {
                 MessageBox.Show("This appears to be a new response set. Please assign a name before saving.");
                 return 1;
             }
             
-            if (NewRecord && this.ResponseSets.Count(x => x.RespSetName.Equals(CurrentSet.RespSetName))>1)
+            if (CurrentRecord.NewRecord && Records.Count(x => x.Item.RespSetName.Equals(CurrentRecord.Item.RespSetName))>1)
             {
-                MessageBox.Show("There is already a response set named '" + CurrentSet.RespSetName + "'. Please choose another name.");
+                MessageBox.Show("There is already a response set named '" + CurrentRecord.Item.RespSetName + "'. Please choose another name.");
                 return 1;
             }
 
-            if (NewRecord && !CurrentSet.RespSetName.Equals("(New)")) // new set created by this form
-            {
-                // insert into table
-                DBAction.InsertResponseSet(CurrentSet);
-                Dirty = false;
-                NewRecord = false;
+            bool newRec = CurrentRecord.NewRecord;
+            int result = CurrentRecord.SaveRecord();
+
+            if (newRec)
                 Globals.RefreshWordings?.Invoke(this, new EventArgs());
-            }
-            else if (Dirty) // existing set edited
-            {
-                DBAction.UpdateResponseSet(CurrentSet);
-                Dirty = false;
-            }
+
             bs.ResetBindings(false);
       
             return 0;
@@ -437,8 +425,8 @@ namespace SDIFrontEnd
 
         private void BindProperties()
         {
-            txtFieldName.DataBindings.Add("Text", bs, "Type");
-            txtWordID.DataBindings.Add("Text", bs, "RespSetName");
+            txtFieldName.DataBindings.Add("Text", bsCurrent, "Type");
+            txtWordID.DataBindings.Add("Text", bsCurrent, "RespSetName");
         }
 
         private void LoadUsageList(string field, string respName)
@@ -528,15 +516,15 @@ namespace SDIFrontEnd
 
         private void DeleteWording()
         {
-            if (Usages.Count > 0 || (CurrentSet.RespSetName == "0" && !NewRecord))
+            if (Usages.Count > 0 || (CurrentRecord.Item.RespSetName == "0" && !CurrentRecord.NewRecord))
             {
                 MessageBox.Show("This response set is used by " + Usages.Count + " survey question(s) and cannot be deleted.");
             }
             else
             {
-                if (MessageBox.Show("This will delete " + CurrentSet.FieldType + " " + CurrentSet.RespSetName + ".\r\nDo you want to proceed?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MessageBox.Show("This will delete " + CurrentRecord.Item.FieldType + " " + CurrentRecord.Item.RespSetName + ".\r\nDo you want to proceed?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    if (DBAction.DeleteRecord(CurrentSet) == 1)
+                    if (DBAction.DeleteRecord(CurrentRecord.Item) == 1)
                     {
                         MessageBox.Show("Error deleting response set.");
                     }
@@ -554,22 +542,23 @@ namespace SDIFrontEnd
         /// </summary>
         private void UpdateCurrentWording()
         {
-            CurrentSet = (ResponseSet)bs.Current;
+            CurrentRecord = (ResponseSetRecord)bs.Current;
             txtWordingR.Rtf = null;
-            txtWordingR.Rtf = RTFUtilities.FormatRTF_FromText(CurrentSet.RespList);
+            txtWordingR.Rtf = RTFUtilities.FormatRTF_FromText(CurrentRecord.Item.RespList);
 
-            LoadUsageList(CurrentSet.FieldType, CurrentSet.RespSetName);
-            Locked = Usages.Any(x => x.Locked) || (CurrentSet.RespSetName.Equals("0") && !NewRecord);
+            LoadUsageList(CurrentRecord.Item.FieldType, CurrentRecord.Item.RespSetName);
+            Locked = Usages.Any(x => x.Locked) || (CurrentRecord.Item.RespSetName.Equals("0") && !CurrentRecord.NewRecord);
 
-            if (CurrentSet.RespSetName == "0" && !NewRecord) // 0 wording, reserved
+            if (CurrentRecord.Item.RespSetName == "0" && !CurrentRecord.NewRecord) // 0 wording, reserved
             {
                 chkEdit.Enabled = false;
                 txtWordID.ReadOnly = true;
             }
-            else if (NewRecord)
+            else if (CurrentRecord.NewRecord)
             {
                 chkEdit.Enabled = true;
                 chkEdit.Checked = true;
+                txtWordID.ReadOnly = false;
                 txtWordingR.ReadOnly = false;
                 txtWordingR.BackColor = SystemColors.Window;
                 cmdBold.Enabled = true;
@@ -579,6 +568,7 @@ namespace SDIFrontEnd
             {
                 chkEdit.Enabled = true;
                 chkEdit.Checked = false;
+                txtWordID.ReadOnly = false;
                 txtWordingR.ReadOnly = true;
                 txtWordingR.BackColor = SystemColors.Control;
                 cmdBold.Enabled = false;

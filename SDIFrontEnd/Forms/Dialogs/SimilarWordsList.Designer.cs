@@ -31,8 +31,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SimilarWordsList));
             this.cmdClose = new System.Windows.Forms.Button();
             this.dgvWordList = new System.Windows.Forms.DataGridView();
+            this.chID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chWords = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label5 = new System.Windows.Forms.Label();
-            this.cmdSave = new System.Windows.Forms.Button();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripAdd = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.dgvWordList)).BeginInit();
@@ -45,7 +46,7 @@
             this.cmdClose.Name = "cmdClose";
             this.cmdClose.Size = new System.Drawing.Size(60, 34);
             this.cmdClose.TabIndex = 10;
-            this.cmdClose.Text = "Cancel";
+            this.cmdClose.Text = "Close";
             this.cmdClose.UseVisualStyleBackColor = true;
             this.cmdClose.Click += new System.EventHandler(this.cmdClose_Click);
             // 
@@ -53,13 +54,34 @@
             // 
             this.dgvWordList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvWordList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvWordList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.chID,
+            this.chWords});
             this.dgvWordList.Location = new System.Drawing.Point(0, 28);
             this.dgvWordList.Name = "dgvWordList";
             this.dgvWordList.Size = new System.Drawing.Size(407, 282);
             this.dgvWordList.TabIndex = 11;
-            this.dgvWordList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvCohort_DataBindingComplete);
-            this.dgvWordList.RowLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCohort_RowLeave);
-            this.dgvWordList.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvCohort_UserDeletingRow);
+            this.dgvWordList.VirtualMode = true;
+            this.dgvWordList.CancelRowEdit += new System.Windows.Forms.QuestionEventHandler(this.dgvWordList_CancelRowEdit);
+            this.dgvWordList.CellValueNeeded += new System.Windows.Forms.DataGridViewCellValueEventHandler(this.dgvWordList_CellValueNeeded);
+            this.dgvWordList.CellValuePushed += new System.Windows.Forms.DataGridViewCellValueEventHandler(this.dgvWordList_CellValuePushed);
+            this.dgvWordList.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvWordList_DataError);
+            this.dgvWordList.NewRowNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvWordList_NewRowNeeded);
+            this.dgvWordList.RowDirtyStateNeeded += new System.Windows.Forms.QuestionEventHandler(this.dgvWordList_RowDirtyStateNeeded);
+            this.dgvWordList.RowValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvWordList_RowValidated);
+            this.dgvWordList.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvWordList_UserDeletingRow);
+            // 
+            // chID
+            // 
+            this.chID.HeaderText = "ID";
+            this.chID.Name = "chID";
+            this.chID.Width = 43;
+            // 
+            // chWords
+            // 
+            this.chWords.HeaderText = "Words";
+            this.chWords.Name = "chWords";
+            this.chWords.Width = 63;
             // 
             // label5
             // 
@@ -69,16 +91,6 @@
             this.label5.Size = new System.Drawing.Size(395, 2);
             this.label5.TabIndex = 12;
             this.label5.Text = "label5";
-            // 
-            // cmdSave
-            // 
-            this.cmdSave.Location = new System.Drawing.Point(269, 322);
-            this.cmdSave.Name = "cmdSave";
-            this.cmdSave.Size = new System.Drawing.Size(60, 34);
-            this.cmdSave.TabIndex = 13;
-            this.cmdSave.Text = "OK";
-            this.cmdSave.UseVisualStyleBackColor = true;
-            this.cmdSave.Click += new System.EventHandler(this.cmdSave_Click);
             // 
             // toolStrip1
             // 
@@ -107,7 +119,6 @@
             this.ClientSize = new System.Drawing.Size(407, 368);
             this.ControlBox = false;
             this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.cmdSave);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.dgvWordList);
             this.Controls.Add(this.cmdClose);
@@ -127,8 +138,9 @@
         private System.Windows.Forms.Button cmdClose;
         private System.Windows.Forms.DataGridView dgvWordList;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button cmdSave;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton toolStripAdd;
+        private System.Windows.Forms.DataGridViewTextBoxColumn chID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn chWords;
     }
 }

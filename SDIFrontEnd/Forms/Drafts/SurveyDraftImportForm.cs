@@ -62,7 +62,6 @@ namespace SDIFrontEnd
                 new KeyValuePair<string, int>("MarginComments", -1),
             };
 
-
             QnumColumn = -1;
             VarNameColumn = -1;
             QuestionTextColumn = -1;
@@ -272,7 +271,7 @@ namespace SDIFrontEnd
                             continue;
                         }
 
-                        DraftQuestionRecord dq = new DraftQuestionRecord();
+                        DraftQuestion dq = new DraftQuestion();
 
                         dq.DraftID = newDraft.ID;
 
@@ -408,7 +407,7 @@ namespace SDIFrontEnd
             ProcessDuplicateVarNames();
 
             // insert each question into the database 
-            foreach (DraftQuestionRecord q in newDraft.Questions)
+            foreach (DraftQuestion q in newDraft.Questions)
             {
                 DBAction.InsertDraftQuestion(q);
             }

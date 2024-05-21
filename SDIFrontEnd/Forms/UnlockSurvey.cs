@@ -13,7 +13,7 @@ namespace SDIFrontEnd
 {
     public partial class UnlockSurvey : Form
     {
-        List<LockedSurveyRecord> Records;
+        List<LockedSurvey> Records;
 
         public UnlockSurvey()
         {
@@ -44,23 +44,9 @@ namespace SDIFrontEnd
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            
-            foreach (LockedSurveyRecord record in Records)
-            {
-                if (record.UnlockedForMin <= 0)
-                {
-                    DBAction.LockSurvey(new Survey(record.SurveyCode));
-                    Globals.AllSurveys.First(x => x.SurveyCode.Equals(record.SurveyCode)).Locked = true;
-                }
-            }
-            IEnumerable<LockedSurveyRecord> toRemove = Records.Where(x => x.UnlockedForMin <= 0);
-            foreach (LockedSurveyRecord record in toRemove)
-                Records.Remove(record);
-            
+            Records = Globals.AllLockedSurveys;
             dgvLockedSurveys.Refresh();
         }
-
-        
 
         private void cmdAdd_Click(object sender, EventArgs e)
         {
@@ -128,7 +114,8 @@ namespace SDIFrontEnd
         #region Methods 
         private void LoadRecords()
         {
-            Records = DBAction.GetUserLockedSurveys();
+            Records = Globals.AllLockedSurveys;   
+
             dgvLockedSurveys.DataSource = Records;
         }
 
@@ -139,8 +126,6 @@ namespace SDIFrontEnd
                 DBAction.UnlockSurvey(s.SurveyCode, interval);
                 s.Locked = false;
             }
-
-
         }
 
         private int GetInterval()
@@ -172,10 +157,9 @@ namespace SDIFrontEnd
             lstSelected.DisplayMember = "SurveyCode";
             lstSelected.ValueMember = "SID";
 
-
             chSurvey.DataPropertyName = "SurveyCode";
             chTime.DataPropertyName = "UnlockedForMin";
-            chName.DataPropertyName = "Name";
+            chName.DataPropertyName = "UnlockedBy.Name";
         }
         #endregion
     }

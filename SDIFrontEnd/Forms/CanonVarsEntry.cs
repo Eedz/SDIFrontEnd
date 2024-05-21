@@ -17,22 +17,22 @@ namespace SDIFrontEnd
         private List<CanonicalVariableRecord> Records;
         BindingSource bs;
 
-        public CanonVarsEntry(List<CanonicalVariableRecord> records)
+        public CanonVarsEntry(List<CanonicalRefVarName> records)
         {
             InitializeComponent();
 
-            Records = records;
+            Records = new List<CanonicalVariableRecord>();
+            foreach (CanonicalRefVarName record in records)
+            {
+                Records.Add(new CanonicalVariableRecord(record));
+            }
+
             bs = new BindingSource()
             {
-                DataSource = Records
+                DataSource = Records                
             };
-            
+           
             repeaterRecords.DataSource = bs;
-
-            txtRefVarName.DataBindings.Add("Text", bs, "RefVarName");
-            txtNotes.DataBindings.Add("Text", bs, "Notes");
-            chkActive.DataBindings.Add("Checked", bs, "Active");
-            chkAnySuffix.DataBindings.Add("Checked", bs, "AnySuffix");
         }
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -51,8 +51,20 @@ namespace SDIFrontEnd
             var datasource = ((BindingSource)repeaterRecords.DataSource);
             int index = repeaterRecords.CurrentItemIndex;
             CanonicalVariableRecord itemRecord = (CanonicalVariableRecord)datasource[index];
-                           
-            
+
+            var refvarname = (TextBox)item.Controls.Find("txtRefVarName", false)[0];
+            itemRecord.Item.RefVarName = refvarname.Text;
+
+            var active = (CheckBox)item.Controls.Find("chkActive", false)[0];
+            itemRecord.Item.Active = active.Checked;
+
+            var anysuffix = (CheckBox)item.Controls.Find("chkAnySuffix", false)[0];
+            itemRecord.Item.AnySuffix = anysuffix.Checked;
+
+            var notes = (TextBox)item.Controls.Find("txtNotes", false)[0];
+            itemRecord.Item.Notes = notes.Text;
+
+            itemRecord.Dirty = true;
         }
 
         private void addToolStripMenuItem_Click(object sender, EventArgs e)
@@ -62,6 +74,7 @@ namespace SDIFrontEnd
             var datasource = ((BindingSource)repeaterRecords.DataSource);
             int index = repeaterRecords.CurrentItemIndex;
             CanonicalVariableRecord itemRecord = (CanonicalVariableRecord)datasource[index];
+
             itemRecord.NewRecord = true;
         }
 
@@ -70,14 +83,31 @@ namespace SDIFrontEnd
 
             if (MessageBox.Show("Are you sure you want to delete this record?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-
                 var datasource = ((BindingSource)repeaterRecords.DataSource);
                 int index = repeaterRecords.CurrentItemIndex;
                 CanonicalVariableRecord itemRecord = (CanonicalVariableRecord)datasource[index];
                 bs.RemoveAt(index);
-                DBAction.DeleteRecord(itemRecord);
-                
+                DBAction.DeleteRecord(itemRecord.Item);                
             }
+        }
+
+        private void repeaterRecords_DrawItem(object sender, Microsoft.VisualBasic.PowerPacks.DataRepeaterItemEventArgs e)
+        {
+            var dataRepeater = (Microsoft.VisualBasic.PowerPacks.DataRepeater)sender;
+            var datasource = ((BindingSource)dataRepeater.DataSource);
+            var currentRecord = ((CanonicalVariableRecord)datasource[e.DataRepeaterItem.ItemIndex]);
+
+            var refvarname = (TextBox)e.DataRepeaterItem.Controls.Find("txtRefVarName", false)[0];
+            refvarname.Text = currentRecord.Item.RefVarName;
+
+            var active = (CheckBox)e.DataRepeaterItem.Controls.Find("chkActive", false)[0];
+            active.Checked = currentRecord.Item.Active;
+
+            var anysuffix = (CheckBox)e.DataRepeaterItem.Controls.Find("chkAnySuffix", false)[0];
+            anysuffix.Checked = currentRecord.Item.AnySuffix;
+
+            var notes = (TextBox)e.DataRepeaterItem.Controls.Find("txtNotes", false)[0];
+            notes.Text = currentRecord.Item.Notes;
         }
 
         private void repeaterRecords_ItemTemplate_Leave(object sender, EventArgs e)

@@ -230,7 +230,9 @@ namespace SDIFrontEnd
         {
             if (FM.FormManager.FormOpen("UnlockSurvey"))
             {
-
+                var form = FM.FormManager.GetForm("UnlockSurvey");
+                if (form!=null)
+                    form.Visible = true; 
                 return;
             }
             UnlockSurvey frm = new UnlockSurvey();

@@ -107,7 +107,7 @@ namespace SDIFrontEnd
             if (!string.IsNullOrWhiteSpace(txtCommentFilter.Text))
                 comment = txtCommentFilter.Text;
 
-            List<DraftQuestionRecord> results = DBAction.GetDraftQuestions(survID, varname, date, investigatorID, question, comment);
+            List<DraftQuestion> results = DBAction.GetDraftQuestions(survID, varname, date, investigatorID, question, comment);
 
             if (results.Count == 0)
             {
@@ -150,7 +150,7 @@ namespace SDIFrontEnd
 
         }
 
-        private void ResizeExtraFields(List<DraftQuestionRecord> records)
+        private void ResizeExtraFields(List<DraftQuestion> records)
         {
             double availableWidth = 1500;
             int count = 2;
@@ -327,7 +327,7 @@ namespace SDIFrontEnd
             var item = (Microsoft.VisualBasic.PowerPacks.DataRepeaterItem)e.DataRepeaterItem;
             var dataRepeater = (Microsoft.VisualBasic.PowerPacks.DataRepeater)sender;
             var datasource = ((BindingSource)dataRepeater.DataSource);
-            var currentQuestion = ((DraftQuestionRecord)datasource[e.DataRepeaterItem.ItemIndex]);
+            var currentQuestion = ((DraftQuestion)datasource[e.DataRepeaterItem.ItemIndex]);
 
             var questionText = (RichTextBox)item.Controls.Find("rtbQuestionText", false)[0];
             questionText.Width = QWidth;
