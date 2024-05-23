@@ -12,7 +12,6 @@ using FM = FormManager;
 
 namespace SDIFrontEnd
 {
-    // TODO test documentation and failed renames
     public partial class RenameVars : Form
     {
         List<VariableName> VarNameList;

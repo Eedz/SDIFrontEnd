@@ -23,7 +23,7 @@ namespace SDIFrontEnd
         PraccingIssueRecord CurrentRecord;
 
         PraccingResponse CurrentResponse;
-        List<PersonRecord> PeopleList;
+        List<Person> PeopleList;
         List<PraccingCategory> CategoryList;
 
         BindingSource bsRecords;

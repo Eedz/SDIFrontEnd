@@ -33,7 +33,7 @@ namespace SDIFrontEnd
         List<PraccingIssue> mainIssues;         // the issues from the file
 
         // names and categories from the import document will be checked against these
-        List<PersonRecord> personList;
+        List<Person> personList;
         List<PraccingCategory> categoryList;
 
         PraccingIssue CurrentIssue;
@@ -100,7 +100,7 @@ namespace SDIFrontEnd
             namesToFix = new List<StringPair>();
             images = new List<StringPair>();
 
-            personList = new List<PersonRecord>(Globals.AllPeople);
+            personList = new List<Person>(Globals.AllPeople);
             categoryList = DBAction.GetPraccingCategories();
 
         }

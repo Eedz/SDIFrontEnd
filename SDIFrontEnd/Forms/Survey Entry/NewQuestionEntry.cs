@@ -11,7 +11,6 @@ using ITCLib;
 
 namespace SDIFrontEnd
 {
-     // TODO series entry
     public partial class NewQuestionEntry : Form
     {
         public enum EntryMode { Copy, Create }

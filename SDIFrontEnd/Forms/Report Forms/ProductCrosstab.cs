@@ -16,8 +16,6 @@ namespace SDIFrontEnd
 {
     public partial class ProductCrosstab : Form
     {
-      
-        // TODO expanded report
         public ProductCrosstab()
         {
             InitializeComponent();

@@ -450,7 +450,6 @@ namespace SDIFrontEnd
         private void toolStripDeleted_Click(object sender, EventArgs e)
         {
             ViewDeletedVars();
-            
         }
 
         private void toolStripCorrected_Click(object sender, EventArgs e)
@@ -461,8 +460,6 @@ namespace SDIFrontEnd
         private void toolStripRelated_Click(object sender, EventArgs e)
         {
             ViewRelatedQuestions();
-            
-
         }
 
         private void toolStripDisplay_Click(object sender, EventArgs e)
@@ -478,7 +475,7 @@ namespace SDIFrontEnd
         private void assignLabelsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AssignLabels frm = (AssignLabels)FM.FormManager.GetForm("AssignLabels");
-            if(frm == null)
+            if (frm == null)
             {
                 frm = new AssignLabels(CurrentRecord.Item.VarName.RefVarName);
             }
@@ -848,7 +845,6 @@ namespace SDIFrontEnd
             FM.FormManager.Remove(this);
         }
 
-        // TODO adderror handling
         private void cmdUnlock_Click(object sender, EventArgs e)
         {
             DBAction.UnlockSurvey(CurrentSurvey.SurveyCode, 60);

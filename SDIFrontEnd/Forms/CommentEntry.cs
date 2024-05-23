@@ -12,7 +12,6 @@ using FM = FormManager;
 
 namespace SDIFrontEnd
 {
-    // TODO add series comment
     /// <summary>
     /// Entry point for comments. 
     /// </summary>
@@ -1315,35 +1314,35 @@ namespace SDIFrontEnd
                 c.NoteType = QuestionComments[0].Item.NoteType;
                 c.Author = QuestionComments[0].Item.Author;
                 c.Source = QuestionComments[0].Item.Source;
-                c.SourceName = QuestionComments[0].Item.SourceName;
+                c.Authority = QuestionComments[0].Item.Authority;
             }
             else if (SurveyComments.Count > 0)
             {
                 c.NoteType = SurveyComments[0].Item.NoteType;
                 c.Author = SurveyComments[0].Item.Author;
                 c.Source = SurveyComments[0].Item.Source;
-                c.SourceName = SurveyComments[0].Item.SourceName;
+                c.Authority = SurveyComments[0].Item.Authority;
             }
             else if (WaveComments.Count > 0)
             {
                 c.NoteType = WaveComments[0].Item.NoteType;
                 c.Author = WaveComments[0].Item.Author;
                 c.Source = WaveComments[0].Item.Source;
-                c.SourceName = WaveComments[0].Item.SourceName;
+                c.Authority = WaveComments[0].Item.Authority;
             }
             else if (RefVarComments.Count > 0)
             {
                 c.NoteType = RefVarComments[0].Item.NoteType;
                 c.Author = RefVarComments[0].Item.Author;
                 c.Source = RefVarComments[0].Item.Source;
-                c.SourceName = RefVarComments[0].Item.SourceName;
+                c.Authority = RefVarComments[0].Item.Authority;
             }
             else if (DeletedComments.Count > 0)
             {
                 c.NoteType = DeletedComments[0].Item.NoteType;
                 c.Author = DeletedComments[0].Item.Author;
                 c.Source = DeletedComments[0].Item.Source;
-                c.SourceName = DeletedComments[0].Item.SourceName;
+                c.Authority = DeletedComments[0].Item.Authority;
             }
             return c;
         }
@@ -1358,8 +1357,7 @@ namespace SDIFrontEnd
             cboNoteAuthor.SelectedItem = comment.Author;
             cboNoteType.SelectedItem = comment.NoteType;
             txtNoteSource.Text = comment.Source;
-
-            cboNoteAuthority.SelectedIndex = cboNoteAuthority.FindString(comment.SourceName);
+            cboNoteAuthority.SelectedItem = comment.Authority;
         }
 
         public void AssignedDetails(Comment comment)
@@ -1372,11 +1370,7 @@ namespace SDIFrontEnd
             cboNoteAuthor.SelectedItem = comment.Author;
             cboNoteType.SelectedItem = comment.NoteType;
             txtNoteSource.Text = comment.Source;
-
-            if (cboNoteAuthority.Items.Contains(comment.SourceName))
-                cboNoteAuthority.SelectedItem = comment.SourceName;
-            else
-                cboNoteAuthority.SelectedValue = 0;
+            cboNoteAuthority.SelectedItem = comment.Authority;
         }
 
         public void NewComment()
@@ -1668,11 +1662,7 @@ namespace SDIFrontEnd
             cboNoteAuthor.SelectedItem = comment.Author;
             cboNoteType.SelectedItem = comment.NoteType;
             txtNoteSource.Text = comment.Source;
-
-            if (cboNoteAuthority.Items.Contains(comment.SourceName))
-                cboNoteAuthority.SelectedItem = comment.SourceName;
-            else
-                cboNoteAuthority.SelectedValue = 0;
+            cboNoteAuthority.SelectedItem = comment.Authority;
         }
 
         public void DeleteStoredComment(Comment comment)

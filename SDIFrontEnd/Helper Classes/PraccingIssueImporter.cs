@@ -33,7 +33,7 @@ namespace SDIFrontEnd
 
         Dictionary<string, int> Headings; // heading name, column index
 
-        public List<PersonRecord> PeopleList;
+        public List<Person> PeopleList;
         public List<PraccingCategory> CategoryList;
 
         public List<PraccingIssue> ImportedIssues;

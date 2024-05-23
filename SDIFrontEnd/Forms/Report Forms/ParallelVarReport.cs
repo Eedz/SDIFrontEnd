@@ -13,8 +13,6 @@ using FM = FormManager;
 
 namespace SDIFrontEnd
 {
-    // TODO include range info
-    // TODO range option
     public partial class ParallelVarReport : Form
     {
         public ParallelVarReport()

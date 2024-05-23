@@ -628,12 +628,6 @@
     <Compile Include="Forms\Survey Org\WaveManager.designer.cs">
       <DependentUpon>WaveManager.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Survey Entry\ViewQuestionComments.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Survey Entry\ViewQuestionComments.Designer.cs">
-      <DependentUpon>ViewQuestionComments.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Report Forms\VariableListReportForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -986,9 +980,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Survey Org\WaveManager.resx">
       <DependentUpon>WaveManager.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Survey Entry\ViewQuestionComments.resx">
-      <DependentUpon>ViewQuestionComments.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Report Forms\VariableListReportForm.resx">
       <DependentUpon>VariableListReportForm.cs</DependentUpon>

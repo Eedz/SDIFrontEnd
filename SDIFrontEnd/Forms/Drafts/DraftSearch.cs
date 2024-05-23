@@ -45,7 +45,7 @@ namespace SDIFrontEnd
             cboSurveyFilter.SelectedItem = null;
             cboSurveyFilter.SelectedIndexChanged += CboSurveyFilter_SelectedIndexChanged;
 
-            cboInvestigatorFilter.DataSource = new List<PersonRecord>(Globals.AllPeople);
+            cboInvestigatorFilter.DataSource = new List<Person>(Globals.AllPeople);
             cboInvestigatorFilter.DisplayMember = "Name";
             cboInvestigatorFilter.ValueMember = "ID";
             cboInvestigatorFilter.SelectedItem = null;

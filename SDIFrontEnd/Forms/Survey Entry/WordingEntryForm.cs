@@ -12,7 +12,6 @@ using ITCLib;
 
 namespace SDIFrontEnd
 {   
-    // TODO unlock surveys for editing
     public partial class WordingEntryForm : Form
     {
         List<WordingRecord> Records;

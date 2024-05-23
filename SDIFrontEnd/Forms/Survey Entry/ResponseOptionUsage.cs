@@ -9,7 +9,6 @@ using System.Windows.Forms;
 
 namespace SDIFrontEnd
 {
-    // TODO open locked surveys form with list of surveys   
     public partial class ResponseOptionUsage : Form
     {
         List<ResponseSetRecord> Records;

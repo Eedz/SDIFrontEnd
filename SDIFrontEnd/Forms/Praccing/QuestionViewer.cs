@@ -146,7 +146,7 @@ namespace SDIFrontEnd
             noteSource.Text = currentQuestion.Source;
 
             var noteSourceName = (TextBox)e.DataRepeaterItem.Controls.Find("txtNoteSourceName", false)[0];
-            noteSourceName.Text = currentQuestion.SourceName;
+            noteSourceName.Text = currentQuestion.Authority.Name;
         }
 
         #endregion

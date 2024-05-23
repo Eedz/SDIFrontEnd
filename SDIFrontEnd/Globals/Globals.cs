@@ -42,7 +42,8 @@ namespace SDIFrontEnd
         public static List<ResponseSet> AllNRCodes;
 
         // labels and lists
-        public static List<PersonRecord> AllPeople;
+        public static List<Person> AllPeople;
+        public static List<Role> AllRoles;
         public static List<ContentLabel> AllContentLabels;
         public static List<TopicLabel> AllTopicLabels;
         public static List<DomainLabel> AllDomainLabels;
@@ -143,6 +144,7 @@ namespace SDIFrontEnd
         public static void CreateOtherLists()
         {
             AllPeople = DBAction.GetPeople();
+            AllRoles = DBAction.GetRoles();
             
             AllContentLabels = DBAction.ListContentLabels();
             AllTopicLabels = DBAction.ListTopicLabels();
