@@ -216,6 +216,19 @@ namespace SDIFrontEnd
             }
         }
 
+        public static void AddResponseSet(ResponseSet wording)
+        {
+            switch (wording.Type)
+            {
+                case ResponseType.RespOptions:
+                    AllRespOptions.Add(wording);
+                    break;
+                case ResponseType.NRCodes:
+                    AllNRCodes.Add(wording);
+                    break;
+            }
+        }
+
         public static void UpdateWordings(List<Wording> wordings)
         {
             foreach (Wording wording in wordings)

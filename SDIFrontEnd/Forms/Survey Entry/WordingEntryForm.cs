@@ -417,7 +417,7 @@ namespace SDIFrontEnd
 
         private int SaveRecord()
         {
-            bs.EndEdit();
+            bsCurrent.EndEdit();
 
             if (CurrentRecord.Item.WordID!=0 && CurrentRecord.Item.IsBlank())
             {
@@ -428,7 +428,10 @@ namespace SDIFrontEnd
             int result = CurrentRecord.SaveRecord();
 
             if (newRec)
+            {
+                Globals.AddWording(CurrentRecord.Item);
                 Globals.RefreshWordings?.Invoke(this, new EventArgs());
+            }
 
             bs.ResetBindings(false);
             lblNewID.Visible = false;

@@ -397,7 +397,7 @@ namespace SDIFrontEnd
 
         private int SaveRecord()
         {
-            bs.EndEdit();
+            bsCurrent.EndEdit();
             
             if (CurrentRecord.Item.RespSetName.Equals("(New)"))
             {
@@ -415,7 +415,10 @@ namespace SDIFrontEnd
             int result = CurrentRecord.SaveRecord();
 
             if (newRec)
+            {
+                Globals.AddResponseSet(CurrentRecord.Item);
                 Globals.RefreshWordings?.Invoke(this, new EventArgs());
+            }
 
             bs.ResetBindings(false);
       

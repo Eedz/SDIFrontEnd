@@ -585,7 +585,7 @@ namespace SDIFrontEnd
 
             if (modifiedRecord == null)
                 return;
-
+            
             switch (e.PropertyDescriptor.Name)
             {
                 case "PrePW":
@@ -616,8 +616,6 @@ namespace SDIFrontEnd
                 default:
                     return;
             }
-
-            //bs.ResetBindings(false);
 
             LoadQuestion();
             UpdateStatus();
@@ -1421,6 +1419,7 @@ namespace SDIFrontEnd
 
                     break;
             }
+            bs.ResetBindings(false);
         }
 
         private void UpdateWordingText(Wording wording)
@@ -1463,6 +1462,7 @@ namespace SDIFrontEnd
 
                     break;
             }
+            bs.ResetBindings(false);
         }
 
         private void UpdateResponseSet(ResponseSet response)
