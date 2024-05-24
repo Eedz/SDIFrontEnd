@@ -15,7 +15,7 @@ namespace SDIFrontEnd
         public static string AutoSurveysPath = @"\\psychfile\psych$\psych-lab-gfong\SMG\Access\Reports\Automatic Surveys\";
 
         // users
-        public static UserRecord CurrentUser;
+        public static UserPrefs CurrentUser;
 
         // surveys
         public static List<Region> AllRegions;
@@ -168,10 +168,27 @@ namespace SDIFrontEnd
 
         public static void UpdateUserFormState(FormState newState)
         {
-            FormStateRecord state = CurrentUser.FormStates.Where(x => x.FormName.Equals(newState.FormName) && x.FormNum == newState.FormNum).FirstOrDefault();
-            state.FilterID = newState.FilterID;
-            state.RecordPosition = newState.RecordPosition;
-            state.Dirty = true;
+            FormStateRecord state = new FormStateRecord();
+            FormState currentState = CurrentUser.GetFormState(newState.FormName, newState.FormNum);
+            if (currentState == null)
+            {
+                currentState = new FormState();
+                currentState.PersonnelID = CurrentUser.userid;
+                currentState.FormNum = newState.FormNum;
+                currentState.FormName = newState.FormName;
+                state.NewRecord = true;
+            }
+            else
+            {
+                state.Dirty = true;
+            }
+            
+            currentState.FilterID = newState.FilterID;
+            currentState.RecordPosition = newState.RecordPosition;
+            currentState.Filter = newState.Filter;
+            
+            state.Item = currentState;
+
             state.SaveRecord();            
         }
 

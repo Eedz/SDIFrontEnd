@@ -16,7 +16,7 @@ namespace SDIFrontEnd
 {
     public partial class MainMenu : Form
     {
-        public UserRecord CurrentUser;
+        public UserPrefs CurrentUser;
         string autoSurveyStatus;
         string backupStatus;
 

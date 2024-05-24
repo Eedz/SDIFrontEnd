@@ -826,12 +826,15 @@ namespace SDIFrontEnd
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void SurveyEditor_FormClosed(object sender, FormClosedEventArgs e)
-        {  
-            FormStateRecord state = new FormStateRecord();
-            state.FormName = "frmSurveyEntry";
-            state.FormNum = (int)Tag;
-            state.FilterID = CurrentSurvey.SID;
-            state.RecordPosition = bs.Position;
+        {
+            FormState state = new FormState()
+            {
+                FormName = "frmSurveyEntry",
+                FormNum = (int)Tag,
+                FilterID = CurrentSurvey.SID,
+                RecordPosition = bs.Position
+            };
+
             Globals.UpdateUserFormState(state);
 
             Records.Clear();

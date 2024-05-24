@@ -143,11 +143,15 @@ namespace SDIFrontEnd
         /// </summary>
         private void SaveSurveyFilter()
         {
-            FormStateRecord state = Globals.CurrentUser.FormStates.Where(x => x.FormName.Equals("frmIssuesTracking") && x.FormNum == (int)Tag).FirstOrDefault();
-            state.FilterID = ((Survey)cboGoToSurvey.SelectedItem).SID;
-            state.RecordPosition = bsRecords.Position;
-            state.Dirty = true;
-            state.SaveRecord();
+            FormState state = new FormState()
+            {
+                FormName = "frmIssuesTracking",
+                FormNum = (int)Tag,
+                FilterID = ((Survey)cboGoToSurvey.SelectedItem).SID,
+                RecordPosition = bsRecords.Position
+            };
+
+            Globals.UpdateUserFormState(state);
         }
 
         /// <summary>

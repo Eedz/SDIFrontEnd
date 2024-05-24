@@ -363,11 +363,15 @@ namespace SDIFrontEnd
 
         private void RelatedQuestions_FormClosed(object sender, FormClosedEventArgs e)
         {
-            FormStateRecord state = Globals.CurrentUser.FormStates.Where(x => x.FormName.Equals("sfrmSurveyEntryBrown") && x.FormNum == FormNumber).FirstOrDefault();
-            state.Filter = SurveyGlob;
-            state.RecordPosition = 0;
-            state.Dirty = true;
-            state.SaveRecord();
+            FormState state = new FormState()
+            {
+                FormName = "sfrmSurveyEntryBrown",
+                FormNum = FormNumber,
+                Filter = SurveyGlob,
+                RecordPosition = 0
+            };
+
+            Globals.UpdateUserFormState(state);
             
             bs.Dispose();
             bsCurrent.Dispose();
@@ -408,7 +412,7 @@ namespace SDIFrontEnd
                 rtbTranslation.Height = 160;
             }
 
-            bool locked = Globals.AllSurveys.First(x => x.SurveyCode.Equals(CurrentQuestion.Item.SurveyCode)).Locked;
+            bool locked = CurrentQuestion==null? true : Globals.AllSurveys.First(x => x.SurveyCode.Equals(CurrentQuestion.Item.SurveyCode)).Locked;
             LockForm(locked);
         }
 
@@ -480,9 +484,7 @@ namespace SDIFrontEnd
             bsTranslations.DataMember = "Translations";
             if (bsTranslations.Count > 0)
             {
-                
                 txtLanguage.DataBindings.Add("Text", bsTranslations, "LanguageName.LanguageName");
-                rtbTranslation.DataBindings.Add("RTF", bsTranslations, "TranslationRTF");
             }
         }
 

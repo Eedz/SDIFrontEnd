@@ -15,16 +15,16 @@ namespace SDIFrontEnd
 {
     public partial class UserPreferencesForm : Form
     {
-        public UserRecord user;
+        public UserPrefsRecord User;
         BindingSource bs;
 
-        public UserPreferencesForm(UserRecord u)
+        public UserPreferencesForm(UserPrefs u)
         {
             InitializeComponent();
 
-            user = u;
+            User = new UserPrefsRecord(u);
 
-            foreach (FormState fs in user.FormStates)
+            foreach (FormState fs in User.Item.FormStates)
             {
                 var survey = Globals.AllSurveys.Where(x => x.SID == fs.FilterID).FirstOrDefault();
                 string surveycode = "";
@@ -38,7 +38,9 @@ namespace SDIFrontEnd
         private void UserPreferencesForm_Load(object sender, EventArgs e)
         {
             bs = new BindingSource();
-            bs.DataSource = user;
+            bs.DataSource = User;
+            bs.DataMember = "Item";
+
             cboAccessLevel.DataSource = Enum.GetValues(typeof(AccessLevel));
             txtUserName.DataBindings.Add("Text", bs, "Username", true);
             txtReportDestination.DataBindings.Add("Text", bs, "ReportPath", true);
@@ -64,8 +66,8 @@ namespace SDIFrontEnd
 
         private void cmdSave_Click(object sender, EventArgs e)
         {
-            user.Dirty = true;
-            user.SaveRecord();
+            User.Dirty = true;
+            User.SaveRecord();
             Close();
         }
 
