@@ -70,9 +70,9 @@ namespace SDIFrontEnd
             AddMouseWheelEvents();
 
             SetupBindingSources();
-
-            FillBoxes();
             BindProperties();
+            FillBoxes();
+            FillWordings();
 
             ChangeSurvey(CurrentSurvey.SurveyCode);
 
@@ -110,6 +110,7 @@ namespace SDIFrontEnd
             SetupBindingSources();
 
             FillBoxes();
+            FillWordings();
             BindProperties();
 
             ChangeSurvey(CurrentSurvey.SurveyCode);
@@ -234,8 +235,6 @@ namespace SDIFrontEnd
             toolStripLanguage.ComboBox.DisplayMember = "SurvLanguage";
             toolStripLanguage.ComboBox.ValueMember = "SurvLanguage";
             toolStripLanguage.ComboBox.DataSource = RefreshLanguages();
-
-            FillWordings();
 
             // top portion
             cboSurvey.DisplayMember = "SurveyCode";

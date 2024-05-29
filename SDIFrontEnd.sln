@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITCReportLib", "..\ITCRepor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NullableBindingDateTimePicker", "..\..\..\..\users-nobackup\Downloads\NullableBindingDateTimePicker-master\NullableBindingDateTimePicker\NullableBindingDateTimePicker.csproj", "{E23F3F4B-18F1-4804-9867-C9180C4AF83D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebTextEditor", "..\WebTextEditor\WebTextEditor\WebTextEditor.csproj", "{75A7520B-1534-4A7D-8A9C-E03B0D14C741}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,14 @@ Global
 		{E23F3F4B-18F1-4804-9867-C9180C4AF83D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E23F3F4B-18F1-4804-9867-C9180C4AF83D}.Release|x64.ActiveCfg = Release|Any CPU
 		{E23F3F4B-18F1-4804-9867-C9180C4AF83D}.Release|x64.Build.0 = Release|Any CPU
+		{75A7520B-1534-4A7D-8A9C-E03B0D14C741}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75A7520B-1534-4A7D-8A9C-E03B0D14C741}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75A7520B-1534-4A7D-8A9C-E03B0D14C741}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{75A7520B-1534-4A7D-8A9C-E03B0D14C741}.Debug|x64.Build.0 = Debug|Any CPU
+		{75A7520B-1534-4A7D-8A9C-E03B0D14C741}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75A7520B-1534-4A7D-8A9C-E03B0D14C741}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75A7520B-1534-4A7D-8A9C-E03B0D14C741}.Release|x64.ActiveCfg = Release|Any CPU
+		{75A7520B-1534-4A7D-8A9C-E03B0D14C741}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

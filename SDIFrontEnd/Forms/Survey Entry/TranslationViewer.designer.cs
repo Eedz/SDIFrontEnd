@@ -214,6 +214,7 @@
             // 
             // extraRichTextBox1
             // 
+            this.extraRichTextBox1.AutoScroll = true;
             this.extraRichTextBox1.Location = new System.Drawing.Point(5, 96);
             this.extraRichTextBox1.Margin = new System.Windows.Forms.Padding(4);
             this.extraRichTextBox1.Name = "extraRichTextBox1";
@@ -221,7 +222,9 @@
     "Tahoma;}}\r\n{\\*\\generator Riched20 10.0.19041}\\viewkind4\\uc1 \r\n\\pard\\f0\\fs20\\par\r" +
     "\n}\r\n";
             this.extraRichTextBox1.ShowFamilies = false;
+            this.extraRichTextBox1.ShowHighlight = false;
             this.extraRichTextBox1.ShowSize = false;
+            this.extraRichTextBox1.ShowStrike = false;
             this.extraRichTextBox1.Size = new System.Drawing.Size(493, 404);
             this.extraRichTextBox1.TabIndex = 20;
             // 

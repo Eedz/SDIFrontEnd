@@ -63,7 +63,6 @@
             this.cboPreP = new System.Windows.Forms.ComboBox();
             this.cmdRefreshImages = new System.Windows.Forms.Button();
             this.txtImageFileNames = new System.Windows.Forms.TextBox();
-            this.rtbPlainFilter = new SDIFrontEnd.ExtraRichTextBox();
             this.dgvTimeFrames = new System.Windows.Forms.DataGridView();
             this.chTimeFrame = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmdOpenPstP = new System.Windows.Forms.Button();
@@ -144,6 +143,7 @@
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cboMoveTo = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.rtbPlainFilter = new SDIFrontEnd.ExtraRichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.navQuestions)).BeginInit();
             this.navQuestions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -386,7 +386,6 @@
             this.panelQuestion.Controls.Add(this.cboNRCodes);
             this.panelQuestion.Controls.Add(this.cboRespOptions);
             this.panelQuestion.Controls.Add(this.cboLitQ);
-            this.panelQuestion.Controls.Add(this.cboPreP);
             this.panelQuestion.Controls.Add(this.cmdRefreshImages);
             this.panelQuestion.Controls.Add(this.txtImageFileNames);
             this.panelQuestion.Controls.Add(this.rtbPlainFilter);
@@ -486,7 +485,7 @@
             this.cboPreP.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cboPreP.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboPreP.FormattingEnabled = true;
-            this.cboPreP.Location = new System.Drawing.Point(89, 56);
+            this.cboPreP.Location = new System.Drawing.Point(649, 251);
             this.cboPreP.Name = "cboPreP";
             this.cboPreP.Size = new System.Drawing.Size(74, 24);
             this.cboPreP.TabIndex = 75;
@@ -510,21 +509,6 @@
             this.txtImageFileNames.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtImageFileNames.Size = new System.Drawing.Size(272, 140);
             this.txtImageFileNames.TabIndex = 73;
-            // 
-            // rtbPlainFilter
-            // 
-            this.rtbPlainFilter.AutoScroll = true;
-            this.rtbPlainFilter.Location = new System.Drawing.Point(638, 54);
-            this.rtbPlainFilter.Margin = new System.Windows.Forms.Padding(4);
-            this.rtbPlainFilter.Name = "rtbPlainFilter";
-            this.rtbPlainFilter.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat\\deflang1033{\\fonttbl{\\f0\\fnil\\fcharset0 " +
-    "Tahoma;}}\r\n{\\*\\generator Riched20 10.0.19041}\\viewkind4\\uc1 \r\n\\pard\\f0\\fs20\\par\r" +
-    "\n}\r\n";
-            this.rtbPlainFilter.ShowFamilies = false;
-            this.rtbPlainFilter.ShowSize = false;
-            this.rtbPlainFilter.Size = new System.Drawing.Size(297, 459);
-            this.rtbPlainFilter.TabIndex = 72;
-            this.rtbPlainFilter.Validated += new System.EventHandler(this.rtbPlainFilter_Validated);
             // 
             // dgvTimeFrames
             // 
@@ -1004,7 +988,7 @@
             // moveToolStripMenuItem
             // 
             this.moveToolStripMenuItem.Name = "moveToolStripMenuItem";
-            this.moveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.moveToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.moveToolStripMenuItem.Text = "Move...";
             // 
             // goToToolStripMenuItem
@@ -1022,35 +1006,35 @@
             // assignLabelsToolStripMenuItem
             // 
             this.assignLabelsToolStripMenuItem.Name = "assignLabelsToolStripMenuItem";
-            this.assignLabelsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.assignLabelsToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.assignLabelsToolStripMenuItem.Text = "Labels";
             this.assignLabelsToolStripMenuItem.Click += new System.EventHandler(this.assignLabelsToolStripMenuItem_Click);
             // 
             // harmonyToolStripMenuItem
             // 
             this.harmonyToolStripMenuItem.Name = "harmonyToolStripMenuItem";
-            this.harmonyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.harmonyToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.harmonyToolStripMenuItem.Text = "Harmony";
             this.harmonyToolStripMenuItem.Click += new System.EventHandler(this.harmonyToolStripMenuItem_Click);
             // 
             // prefixListToolStripMenuItem
             // 
             this.prefixListToolStripMenuItem.Name = "prefixListToolStripMenuItem";
-            this.prefixListToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.prefixListToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.prefixListToolStripMenuItem.Text = "Prefix List";
             this.prefixListToolStripMenuItem.Click += new System.EventHandler(this.prefixListToolStripMenuItem_Click);
             // 
             // unusedVarsToolStripMenuItem
             // 
             this.unusedVarsToolStripMenuItem.Name = "unusedVarsToolStripMenuItem";
-            this.unusedVarsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.unusedVarsToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.unusedVarsToolStripMenuItem.Text = "Unused Vars";
             this.unusedVarsToolStripMenuItem.Click += new System.EventHandler(this.unusedVarsToolStripMenuItem_Click);
             // 
             // renameVarToolStripMenuItem
             // 
             this.renameVarToolStripMenuItem.Name = "renameVarToolStripMenuItem";
-            this.renameVarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.renameVarToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.renameVarToolStripMenuItem.Text = "Rename Var";
             this.renameVarToolStripMenuItem.Visible = false;
             this.renameVarToolStripMenuItem.Click += new System.EventHandler(this.renameVarToolStripMenuItem_Click);
@@ -1412,6 +1396,21 @@
             this.label4.TabIndex = 56;
             this.label4.Text = "Move to:";
             // 
+            // rtbPlainFilter
+            // 
+            this.rtbPlainFilter.AutoScroll = true;
+            this.rtbPlainFilter.Location = new System.Drawing.Point(638, 54);
+            this.rtbPlainFilter.Margin = new System.Windows.Forms.Padding(4);
+            this.rtbPlainFilter.Name = "rtbPlainFilter";
+            this.rtbPlainFilter.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat\\deflang1033{\\fonttbl{\\f0\\fnil\\fcharset0 " +
+    "Tahoma;}}\r\n{\\*\\generator Riched20 10.0.19041}\\viewkind4\\uc1 \r\n\\pard\\f0\\fs20\\par\r" +
+    "\n}\r\n";
+            this.rtbPlainFilter.ShowFamilies = false;
+            this.rtbPlainFilter.ShowSize = false;
+            this.rtbPlainFilter.Size = new System.Drawing.Size(297, 459);
+            this.rtbPlainFilter.TabIndex = 72;
+            this.rtbPlainFilter.Validated += new System.EventHandler(this.rtbPlainFilter_Validated);
+            // 
             // SurveyEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -1426,6 +1425,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.toolStripExport);
+            this.Controls.Add(this.cboPreP);
             this.Controls.Add(this.cmdSaveSurvey);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.cmdUnlock);

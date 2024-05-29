@@ -88,6 +88,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Microsoft Visual Basic 2005 Power Packs\3.0\Microsoft.VisualBasic.PowerPacks.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
@@ -125,14 +127,9 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomRichTextBoxControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="CustomRichTextBoxControl.Designer.cs">
-      <DependentUpon>CustomRichTextBoxControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="Helper Classes\DataImporter.cs" />
     <Compile Include="Forms\AuditFeed.cs">
       <SubType>Form</SubType>
@@ -719,9 +716,6 @@
     <Compile Include="Forms\WordingHistory.designer.cs">
       <DependentUpon>WordingHistory.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="CustomRichTextBoxControl.resx">
-      <DependentUpon>CustomRichTextBoxControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AuditFeed.resx">
       <DependentUpon>AuditFeed.cs</DependentUpon>
     </EmbeddedResource>
@@ -1123,6 +1117,10 @@
     <ProjectReference Include="..\..\OpenXMLHelper\OpenXMLHelper\OpenXMLHelper.csproj">
       <Project>{4768a591-7669-4abe-8f28-f02d43d475a2}</Project>
       <Name>OpenXMLHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WebTextEditor\WebTextEditor\WebTextEditor.csproj">
+      <Project>{75a7520b-1534-4a7d-8a9c-e03b0d14c741}</Project>
+      <Name>WebTextEditor</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

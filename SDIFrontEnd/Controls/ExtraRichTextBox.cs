@@ -14,6 +14,9 @@ namespace SDIFrontEnd
     {
         public bool ShowFamilies { get; set; }
         public bool ShowSize { get; set; }
+        public bool ShowHighlight { get; set; }
+        public bool ShowStrike { get; set; }
+
         public override string Text { get { return txtFunctionality.Text; } set { if (txtFunctionality.Text != value) txtFunctionality.Text = value; } }
         public string Rtf { get { return txtFunctionality.Rtf; } set { if (txtFunctionality.Rtf != value) txtFunctionality.Rtf = value; } }
 
@@ -23,6 +26,7 @@ namespace SDIFrontEnd
         public ExtraRichTextBox()
         {
             InitializeComponent();
+
             LoadData();
             txtTextContent = new RichTextBox();
             DisplayData();
@@ -76,7 +80,9 @@ namespace SDIFrontEnd
                 cmbFontSize.Items.AddRange(availableFontSizes.ToArray());
             }
             cmbFontSize.Visible = ShowSize;
-            
+
+            chkStrike.Visible = ShowStrike;
+            chkHighlight.Visible = ShowHighlight;
         }
 
         private void ckbBold_CheckedChanged(object sender, EventArgs e)
@@ -106,6 +112,32 @@ namespace SDIFrontEnd
             txtFunctionality.Focus();
         }
 
+        private void chkStrike_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_maskChanges)
+                return;
+
+            ChangeOrSetFont(string.Empty, null, FontStyle.Strikeout, chkStrike.Checked);
+            txtFunctionality.Focus();
+        }
+
+        private void chkHighlight_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_maskChanges)
+                return;
+
+            if (txtFunctionality.SelectionBackColor == Color.Yellow)
+            {
+                txtFunctionality.SelectionBackColor = Color.White;
+            }
+            else
+            {
+                txtFunctionality.SelectionBackColor = Color.Yellow;
+            }
+
+            txtFunctionality.Focus();
+        }
+
         private void cmbFontFamily_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (_maskChanges)
@@ -119,6 +151,7 @@ namespace SDIFrontEnd
         {
             if (_maskChanges)
                 return;
+
             ChangeOrSetFont(null, float.Parse(cmbFontSize.SelectedItem.ToString()), null, null);
             txtFunctionality.Focus();
         }
@@ -182,7 +215,7 @@ namespace SDIFrontEnd
         /// A new font with all provided properties added/removed to original font
         private Font RenderFont(Font originalFont, string familyName, float? emSize, FontStyle? fontStyle, bool? enableFontStyle)
         {
-            if (fontStyle.HasValue && fontStyle != FontStyle.Regular && fontStyle != FontStyle.Bold && fontStyle != FontStyle.Italic && fontStyle != FontStyle.Underline)
+            if (fontStyle.HasValue && fontStyle != FontStyle.Regular && fontStyle != FontStyle.Bold && fontStyle != FontStyle.Italic && fontStyle != FontStyle.Underline && fontStyle != FontStyle.Strikeout)
                 throw new System.InvalidProgramException("Invalid style parameter to ChangeFontStyleForSelectedText");
 
             Font newFont;
@@ -432,8 +465,13 @@ namespace SDIFrontEnd
 
         private void ExtraRichTextBox_Load(object sender, EventArgs e)
         {
-
+            chkStrike.Visible = ShowStrike;
+            chkHighlight.Visible = ShowHighlight;
+            cmbFontFamily.Visible = ShowFamilies;
+            cmbFontSize.Visible = ShowSize;
         }
+
+        
     }
 }
 

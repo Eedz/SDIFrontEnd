@@ -34,15 +34,17 @@
             this.ckbUnderline = new System.Windows.Forms.CheckBox();
             this.ckbItalic = new System.Windows.Forms.CheckBox();
             this.ckbBold = new System.Windows.Forms.CheckBox();
+            this.chkStrike = new System.Windows.Forms.CheckBox();
+            this.chkHighlight = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // cmbFontFamily
             // 
             this.cmbFontFamily.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbFontFamily.FormattingEnabled = true;
-            this.cmbFontFamily.Location = new System.Drawing.Point(115, 7);
+            this.cmbFontFamily.Location = new System.Drawing.Point(126, 6);
             this.cmbFontFamily.Name = "cmbFontFamily";
-            this.cmbFontFamily.Size = new System.Drawing.Size(121, 21);
+            this.cmbFontFamily.Size = new System.Drawing.Size(110, 21);
             this.cmbFontFamily.TabIndex = 0;
             this.cmbFontFamily.SelectedIndexChanged += new System.EventHandler(this.cmbFontFamily_SelectedIndexChanged);
             // 
@@ -50,7 +52,7 @@
             // 
             this.cmbFontSize.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbFontSize.FormattingEnabled = true;
-            this.cmbFontSize.Location = new System.Drawing.Point(242, 7);
+            this.cmbFontSize.Location = new System.Drawing.Point(242, 6);
             this.cmbFontSize.Name = "cmbFontSize";
             this.cmbFontSize.Size = new System.Drawing.Size(46, 21);
             this.cmbFontSize.TabIndex = 1;
@@ -73,7 +75,7 @@
             // 
             this.ckbUnderline.Appearance = System.Windows.Forms.Appearance.Button;
             this.ckbUnderline.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckbUnderline.Location = new System.Drawing.Point(60, 3);
+            this.ckbUnderline.Location = new System.Drawing.Point(50, 3);
             this.ckbUnderline.Name = "ckbUnderline";
             this.ckbUnderline.Size = new System.Drawing.Size(22, 25);
             this.ckbUnderline.TabIndex = 4;
@@ -87,7 +89,7 @@
             // 
             this.ckbItalic.Appearance = System.Windows.Forms.Appearance.Button;
             this.ckbItalic.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckbItalic.Location = new System.Drawing.Point(32, 3);
+            this.ckbItalic.Location = new System.Drawing.Point(26, 3);
             this.ckbItalic.Name = "ckbItalic";
             this.ckbItalic.Size = new System.Drawing.Size(22, 25);
             this.ckbItalic.TabIndex = 3;
@@ -110,11 +112,42 @@
             this.ckbBold.UseVisualStyleBackColor = true;
             this.ckbBold.CheckedChanged += new System.EventHandler(this.ckbBold_CheckedChanged);
             // 
+            // chkStrike
+            // 
+            this.chkStrike.Appearance = System.Windows.Forms.Appearance.Button;
+            this.chkStrike.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Strikeout, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkStrike.Location = new System.Drawing.Point(74, 3);
+            this.chkStrike.Name = "chkStrike";
+            this.chkStrike.Size = new System.Drawing.Size(22, 25);
+            this.chkStrike.TabIndex = 6;
+            this.chkStrike.Text = "S";
+            this.chkStrike.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.chkStrike.UseCompatibleTextRendering = true;
+            this.chkStrike.UseVisualStyleBackColor = true;
+            this.chkStrike.CheckedChanged += new System.EventHandler(this.chkStrike_CheckedChanged);
+            // 
+            // chkHighlight
+            // 
+            this.chkHighlight.Appearance = System.Windows.Forms.Appearance.Button;
+            this.chkHighlight.BackColor = System.Drawing.Color.Yellow;
+            this.chkHighlight.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkHighlight.Location = new System.Drawing.Point(98, 3);
+            this.chkHighlight.Name = "chkHighlight";
+            this.chkHighlight.Size = new System.Drawing.Size(22, 25);
+            this.chkHighlight.TabIndex = 7;
+            this.chkHighlight.Text = "H";
+            this.chkHighlight.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.chkHighlight.UseCompatibleTextRendering = true;
+            this.chkHighlight.UseVisualStyleBackColor = false;
+            this.chkHighlight.CheckedChanged += new System.EventHandler(this.chkHighlight_CheckedChanged);
+            // 
             // ExtraRichTextBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
+            this.Controls.Add(this.chkHighlight);
+            this.Controls.Add(this.chkStrike);
             this.Controls.Add(this.txtFunctionality);
             this.Controls.Add(this.ckbUnderline);
             this.Controls.Add(this.ckbItalic);
@@ -136,5 +169,7 @@
         private System.Windows.Forms.CheckBox ckbUnderline;
         private System.Windows.Forms.CheckBox ckbItalic;
         private System.Windows.Forms.CheckBox ckbBold;
+        private System.Windows.Forms.CheckBox chkStrike;
+        private System.Windows.Forms.CheckBox chkHighlight;
     }
 }

@@ -241,7 +241,7 @@ namespace SDIFrontEnd
                 lblEnteredBy.Visible = false;
 
             CurrentRecord.Item.Responses.Sort((x, y) => x.ResponseDate.Value.CompareTo(y.ResponseDate));
-
+            
             rtbDescription.Rtf = CurrentRecord.Item.DescriptionRTF;
 
             RefreshCurrentResponse();
@@ -418,6 +418,7 @@ namespace SDIFrontEnd
             bsCurrent.EndEdit();
             bsResponses.EndEdit();
             bool newRec = CurrentRecord.NewRecord;
+           // var content = webTextEditorControl1.GetContent();
             int updated = CurrentRecord.SaveRecord();
 
             if (updated == 0)
@@ -1245,10 +1246,12 @@ namespace SDIFrontEnd
 
             bsRecords.MoveFirst();
         }
-        #endregion
 
         #endregion
 
+        #endregion
+
+           
         
     }
 }

@@ -181,9 +181,12 @@ namespace SDIFrontEnd
             dgvVariableInfo.Rows.Clear();
             if (chkFilterByRange.Checked)
             {
-                VariableRange range = (VariableRange) dgvVarNameRanges.CurrentRow.DataBoundItem;
-                List<VariableNameSurveys> filteredUsages = Usages.Where(x => x.NumberInt() >= range.LowerInt() && x.NumberInt() <= range.UpperInt()).ToList();
-                SetupWithObjects(filteredUsages);
+                VariableRange range = CurrentRecord.Item.Ranges[dgvVarNameRanges.CurrentRow.Index]; 
+                if (range != null)
+                {
+                    List<VariableNameSurveys> filteredUsages = Usages.Where(x => x.NumberInt() >= range.LowerInt() && x.NumberInt() <= range.UpperInt()).ToList();
+                    SetupWithObjects(filteredUsages);
+                }
             }
             else
             {
@@ -372,9 +375,12 @@ namespace SDIFrontEnd
             dgvVariableInfo.Rows.Clear();
             if (chkFilterByRange.Checked)
             {
-                VariableRange range = (VariableRange)dgvVarNameRanges.Rows[e.RowIndex].DataBoundItem;
-                List<VariableNameSurveys> filteredUsages = Usages.Where(x => x.NumberInt() >= range.LowerInt() && x.NumberInt() <= range.UpperInt()).ToList();
-                SetupWithObjects(filteredUsages);
+                VariableRange range = CurrentRecord.Item.Ranges[e.RowIndex];
+                if (range != null)
+                {
+                    List<VariableNameSurveys> filteredUsages = Usages.Where(x => x.NumberInt() >= range.LowerInt() && x.NumberInt() <= range.UpperInt()).ToList();
+                    SetupWithObjects(filteredUsages);
+                }
             }
             else
             {

@@ -526,6 +526,23 @@
             this.dataRepeater1.ItemCloned += new Microsoft.VisualBasic.PowerPacks.DataRepeaterItemEventHandler(this.dataRepeater1_ItemCloned);
             this.dataRepeater1.DrawItem += new Microsoft.VisualBasic.PowerPacks.DataRepeaterItemEventHandler(this.dataRepeater1_DrawItem);
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(801, 53);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(26, 16);
+            this.label8.TabIndex = 10;
+            this.label8.Text = "PIN";
+            // 
+            // txtResponsePIN
+            // 
+            this.txtResponsePIN.Location = new System.Drawing.Point(832, 50);
+            this.txtResponsePIN.Name = "txtResponsePIN";
+            this.txtResponsePIN.Size = new System.Drawing.Size(110, 23);
+            this.txtResponsePIN.TabIndex = 9;
+            this.txtResponsePIN.Validated += new System.EventHandler(this.txtResponsePIN_Validated);
+            // 
             // lblImageCount
             // 
             this.lblImageCount.AutoSize = true;
@@ -908,6 +925,7 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.txtPIN);
             this.panel1.Controls.Add(this.dtpResolvedDate);
