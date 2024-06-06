@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
+using HtmlRtfConverter;
 
 namespace SDIFrontEnd
 {
@@ -45,7 +46,7 @@ namespace SDIFrontEnd
             {
                 lstStandardFields.SetSelected(i, true);
             }
-            txtBaseQuestion.Rtf = RTFUtilities.QuestionToRTF(CurrentQuestion);
+            txtBaseQuestion.Rtf = Converter.HTMLToRtf(CurrentQuestion.GetQuestionTextHTML());
             LoadQuestion();
         }
 
@@ -54,17 +55,17 @@ namespace SDIFrontEnd
 
             StandardFields.Clear();
 
-            foreach (string s in lstStandardFields.SelectedItems) 
+            foreach (string s in lstStandardFields.SelectedItems)
             {
                 StandardFields.Add(s);
             }
-            
+
 
             txtFormattedQuestion.Clear();
-            txtFormattedQuestion.Rtf = RTFUtilities.QuestionToRTF(CurrentQuestion);
+            txtFormattedQuestion.Rtf = Converter.HTMLToRtf(CurrentQuestion.GetQuestionTextHTML());
         }
 
-        private void lstStandardFields_SelectedIndexChanged(object sender, EventArgs e)
+            private void lstStandardFields_SelectedIndexChanged(object sender, EventArgs e)
         {
            // occurs too often
         }

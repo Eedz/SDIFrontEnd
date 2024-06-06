@@ -1106,6 +1106,10 @@
       <Project>{fece3520-c3a1-41a3-b812-43566538f0e2}</Project>
       <Name>FormManager</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\HtmlRtfConverter\HtmlRtfConverter\HtmlRtfConverter.csproj">
+      <Project>{46e6cf2b-84c1-4355-a806-6fe32a81a179}</Project>
+      <Name>HtmlRtfConverter</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\ITCLib\ITCLib\ITCLib.csproj">
       <Project>{1f878409-8602-4dc3-a0cb-45cccc21289e}</Project>
       <Name>ITCLib</Name>
@@ -1117,10 +1121,6 @@
     <ProjectReference Include="..\..\OpenXMLHelper\OpenXMLHelper\OpenXMLHelper.csproj">
       <Project>{4768a591-7669-4abe-8f28-f02d43d475a2}</Project>
       <Name>OpenXMLHelper</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\WebTextEditor\WebTextEditor\WebTextEditor.csproj">
-      <Project>{75a7520b-1534-4a7d-8a9c-e03b0d14c741}</Project>
-      <Name>WebTextEditor</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

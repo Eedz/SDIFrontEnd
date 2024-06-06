@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using ITCLib;
 using ITCReportLib;
 using FM = FormManager;
+using HtmlRtfConverter;
 
 namespace SDIFrontEnd
 {
@@ -74,7 +75,7 @@ namespace SDIFrontEnd
 
             var translation = (RichTextBox)translationPanel.Controls.Find("rtbTranslation", false)[0];
             translation.Rtf = "";
-            translation.Rtf = RTFUtilities.FormatRTF_FromText(currentTranslation.TranslationText);
+            translation.Rtf = Converter.HTMLToRtf(currentTranslation.TranslationText);
 
             
             navigator.PositionItem.Text = (bindingsource.Position + 1).ToString();
@@ -187,7 +188,7 @@ namespace SDIFrontEnd
                 return;
 
 
-            rtbQuestion.Rtf = RTFUtilities.QuestionToRTF(CurrentQuestion); 
+            rtbQuestion.Rtf = Converter.HTMLToRtf(CurrentQuestion.GetQuestionTextHTML(true)); 
         }
 
         #endregion
@@ -222,7 +223,7 @@ namespace SDIFrontEnd
 
             var question = (RichTextBox)panel.Controls.Find("rtbQuestion", false)[0];
             question.Rtf = "";
-            question.Rtf = RTFUtilities.QuestionToRTF(currentQuestion, true); //.GetQuestionTextRich(true);
+            question.Rtf = Converter.HTMLToRtf(currentQuestion.GetQuestionTextHTML(true));
 
             if (currentQuestion.Translations.Count > 0)
             {
@@ -233,7 +234,7 @@ namespace SDIFrontEnd
 
                 var translation = (RichTextBox)translationPanel.Controls.Find("rtbTranslation", false)[0];
                 translation.Rtf = "";
-                translation.Rtf = RTFUtilities.FormatRTF_FromText(currentQuestion.Translations[0].TranslationText);
+                translation.Rtf = Converter.HTMLToRtf(currentQuestion.Translations[0].TranslationText);
             }
 
         }

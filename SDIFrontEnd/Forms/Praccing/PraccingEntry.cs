@@ -11,6 +11,7 @@ using System.IO;
 using ITCLib;
 using ITCReportLib;
 using FM = FormManager;
+using HtmlRtfConverter;
 
 namespace SDIFrontEnd
 {
@@ -220,7 +221,6 @@ namespace SDIFrontEnd
         {
             CurrentRecord = (PraccingIssueRecord)bsRecords.Current;
             movingPoint = new Point(0, 0);
-            rtbDescription.Rtf = "";
 
             if (CurrentRecord == null)
             {
@@ -242,7 +242,8 @@ namespace SDIFrontEnd
 
             CurrentRecord.Item.Responses.Sort((x, y) => x.ResponseDate.Value.CompareTo(y.ResponseDate));
             
-            rtbDescription.Rtf = CurrentRecord.Item.DescriptionRTF;
+            extraRichTextBox1.Rtf = null;
+            extraRichTextBox1.Rtf = Converter.HTMLToRtf(CurrentRecord.Item.Description);
 
             RefreshCurrentResponse();
         }
@@ -818,26 +819,6 @@ namespace SDIFrontEnd
             }
         }
 
-        private void rtbResponse_DoubleClick(object sender, EventArgs e)
-        {
-            var rtb = (RichTextBox)sender;
-            var dataRepeaterItem = (Microsoft.VisualBasic.PowerPacks.DataRepeaterItem)rtb.Parent;
-            var dataRepeater = (Microsoft.VisualBasic.PowerPacks.DataRepeater)rtb.Parent.Parent;
-            var source = (List<PraccingResponse>)((BindingSource)dataRepeater.DataSource).List;
-
-            RichTextEditor frmEditor = new RichTextEditor(source[dataRepeaterItem.ItemIndex].ResponseRTF);
-
-            frmEditor.ShowDialog();
-            if (frmEditor.DialogResult == DialogResult.OK)
-            {
-                rtb.Rtf = Utilities.FormatRTF(frmEditor.EditedText);
-                source[dataRepeaterItem.ItemIndex].Response = rtb.Text.TrimAndRemoveAll("<br>");
-                rtb.Rtf = source[dataRepeaterItem.ItemIndex].ResponseRTF;
-                CurrentRecord.EditedResponses.Add(source[dataRepeaterItem.ItemIndex]);
-                CurrentRecord.Dirty = true;
-            }
-        }
-
         private void cmdAddIssue_Click(object sender, EventArgs e)
         {
             if (SaveRecord() == 1)
@@ -870,84 +851,6 @@ namespace SDIFrontEnd
             else
             {
                 // cancelled
-            }
-        }
-
-        private void dtp_Format(object sender, ConvertEventArgs e)
-        {
-            // e.Value is the object value, we format it to be what we want to show up in the control 
-            Binding b = sender as Binding;
-
-            if (b == null)
-                return;
-            
-            DateTimePicker dtp = (b.Control as DateTimePicker);
-            if (dtp == null)
-                return;
-            
-            if (e.Value == null)
-            {
-                // have to set e.Value to SOMETHING, since it’s coming in as NULL 
-                // if i set to DateTime.Today, and that’s DIFFERENT than the control’s current  
-                // value, then it triggers a CHANGE to the value, which CHECKS the box (not ok) 
-                // the trick – set e.Value to whatever value the control currently has.   
-                // This does NOT cause a CHANGE, and the checkbox stays OFF. 
-                e.Value = dtp.Value;
-
-                dtp.Format = DateTimePickerFormat.Custom;
-                dtp.CustomFormat = " ";
-                dtp.ShowCheckBox = true;
-                dtp.Checked = false;
-            }
-            else
-            {
-                dtp.Format = DateTimePickerFormat.Short;
-                dtp.ShowCheckBox = true;
-                dtp.Checked = true;
-                // leave e.Value unchanged – it’s not null, so the DTP is fine with it. 
-            }
-        }
-
-        private void dtp_Parse(object sender, ConvertEventArgs e)
-        {
-            // e.value is the formatted value coming from the control.   
-            // we change it to be the value we want to stuff in the object. 
-            Binding b = sender as Binding;
-
-            if (b == null)
-                return;
-            
-            DateTimePicker dtp = (b.Control as DateTimePicker);
-
-            if (dtp == null)
-                return;
-            
-            if (dtp.Checked == false)
-            {
-                dtp.ShowCheckBox = true;
-                dtp.Checked = false;
-                e.Value = new Nullable<DateTime>();
-            }
-            else
-            {
-                DateTime val = Convert.ToDateTime(e.Value);
-                dtp.Format = DateTimePickerFormat.Short;
-                e.Value = new Nullable<DateTime>(val);
-            }
-        }
-
-        private void rtbDescription_DoubleClick(object sender, EventArgs e)
-        {
-            RichTextEditor frmEditor = new RichTextEditor(CurrentRecord.Item.DescriptionRTF);
-
-            frmEditor.ShowDialog();
-            if (frmEditor.DialogResult == DialogResult.OK)
-            {
-                rtbDescription.Rtf = Utilities.FormatRTF(frmEditor.EditedText);
-                CurrentRecord.Item.Description = rtbDescription.Text.TrimAndRemoveAll("<br>"); ;
-                rtbDescription.Rtf = CurrentRecord.Item.DescriptionRTF;
-
-                CurrentRecord.Dirty = true;
             }
         }
 
@@ -1146,8 +1049,8 @@ namespace SDIFrontEnd
             //Set the selected item based of the list item index
             combo2.SelectedItem = item.ResponseTo;
 
-            var rtb = (RichTextBox)e.DataRepeaterItem.Controls.Find("rtbResponse", false)[0];
-            rtb.Rtf = item.ResponseRTF;
+            var rtb2 = (ExtraRichTextBox)e.DataRepeaterItem.Controls.Find("rtbResponse", false)[0];
+            rtb2.Rtf = Converter.HTMLToRtf(item.Response);
 
             var label = (Label)e.DataRepeaterItem.Controls.Find("lblImageCount", false)[0];
             int imageCount = item.Images.Count;
@@ -1246,12 +1149,47 @@ namespace SDIFrontEnd
 
             bsRecords.MoveFirst();
         }
-
         #endregion
 
         #endregion
 
-           
-        
+        private void extraRichTextBox1_Validated(object sender, EventArgs e)
+        {
+            UpdateDescription();
+        }
+
+        private void UpdateDescription()
+        {
+            // change RTF tags to HTML tags
+            string html = Converter.ConvertRTFtoHTML(extraRichTextBox1.Rtf);
+            // now remove the extraneous tags
+            html = HTMLUtilities.RemoveHtmlTag(html, "div");
+            html = HTMLUtilities.RemoveEmptyParagraphsWithBr(html);
+            html = HTMLUtilities.RemoveStyleAttribute(html, "p");
+            html = html.Replace("<p>", "<br>");
+            html = html.Replace("</p>", "");
+            html = html.TrimAndRemoveAll("<br>");
+
+            CurrentRecord.Item.Description = html;
+        }
+
+        private void rtbResponse_Validated(object sender, EventArgs e)
+        {
+            ExtraRichTextBox rtb = (ExtraRichTextBox)sender;
+
+            // change RTF tags to HTML tags
+            string html = Converter.ConvertRTFtoHTML(rtb.Rtf);
+            // now remove the extraneous tags
+            html = HTMLUtilities.RemoveHtmlTag(html, "div");
+            html = HTMLUtilities.RemoveEmptyParagraphsWithBr(html);
+            html = HTMLUtilities.RemoveStyleAttribute(html, "p");
+            html = html.Replace("<p>", "<br>");
+            html = html.Replace("</p>", "");
+            html = html.TrimAndRemoveAll("<br>");
+
+            CurrentResponse.Response = html;
+
+            CurrentRecord.EditedResponses.Add(CurrentResponse);           
+        }
     }
 }

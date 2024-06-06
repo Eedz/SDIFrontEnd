@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
-
+using HtmlRtfConverter;
 using FM = FormManager;
 
 namespace SDIFrontEnd
@@ -490,7 +490,7 @@ namespace SDIFrontEnd
             rtb.Rtf = "";
             if (t != null)
             {
-                rtb.Rtf = RTFUtilities.FormatRTF_FromText(t.TranslationText);
+                rtb.Rtf = Converter.HTMLToRtf(t.TranslationText);
             }
         }
 
@@ -888,7 +888,7 @@ namespace SDIFrontEnd
 
             rtbSuccess.Rtf = "";
             if (t != null)
-                rtbSuccess.Rtf = RTFUtilities.FormatRTF_FromText(t.TranslationText); ;
+                rtbSuccess.Rtf = Converter.HTMLToRtf(t.TranslationText);
         }
 
         /// <summary>
@@ -902,7 +902,7 @@ namespace SDIFrontEnd
 
             rtbFailed.Rtf = "";
             if (t != null)
-                rtbFailed.Rtf = RTFUtilities.FormatRTF_FromText(t.TranslationText); ;
+                rtbFailed.Rtf = Converter.HTMLToRtf(t.TranslationText);
         }
 
         /// <summary>

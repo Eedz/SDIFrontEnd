@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
 using FM = FormManager;
+using HtmlRtfConverter;
 
 namespace SDIFrontEnd
 {
@@ -331,7 +332,7 @@ namespace SDIFrontEnd
 
             var questionText = (RichTextBox)item.Controls.Find("rtbQuestionText", false)[0];
             questionText.Width = QWidth;
-            questionText.Rtf = currentQuestion.QuestionTextRTF;
+            questionText.Rtf = Converter.HTMLToRtf(currentQuestion.QuestionText);
 
             lblQuestionText.Left = panelResults.Left + repeaterRecords.Left + repeaterRecords.ItemHeaderSize + questionText.Left;
             lblQuestionText.Width = QWidth;
@@ -339,7 +340,7 @@ namespace SDIFrontEnd
             var commentText = (RichTextBox)item.Controls.Find("rtbComments", false)[0];
             commentText.Width = CWidth;
             commentText.Left = questionText.Left + questionText.Width + 5;
-            commentText.Rtf = currentQuestion.CommentsRTF;
+            commentText.Rtf = Converter.HTMLToRtf(currentQuestion.Comments);
 
             lblComments.Left = panelResults.Left + repeaterRecords.Left + repeaterRecords.ItemHeaderSize + commentText.Left;
             lblComments.Width = CWidth;
@@ -347,7 +348,7 @@ namespace SDIFrontEnd
             var extra1Text = (RichTextBox)item.Controls.Find("rtbExtra1", false)[0];
             extra1Text.Width = E1Width;
             extra1Text.Left = commentText.Left + commentText.Width + 5;
-            extra1Text.Rtf = currentQuestion.Extra1RTF;
+            extra1Text.Rtf = Converter.HTMLToRtf(currentQuestion.Extra1);
 
             lblEF1.Left = panelResults.Left + repeaterRecords.Left + repeaterRecords.ItemHeaderSize + extra1Text.Left;
             lblEF1.Width = E1Width;
@@ -356,7 +357,7 @@ namespace SDIFrontEnd
             var extra2Text = (RichTextBox)item.Controls.Find("rtbExtra2", false)[0];
             extra2Text.Width = E2Width;
             extra2Text.Left = extra1Text.Left + extra1Text.Width + 5;
-            extra2Text.Rtf = currentQuestion.Extra2RTF;
+            extra2Text.Rtf = Converter.HTMLToRtf(currentQuestion.Extra2);
 
             lblEF2.Left = panelResults.Left + repeaterRecords.Left + repeaterRecords.ItemHeaderSize + extra2Text.Left;
             lblEF2.Width = E2Width;
@@ -364,7 +365,7 @@ namespace SDIFrontEnd
             var extra3Text = (RichTextBox)item.Controls.Find("rtbExtra3", false)[0];
             extra3Text.Width = E3Width;
             extra3Text.Left = extra2Text.Left + extra2Text.Width + 5;
-            extra3Text.Rtf = currentQuestion.Extra3RTF;
+            extra3Text.Rtf = Converter.HTMLToRtf(currentQuestion.Extra3); 
 
             lblEF3.Left = panelResults.Left + repeaterRecords.Left + repeaterRecords.ItemHeaderSize + extra3Text.Left;
             lblEF3.Width = E3Width;
@@ -372,7 +373,7 @@ namespace SDIFrontEnd
             var extra4Text = (RichTextBox)item.Controls.Find("rtbExtra4", false)[0];
             extra4Text.Width = E4Width;
             extra4Text.Left = extra3Text.Left + extra3Text.Width + 5;
-            extra4Text.Rtf = currentQuestion.Extra4RTF;
+            extra4Text.Rtf = Converter.HTMLToRtf(currentQuestion.Extra4); 
 
             lblEF4.Left = panelResults.Left + repeaterRecords.Left + repeaterRecords.ItemHeaderSize + extra4Text.Left;
             lblEF4.Width = E4Width;
@@ -380,7 +381,7 @@ namespace SDIFrontEnd
             var extra5Text = (RichTextBox)item.Controls.Find("rtbExtra5", false)[0];
             extra5Text.Width = E5Width;
             extra5Text.Left = extra4Text.Left + extra4Text.Width + 5;
-            extra5Text.Rtf = currentQuestion.Extra5RTF;
+            extra5Text.Rtf = Converter.HTMLToRtf(currentQuestion.Extra5); 
 
             lblEF5.Left = panelResults.Left + repeaterRecords.Left + repeaterRecords.ItemHeaderSize + extra5Text.Left;
             lblEF5.Width = E5Width;

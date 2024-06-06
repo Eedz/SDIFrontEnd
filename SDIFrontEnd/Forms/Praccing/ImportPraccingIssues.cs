@@ -8,14 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Globalization;
-using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml.Wordprocessing;
+//using DocumentFormat.OpenXml;
+//using DocumentFormat.OpenXml.Packaging;
+//using DocumentFormat.OpenXml.Wordprocessing;
 using ITCLib;
-using OpenXMLHelper;
+//using OpenXMLHelper;
 using System.Text.RegularExpressions;
 using System.IO;
 using FM = FormManager;
+using HtmlRtfConverter;
 
 namespace SDIFrontEnd
 {
@@ -162,8 +163,8 @@ namespace SDIFrontEnd
             dtpResDate.Enabled = CurrentIssue.Resolved;
             cboResName.Enabled = CurrentIssue.Resolved;
 
-            rtbDescription.Rtf = "";
-            rtbDescription.Rtf = CurrentIssue.DescriptionRTF;
+            rtbDescription.Rtf = null;
+            rtbDescription.Rtf = Converter.HTMLToRtf(CurrentIssue.Description);
 
             if (CurrentIssue.Images.Count == 1)
                 lblIssueImages.Text = CurrentIssue.Images.Count + " image found for this issue.";
@@ -821,7 +822,7 @@ namespace SDIFrontEnd
             oldPin.Text = datasource[e.DataRepeaterItem.ItemIndex].PinNo;
 
             var rtb = (RichTextBox)e.DataRepeaterItem.Controls.Find("rtbOldResponse", false)[0];
-            rtb.Rtf = datasource[e.DataRepeaterItem.ItemIndex].ResponseRTF;
+            rtb.Rtf = Converter.HTMLToRtf(datasource[e.DataRepeaterItem.ItemIndex].Response);
         }
 
         private void drNewResponses_DrawItem(object sender, Microsoft.VisualBasic.PowerPacks.DataRepeaterItemEventArgs e)
@@ -837,7 +838,7 @@ namespace SDIFrontEnd
             newTo.SelectedItem = item.ResponseTo;
 
             var rtb = (RichTextBox)e.DataRepeaterItem.Controls.Find("rtbNewResponse", false)[0];
-            rtb.Rtf = item.ResponseRTF;
+            rtb.Rtf = Converter.HTMLToRtf(item.Response);
 
             var checkbox = (System.Windows.Forms.CheckBox)e.DataRepeaterItem.Controls.Find("chkKeepResponse", false)[0];
 

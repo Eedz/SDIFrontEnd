@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
+using HtmlRtfConverter;
 
 namespace SDIFrontEnd
 {
@@ -40,7 +41,7 @@ namespace SDIFrontEnd
 
             var qText = (RichTextBox)e.DataRepeaterItem.Controls.Find("rtbQuestionText", false)[0];
             qText.Rtf = null;
-            qText.Rtf = RTFUtilities.QuestionToRTF(item);
+            qText.Rtf = Converter.HTMLToRtf(item.GetQuestionTextHTML());
 
         }
     }

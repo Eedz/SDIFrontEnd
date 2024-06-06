@@ -62,6 +62,8 @@
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.picMain = new System.Windows.Forms.PictureBox();
             this.dataRepeater1 = new Microsoft.VisualBasic.PowerPacks.DataRepeater();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtResponsePIN = new System.Windows.Forms.TextBox();
             this.lblImageCount = new System.Windows.Forms.Label();
             this.cmdDeleteResponse = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
@@ -70,7 +72,6 @@
             this.cboResponseTo = new System.Windows.Forms.ComboBox();
             this.cboResponseFrom = new System.Windows.Forms.ComboBox();
             this.dtpResponseDate = new System.Windows.Forms.DateTimePicker();
-            this.rtbResponse = new System.Windows.Forms.RichTextBox();
             this.cmdAddResponse = new System.Windows.Forms.Button();
             this.panelSummary = new System.Windows.Forms.Panel();
             this.lblTotalIssues = new System.Windows.Forms.Label();
@@ -98,12 +99,12 @@
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtPIN = new System.Windows.Forms.TextBox();
             this.dtpResolvedDate = new NullableBindingDateTimePicker.NullableBindingDateTimePicker();
             this.lblEnteredBy = new System.Windows.Forms.Label();
             this.cmdSave = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
-            this.rtbDescription = new System.Windows.Forms.RichTextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
@@ -128,7 +129,6 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.panelControl = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolstripDisplay = new System.Windows.Forms.ToolStripButton();
             this.toolstripExport = new System.Windows.Forms.ToolStripButton();
@@ -155,10 +155,8 @@
             this.bindingNavigatorDeleteItem1 = new System.Windows.Forms.ToolStripButton();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.txtPIN = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.txtResponsePIN = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
+            this.extraRichTextBox1 = new SDIFrontEnd.ExtraRichTextBox();
+            this.rtbResponse = new SDIFrontEnd.ExtraRichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.navMainIssues)).BeginInit();
             this.navMainIssues.SuspendLayout();
             this.panelImages.SuspendLayout();
@@ -502,6 +500,7 @@
             // 
             // dataRepeater1.ItemTemplate
             // 
+            this.dataRepeater1.ItemTemplate.Controls.Add(this.rtbResponse);
             this.dataRepeater1.ItemTemplate.Controls.Add(this.label8);
             this.dataRepeater1.ItemTemplate.Controls.Add(this.txtResponsePIN);
             this.dataRepeater1.ItemTemplate.Controls.Add(this.lblImageCount);
@@ -512,9 +511,8 @@
             this.dataRepeater1.ItemTemplate.Controls.Add(this.cboResponseTo);
             this.dataRepeater1.ItemTemplate.Controls.Add(this.cboResponseFrom);
             this.dataRepeater1.ItemTemplate.Controls.Add(this.dtpResponseDate);
-            this.dataRepeater1.ItemTemplate.Controls.Add(this.rtbResponse);
             this.dataRepeater1.ItemTemplate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.dataRepeater1.ItemTemplate.Size = new System.Drawing.Size(1095, 79);
+            this.dataRepeater1.ItemTemplate.Size = new System.Drawing.Size(1095, 93);
             this.dataRepeater1.ItemTemplate.Enter += new System.EventHandler(this.dataRepeater1_ItemTemplate_Enter);
             this.dataRepeater1.Location = new System.Drawing.Point(6, 46);
             this.dataRepeater1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -529,7 +527,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(801, 53);
+            this.label8.Location = new System.Drawing.Point(833, 53);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(26, 16);
             this.label8.TabIndex = 10;
@@ -537,7 +535,7 @@
             // 
             // txtResponsePIN
             // 
-            this.txtResponsePIN.Location = new System.Drawing.Point(832, 50);
+            this.txtResponsePIN.Location = new System.Drawing.Point(865, 50);
             this.txtResponsePIN.Name = "txtResponsePIN";
             this.txtResponsePIN.Size = new System.Drawing.Size(110, 23);
             this.txtResponsePIN.TabIndex = 9;
@@ -548,7 +546,7 @@
             this.lblImageCount.AutoSize = true;
             this.lblImageCount.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblImageCount.ForeColor = System.Drawing.Color.Red;
-            this.lblImageCount.Location = new System.Drawing.Point(946, 44);
+            this.lblImageCount.Location = new System.Drawing.Point(979, 44);
             this.lblImageCount.Name = "lblImageCount";
             this.lblImageCount.Size = new System.Drawing.Size(99, 13);
             this.lblImageCount.TabIndex = 8;
@@ -558,7 +556,7 @@
             // 
             this.cmdDeleteResponse.BackColor = System.Drawing.SystemColors.ControlLight;
             this.cmdDeleteResponse.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdDeleteResponse.Location = new System.Drawing.Point(965, 2);
+            this.cmdDeleteResponse.Location = new System.Drawing.Point(986, 1);
             this.cmdDeleteResponse.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmdDeleteResponse.Name = "cmdDeleteResponse";
             this.cmdDeleteResponse.Size = new System.Drawing.Size(64, 31);
@@ -572,7 +570,7 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(805, 28);
+            this.label14.Location = new System.Drawing.Point(840, 30);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(19, 13);
             this.label14.TabIndex = 6;
@@ -582,7 +580,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(793, 3);
+            this.label13.Location = new System.Drawing.Point(828, 5);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(31, 13);
             this.label13.TabIndex = 5;
@@ -605,7 +603,7 @@
             this.cboResponseTo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboResponseTo.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboResponseTo.FormattingEnabled = true;
-            this.cboResponseTo.Location = new System.Drawing.Point(832, 25);
+            this.cboResponseTo.Location = new System.Drawing.Point(865, 25);
             this.cboResponseTo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cboResponseTo.Name = "cboResponseTo";
             this.cboResponseTo.Size = new System.Drawing.Size(110, 24);
@@ -619,7 +617,7 @@
             this.cboResponseFrom.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboResponseFrom.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboResponseFrom.FormattingEnabled = true;
-            this.cboResponseFrom.Location = new System.Drawing.Point(832, 0);
+            this.cboResponseFrom.Location = new System.Drawing.Point(865, 0);
             this.cboResponseFrom.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cboResponseFrom.Name = "cboResponseFrom";
             this.cboResponseFrom.Size = new System.Drawing.Size(110, 24);
@@ -637,19 +635,6 @@
             this.dtpResponseDate.Size = new System.Drawing.Size(116, 23);
             this.dtpResponseDate.TabIndex = 1;
             this.dtpResponseDate.TabStop = false;
-            // 
-            // rtbResponse
-            // 
-            this.rtbResponse.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbResponse.Location = new System.Drawing.Point(127, 0);
-            this.rtbResponse.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.rtbResponse.Name = "rtbResponse";
-            this.rtbResponse.ReadOnly = true;
-            this.rtbResponse.Size = new System.Drawing.Size(662, 69);
-            this.rtbResponse.TabIndex = 0;
-            this.rtbResponse.TabStop = false;
-            this.rtbResponse.Text = "";
-            this.rtbResponse.DoubleClick += new System.EventHandler(this.rtbResponse_DoubleClick);
             // 
             // cmdAddResponse
             // 
@@ -925,15 +910,13 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            
+            this.panel1.Controls.Add(this.extraRichTextBox1);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.txtPIN);
             this.panel1.Controls.Add(this.dtpResolvedDate);
             this.panel1.Controls.Add(this.lblEnteredBy);
             this.panel1.Controls.Add(this.cmdSave);
-            this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.label18);
-            this.panel1.Controls.Add(this.rtbDescription);
             this.panel1.Controls.Add(this.label19);
             this.panel1.Controls.Add(this.label20);
             this.panel1.Controls.Add(this.label21);
@@ -961,10 +944,26 @@
             this.panel1.Size = new System.Drawing.Size(1115, 286);
             this.panel1.TabIndex = 13;
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(287, 198);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(26, 16);
+            this.label7.TabIndex = 44;
+            this.label7.Text = "PIN";
+            // 
+            // txtPIN
+            // 
+            this.txtPIN.Location = new System.Drawing.Point(255, 220);
+            this.txtPIN.Name = "txtPIN";
+            this.txtPIN.Size = new System.Drawing.Size(94, 23);
+            this.txtPIN.TabIndex = 43;
+            // 
             // dtpResolvedDate
             // 
             this.dtpResolvedDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpResolvedDate.Location = new System.Drawing.Point(951, 104);
+            this.dtpResolvedDate.Location = new System.Drawing.Point(951, 100);
             this.dtpResolvedDate.Name = "dtpResolvedDate";
             this.dtpResolvedDate.ShowCheckBox = true;
             this.dtpResolvedDate.Size = new System.Drawing.Size(138, 23);
@@ -993,16 +992,6 @@
             this.cmdSave.UseVisualStyleBackColor = true;
             this.cmdSave.Click += new System.EventHandler(this.cmdSave_Click);
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(514, 18);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(198, 14);
-            this.label4.TabIndex = 38;
-            this.label4.Text = "Double-click the description to edit";
-            // 
             // label18
             // 
             this.label18.AutoSize = true;
@@ -1012,18 +1001,6 @@
             this.label18.Size = new System.Drawing.Size(58, 16);
             this.label18.TabIndex = 36;
             this.label18.Text = "Category";
-            // 
-            // rtbDescription
-            // 
-            this.rtbDescription.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbDescription.Location = new System.Drawing.Point(357, 39);
-            this.rtbDescription.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.rtbDescription.Name = "rtbDescription";
-            this.rtbDescription.ReadOnly = true;
-            this.rtbDescription.Size = new System.Drawing.Size(551, 240);
-            this.rtbDescription.TabIndex = 35;
-            this.rtbDescription.Text = "";
-            this.rtbDescription.DoubleClick += new System.EventHandler(this.rtbDescription_DoubleClick);
             // 
             // label19
             // 
@@ -1127,7 +1104,7 @@
             // 
             this.label26.AutoSize = true;
             this.label26.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label26.Location = new System.Drawing.Point(587, 0);
+            this.label26.Location = new System.Drawing.Point(587, 23);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(70, 16);
             this.label26.TabIndex = 24;
@@ -1285,7 +1262,6 @@
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.lblResponses);
             this.panel2.Controls.Add(this.cmdAddResponse);
             this.panel2.Controls.Add(this.dataRepeater1);
@@ -1294,16 +1270,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1115, 349);
             this.panel2.TabIndex = 27;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(226, 15);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(192, 16);
-            this.label3.TabIndex = 24;
-            this.label3.Text = "Double click the response to edit";
             // 
             // toolStrip1
             // 
@@ -1558,38 +1524,37 @@
             this.label6.TabIndex = 57;
             this.label6.Text = "Response Images";
             // 
-            // txtPIN
+            // extraRichTextBox1
             // 
-            this.txtPIN.Location = new System.Drawing.Point(255, 220);
-            this.txtPIN.Name = "txtPIN";
-            this.txtPIN.Size = new System.Drawing.Size(94, 23);
-            this.txtPIN.TabIndex = 43;
+            this.extraRichTextBox1.AutoScroll = true;
+            this.extraRichTextBox1.Location = new System.Drawing.Point(357, 43);
+            this.extraRichTextBox1.Name = "extraRichTextBox1";
+            this.extraRichTextBox1.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat\\deflang1033{\\fonttbl{\\f0\\fnil\\fcharset0 " +
+    "Tahoma;}}\r\n{\\*\\generator Riched20 10.0.19041}\\viewkind4\\uc1 \r\n\\pard\\f0\\fs20\\par\r" +
+    "\n}\r\n";
+            this.extraRichTextBox1.ShowFamilies = false;
+            this.extraRichTextBox1.ShowHighlight = true;
+            this.extraRichTextBox1.ShowSize = false;
+            this.extraRichTextBox1.ShowStrike = true;
+            this.extraRichTextBox1.Size = new System.Drawing.Size(560, 236);
+            this.extraRichTextBox1.TabIndex = 45;
+            this.extraRichTextBox1.Validated += new System.EventHandler(this.extraRichTextBox1_Validated);
             // 
-            // label7
+            // rtbResponse
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(287, 198);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(26, 16);
-            this.label7.TabIndex = 44;
-            this.label7.Text = "PIN";
-            // 
-            // txtResponsePIN
-            // 
-            this.txtResponsePIN.Location = new System.Drawing.Point(832, 50);
-            this.txtResponsePIN.Name = "txtResponsePIN";
-            this.txtResponsePIN.Size = new System.Drawing.Size(110, 23);
-            this.txtResponsePIN.TabIndex = 9;
-            this.txtResponsePIN.Validated += new System.EventHandler(this.txtResponsePIN_Validated);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(801, 53);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(26, 16);
-            this.label8.TabIndex = 10;
-            this.label8.Text = "PIN";
+            this.rtbResponse.AutoScroll = true;
+            this.rtbResponse.Location = new System.Drawing.Point(123, 0);
+            this.rtbResponse.Name = "rtbResponse";
+            this.rtbResponse.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat\\deflang1033{\\fonttbl{\\f0\\fnil\\fcharset0 " +
+    "Tahoma;}}\r\n{\\*\\generator Riched20 10.0.19041}\\viewkind4\\uc1 \r\n\\pard\\f0\\fs20\\par\r" +
+    "\n}\r\n";
+            this.rtbResponse.ShowFamilies = false;
+            this.rtbResponse.ShowHighlight = true;
+            this.rtbResponse.ShowSize = false;
+            this.rtbResponse.ShowStrike = true;
+            this.rtbResponse.Size = new System.Drawing.Size(699, 88);
+            this.rtbResponse.TabIndex = 11;
+            this.rtbResponse.Validated += new System.EventHandler(this.rtbResponse_Validated);
             // 
             // PraccingEntry
             // 
@@ -1675,7 +1640,6 @@
         private System.Windows.Forms.ComboBox cboResponseTo;
         private System.Windows.Forms.ComboBox cboResponseFrom;
         private System.Windows.Forms.DateTimePicker dtpResponseDate;
-        private System.Windows.Forms.RichTextBox rtbResponse;
         private System.Windows.Forms.DateTimePicker dtpResponseTime;
         private System.Windows.Forms.Button cmdAddResponse;
         private System.Windows.Forms.Label label14;
@@ -1698,7 +1662,6 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.RichTextBox rtbDescription;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label21;
@@ -1736,8 +1699,6 @@
         private System.Windows.Forms.ToolStripButton toolstripC;
         private System.Windows.Forms.ToolStripButton toolstripF;
         private System.Windows.Forms.Button cmdDeleteResponse;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button cmdFilterText;
         private System.Windows.Forms.CheckBox chkFilterUnresolved;
         private System.Windows.Forms.PictureBox picResponse;
@@ -1783,5 +1744,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txtResponsePIN;
+        private ExtraRichTextBox extraRichTextBox1;
+        private ExtraRichTextBox rtbResponse;
     }
 }

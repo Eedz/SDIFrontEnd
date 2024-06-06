@@ -21,9 +21,9 @@ namespace SDIFrontEnd
         public Form frmParent;
         public string key;
 
-        List<SurveyCheckRec> SurveyCheckRecords;
-        List<SurveyCheckRec> Filtered;
-        SurveyCheckRec CurrentRecord;
+        List<SurveyCheck> SurveyCheckRecords;
+        List<SurveyCheck> Filtered;
+        SurveyCheck CurrentRecord;
 
         public SurveyCheckTracking()
         {
@@ -56,7 +56,7 @@ namespace SDIFrontEnd
             else
                 LockForm(true);
 
-            CurrentRecord = (SurveyCheckRec)bs.Current;
+            CurrentRecord = (SurveyCheck)bs.Current;
 
             SetRecordStatus("");
             Moving = false;
@@ -95,11 +95,11 @@ namespace SDIFrontEnd
             else
                 LockForm(true);
 
-            var obj = bs.List.OfType<SurveyCheckRec>().ToList().Find(f => f.ID == ID);
+            var obj = bs.List.OfType<SurveyCheck>().ToList().Find(f => f.ID == ID);
             var pos = bs.IndexOf(obj);
             bs.Position = pos;
 
-            CurrentRecord = (SurveyCheckRec)bs.Current;
+            CurrentRecord = (SurveyCheck)bs.Current;
 
             SetRecordStatus("");
             Moving = false;
@@ -140,7 +140,7 @@ namespace SDIFrontEnd
         /// <param name="e"></param>
         private void Bs_PositionChanged(object sender, EventArgs e)
         {
-            CurrentRecord = (SurveyCheckRec)bs.Current;
+            CurrentRecord = (SurveyCheck)bs.Current;
 
             if (CurrentRecord != null)
                 dgvRefSurveys.DataSource = CurrentRecord.ReferenceSurveys;
@@ -471,7 +471,7 @@ namespace SDIFrontEnd
             }
 
             // refresh survey filter list in case a new survey was added
-            dgvSurveys.DataSource = SurveyCheckRecords.Select(x => x.SurveyCode).ToList(); //DBAction.GetSurveyCheckSurveys();
+            dgvSurveys.DataSource = SurveyCheckRecords.Select(x => x.SurveyCode).ToList(); 
                 
             SetRecordStatus("");
             return 0;

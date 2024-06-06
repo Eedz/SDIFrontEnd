@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
+using HtmlRtfConverter;
 
 namespace SDIFrontEnd
 {
@@ -468,7 +469,7 @@ namespace SDIFrontEnd
             rtbQuestionText.Rtf = "";
 
             if (CurrentQuestion != null)
-                rtbQuestionText.Rtf = RTFUtilities.QuestionToRTF(CurrentQuestion.Item); //.GetQuestionTextRich(true);
+                rtbQuestionText.Rtf = Converter.HTMLToRtf(CurrentQuestion.Item.GetQuestionTextHTML());
         }
 
         /// <summary>
@@ -479,7 +480,7 @@ namespace SDIFrontEnd
             txtLanguage.DataBindings.Clear();
             txtLanguage.Text = "";
             rtbTranslation.DataBindings.Clear();
-            rtbTranslation.Rtf = "";
+            RefreshCurrentTranslation();
             bsTranslations.DataSource = bsCurrent;
             bsTranslations.DataMember = "Translations";
             if (bsTranslations.Count > 0)
@@ -638,8 +639,11 @@ namespace SDIFrontEnd
         private void RefreshCurrentTranslation()
         {
             Translation CurrentTranslation = (Translation)bsTranslations.Current;
+            rtbTranslation.Rtf = null;
             if (CurrentTranslation != null)
-                rtbTranslation.Rtf = RTFUtilities.FormatRTF_FromText(CurrentTranslation.TranslationText);
+            {
+                rtbTranslation.Rtf = Converter.HTMLToRtf(CurrentTranslation.TranslationText);
+            }
         }
 
         private void ToggleTranslation()

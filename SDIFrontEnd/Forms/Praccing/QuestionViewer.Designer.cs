@@ -42,8 +42,6 @@
             this.dtpNoteDate = new System.Windows.Forms.DateTimePicker();
             this.txtNoteType = new System.Windows.Forms.TextBox();
             this.drTranslations = new Microsoft.VisualBasic.PowerPacks.DataRepeater();
-            this.txtPstP = new System.Windows.Forms.TextBox();
-            this.txtPreP = new System.Windows.Forms.TextBox();
             this.txtLanguage = new System.Windows.Forms.TextBox();
             this.rtbTranslation = new System.Windows.Forms.RichTextBox();
             this.rtbQuestion = new System.Windows.Forms.RichTextBox();
@@ -57,6 +55,8 @@
             this.txtSurvey = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rtbPreP = new System.Windows.Forms.RichTextBox();
+            this.rtbPstP = new System.Windows.Forms.RichTextBox();
             this.drQuestion.ItemTemplate.SuspendLayout();
             this.drQuestion.SuspendLayout();
             this.drComments.ItemTemplate.SuspendLayout();
@@ -87,12 +87,12 @@
             this.drQuestion.ItemTemplate.Controls.Add(this.txtQnum);
             this.drQuestion.ItemTemplate.Controls.Add(this.txtVarName);
             this.drQuestion.ItemTemplate.Controls.Add(this.txtSurvey);
-            this.drQuestion.ItemTemplate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.drQuestion.ItemTemplate.Margin = new System.Windows.Forms.Padding(4);
             this.drQuestion.ItemTemplate.Size = new System.Drawing.Size(1291, 663);
             this.drQuestion.Location = new System.Drawing.Point(14, 33);
-            this.drQuestion.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.drQuestion.Margin = new System.Windows.Forms.Padding(4);
             this.drQuestion.Name = "drQuestion";
-            this.drQuestion.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.drQuestion.Padding = new System.Windows.Forms.Padding(4);
             this.drQuestion.Size = new System.Drawing.Size(1318, 668);
             this.drQuestion.TabIndex = 0;
             this.drQuestion.Text = "drQuestion";
@@ -164,12 +164,12 @@
             this.drComments.ItemTemplate.Controls.Add(this.txtNoteName);
             this.drComments.ItemTemplate.Controls.Add(this.dtpNoteDate);
             this.drComments.ItemTemplate.Controls.Add(this.txtNoteType);
-            this.drComments.ItemTemplate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.drComments.ItemTemplate.Margin = new System.Windows.Forms.Padding(4);
             this.drComments.ItemTemplate.Size = new System.Drawing.Size(416, 277);
             this.drComments.Location = new System.Drawing.Point(835, 0);
-            this.drComments.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.drComments.Margin = new System.Windows.Forms.Padding(4);
             this.drComments.Name = "drComments";
-            this.drComments.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.drComments.Padding = new System.Windows.Forms.Padding(4);
             this.drComments.Size = new System.Drawing.Size(426, 635);
             this.drComments.TabIndex = 10;
             this.drComments.DrawItem += new Microsoft.VisualBasic.PowerPacks.DataRepeaterItemEventHandler(this.drComments_DrawItem);
@@ -177,7 +177,7 @@
             // txtNoteSourceName
             // 
             this.txtNoteSourceName.Location = new System.Drawing.Point(16, 245);
-            this.txtNoteSourceName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtNoteSourceName.Margin = new System.Windows.Forms.Padding(4);
             this.txtNoteSourceName.Name = "txtNoteSourceName";
             this.txtNoteSourceName.Size = new System.Drawing.Size(373, 23);
             this.txtNoteSourceName.TabIndex = 5;
@@ -185,7 +185,7 @@
             // txtNoteSource
             // 
             this.txtNoteSource.Location = new System.Drawing.Point(16, 213);
-            this.txtNoteSource.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtNoteSource.Margin = new System.Windows.Forms.Padding(4);
             this.txtNoteSource.Name = "txtNoteSource";
             this.txtNoteSource.Size = new System.Drawing.Size(373, 23);
             this.txtNoteSource.TabIndex = 4;
@@ -193,7 +193,7 @@
             // txtComment
             // 
             this.txtComment.Location = new System.Drawing.Point(16, 54);
-            this.txtComment.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtComment.Margin = new System.Windows.Forms.Padding(4);
             this.txtComment.Multiline = true;
             this.txtComment.Name = "txtComment";
             this.txtComment.Size = new System.Drawing.Size(373, 150);
@@ -202,7 +202,7 @@
             // txtNoteName
             // 
             this.txtNoteName.Location = new System.Drawing.Point(273, 11);
-            this.txtNoteName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtNoteName.Margin = new System.Windows.Forms.Padding(4);
             this.txtNoteName.Name = "txtNoteName";
             this.txtNoteName.Size = new System.Drawing.Size(116, 23);
             this.txtNoteName.TabIndex = 2;
@@ -211,7 +211,7 @@
             // 
             this.dtpNoteDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpNoteDate.Location = new System.Drawing.Point(140, 11);
-            this.dtpNoteDate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dtpNoteDate.Margin = new System.Windows.Forms.Padding(4);
             this.dtpNoteDate.Name = "dtpNoteDate";
             this.dtpNoteDate.Size = new System.Drawing.Size(125, 23);
             this.dtpNoteDate.TabIndex = 1;
@@ -219,7 +219,7 @@
             // txtNoteType
             // 
             this.txtNoteType.Location = new System.Drawing.Point(16, 11);
-            this.txtNoteType.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtNoteType.Margin = new System.Windows.Forms.Padding(4);
             this.txtNoteType.Name = "txtNoteType";
             this.txtNoteType.Size = new System.Drawing.Size(116, 23);
             this.txtNoteType.TabIndex = 0;
@@ -229,44 +229,24 @@
             // 
             // drTranslations.ItemTemplate
             // 
-            this.drTranslations.ItemTemplate.Controls.Add(this.txtPstP);
-            this.drTranslations.ItemTemplate.Controls.Add(this.txtPreP);
+            this.drTranslations.ItemTemplate.Controls.Add(this.rtbPstP);
+            this.drTranslations.ItemTemplate.Controls.Add(this.rtbPreP);
             this.drTranslations.ItemTemplate.Controls.Add(this.txtLanguage);
             this.drTranslations.ItemTemplate.Controls.Add(this.rtbTranslation);
-            this.drTranslations.ItemTemplate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.drTranslations.ItemTemplate.Margin = new System.Windows.Forms.Padding(4);
             this.drTranslations.ItemTemplate.Size = new System.Drawing.Size(435, 407);
             this.drTranslations.Location = new System.Drawing.Point(382, 0);
-            this.drTranslations.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.drTranslations.Margin = new System.Windows.Forms.Padding(4);
             this.drTranslations.Name = "drTranslations";
-            this.drTranslations.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.drTranslations.Padding = new System.Windows.Forms.Padding(4);
             this.drTranslations.Size = new System.Drawing.Size(445, 632);
             this.drTranslations.TabIndex = 9;
             this.drTranslations.DrawItem += new Microsoft.VisualBasic.PowerPacks.DataRepeaterItemEventHandler(this.drTranslations_DrawItem);
             // 
-            // txtPstP
-            // 
-            this.txtPstP.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPstP.Location = new System.Drawing.Point(4, 340);
-            this.txtPstP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.txtPstP.Multiline = true;
-            this.txtPstP.Name = "txtPstP";
-            this.txtPstP.Size = new System.Drawing.Size(404, 54);
-            this.txtPstP.TabIndex = 3;
-            // 
-            // txtPreP
-            // 
-            this.txtPreP.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPreP.Location = new System.Drawing.Point(4, 36);
-            this.txtPreP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.txtPreP.Multiline = true;
-            this.txtPreP.Name = "txtPreP";
-            this.txtPreP.Size = new System.Drawing.Size(404, 54);
-            this.txtPreP.TabIndex = 2;
-            // 
             // txtLanguage
             // 
             this.txtLanguage.Location = new System.Drawing.Point(4, 4);
-            this.txtLanguage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtLanguage.Margin = new System.Windows.Forms.Padding(4);
             this.txtLanguage.Name = "txtLanguage";
             this.txtLanguage.Size = new System.Drawing.Size(404, 23);
             this.txtLanguage.TabIndex = 1;
@@ -274,7 +254,7 @@
             // rtbTranslation
             // 
             this.rtbTranslation.Location = new System.Drawing.Point(4, 98);
-            this.rtbTranslation.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rtbTranslation.Margin = new System.Windows.Forms.Padding(4);
             this.rtbTranslation.Name = "rtbTranslation";
             this.rtbTranslation.Size = new System.Drawing.Size(404, 233);
             this.rtbTranslation.TabIndex = 0;
@@ -284,7 +264,7 @@
             // 
             this.rtbQuestion.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtbQuestion.Location = new System.Drawing.Point(19, 178);
-            this.rtbQuestion.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rtbQuestion.Margin = new System.Windows.Forms.Padding(4);
             this.rtbQuestion.Name = "rtbQuestion";
             this.rtbQuestion.Size = new System.Drawing.Size(355, 446);
             this.rtbQuestion.TabIndex = 8;
@@ -294,7 +274,7 @@
             // 
             this.txtProduct.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtProduct.Location = new System.Drawing.Point(78, 148);
-            this.txtProduct.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtProduct.Margin = new System.Windows.Forms.Padding(4);
             this.txtProduct.Name = "txtProduct";
             this.txtProduct.Size = new System.Drawing.Size(296, 23);
             this.txtProduct.TabIndex = 7;
@@ -303,7 +283,7 @@
             // 
             this.txtDomain.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDomain.Location = new System.Drawing.Point(78, 121);
-            this.txtDomain.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtDomain.Margin = new System.Windows.Forms.Padding(4);
             this.txtDomain.Name = "txtDomain";
             this.txtDomain.Size = new System.Drawing.Size(296, 23);
             this.txtDomain.TabIndex = 6;
@@ -312,7 +292,7 @@
             // 
             this.txtTopic.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTopic.Location = new System.Drawing.Point(78, 94);
-            this.txtTopic.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtTopic.Margin = new System.Windows.Forms.Padding(4);
             this.txtTopic.Name = "txtTopic";
             this.txtTopic.Size = new System.Drawing.Size(296, 23);
             this.txtTopic.TabIndex = 5;
@@ -321,7 +301,7 @@
             // 
             this.txtContent.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtContent.Location = new System.Drawing.Point(78, 67);
-            this.txtContent.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtContent.Margin = new System.Windows.Forms.Padding(4);
             this.txtContent.Name = "txtContent";
             this.txtContent.Size = new System.Drawing.Size(296, 23);
             this.txtContent.TabIndex = 4;
@@ -330,7 +310,7 @@
             // 
             this.txtVarLabel.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtVarLabel.Location = new System.Drawing.Point(78, 41);
-            this.txtVarLabel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtVarLabel.Margin = new System.Windows.Forms.Padding(4);
             this.txtVarLabel.Name = "txtVarLabel";
             this.txtVarLabel.Size = new System.Drawing.Size(296, 23);
             this.txtVarLabel.TabIndex = 3;
@@ -339,7 +319,7 @@
             // 
             this.txtQnum.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtQnum.Location = new System.Drawing.Point(258, 10);
-            this.txtQnum.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtQnum.Margin = new System.Windows.Forms.Padding(4);
             this.txtQnum.Name = "txtQnum";
             this.txtQnum.Size = new System.Drawing.Size(116, 23);
             this.txtQnum.TabIndex = 2;
@@ -348,7 +328,7 @@
             // 
             this.txtVarName.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtVarName.Location = new System.Drawing.Point(134, 10);
-            this.txtVarName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtVarName.Margin = new System.Windows.Forms.Padding(4);
             this.txtVarName.Name = "txtVarName";
             this.txtVarName.Size = new System.Drawing.Size(116, 23);
             this.txtVarName.TabIndex = 1;
@@ -357,7 +337,7 @@
             // 
             this.txtSurvey.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSurvey.Location = new System.Drawing.Point(11, 10);
-            this.txtSurvey.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtSurvey.Margin = new System.Windows.Forms.Padding(4);
             this.txtSurvey.Name = "txtSurvey";
             this.txtSurvey.Size = new System.Drawing.Size(116, 23);
             this.txtSurvey.TabIndex = 0;
@@ -380,6 +360,24 @@
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
+            // rtbPreP
+            // 
+            this.rtbPreP.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbPreP.Location = new System.Drawing.Point(4, 34);
+            this.rtbPreP.Name = "rtbPreP";
+            this.rtbPreP.Size = new System.Drawing.Size(404, 57);
+            this.rtbPreP.TabIndex = 4;
+            this.rtbPreP.Text = "";
+            // 
+            // rtbPstP
+            // 
+            this.rtbPstP.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbPstP.Location = new System.Drawing.Point(4, 338);
+            this.rtbPstP.Name = "rtbPstP";
+            this.rtbPstP.Size = new System.Drawing.Size(404, 65);
+            this.rtbPstP.TabIndex = 5;
+            this.rtbPstP.Text = "";
+            // 
             // QuestionViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -391,7 +389,7 @@
             this.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "QuestionViewer";
             this.Text = "Question Viewer";
             this.drQuestion.ItemTemplate.ResumeLayout(false);
@@ -421,8 +419,6 @@
         private System.Windows.Forms.DateTimePicker dtpNoteDate;
         private System.Windows.Forms.TextBox txtNoteType;
         private Microsoft.VisualBasic.PowerPacks.DataRepeater drTranslations;
-        private System.Windows.Forms.TextBox txtPstP;
-        private System.Windows.Forms.TextBox txtPreP;
         private System.Windows.Forms.TextBox txtLanguage;
         private System.Windows.Forms.RichTextBox rtbTranslation;
         private System.Windows.Forms.RichTextBox rtbQuestion;
@@ -441,5 +437,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
+        private System.Windows.Forms.RichTextBox rtbPstP;
+        private System.Windows.Forms.RichTextBox rtbPreP;
     }
 }

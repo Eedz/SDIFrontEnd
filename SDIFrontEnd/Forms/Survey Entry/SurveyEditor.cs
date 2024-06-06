@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using ITCLib;
 using ITCReportLib;
 using FM = FormManager;
+using HtmlRtfConverter;
 
 namespace SDIFrontEnd
 {
@@ -786,7 +787,7 @@ namespace SDIFrontEnd
         }
 
         /// <summary>
-        /// Show popup forms when the form is focused TODO does this work
+        /// Show popup forms when the form is focused 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -1063,14 +1064,16 @@ namespace SDIFrontEnd
         private void rtbPlainFilter_Validated(object sender, EventArgs e)
         {
             // change RTF tags to HTML tags
-            rtbPlainFilter.Rtf = Utilities.FormatRTF(rtbPlainFilter.Rtf);
+            string html = Converter.ConvertRTFtoHTML(rtbPlainFilter.Rtf);
+            // now remove the extraneous tags
+            html = HTMLUtilities.RemoveHtmlTag(html, "div");
+            html = HTMLUtilities.RemoveEmptyParagraphsWithBr(html);
+            html = HTMLUtilities.RemoveStyleAttribute(html, "p");
+            html = html.Replace("<p>", "<br>");
+            html = html.Replace("</p>", "");
+            html = html.TrimAndRemoveAll("<br>");
 
-            // now get plain text which includes the HTML tags we've inserted
-            string plain = rtbPlainFilter.Text;
-            plain = plain.TrimAndRemoveAll("<br>");
-            CurrentRecord.Item.FilterDescription = plain;
-            rtbPlainFilter.Rtf = null;
-            rtbPlainFilter.Rtf = RTFUtilities.FormatText(CurrentRecord.Item.FilterDescription);
+            CurrentRecord.Item.FilterDescription = html;
         }
         #endregion
 
@@ -1200,13 +1203,13 @@ namespace SDIFrontEnd
             if (CurrentRecord == null)
                 return;
 
-            string rich = RTFUtilities.QuestionToRTF(CurrentRecord.Item, true);
+            string rich = Converter.HTMLToRtf(CurrentRecord.Item.GetQuestionTextHTML(true));
 
             rtbQuestionText.Rtf = null;
             rtbQuestionText.Rtf = rich;
 
             rtbPlainFilter.Rtf = null;
-            rtbPlainFilter.Rtf = RTFUtilities.FormatRTF_FromText(CurrentRecord.Item.FilterDescription);
+            rtbPlainFilter.Rtf = Converter.HTMLToRtf(CurrentRecord.Item.FilterDescription);
 
             LoadImages();
             

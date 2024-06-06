@@ -42,7 +42,7 @@
             // 
             this.cmbFontFamily.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbFontFamily.FormattingEnabled = true;
-            this.cmbFontFamily.Location = new System.Drawing.Point(126, 6);
+            this.cmbFontFamily.Location = new System.Drawing.Point(126, 1);
             this.cmbFontFamily.Name = "cmbFontFamily";
             this.cmbFontFamily.Size = new System.Drawing.Size(110, 21);
             this.cmbFontFamily.TabIndex = 0;
@@ -52,7 +52,7 @@
             // 
             this.cmbFontSize.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbFontSize.FormattingEnabled = true;
-            this.cmbFontSize.Location = new System.Drawing.Point(242, 6);
+            this.cmbFontSize.Location = new System.Drawing.Point(242, 1);
             this.cmbFontSize.Name = "cmbFontSize";
             this.cmbFontSize.Size = new System.Drawing.Size(46, 21);
             this.cmbFontSize.TabIndex = 1;
@@ -64,9 +64,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFunctionality.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFunctionality.Location = new System.Drawing.Point(3, 32);
+            this.txtFunctionality.Location = new System.Drawing.Point(1, 25);
             this.txtFunctionality.Name = "txtFunctionality";
-            this.txtFunctionality.Size = new System.Drawing.Size(286, 312);
+            this.txtFunctionality.Size = new System.Drawing.Size(288, 320);
             this.txtFunctionality.TabIndex = 5;
             this.txtFunctionality.Text = "";
             this.txtFunctionality.SelectionChanged += new System.EventHandler(this.txtFunctionality_SelectionChanged);
@@ -75,7 +75,7 @@
             // 
             this.ckbUnderline.Appearance = System.Windows.Forms.Appearance.Button;
             this.ckbUnderline.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckbUnderline.Location = new System.Drawing.Point(50, 3);
+            this.ckbUnderline.Location = new System.Drawing.Point(50, 0);
             this.ckbUnderline.Name = "ckbUnderline";
             this.ckbUnderline.Size = new System.Drawing.Size(22, 25);
             this.ckbUnderline.TabIndex = 4;
@@ -89,7 +89,7 @@
             // 
             this.ckbItalic.Appearance = System.Windows.Forms.Appearance.Button;
             this.ckbItalic.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckbItalic.Location = new System.Drawing.Point(26, 3);
+            this.ckbItalic.Location = new System.Drawing.Point(25, 0);
             this.ckbItalic.Name = "ckbItalic";
             this.ckbItalic.Size = new System.Drawing.Size(22, 25);
             this.ckbItalic.TabIndex = 3;
@@ -102,7 +102,7 @@
             // 
             this.ckbBold.Appearance = System.Windows.Forms.Appearance.Button;
             this.ckbBold.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckbBold.Location = new System.Drawing.Point(3, 3);
+            this.ckbBold.Location = new System.Drawing.Point(0, 0);
             this.ckbBold.Name = "ckbBold";
             this.ckbBold.Size = new System.Drawing.Size(22, 25);
             this.ckbBold.TabIndex = 2;
@@ -116,7 +116,7 @@
             // 
             this.chkStrike.Appearance = System.Windows.Forms.Appearance.Button;
             this.chkStrike.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Strikeout, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkStrike.Location = new System.Drawing.Point(74, 3);
+            this.chkStrike.Location = new System.Drawing.Point(74, 0);
             this.chkStrike.Name = "chkStrike";
             this.chkStrike.Size = new System.Drawing.Size(22, 25);
             this.chkStrike.TabIndex = 6;
@@ -131,7 +131,7 @@
             this.chkHighlight.Appearance = System.Windows.Forms.Appearance.Button;
             this.chkHighlight.BackColor = System.Drawing.Color.Yellow;
             this.chkHighlight.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkHighlight.Location = new System.Drawing.Point(98, 3);
+            this.chkHighlight.Location = new System.Drawing.Point(98, 0);
             this.chkHighlight.Name = "chkHighlight";
             this.chkHighlight.Size = new System.Drawing.Size(22, 25);
             this.chkHighlight.TabIndex = 7;
@@ -155,7 +155,7 @@
             this.Controls.Add(this.cmbFontSize);
             this.Controls.Add(this.cmbFontFamily);
             this.Name = "ExtraRichTextBox";
-            this.Size = new System.Drawing.Size(293, 347);
+            this.Size = new System.Drawing.Size(292, 348);
             this.Load += new System.EventHandler(this.ExtraRichTextBox_Load);
             this.ResumeLayout(false);
 

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
-
+using HtmlRtfConverter;
 
 namespace SDIFrontEnd
 {
@@ -99,7 +99,7 @@ namespace SDIFrontEnd
             productBox.Text = datasource[e.DataRepeaterItem.ItemIndex].VarName.Product.LabelText;
 
             var questionBox = (RichTextBox)e.DataRepeaterItem.Controls.Find("rtbQuestion", false)[0];
-            questionBox.Rtf = RTFUtilities.QuestionToRTF(datasource[e.DataRepeaterItem.ItemIndex]);
+            questionBox.Rtf = Converter.HTMLToRtf((datasource[e.DataRepeaterItem.ItemIndex]).GetQuestionTextHTML());
         }
 
         private void drTranslations_DrawItem(object sender, Microsoft.VisualBasic.PowerPacks.DataRepeaterItemEventArgs e)
@@ -111,16 +111,16 @@ namespace SDIFrontEnd
             var currentQuestion = ((Translation)datasource[e.DataRepeaterItem.ItemIndex]);
 
             var translationBox = (RichTextBox)e.DataRepeaterItem.Controls.Find("rtbTranslation", false)[0];
-            translationBox.Rtf = RTFUtilities.FormatRTF_FromText(currentQuestion.TranslationText);
+            translationBox.Rtf = Converter.HTMLToRtf(currentQuestion.TranslationText);
 
             var langBox = (TextBox)e.DataRepeaterItem.Controls.Find("txtLanguage", false)[0];
             langBox.Text = currentQuestion.Language;
 
-            var prepBox = (TextBox)e.DataRepeaterItem.Controls.Find("txtPreP", false)[0];
-            prepBox.Text = ((SurveyQuestion)questionDataSource.Current).PrePW.WordingText;
+            var prepBox = (RichTextBox)e.DataRepeaterItem.Controls.Find("rtbPreP", false)[0];
+            prepBox.Rtf = Converter.HTMLToRtf(((SurveyQuestion)questionDataSource.Current).PrePW.WordingText);
 
-            var pstpBox = (TextBox)e.DataRepeaterItem.Controls.Find("txtPstP", false)[0];
-            pstpBox.Text = ((SurveyQuestion)questionDataSource.Current).PstPW.WordingText;
+            var pstpBox = (RichTextBox)e.DataRepeaterItem.Controls.Find("rtbPstP", false)[0];
+            pstpBox.Rtf = Converter.HTMLToRtf(((SurveyQuestion)questionDataSource.Current).PstPW.WordingText);
         }
 
         private void drComments_DrawItem(object sender, Microsoft.VisualBasic.PowerPacks.DataRepeaterItemEventArgs e)

@@ -60,9 +60,9 @@
             this.cboNRCodes = new System.Windows.Forms.ComboBox();
             this.cboRespOptions = new System.Windows.Forms.ComboBox();
             this.cboLitQ = new System.Windows.Forms.ComboBox();
-            this.cboPreP = new System.Windows.Forms.ComboBox();
             this.cmdRefreshImages = new System.Windows.Forms.Button();
             this.txtImageFileNames = new System.Windows.Forms.TextBox();
+            this.rtbPlainFilter = new SDIFrontEnd.ExtraRichTextBox();
             this.dgvTimeFrames = new System.Windows.Forms.DataGridView();
             this.chTimeFrame = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmdOpenPstP = new System.Windows.Forms.Button();
@@ -99,6 +99,7 @@
             this.txtVarLabel = new System.Windows.Forms.TextBox();
             this.rtbQuestionText = new System.Windows.Forms.RichTextBox();
             this.txtVarName = new System.Windows.Forms.TextBox();
+            this.cboPreP = new System.Windows.Forms.ComboBox();
             this.lblTitle = new System.Windows.Forms.Label();
             this.menuMain = new System.Windows.Forms.MenuStrip();
             this.closeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -143,7 +144,6 @@
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cboMoveTo = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.rtbPlainFilter = new SDIFrontEnd.ExtraRichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.navQuestions)).BeginInit();
             this.navQuestions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -227,7 +227,6 @@
             this.bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
             this.bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMoveFirstItem.Text = "Move first";
             this.bindingNavigatorMoveFirstItem.Click += new System.EventHandler(this.bindingNavigatorMoveFirstItem_Click);
             // 
             // bindingNavigatorMovePreviousItem
@@ -237,7 +236,6 @@
             this.bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
             this.bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMovePreviousItem.Text = "Move previous";
             this.bindingNavigatorMovePreviousItem.Click += new System.EventHandler(this.bindingNavigatorMovePreviousItem_Click);
             // 
             // bindingNavigatorSeparator
@@ -267,7 +265,6 @@
             this.bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
             this.bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMoveNextItem.Text = "Move next";
             this.bindingNavigatorMoveNextItem.Click += new System.EventHandler(this.bindingNavigatorMoveNextItem_Click);
             // 
             // bindingNavigatorMoveLastItem
@@ -277,7 +274,6 @@
             this.bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
             this.bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMoveLastItem.Text = "Move last";
             this.bindingNavigatorMoveLastItem.Click += new System.EventHandler(this.bindingNavigatorMoveLastItem_Click);
             // 
             // bindingNavigatorSeparator2
@@ -480,16 +476,6 @@
             this.cboLitQ.Size = new System.Drawing.Size(74, 24);
             this.cboLitQ.TabIndex = 76;
             // 
-            // cboPreP
-            // 
-            this.cboPreP.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.cboPreP.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cboPreP.FormattingEnabled = true;
-            this.cboPreP.Location = new System.Drawing.Point(649, 251);
-            this.cboPreP.Name = "cboPreP";
-            this.cboPreP.Size = new System.Drawing.Size(74, 24);
-            this.cboPreP.TabIndex = 75;
-            // 
             // cmdRefreshImages
             // 
             this.cmdRefreshImages.Image = global::SDIFrontEnd.Properties.Resources.Refresh;
@@ -509,6 +495,23 @@
             this.txtImageFileNames.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtImageFileNames.Size = new System.Drawing.Size(272, 140);
             this.txtImageFileNames.TabIndex = 73;
+            // 
+            // rtbPlainFilter
+            // 
+            this.rtbPlainFilter.AutoScroll = true;
+            this.rtbPlainFilter.Location = new System.Drawing.Point(638, 54);
+            this.rtbPlainFilter.Margin = new System.Windows.Forms.Padding(4);
+            this.rtbPlainFilter.Name = "rtbPlainFilter";
+            this.rtbPlainFilter.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat\\deflang1033{\\fonttbl{\\f0\\fnil\\fcharset0 " +
+    "Tahoma;}}\r\n{\\*\\generator Riched20 10.0.19041}\\viewkind4\\uc1 \r\n\\pard\\f0\\fs20\\par\r" +
+    "\n}\r\n";
+            this.rtbPlainFilter.ShowFamilies = false;
+            this.rtbPlainFilter.ShowHighlight = false;
+            this.rtbPlainFilter.ShowSize = false;
+            this.rtbPlainFilter.ShowStrike = false;
+            this.rtbPlainFilter.Size = new System.Drawing.Size(297, 459);
+            this.rtbPlainFilter.TabIndex = 72;
+            this.rtbPlainFilter.Validated += new System.EventHandler(this.rtbPlainFilter_Validated);
             // 
             // dgvTimeFrames
             // 
@@ -943,6 +946,16 @@
             this.txtVarName.Size = new System.Drawing.Size(467, 23);
             this.txtVarName.TabIndex = 23;
             this.txtVarName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // cboPreP
+            // 
+            this.cboPreP.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboPreP.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cboPreP.FormattingEnabled = true;
+            this.cboPreP.Location = new System.Drawing.Point(649, 251);
+            this.cboPreP.Name = "cboPreP";
+            this.cboPreP.Size = new System.Drawing.Size(74, 24);
+            this.cboPreP.TabIndex = 75;
             // 
             // lblTitle
             // 
@@ -1395,21 +1408,6 @@
             this.label4.Size = new System.Drawing.Size(57, 16);
             this.label4.TabIndex = 56;
             this.label4.Text = "Move to:";
-            // 
-            // rtbPlainFilter
-            // 
-            this.rtbPlainFilter.AutoScroll = true;
-            this.rtbPlainFilter.Location = new System.Drawing.Point(638, 54);
-            this.rtbPlainFilter.Margin = new System.Windows.Forms.Padding(4);
-            this.rtbPlainFilter.Name = "rtbPlainFilter";
-            this.rtbPlainFilter.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat\\deflang1033{\\fonttbl{\\f0\\fnil\\fcharset0 " +
-    "Tahoma;}}\r\n{\\*\\generator Riched20 10.0.19041}\\viewkind4\\uc1 \r\n\\pard\\f0\\fs20\\par\r" +
-    "\n}\r\n";
-            this.rtbPlainFilter.ShowFamilies = false;
-            this.rtbPlainFilter.ShowSize = false;
-            this.rtbPlainFilter.Size = new System.Drawing.Size(297, 459);
-            this.rtbPlainFilter.TabIndex = 72;
-            this.rtbPlainFilter.Validated += new System.EventHandler(this.rtbPlainFilter_Validated);
             // 
             // SurveyEditor
             // 

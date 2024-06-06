@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
+using HtmlRtfConverter;
 
 namespace SDIFrontEnd
 {   
@@ -190,12 +191,11 @@ namespace SDIFrontEnd
             foreach (Translation t in question.Item.Translations)
                 Records.Add(new TranslationRecord(t));
 
-            extraRichTextBox1.Rtf = null;
+            
 
             if (Records.Count() == 0 || ParentSurvey.Locked)
             {
                 LockForm(false);
-                return;
             }
             else
                 LockForm(true);
@@ -208,9 +208,12 @@ namespace SDIFrontEnd
             CurrentRecord = (TranslationRecord)bs.Current;
             bs.ResetCurrentItem();
 
-            extraRichTextBox1.Rtf = RTFUtilities.FormatRTF_FromText(CurrentRecord.Item.TranslationText);
-            rtbPreP.Rtf = RTFUtilities.FormatRTF_FromText(MainQuestion.PrePW.WordingText);
-            rtbPstP.Rtf = RTFUtilities.FormatRTF_FromText(MainQuestion.PstPW.WordingText);
+            extraRichTextBox1.Rtf = null;
+            extraRichTextBox1.Rtf = Converter.HTMLToRtf(CurrentRecord.Item.TranslationText);
+            rtbPreP.Rtf = null;
+            rtbPreP.Rtf = Converter.HTMLToRtf(MainQuestion.PrePW.WordingText);
+            rtbPstP.Rtf = null;
+            rtbPstP.Rtf = Converter.HTMLToRtf(MainQuestion.PstPW.WordingText);
             
             AdjustRouting();
             SetReadingDirection();
@@ -276,12 +279,16 @@ namespace SDIFrontEnd
         private void UpdatePlainText()
         {
             // change RTF tags to HTML tags
-            extraRichTextBox1.Rtf = Utilities.FormatRTF(extraRichTextBox1.Rtf);
-            // now get plain text which includes the HTML tags we've inserted
-            string plain = extraRichTextBox1.Text;
-            plain = plain.TrimAndRemoveAll("<br>");
-            CurrentRecord.Item.TranslationText = plain;
-            extraRichTextBox1.Rtf = RTFUtilities.FormatRTF_FromText(CurrentRecord.Item.TranslationText);
+            string html = Converter.ConvertRTFtoHTML(extraRichTextBox1.Rtf);
+            // now remove the extraneous tags
+            html = HTMLUtilities.RemoveHtmlTag(html, "div");
+            html = HTMLUtilities.RemoveEmptyParagraphsWithBr(html);
+            html = HTMLUtilities.RemoveStyleAttribute(html, "p");
+            html = html.Replace("<p>", "<br>");
+            html = html.Replace("</p>", "");
+            html = html.TrimAndRemoveAll("<br>");
+
+            CurrentRecord.Item.TranslationText = html;
         }
     }
 }

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
 using FM = FormManager;
+using HtmlRtfConverter;
 
 namespace SDIFrontEnd
 {
@@ -50,9 +51,7 @@ namespace SDIFrontEnd
 
             var text = (RichTextBox)e.DataRepeaterItem.Controls.Find("rtbQuestion", false)[0];
             string plain = datasource.Rows[e.DataRepeaterItem.ItemIndex]["Question"].ToString();
-            text.Rtf = Utilities.FormatText(plain, true);
-
-           
+            text.Rtf = Converter.HTMLToRtf(plain); 
         }
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)

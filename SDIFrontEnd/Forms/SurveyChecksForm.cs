@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
 using ITCReportLib;
-
+using HtmlRtfConverter;
 using FM = FormManager;
 
 namespace SDIFrontEnd
@@ -23,7 +23,7 @@ namespace SDIFrontEnd
         int resultsX = 325;
         int resultsY = 30;
 
-        SurveyCheck surveyChecker;
+        SurveyChecker surveyChecker;
 
         BindingSource bsRouting;
         List<RoutingCheckQuestion> RoutingVars;
@@ -154,58 +154,62 @@ namespace SDIFrontEnd
             SurveyQuestion starter = surveyChecker.QuestionList.Where(x => x.Qnum.Equals(selected.Qnum.Substring(0, 3) + "a")).FirstOrDefault();
             lblSeriesStarter.Text = starter.VarName.RefVarName + "/" + starter.Qnum;
 
-            rtbSeriesErrorPreP.Rtf = RTFUtilities.FormatRTF_FromText(selected.PrePW.WordingText);
+            rtbSeriesErrorPreP.Rtf = Converter.HTMLToRtf(selected.PrePW.WordingText);
             if (selected.PrePW.Equals(starter.PrePW))
                 rtbSeriesErrorPreP.BackColor = Color.LightGreen;
             else
                 rtbSeriesErrorPreP.BackColor = Color.Red;
 
-            rtbSeriesErrorPreI.Rtf = RTFUtilities.FormatRTF_FromText(selected.PreIW.WordingText);
+            rtbSeriesErrorPreI.Rtf = Converter.HTMLToRtf(selected.PreIW.WordingText);
             if (selected.PreIW.Equals(starter.PreIW))
                 rtbSeriesErrorPreI.BackColor = Color.LightGreen;
             else
                 rtbSeriesErrorPreI.BackColor = Color.Red;
 
-            rtbSeriesErrorPreA.Rtf = RTFUtilities.FormatRTF_FromText(selected.PreAW.WordingText);
+            rtbSeriesErrorPreA.Rtf = null;
+            rtbSeriesErrorPreA.Rtf = Converter.HTMLToRtf(selected.PreAW.WordingText);
             if (selected.PreAW.Equals(starter.PreAW))
                 rtbSeriesErrorPreA.BackColor = Color.LightGreen;
             else
                 rtbSeriesErrorPreA.BackColor = Color.Red;
 
-            rtbSeriesErrorLitQ.Rtf = RTFUtilities.FormatRTF_FromText(selected.LitQW.WordingText);
+            rtbSeriesErrorLitQ.Rtf = null;
+            rtbSeriesErrorLitQ.Rtf = Converter.HTMLToRtf(selected.LitQW.WordingText);
 
-            txtSeriesErrorRO.Text = selected.RespOptionsS.RespList.Replace("<br>", "\r\n");
+            rtbSeriesErrorRO.Rtf = null;
+            rtbSeriesErrorRO.Rtf = Converter.HTMLToRtf(selected.RespOptionsS.RespList);
             if (selected.RespOptionsS.Equals(starter.RespOptionsS))
-                txtSeriesErrorRO.BackColor = Color.LightGreen;
+                rtbSeriesErrorRO.BackColor = Color.LightGreen;
             else
-                txtSeriesErrorRO.BackColor = Color.Red;
+                rtbSeriesErrorRO.BackColor = Color.Red;
 
-            txtSeriesErrorNR.Text = selected.NRCodesS.RespList.Replace("<br>", "\r\n");
+            rtbSeriesErrorNR.Rtf = null;
+            rtbSeriesErrorNR.Rtf = Converter.HTMLToRtf(selected.NRCodesS.RespList); 
             if (selected.NRCodesS.Equals(starter.NRCodesS))
-                txtSeriesErrorNR.BackColor = Color.LightGreen;
+                rtbSeriesErrorNR.BackColor = Color.LightGreen;
             else
-                txtSeriesErrorNR.BackColor = Color.Red;
+                rtbSeriesErrorNR.BackColor = Color.Red;
 
-            rtbSeriesErrorPstI.Rtf = RTFUtilities.FormatRTF_FromText(selected.PstIW.WordingText);
+            rtbSeriesErrorPstI.Rtf = Converter.HTMLToRtf(selected.PstIW.WordingText);
             if (selected.PstIW.Equals(starter.PstIW))
                 rtbSeriesErrorPstI.BackColor = Color.LightGreen;
             else
                 rtbSeriesErrorPstI.BackColor = Color.Red;
 
-            rtbSeriesErrorPstP.Rtf = RTFUtilities.FormatRTF_FromText(selected.PstPW.WordingText);
+            rtbSeriesErrorPstP.Rtf = Converter.HTMLToRtf(selected.PstPW.WordingText);
             if (selected.PstPW.Equals(starter.PstPW))
                 rtbSeriesErrorPstP.BackColor = Color.LightGreen;
             else
                 rtbSeriesErrorPstP.BackColor = Color.Red;
 
-            rtbSeriesStarterPreP.Text = starter.PrePW.WordingText;
-            rtbSeriesStarterPreI.Text = starter.PreIW.WordingText;
-            rtbSeriesStarterPreA.Rtf = RTFUtilities.FormatRTF_FromText(starter.PreAW.WordingText);
-            rtbSeriesStarterLitQ.Rtf = RTFUtilities.FormatRTF_FromText(starter.LitQW.WordingText);
-            txtSeriesStarterRO.Text = starter.RespOptionsS.RespList.Replace("<br>", "\r\n");
-            txtSeriesStarterNR.Text = starter.NRCodesS.RespList.Replace("<br>", "\r\n");
-            rtbSeriesStarterPstI.Text = starter.PstIW.WordingText;
-            rtbSeriesStarterPstP.Text = starter.PstPW.WordingText;
+            rtbSeriesStarterPreP.Rtf = Converter.HTMLToRtf(starter.PrePW.WordingText);
+            rtbSeriesStarterPreI.Rtf = Converter.HTMLToRtf(starter.PreIW.WordingText);
+            rtbSeriesStarterPreA.Rtf = Converter.HTMLToRtf(starter.PreAW.WordingText);
+            rtbSeriesStarterLitQ.Rtf = Converter.HTMLToRtf(starter.LitQW.WordingText);
+            rtbSeriesStarterRO.Rtf = Converter.HTMLToRtf(starter.RespOptionsS.RespList);
+            rtbSeriesStarterNR.Rtf = Converter.HTMLToRtf(starter.NRCodesS.RespList);
+            rtbSeriesStarterPstI.Rtf = Converter.HTMLToRtf(starter.PstIW.WordingText);
+            rtbSeriesStarterPstP.Rtf = Converter.HTMLToRtf(starter.PstPW.WordingText);
 
         }
 
@@ -221,7 +225,7 @@ namespace SDIFrontEnd
             lstEarlyPstP.DataSource = ((RoutingCheckQuestion)bsRouting.Current).EarlyPstPVars;
 
             rtbRoutingQuestion.Rtf = null;
-            rtbRoutingQuestion.Rtf = RTFUtilities.QuestionToRTF(((RoutingCheckQuestion)bsRouting.Current));
+            rtbRoutingQuestion.Rtf = Converter.HTMLToRtf(((RoutingCheckQuestion)bsRouting.Current).GetQuestionTextHTML());
 
         }
 
@@ -266,7 +270,7 @@ namespace SDIFrontEnd
             List<SurveyQuestion> sourceList = new List<SurveyQuestion>(DBAction.GetSurveyQuestions((Survey)cboSource.SelectedItem));
             List<SurveyQuestion> refList = new List<SurveyQuestion>(DBAction.GetSurveyQuestions((Survey)cboSurvey2.SelectedItem));
 
-            surveyChecker = new SurveyCheck(sourceList);
+            surveyChecker = new SurveyChecker(sourceList);
             surveyChecker.CanonVars = new List<CanonicalRefVarName>(Globals.AllCanonVars);
 
             RoutingVars = surveyChecker.GetRoutingCheckResults();

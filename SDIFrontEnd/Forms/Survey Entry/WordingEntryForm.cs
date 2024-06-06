@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using ITCLib;
+using HtmlRtfConverter;
 
 namespace SDIFrontEnd
 {   
@@ -282,7 +283,7 @@ namespace SDIFrontEnd
         private void UpdatePlainText()
         {
             // change RTF tags to HTML tags
-            string html = RTFUtilities.ConvertRTFtoHTML(txtWordingR.Rtf);
+            string html = Converter.ConvertRTFtoHTML(txtWordingR.Rtf);
             // now remove the extraneous tags
             html = HTMLUtilities.RemoveHtmlTag(html, "div");
             html = HTMLUtilities.RemoveEmptyParagraphsWithBr(html);
@@ -559,7 +560,7 @@ namespace SDIFrontEnd
         {
             CurrentRecord = (WordingRecord)bs.Current;
             txtWordingR.Rtf = null;
-            txtWordingR.Rtf = RTFUtilities.FormatRTF_FromText(CurrentRecord.Item.WordingText);
+            txtWordingR.Rtf = Converter.HTMLToRtf(CurrentRecord.Item.WordingText);
 
             LoadUsageList(CurrentRecord.Item.FieldType, CurrentRecord.Item.WordID);
             Locked = Usages.Any(x => x.Locked) || (CurrentRecord.Item.WordID == 0 && !CurrentRecord.NewRecord);
