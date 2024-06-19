@@ -27,7 +27,6 @@ namespace SDIFrontEnd
             bs = new BindingSource();
 
             txtRespName.DataBindings.Add("Text", bs, "RespSetName");
-            txtRespOptions.DataBindings.Add("Text", bs, "RespList");
         }
 
         #region Events 
@@ -69,7 +68,16 @@ namespace SDIFrontEnd
             ResponseOptionUsage frm = new ResponseOptionUsage(itemRecord);
             frm.ShowDialog();
         }
+        
+        private void repeaterResults_DrawItem(object sender, Microsoft.VisualBasic.PowerPacks.DataRepeaterItemEventArgs e)
+        {
+            var dataRepeater = (Microsoft.VisualBasic.PowerPacks.DataRepeater)sender;
+            var datasource = ((BindingSource)dataRepeater.DataSource);
+            var responseSet = ((ResponseSet)datasource[e.DataRepeaterItem.ItemIndex]);
 
+            var rtb = (RichTextBox)e.DataRepeaterItem.Controls.Find("rtbResponseOptions", false)[0];
+            rtb.Rtf = HtmlRtfConverter.Converter.HTMLToRtf(responseSet.RespList);
+        }
         #endregion
 
         #region Menu Bar
@@ -96,8 +104,6 @@ namespace SDIFrontEnd
         {
             bool exactMatch = rbMatchExact.Checked;
 
-            
-
             if (field.Equals("RespOptions")) 
                 Records = DBAction.GetResponseSets(criteria, exactMatch);
             else if (field.Equals("NonRespOptions"))
@@ -121,6 +127,5 @@ namespace SDIFrontEnd
             repeaterResults.Visible = true;
         }
         #endregion
-
     }
 }

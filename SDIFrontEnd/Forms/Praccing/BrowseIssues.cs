@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITCLib;
+using HtmlRtfConverter;
 
 namespace SDIFrontEnd
 {
@@ -57,8 +58,6 @@ namespace SDIFrontEnd
             txtFrom.DataBindings.Add(new Binding("Text", bs, "IssueFrom.Name"));
             txtTo.DataBindings.Add(new Binding("Text", bs, "IssueTo.Name"));
             dtpIssueDate.DataBindings.Add(new Binding("Value", bs, "IssueDate", true));
-
-            rtbDescription.DataBindings.Add(new Binding("Rtf", bs, "DescriptionRTF"));
         }
         #endregion
 
@@ -134,6 +133,9 @@ namespace SDIFrontEnd
 
             var toBox = (TextBox)e.DataRepeaterItem.Controls.Find("txtTo", false)[0];
             toBox.Text = datasource[e.DataRepeaterItem.ItemIndex].IssueTo.Name;
+
+            var description = (RichTextBox)e.DataRepeaterItem.Controls.Find("rtbDescription", false)[0];
+            description.Rtf = Converter.HTMLToRtf(datasource[e.DataRepeaterItem.ItemIndex].Description);
         }
         #endregion
 

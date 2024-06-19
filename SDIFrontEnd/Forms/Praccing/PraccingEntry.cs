@@ -219,6 +219,7 @@ namespace SDIFrontEnd
         /// </summary>
         private void RefreshCurrentIssue()
         {
+            txtIssueNo.Focus();
             CurrentRecord = (PraccingIssueRecord)bsRecords.Current;
             movingPoint = new Point(0, 0);
 

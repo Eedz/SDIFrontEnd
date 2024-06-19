@@ -73,8 +73,6 @@ namespace SDIFrontEnd
             SetupBindingSources();
             BindProperties();
             FillBoxes();
-            FillWordings();
-
             ChangeSurvey(CurrentSurvey.SurveyCode);
 
             LockForm();
@@ -83,7 +81,6 @@ namespace SDIFrontEnd
             Globals.RefreshTopics += SurveyEditor_RefreshTopics;
             Globals.RefreshContents += SurveyEditor_RefreshContents;
             Globals.RefreshProducts += SurveyEditor_RefreshProducts;
-            Globals.RefreshWordings += SurveyEditor_RefreshWordings;
 
             CurrentRecord = (QuestionRecord)bs.Current;
         }
@@ -111,7 +108,6 @@ namespace SDIFrontEnd
             SetupBindingSources();
 
             FillBoxes();
-            FillWordings();
             BindProperties();
 
             ChangeSurvey(CurrentSurvey.SurveyCode);
@@ -210,14 +206,14 @@ namespace SDIFrontEnd
             txtAltQnum3.DataBindings.Add(new Binding("Text", bsCurrent, "AltQnum3"));
 
             // wordings
-            cboPreP.DataBindings.Add(new Binding("SelectedItem", bsCurrent, "PrePW"));
-            cboPreI.DataBindings.Add(new Binding("SelectedItem", bsCurrent, "PreIW"));
-            cboPreA.DataBindings.Add(new Binding("SelectedItem", bsCurrent, "PreAW"));
-            cboLitQ.DataBindings.Add(new Binding("SelectedItem", bsCurrent, "LitQW"));
-            cboPstI.DataBindings.Add(new Binding("SelectedItem", bsCurrent, "PstIW"));
-            cboPstP.DataBindings.Add(new Binding("SelectedItem", bsCurrent, "PstPW"));
-            cboRespOptions.DataBindings.Add(new Binding("SelectedItem", bsCurrent, "RespOptionsS"));
-            cboNRCodes.DataBindings.Add(new Binding("SelectedItem", bsCurrent, "NRCodesS"));
+            txtPreP.DataBindings.Add(new Binding("Text", bsCurrent, "PrePW.WordID"));
+            txtPreI.DataBindings.Add(new Binding("Text", bsCurrent, "PreIW.WordID"));
+            txtPreA.DataBindings.Add(new Binding("Text", bsCurrent, "PreAW.WordID"));
+            txtLitQ.DataBindings.Add(new Binding("Text", bsCurrent, "LitQW.WordID"));
+            txtPstI.DataBindings.Add(new Binding("Text", bsCurrent, "PstIW.WordID"));
+            txtPstP.DataBindings.Add(new Binding("Text", bsCurrent, "PstPW.WordID"));
+            txtRO.DataBindings.Add(new Binding("Text", bsCurrent, "RespOptionsS.RespSetName"));
+            txtNR.DataBindings.Add(new Binding("Text", bsCurrent, "NRCodesS.RespSetName"));
 
             // labels
             txtVarLabel.DataBindings.Add(new Binding("Text", bsLabels, "VarLabel"));
@@ -262,64 +258,18 @@ namespace SDIFrontEnd
         }
 
         /// <summary>
-        /// Set the DataSource of each wording drop down to the global list.
-        /// </summary>
-        private void FillWordings()
-        {
-            cboPreP.DataSource = null;
-            cboPreP.DisplayMember = "WordID";
-            cboPreP.ValueMember = "WordID";
-            cboPreP.DataSource = Globals.AllPreP;
-
-            cboPreI.DataSource = null;
-            cboPreI.DisplayMember = "WordID";
-            cboPreI.ValueMember = "WordID";
-            cboPreI.DataSource = Globals.AllPreI;
-
-            cboPreA.DataSource = null;
-            cboPreA.DisplayMember = "WordID";
-            cboPreA.ValueMember = "WordID";
-            cboPreA.DataSource = Globals.AllPreA;
-
-            cboLitQ.DataSource = null;
-            cboLitQ.DisplayMember = "WordID";
-            cboLitQ.ValueMember = "WordID";
-            cboLitQ.DataSource = Globals.AllLitQ;
-
-            cboPstI.DataSource = null;
-            cboPstI.DisplayMember = "WordID";
-            cboPstI.ValueMember = "WordID";
-            cboPstI.DataSource = Globals.AllPstI;
-
-            cboPstP.DataSource = null;
-            cboPstP.DisplayMember = "WordID";
-            cboPstP.ValueMember = "WordID";
-            cboPstP.DataSource = Globals.AllPstP;
-
-            cboRespOptions.DataSource = null;
-            cboRespOptions.DisplayMember = "RespSetName";
-            cboRespOptions.ValueMember = "RespSetName";
-            cboRespOptions.DataSource = Globals.AllRespOptions;
-
-            cboNRCodes.DataSource = null;
-            cboNRCodes.DisplayMember = "RespSetName";
-            cboNRCodes.ValueMember = "RespSetName";
-            cboNRCodes.DataSource = Globals.AllNRCodes;
-        }
-
-        /// <summary>
         /// Binds the wording number boxes' ReadOnly attribute to the Current Survey's locked attribute
         /// </summary>
         private void LockForm()
         {
-            cboPreP.Enabled = !CurrentSurvey.Locked;
-            cboPreI.Enabled = !CurrentSurvey.Locked;
-            cboPreA.Enabled = !CurrentSurvey.Locked;
-            cboLitQ.Enabled = !CurrentSurvey.Locked;
-            cboPstI.Enabled = !CurrentSurvey.Locked;
-            cboPstP.Enabled = !CurrentSurvey.Locked;
-            cboRespOptions.Enabled = !CurrentSurvey.Locked;
-            cboNRCodes.Enabled = !CurrentSurvey.Locked;
+            txtPreP.Enabled = !CurrentSurvey.Locked;
+            txtPreI.Enabled = !CurrentSurvey.Locked;
+            txtPreA.Enabled = !CurrentSurvey.Locked;
+            txtLitQ.Enabled = !CurrentSurvey.Locked;
+            txtPstI.Enabled = !CurrentSurvey.Locked;
+            txtPstP.Enabled = !CurrentSurvey.Locked;
+            txtRO.Enabled = !CurrentSurvey.Locked;
+            txtNR.Enabled = !CurrentSurvey.Locked;
 
             cmdUnlock.Enabled = CurrentSurvey.Locked;
         }
@@ -365,15 +315,6 @@ namespace SDIFrontEnd
             cboMoveTo.MouseWheel += ComboBox_MouseWheel;
             cboSurvey.MouseWheel += ComboBox_MouseWheel;
             cboGoToVar.MouseWheel += ComboBox_MouseWheel;
-
-            cboPreP.MouseWheel += ComboBox_MouseWheel;
-            cboPreI.MouseWheel += ComboBox_MouseWheel;
-            cboPreA.MouseWheel += ComboBox_MouseWheel;
-            cboLitQ.MouseWheel += ComboBox_MouseWheel;
-            cboPstI.MouseWheel += ComboBox_MouseWheel;
-            cboPstP.MouseWheel += ComboBox_MouseWheel;
-            cboRespOptions.MouseWheel += ComboBox_MouseWheel;
-            cboNRCodes.MouseWheel += ComboBox_MouseWheel;
 
             cboDomainLabel.MouseWheel += ComboBox_MouseWheel;
             cboTopicLabel.MouseWheel += ComboBox_MouseWheel;
@@ -545,7 +486,6 @@ namespace SDIFrontEnd
                     lstQuestionList.Items[state.RecordPosition].EnsureVisible();
                 }
             }
-
             CurrentRecord = (QuestionRecord)bs.Current;
             LoadQuestion();
         }
@@ -567,9 +507,7 @@ namespace SDIFrontEnd
         }
 
         /// <summary>
-        /// If a wording number changes for a member of the bound list, update CurrentRecord's wording text, mark it as Dirty and refresh the question text. This assumes
-        /// that the modified member is the same as the CurrentRecord. TODO It is possible that this event is fired for other members than CurrentRecord but I have no way 
-        /// of figuring that out right now.
+        /// If a wording changes for a member of the bound list, mark it as Dirty and refresh the question text.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -766,6 +704,123 @@ namespace SDIFrontEnd
             }
         }
 
+        private void WordID_Validating(object sender, CancelEventArgs e)
+        {
+            TextBox txt = (TextBox)sender;
+
+            string wordingNum = txt.Text;
+
+            if (wordingNum.Any(x => char.IsLetter(x)))
+            {
+                MessageBox.Show("Invalid entry. Use numbers only.");
+                e.Cancel = true;
+                txt.Undo();
+            }
+
+            switch (txt.Name)
+            {
+                case "txtPreP":
+                    Wording prep = Globals.AllPreP.FirstOrDefault(x => x.WordID == Int32.Parse(wordingNum));
+                    if (prep == null)
+                    {
+                        MessageBox.Show($"Invalid entry. PreP# {wordingNum} does not exist.", "Error");
+                        e.Cancel = true;
+                        txt.Undo();
+                        return;
+                    }
+                    CurrentRecord.Item.PrePW = prep;
+                    break;
+                case "txtPreI":
+                    Wording prei = Globals.AllPreI.FirstOrDefault(x => x.WordID == Int32.Parse(wordingNum));
+                    if (prei == null)
+                    {
+                        MessageBox.Show($"Invalid entry. PreI# {wordingNum} does not exist.", "Error");
+                        e.Cancel = true;
+                        txt.Undo();
+                        return;
+                    }
+                    CurrentRecord.Item.PreIW = prei;
+                    break;
+                case "txtPreA":
+                    Wording prea = Globals.AllPreA.FirstOrDefault(x => x.WordID == Int32.Parse(wordingNum));
+                    if (prea == null)
+                    {
+                        MessageBox.Show($"Invalid entry. PreA# {wordingNum} does not exist.", "Error");
+                        e.Cancel = true;
+                        txt.Undo();
+                        return;
+                    }
+                    CurrentRecord.Item.PreAW = prea;
+                    break;
+                case "txtLitQ":
+                    Wording litq = Globals.AllLitQ.FirstOrDefault(x => x.WordID == Int32.Parse(wordingNum));
+                    if (litq == null)
+                    {
+                        MessageBox.Show($"Invalid entry. LitQ# {wordingNum} does not exist.", "Error");
+                        e.Cancel = true;
+                        txt.Undo();
+                        return;
+                    }
+                    CurrentRecord.Item.LitQW = litq;
+                    break;
+                case "txtPstI":
+                    Wording psti = Globals.AllPstI.FirstOrDefault(x => x.WordID == Int32.Parse(wordingNum));
+                    if (psti == null)
+                    {
+                        MessageBox.Show($"Invalid entry. PstI# {wordingNum} does not exist.", "Error");
+                        e.Cancel = true;
+                        txt.Undo();
+                        return;
+                    }
+                    CurrentRecord.Item.PstIW = psti;
+                    break;
+                case "txtPstP":
+                    Wording pstp = Globals.AllPstP.FirstOrDefault(x => x.WordID == Int32.Parse(wordingNum));
+                    if (pstp == null)
+                    {
+                        MessageBox.Show($"Invalid entry. PstP# {wordingNum} does not exist.", "Error");
+                        e.Cancel = true;
+                        txt.Undo();
+                        return;
+                    }
+                    CurrentRecord.Item.PreIW = pstp;
+                    break;
+            }
+        }
+
+        private void RespSetName_Validating(object sender, CancelEventArgs e)
+        {
+            TextBox txt = (TextBox)sender;
+
+            string respSetName = txt.Text;
+
+            switch (txt.Name)
+            {
+                case "txtRO":
+                    ResponseSet ro = Globals.AllRespOptions.FirstOrDefault(x => x.RespSetName.ToLower().Equals(respSetName.ToLower()));
+                    if (ro == null)
+                    {
+                        MessageBox.Show($"Invalid entry. Response set '{respSetName}' does not exist.", "Error");
+                        e.Cancel = true;
+                        txt.Undo();
+                        return;
+                    }
+                    CurrentRecord.Item.RespOptionsS = ro;
+                    break;
+                case "txtNR":
+                    ResponseSet nr = Globals.AllNRCodes.FirstOrDefault(x => x.RespSetName.ToLower().Equals(respSetName.ToLower()));
+                    if (nr == null)
+                    {
+                        MessageBox.Show($"Invalid entry. Non-response set '{respSetName}' does not exist.", "Error");
+                        e.Cancel = true;
+                        txt.Undo();
+                        return;
+                    }
+                    CurrentRecord.Item.NRCodesS = nr;
+                    break;
+            }
+        }
+
         /// <summary>
         /// Hide popup forms when the form is no longer the focus
         /// </summary>
@@ -889,11 +944,6 @@ namespace SDIFrontEnd
             cboProductLabel.DisplayMember = "LabelText";
             cboProductLabel.DataSource = new List<ProductLabel>(Globals.AllProductLabels);
             cboProductLabel.SelectedItem = label;
-        }
-
-        private void SurveyEditor_RefreshWordings(object sender, EventArgs e)
-        {
-            FillWordings();
         }
 
         private void dgvTimeFrames_NewRowNeeded(object sender, DataGridViewRowEventArgs e)
@@ -1203,7 +1253,7 @@ namespace SDIFrontEnd
             if (CurrentRecord == null)
                 return;
 
-            string rich = Converter.HTMLToRtf(CurrentRecord.Item.GetQuestionTextHTML(true));
+            string rich = Converter.HTMLToRtf(CurrentRecord.Item.GetQuestionTextHTML(true, true));
 
             rtbQuestionText.Rtf = null;
             rtbQuestionText.Rtf = rich;

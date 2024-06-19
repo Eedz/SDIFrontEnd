@@ -35,7 +35,6 @@
             this.cmdSearch = new System.Windows.Forms.Button();
             this.repeaterResults = new Microsoft.VisualBasic.PowerPacks.DataRepeater();
             this.cmdViewUsage = new System.Windows.Forms.Button();
-            this.txtRespOptions = new System.Windows.Forms.TextBox();
             this.txtRespName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -44,6 +43,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.rbMatchExact = new System.Windows.Forms.RadioButton();
             this.rbMatchAny = new System.Windows.Forms.RadioButton();
+            this.rtbResponseOptions = new System.Windows.Forms.RichTextBox();
             this.menuStrip1.SuspendLayout();
             this.repeaterResults.ItemTemplate.SuspendLayout();
             this.repeaterResults.SuspendLayout();
@@ -102,8 +102,8 @@
             // 
             // repeaterResults.ItemTemplate
             // 
+            this.repeaterResults.ItemTemplate.Controls.Add(this.rtbResponseOptions);
             this.repeaterResults.ItemTemplate.Controls.Add(this.cmdViewUsage);
-            this.repeaterResults.ItemTemplate.Controls.Add(this.txtRespOptions);
             this.repeaterResults.ItemTemplate.Controls.Add(this.txtRespName);
             this.repeaterResults.ItemTemplate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.repeaterResults.ItemTemplate.Size = new System.Drawing.Size(699, 168);
@@ -115,6 +115,7 @@
             this.repeaterResults.TabIndex = 3;
             this.repeaterResults.Text = "dataRepeater1";
             this.repeaterResults.Visible = false;
+            this.repeaterResults.DrawItem += new Microsoft.VisualBasic.PowerPacks.DataRepeaterItemEventHandler(this.repeaterResults_DrawItem);
             // 
             // cmdViewUsage
             // 
@@ -127,15 +128,6 @@
             this.cmdViewUsage.Text = "Usage";
             this.cmdViewUsage.UseVisualStyleBackColor = false;
             this.cmdViewUsage.Click += new System.EventHandler(this.cmdViewUsage_Click);
-            // 
-            // txtRespOptions
-            // 
-            this.txtRespOptions.Location = new System.Drawing.Point(3, 35);
-            this.txtRespOptions.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtRespOptions.Multiline = true;
-            this.txtRespOptions.Name = "txtRespOptions";
-            this.txtRespOptions.Size = new System.Drawing.Size(556, 120);
-            this.txtRespOptions.TabIndex = 1;
             // 
             // txtRespName
             // 
@@ -221,6 +213,14 @@
             this.rbMatchAny.Text = "Any";
             this.rbMatchAny.UseVisualStyleBackColor = true;
             // 
+            // rtbResponseOptions
+            // 
+            this.rtbResponseOptions.Location = new System.Drawing.Point(3, 30);
+            this.rtbResponseOptions.Name = "rtbResponseOptions";
+            this.rtbResponseOptions.Size = new System.Drawing.Size(556, 130);
+            this.rtbResponseOptions.TabIndex = 3;
+            this.rtbResponseOptions.Text = "";
+            // 
             // ResponseSetSearch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -264,7 +264,6 @@
         private System.Windows.Forms.Button cmdSearch;
         private Microsoft.VisualBasic.PowerPacks.DataRepeater repeaterResults;
         private System.Windows.Forms.Button cmdViewUsage;
-        private System.Windows.Forms.TextBox txtRespOptions;
         private System.Windows.Forms.TextBox txtRespName;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
@@ -274,5 +273,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton rbMatchExact;
         private System.Windows.Forms.RadioButton rbMatchAny;
+        private System.Windows.Forms.RichTextBox rtbResponseOptions;
     }
 }

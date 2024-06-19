@@ -53,13 +53,14 @@
             this.Corrected = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.QType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panelQuestion = new System.Windows.Forms.Panel();
-            this.cboPreA = new System.Windows.Forms.ComboBox();
-            this.cboPstP = new System.Windows.Forms.ComboBox();
-            this.cboPreI = new System.Windows.Forms.ComboBox();
-            this.cboPstI = new System.Windows.Forms.ComboBox();
-            this.cboNRCodes = new System.Windows.Forms.ComboBox();
-            this.cboRespOptions = new System.Windows.Forms.ComboBox();
-            this.cboLitQ = new System.Windows.Forms.ComboBox();
+            this.txtPstP = new System.Windows.Forms.TextBox();
+            this.txtPstI = new System.Windows.Forms.TextBox();
+            this.txtNR = new System.Windows.Forms.TextBox();
+            this.txtRO = new System.Windows.Forms.TextBox();
+            this.txtLitQ = new System.Windows.Forms.TextBox();
+            this.txtPreA = new System.Windows.Forms.TextBox();
+            this.txtPreI = new System.Windows.Forms.TextBox();
+            this.txtPreP = new System.Windows.Forms.TextBox();
             this.cmdRefreshImages = new System.Windows.Forms.Button();
             this.txtImageFileNames = new System.Windows.Forms.TextBox();
             this.rtbPlainFilter = new SDIFrontEnd.ExtraRichTextBox();
@@ -99,7 +100,6 @@
             this.txtVarLabel = new System.Windows.Forms.TextBox();
             this.rtbQuestionText = new System.Windows.Forms.RichTextBox();
             this.txtVarName = new System.Windows.Forms.TextBox();
-            this.cboPreP = new System.Windows.Forms.ComboBox();
             this.lblTitle = new System.Windows.Forms.Label();
             this.menuMain = new System.Windows.Forms.MenuStrip();
             this.closeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -375,13 +375,14 @@
             // panelQuestion
             // 
             this.panelQuestion.AutoScroll = true;
-            this.panelQuestion.Controls.Add(this.cboPreA);
-            this.panelQuestion.Controls.Add(this.cboPstP);
-            this.panelQuestion.Controls.Add(this.cboPreI);
-            this.panelQuestion.Controls.Add(this.cboPstI);
-            this.panelQuestion.Controls.Add(this.cboNRCodes);
-            this.panelQuestion.Controls.Add(this.cboRespOptions);
-            this.panelQuestion.Controls.Add(this.cboLitQ);
+            this.panelQuestion.Controls.Add(this.txtPstP);
+            this.panelQuestion.Controls.Add(this.txtPstI);
+            this.panelQuestion.Controls.Add(this.txtNR);
+            this.panelQuestion.Controls.Add(this.txtRO);
+            this.panelQuestion.Controls.Add(this.txtLitQ);
+            this.panelQuestion.Controls.Add(this.txtPreA);
+            this.panelQuestion.Controls.Add(this.txtPreI);
+            this.panelQuestion.Controls.Add(this.txtPreP);
             this.panelQuestion.Controls.Add(this.cmdRefreshImages);
             this.panelQuestion.Controls.Add(this.txtImageFileNames);
             this.panelQuestion.Controls.Add(this.rtbPlainFilter);
@@ -406,75 +407,69 @@
             this.panelQuestion.Size = new System.Drawing.Size(948, 681);
             this.panelQuestion.TabIndex = 34;
             // 
-            // cboPreA
+            // txtPstP
             // 
-            this.cboPreA.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.cboPreA.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cboPreA.FormattingEnabled = true;
-            this.cboPreA.Location = new System.Drawing.Point(89, 124);
-            this.cboPreA.Name = "cboPreA";
-            this.cboPreA.Size = new System.Drawing.Size(74, 24);
-            this.cboPreA.TabIndex = 82;
+            this.txtPstP.Location = new System.Drawing.Point(89, 293);
+            this.txtPstP.Name = "txtPstP";
+            this.txtPstP.Size = new System.Drawing.Size(74, 23);
+            this.txtPstP.TabIndex = 90;
+            this.txtPstP.Validating += new System.ComponentModel.CancelEventHandler(this.WordID_Validating);
             // 
-            // cboPstP
+            // txtPstI
             // 
-            this.cboPstP.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.cboPstP.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cboPstP.FormattingEnabled = true;
-            this.cboPstP.Location = new System.Drawing.Point(89, 293);
-            this.cboPstP.Name = "cboPstP";
-            this.cboPstP.Size = new System.Drawing.Size(74, 24);
-            this.cboPstP.TabIndex = 81;
+            this.txtPstI.Location = new System.Drawing.Point(89, 258);
+            this.txtPstI.Name = "txtPstI";
+            this.txtPstI.Size = new System.Drawing.Size(74, 23);
+            this.txtPstI.TabIndex = 89;
+            this.txtPstI.Validating += new System.ComponentModel.CancelEventHandler(this.WordID_Validating);
             // 
-            // cboPreI
+            // txtNR
             // 
-            this.cboPreI.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.cboPreI.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cboPreI.FormattingEnabled = true;
-            this.cboPreI.Location = new System.Drawing.Point(89, 90);
-            this.cboPreI.Name = "cboPreI";
-            this.cboPreI.Size = new System.Drawing.Size(74, 24);
-            this.cboPreI.TabIndex = 80;
+            this.txtNR.Location = new System.Drawing.Point(89, 224);
+            this.txtNR.Name = "txtNR";
+            this.txtNR.Size = new System.Drawing.Size(74, 23);
+            this.txtNR.TabIndex = 88;
+            this.txtNR.Validating += new System.ComponentModel.CancelEventHandler(this.RespSetName_Validating);
             // 
-            // cboPstI
+            // txtRO
             // 
-            this.cboPstI.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.cboPstI.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cboPstI.FormattingEnabled = true;
-            this.cboPstI.Location = new System.Drawing.Point(89, 258);
-            this.cboPstI.Name = "cboPstI";
-            this.cboPstI.Size = new System.Drawing.Size(74, 24);
-            this.cboPstI.TabIndex = 79;
+            this.txtRO.Location = new System.Drawing.Point(89, 192);
+            this.txtRO.Name = "txtRO";
+            this.txtRO.Size = new System.Drawing.Size(74, 23);
+            this.txtRO.TabIndex = 87;
+            this.txtRO.Validating += new System.ComponentModel.CancelEventHandler(this.RespSetName_Validating);
             // 
-            // cboNRCodes
+            // txtLitQ
             // 
-            this.cboNRCodes.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.cboNRCodes.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cboNRCodes.FormattingEnabled = true;
-            this.cboNRCodes.Location = new System.Drawing.Point(89, 224);
-            this.cboNRCodes.Name = "cboNRCodes";
-            this.cboNRCodes.Size = new System.Drawing.Size(74, 24);
-            this.cboNRCodes.TabIndex = 78;
+            this.txtLitQ.Location = new System.Drawing.Point(89, 158);
+            this.txtLitQ.Name = "txtLitQ";
+            this.txtLitQ.Size = new System.Drawing.Size(74, 23);
+            this.txtLitQ.TabIndex = 86;
+            this.txtLitQ.Validating += new System.ComponentModel.CancelEventHandler(this.WordID_Validating);
             // 
-            // cboRespOptions
+            // txtPreA
             // 
-            this.cboRespOptions.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.cboRespOptions.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cboRespOptions.FormattingEnabled = true;
-            this.cboRespOptions.Location = new System.Drawing.Point(89, 192);
-            this.cboRespOptions.Name = "cboRespOptions";
-            this.cboRespOptions.Size = new System.Drawing.Size(74, 24);
-            this.cboRespOptions.TabIndex = 77;
+            this.txtPreA.Location = new System.Drawing.Point(89, 124);
+            this.txtPreA.Name = "txtPreA";
+            this.txtPreA.Size = new System.Drawing.Size(74, 23);
+            this.txtPreA.TabIndex = 85;
+            this.txtPreA.Validating += new System.ComponentModel.CancelEventHandler(this.WordID_Validating);
             // 
-            // cboLitQ
+            // txtPreI
             // 
-            this.cboLitQ.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.cboLitQ.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cboLitQ.FormattingEnabled = true;
-            this.cboLitQ.Location = new System.Drawing.Point(89, 158);
-            this.cboLitQ.Name = "cboLitQ";
-            this.cboLitQ.Size = new System.Drawing.Size(74, 24);
-            this.cboLitQ.TabIndex = 76;
+            this.txtPreI.Location = new System.Drawing.Point(89, 90);
+            this.txtPreI.Name = "txtPreI";
+            this.txtPreI.Size = new System.Drawing.Size(74, 23);
+            this.txtPreI.TabIndex = 84;
+            this.txtPreI.Validating += new System.ComponentModel.CancelEventHandler(this.WordID_Validating);
+            // 
+            // txtPreP
+            // 
+            this.txtPreP.Location = new System.Drawing.Point(89, 56);
+            this.txtPreP.Name = "txtPreP";
+            this.txtPreP.Size = new System.Drawing.Size(74, 23);
+            this.txtPreP.TabIndex = 83;
+            this.txtPreP.Validating += new System.ComponentModel.CancelEventHandler(this.WordID_Validating);
             // 
             // cmdRefreshImages
             // 
@@ -947,16 +942,6 @@
             this.txtVarName.TabIndex = 23;
             this.txtVarName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // cboPreP
-            // 
-            this.cboPreP.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.cboPreP.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cboPreP.FormattingEnabled = true;
-            this.cboPreP.Location = new System.Drawing.Point(649, 251);
-            this.cboPreP.Name = "cboPreP";
-            this.cboPreP.Size = new System.Drawing.Size(74, 24);
-            this.cboPreP.TabIndex = 75;
-            // 
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
@@ -1423,7 +1408,6 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.toolStripExport);
-            this.Controls.Add(this.cboPreP);
             this.Controls.Add(this.cmdSaveSurvey);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.cmdUnlock);
@@ -1586,13 +1570,13 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtImageFileNames;
         private System.Windows.Forms.Button cmdRefreshImages;
-        private System.Windows.Forms.ComboBox cboPreP;
-        private System.Windows.Forms.ComboBox cboPreA;
-        private System.Windows.Forms.ComboBox cboPstP;
-        private System.Windows.Forms.ComboBox cboPreI;
-        private System.Windows.Forms.ComboBox cboPstI;
-        private System.Windows.Forms.ComboBox cboNRCodes;
-        private System.Windows.Forms.ComboBox cboRespOptions;
-        private System.Windows.Forms.ComboBox cboLitQ;
+        private System.Windows.Forms.TextBox txtPstP;
+        private System.Windows.Forms.TextBox txtPstI;
+        private System.Windows.Forms.TextBox txtNR;
+        private System.Windows.Forms.TextBox txtRO;
+        private System.Windows.Forms.TextBox txtLitQ;
+        private System.Windows.Forms.TextBox txtPreA;
+        private System.Windows.Forms.TextBox txtPreI;
+        private System.Windows.Forms.TextBox txtPreP;
     }
 }
