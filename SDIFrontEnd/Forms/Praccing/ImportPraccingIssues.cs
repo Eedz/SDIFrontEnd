@@ -668,7 +668,7 @@ namespace SDIFrontEnd
         private void cmdBrowse_Click(object sender, EventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = "*.doc|*.docx";
+            dialog.Filter = "Word Documents|*.doc;*.docx";
             dialog.ShowDialog();
 
             txtPath.Text = dialog.FileName;

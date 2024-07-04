@@ -179,7 +179,7 @@ namespace SDIFrontEnd
         {
             await Task.Run(() =>
             {
-                var images = DBAction.GetSurveyImagesFromFolder(CurrentSurvey);
+                var images = DBAction.GetSurveyImages(CurrentSurvey);
 
                 if (images.Count > 0)
                 {
@@ -562,9 +562,7 @@ namespace SDIFrontEnd
         }
 
         /// <summary>
-        /// If a wording number changes for a member of the bound list, update CurrentRecord's wording text, mark it as Dirty and refresh the question text. This assumes
-        /// that the modified member is the same as the CurrentRecord. TODO It is possible that this event is fired for other members than CurrentRecord but I have no way 
-        /// of figuring that out right now.
+        /// If the labels change for a member of the bound list, mark it as DirtyLabels.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -596,7 +594,6 @@ namespace SDIFrontEnd
 
             bs.ResetBindings(false);
 
-            LoadQuestion();
             UpdateStatus();
 
             ShadeListItem(index, Color.Orange);
@@ -613,8 +610,6 @@ namespace SDIFrontEnd
 
             if (CurrentRecord == null)
                 return;
-
-            //bs.ResetBindings(false);
 
             dgvTimeFrames.Rows.Clear();
             dgvTimeFrames.RowCount = CurrentRecord.Item.TimeFrames.Count + 1;
@@ -1125,6 +1120,48 @@ namespace SDIFrontEnd
 
             CurrentRecord.Item.FilterDescription = html;
         }
+
+        private void SurveyEditor_RefreshCommentCount(object sender, QuestionCommentCreated e)
+        {
+            foreach (QuestionCommentRecord qc in e.comments)
+            {
+                if (qc.Item.Survey.Equals(CurrentSurvey.SurveyCode))
+                {
+                    Records.First(x => x.Item.VarName.VarName.Equals(qc.Item.VarName)).Item.Comments.Add(qc.Item);
+                }
+            }
+            UpdateInfo();
+        }
+
+        private void ComboBox_Validating(object sender, CancelEventArgs e)
+        {
+            ComboBox cbo = (ComboBox)sender;
+            if (cbo.SelectedItem == null)
+            {
+                cbo.SelectedIndex = 0;
+            }
+        }
+
+        private void cboMoveTo_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            if (cboMoveTo.SelectedItem == null)
+                return;
+
+            if (CurrentSurvey.Locked)
+                return;
+
+            MoveSelection((VariableName)cboMoveTo.SelectedItem);
+        }
+
+        private void cmdAddImage_Click(object sender, EventArgs e)
+        {
+            AddImage();
+        }
+
+        private void cmdDeleteImage_Click(object sender, EventArgs e)
+        {
+            DeleteImage();
+        }
         #endregion
 
         #region Wording Buttons
@@ -1267,8 +1304,11 @@ namespace SDIFrontEnd
 
         private void LoadImages()
         {
-            if (CurrentRecord!=null)
-                txtImageFileNames.Text = string.Join("\r\n", CurrentRecord.Item.Images.Select(x => x.ImageName));
+            if (CurrentRecord != null)
+            {
+                lstImages.DataSource = null;
+                lstImages.DataSource = CurrentRecord.Item.Images;
+            }
         }
 
 
@@ -2318,6 +2358,124 @@ namespace SDIFrontEnd
 
             ViewTranslation(l.LanguageName);
         }
+
+        private void MoveSelection(VariableName targetVar)
+        {
+            ArrayList insertItems = new ArrayList(lstQuestionList.SelectedItems.Count);
+            List<QuestionRecord> questions = new List<QuestionRecord>();
+
+            foreach (ListViewItem item in lstQuestionList.SelectedItems)
+            {
+                insertItems.Add(item.Clone());
+                questions.Add((QuestionRecord)item.Tag);
+            }
+
+            int targetIndex = 0;
+            for (int i = 0; i < Records.Count; i++)
+            {
+                if (Records[i].Item.VarName.RefVarName.Equals(targetVar.RefVarName))
+                {
+                    targetIndex = i;
+                    break;
+                }
+            }
+
+            // insert the items in the list starting from the last one
+            for (int i = insertItems.Count - 1; i >= 0; i--)
+            {
+                ListViewItem insertItem = (ListViewItem)insertItems[i];
+                lstQuestionList.Items.Insert(targetIndex, insertItem);
+            }
+
+            // remove items from their old locations in the list and the underlying question list
+            foreach (ListViewItem removeItem in lstQuestionList.SelectedItems)
+            {
+                lstQuestionList.Items.Remove(removeItem);
+                Records.Remove((QuestionRecord)removeItem.Tag);
+            }
+
+            if (((ListViewItem)insertItems[0]).Index < targetIndex)
+            {
+                MoveQuestions(questions, targetIndex - questions.Count);
+            }
+            else
+                MoveQuestions(questions, targetIndex);
+
+            ReNumberSurvey();
+
+            UpdateStatus();
+        }
+
+        private void MoveQuestions(List<QuestionRecord> questions, int newLocation)
+        {
+
+            // remove items from their old locations in question list
+            foreach (QuestionRecord removeItem in questions)
+            {
+                Records.Remove(removeItem);
+            }
+
+            // if dropped at the end of the list, reset the drop index to account for the removals
+            if (newLocation > Records.Count)
+                newLocation = newLocation - questions.Count;
+
+            // now insert the questions back into the question list at their new location
+            for (int i = questions.Count - 1; i >= 0; i--)
+            {
+                Records.Insert(newLocation, questions[i]);
+            }
+        }
+
+        private void AddImage()
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.InitialDirectory = Properties.Resources.ImageRepo + @"\" + CurrentSurvey.SurveyCodePrefix + @" Images\" + CurrentSurvey.SurveyCode;
+            dialog.Filter = "Images|*.jpg;*.jpeg;*.png";
+            dialog.ShowDialog();
+
+            string file = dialog.FileName;
+
+            if (string.IsNullOrEmpty(file))
+            {
+                return;
+            }
+            else if (!file.StartsWith(Properties.Resources.ImageRepo + @"\" + CurrentSurvey.SurveyCodePrefix + @" Images\" + CurrentSurvey.SurveyCode + @"\"))
+            {
+                MessageBox.Show(@"Images must be stored in the following folder: \r\n" +
+                    Properties.Resources.ImageRepo + @"\" + CurrentSurvey.SurveyCodePrefix + @" Images\" + CurrentSurvey.SurveyCode + ". Ensure the file exists and try again.");
+
+                return;
+            }
+
+            SurveyImage image = new SurveyImage(file.Substring(file.LastIndexOf(@"\") + 1));
+            image.QID = CurrentRecord.Item.ID;
+            image.Survey = CurrentSurvey.SurveyCode;
+            image.VarName = CurrentRecord.Item.VarName.VarName;
+            image.ImageName = file.Substring(file.LastIndexOf(@"\") + 1);
+            image.ImagePath = file;
+
+            CurrentRecord.AddedImages.Add(image);
+            CurrentRecord.Item.Images.Add(image);
+            LoadQuestion();
+            UpdateStatus();
+        }
+
+        private void DeleteImage()
+        {
+            if (lstImages.SelectedIndex == -1) { return; }
+
+            if (MessageBox.Show("Are you sure you want to remove this image?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.No)
+                return;
+
+            SurveyImage img = lstImages.SelectedItem as SurveyImage;
+
+            CurrentRecord.DeletedImages.Add(img);
+            CurrentRecord.Item.Images.Remove(img);
+            LoadQuestion();
+            UpdateStatus();
+
+            lstImages.Refresh();
+        }
         #endregion
 
         #region Navigation buttons
@@ -2540,108 +2698,6 @@ namespace SDIFrontEnd
 
         #endregion
 
-        private void SurveyEditor_RefreshCommentCount (object sender, QuestionCommentCreated e)
-        {
-            foreach (QuestionCommentRecord qc in e.comments)
-            {
-                if (qc.Item.Survey.Equals(CurrentSurvey.SurveyCode))
-                {
-                    Records.First(x=>x.Item.VarName.VarName.Equals(qc.Item.VarName)).Item.Comments.Add(qc.Item);
-                }
-            }
-            UpdateInfo();
-        }
-
-        private void ComboBox_Validating(object sender, CancelEventArgs e)
-        {
-            ComboBox cbo = (ComboBox)sender;
-            if (cbo.SelectedItem == null)
-            {
-                cbo.SelectedIndex = 0;
-            }
-        }
-
-        private void cboMoveTo_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            if (cboMoveTo.SelectedItem == null)
-                return;
-
-            if (CurrentSurvey.Locked)
-                return;
-
-            MoveSelection((VariableName)cboMoveTo.SelectedItem);
-        }
-
-        private void MoveSelection(VariableName targetVar)
-        {
-            ArrayList insertItems = new ArrayList(lstQuestionList.SelectedItems.Count);
-            List<QuestionRecord> questions = new List<QuestionRecord>();
-
-            foreach (ListViewItem item in lstQuestionList.SelectedItems)
-            {
-                insertItems.Add(item.Clone());
-                questions.Add((QuestionRecord)item.Tag);
-            }
-
-            int targetIndex = 0;
-            for (int i = 0; i < Records.Count; i++)
-            {
-                if (Records[i].Item.VarName.RefVarName.Equals(targetVar.RefVarName))
-                {
-                    targetIndex = i;
-                    break;
-                }
-            }
-            
-
-            // insert the items in the list starting from the last one
-            for (int i = insertItems.Count - 1; i >= 0; i--)
-            {
-                ListViewItem insertItem = (ListViewItem)insertItems[i];
-                lstQuestionList.Items.Insert(targetIndex, insertItem);
-            }
-
-            // remove items from their old locations in the list and the underlying question list
-            foreach (ListViewItem removeItem in lstQuestionList.SelectedItems)
-            {
-                lstQuestionList.Items.Remove(removeItem);
-                Records.Remove((QuestionRecord)removeItem.Tag);
-            }
-            
-            if (((ListViewItem)insertItems[0]).Index < targetIndex) {
-                MoveQuestions(questions, targetIndex - questions.Count);
-            }
-            else
-                MoveQuestions(questions, targetIndex ); 
-
-            ReNumberSurvey();
-
-            UpdateStatus();
-        }
-
-        private void MoveQuestions(List<QuestionRecord> questions, int newLocation)
-        {
-           
-            // remove items from their old locations in question list
-            foreach (QuestionRecord removeItem in questions)
-            {
-                Records.Remove(removeItem);
-            }
-
-            // if dropped at the end of the list, reset the drop index to account for the removals
-            if (newLocation > Records.Count)
-                newLocation = newLocation - questions.Count;
-
-            // now insert the questions back into the question list at their new location
-            for (int i = questions.Count - 1; i >= 0; i--)
-            {
-                Records.Insert(newLocation, questions[i]);
-            }
-        }
-
-        private void cmdRefreshImages_Click(object sender, EventArgs e)
-        {
-            GetImages();
-        }
+        
     }
 }

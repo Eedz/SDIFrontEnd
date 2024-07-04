@@ -53,6 +53,9 @@
             this.Corrected = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.QType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panelQuestion = new System.Windows.Forms.Panel();
+            this.lstImages = new System.Windows.Forms.ListBox();
+            this.cmdDeleteImage = new System.Windows.Forms.Button();
+            this.cmdAddImage = new System.Windows.Forms.Button();
             this.txtPstP = new System.Windows.Forms.TextBox();
             this.txtPstI = new System.Windows.Forms.TextBox();
             this.txtNR = new System.Windows.Forms.TextBox();
@@ -61,8 +64,6 @@
             this.txtPreA = new System.Windows.Forms.TextBox();
             this.txtPreI = new System.Windows.Forms.TextBox();
             this.txtPreP = new System.Windows.Forms.TextBox();
-            this.cmdRefreshImages = new System.Windows.Forms.Button();
-            this.txtImageFileNames = new System.Windows.Forms.TextBox();
             this.rtbPlainFilter = new SDIFrontEnd.ExtraRichTextBox();
             this.dgvTimeFrames = new System.Windows.Forms.DataGridView();
             this.chTimeFrame = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -375,6 +376,9 @@
             // panelQuestion
             // 
             this.panelQuestion.AutoScroll = true;
+            this.panelQuestion.Controls.Add(this.lstImages);
+            this.panelQuestion.Controls.Add(this.cmdDeleteImage);
+            this.panelQuestion.Controls.Add(this.cmdAddImage);
             this.panelQuestion.Controls.Add(this.txtPstP);
             this.panelQuestion.Controls.Add(this.txtPstI);
             this.panelQuestion.Controls.Add(this.txtNR);
@@ -383,8 +387,6 @@
             this.panelQuestion.Controls.Add(this.txtPreA);
             this.panelQuestion.Controls.Add(this.txtPreI);
             this.panelQuestion.Controls.Add(this.txtPreP);
-            this.panelQuestion.Controls.Add(this.cmdRefreshImages);
-            this.panelQuestion.Controls.Add(this.txtImageFileNames);
             this.panelQuestion.Controls.Add(this.rtbPlainFilter);
             this.panelQuestion.Controls.Add(this.dgvTimeFrames);
             this.panelQuestion.Controls.Add(this.cmdOpenPstP);
@@ -406,6 +408,35 @@
             this.panelQuestion.Name = "panelQuestion";
             this.panelQuestion.Size = new System.Drawing.Size(948, 681);
             this.panelQuestion.TabIndex = 34;
+            // 
+            // lstImages
+            // 
+            this.lstImages.FormattingEnabled = true;
+            this.lstImages.ItemHeight = 16;
+            this.lstImages.Location = new System.Drawing.Point(641, 517);
+            this.lstImages.Name = "lstImages";
+            this.lstImages.Size = new System.Drawing.Size(269, 132);
+            this.lstImages.TabIndex = 93;
+            // 
+            // cmdDeleteImage
+            // 
+            this.cmdDeleteImage.Location = new System.Drawing.Point(912, 541);
+            this.cmdDeleteImage.Name = "cmdDeleteImage";
+            this.cmdDeleteImage.Size = new System.Drawing.Size(26, 24);
+            this.cmdDeleteImage.TabIndex = 92;
+            this.cmdDeleteImage.Text = "X";
+            this.cmdDeleteImage.UseVisualStyleBackColor = true;
+            this.cmdDeleteImage.Click += new System.EventHandler(this.cmdDeleteImage_Click);
+            // 
+            // cmdAddImage
+            // 
+            this.cmdAddImage.Location = new System.Drawing.Point(912, 517);
+            this.cmdAddImage.Name = "cmdAddImage";
+            this.cmdAddImage.Size = new System.Drawing.Size(26, 24);
+            this.cmdAddImage.TabIndex = 91;
+            this.cmdAddImage.Text = "+";
+            this.cmdAddImage.UseVisualStyleBackColor = true;
+            this.cmdAddImage.Click += new System.EventHandler(this.cmdAddImage_Click);
             // 
             // txtPstP
             // 
@@ -471,26 +502,6 @@
             this.txtPreP.TabIndex = 83;
             this.txtPreP.Validating += new System.ComponentModel.CancelEventHandler(this.WordID_Validating);
             // 
-            // cmdRefreshImages
-            // 
-            this.cmdRefreshImages.Image = global::SDIFrontEnd.Properties.Resources.Refresh;
-            this.cmdRefreshImages.Location = new System.Drawing.Point(916, 517);
-            this.cmdRefreshImages.Name = "cmdRefreshImages";
-            this.cmdRefreshImages.Size = new System.Drawing.Size(28, 23);
-            this.cmdRefreshImages.TabIndex = 74;
-            this.cmdRefreshImages.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.cmdRefreshImages.UseVisualStyleBackColor = true;
-            this.cmdRefreshImages.Click += new System.EventHandler(this.cmdRefreshImages_Click);
-            // 
-            // txtImageFileNames
-            // 
-            this.txtImageFileNames.Location = new System.Drawing.Point(638, 517);
-            this.txtImageFileNames.Multiline = true;
-            this.txtImageFileNames.Name = "txtImageFileNames";
-            this.txtImageFileNames.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtImageFileNames.Size = new System.Drawing.Size(272, 140);
-            this.txtImageFileNames.TabIndex = 73;
-            // 
             // rtbPlainFilter
             // 
             this.rtbPlainFilter.AutoScroll = true;
@@ -504,7 +515,7 @@
             this.rtbPlainFilter.ShowHighlight = false;
             this.rtbPlainFilter.ShowSize = false;
             this.rtbPlainFilter.ShowStrike = false;
-            this.rtbPlainFilter.Size = new System.Drawing.Size(297, 459);
+            this.rtbPlainFilter.Size = new System.Drawing.Size(300, 459);
             this.rtbPlainFilter.TabIndex = 72;
             this.rtbPlainFilter.Validated += new System.EventHandler(this.rtbPlainFilter_Validated);
             // 
@@ -1568,8 +1579,6 @@
         private System.Windows.Forms.ToolStripButton toolStripAddTranslation;
         private System.Windows.Forms.ComboBox cboMoveTo;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtImageFileNames;
-        private System.Windows.Forms.Button cmdRefreshImages;
         private System.Windows.Forms.TextBox txtPstP;
         private System.Windows.Forms.TextBox txtPstI;
         private System.Windows.Forms.TextBox txtNR;
@@ -1578,5 +1587,8 @@
         private System.Windows.Forms.TextBox txtPreA;
         private System.Windows.Forms.TextBox txtPreI;
         private System.Windows.Forms.TextBox txtPreP;
+        private System.Windows.Forms.Button cmdAddImage;
+        private System.Windows.Forms.Button cmdDeleteImage;
+        private System.Windows.Forms.ListBox lstImages;
     }
 }

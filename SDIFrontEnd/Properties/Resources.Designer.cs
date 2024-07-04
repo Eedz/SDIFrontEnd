@@ -81,6 +81,15 @@ namespace SDIFrontEnd.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to \\psychfile\psych$\psych-lab-gfong\SMG\Survey Images.
+        /// </summary>
+        internal static string ImageRepo {
+            get {
+                return ResourceManager.GetString("ImageRepo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap logo {
