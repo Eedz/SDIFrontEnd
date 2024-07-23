@@ -417,10 +417,12 @@ namespace SDIFrontEnd
             if (CurrentRecord == null)
                 return 1;
 
-            bsCurrent.EndEdit();
-            bsResponses.EndEdit();
+            if (CanSave()==1)
+                return 1;
+
+            
             bool newRec = CurrentRecord.NewRecord;
-           // var content = webTextEditorControl1.GetContent();
+
             int updated = CurrentRecord.SaveRecord();
 
             if (updated == 0)
@@ -434,6 +436,20 @@ namespace SDIFrontEnd
             }
 
             return 0;
+        }
+
+        private int CanSave()
+        {
+            try
+            {
+                bsCurrent.EndEdit();
+                bsResponses.EndEdit();
+                return 0;
+            }catch (ArgumentException ex)
+            {
+                MessageBox.Show("Error saving record. Invalid selection.\r\n" + ex.Message);
+                return 1;
+            }
         }
 
         private void MoveRecord(int count)
@@ -659,6 +675,15 @@ namespace SDIFrontEnd
                 case "Responses":
                 case "Images":
                     break;
+                case "Resolved":
+                    if (!modifiedRecord.Item.Resolved)
+                    {
+                        modifiedRecord.Item.ResolvedDate = null;
+                        modifiedRecord.Item.ResolvedBy = new Person(string.Empty, 0);
+                        bsCurrent.ResetCurrentItem();
+                    }
+                    modifiedRecord.Dirty = true;
+                    break;
                 default:
                     modifiedRecord.Dirty = true;
                     return;
@@ -857,18 +882,17 @@ namespace SDIFrontEnd
 
         private void chkResolved_CheckedChanged(object sender, EventArgs e)
         {
-            //if (chkResolved.Checked)
-            //{
-            //    dtpResolvedDate.Checked = true;
-            //    //CurrentIssue.ResolvedDate = DateTime.Today;
-            //    //CurrentIssue.ResolvedBy.ID = 0;
-            //}
-            //else
-            //{
-            //    dtpResolvedDate.Checked = false;
-            //    CurrentIssue.ResolvedDate = null;
-            //    CurrentIssue.ResolvedBy.ID = 0;
-            //}
+            if (chkResolved.Checked)
+            {
+               // dtpResolvedDate.Checked = true;
+                //CurrentIssue.ResolvedDate = DateTime.Today;
+                //CurrentIssue.ResolvedBy.ID = 0;
+            }
+            else
+            {
+               // dtpResolvedDate.Checked = false;
+                
+            }
         }
 
         private void chkFilterUnresolved_CheckedChanged(object sender, EventArgs e)
@@ -1191,6 +1215,16 @@ namespace SDIFrontEnd
             CurrentResponse.Response = html;
 
             CurrentRecord.EditedResponses.Add(CurrentResponse);           
+        }
+
+        private void ComboBox_Validating(object sender, CancelEventArgs e)
+        {
+            ComboBox comboBox = sender as ComboBox;
+
+            if (comboBox.SelectedItem == null)
+            {
+                comboBox.SelectedValue = 0;
+            }
         }
     }
 }

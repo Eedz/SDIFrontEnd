@@ -62,6 +62,7 @@
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.picMain = new System.Windows.Forms.PictureBox();
             this.dataRepeater1 = new Microsoft.VisualBasic.PowerPacks.DataRepeater();
+            this.rtbResponse = new SDIFrontEnd.ExtraRichTextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.txtResponsePIN = new System.Windows.Forms.TextBox();
             this.lblImageCount = new System.Windows.Forms.Label();
@@ -99,6 +100,7 @@
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.extraRichTextBox1 = new SDIFrontEnd.ExtraRichTextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txtPIN = new System.Windows.Forms.TextBox();
             this.dtpResolvedDate = new NullableBindingDateTimePicker.NullableBindingDateTimePicker();
@@ -155,8 +157,6 @@
             this.bindingNavigatorDeleteItem1 = new System.Windows.Forms.ToolStripButton();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.extraRichTextBox1 = new SDIFrontEnd.ExtraRichTextBox();
-            this.rtbResponse = new SDIFrontEnd.ExtraRichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.navMainIssues)).BeginInit();
             this.navMainIssues.SuspendLayout();
             this.panelImages.SuspendLayout();
@@ -524,6 +524,22 @@
             this.dataRepeater1.ItemCloned += new Microsoft.VisualBasic.PowerPacks.DataRepeaterItemEventHandler(this.dataRepeater1_ItemCloned);
             this.dataRepeater1.DrawItem += new Microsoft.VisualBasic.PowerPacks.DataRepeaterItemEventHandler(this.dataRepeater1_DrawItem);
             // 
+            // rtbResponse
+            // 
+            this.rtbResponse.AutoScroll = true;
+            this.rtbResponse.Location = new System.Drawing.Point(123, 0);
+            this.rtbResponse.Name = "rtbResponse";
+            this.rtbResponse.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat\\deflang1033{\\fonttbl{\\f0\\fnil\\fcharset0 " +
+    "Tahoma;}}\r\n{\\*\\generator Riched20 10.0.19041}\\viewkind4\\uc1 \r\n\\pard\\f0\\fs20\\par\r" +
+    "\n}\r\n";
+            this.rtbResponse.ShowFamilies = false;
+            this.rtbResponse.ShowHighlight = true;
+            this.rtbResponse.ShowSize = false;
+            this.rtbResponse.ShowStrike = true;
+            this.rtbResponse.Size = new System.Drawing.Size(699, 88);
+            this.rtbResponse.TabIndex = 11;
+            this.rtbResponse.Validated += new System.EventHandler(this.rtbResponse_Validated);
+            // 
             // label8
             // 
             this.label8.AutoSize = true;
@@ -610,6 +626,7 @@
             this.cboResponseTo.TabIndex = 2;
             this.cboResponseTo.SelectedIndexChanged += new System.EventHandler(this.cboResponseTo_SelectedIndexChanged);
             this.cboResponseTo.SelectionChangeCommitted += new System.EventHandler(this.cboResponseTo_SelectionChangeCommitted);
+            this.cboResponseTo.Validating += new System.ComponentModel.CancelEventHandler(this.ComboBox_Validating);
             // 
             // cboResponseFrom
             // 
@@ -624,6 +641,7 @@
             this.cboResponseFrom.TabIndex = 1;
             this.cboResponseFrom.SelectedIndexChanged += new System.EventHandler(this.cboResponseFrom_SelectedIndexChanged);
             this.cboResponseFrom.SelectionChangeCommitted += new System.EventHandler(this.cboResponseFrom_SelectionChangeCommitted);
+            this.cboResponseFrom.Validating += new System.ComponentModel.CancelEventHandler(this.ComboBox_Validating);
             // 
             // dtpResponseDate
             // 
@@ -944,6 +962,22 @@
             this.panel1.Size = new System.Drawing.Size(1115, 286);
             this.panel1.TabIndex = 13;
             // 
+            // extraRichTextBox1
+            // 
+            this.extraRichTextBox1.AutoScroll = true;
+            this.extraRichTextBox1.Location = new System.Drawing.Point(357, 43);
+            this.extraRichTextBox1.Name = "extraRichTextBox1";
+            this.extraRichTextBox1.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat\\deflang1033{\\fonttbl{\\f0\\fnil\\fcharset0 " +
+    "Tahoma;}}\r\n{\\*\\generator Riched20 10.0.19041}\\viewkind4\\uc1 \r\n\\pard\\f0\\fs20\\par\r" +
+    "\n}\r\n";
+            this.extraRichTextBox1.ShowFamilies = false;
+            this.extraRichTextBox1.ShowHighlight = true;
+            this.extraRichTextBox1.ShowSize = false;
+            this.extraRichTextBox1.ShowStrike = true;
+            this.extraRichTextBox1.Size = new System.Drawing.Size(560, 236);
+            this.extraRichTextBox1.TabIndex = 45;
+            this.extraRichTextBox1.Validated += new System.EventHandler(this.extraRichTextBox1_Validated);
+            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -1088,6 +1122,7 @@
             this.cboResolvedBy.Name = "cboResolvedBy";
             this.cboResolvedBy.Size = new System.Drawing.Size(138, 24);
             this.cboResolvedBy.TabIndex = 27;
+            this.cboResolvedBy.Validating += new System.ComponentModel.CancelEventHandler(this.ComboBox_Validating);
             // 
             // label25
             // 
@@ -1136,6 +1171,7 @@
             // 
             this.cboIssueCategory.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cboIssueCategory.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cboIssueCategory.BackColor = System.Drawing.Color.White;
             this.cboIssueCategory.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboIssueCategory.FormattingEnabled = true;
             this.cboIssueCategory.Location = new System.Drawing.Point(91, 251);
@@ -1143,7 +1179,6 @@
             this.cboIssueCategory.Name = "cboIssueCategory";
             this.cboIssueCategory.Size = new System.Drawing.Size(156, 24);
             this.cboIssueCategory.TabIndex = 20;
-            this.cboIssueCategory.Validating += new System.ComponentModel.CancelEventHandler(this.cboIssueCategory_Validating);
             // 
             // cboIssueTo
             // 
@@ -1156,6 +1191,7 @@
             this.cboIssueTo.Name = "cboIssueTo";
             this.cboIssueTo.Size = new System.Drawing.Size(156, 24);
             this.cboIssueTo.TabIndex = 19;
+            this.cboIssueTo.Validating += new System.ComponentModel.CancelEventHandler(this.ComboBox_Validating);
             // 
             // cboIssueFrom
             // 
@@ -1168,6 +1204,7 @@
             this.cboIssueFrom.Name = "cboIssueFrom";
             this.cboIssueFrom.Size = new System.Drawing.Size(156, 24);
             this.cboIssueFrom.TabIndex = 18;
+            this.cboIssueFrom.Validating += new System.ComponentModel.CancelEventHandler(this.ComboBox_Validating);
             // 
             // dtpIssueDate
             // 
@@ -1523,38 +1560,6 @@
             this.label6.Size = new System.Drawing.Size(121, 16);
             this.label6.TabIndex = 57;
             this.label6.Text = "Response Images";
-            // 
-            // extraRichTextBox1
-            // 
-            this.extraRichTextBox1.AutoScroll = true;
-            this.extraRichTextBox1.Location = new System.Drawing.Point(357, 43);
-            this.extraRichTextBox1.Name = "extraRichTextBox1";
-            this.extraRichTextBox1.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat\\deflang1033{\\fonttbl{\\f0\\fnil\\fcharset0 " +
-    "Tahoma;}}\r\n{\\*\\generator Riched20 10.0.19041}\\viewkind4\\uc1 \r\n\\pard\\f0\\fs20\\par\r" +
-    "\n}\r\n";
-            this.extraRichTextBox1.ShowFamilies = false;
-            this.extraRichTextBox1.ShowHighlight = true;
-            this.extraRichTextBox1.ShowSize = false;
-            this.extraRichTextBox1.ShowStrike = true;
-            this.extraRichTextBox1.Size = new System.Drawing.Size(560, 236);
-            this.extraRichTextBox1.TabIndex = 45;
-            this.extraRichTextBox1.Validated += new System.EventHandler(this.extraRichTextBox1_Validated);
-            // 
-            // rtbResponse
-            // 
-            this.rtbResponse.AutoScroll = true;
-            this.rtbResponse.Location = new System.Drawing.Point(123, 0);
-            this.rtbResponse.Name = "rtbResponse";
-            this.rtbResponse.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat\\deflang1033{\\fonttbl{\\f0\\fnil\\fcharset0 " +
-    "Tahoma;}}\r\n{\\*\\generator Riched20 10.0.19041}\\viewkind4\\uc1 \r\n\\pard\\f0\\fs20\\par\r" +
-    "\n}\r\n";
-            this.rtbResponse.ShowFamilies = false;
-            this.rtbResponse.ShowHighlight = true;
-            this.rtbResponse.ShowSize = false;
-            this.rtbResponse.ShowStrike = true;
-            this.rtbResponse.Size = new System.Drawing.Size(699, 88);
-            this.rtbResponse.TabIndex = 11;
-            this.rtbResponse.Validated += new System.EventHandler(this.rtbResponse_Validated);
             // 
             // PraccingEntry
             // 
