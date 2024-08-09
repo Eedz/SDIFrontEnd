@@ -69,6 +69,8 @@ namespace SDIFrontEnd
         private void Bs_PositionChanged(object sender, EventArgs e)
         {
             CurrentRecord = (TranslationRecord)bs.Current;
+
+            UpdateText();
         }
 
         private void BsCurrent_ListChanged(object sender, ListChangedEventArgs e)
@@ -182,6 +184,16 @@ namespace SDIFrontEnd
             txtLanguage.DataBindings.Add(new Binding("Text", bsCurrent, "LanguageName.LanguageName"));
         }
 
+        private void UpdateText()
+        {
+            extraRichTextBox1.Rtf = null;
+            extraRichTextBox1.Rtf = Converter.HTMLToRtf(CurrentRecord.Item.TranslationText);
+            rtbPreP.Rtf = null;
+            rtbPreP.Rtf = Converter.HTMLToRtf(MainQuestion.PrePW.WordingText);
+            rtbPstP.Rtf = null;
+            rtbPstP.Rtf = Converter.HTMLToRtf(MainQuestion.PstPW.WordingText);
+        }
+
         public void UpdateForm(Survey survey, QuestionRecord question, SurveyLanguage language = null)
         {
             ParentSurvey = survey;
@@ -190,8 +202,6 @@ namespace SDIFrontEnd
             Records.Clear();
             foreach (Translation t in question.Item.Translations)
                 Records.Add(new TranslationRecord(t));
-
-            
 
             if (Records.Count() == 0 || ParentSurvey.Locked)
             {
@@ -208,12 +218,7 @@ namespace SDIFrontEnd
             CurrentRecord = (TranslationRecord)bs.Current;
             bs.ResetCurrentItem();
 
-            extraRichTextBox1.Rtf = null;
-            extraRichTextBox1.Rtf = Converter.HTMLToRtf(CurrentRecord.Item.TranslationText);
-            rtbPreP.Rtf = null;
-            rtbPreP.Rtf = Converter.HTMLToRtf(MainQuestion.PrePW.WordingText);
-            rtbPstP.Rtf = null;
-            rtbPstP.Rtf = Converter.HTMLToRtf(MainQuestion.PstPW.WordingText);
+            UpdateText();
             
             AdjustRouting();
             SetReadingDirection();
