@@ -301,6 +301,8 @@ namespace SDIFrontEnd
         private void cmdOpenSurveyEditor_Click(object sender, EventArgs e)
         {
             int survID = CurrentUser.GetFilterID("frmSurveyEntry", 1);
+            survID = survID == 0 ?  1: survID;
+
             // check if a tab exists for this Survey
             foreach (Form se in FM.FormManager.List)
             {
@@ -325,6 +327,7 @@ namespace SDIFrontEnd
         private void cmdOpenSurveyEditor2_Click(object sender, EventArgs e)
         {
             int survID = CurrentUser.GetFilterID("frmSurveyEntry", 2);
+            survID = survID == 0 ? 1 : survID;
             // check if a tab exists for this Survey
             foreach (Form se in FM.FormManager.List)
             {
@@ -349,6 +352,7 @@ namespace SDIFrontEnd
         private void cmdOpenSurveyEditor3_Click(object sender, EventArgs e)
         {
             int survID = CurrentUser.GetFilterID("frmSurveyEntry", 3);
+            survID = survID == 0 ? 1 : survID;
             // check if a tab exists for this Survey
             foreach (Form se in FM.FormManager.List)
             {
