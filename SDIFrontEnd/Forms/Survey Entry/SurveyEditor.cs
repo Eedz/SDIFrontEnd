@@ -2356,7 +2356,7 @@ namespace SDIFrontEnd
                 }
             );
 
-            ViewTranslation(l.LanguageName);
+            ViewTranslation(l.LanguageName);            
         }
 
         private void MoveSelection(VariableName targetVar)

@@ -200,8 +200,7 @@ namespace SDIFrontEnd
             MainQuestion = question.Item;
 
             Records.Clear();
-            foreach (Translation t in question.Item.Translations)
-                Records.Add(new TranslationRecord(t));
+            FillLists();
 
             if (Records.Count() == 0 || ParentSurvey.Locked)
             {

@@ -114,19 +114,6 @@
             this.txtChangeDate = new System.Windows.Forms.TextBox();
             this.txtOldVarName = new System.Windows.Forms.TextBox();
             this.txtChangeSurvey = new System.Windows.Forms.TextBox();
-            this.pageDrafts = new System.Windows.Forms.TabPage();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.dataRepeater7 = new Microsoft.VisualBasic.PowerPacks.DataRepeater();
-            this.txtDraftE5 = new System.Windows.Forms.TextBox();
-            this.txtDraftE4 = new System.Windows.Forms.TextBox();
-            this.txtDraftE3 = new System.Windows.Forms.TextBox();
-            this.txtDraftE2 = new System.Windows.Forms.TextBox();
-            this.txtDraftE1 = new System.Windows.Forms.TextBox();
-            this.txtDraftComment = new System.Windows.Forms.TextBox();
-            this.txtDraftQ = new System.Windows.Forms.TextBox();
-            this.txtDraftDate = new System.Windows.Forms.TextBox();
-            this.txtDraftVarName = new System.Windows.Forms.TextBox();
-            this.txtDraftSurvey = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -156,10 +143,6 @@
             this.panel5.SuspendLayout();
             this.dataRepeater6.ItemTemplate.SuspendLayout();
             this.dataRepeater6.SuspendLayout();
-            this.pageDrafts.SuspendLayout();
-            this.panel6.SuspendLayout();
-            this.dataRepeater7.ItemTemplate.SuspendLayout();
-            this.dataRepeater7.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -379,7 +362,6 @@
             this.tabResults.Controls.Add(this.pageDeletedComments);
             this.tabResults.Controls.Add(this.pagePraccingComments);
             this.tabResults.Controls.Add(this.pageChangeComments);
-            this.tabResults.Controls.Add(this.pageDrafts);
             this.tabResults.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabResults.Location = new System.Drawing.Point(526, 75);
             this.tabResults.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -438,6 +420,7 @@
             this.dataRepeater1.Size = new System.Drawing.Size(997, 620);
             this.dataRepeater1.TabIndex = 0;
             this.dataRepeater1.Text = "dataRepeater1";
+            
             // 
             // cmdGoToQuestion
             // 
@@ -576,6 +559,7 @@
             this.dataRepeater2.Size = new System.Drawing.Size(997, 620);
             this.dataRepeater2.TabIndex = 0;
             this.dataRepeater2.Text = "dataRepeater2";
+         
             // 
             // txtSSource
             // 
@@ -682,6 +666,7 @@
             this.dataRepeater3.Size = new System.Drawing.Size(997, 620);
             this.dataRepeater3.TabIndex = 0;
             this.dataRepeater3.Text = "dataRepeater3";
+       
             // 
             // txtWSource
             // 
@@ -789,6 +774,7 @@
             this.dataRepeater4.Size = new System.Drawing.Size(997, 620);
             this.dataRepeater4.TabIndex = 0;
             this.dataRepeater4.Text = "dataRepeater4";
+         
             // 
             // txtDSource
             // 
@@ -903,6 +889,7 @@
             this.dataRepeater5.Size = new System.Drawing.Size(997, 620);
             this.dataRepeater5.TabIndex = 0;
             this.dataRepeater5.Text = "dataRepeater5";
+         
             // 
             // txtPNoteType
             // 
@@ -1010,6 +997,7 @@
             this.dataRepeater6.Size = new System.Drawing.Size(997, 620);
             this.dataRepeater6.TabIndex = 0;
             this.dataRepeater6.Text = "dataRepeater6";
+           
             // 
             // label8
             // 
@@ -1086,144 +1074,6 @@
             this.txtChangeSurvey.Size = new System.Drawing.Size(116, 23);
             this.txtChangeSurvey.TabIndex = 0;
             // 
-            // pageDrafts
-            // 
-            this.pageDrafts.Controls.Add(this.panel6);
-            this.pageDrafts.Location = new System.Drawing.Point(4, 25);
-            this.pageDrafts.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.pageDrafts.Name = "pageDrafts";
-            this.pageDrafts.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.pageDrafts.Size = new System.Drawing.Size(1003, 628);
-            this.pageDrafts.TabIndex = 6;
-            this.pageDrafts.Text = "Draft Comments";
-            this.pageDrafts.UseVisualStyleBackColor = true;
-            // 
-            // panel6
-            // 
-            this.panel6.Controls.Add(this.dataRepeater7);
-            this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel6.Location = new System.Drawing.Point(3, 4);
-            this.panel6.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(997, 620);
-            this.panel6.TabIndex = 0;
-            // 
-            // dataRepeater7
-            // 
-            this.dataRepeater7.AllowUserToAddItems = false;
-            this.dataRepeater7.AllowUserToDeleteItems = false;
-            this.dataRepeater7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataRepeater7.ItemHeaderVisible = false;
-            // 
-            // dataRepeater7.ItemTemplate
-            // 
-            this.dataRepeater7.ItemTemplate.Controls.Add(this.txtDraftE5);
-            this.dataRepeater7.ItemTemplate.Controls.Add(this.txtDraftE4);
-            this.dataRepeater7.ItemTemplate.Controls.Add(this.txtDraftE3);
-            this.dataRepeater7.ItemTemplate.Controls.Add(this.txtDraftE2);
-            this.dataRepeater7.ItemTemplate.Controls.Add(this.txtDraftE1);
-            this.dataRepeater7.ItemTemplate.Controls.Add(this.txtDraftComment);
-            this.dataRepeater7.ItemTemplate.Controls.Add(this.txtDraftQ);
-            this.dataRepeater7.ItemTemplate.Controls.Add(this.txtDraftDate);
-            this.dataRepeater7.ItemTemplate.Controls.Add(this.txtDraftVarName);
-            this.dataRepeater7.ItemTemplate.Controls.Add(this.txtDraftSurvey);
-            this.dataRepeater7.ItemTemplate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.dataRepeater7.ItemTemplate.Size = new System.Drawing.Size(989, 229);
-            this.dataRepeater7.Location = new System.Drawing.Point(0, 0);
-            this.dataRepeater7.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.dataRepeater7.Name = "dataRepeater7";
-            this.dataRepeater7.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.dataRepeater7.Size = new System.Drawing.Size(997, 620);
-            this.dataRepeater7.TabIndex = 0;
-            this.dataRepeater7.Text = "dataRepeater7";
-            // 
-            // txtDraftE5
-            // 
-            this.txtDraftE5.Location = new System.Drawing.Point(861, 63);
-            this.txtDraftE5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtDraftE5.Multiline = true;
-            this.txtDraftE5.Name = "txtDraftE5";
-            this.txtDraftE5.Size = new System.Drawing.Size(116, 147);
-            this.txtDraftE5.TabIndex = 9;
-            // 
-            // txtDraftE4
-            // 
-            this.txtDraftE4.Location = new System.Drawing.Point(737, 63);
-            this.txtDraftE4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtDraftE4.Multiline = true;
-            this.txtDraftE4.Name = "txtDraftE4";
-            this.txtDraftE4.Size = new System.Drawing.Size(116, 147);
-            this.txtDraftE4.TabIndex = 8;
-            // 
-            // txtDraftE3
-            // 
-            this.txtDraftE3.Location = new System.Drawing.Point(614, 63);
-            this.txtDraftE3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtDraftE3.Multiline = true;
-            this.txtDraftE3.Name = "txtDraftE3";
-            this.txtDraftE3.Size = new System.Drawing.Size(116, 147);
-            this.txtDraftE3.TabIndex = 7;
-            // 
-            // txtDraftE2
-            // 
-            this.txtDraftE2.Location = new System.Drawing.Point(490, 63);
-            this.txtDraftE2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtDraftE2.Multiline = true;
-            this.txtDraftE2.Name = "txtDraftE2";
-            this.txtDraftE2.Size = new System.Drawing.Size(116, 147);
-            this.txtDraftE2.TabIndex = 6;
-            // 
-            // txtDraftE1
-            // 
-            this.txtDraftE1.Location = new System.Drawing.Point(366, 63);
-            this.txtDraftE1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtDraftE1.Multiline = true;
-            this.txtDraftE1.Name = "txtDraftE1";
-            this.txtDraftE1.Size = new System.Drawing.Size(116, 147);
-            this.txtDraftE1.TabIndex = 5;
-            // 
-            // txtDraftComment
-            // 
-            this.txtDraftComment.Location = new System.Drawing.Point(184, 63);
-            this.txtDraftComment.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtDraftComment.Multiline = true;
-            this.txtDraftComment.Name = "txtDraftComment";
-            this.txtDraftComment.Size = new System.Drawing.Size(174, 147);
-            this.txtDraftComment.TabIndex = 4;
-            // 
-            // txtDraftQ
-            // 
-            this.txtDraftQ.Location = new System.Drawing.Point(1, 63);
-            this.txtDraftQ.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtDraftQ.Multiline = true;
-            this.txtDraftQ.Name = "txtDraftQ";
-            this.txtDraftQ.Size = new System.Drawing.Size(174, 147);
-            this.txtDraftQ.TabIndex = 3;
-            // 
-            // txtDraftDate
-            // 
-            this.txtDraftDate.Location = new System.Drawing.Point(1, 32);
-            this.txtDraftDate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtDraftDate.Name = "txtDraftDate";
-            this.txtDraftDate.Size = new System.Drawing.Size(116, 23);
-            this.txtDraftDate.TabIndex = 2;
-            // 
-            // txtDraftVarName
-            // 
-            this.txtDraftVarName.Location = new System.Drawing.Point(125, 1);
-            this.txtDraftVarName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtDraftVarName.Name = "txtDraftVarName";
-            this.txtDraftVarName.Size = new System.Drawing.Size(116, 23);
-            this.txtDraftVarName.TabIndex = 1;
-            // 
-            // txtDraftSurvey
-            // 
-            this.txtDraftSurvey.Location = new System.Drawing.Point(1, 1);
-            this.txtDraftSurvey.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtDraftSurvey.Name = "txtDraftSurvey";
-            this.txtDraftSurvey.Size = new System.Drawing.Size(116, 23);
-            this.txtDraftSurvey.TabIndex = 0;
-            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1231,7 +1081,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1537, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1535, 24);
             this.menuStrip1.TabIndex = 20;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -1246,7 +1096,7 @@
             // 
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1537, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(1535, 25);
             this.toolStrip1.TabIndex = 21;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -1326,11 +1176,6 @@
             this.dataRepeater6.ItemTemplate.ResumeLayout(false);
             this.dataRepeater6.ItemTemplate.PerformLayout();
             this.dataRepeater6.ResumeLayout(false);
-            this.pageDrafts.ResumeLayout(false);
-            this.panel6.ResumeLayout(false);
-            this.dataRepeater7.ItemTemplate.ResumeLayout(false);
-            this.dataRepeater7.ItemTemplate.PerformLayout();
-            this.dataRepeater7.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -1426,19 +1271,6 @@
         private System.Windows.Forms.TextBox txtChangeReason;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txtNewVarName;
-        private System.Windows.Forms.TabPage pageDrafts;
-        private System.Windows.Forms.Panel panel6;
-        private Microsoft.VisualBasic.PowerPacks.DataRepeater dataRepeater7;
-        private System.Windows.Forms.TextBox txtDraftE5;
-        private System.Windows.Forms.TextBox txtDraftE4;
-        private System.Windows.Forms.TextBox txtDraftE3;
-        private System.Windows.Forms.TextBox txtDraftE2;
-        private System.Windows.Forms.TextBox txtDraftE1;
-        private System.Windows.Forms.TextBox txtDraftComment;
-        private System.Windows.Forms.TextBox txtDraftQ;
-        private System.Windows.Forms.TextBox txtDraftDate;
-        private System.Windows.Forms.TextBox txtDraftVarName;
-        private System.Windows.Forms.TextBox txtDraftSurvey;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.Label label9;
