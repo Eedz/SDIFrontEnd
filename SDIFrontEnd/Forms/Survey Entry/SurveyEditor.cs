@@ -833,17 +833,7 @@ namespace SDIFrontEnd
         /// <param name="e"></param>
         private void SurveyEditor_Enter(object sender, EventArgs e)
         {
-            TogglePopups(true);
-        }
-
-        /// <summary>
-        /// Show popup forms when the form is focused 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void SurveyEditor_Activated(object sender, EventArgs e)
-        {
-            TogglePopups(true);
+           TogglePopups(true);
         }
 
         /// <summary>
@@ -2695,7 +2685,6 @@ namespace SDIFrontEnd
         {
             
         }
-
         #endregion
 
         

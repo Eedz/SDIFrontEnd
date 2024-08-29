@@ -38,7 +38,7 @@ namespace SDIFrontEnd
             SetupGrid();
         }
 
-        public WaveManager(int waveid) : base()
+        public WaveManager(int waveid) : this()
         {
             GoToWave(waveid);
         }

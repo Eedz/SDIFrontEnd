@@ -64,7 +64,6 @@
             this.txtPreA = new System.Windows.Forms.TextBox();
             this.txtPreI = new System.Windows.Forms.TextBox();
             this.txtPreP = new System.Windows.Forms.TextBox();
-            this.rtbPlainFilter = new SDIFrontEnd.ExtraRichTextBox();
             this.dgvTimeFrames = new System.Windows.Forms.DataGridView();
             this.chTimeFrame = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmdOpenPstP = new System.Windows.Forms.Button();
@@ -145,6 +144,7 @@
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cboMoveTo = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.rtbPlainFilter = new SDIFrontEnd.ExtraRichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.navQuestions)).BeginInit();
             this.navQuestions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -501,23 +501,6 @@
             this.txtPreP.Size = new System.Drawing.Size(74, 23);
             this.txtPreP.TabIndex = 83;
             this.txtPreP.Validating += new System.ComponentModel.CancelEventHandler(this.WordID_Validating);
-            // 
-            // rtbPlainFilter
-            // 
-            this.rtbPlainFilter.AutoScroll = true;
-            this.rtbPlainFilter.Location = new System.Drawing.Point(638, 54);
-            this.rtbPlainFilter.Margin = new System.Windows.Forms.Padding(4);
-            this.rtbPlainFilter.Name = "rtbPlainFilter";
-            this.rtbPlainFilter.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat\\deflang1033{\\fonttbl{\\f0\\fnil\\fcharset0 " +
-    "Tahoma;}}\r\n{\\*\\generator Riched20 10.0.19041}\\viewkind4\\uc1 \r\n\\pard\\f0\\fs20\\par\r" +
-    "\n}\r\n";
-            this.rtbPlainFilter.ShowFamilies = false;
-            this.rtbPlainFilter.ShowHighlight = false;
-            this.rtbPlainFilter.ShowSize = false;
-            this.rtbPlainFilter.ShowStrike = false;
-            this.rtbPlainFilter.Size = new System.Drawing.Size(300, 459);
-            this.rtbPlainFilter.TabIndex = 72;
-            this.rtbPlainFilter.Validated += new System.EventHandler(this.rtbPlainFilter_Validated);
             // 
             // dgvTimeFrames
             // 
@@ -1405,6 +1388,23 @@
             this.label4.TabIndex = 56;
             this.label4.Text = "Move to:";
             // 
+            // rtbPlainFilter
+            // 
+            this.rtbPlainFilter.AutoScroll = true;
+            this.rtbPlainFilter.Location = new System.Drawing.Point(638, 54);
+            this.rtbPlainFilter.Margin = new System.Windows.Forms.Padding(4);
+            this.rtbPlainFilter.Name = "rtbPlainFilter";
+            this.rtbPlainFilter.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat\\deflang1033{\\fonttbl{\\f0\\fnil\\fcharset0 " +
+    "Tahoma;}}\r\n{\\*\\generator Riched20 10.0.19041}\\viewkind4\\uc1 \r\n\\pard\\f0\\fs20\\par\r" +
+    "\n}\r\n";
+            this.rtbPlainFilter.ShowFamilies = false;
+            this.rtbPlainFilter.ShowHighlight = false;
+            this.rtbPlainFilter.ShowSize = false;
+            this.rtbPlainFilter.ShowStrike = false;
+            this.rtbPlainFilter.Size = new System.Drawing.Size(300, 459);
+            this.rtbPlainFilter.TabIndex = 72;
+            this.rtbPlainFilter.Validated += new System.EventHandler(this.rtbPlainFilter_Validated);
+            // 
             // SurveyEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -1437,7 +1437,6 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "SurveyEditor";
             this.Text = "SurveyEditor";
-            this.Activated += new System.EventHandler(this.SurveyEditor_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SurveyEditor_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SurveyEditor_FormClosed);
             this.Load += new System.EventHandler(this.SurveyEditor_Load);

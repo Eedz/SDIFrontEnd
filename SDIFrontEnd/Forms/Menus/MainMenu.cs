@@ -87,11 +87,11 @@ namespace SDIFrontEnd
 
         private void tabControl1_TabIndexChanged(object sender, EventArgs e)
         {
-            TabControl t = (TabControl)sender;
-            if (t.SelectedIndex != 0)
+            TabControl tabControl = (TabControl)sender;
+            if (tabControl.SelectedIndex != 0)
             {
-                Form f = (Form)t.TabPages[t.SelectedIndex].Controls[0];
-                f.Activate();
+                Form f = (Form)tabControl.TabPages[tabControl.SelectedIndex].Controls[0];
+                f.Focus();
             }
         }
 
