@@ -23,6 +23,7 @@ namespace SDIFrontEnd
         public PraccingReportForm()
         {
             InitializeComponent();
+            cboSortBy.SelectedItem = "IssueNo";
 
             FillLists();
 
@@ -198,6 +199,18 @@ namespace SDIFrontEnd
             }
 
             List<PraccingIssue> filtered = query.ToList();
+
+            switch ((string)cboSortBy.SelectedItem)
+            {
+                case "Last Update":
+                    filtered = filtered.OrderBy(x => x.LastUpdate).ToList();
+                    break;
+                case "IssueNo":
+                default:
+                    filtered = filtered.OrderBy(x => x.IssueNo).ToList();
+                    break;
+            }
+
             return filtered;
         }
 

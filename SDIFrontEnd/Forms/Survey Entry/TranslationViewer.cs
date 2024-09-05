@@ -69,7 +69,7 @@ namespace SDIFrontEnd
         private void Bs_PositionChanged(object sender, EventArgs e)
         {
             CurrentRecord = (TranslationRecord)bs.Current;
-
+            if (CurrentRecord == null) return;
             UpdateText();
         }
 
@@ -187,6 +187,9 @@ namespace SDIFrontEnd
         private void UpdateText()
         {
             extraRichTextBox1.Rtf = null;
+
+            if (CurrentRecord == null) return;
+
             extraRichTextBox1.Rtf = Converter.HTMLToRtf(CurrentRecord.Item.TranslationText);
             rtbPreP.Rtf = null;
             rtbPreP.Rtf = Converter.HTMLToRtf(MainQuestion.PrePW.WordingText);
@@ -266,6 +269,8 @@ namespace SDIFrontEnd
 
         private int SaveRecord()
         {
+            if (CurrentRecord == null) return 0;
+
             if (ParentSurvey.Locked)
                 return 0;
 
@@ -292,7 +297,19 @@ namespace SDIFrontEnd
             html = html.Replace("</p>", "");
             html = html.TrimAndRemoveAll("<br>");
 
+            if (CurrentRecord == null) return;
             CurrentRecord.Item.TranslationText = html;
+        }
+
+        private void bindingNavigatorDeleteItem_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Confirm Delete", "Are you sure you want to delete this translation?", MessageBoxButtons.YesNo) == DialogResult.No)
+                return;
+
+            DBAction.DeleteRecord(CurrentRecord.Item);
+            MainQuestion.Translations.Remove(CurrentRecord.Item);
+            bs.RemoveCurrent();
+            UpdateText();
         }
     }
 }

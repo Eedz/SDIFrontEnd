@@ -67,6 +67,8 @@
             this.chkIncludeQnums = new System.Windows.Forms.CheckBox();
             this.chkEmptyRow = new System.Windows.Forms.CheckBox();
             this.chkPraccInstructions = new System.Windows.Forms.CheckBox();
+            this.cboSortBy = new System.Windows.Forms.ComboBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -172,7 +174,7 @@
             this.panel1.Location = new System.Drawing.Point(7, 110);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(434, 406);
+            this.panel1.Size = new System.Drawing.Size(434, 391);
             this.panel1.TabIndex = 4;
             this.panel1.Visible = false;
             // 
@@ -336,7 +338,7 @@
             this.panel2.Location = new System.Drawing.Point(448, 110);
             this.panel2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(396, 405);
+            this.panel2.Size = new System.Drawing.Size(396, 391);
             this.panel2.TabIndex = 5;
             this.panel2.Visible = false;
             // 
@@ -425,6 +427,8 @@
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.label12);
+            this.panel3.Controls.Add(this.cboSortBy);
             this.panel3.Controls.Add(this.cmdOpenFolder);
             this.panel3.Controls.Add(this.cmdGenerate);
             this.panel3.Controls.Add(this.chkShadeAlternateRows);
@@ -432,10 +436,10 @@
             this.panel3.Controls.Add(this.chkIncludeQnums);
             this.panel3.Controls.Add(this.chkEmptyRow);
             this.panel3.Controls.Add(this.chkPraccInstructions);
-            this.panel3.Location = new System.Drawing.Point(6, 523);
+            this.panel3.Location = new System.Drawing.Point(6, 509);
             this.panel3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(838, 129);
+            this.panel3.Size = new System.Drawing.Size(838, 143);
             this.panel3.TabIndex = 6;
             this.panel3.Visible = false;
             // 
@@ -478,7 +482,7 @@
             // 
             this.chkIncludePrevNames.AutoSize = true;
             this.chkIncludePrevNames.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkIncludePrevNames.Location = new System.Drawing.Point(34, 96);
+            this.chkIncludePrevNames.Location = new System.Drawing.Point(40, 109);
             this.chkIncludePrevNames.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkIncludePrevNames.Name = "chkIncludePrevNames";
             this.chkIncludePrevNames.Size = new System.Drawing.Size(143, 20);
@@ -490,7 +494,7 @@
             // 
             this.chkIncludeQnums.AutoSize = true;
             this.chkIncludeQnums.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkIncludeQnums.Location = new System.Drawing.Point(34, 68);
+            this.chkIncludeQnums.Location = new System.Drawing.Point(40, 86);
             this.chkIncludeQnums.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkIncludeQnums.Name = "chkIncludeQnums";
             this.chkIncludeQnums.Size = new System.Drawing.Size(111, 20);
@@ -504,7 +508,7 @@
             this.chkEmptyRow.Checked = true;
             this.chkEmptyRow.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkEmptyRow.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkEmptyRow.Location = new System.Drawing.Point(34, 39);
+            this.chkEmptyRow.Location = new System.Drawing.Point(40, 64);
             this.chkEmptyRow.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkEmptyRow.Name = "chkEmptyRow";
             this.chkEmptyRow.Size = new System.Drawing.Size(135, 20);
@@ -518,13 +522,33 @@
             this.chkPraccInstructions.Checked = true;
             this.chkPraccInstructions.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkPraccInstructions.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkPraccInstructions.Location = new System.Drawing.Point(34, 11);
+            this.chkPraccInstructions.Location = new System.Drawing.Point(40, 42);
             this.chkPraccInstructions.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkPraccInstructions.Name = "chkPraccInstructions";
             this.chkPraccInstructions.Size = new System.Drawing.Size(172, 20);
             this.chkPraccInstructions.TabIndex = 0;
             this.chkPraccInstructions.Text = "Include Pracc Instructions";
             this.chkPraccInstructions.UseVisualStyleBackColor = true;
+            // 
+            // cboSortBy
+            // 
+            this.cboSortBy.FormattingEnabled = true;
+            this.cboSortBy.Items.AddRange(new object[] {
+            "IssueNo",
+            "Last Update"});
+            this.cboSortBy.Location = new System.Drawing.Point(76, 4);
+            this.cboSortBy.Name = "cboSortBy";
+            this.cboSortBy.Size = new System.Drawing.Size(135, 24);
+            this.cboSortBy.TabIndex = 8;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(21, 7);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(48, 16);
+            this.label12.TabIndex = 9;
+            this.label12.Text = "Sort by";
             // 
             // PraccingReportForm
             // 
@@ -602,5 +626,7 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ListBox lstCategory;
         private System.Windows.Forms.Button cmdOpenFolder;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.ComboBox cboSortBy;
     }
 }
