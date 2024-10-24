@@ -422,7 +422,7 @@ namespace SDIFrontEnd
         {
             bsCurrent.EndEdit();
 
-            if (CurrentRecord.Item.WordID!=0 && CurrentRecord.Item.IsBlank())
+            if (CurrentRecord.Item.WordID!=0 && CurrentRecord.Item.IsBlank)
             {
                 return 0;
             }

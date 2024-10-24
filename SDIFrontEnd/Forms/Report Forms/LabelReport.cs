@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -197,7 +198,7 @@ namespace SDIFrontEnd
                 // questions
                 var questions = DBAction.GetSurveyQuestions(rs);
 
-                rs.StdFieldsChosen = SelectedFields;
+                rs.ContentOptions.StdFieldsChosen = new ObservableCollection<string>(SelectedFields);
 
                 if (Report.ProductCrosstab && SelectedProducts.Count > 0)
                 {
@@ -220,7 +221,7 @@ namespace SDIFrontEnd
                 }
 
                 // filters
-                if (rs.FilterCol)
+                if (rs.ContentOptions.HasColumn("Filters"))
                     rs.MakeFilterList();
 
             }

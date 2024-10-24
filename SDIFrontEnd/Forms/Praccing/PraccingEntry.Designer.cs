@@ -164,7 +164,6 @@
             this.navMainImages.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picMain)).BeginInit();
             this.dataRepeater1.ItemTemplate.SuspendLayout();
-            this.dataRepeater1.SuspendLayout();
             this.panelSummary.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -497,23 +496,7 @@
             // 
             // dataRepeater1
             // 
-            // 
-            // dataRepeater1.ItemTemplate
-            // 
-            this.dataRepeater1.ItemTemplate.Controls.Add(this.rtbResponse);
-            this.dataRepeater1.ItemTemplate.Controls.Add(this.label8);
-            this.dataRepeater1.ItemTemplate.Controls.Add(this.txtResponsePIN);
-            this.dataRepeater1.ItemTemplate.Controls.Add(this.lblImageCount);
-            this.dataRepeater1.ItemTemplate.Controls.Add(this.cmdDeleteResponse);
-            this.dataRepeater1.ItemTemplate.Controls.Add(this.label14);
-            this.dataRepeater1.ItemTemplate.Controls.Add(this.label13);
-            this.dataRepeater1.ItemTemplate.Controls.Add(this.dtpResponseTime);
-            this.dataRepeater1.ItemTemplate.Controls.Add(this.cboResponseTo);
-            this.dataRepeater1.ItemTemplate.Controls.Add(this.cboResponseFrom);
-            this.dataRepeater1.ItemTemplate.Controls.Add(this.dtpResponseDate);
-            this.dataRepeater1.ItemTemplate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.dataRepeater1.ItemTemplate.Size = new System.Drawing.Size(1095, 93);
-            this.dataRepeater1.ItemTemplate.Enter += new System.EventHandler(this.dataRepeater1_ItemTemplate_Enter);
+            this.dataRepeater1.Controls.Add(this.dataRepeater1.ItemTemplate);
             this.dataRepeater1.Location = new System.Drawing.Point(6, 46);
             this.dataRepeater1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dataRepeater1.Name = "dataRepeater1";
@@ -530,7 +513,7 @@
             this.rtbResponse.Location = new System.Drawing.Point(123, 0);
             this.rtbResponse.Name = "rtbResponse";
             this.rtbResponse.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat\\deflang1033{\\fonttbl{\\f0\\fnil\\fcharset0 " +
-    "Tahoma;}}\r\n{\\*\\generator Riched20 10.0.19041}\\viewkind4\\uc1 \r\n\\pard\\f0\\fs20\\par\r" +
+    "Tahoma;}}\r\n{\\*\\generator Riched20 10.0.22621}\\viewkind4\\uc1 \r\n\\pard\\f0\\fs20\\par\r" +
     "\n}\r\n";
             this.rtbResponse.ShowFamilies = false;
             this.rtbResponse.ShowHighlight = true;
@@ -940,13 +923,13 @@
             this.panel1.Controls.Add(this.label21);
             this.panel1.Controls.Add(this.label22);
             this.panel1.Controls.Add(this.label23);
+            this.panel1.Controls.Add(this.cmdDeleteIssue);
             this.panel1.Controls.Add(this.chkResolved);
             this.panel1.Controls.Add(this.label24);
             this.panel1.Controls.Add(this.cboResolvedBy);
             this.panel1.Controls.Add(this.label25);
             this.panel1.Controls.Add(this.label26);
             this.panel1.Controls.Add(this.label27);
-            this.panel1.Controls.Add(this.cmdDeleteIssue);
             this.panel1.Controls.Add(this.lstLanguage);
             this.panel1.Controls.Add(this.cboIssueCategory);
             this.panel1.Controls.Add(this.cboIssueTo);
@@ -968,7 +951,7 @@
             this.extraRichTextBox1.Location = new System.Drawing.Point(357, 43);
             this.extraRichTextBox1.Name = "extraRichTextBox1";
             this.extraRichTextBox1.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat\\deflang1033{\\fonttbl{\\f0\\fnil\\fcharset0 " +
-    "Tahoma;}}\r\n{\\*\\generator Riched20 10.0.19041}\\viewkind4\\uc1 \r\n\\pard\\f0\\fs20\\par\r" +
+    "Tahoma;}}\r\n{\\*\\generator Riched20 10.0.22621}\\viewkind4\\uc1 \r\n\\pard\\f0\\fs20\\par\r" +
     "\n}\r\n";
             this.extraRichTextBox1.ShowFamilies = false;
             this.extraRichTextBox1.ShowHighlight = true;
@@ -1157,13 +1140,14 @@
             // 
             // cmdDeleteIssue
             // 
-            this.cmdDeleteIssue.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdDeleteIssue.Location = new System.Drawing.Point(1011, 9);
+            this.cmdDeleteIssue.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdDeleteIssue.ForeColor = System.Drawing.Color.Red;
+            this.cmdDeleteIssue.Location = new System.Drawing.Point(1090, 4);
             this.cmdDeleteIssue.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmdDeleteIssue.Name = "cmdDeleteIssue";
-            this.cmdDeleteIssue.Size = new System.Drawing.Size(64, 32);
+            this.cmdDeleteIssue.Size = new System.Drawing.Size(20, 26);
             this.cmdDeleteIssue.TabIndex = 4;
-            this.cmdDeleteIssue.Text = "Delete";
+            this.cmdDeleteIssue.Text = "X";
             this.cmdDeleteIssue.UseVisualStyleBackColor = true;
             this.cmdDeleteIssue.Click += new System.EventHandler(this.cmdDeleteIssue_Click);
             // 
@@ -1599,7 +1583,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.picMain)).EndInit();
             this.dataRepeater1.ItemTemplate.ResumeLayout(false);
             this.dataRepeater1.ItemTemplate.PerformLayout();
-            this.dataRepeater1.ResumeLayout(false);
             this.panelSummary.ResumeLayout(false);
             this.panelSummary.PerformLayout();
             this.menuStrip1.ResumeLayout(false);

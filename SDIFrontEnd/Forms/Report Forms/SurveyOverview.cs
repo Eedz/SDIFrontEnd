@@ -91,11 +91,11 @@ namespace SDIFrontEnd
 
             foreach (ReportSurvey rs in SO.Surveys)
             {
-                rs.VarLabelCol = true;
+                rs.ContentOptions.ContentColumns.Add("VarLabel");
                 if (chkTC.Checked)
                 {
-                    rs.TopicLabelCol = true;
-                    rs.ContentLabelCol = true;
+                    rs.ContentOptions.ContentColumns.Add("Topic");
+                    rs.ContentOptions.ContentColumns.Add("Content");
                 }
             }
             SO.ShowAllQnums = true;

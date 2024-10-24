@@ -15,9 +15,6 @@ using HtmlRtfConverter;
 
 namespace SDIFrontEnd
 {
-    
-    // TODO detect when user changes response to/from (use click event with DirtyResponse flag?)
-    // TODO yellow issues
     public partial class PraccingEntry : Form
     {
         List<PraccingIssueRecord> Records;
@@ -29,7 +26,7 @@ namespace SDIFrontEnd
 
         BindingSource bsRecords;
         BindingSource bsCurrent;
-
+        
         BindingSource bsResponses;
         BindingSource bsImages;
         BindingSource bsResponseImages;
@@ -231,7 +228,7 @@ namespace SDIFrontEnd
             }
 
             if (!CurrentRecord.NewRecord)
-                cmdDeleteIssue.Text = "Delete";
+                cmdDeleteIssue.Text = "X";
 
             if (CurrentRecord.Item.EnteredBy.ID != 0)
             {
@@ -382,7 +379,7 @@ namespace SDIFrontEnd
         {
             bsRecords.RemoveCurrent();
             CurrentRecord.NewRecord = false;
-            cmdDeleteIssue.Text = "Delete";
+            cmdDeleteIssue.Text = "X";
         }
 
         /// <summary>
@@ -478,7 +475,7 @@ namespace SDIFrontEnd
             CurrentRecord.Item.ResolvedDate = null;
             CurrentRecord.Item.EnteredBy = PeopleList.Where(x => x.ID == Globals.CurrentUser.userid).FirstOrDefault();
             bsRecords.ResetBindings(false);
-            cmdDeleteIssue.Text = "Cancel";
+            cmdDeleteIssue.Text = "C";
         }
 
         private void AddResponse()
@@ -504,7 +501,7 @@ namespace SDIFrontEnd
             CurrentRecord.Item.ResolvedDate = null;
             CurrentRecord.Item.EnteredBy = PeopleList.Where(x => x.ID == Globals.CurrentUser.userid).FirstOrDefault();
             bsRecords.ResetBindings(false);
-            cmdDeleteIssue.Text = "Cancel";
+            cmdDeleteIssue.Text = "C";
         }
 
         

@@ -303,7 +303,9 @@ namespace SDIFrontEnd
 
         private void bindingNavigatorDeleteItem_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Confirm Delete", "Are you sure you want to delete this translation?", MessageBoxButtons.YesNo) == DialogResult.No)
+            InputBox input = new InputBox("TYPE 'DELETE' TO CONFIRM", "WARNING", string.Empty);
+            input.ShowDialog();
+            if (input.userInput != "DELETE")
                 return;
 
             DBAction.DeleteRecord(CurrentRecord.Item);

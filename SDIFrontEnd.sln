@@ -15,9 +15,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormManager", "..\FormManag
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITCReportLib", "..\ITCReportLib\ITCReportLib\ITCReportLib.csproj", "{8CEB9CDE-9507-4909-B517-7437ED8F42FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NullableBindingDateTimePicker", "..\..\..\..\users-nobackup\Downloads\NullableBindingDateTimePicker-master\NullableBindingDateTimePicker\NullableBindingDateTimePicker.csproj", "{E23F3F4B-18F1-4804-9867-C9180C4AF83D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NullableBindingDateTimePicker", "..\..\other\NullableBindingDateTimePicker-master\NullableBindingDateTimePicker\NullableBindingDateTimePicker.csproj", "{E23F3F4B-18F1-4804-9867-C9180C4AF83D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HtmlRtfConverter", "..\HtmlRtfConverter\HtmlRtfConverter\HtmlRtfConverter.csproj", "{46E6CF2B-84C1-4355-A806-6FE32A81A179}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HtmlRtfConverter", "..\..\other\HtmlRtfConverter\HtmlRtfConverter\HtmlRtfConverter.csproj", "{AE502357-96E9-4C97-9AB8-B09C67744C57}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,14 +83,14 @@ Global
 		{E23F3F4B-18F1-4804-9867-C9180C4AF83D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E23F3F4B-18F1-4804-9867-C9180C4AF83D}.Release|x64.ActiveCfg = Release|Any CPU
 		{E23F3F4B-18F1-4804-9867-C9180C4AF83D}.Release|x64.Build.0 = Release|Any CPU
-		{46E6CF2B-84C1-4355-A806-6FE32A81A179}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{46E6CF2B-84C1-4355-A806-6FE32A81A179}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{46E6CF2B-84C1-4355-A806-6FE32A81A179}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{46E6CF2B-84C1-4355-A806-6FE32A81A179}.Debug|x64.Build.0 = Debug|Any CPU
-		{46E6CF2B-84C1-4355-A806-6FE32A81A179}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{46E6CF2B-84C1-4355-A806-6FE32A81A179}.Release|Any CPU.Build.0 = Release|Any CPU
-		{46E6CF2B-84C1-4355-A806-6FE32A81A179}.Release|x64.ActiveCfg = Release|Any CPU
-		{46E6CF2B-84C1-4355-A806-6FE32A81A179}.Release|x64.Build.0 = Release|Any CPU
+		{AE502357-96E9-4C97-9AB8-B09C67744C57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE502357-96E9-4C97-9AB8-B09C67744C57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE502357-96E9-4C97-9AB8-B09C67744C57}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{AE502357-96E9-4C97-9AB8-B09C67744C57}.Debug|x64.Build.0 = Debug|Any CPU
+		{AE502357-96E9-4C97-9AB8-B09C67744C57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE502357-96E9-4C97-9AB8-B09C67744C57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE502357-96E9-4C97-9AB8-B09C67744C57}.Release|x64.ActiveCfg = Release|Any CPU
+		{AE502357-96E9-4C97-9AB8-B09C67744C57}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

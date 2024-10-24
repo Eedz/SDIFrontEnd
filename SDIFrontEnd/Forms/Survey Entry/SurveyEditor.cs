@@ -476,7 +476,7 @@ namespace SDIFrontEnd
             if (Tag != null)
             {
                 var state = Globals.CurrentUser.GetFormState("frmSurveyEntry", (int)Tag);
-                if (state == null)
+                if (state == null || state.RecordPosition <= 0)
                     bs.Position = 0;
                 else
                 {
@@ -685,6 +685,7 @@ namespace SDIFrontEnd
             
             SaveChanges();
             FillList();
+            ShadeListItems();
             UpdateStatus();
             if (Records.Count>0)
                 lstQuestionList.Items[bs.Position].EnsureVisible();
@@ -1223,6 +1224,9 @@ namespace SDIFrontEnd
         /// <param name="surveycode"></param>
         public void ChangeSurvey(string surveycode)
         {
+            PendingAdds.Clear();
+            PendingDeletes.Clear();
+
             LoadData(surveycode);
 
             // ensure the currently displayed item in the survey filter is the chosen survey
@@ -2066,6 +2070,23 @@ namespace SDIFrontEnd
             }
         }
 
+        private void ShadeListItems()
+        {
+            foreach(ListViewItem item in lstQuestionList.Items)
+            {
+                QuestionRecord q = (QuestionRecord)item.Tag;
+
+                if (q.IsEdited())
+                    item.BackColor = Color.Orange;
+
+                if (PendingDeletes.Contains(q))
+                    item.BackColor = Color.Red;
+
+                if (PendingAdds.Contains(q))
+                    item.BackColor = Color.Green;
+            }
+        }
+
         /// <summary>
         /// Commit all changes to the database. Any failed commits are displayed.
         /// </summary>
@@ -2078,70 +2099,78 @@ namespace SDIFrontEnd
             }
 
             List<QuestionRecord> modifyFails = new List<QuestionRecord>();
-            List<QuestionRecord> newFails = new List<QuestionRecord>();
-            List<QuestionRecord> deleteFails = new List<QuestionRecord>();
             List<QuestionRecord> deleteWins = new List<QuestionRecord>();
 
-            // save modified questions
-            foreach (QuestionRecord qr in Records)
-            {
-                if (qr.SaveRecord() == 1)
-                    modifyFails.Add(qr);
-            }
-
-            // add new questions
-            foreach (QuestionRecord nq in PendingAdds)
-            {
-                if (nq.SaveRecord() == 1)
-                    newFails.Add(nq);
-            }
-            PendingAdds.Clear();
-            PendingAdds.AddRange(newFails);
-
             // delete questions 
-            QuestionRecord dummy = Records.FirstOrDefault(x => x.Item.VarName.RefVarName.Equals("DUMMY"));
-            if (Records.Count > 1 && dummy != null)
-                PendingDeletes.Add(dummy);
-
-            foreach (QuestionRecord dq in PendingDeletes)
+            if (PendingDeletes.Count > 0)
             {
-                if (DeleteQuestion(dq) == 1)
-                    deleteFails.Add(dq);
-                else
-                {
-                    deleteWins.Add(dq);
-                }
-
+                MessageBox.Show("One or more questions are about to be deleted. Type 'DELETE' to confirm.");
+                ProcessDeletes();               
             }
-            PendingDeletes.Clear();
-            PendingDeletes.AddRange(deleteFails);
 
-            // ask to document
-            bool skipDocument = false;
-            if (deleteWins.Count == 1 && deleteWins[0].Item.VarName.VarName.Equals("DUMMY"))
-                skipDocument = true;
-
-            if (deleteWins.Count>0 && !skipDocument)
+            if (PendingDeletes.Count == 0)
             {
-                DialogResult result = MessageBox.Show("Do you want to document these deletes?", "Document Deletes", MessageBoxButtons.YesNo);
-
-                if (result == DialogResult.Yes)
+                // save modified questions
+                foreach (QuestionRecord qr in Records)
                 {
-                    DocumentDeletes(deleteWins.Select(x=>x.Item).ToList());  
+                    if (qr.SaveRecord() == 1)
+                        modifyFails.Add(qr);
                 }
+
+                // add new questions
+                foreach (QuestionRecord nq in PendingAdds)
+                {
+                    nq.SaveRecord();
+                }
+                PendingAdds = PendingAdds.Where(x => x.NewRecord).ToList();
+            }
+            else
+            {
+                modifyFails = Records.Where(x=>x.IsEdited()).ToList();
             }
 
             // display fails
             StringBuilder sb = new StringBuilder();
             if (modifyFails.Count > 0)
                 sb.AppendLine(modifyFails.Count + " edited questions failed to save properly.");
-            if (newFails.Count > 0)
-                sb.AppendLine(newFails.Count + " new questions failed to save properly.");
-            if (deleteFails.Count > 0)
-                sb.AppendLine(deleteFails.Count + " deleted questions failed to delete properly.");
+            if (PendingAdds.Count > 0)
+                sb.AppendLine(PendingAdds.Count + " new questions failed to save properly.");
+            if (PendingDeletes.Count > 0)
+                sb.AppendLine(PendingDeletes.Count + " deleted questions failed to delete properly.");
 
             if (sb.Length>0)
                 MessageBox.Show(sb.ToString());           
+        }
+
+        private void ProcessDeletes()
+        {
+            List<QuestionRecord> deleteWins = new List<QuestionRecord>();
+            
+            InputBox input = new InputBox("TYPE 'DELETE' TO CONFIRM", "WARNING", string.Empty);
+            input.ShowDialog();
+            if (input.userInput == "DELETE")
+            {
+                foreach (QuestionRecord dq in PendingDeletes)
+                {
+                    if (DeleteQuestion(dq) == 0) 
+                    { 
+                        deleteWins.Add(dq);
+                        
+                    }
+                }
+                foreach (QuestionRecord dq in deleteWins)
+                    PendingDeletes.Remove(dq);
+
+                if (deleteWins.Count > 0)
+                {
+                    DialogResult result = MessageBox.Show("Do you want to document these deletes?", "Document Deletes", MessageBoxButtons.YesNo);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        DocumentDeletes(deleteWins.Select(x => x.Item).ToList());
+                    }
+                }
+            }
         }
 
         private void TogglePopups(bool show)
