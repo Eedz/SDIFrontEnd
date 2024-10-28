@@ -20,7 +20,6 @@ namespace SDIFrontEnd
     /// </summary>
     public partial class SurveyEditor : Form
     {  
-        // TODO delete documentation
         public Survey CurrentSurvey { get; set; }           // current survey record
         public List<QuestionRecord> Records { get; set; }   // list of question records
         public QuestionRecord CurrentRecord { get; set; }   // currently displayed question record 
@@ -901,7 +900,7 @@ namespace SDIFrontEnd
             DomainLabel label = (DomainLabel)cboDomainLabel.SelectedItem;
             cboDomainLabel.ValueMember = "ID";
             cboDomainLabel.DisplayMember = "LabelText";
-            cboDomainLabel.DataSource = new List<DomainLabel>(Globals.AllDomainLabels);
+            cboDomainLabel.DataSource = new List<DomainLabel>(Globals.AllDomainLabels.OrderBy(x=>x.LabelText));
             cboDomainLabel.SelectedItem = label;
         }
 
@@ -910,7 +909,7 @@ namespace SDIFrontEnd
             TopicLabel label = (TopicLabel)cboTopicLabel.SelectedItem;
             cboTopicLabel.ValueMember = "ID";
             cboTopicLabel.DisplayMember = "LabelText";
-            cboTopicLabel.DataSource = new List<TopicLabel>(Globals.AllTopicLabels);
+            cboTopicLabel.DataSource = new List<TopicLabel>(Globals.AllTopicLabels.OrderBy(x => x.LabelText));
             cboTopicLabel.SelectedItem = label;
         }
 
@@ -919,7 +918,7 @@ namespace SDIFrontEnd
             ContentLabel label = (ContentLabel)cboContentLabel.SelectedItem;
             cboContentLabel.ValueMember = "ID";
             cboContentLabel.DisplayMember = "LabelText";
-            cboContentLabel.DataSource = new List<ContentLabel>(Globals.AllContentLabels);
+            cboContentLabel.DataSource = new List<ContentLabel>(Globals.AllContentLabels.OrderBy(x => x.LabelText));
             cboContentLabel.SelectedItem = label;
         }
 
@@ -928,7 +927,7 @@ namespace SDIFrontEnd
             ProductLabel label = (ProductLabel)cboProductLabel.SelectedItem;
             cboProductLabel.ValueMember = "ID";
             cboProductLabel.DisplayMember = "LabelText";
-            cboProductLabel.DataSource = new List<ProductLabel>(Globals.AllProductLabels);
+            cboProductLabel.DataSource = new List<ProductLabel>(Globals.AllProductLabels.OrderBy(x => x.LabelText));
             cboProductLabel.SelectedItem = label;
         }
 

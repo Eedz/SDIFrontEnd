@@ -35,7 +35,11 @@ namespace SDIFrontEnd
             Keywords = new List<Keyword> (DBAction.GetKeywords());
 
             rbDomain.Checked = true;
-            
+
+            Globals.RefreshDomains += RefreshDomains;
+            Globals.RefreshTopics += RefreshTopics;
+            Globals.RefreshContents += RefreshContents;
+            Globals.RefreshProducts += RefreshProducts;
         }
 
         #region Methods
@@ -168,7 +172,7 @@ namespace SDIFrontEnd
 
         private void LoadDomainLabels()
         {
-            foreach (DomainLabel d in DomainLabels)
+            foreach (DomainLabel d in DomainLabels.OrderBy(x=>x.LabelText))
             {
                 int rowID = dgvLabels.Rows.Add();
                 DataGridViewRow row = dgvLabels.Rows[rowID];
@@ -181,7 +185,7 @@ namespace SDIFrontEnd
 
         private void LoadTopicLabels()
         {
-            foreach (TopicLabel d in TopicLabels)
+            foreach (TopicLabel d in TopicLabels.OrderBy(x => x.LabelText))
             {
                 int rowID = dgvLabels.Rows.Add();
                 DataGridViewRow row = dgvLabels.Rows[rowID];
@@ -194,7 +198,7 @@ namespace SDIFrontEnd
 
         private void LoadContentLabels()
         {
-            foreach (ContentLabel d in ContentLabels)
+            foreach (ContentLabel d in ContentLabels.OrderBy(x => x.LabelText))
             {
                 int rowID = dgvLabels.Rows.Add();
                 DataGridViewRow row = dgvLabels.Rows[rowID];
@@ -207,7 +211,7 @@ namespace SDIFrontEnd
 
         private void LoadProductLabels()
         {
-            foreach (ProductLabel d in ProductLabels)
+            foreach (ProductLabel d in ProductLabels.OrderBy(x => x.LabelText))
             {
                 int rowID = dgvLabels.Rows.Add();
                 DataGridViewRow row = dgvLabels.Rows[rowID];
@@ -220,7 +224,7 @@ namespace SDIFrontEnd
 
         private void LoadKeywords()
         {
-            foreach (Keyword d in Keywords)
+            foreach (Keyword d in Keywords.OrderBy(x => x.LabelText))
             {
                 int rowID = dgvLabels.Rows.Add();
                 DataGridViewRow row = dgvLabels.Rows[rowID];
@@ -328,8 +332,30 @@ namespace SDIFrontEnd
             LoadLabels(CurrentType);
         }
 
-        #endregion
+        private void RefreshDomains(object sender, EventArgs e)
+        {
+            DomainLabels = new List<DomainLabel>(Globals.AllDomainLabels);
+        }
 
-       
+        private void RefreshTopics(object sender, EventArgs e)
+        {
+            TopicLabels = new List<TopicLabel>(Globals.AllTopicLabels);
+        }
+
+        private void RefreshContents(object sender, EventArgs e)
+        {
+            ContentLabels = new List<ContentLabel>(Globals.AllContentLabels);
+        }
+
+        private void RefreshProducts(object sender, EventArgs e)
+        {
+            ProductLabels = new List<ProductLabel>(Globals.AllProductLabels);
+        }
+
+        private void RefreshKeywords(object sender, EventArgs e)
+        {
+            Keywords = new List<Keyword>(DBAction.GetKeywords());
+        }
+        #endregion
     }
 }
