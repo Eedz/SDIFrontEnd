@@ -185,9 +185,9 @@ namespace SDIFrontEnd
 
         private void FillIssueNumberBox()
         {
-            cboGoToIssueNo.SelectedValueChanged -= cboGoToIssueNo_SelectedValueChanged;
+            cboGoToIssueNo.SelectedValueChanged -= cboGoToIssueNo_SelectedIndexChanged;
             cboGoToIssueNo.DataSource = Records.Select(x => x.Item).ToList();
-            cboGoToIssueNo.SelectedValueChanged += cboGoToIssueNo_SelectedValueChanged;
+            cboGoToIssueNo.SelectedValueChanged += cboGoToIssueNo_SelectedIndexChanged;
         }
 
 
@@ -424,7 +424,6 @@ namespace SDIFrontEnd
 
             if (updated == 0)
             {
-                //lblStatus.Text = "";
                 CurrentRecord.Dirty = false;
             }
             else
@@ -432,7 +431,33 @@ namespace SDIFrontEnd
                 MessageBox.Show("Unable to save record.");
             }
 
+            if (newRec)
+            {
+                RefreshGoToIssues();
+            }
+
             return 0;
+        }
+
+        private void RefreshGoToIssues()
+        {
+            // Get the currently selected item
+            PraccingIssue selected = (PraccingIssue)cboGoToIssueNo.SelectedItem;
+
+            // Temporarily remove the SelectedIndexChanged event handler
+            cboGoToIssueNo.SelectedIndexChanged -= cboGoToIssueNo_SelectedIndexChanged;
+
+            // Update the ComboBox items to match the list
+            cboGoToIssueNo.DataSource = Records.Select(x => x.Item).ToList();
+
+            // Restore the selection if it still exists in the new list
+            if (Records.Any(x=>x.Item.ID == selected.ID))
+            {
+                cboGoToIssueNo.SelectedItem = selected;
+            }
+
+            // Reattach the SelectedIndexChanged event handler
+            cboGoToIssueNo.SelectedIndexChanged += cboGoToIssueNo_SelectedIndexChanged;
         }
 
         private int CanSave()
@@ -768,8 +793,7 @@ namespace SDIFrontEnd
             LoadSurveyIssues(selected.SID);
 
         }
-        
-        private void cboGoToIssueNo_SelectedValueChanged(object sender, EventArgs e)
+        private void cboGoToIssueNo_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cboGoToIssueNo.SelectedItem == null)
                 return;

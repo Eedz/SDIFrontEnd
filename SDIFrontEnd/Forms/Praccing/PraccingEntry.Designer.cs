@@ -112,13 +112,13 @@
             this.label21 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
+            this.cmdDeleteIssue = new System.Windows.Forms.Button();
             this.chkResolved = new System.Windows.Forms.CheckBox();
             this.label24 = new System.Windows.Forms.Label();
             this.cboResolvedBy = new System.Windows.Forms.ComboBox();
             this.label25 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
-            this.cmdDeleteIssue = new System.Windows.Forms.Button();
             this.cboIssueCategory = new System.Windows.Forms.ComboBox();
             this.cboIssueTo = new System.Windows.Forms.ComboBox();
             this.cboIssueFrom = new System.Windows.Forms.ComboBox();
@@ -163,7 +163,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.navMainImages)).BeginInit();
             this.navMainImages.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picMain)).BeginInit();
-            this.dataRepeater1.ItemTemplate.SuspendLayout();
             this.panelSummary.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -209,7 +208,7 @@
             this.cboGoToIssueNo.Name = "cboGoToIssueNo";
             this.cboGoToIssueNo.Size = new System.Drawing.Size(140, 24);
             this.cboGoToIssueNo.TabIndex = 10;
-            this.cboGoToIssueNo.SelectedValueChanged += new System.EventHandler(this.cboGoToIssueNo_SelectedValueChanged);
+            this.cboGoToIssueNo.SelectedIndexChanged += new System.EventHandler(this.cboGoToIssueNo_SelectedIndexChanged);
             this.cboGoToIssueNo.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.cboGoToIssueNo_PreviewKeyDown);
             // 
             // label2
@@ -536,7 +535,7 @@
             // 
             this.txtResponsePIN.Location = new System.Drawing.Point(865, 50);
             this.txtResponsePIN.Name = "txtResponsePIN";
-            this.txtResponsePIN.Size = new System.Drawing.Size(110, 23);
+            this.txtResponsePIN.Size = new System.Drawing.Size(110, 20);
             this.txtResponsePIN.TabIndex = 9;
             this.txtResponsePIN.Validated += new System.EventHandler(this.txtResponsePIN_Validated);
             // 
@@ -1069,6 +1068,19 @@
             this.label23.TabIndex = 30;
             this.label23.Text = "Issue No";
             // 
+            // cmdDeleteIssue
+            // 
+            this.cmdDeleteIssue.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdDeleteIssue.ForeColor = System.Drawing.Color.Red;
+            this.cmdDeleteIssue.Location = new System.Drawing.Point(1090, 4);
+            this.cmdDeleteIssue.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cmdDeleteIssue.Name = "cmdDeleteIssue";
+            this.cmdDeleteIssue.Size = new System.Drawing.Size(20, 26);
+            this.cmdDeleteIssue.TabIndex = 4;
+            this.cmdDeleteIssue.Text = "X";
+            this.cmdDeleteIssue.UseVisualStyleBackColor = true;
+            this.cmdDeleteIssue.Click += new System.EventHandler(this.cmdDeleteIssue_Click);
+            // 
             // chkResolved
             // 
             this.chkResolved.AutoSize = true;
@@ -1137,19 +1149,6 @@
             this.label27.Size = new System.Drawing.Size(62, 16);
             this.label27.TabIndex = 22;
             this.label27.Text = "Language";
-            // 
-            // cmdDeleteIssue
-            // 
-            this.cmdDeleteIssue.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdDeleteIssue.ForeColor = System.Drawing.Color.Red;
-            this.cmdDeleteIssue.Location = new System.Drawing.Point(1090, 4);
-            this.cmdDeleteIssue.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cmdDeleteIssue.Name = "cmdDeleteIssue";
-            this.cmdDeleteIssue.Size = new System.Drawing.Size(20, 26);
-            this.cmdDeleteIssue.TabIndex = 4;
-            this.cmdDeleteIssue.Text = "X";
-            this.cmdDeleteIssue.UseVisualStyleBackColor = true;
-            this.cmdDeleteIssue.Click += new System.EventHandler(this.cmdDeleteIssue_Click);
             // 
             // cboIssueCategory
             // 
@@ -1581,8 +1580,6 @@
             this.navMainImages.ResumeLayout(false);
             this.navMainImages.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picMain)).EndInit();
-            this.dataRepeater1.ItemTemplate.ResumeLayout(false);
-            this.dataRepeater1.ItemTemplate.PerformLayout();
             this.panelSummary.ResumeLayout(false);
             this.panelSummary.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
