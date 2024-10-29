@@ -1078,6 +1078,7 @@
             this.cmdDeleteIssue.Size = new System.Drawing.Size(20, 26);
             this.cmdDeleteIssue.TabIndex = 4;
             this.cmdDeleteIssue.Text = "X";
+            this.cmdDeleteIssue.UseCompatibleTextRendering = true;
             this.cmdDeleteIssue.UseVisualStyleBackColor = true;
             this.cmdDeleteIssue.Click += new System.EventHandler(this.cmdDeleteIssue_Click);
             // 

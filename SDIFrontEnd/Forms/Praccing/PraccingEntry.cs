@@ -393,6 +393,7 @@ namespace SDIFrontEnd
             {
                 DBAction.DeleteRecord(CurrentRecord.Item);
                 bsRecords.RemoveCurrent();
+                RefreshGoToIssues();
             }
         }
 
