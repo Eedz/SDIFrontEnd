@@ -582,20 +582,6 @@ namespace SDIFrontEnd
             FM.FormManager.Add(frm);
         }
 
-        private void cmdOpenVariableInfo_Click(object sender, EventArgs e)
-        {
-            if (FM.FormManager.FormOpen("VariableInformation"))
-            {
-                tabControl1.SelectTab("VariableInformation1");
-                return;
-            }
-
-            VariableInformation frm = new VariableInformation();
-            frm.Tag = 1;
-            FM.FormManager.Add(frm);
-
-        }
-
         private void cmdOpenCommentUsage_Click(object sender, EventArgs e)
         {
             if (FM.FormManager.FormOpen("CommentEntry"))

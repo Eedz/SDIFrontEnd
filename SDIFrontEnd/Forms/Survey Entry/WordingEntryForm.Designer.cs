@@ -123,22 +123,24 @@
             this.dgvWordingUsage.AllowUserToAddRows = false;
             this.dgvWordingUsage.AllowUserToDeleteRows = false;
             this.dgvWordingUsage.AllowUserToResizeRows = false;
+            this.dgvWordingUsage.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.dgvWordingUsage.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvWordingUsage.Location = new System.Drawing.Point(7, 324);
+            this.dgvWordingUsage.Location = new System.Drawing.Point(6, 333);
             this.dgvWordingUsage.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dgvWordingUsage.Name = "dgvWordingUsage";
             this.dgvWordingUsage.ReadOnly = true;
             this.dgvWordingUsage.RowHeadersVisible = false;
             this.dgvWordingUsage.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dgvWordingUsage.Size = new System.Drawing.Size(790, 191);
+            this.dgvWordingUsage.Size = new System.Drawing.Size(793, 191);
             this.dgvWordingUsage.TabIndex = 9;
             this.dgvWordingUsage.VirtualMode = true;
             this.dgvWordingUsage.CellValueNeeded += new System.Windows.Forms.DataGridViewCellValueEventHandler(this.dgvWordingUsage_CellValueNeeded);
             // 
             // lblUses
             // 
+            this.lblUses.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.lblUses.AutoSize = true;
-            this.lblUses.Location = new System.Drawing.Point(296, 304);
+            this.lblUses.Location = new System.Drawing.Point(295, 309);
             this.lblUses.Name = "lblUses";
             this.lblUses.Size = new System.Drawing.Size(266, 16);
             this.lblUses.TabIndex = 10;
@@ -191,7 +193,9 @@
             this.txtWordingR.Size = new System.Drawing.Size(688, 168);
             this.txtWordingR.TabIndex = 16;
             this.txtWordingR.Text = "";
-       
+            this.txtWordingR.MouseDown += new System.Windows.Forms.MouseEventHandler(this.richTextBox1_MouseDown);
+            this.txtWordingR.MouseMove += new System.Windows.Forms.MouseEventHandler(this.richTextBox1_MouseMove);
+            this.txtWordingR.MouseUp += new System.Windows.Forms.MouseEventHandler(this.richTextBox1_MouseUp);
             // 
             // navWordings
             // 
@@ -209,14 +213,14 @@
             this.bindingNavigatorMoveNextItem,
             this.bindingNavigatorMoveLastItem,
             this.bindingNavigatorSeparator2});
-            this.navWordings.Location = new System.Drawing.Point(0, 527);
+            this.navWordings.Location = new System.Drawing.Point(0, 533);
             this.navWordings.MoveFirstItem = null;
             this.navWordings.MoveLastItem = null;
             this.navWordings.MoveNextItem = null;
             this.navWordings.MovePreviousItem = null;
             this.navWordings.Name = "navWordings";
             this.navWordings.PositionItem = this.bindingNavigatorPositionItem;
-            this.navWordings.Size = new System.Drawing.Size(812, 25);
+            this.navWordings.Size = new System.Drawing.Size(811, 25);
             this.navWordings.TabIndex = 17;
             this.navWordings.Text = "bindingNavigator1";
             // 
@@ -381,7 +385,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(113)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
-            this.ClientSize = new System.Drawing.Size(812, 552);
+            this.ClientSize = new System.Drawing.Size(811, 558);
             this.Controls.Add(this.cmdUnderline);
             this.Controls.Add(this.chkEdit);
             this.Controls.Add(this.cmdItalic);

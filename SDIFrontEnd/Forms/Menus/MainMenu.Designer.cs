@@ -62,7 +62,6 @@
             this.iSISHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pageMain = new System.Windows.Forms.TabPage();
-            this.cmdOpenVariableInfo = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.cmdPraccingForm = new System.Windows.Forms.Button();
             this.cmdOpenDraftReport = new System.Windows.Forms.Button();
@@ -375,7 +374,6 @@
             // 
             this.pageMain.AutoScroll = true;
             this.pageMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(241)))), ((int)(((byte)(185)))));
-            this.pageMain.Controls.Add(this.cmdOpenVariableInfo);
             this.pageMain.Controls.Add(this.tableLayoutPanel2);
             this.pageMain.Controls.Add(this.panel1);
             this.pageMain.Controls.Add(this.lblBackupStatus);
@@ -392,17 +390,6 @@
             this.pageMain.Size = new System.Drawing.Size(1417, 717);
             this.pageMain.TabIndex = 0;
             this.pageMain.Text = "Main Menu";
-            // 
-            // cmdOpenVariableInfo
-            // 
-            this.cmdOpenVariableInfo.Enabled = false;
-            this.cmdOpenVariableInfo.Location = new System.Drawing.Point(1000, 288);
-            this.cmdOpenVariableInfo.Name = "cmdOpenVariableInfo";
-            this.cmdOpenVariableInfo.Size = new System.Drawing.Size(184, 29);
-            this.cmdOpenVariableInfo.TabIndex = 27;
-            this.cmdOpenVariableInfo.Text = "Variable Info";
-            this.cmdOpenVariableInfo.UseVisualStyleBackColor = true;
-            this.cmdOpenVariableInfo.Visible = false;
             // 
             // tableLayoutPanel2
             // 
@@ -1113,7 +1100,6 @@
         private System.Windows.Forms.ToolStripMenuItem viewTempToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewOrphansToolStripMenuItem;
         private System.Windows.Forms.Button cmdOpenTCReport;
-        private System.Windows.Forms.Button cmdOpenVariableInfo;
         private System.Windows.Forms.Button cmdOpenPrefixList;
         private System.Windows.Forms.Button cmdOpenCommentUsage;
     }

@@ -52,6 +52,7 @@
             this.cmdRemoveVar = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.cmdOpenFolder = new System.Windows.Forms.Button();
+            this.chkIncludeAltQnum = new System.Windows.Forms.CheckBox();
             this.gpScope.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -305,6 +306,16 @@
             this.cmdOpenFolder.UseVisualStyleBackColor = true;
             this.cmdOpenFolder.Click += new System.EventHandler(this.cmdOpenFolder_Click);
             // 
+            // chkIncludeAltQnum
+            // 
+            this.chkIncludeAltQnum.AutoSize = true;
+            this.chkIncludeAltQnum.Location = new System.Drawing.Point(164, 356);
+            this.chkIncludeAltQnum.Name = "chkIncludeAltQnum";
+            this.chkIncludeAltQnum.Size = new System.Drawing.Size(120, 20);
+            this.chkIncludeAltQnum.TabIndex = 25;
+            this.chkIncludeAltQnum.Text = "Include AltQnum";
+            this.chkIncludeAltQnum.UseVisualStyleBackColor = true;
+            // 
             // VariableListReportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -312,6 +323,7 @@
             this.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.ClientSize = new System.Drawing.Size(583, 435);
             this.ControlBox = false;
+            this.Controls.Add(this.chkIncludeAltQnum);
             this.Controls.Add(this.cmdOpenFolder);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.cmdRemoveVar);
@@ -375,5 +387,6 @@
         private System.Windows.Forms.Button cmdRemoveVar;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button cmdOpenFolder;
+        private System.Windows.Forms.CheckBox chkIncludeAltQnum;
     }
 }

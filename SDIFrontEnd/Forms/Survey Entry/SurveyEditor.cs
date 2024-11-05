@@ -164,7 +164,10 @@ namespace SDIFrontEnd
 
             Records = new List<QuestionRecord>();
             foreach (SurveyQuestion sq in DBAction.GetCompleteSurvey(CurrentSurvey))
+            {
+                CurrentSurvey.Questions.Add(sq);
                 Records.Add(new QuestionRecord(sq));
+            }
 
             foreach (QuestionRecord q in Records)
             {
@@ -1882,6 +1885,10 @@ namespace SDIFrontEnd
         {
             if (CurrentRecord == null)
                 return;
+
+            string heading = CurrentSurvey.GetSectionName(CurrentRecord.Item);
+            lblSectionInfo.Text = (heading == string.Empty ? "Before first heading" : heading)
+                        + ": " + CurrentSurvey.GetSectionCount(CurrentRecord.Item) + " member(s)";
 
             lblCommentCount.Text = CurrentRecord.Item.Comments.Count() + " Comment(s).";
             lblTranslationCount.Text = CurrentRecord.Item.Translations.Count() + " Translation(s).";

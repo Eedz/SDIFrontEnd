@@ -26,6 +26,9 @@ namespace SDIFrontEnd
 
         bool Locked;
 
+        private bool isResizing;
+        private Point lastMousePosition;
+
         public WordingEntryForm(Wording wording) 
         {
             InitializeComponent();
@@ -634,5 +637,57 @@ namespace SDIFrontEnd
 
         #endregion
 
+        private void cmdExpand_Click(object sender, EventArgs e)
+        {
+            this.Height += 100;
+            txtWordingR.Height += 100;
+        }
+
+        private void richTextBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+            // Check if the mouse is near the bottom edge
+            if (e.Button == MouseButtons.Left && e.Y >= txtWordingR.Height - 10)
+            {
+                isResizing = true;
+                lastMousePosition = e.Location;
+                txtWordingR.Cursor = Cursors.SizeNS;
+            }
+        }
+
+        private void richTextBox1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isResizing)
+            {
+                int oldHeight = txtWordingR.Height;
+                int newHeight = txtWordingR.Height + (e.Y - lastMousePosition.Y);
+                if (newHeight > 20) // Set a minimum height
+                {
+                    txtWordingR.Height = newHeight;
+                    lastMousePosition = e.Location;
+                    this.Height += newHeight - oldHeight;
+                }
+            }
+            else
+            {
+                // Change cursor if near the bottom edge
+                if (e.Y >= txtWordingR.Height - 10)
+                {
+                    txtWordingR.Cursor = Cursors.SizeNS;
+                }
+                else
+                {
+                    txtWordingR.Cursor = Cursors.Default;
+                }
+            }
+        }
+
+        private void richTextBox1_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                isResizing = false;
+                txtWordingR.Cursor = Cursors.Default;
+            }
+        }
     }
 }

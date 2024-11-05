@@ -136,4 +136,7 @@
   <data name="ImageRepo" xml:space="preserve">
     <value>\\psychfile\psych$\psych-lab-gfong\SMG\Survey Images</value>
   </data>
+  <data name="icon___FE" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icon - FE.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

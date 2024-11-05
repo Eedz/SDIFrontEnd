@@ -144,6 +144,7 @@
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cboMoveTo = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.lblSectionInfo = new System.Windows.Forms.Label();
             this.rtbPlainFilter = new SDIFrontEnd.ExtraRichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.navQuestions)).BeginInit();
             this.navQuestions.SuspendLayout();
@@ -376,6 +377,7 @@
             // panelQuestion
             // 
             this.panelQuestion.AutoScroll = true;
+            this.panelQuestion.Controls.Add(this.lblSectionInfo);
             this.panelQuestion.Controls.Add(this.lstImages);
             this.panelQuestion.Controls.Add(this.cmdDeleteImage);
             this.panelQuestion.Controls.Add(this.cmdAddImage);
@@ -1388,6 +1390,14 @@
             this.label4.TabIndex = 56;
             this.label4.Text = "Move to:";
             // 
+            // lblSectionInfo
+            // 
+            this.lblSectionInfo.Location = new System.Drawing.Point(641, 10);
+            this.lblSectionInfo.Name = "lblSectionInfo";
+            this.lblSectionInfo.Size = new System.Drawing.Size(269, 34);
+            this.lblSectionInfo.TabIndex = 94;
+            this.lblSectionInfo.Text = "Section:";
+            // 
             // rtbPlainFilter
             // 
             this.rtbPlainFilter.AutoScroll = true;
@@ -1395,7 +1405,7 @@
             this.rtbPlainFilter.Margin = new System.Windows.Forms.Padding(4);
             this.rtbPlainFilter.Name = "rtbPlainFilter";
             this.rtbPlainFilter.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat\\deflang1033{\\fonttbl{\\f0\\fnil\\fcharset0 " +
-    "Tahoma;}}\r\n{\\*\\generator Riched20 10.0.19041}\\viewkind4\\uc1 \r\n\\pard\\f0\\fs20\\par\r" +
+    "Tahoma;}}\r\n{\\*\\generator Riched20 10.0.22621}\\viewkind4\\uc1 \r\n\\pard\\f0\\fs20\\par\r" +
     "\n}\r\n";
             this.rtbPlainFilter.ShowFamilies = false;
             this.rtbPlainFilter.ShowHighlight = false;
@@ -1589,5 +1599,6 @@
         private System.Windows.Forms.Button cmdAddImage;
         private System.Windows.Forms.Button cmdDeleteImage;
         private System.Windows.Forms.ListBox lstImages;
+        private System.Windows.Forms.Label lblSectionInfo;
     }
 }

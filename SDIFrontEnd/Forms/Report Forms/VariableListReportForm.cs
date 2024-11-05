@@ -14,7 +14,6 @@ using FM = FormManager;
 
 namespace SDIFrontEnd
 {
-
     public partial class VariableListReportForm : Form
     {
         enum Exclusions { Headings, BIScripts, Screeners, NonStdVars }
@@ -268,7 +267,6 @@ namespace SDIFrontEnd
         }
         #endregion
 
-
         private DataTable GenerateSurveyVarList()
         {
             DataTable crosstab = new DataTable();
@@ -294,12 +292,13 @@ namespace SDIFrontEnd
 
             // add totals row
             AddTotalRow(surveys.Select(x => x.SurveyCode).ToList(), crosstab);
-            
+
+            // add AltQnums 
+            if (chkIncludeAltQnum.Checked)
+                AddAltQnumInfo(surveys, crosstab);
 
             return crosstab;
         }
-
-
 
         private DataTable GenerateWaveVarList()
         {
@@ -445,6 +444,31 @@ namespace SDIFrontEnd
                 }
 
             table.Rows.InsertAt(totalsRow, 0);
+        }
+
+        private void AddAltQnumInfo(List<Survey> surveys, DataTable table)
+        {
+            List<SurveyQuestion> questions = new List<SurveyQuestion>();
+            foreach (Survey s in surveys)
+                questions.AddRange(DBAction.GetSurveyQuestions(s));
+
+            foreach (DataRow r in table.Rows)
+            {
+                string refvarname = (string)r["refVarName"];
+                foreach (Survey survey in surveys)
+                {
+                    var question = questions.
+                                    Where(x => x.SurveyCode.Equals(survey.SurveyCode) && x.GetRefVarName().Equals(refvarname)).
+                                    FirstOrDefault();
+                    if (question == null)
+                        continue;
+
+                    if (string.IsNullOrEmpty(question.AltQnum))
+                        continue;
+
+                    r[survey.SurveyCode] += "<br>(" + question.AltQnum + ")";
+                }
+            }
         }
 
         private void UpdateWaveList()

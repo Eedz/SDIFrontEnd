@@ -53,7 +53,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
+    <ApplicationIcon>icon - FE.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>B62CF4C72311EE4A8D2B8BC92FA760CEDDD834B7</ManifestCertificateThumbprint>
@@ -573,12 +573,6 @@
     </Compile>
     <Compile Include="Forms\Dialogs\UserPreferencesForm.Designer.cs">
       <DependentUpon>UserPreferencesForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\VariableInformation.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\VariableInformation.designer.cs">
-      <DependentUpon>VariableInformation.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Survey Entry\ResponseOptionUsage.cs">
       <SubType>Form</SubType>
@@ -1105,7 +1099,7 @@
     <None Include="Resources\Refresh.png" />
     <None Include="Resources\FolderOpened.png" />
     <None Include="Resources\logo.JPG" />
-    <None Include="Resources\icon.ico" />
+    <Resource Include="Resources\icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Unused\" />
@@ -1125,6 +1119,12 @@
     <PackageReference Include="VisualBasic.PowerPacks.Vs">
       <Version>1.0.0</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icon - FE.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="icon - FE.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
