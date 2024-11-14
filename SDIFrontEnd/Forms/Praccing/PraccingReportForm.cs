@@ -579,7 +579,7 @@ namespace SDIFrontEnd
             report.Issues = FilteredIssuesList;
 
             report.CreateReport();
-         
+            report.OutputReport();
         }
 
         private void PraccingReportForm_FormClosed(object sender, FormClosedEventArgs e)

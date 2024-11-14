@@ -247,6 +247,7 @@ namespace SDIFrontEnd
 
             DataTableReport rpt = new DataTableReport(data, title);
             rpt.CreateReport();
+            rpt.OutputReport();
         }
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)

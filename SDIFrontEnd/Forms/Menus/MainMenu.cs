@@ -746,6 +746,7 @@ namespace SDIFrontEnd
         {
             PraccingReportBlank report = new PraccingReportBlank();
             report.CreateReport();
+            report.OutputReport();
         }
 
         #endregion

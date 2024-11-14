@@ -98,6 +98,7 @@ namespace SDIFrontEnd
 
             report.Questions = records;
             report.CreateReport();
+            report.OutputReport();
         }
 
         private bool HasCriteria()

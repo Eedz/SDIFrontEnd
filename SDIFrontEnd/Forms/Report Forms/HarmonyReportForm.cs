@@ -218,6 +218,7 @@ namespace SDIFrontEnd
             DataTable results = GetHarmonyResults(vars);
             
             HR.CreateHarmonyReport(results);
+            HR.OutputReport();
         }
 
         private void cmdSeparateDoc_Click(object sender, EventArgs e)

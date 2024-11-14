@@ -75,6 +75,7 @@ namespace SDIFrontEnd
             report.IncludeLastVarName = chkIncludeVarNames.Checked;
             report.MatchStyle = ReportMatching.None;
             report.CreateReport();
+            report.OutputReport();
         }
 
         private void cmdOpenFolder_Click(object sender, EventArgs e)

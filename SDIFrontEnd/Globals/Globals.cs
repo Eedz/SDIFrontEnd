@@ -284,6 +284,39 @@ namespace SDIFrontEnd
                 list.Add(wording);
         }
 
+        public static List<Wording> GetWordingList(string field)
+        {
+            switch (field)
+            {
+                case "PreP":
+                    return Globals.AllPreP;
+                case "PreI":
+                    return Globals.AllPreI;
+                case "PreA":
+                    return Globals.AllPreA;
+                case "LitQ":
+                    return Globals.AllLitQ;
+                case "PstI":
+                    return Globals.AllPstI;
+                case "PstP":
+                    return Globals.AllPstP;
+            }
+            return null;
+        }
+
+        public static List<ResponseSet> GetResponseList(string field)
+        {
+            switch (field)
+            {
+                case "RespOptions":
+                    return Globals.AllRespOptions;
+                case "NRCodes":
+                    return Globals.AllNRCodes;
+            }
+            return null;
+        }
+
+
         public static EventHandler RefreshPeople;
         public static EventHandler RefreshDomains;
         public static EventHandler RefreshTopics;

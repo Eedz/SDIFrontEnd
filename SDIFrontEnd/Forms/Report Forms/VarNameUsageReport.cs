@@ -43,6 +43,7 @@ namespace SDIFrontEnd
 
             VarUsageReport rpt = new VarUsageReport(report, prefix.Prefix + " VarName Usage");
             rpt.CreateReport();
+            rpt.OutputReport();
         }
 
         private void cmdOpenFolder_Click(object sender, EventArgs e)

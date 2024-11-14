@@ -439,6 +439,7 @@ namespace SDIFrontEnd
 
             DataTableReport rpt = new DataTableReport(crosstab, "Product Crosstab Report");
             rpt.CreateReport();
+            rpt.OutputReport();
         }
 
         private void AddTensColumn(DataTable crosstab )

@@ -589,6 +589,7 @@ namespace SDIFrontEnd
             report.IncludeFilters = f;
 
             report.CreateReport();
+            report.OutputReport();
         }
 
         private void DisplayInconsistentLabels(string type)

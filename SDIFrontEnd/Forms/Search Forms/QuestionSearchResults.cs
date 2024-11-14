@@ -109,6 +109,7 @@ namespace SDIFrontEnd
             rpt.IncludeQuestion = true;
 
             rpt.CreateReport();
+            rpt.OutputReport();
         }
 
         private void toolStripEditor_Click(object sender, EventArgs e)

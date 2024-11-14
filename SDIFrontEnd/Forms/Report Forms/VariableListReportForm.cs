@@ -85,6 +85,7 @@ namespace SDIFrontEnd
                 rpt = new DataTableReport(crosstab, "Variable List");
 
             rpt.CreateReport();
+            rpt.OutputReport();
         }
 
         private void cmdOpenFolder_Click(object sender, EventArgs e)

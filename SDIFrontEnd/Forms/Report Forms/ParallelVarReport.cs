@@ -51,6 +51,7 @@ namespace SDIFrontEnd
             // output report
             DataTableReport report = new DataTableReport(crosstab);
             report.CreateReport();
+            report.OutputReport();
         }
 
         private void cmdOpenFolder_Click(object sender, EventArgs e)
