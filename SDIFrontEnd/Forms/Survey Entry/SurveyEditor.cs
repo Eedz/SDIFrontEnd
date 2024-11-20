@@ -348,6 +348,11 @@ namespace SDIFrontEnd
             CopyPreviousRecord();
         }
 
+        private void toolStripAddSeries_Click(object sender, EventArgs e)
+        {
+            AddSeries();
+        }
+
         private void toolStripSearchQs_Click(object sender, EventArgs e)
         {
             OpenSearch();
@@ -1926,6 +1931,48 @@ namespace SDIFrontEnd
                 // go to the first new question
                 GoToQuestion(frm.QuestionsToAdd[0].VarName.RefVarName);
                 
+                UpdateStatus();
+                bs.ResetBindings(false);
+            }
+        }
+
+        private void AddSeries()
+        {
+            if (CurrentRecord.Item.IsSeries())
+            {
+                MessageBox.Show("Unable to add a series at this location. Select a standalone question and try again.");
+                return;
+            }
+
+            string qnum = "0";
+            if (CurrentRecord != null)
+                qnum = CurrentRecord.Item.Qnum;
+
+            SeriesBuilder frm = new SeriesBuilder(CurrentSurvey, qnum);
+            frm.ShowDialog();
+
+            // if the dialog was closed with an 'OK' result
+            if (frm.DialogResult == DialogResult.OK)
+            {
+                int pos = bs.Position + 1;
+                foreach (SurveyQuestion r in frm.QuestionsToAdd)
+                {
+                    if (!Records.Any(x => x.Item.VarName.RefVarName.Equals(r.VarName.RefVarName)))
+                    {
+                        QuestionRecord newQ = new QuestionRecord(r);
+                        newQ.NewRecord = true;
+                        Records.Insert(pos, newQ);
+                        PendingAdds.Add(newQ);
+                        pos++;
+                    }
+                }
+
+                // refresh the list view
+                FillList();
+                ReNumberSurvey();
+                // go to the first new question
+                GoToQuestion(frm.QuestionsToAdd[0].VarName.RefVarName);
+
                 UpdateStatus();
                 bs.ResetBindings(false);
             }

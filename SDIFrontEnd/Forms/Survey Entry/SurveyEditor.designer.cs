@@ -53,6 +53,7 @@
             this.Corrected = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.QType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panelQuestion = new System.Windows.Forms.Panel();
+            this.lblSectionInfo = new System.Windows.Forms.Label();
             this.lstImages = new System.Windows.Forms.ListBox();
             this.cmdDeleteImage = new System.Windows.Forms.Button();
             this.cmdAddImage = new System.Windows.Forms.Button();
@@ -64,6 +65,7 @@
             this.txtPreA = new System.Windows.Forms.TextBox();
             this.txtPreI = new System.Windows.Forms.TextBox();
             this.txtPreP = new System.Windows.Forms.TextBox();
+            this.rtbPlainFilter = new SDIFrontEnd.ExtraRichTextBox();
             this.dgvTimeFrames = new System.Windows.Forms.DataGridView();
             this.chTimeFrame = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmdOpenPstP = new System.Windows.Forms.Button();
@@ -133,6 +135,7 @@
             this.toolStripAdd = new System.Windows.Forms.ToolStripButton();
             this.toolStripDelete = new System.Windows.Forms.ToolStripButton();
             this.toolStripCopyPrev = new System.Windows.Forms.ToolStripButton();
+            this.toolStripAddSeries = new System.Windows.Forms.ToolStripButton();
             this.cmdUnlock = new System.Windows.Forms.Button();
             this.lblStatus = new System.Windows.Forms.Label();
             this.cmdSaveSurvey = new System.Windows.Forms.Button();
@@ -144,8 +147,6 @@
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cboMoveTo = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.lblSectionInfo = new System.Windows.Forms.Label();
-            this.rtbPlainFilter = new SDIFrontEnd.ExtraRichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.navQuestions)).BeginInit();
             this.navQuestions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -411,6 +412,14 @@
             this.panelQuestion.Size = new System.Drawing.Size(948, 681);
             this.panelQuestion.TabIndex = 34;
             // 
+            // lblSectionInfo
+            // 
+            this.lblSectionInfo.Location = new System.Drawing.Point(641, 10);
+            this.lblSectionInfo.Name = "lblSectionInfo";
+            this.lblSectionInfo.Size = new System.Drawing.Size(269, 34);
+            this.lblSectionInfo.TabIndex = 94;
+            this.lblSectionInfo.Text = "Section:";
+            // 
             // lstImages
             // 
             this.lstImages.FormattingEnabled = true;
@@ -503,6 +512,23 @@
             this.txtPreP.Size = new System.Drawing.Size(74, 23);
             this.txtPreP.TabIndex = 83;
             this.txtPreP.Validating += new System.ComponentModel.CancelEventHandler(this.WordID_Validating);
+            // 
+            // rtbPlainFilter
+            // 
+            this.rtbPlainFilter.AutoScroll = true;
+            this.rtbPlainFilter.Location = new System.Drawing.Point(638, 54);
+            this.rtbPlainFilter.Margin = new System.Windows.Forms.Padding(4);
+            this.rtbPlainFilter.Name = "rtbPlainFilter";
+            this.rtbPlainFilter.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat\\deflang1033{\\fonttbl{\\f0\\fnil\\fcharset0 " +
+    "Tahoma;}}\r\n{\\*\\generator Riched20 10.0.22621}\\viewkind4\\uc1 \r\n\\pard\\f0\\fs20\\par\r" +
+    "\n}\r\n";
+            this.rtbPlainFilter.ShowFamilies = false;
+            this.rtbPlainFilter.ShowHighlight = false;
+            this.rtbPlainFilter.ShowSize = false;
+            this.rtbPlainFilter.ShowStrike = false;
+            this.rtbPlainFilter.Size = new System.Drawing.Size(300, 459);
+            this.rtbPlainFilter.TabIndex = 72;
+            this.rtbPlainFilter.Validated += new System.EventHandler(this.rtbPlainFilter_Validated);
             // 
             // dgvTimeFrames
             // 
@@ -1239,11 +1265,12 @@
             this.toolStripFunctions.Dock = System.Windows.Forms.DockStyle.None;
             this.toolStripFunctions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripAdd,
+            this.toolStripAddSeries,
             this.toolStripDelete,
             this.toolStripCopyPrev});
             this.toolStripFunctions.Location = new System.Drawing.Point(0, 24);
             this.toolStripFunctions.Name = "toolStripFunctions";
-            this.toolStripFunctions.Size = new System.Drawing.Size(182, 25);
+            this.toolStripFunctions.Size = new System.Drawing.Size(288, 25);
             this.toolStripFunctions.TabIndex = 46;
             this.toolStripFunctions.Text = "toolStrip1";
             // 
@@ -1282,6 +1309,15 @@
             this.toolStripCopyPrev.Text = "Copy Prev";
             this.toolStripCopyPrev.Click += new System.EventHandler(this.toolStripCopyPrev_Click);
             // 
+            // toolStripAddSeries
+            // 
+            this.toolStripAddSeries.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripAddSeries.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripAddSeries.Name = "toolStripAddSeries";
+            this.toolStripAddSeries.Size = new System.Drawing.Size(75, 22);
+            this.toolStripAddSeries.Text = "Add Series...";
+            this.toolStripAddSeries.Click += new System.EventHandler(this.toolStripAddSeries_Click);
+            // 
             // cmdUnlock
             // 
             this.cmdUnlock.Location = new System.Drawing.Point(926, 37);
@@ -1318,7 +1354,7 @@
             this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripSearchQs});
-            this.toolStrip1.Location = new System.Drawing.Point(182, 24);
+            this.toolStrip1.Location = new System.Drawing.Point(257, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(75, 25);
             this.toolStrip1.TabIndex = 50;
@@ -1389,31 +1425,6 @@
             this.label4.Size = new System.Drawing.Size(57, 16);
             this.label4.TabIndex = 56;
             this.label4.Text = "Move to:";
-            // 
-            // lblSectionInfo
-            // 
-            this.lblSectionInfo.Location = new System.Drawing.Point(641, 10);
-            this.lblSectionInfo.Name = "lblSectionInfo";
-            this.lblSectionInfo.Size = new System.Drawing.Size(269, 34);
-            this.lblSectionInfo.TabIndex = 94;
-            this.lblSectionInfo.Text = "Section:";
-            // 
-            // rtbPlainFilter
-            // 
-            this.rtbPlainFilter.AutoScroll = true;
-            this.rtbPlainFilter.Location = new System.Drawing.Point(638, 54);
-            this.rtbPlainFilter.Margin = new System.Windows.Forms.Padding(4);
-            this.rtbPlainFilter.Name = "rtbPlainFilter";
-            this.rtbPlainFilter.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat\\deflang1033{\\fonttbl{\\f0\\fnil\\fcharset0 " +
-    "Tahoma;}}\r\n{\\*\\generator Riched20 10.0.22621}\\viewkind4\\uc1 \r\n\\pard\\f0\\fs20\\par\r" +
-    "\n}\r\n";
-            this.rtbPlainFilter.ShowFamilies = false;
-            this.rtbPlainFilter.ShowHighlight = false;
-            this.rtbPlainFilter.ShowSize = false;
-            this.rtbPlainFilter.ShowStrike = false;
-            this.rtbPlainFilter.Size = new System.Drawing.Size(300, 459);
-            this.rtbPlainFilter.TabIndex = 72;
-            this.rtbPlainFilter.Validated += new System.EventHandler(this.rtbPlainFilter_Validated);
             // 
             // SurveyEditor
             // 
@@ -1600,5 +1611,6 @@
         private System.Windows.Forms.Button cmdDeleteImage;
         private System.Windows.Forms.ListBox lstImages;
         private System.Windows.Forms.Label lblSectionInfo;
+        private System.Windows.Forms.ToolStripButton toolStripAddSeries;
     }
 }
