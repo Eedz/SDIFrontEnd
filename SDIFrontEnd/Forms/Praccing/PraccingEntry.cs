@@ -57,6 +57,7 @@ namespace SDIFrontEnd
 
             cboGoToSurvey.SelectedValue = survID;
             cboGoToSurvey.SelectedValueChanged += cboGoToSurvey_SelectedValueChanged;
+            dataRepeater1.DataSource = bsResponses;
         }
 
         #region Form Setup

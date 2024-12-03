@@ -495,7 +495,21 @@
             // 
             // dataRepeater1
             // 
-            this.dataRepeater1.Controls.Add(this.dataRepeater1.ItemTemplate);
+            this.dataRepeater1.ItemTemplate.Controls.Add(this.rtbResponse);
+            this.dataRepeater1.ItemTemplate.Controls.Add(this.label8);
+            this.dataRepeater1.ItemTemplate.Controls.Add(this.txtResponsePIN);
+            this.dataRepeater1.ItemTemplate.Controls.Add(this.lblImageCount);
+            this.dataRepeater1.ItemTemplate.Controls.Add(this.cmdDeleteResponse);
+            this.dataRepeater1.ItemTemplate.Controls.Add(this.label14);
+            this.dataRepeater1.ItemTemplate.Controls.Add(this.label13);
+            this.dataRepeater1.ItemTemplate.Controls.Add(this.dtpResponseTime);
+            this.dataRepeater1.ItemTemplate.Controls.Add(this.cboResponseTo);
+            this.dataRepeater1.ItemTemplate.Controls.Add(this.cboResponseFrom);
+            this.dataRepeater1.ItemTemplate.Controls.Add(this.dtpResponseDate);
+            this.dataRepeater1.ItemTemplate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.dataRepeater1.ItemTemplate.Size = new System.Drawing.Size(1095, 93);
+            this.dataRepeater1.ItemTemplate.Enter += new System.EventHandler(this.dataRepeater1_ItemTemplate_Enter);
+   
             this.dataRepeater1.Location = new System.Drawing.Point(6, 46);
             this.dataRepeater1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dataRepeater1.Name = "dataRepeater1";
