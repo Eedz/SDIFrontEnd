@@ -295,6 +295,8 @@ namespace SDIFrontEnd
             html = HTMLUtilities.RemoveStyleAttribute(html, "p");
             html = html.Replace("<p>", "<br>");
             html = html.Replace("</p>", "");
+            html = html.Replace("<span>", "");
+            html = html.Replace("</span>", "");
             html = html.TrimAndRemoveAll("<br>");
 
             if (CurrentRecord == null) return;

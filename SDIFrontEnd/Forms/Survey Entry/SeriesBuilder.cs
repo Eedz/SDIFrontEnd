@@ -46,7 +46,7 @@ namespace SDIFrontEnd
                 string.Empty, 
                 "PreP", "PreI", "PreA", "PstI", "PstP", 
                 "RespOptions", "NRCodes",
-                "Topic", "Content", "Product"
+                "Topic", "Domain", "Product"
             });
 
             cboContent.DisplayMember = "LabelText";
