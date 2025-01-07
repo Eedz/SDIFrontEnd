@@ -187,7 +187,7 @@ namespace SDIFrontEnd
                 {
                     foreach (QuestionRecord q in Records)
                     {
-                        q.Item.Images = images.Where(x => x.VarName.Equals(q.Item.VarName.RefVarName)).ToList();
+                        q.Item.Images = images.Where(x => x.VarName.Equals(q.Item.VarName.VarName)).ToList();
                     }
                 }
             });
