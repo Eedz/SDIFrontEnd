@@ -57,6 +57,7 @@ namespace SDIFrontEnd
 
             cboGoToSurvey.SelectedValue = survID;
             cboGoToSurvey.SelectedValueChanged += cboGoToSurvey_SelectedValueChanged;
+            dataRepeater1.DataSource = bsResponses;
         }
 
         #region Form Setup
@@ -300,9 +301,11 @@ namespace SDIFrontEnd
             cboGoToSurvey.DisplayMember = "SurveyCode";
             cboGoToSurvey.DataSource = new List<Survey>(Globals.AllSurveys);
 
+            cboGoToIssueNo.SelectedIndexChanged -= cboGoToIssueNo_SelectedIndexChanged;
             cboGoToIssueNo.DisplayMember = "IssueNo";
             cboGoToIssueNo.ValueMember = "ID";
             cboGoToIssueNo.DataSource = Records.Select(x => x.Item).ToList();
+            cboGoToIssueNo.SelectedIndexChanged += cboGoToIssueNo_SelectedIndexChanged;
 
             cboIssueCategory.DisplayMember = "Category";
             cboIssueCategory.ValueMember = "ID";
@@ -443,6 +446,7 @@ namespace SDIFrontEnd
         private void RefreshGoToIssues()
         {
             // Get the currently selected item
+            PraccingIssue current = CurrentRecord.Item; 
             PraccingIssue selected = (PraccingIssue)cboGoToIssueNo.SelectedItem;
 
             // Temporarily remove the SelectedIndexChanged event handler
@@ -450,15 +454,12 @@ namespace SDIFrontEnd
 
             // Update the ComboBox items to match the list
             cboGoToIssueNo.DataSource = Records.Select(x => x.Item).ToList();
-
             // Restore the selection if it still exists in the new list
-            if (Records.Any(x=>x.Item.ID == selected.ID))
-            {
-                cboGoToIssueNo.SelectedItem = selected;
-            }
-
+            cboGoToIssueNo.SelectedItem = selected;
             // Reattach the SelectedIndexChanged event handler
             cboGoToIssueNo.SelectedIndexChanged += cboGoToIssueNo_SelectedIndexChanged;
+            
+            GoToIssue(current.IssueNo);
         }
 
         private int CanSave()

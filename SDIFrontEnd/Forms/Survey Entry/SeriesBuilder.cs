@@ -12,7 +12,6 @@ using ITCLib;
 
 namespace SDIFrontEnd
 {
-    // add wording form as a popup when double clicking the wording number
     public partial class SeriesBuilder : Form
     {
         WordingEntryForm frmWordings;
@@ -47,7 +46,7 @@ namespace SDIFrontEnd
                 string.Empty, 
                 "PreP", "PreI", "PreA", "PstI", "PstP", 
                 "RespOptions", "NRCodes",
-                "Topic", "Content", "Product"
+                "Topic", "Domain", "Product"
             });
 
             cboContent.DisplayMember = "LabelText";
@@ -182,34 +181,34 @@ namespace SDIFrontEnd
             switch (field)
             {
                 case "PreP":
-                    builder.SetPreP(wording);
+                    builder.SetPreP(new Wording(wording.WordID, wording.Type, wording.WordingText));
                     break;
                 case "PreI":
-                    builder.SetPreI(wording);
+                    builder.SetPreI(new Wording(wording.WordID, wording.Type, wording.WordingText));
                     break;
                 case "PreA":
-                    builder.SetPreA(wording);
+                    builder.SetPreA(new Wording(wording.WordID, wording.Type, wording.WordingText));
                     break;
                 case "PstI":
-                    builder.SetPstI(wording);
+                    builder.SetPstI(new Wording(wording.WordID, wording.Type, wording.WordingText));
                     break;
                 case "PstP":
-                    builder.SetPstP(wording);
+                    builder.SetPstP(new Wording(wording.WordID, wording.Type, wording.WordingText));
                     break;
                 case "RespOptions":
-                    builder.SetRespOptions(response);
+                    builder.SetRespOptions(new ResponseSet(response.RespSetName, response.Type, response.RespList));
                     break;
                 case "NRCodes":
-                    builder.SetNRCodes(response);
+                    builder.SetNRCodes(new ResponseSet(response.RespSetName, response.Type, response.RespList));
                     break;
                 case "Topic":
-                    builder.SetTopic(topic);
+                    builder.SetTopic(new TopicLabel(topic.ID, topic.LabelText));
                     break;
                 case "Domain":
-                    builder.SetDomain(domain);
+                    builder.SetDomain(new DomainLabel(domain.ID, domain.LabelText));
                     break;
                 case "Product":
-                    builder.SetProduct(product);
+                    builder.SetProduct(new ProductLabel(product.ID, product.LabelText));
                     break;
             }
 

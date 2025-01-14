@@ -187,7 +187,7 @@ namespace SDIFrontEnd
                 {
                     foreach (QuestionRecord q in Records)
                     {
-                        q.Item.Images = images.Where(x => x.VarName.Equals(q.Item.VarName.RefVarName)).ToList();
+                        q.Item.Images = images.Where(x => x.VarName.Equals(q.Item.VarName.VarName)).ToList();
                     }
                 }
             });
@@ -731,7 +731,7 @@ namespace SDIFrontEnd
                         txt.Undo();
                         return;
                     }
-                    CurrentRecord.Item.PrePW = prep;
+                    CurrentRecord.Item.PrePW = new Wording(prep.WordID, WordingType.PreP, prep.WordingText);
                     break;
                 case "txtPreI":
                     Wording prei = Globals.AllPreI.FirstOrDefault(x => x.WordID == Int32.Parse(wordingNum));
@@ -742,7 +742,7 @@ namespace SDIFrontEnd
                         txt.Undo();
                         return;
                     }
-                    CurrentRecord.Item.PreIW = prei;
+                    CurrentRecord.Item.PreIW = new Wording(prei.WordID, WordingType.PreI, prei.WordingText);
                     break;
                 case "txtPreA":
                     Wording prea = Globals.AllPreA.FirstOrDefault(x => x.WordID == Int32.Parse(wordingNum));
@@ -753,7 +753,7 @@ namespace SDIFrontEnd
                         txt.Undo();
                         return;
                     }
-                    CurrentRecord.Item.PreAW = prea;
+                    CurrentRecord.Item.PreAW = new Wording(prea.WordID, WordingType.PreA, prea.WordingText);
                     break;
                 case "txtLitQ":
                     Wording litq = Globals.AllLitQ.FirstOrDefault(x => x.WordID == Int32.Parse(wordingNum));
@@ -764,7 +764,7 @@ namespace SDIFrontEnd
                         txt.Undo();
                         return;
                     }
-                    CurrentRecord.Item.LitQW = litq;
+                    CurrentRecord.Item.LitQW = new Wording(litq.WordID, WordingType.LitQ, litq.WordingText);
                     break;
                 case "txtPstI":
                     Wording psti = Globals.AllPstI.FirstOrDefault(x => x.WordID == Int32.Parse(wordingNum));
@@ -775,7 +775,7 @@ namespace SDIFrontEnd
                         txt.Undo();
                         return;
                     }
-                    CurrentRecord.Item.PstIW = psti;
+                    CurrentRecord.Item.PstIW = new Wording(psti.WordID, WordingType.PstI, psti.WordingText);
                     break;
                 case "txtPstP":
                     Wording pstp = Globals.AllPstP.FirstOrDefault(x => x.WordID == Int32.Parse(wordingNum));
@@ -786,7 +786,7 @@ namespace SDIFrontEnd
                         txt.Undo();
                         return;
                     }
-                    CurrentRecord.Item.PreIW = pstp;
+                    CurrentRecord.Item.PreIW = new Wording(pstp.WordID, WordingType.PstP, pstp.WordingText);
                     break;
             }
         }
@@ -808,7 +808,7 @@ namespace SDIFrontEnd
                         txt.Undo();
                         return;
                     }
-                    CurrentRecord.Item.RespOptionsS = ro;
+                    CurrentRecord.Item.RespOptionsS = new ResponseSet(ro.RespSetName, ResponseType.RespOptions, ro.RespList);
                     break;
                 case "txtNR":
                     ResponseSet nr = Globals.AllNRCodes.FirstOrDefault(x => x.RespSetName.ToLower().Equals(respSetName.ToLower()));
@@ -819,7 +819,7 @@ namespace SDIFrontEnd
                         txt.Undo();
                         return;
                     }
-                    CurrentRecord.Item.NRCodesS = nr;
+                    CurrentRecord.Item.NRCodesS = new ResponseSet(nr.RespSetName, ResponseType.NRCodes, nr.RespList);
                     break;
             }
         }

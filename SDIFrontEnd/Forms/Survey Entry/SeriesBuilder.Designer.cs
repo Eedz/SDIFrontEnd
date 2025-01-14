@@ -69,12 +69,6 @@
             this.cboContent = new System.Windows.Forms.ComboBox();
             this.txtVarLabel = new System.Windows.Forms.TextBox();
             this.rtbMemberText = new System.Windows.Forms.RichTextBox();
-            this.cboFieldName = new System.Windows.Forms.ComboBox();
-            this.rtbWordingText = new System.Windows.Forms.RichTextBox();
-            this.cmdApplyWording = new System.Windows.Forms.Button();
-            this.cboWording = new System.Windows.Forms.ComboBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -83,6 +77,12 @@
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
+            this.cboFieldName = new System.Windows.Forms.ComboBox();
+            this.rtbWordingText = new System.Windows.Forms.RichTextBox();
+            this.cmdApplyWording = new System.Windows.Forms.Button();
+            this.cboWording = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -165,7 +165,7 @@
             this.txtNR.Size = new System.Drawing.Size(54, 24);
             this.txtNR.TabIndex = 16;
             this.txtNR.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.txtNR_MouseDoubleClick);
-            this.txtNR.Validating += new System.ComponentModel.CancelEventHandler(this.MemberWording_Validating);
+            this.txtNR.Validating += new System.ComponentModel.CancelEventHandler(this.MemberResponse_Validating);
             this.txtNR.Validated += new System.EventHandler(this.MemberWording_Validated);
             // 
             // txtPstI
@@ -568,68 +568,6 @@
             this.rtbMemberText.TabIndex = 41;
             this.rtbMemberText.Text = "";
             // 
-            // cboFieldName
-            // 
-            this.cboFieldName.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboFieldName.FormattingEnabled = true;
-            this.cboFieldName.Location = new System.Drawing.Point(12, 35);
-            this.cboFieldName.Name = "cboFieldName";
-            this.cboFieldName.Size = new System.Drawing.Size(121, 24);
-            this.cboFieldName.TabIndex = 37;
-            this.cboFieldName.SelectedIndexChanged += new System.EventHandler(this.cboFieldName_SelectedIndexChanged);
-            // 
-            // rtbWordingText
-            // 
-            this.rtbWordingText.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbWordingText.Location = new System.Drawing.Point(186, 35);
-            this.rtbWordingText.Name = "rtbWordingText";
-            this.rtbWordingText.Size = new System.Drawing.Size(265, 79);
-            this.rtbWordingText.TabIndex = 38;
-            this.rtbWordingText.Text = "";
-            // 
-            // cmdApplyWording
-            // 
-            this.cmdApplyWording.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdApplyWording.Location = new System.Drawing.Point(395, 120);
-            this.cmdApplyWording.Name = "cmdApplyWording";
-            this.cmdApplyWording.Size = new System.Drawing.Size(56, 28);
-            this.cmdApplyWording.TabIndex = 39;
-            this.cmdApplyWording.Text = "Apply";
-            this.cmdApplyWording.UseVisualStyleBackColor = true;
-            this.cmdApplyWording.Click += new System.EventHandler(this.cmdApplyWording_Click);
-            // 
-            // cboWording
-            // 
-            this.cboWording.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboWording.FormattingEnabled = true;
-            this.cboWording.Location = new System.Drawing.Point(186, 11);
-            this.cboWording.Name = "cboWording";
-            this.cboWording.Size = new System.Drawing.Size(104, 24);
-            this.cboWording.TabIndex = 40;
-            this.cboWording.SelectedIndexChanged += new System.EventHandler(this.cboWording_SelectedIndexChanged);
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(9, 14);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(171, 16);
-            this.label10.TabIndex = 41;
-            this.label10.Text = "Set wording for all members";
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.label10);
-            this.panel2.Controls.Add(this.cboWording);
-            this.panel2.Controls.Add(this.cmdApplyWording);
-            this.panel2.Controls.Add(this.rtbWordingText);
-            this.panel2.Controls.Add(this.cboFieldName);
-            this.panel2.Location = new System.Drawing.Point(13, 325);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(454, 153);
-            this.panel2.TabIndex = 42;
-            // 
             // label11
             // 
             this.label11.AutoSize = true;
@@ -717,6 +655,68 @@
             this.label18.TabIndex = 49;
             this.label18.Text = "PstP";
             this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // cboFieldName
+            // 
+            this.cboFieldName.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboFieldName.FormattingEnabled = true;
+            this.cboFieldName.Location = new System.Drawing.Point(12, 35);
+            this.cboFieldName.Name = "cboFieldName";
+            this.cboFieldName.Size = new System.Drawing.Size(121, 24);
+            this.cboFieldName.TabIndex = 37;
+            this.cboFieldName.SelectedIndexChanged += new System.EventHandler(this.cboFieldName_SelectedIndexChanged);
+            // 
+            // rtbWordingText
+            // 
+            this.rtbWordingText.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbWordingText.Location = new System.Drawing.Point(186, 35);
+            this.rtbWordingText.Name = "rtbWordingText";
+            this.rtbWordingText.Size = new System.Drawing.Size(265, 79);
+            this.rtbWordingText.TabIndex = 38;
+            this.rtbWordingText.Text = "";
+            // 
+            // cmdApplyWording
+            // 
+            this.cmdApplyWording.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdApplyWording.Location = new System.Drawing.Point(395, 120);
+            this.cmdApplyWording.Name = "cmdApplyWording";
+            this.cmdApplyWording.Size = new System.Drawing.Size(56, 28);
+            this.cmdApplyWording.TabIndex = 39;
+            this.cmdApplyWording.Text = "Apply";
+            this.cmdApplyWording.UseVisualStyleBackColor = true;
+            this.cmdApplyWording.Click += new System.EventHandler(this.cmdApplyWording_Click);
+            // 
+            // cboWording
+            // 
+            this.cboWording.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboWording.FormattingEnabled = true;
+            this.cboWording.Location = new System.Drawing.Point(186, 11);
+            this.cboWording.Name = "cboWording";
+            this.cboWording.Size = new System.Drawing.Size(104, 24);
+            this.cboWording.TabIndex = 40;
+            this.cboWording.SelectedIndexChanged += new System.EventHandler(this.cboWording_SelectedIndexChanged);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(9, 14);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(171, 16);
+            this.label10.TabIndex = 41;
+            this.label10.Text = "Set wording for all members";
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.label10);
+            this.panel2.Controls.Add(this.cboWording);
+            this.panel2.Controls.Add(this.cmdApplyWording);
+            this.panel2.Controls.Add(this.rtbWordingText);
+            this.panel2.Controls.Add(this.cboFieldName);
+            this.panel2.Location = new System.Drawing.Point(13, 325);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(454, 153);
+            this.panel2.TabIndex = 42;
             // 
             // SeriesBuilder
             // 
