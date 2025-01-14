@@ -75,10 +75,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="Microsoft.VisualBasic.PowerPacks, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Microsoft Visual Basic 2005 Power Packs\3.0\Microsoft.VisualBasic.PowerPacks.dll</HintPath>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -1061,8 +1057,8 @@
       <Project>{ae502357-96e9-4c97-9ab8-b09c67744c57}</Project>
       <Name>HtmlRtfConverter</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\other\NullableBindingDateTimePicker-master\NullableBindingDateTimePicker\NullableBindingDateTimePicker.csproj">
-      <Project>{E23F3F4B-18F1-4804-9867-C9180C4AF83D}</Project>
+    <ProjectReference Include="..\..\..\other\NullableBindingDateTimePicker\NullableBindingDateTimePicker\NullableBindingDateTimePicker.csproj">
+      <Project>{e23f3f4b-18f1-4804-9867-c9180c4af83d}</Project>
       <Name>NullableBindingDateTimePicker</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\DataAccessLayer\DataAccessLayer\DataAccessLayer.csproj">

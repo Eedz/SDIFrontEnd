@@ -495,6 +495,21 @@ namespace SDIFrontEnd
             DataGridView dgv = (DataGridView)sender;
             string columnName = dgv.Columns[e.ColumnIndex].Name;
 
+            if (columnName.Equals("chOldName")){
+                string varnameOld = (string)dgv.Rows[e.RowIndex].Cells[0].Value ?? "";
+                if (varnameOld != "" && Utilities.GetVarNameFormat(varnameOld) != VarNameFormat.NonStd)
+                    varnameOld = varnameOld.Substring(0, 2).ToUpper() + varnameOld.Substring(2);
+                dgv.Rows[e.RowIndex].Cells[0].Value = varnameOld;
+            }
+
+            if (columnName.Equals("chNewName"))
+            {
+                string varnameNew = (string)dgv.Rows[e.RowIndex].Cells[1].Value ?? "";
+                if (varnameNew != "" && Utilities.GetVarNameFormat(varnameNew) != VarNameFormat.NonStd)
+                    varnameNew = varnameNew.Substring(0, 2).ToUpper() + varnameNew.Substring(2);
+                dgv.Rows[e.RowIndex].Cells[1].Value = varnameNew;
+            }
+
             if (columnName.Equals("chOldName") || columnName.Equals("chNewName"))
             {
                 // fill affected surveys
