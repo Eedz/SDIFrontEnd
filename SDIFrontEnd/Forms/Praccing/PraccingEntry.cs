@@ -20,7 +20,10 @@ namespace SDIFrontEnd
         List<PraccingIssueRecord> Records;
         PraccingIssueRecord CurrentRecord;
 
-        PraccingResponse CurrentResponse;
+        PraccingResponse _currentResponse;
+        PraccingResponse CurrentResponse {get => _currentResponse; set =>
+                _currentResponse = value;
+            }
         List<Person> PeopleList;
         List<PraccingCategory> CategoryList;
 
@@ -679,6 +682,14 @@ namespace SDIFrontEnd
 
         private void BsResponses_PositionChanged(object sender, EventArgs e)
         {
+            var item = dataRepeater1.CurrentItem;
+            if (item!=null)
+            {
+                var rtb2 = (ExtraRichTextBox)item.Controls.Find("rtbResponse", false)[0];
+
+                rtbResponse_Validated(rtb2, EventArgs.Empty);
+            }
+
             RefreshCurrentResponse();
         }
 
@@ -1225,6 +1236,7 @@ namespace SDIFrontEnd
         private void rtbResponse_Validated(object sender, EventArgs e)
         {
             ExtraRichTextBox rtb = (ExtraRichTextBox)sender;
+            if (CurrentResponse == null) return;
 
             // change RTF tags to HTML tags
             string html = Converter.ConvertRTFtoHTML(rtb.Rtf);
