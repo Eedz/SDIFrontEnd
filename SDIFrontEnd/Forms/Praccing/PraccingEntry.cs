@@ -432,7 +432,7 @@ namespace SDIFrontEnd
                 string text = rtb2.Text;
                 rtbResponse_Validated(rtb2, EventArgs.Empty);
             }
-            
+
             bool newRec = CurrentRecord.NewRecord;
 
             int updated = CurrentRecord.SaveRecord();
@@ -542,7 +542,18 @@ namespace SDIFrontEnd
             cmdDeleteIssue.Text = "C";
         }
 
-        
+        private void LoadFilteredRecords()
+        {
+            var unresolved = Records.Where(x => !x.Item.Resolved);
+            if (unresolved.Count() == 0)
+            {
+                MessageBox.Show("No unresolved issues found!");
+                return;
+            }
+
+            bsRecords.DataSource = unresolved;
+            cboGoToIssueNo.DataSource = unresolved.Select(x => x.Item).ToList();
+        }
         #endregion
 
         #region Events
@@ -557,8 +568,13 @@ namespace SDIFrontEnd
 
             UpdateSummary();
             Survey selected = (Survey)cboGoToSurvey.SelectedItem;
-
+   
             LoadSurveyIssues(selected.SID);
+            
+            if (chkFilterUnresolved.Checked)
+            {
+                LoadFilteredRecords();
+            }
         }
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -690,14 +706,6 @@ namespace SDIFrontEnd
 
         private void BsResponses_PositionChanged(object sender, EventArgs e)
         {
-            var item = dataRepeater1.CurrentItem;
-            if (item!=null)
-            {
-                var rtb2 = (ExtraRichTextBox)item.Controls.Find("rtbResponse", false)[0];
-
-                rtbResponse_Validated(rtb2, EventArgs.Empty);
-            }
-
             RefreshCurrentResponse();
         }
 
@@ -940,18 +948,9 @@ namespace SDIFrontEnd
 
         private void chkFilterUnresolved_CheckedChanged(object sender, EventArgs e)
         {
-
             if (chkFilterUnresolved.Checked)
             {
-                var unresolved = Records.Where(x => !x.Item.Resolved);
-                if (unresolved.Count() == 0)
-                {
-                    MessageBox.Show("No unresolved issues found!");
-                    return;
-                }
-
-                bsRecords.DataSource = unresolved; 
-                cboGoToIssueNo.DataSource = unresolved.Select(x=>x.Item).ToList();
+                LoadFilteredRecords();
             }
             else
             {
@@ -1236,6 +1235,8 @@ namespace SDIFrontEnd
             html = HTMLUtilities.RemoveStyleAttribute(html, "p");
             html = html.Replace("<p>", "<br>");
             html = html.Replace("</p>", "");
+            //html = html.Replace("<span>", "");
+          //html = html.Replace("</span>", "");
             html = html.TrimAndRemoveAll("<br>");
 
             CurrentRecord.Item.Description = html;
@@ -1254,6 +1255,8 @@ namespace SDIFrontEnd
             html = HTMLUtilities.RemoveStyleAttribute(html, "p");
             html = html.Replace("<p>", "<br>");
             html = html.Replace("</p>", "");
+            //html = html.Replace("<span>", "");
+            //html = html.Replace("</span>", "");
             html = html.TrimAndRemoveAll("<br>");
 
             CurrentResponse.Response = html;
