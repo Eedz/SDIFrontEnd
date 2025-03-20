@@ -424,6 +424,14 @@ namespace SDIFrontEnd
             if (CanSave()==1)
                 return 1;
 
+            // validate response
+            var item = dataRepeater1.CurrentItem;
+            if (item != null)
+            {
+                var rtb2 = (ExtraRichTextBox)item.Controls.Find("rtbResponse", false)[0];
+                string text = rtb2.Text;
+                rtbResponse_Validated(rtb2, EventArgs.Empty);
+            }
             
             bool newRec = CurrentRecord.NewRecord;
 
