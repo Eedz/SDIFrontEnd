@@ -216,7 +216,7 @@ namespace SDIFrontEnd
             }
 
             DataTable results = GetHarmonyResults(vars);
-            
+            HR.OpenFinalReport = true;
             HR.CreateHarmonyReport(results);
             HR.OutputReport();
         }
@@ -238,7 +238,7 @@ namespace SDIFrontEnd
                 HR.OpenFinalReport = false;
                 HR.CreateHarmonyReport(results);
             }
-
+            GC.Collect();
             MessageBox.Show(@"Done! Your reports can be found in the Reports folder.");
             Process.Start(@"\\psychfile\psych$\psych-lab-gfong\SMG\SDI\Reports\Harmony");
         }
