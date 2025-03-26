@@ -995,8 +995,8 @@ namespace SDIFrontEnd
             int count = 0;
             foreach (Survey s in changedSurveys)
             {
-                string lastWkDay = Globals.AutoSurveysPath + s.SurveyCode + ", " + lastWorkDay.Date.ToString("d").Replace("-", "") + ".docx";
-                string today = Globals.AutoSurveysPath + s.SurveyCode + ", " + lastWorkDay.ToString("d").Replace("-", "") + ".docx";
+                string lastWkDay = Globals.AutoSurveysPath + s.SurveyCode + ", " + lastWorkDay.Date.ToString("ddMMMyyyy").Replace("-", "") + ".docx";
+                string today = Globals.AutoSurveysPath + s.SurveyCode + ", " + lastWorkDay.ToString("ddMMMyyyy").Replace("-", "") + ".docx";
                 if (!File.Exists(lastWkDay) && (!File.Exists(today)))
                     count++;               
             }
