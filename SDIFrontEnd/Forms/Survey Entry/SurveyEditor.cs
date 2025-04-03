@@ -786,7 +786,7 @@ namespace SDIFrontEnd
                         txt.Undo();
                         return;
                     }
-                    CurrentRecord.Item.PreIW = new Wording(pstp.WordID, WordingType.PstP, pstp.WordingText);
+                    CurrentRecord.Item.PstPW = new Wording(pstp.WordID, WordingType.PstP, pstp.WordingText);
                     break;
             }
         }
