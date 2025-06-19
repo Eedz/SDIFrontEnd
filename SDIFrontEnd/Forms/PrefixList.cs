@@ -68,7 +68,27 @@ namespace SDIFrontEnd
 
         private void BsCurrent_ListChanged(object sender, ListChangedEventArgs e)
         {
-            
+            if (e.PropertyDescriptor == null) return;
+
+            // get the question record that was modified
+            VariablePrefix modifiedQuestion = (VariablePrefix)bsCurrent[e.NewIndex];
+            VariablePrefixRecord modifiedRecord = Records.Where(x => x.Item == modifiedQuestion).FirstOrDefault();
+
+            int index = bs.IndexOf(modifiedRecord);
+
+            if (modifiedRecord == null)
+                return;
+
+            switch (e.PropertyDescriptor.Name)
+            {
+                case "ParallelPrefixes":
+                case "Ranges":
+                    break;
+                
+                default:
+                    modifiedRecord.Dirty = true;
+                    return;
+            }
         }
 
         private void PrefixList_MouseWheel(object sender, MouseEventArgs e)

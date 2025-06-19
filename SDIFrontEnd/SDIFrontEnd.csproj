@@ -1057,7 +1057,7 @@
       <Project>{ae502357-96e9-4c97-9ab8-b09c67744c57}</Project>
       <Name>HtmlRtfConverter</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\other\NullableBindingDateTimePicker-master\NullableBindingDateTimePicker\NullableBindingDateTimePicker.csproj">
+    <ProjectReference Include="..\..\..\other\NullableBindingDateTimePicker\NullableBindingDateTimePicker\NullableBindingDateTimePicker.csproj">
       <Project>{e23f3f4b-18f1-4804-9867-c9180c4af83d}</Project>
       <Name>NullableBindingDateTimePicker</Name>
     </ProjectReference>
