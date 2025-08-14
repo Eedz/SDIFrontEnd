@@ -693,20 +693,7 @@ namespace SDIFrontEnd
         #region Praccing Forms
         private void cmdOpenPraccingEntry_Click(object sender, EventArgs e)
         {
-            if (FM.FormManager.FormOpen("PraccingEntry", 1))
-            {
-                ((MainMenu)FM.FormManager.GetForm("MainMenu")).SelectTab("PraccingEntry1");
-                return;
-            }
-
-            var state = Globals.CurrentUser.FormStates.Where(x => x.FormName.Equals("frmIssuesTracking") && x.FormNum == 1).First();
-
-            int survID = state == null ? 899 : state.FilterID ;
-            
-            PraccingEntry frm = new PraccingEntry(survID);
-
-            frm.Tag = 1;
-            FM.FormManager.Add(frm);
+            System.Diagnostics.Process.Start("\\\\psychfile\\psych$\\psych-lab-gfong\\SMG\\SDI\\Apps\\PraccingEntry\\SDIPraccingWPF.exe");
         }
 
         private void cmdOpenIssuesImport_Click(object sender, EventArgs e)
