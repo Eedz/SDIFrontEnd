@@ -65,8 +65,11 @@ namespace SDIFrontEnd
 
             FillLists();
 
+#if DEBUG
+            AppImageRepo = Application.StartupPath;
+#else
             AppImageRepo = System.IO.Path.GetDirectoryName(Application.StartupPath);
-
+#endif 
             bsIssues = new BindingSource();
             bsIssues.PositionChanged += BsIssues_PositionChanged;
 
@@ -472,8 +475,11 @@ namespace SDIFrontEnd
                 // copy images to network path
                 foreach (PraccingImage img in pr.Images)
                 {
-                    if (!File.Exists(DBImageRepo + @"\" + img.Path))
+                    if (File.Exists(AppImageRepo + @"\" + img.Path) && !File.Exists(DBImageRepo + @"\" + img.Path))
                         File.Copy(AppImageRepo + @"\" + img.Path, DBImageRepo + @"\" + img.Path);
+
+                    if (!img.Path.StartsWith(DBImageRepo))
+                        img.Path = DBImageRepo + @"\" + img.Path;
                 }
 
 
