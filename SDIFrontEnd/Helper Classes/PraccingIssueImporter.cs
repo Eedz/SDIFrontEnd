@@ -267,6 +267,9 @@ namespace SDIFrontEnd
                     else
                         imageFirst = image.Inline.Graphic.GraphicData.Descendants<DocumentFormat.OpenXml.Drawing.Pictures.Picture>().FirstOrDefault();
 
+                    if (imageFirst == null)
+                        continue;
+
                     var blip = imageFirst.BlipFill.Blip.Embed.Value;
 
                     if (imageList.Any(x => x.String1.Equals(blip)))
@@ -491,6 +494,9 @@ namespace SDIFrontEnd
                             imageFirst = image.Anchor.Descendants<DocumentFormat.OpenXml.Drawing.Graphic>().FirstOrDefault().GraphicData.Descendants<DocumentFormat.OpenXml.Drawing.Pictures.Picture>().FirstOrDefault();
                         else
                             imageFirst = image.Inline.Graphic.GraphicData.Descendants<DocumentFormat.OpenXml.Drawing.Pictures.Picture>().FirstOrDefault();
+
+                        if (imageFirst == null)
+                            continue;
 
                         var blip = imageFirst.BlipFill.Blip.Embed.Value;
                         foreach (StringPair sp in Images)
