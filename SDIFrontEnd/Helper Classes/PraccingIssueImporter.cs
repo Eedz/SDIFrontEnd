@@ -92,7 +92,7 @@ namespace SDIFrontEnd
 
                 XMLUtilities.TagBold(body);
                 XMLUtilities.TagItalics(body);
-                XMLUtilities.TagHighlighting(body);
+                XMLUtilities.TagHighlightingSpan(body);
                 Images = ExtractImages(body, Document.MainDocumentPart);
 
                 string issueNumber;
