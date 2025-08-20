@@ -276,7 +276,14 @@ namespace SDIFrontEnd
 
         private void HelpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(@"\\psychfile\psych$\psych-lab-gfong\SMG\SMG Documentation\Big Book of SMG\MAIN ENTRANCE.onetoc2");
+            try
+            {
+                System.Diagnostics.Process.Start(@"\\psychfile\psych$\psych-lab-gfong\SMG\SMG Documentation\Big Book of SMG\MAIN ENTRANCE.onetoc2");
+            }
+            catch
+            {
+                MessageBox.Show("Help file not found.");
+            }
         }
 
         private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
