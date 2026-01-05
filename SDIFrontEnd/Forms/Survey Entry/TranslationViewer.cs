@@ -182,6 +182,7 @@ namespace SDIFrontEnd
             txtSurvey.DataBindings.Add(new Binding("Text", bsCurrent, "Survey"));
             txtVarName.DataBindings.Add(new Binding("Text", bsCurrent, "VarName"));
             txtLanguage.DataBindings.Add(new Binding("Text", bsCurrent, "LanguageName.LanguageName"));
+            txtLastUpdate.DataBindings.Add(new Binding("Text", bsCurrent, "LastUpdate"));
         }
 
         private void UpdateText()

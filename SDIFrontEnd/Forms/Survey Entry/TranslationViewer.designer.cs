@@ -48,6 +48,8 @@
             this.bindingNavigatorMoveLastItem1 = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
+            this.txtLastUpdate = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.extraRichTextBox1 = new SDIFrontEnd.ExtraRichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.navTranslations)).BeginInit();
             this.navTranslations.SuspendLayout();
@@ -236,6 +238,22 @@
             this.bindingNavigatorDeleteItem.Text = "Delete";
             this.bindingNavigatorDeleteItem.Click += new System.EventHandler(this.bindingNavigatorDeleteItem_Click);
             // 
+            // txtLastUpdate
+            // 
+            this.txtLastUpdate.Location = new System.Drawing.Point(343, 95);
+            this.txtLastUpdate.Name = "txtLastUpdate";
+            this.txtLastUpdate.Size = new System.Drawing.Size(155, 23);
+            this.txtLastUpdate.TabIndex = 22;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(263, 98);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(74, 16);
+            this.label1.TabIndex = 23;
+            this.label1.Text = "Last Update";
+            // 
             // extraRichTextBox1
             // 
             this.extraRichTextBox1.AutoScroll = true;
@@ -243,7 +261,7 @@
             this.extraRichTextBox1.Margin = new System.Windows.Forms.Padding(4);
             this.extraRichTextBox1.Name = "extraRichTextBox1";
             this.extraRichTextBox1.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat\\deflang1033{\\fonttbl{\\f0\\fnil\\fcharset0 " +
-    "Tahoma;}}\r\n{\\*\\generator Riched20 10.0.19041}\\viewkind4\\uc1 \r\n\\pard\\f0\\fs20\\par\r" +
+    "Tahoma;}}\r\n{\\*\\generator Riched20 10.0.26100}\\viewkind4\\uc1 \r\n\\pard\\f0\\fs20\\par\r" +
     "\n}\r\n";
             this.extraRichTextBox1.ShowFamilies = false;
             this.extraRichTextBox1.ShowHighlight = false;
@@ -258,6 +276,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(196)))), ((int)(((byte)(153)))));
             this.ClientSize = new System.Drawing.Size(504, 612);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.txtLastUpdate);
             this.Controls.Add(this.navTranslations);
             this.Controls.Add(this.extraRichTextBox1);
             this.Controls.Add(this.cmdSave);
@@ -302,5 +322,7 @@
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveNextItem1;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem1;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator5;
+        private System.Windows.Forms.TextBox txtLastUpdate;
+        private System.Windows.Forms.Label label1;
     }
 }
