@@ -301,12 +301,6 @@
     <Compile Include="Forms\Search Forms\ResponseSetSearch.Designer.cs">
       <DependentUpon>ResponseSetSearch.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Survey Entry\CorrectedWordings.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Survey Entry\CorrectedWordings.Designer.cs">
-      <DependentUpon>CorrectedWordings.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Dialogs\PersonnelForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -324,12 +318,6 @@
     </Compile>
     <Compile Include="Forms\Report Forms\ProductCrosstab.Designer.cs">
       <DependentUpon>ProductCrosstab.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\QuickCommentEntry.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\QuickCommentEntry.Designer.cs">
-      <DependentUpon>QuickCommentEntry.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Renames\RenameVars.cs">
       <SubType>Form</SubType>
@@ -441,12 +429,6 @@
     </Compile>
     <Compile Include="Forms\PrefixList.designer.cs">
       <DependentUpon>PrefixList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\QuestionPreview.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\QuestionPreview.Designer.cs">
-      <DependentUpon>QuestionPreview.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Search Forms\QuestionSearch.cs">
       <SubType>Form</SubType>
@@ -788,9 +770,6 @@
     <EmbeddedResource Include="Forms\Search Forms\ResponseSetSearch.resx">
       <DependentUpon>ResponseSetSearch.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Survey Entry\CorrectedWordings.resx">
-      <DependentUpon>CorrectedWordings.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Dialogs\PersonnelForm.resx">
       <DependentUpon>PersonnelForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -800,9 +779,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Report Forms\ProductCrosstab.resx">
       <DependentUpon>ProductCrosstab.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\QuickCommentEntry.resx">
-      <DependentUpon>QuickCommentEntry.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Renames\RenameVars.resx">
       <DependentUpon>RenameVars.cs</DependentUpon>
@@ -847,9 +823,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PrefixList.resx">
       <DependentUpon>PrefixList.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\QuestionPreview.resx">
-      <DependentUpon>QuestionPreview.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Search Forms\QuestionSearch.resx">
       <DependentUpon>QuestionSearch.cs</DependentUpon>
