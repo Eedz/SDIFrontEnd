@@ -12,7 +12,7 @@ namespace SDIFrontEnd
     public static class Globals
     {
         public static string BackupPath = @"\\psychfile\psych$\psych-lab-gfong\SMG\Backend\DailyBackups\VarInfoback\";
-        public static string AutoSurveysPath = @"\\psychfile\psych$\psych-lab-gfong\SMG\Access\Reports\Automatic Surveys\";
+        public static string AutoSurveysPath = @"\\psychfile\psych$\psych-lab-gfong\SMG\SDI\Reports\Automatic Surveys\";
 
         // users
         public static UserPrefs CurrentUser;
