@@ -443,7 +443,7 @@ namespace SDIFrontEnd
         public void UpdateRefVarName(string refVarName)
         {
             Records.Clear();
-            var qs = DBAction.GetRefVarNameQuestionsGlob(refVarName, SurveyGlob.Replace("*", "%"));
+            var qs = DBAction.GetRefVarNameQuestionsGlob(refVarName, SurveyGlob.Replace("*", "%")).OrderBy(x=>x.SurveyCode).ToList();
             foreach (SurveyQuestion q in qs)
                 Records.Add(new QuestionRecord(q));
 
@@ -455,6 +455,7 @@ namespace SDIFrontEnd
             bs.ResetBindings(false);
 
             CurrentQuestion = (QuestionRecord)bs.Current;
+            UpdateQuestion();
             UpdateTranslation();
 
             dgvDS.DataSource = Records.Select(x => x.Item).ToList();
