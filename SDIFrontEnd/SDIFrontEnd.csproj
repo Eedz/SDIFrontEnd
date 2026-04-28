@@ -710,6 +710,9 @@
       <DependentUpon>PraccingEntry.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ResponseSetReport.resx">
+      <DependentUpon>ResponseSetReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Survey Org\RegionList.resx">
       <DependentUpon>RegionList.cs</DependentUpon>
     </EmbeddedResource>
