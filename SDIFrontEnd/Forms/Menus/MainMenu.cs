@@ -695,6 +695,18 @@ namespace SDIFrontEnd
             FM.FormManager.AddPopup(frm);
         }
 
+        private void cmdOpenResponseSetReport_Click(object sender, EventArgs e)
+        {
+            if (FM.FormManager.FormOpen("ResponseSetReport"))
+            {
+                return;
+            }
+
+            ResponseSetReport frm = new ResponseSetReport(Globals.AllSurveys);
+            frm.Tag = 1;
+            FM.FormManager.AddPopup(frm);
+        }
+
         #endregion
 
         #region Praccing Forms

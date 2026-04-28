@@ -86,6 +86,7 @@
             this.cmdOpenSurveyEditor5 = new System.Windows.Forms.Button();
             this.cmdOpenSurveyEditor4 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.cmdOpenResponseSetReport = new System.Windows.Forms.Button();
             this.cmdOpenPrefixList = new System.Windows.Forms.Button();
             this.cmdOpenCommentUsage = new System.Windows.Forms.Button();
             this.cmdOpenTCReport = new System.Windows.Forms.Button();
@@ -407,7 +408,7 @@
             this.tableLayoutPanel2.Controls.Add(this.cmdOpenIssuesImport, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.cmdOpenPraccingEntry, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.label8, 1, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(20, 364);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(20, 398);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 6;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
@@ -561,16 +562,16 @@
             this.panel1.Controls.Add(this.cmdOpenSurveyEditor3);
             this.panel1.Controls.Add(this.cmdOpenSurveyEditor2);
             this.panel1.Controls.Add(this.cmdOpenSurveyEditor);
-            this.panel1.Location = new System.Drawing.Point(183, 68);
+            this.panel1.Location = new System.Drawing.Point(106, 68);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(246, 71);
+            this.panel1.Size = new System.Drawing.Size(431, 71);
             this.panel1.TabIndex = 21;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(56, 4);
+            this.label2.Location = new System.Drawing.Point(143, 8);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(137, 25);
             this.label2.TabIndex = 16;
@@ -579,9 +580,9 @@
             // cmdOpenSurveyEditor3
             // 
             this.cmdOpenSurveyEditor3.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdOpenSurveyEditor3.Location = new System.Drawing.Point(166, 36);
+            this.cmdOpenSurveyEditor3.Location = new System.Drawing.Point(286, 36);
             this.cmdOpenSurveyEditor3.Name = "cmdOpenSurveyEditor3";
-            this.cmdOpenSurveyEditor3.Size = new System.Drawing.Size(75, 29);
+            this.cmdOpenSurveyEditor3.Size = new System.Drawing.Size(135, 29);
             this.cmdOpenSurveyEditor3.TabIndex = 11;
             this.cmdOpenSurveyEditor3.Text = "Editor 3";
             this.cmdOpenSurveyEditor3.UseVisualStyleBackColor = true;
@@ -590,9 +591,9 @@
             // cmdOpenSurveyEditor2
             // 
             this.cmdOpenSurveyEditor2.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdOpenSurveyEditor2.Location = new System.Drawing.Point(85, 36);
+            this.cmdOpenSurveyEditor2.Location = new System.Drawing.Point(145, 36);
             this.cmdOpenSurveyEditor2.Name = "cmdOpenSurveyEditor2";
-            this.cmdOpenSurveyEditor2.Size = new System.Drawing.Size(75, 29);
+            this.cmdOpenSurveyEditor2.Size = new System.Drawing.Size(135, 29);
             this.cmdOpenSurveyEditor2.TabIndex = 10;
             this.cmdOpenSurveyEditor2.Text = "Editor 2";
             this.cmdOpenSurveyEditor2.UseVisualStyleBackColor = true;
@@ -603,7 +604,7 @@
             this.cmdOpenSurveyEditor.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdOpenSurveyEditor.Location = new System.Drawing.Point(4, 36);
             this.cmdOpenSurveyEditor.Name = "cmdOpenSurveyEditor";
-            this.cmdOpenSurveyEditor.Size = new System.Drawing.Size(75, 29);
+            this.cmdOpenSurveyEditor.Size = new System.Drawing.Size(135, 29);
             this.cmdOpenSurveyEditor.TabIndex = 9;
             this.cmdOpenSurveyEditor.Text = "Editor 1";
             this.cmdOpenSurveyEditor.UseVisualStyleBackColor = true;
@@ -683,11 +684,13 @@
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel1.ColumnCount = 4;
+            this.tableLayoutPanel1.ColumnCount = 5;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 204F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.tableLayoutPanel1.Controls.Add(this.cmdOpenResponseSetReport, 3, 6);
             this.tableLayoutPanel1.Controls.Add(this.cmdOpenPrefixList, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.cmdOpenCommentUsage, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.cmdOpenTCReport, 3, 5);
@@ -711,15 +714,27 @@
             this.tableLayoutPanel1.Controls.Add(this.cmdOpenQuestionHistory, 1, 5);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(20, 145);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 6;
+            this.tableLayoutPanel1.RowCount = 7;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(804, 211);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(804, 247);
             this.tableLayoutPanel1.TabIndex = 6;
+            // 
+            // cmdOpenResponseSetReport
+            // 
+            this.cmdOpenResponseSetReport.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cmdOpenResponseSetReport.Location = new System.Drawing.Point(603, 213);
+            this.cmdOpenResponseSetReport.Name = "cmdOpenResponseSetReport";
+            this.cmdOpenResponseSetReport.Size = new System.Drawing.Size(198, 31);
+            this.cmdOpenResponseSetReport.TabIndex = 23;
+            this.cmdOpenResponseSetReport.Text = "Response Sets";
+            this.cmdOpenResponseSetReport.UseVisualStyleBackColor = true;
+            this.cmdOpenResponseSetReport.Click += new System.EventHandler(this.cmdOpenResponseSetReport_Click);
             // 
             // cmdOpenPrefixList
             // 
@@ -751,7 +766,7 @@
             this.cmdOpenTCReport.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmdOpenTCReport.Location = new System.Drawing.Point(603, 178);
             this.cmdOpenTCReport.Name = "cmdOpenTCReport";
-            this.cmdOpenTCReport.Size = new System.Drawing.Size(198, 30);
+            this.cmdOpenTCReport.Size = new System.Drawing.Size(198, 29);
             this.cmdOpenTCReport.TabIndex = 23;
             this.cmdOpenTCReport.Text = "Topic/Content";
             this.cmdOpenTCReport.UseVisualStyleBackColor = true;
@@ -972,7 +987,7 @@
             this.cmdOpenQuestionHistory.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmdOpenQuestionHistory.Location = new System.Drawing.Point(203, 178);
             this.cmdOpenQuestionHistory.Name = "cmdOpenQuestionHistory";
-            this.cmdOpenQuestionHistory.Size = new System.Drawing.Size(194, 30);
+            this.cmdOpenQuestionHistory.Size = new System.Drawing.Size(194, 29);
             this.cmdOpenQuestionHistory.TabIndex = 19;
             this.cmdOpenQuestionHistory.Text = "Question History";
             this.cmdOpenQuestionHistory.UseVisualStyleBackColor = true;
@@ -1102,6 +1117,7 @@
         private System.Windows.Forms.Button cmdOpenTCReport;
         private System.Windows.Forms.Button cmdOpenPrefixList;
         private System.Windows.Forms.Button cmdOpenCommentUsage;
+        private System.Windows.Forms.Button cmdOpenResponseSetReport;
     }
 }
 
