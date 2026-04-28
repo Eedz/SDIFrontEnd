@@ -99,6 +99,12 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\ResponseSetReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ResponseSetReport.Designer.cs">
+      <DependentUpon>ResponseSetReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helper Classes\DataImporter.cs" />
     <Compile Include="Forms\AuditFeed.cs">
       <SubType>Form</SubType>
